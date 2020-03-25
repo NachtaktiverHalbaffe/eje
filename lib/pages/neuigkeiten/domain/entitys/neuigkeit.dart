@@ -1,7 +1,6 @@
 import 'dart:async';
-
 import 'package:equatable/equatable.dart';
-import 'package:moor/moor.dart';
+import 'package:meta/meta.dart';
 import 'package:moor_flutter/moor_flutter.dart';
 
 class Neuigkeit extends Equatable {
