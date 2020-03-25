@@ -14,7 +14,7 @@ class Neuigkeit extends Equatable {
   final DateTime published;
 
   //Constructor
-  Neuigkeit.name({
+  Neuigkeit({
       @required this.titel,
       @required this.text_preview,
       @required this.text,
@@ -83,5 +83,7 @@ class NeuigkeitenDao extends DatabaseAccessor<NeuigkeitenDatabase> with _$Neuigk
   Future deleteTask(Neuigkeit neuigkeiten) => delete(neuigkeit).delete(neuigkeiten);
 */
 //TODO Https-Anbindung
-}
 */
+   */
+}
+
