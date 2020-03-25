@@ -17,4 +17,22 @@ class NeuigkeitenModel extends Neuigkeit {
           weiterfuehrender_link: weiterfuehrender_link,
           published: published,
         );
+
+  factory NeuigkeitenModel.fromJson(Map<String, dynamic> json){
+    return NeuigkeitenModel(
+      titel: json['titel'],
+      text_preview: json['text_preview'],
+      text: json['text'],
+      bilder: (json['bilder'] as List<String>).toList(),
+    );
+  }
+
+  Map<String, dynamic> toJson(){
+    return{
+      'titel': titel,
+      'text_preview': text_preview,
+      'text': text,
+      'bilder': bilder.toString()
+    };
+  }
 }
