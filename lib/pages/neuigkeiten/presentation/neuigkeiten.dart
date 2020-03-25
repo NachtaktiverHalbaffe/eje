@@ -1,6 +1,6 @@
 import 'package:eje/pages/neuigkeiten/data/NeuigkeitenDao.dart';
-import 'package:eje/pages/neuigkeiten/data/neuigkeit.dart';
-import 'package:eje/pages/neuigkeiten/presentation/neuigkeitenCard.dart';
+import 'package:eje/pages/neuigkeiten/domain/entitys/neuigkeit.dart';
+import 'package:eje/pages/neuigkeiten/presentation/widgets/neuigkeitenCard.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
