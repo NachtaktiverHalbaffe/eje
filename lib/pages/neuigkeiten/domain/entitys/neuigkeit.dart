@@ -1,25 +1,29 @@
 import 'dart:async';
 
+import 'package:equatable/equatable.dart';
 import 'package:moor/moor.dart';
 import 'package:moor_flutter/moor_flutter.dart';
 
-class Neuigkeit {
-  String titel;
-  String vorschau;
-  String inhalt;
-  List<String> bilder;
-  String weiterfuehrender_link;
+class Neuigkeit extends Equatable {
+  final String titel; //Titel der Neuigkeit
+  final String text_preview; //Vorschautext der Neuigkeit
+  final String text; //Eigentlicher, voller Textinhalt des Artikels
+  final List<String> bilder; //Links zu den Bildern
+  final String
+      weiterfuehrender_link; //Fals vorhanden hyperlinks zu anderen Websiten
+  final DateTime published;
 
-  //Constructour
-  Neuigkeit({
-    @required this.titel,
-    @required this.vorschau,
-    @required this.inhalt,
-    @required this.bilder,
-    this.weiterfuehrender_link,
-  });
+  //Constructor
+  Neuigkeit.name({
+      @required this.titel,
+      @required this.text_preview,
+      @required this.text,
+      @required this.bilder,
+      this.weiterfuehrender_link,
+      this.published}) : super([titel,text_preview,text,bilder,weiterfuehrender_link,published]); //Veröffentlichungsdatum
 
   //Map Etity zu String (notwendig zum speichern)
+  /*
   Map<String, dynamic> toMap() {
     return {
       "titel": titel,
@@ -29,6 +33,7 @@ class Neuigkeit {
       "weiterfuehrender_link": weiterfuehrender_link,
     };
   }
+
   //Entity rekonstruieren vonString (NOTWENDIOG ZUM LESEN DER DB9
   static Neuigkeit fromMap(Map<String, dynamic> map) {
     return Neuigkeit(

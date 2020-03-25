@@ -1,5 +1,5 @@
 import 'package:eje/core/utils/SembastDatabase.dart';
-import 'package:eje/pages/neuigkeiten/data/neuigkeit.dart';
+import 'package:eje/pages/neuigkeiten/domain/entitys/neuigkeit.dart';
 import 'package:sembast/sembast.dart';
 
 class NeuigkeitDao {
