@@ -27,7 +27,7 @@ void main() {
       when(mockneuigkeiten_repository.getNeuigkeit(any))
           .thenAnswer((_) async => Right(tNeuigkeit));
       // act
-      final result = await usecase.execute(titel: tTitel);
+      final result = await usecase(titel: tTitel);
       // assert
       expect(result, Right(tNeuigkeit));
       verify(mockneuigkeiten_repository.getNeuigkeit(tTitel));

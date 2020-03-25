@@ -9,7 +9,9 @@ class GetNeuigkeit {
 
   GetNeuigkeit(this.repository);
 
-  Future<Either<Failure, Neuigkeit>> execute({@required String titel}) async{
+  Future<Either<Failure, Neuigkeit>> call({
+    @required String titel,
+  }) async {
     return await repository.getNeuigkeit(titel);
   }
 }
