@@ -3,17 +3,17 @@ import 'package:eje/core/error/failures.dart';
 import 'package:eje/core/usecases/usecase.dart';
 import 'package:eje/pages/neuigkeiten/domain/entitys/neuigkeit.dart';
 import 'package:eje/pages/neuigkeiten/domain/repositories/neuigkeiten_repository.dart';
-import 'package:flutter/foundation.dart';
 
-class GetNeuigkeit implements UseCase<Neuigkeit> {
+class GetNeuigkeiten implements UseCase<List<Neuigkeit>> {
   final NeuigkeitenRespository repository;
 
-  GetNeuigkeit(this.repository);
+  GetNeuigkeiten(this.repository);
 
   @override
-  Future<Either<Failure, Neuigkeit>> call({
-    @required String titel,
-  }) async {
-    return await repository.getNeuigkeit(titel);
+  Future<Either<Failure, List<Neuigkeit>>> call() {
+    @override
+    Future<Either<Failure, List<Neuigkeit>>> call() async {
+      return await repository.getNeuigkeiten();
+    }
   }
 }
