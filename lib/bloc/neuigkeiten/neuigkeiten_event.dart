@@ -1,4 +1,4 @@
-import 'package:eje/database/neuigkeiten/neuigkeit.dart';
+import 'package:eje/pages/neuigkeiten/data/neuigkeit.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 

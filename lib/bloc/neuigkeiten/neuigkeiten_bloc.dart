@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
 import './bloc.dart';
-import 'package:eje/database/neuigkeiten/NeuigkeitenDao.dart';
+import 'package:eje/pages/neuigkeiten/data/NeuigkeitenDao.dart';
 
 class NeuigkeitenBloc extends Bloc<NeuigkeitenEvent, NeuigkeitenState> {
   NeuigkeitDao _neuigkeitenDao = NeuigkeitDao();

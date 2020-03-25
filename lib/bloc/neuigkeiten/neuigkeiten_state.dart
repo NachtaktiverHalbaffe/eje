@@ -1,4 +1,4 @@
-import 'package:eje/database/neuigkeiten/neuigkeit.dart';
+import 'package:eje/pages/neuigkeiten/data/neuigkeit.dart';
 import 'package:equatable/equatable.dart';
 
 abstract class NeuigkeitenState extends Equatable {
