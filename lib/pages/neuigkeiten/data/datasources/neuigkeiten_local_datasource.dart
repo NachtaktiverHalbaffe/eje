@@ -1,8 +1,12 @@
 import 'package:eje/pages/neuigkeiten/data/models/neuigkeit_model.dart';
 import 'package:eje/pages/neuigkeiten/domain/entitys/neuigkeit.dart';
+import 'package:hive/hive.dart';
 
-abstract class NeuigkeitenLocalDatasource {
-  Future<List<NeuigkeitenModel>> getCachedNeuigkeiten();
+class NeuigkeitenLocalDatasource {
+  Future<List<NeuigkeitenModel>> getCachedNeuigkeiten() {}
 
-  Future<void> cacheNeuigkeiten(List<Neuigkeit> neuigkeitenToCache);
+  Future<void> cacheNeuigkeiten(List<NeuigkeitenModel> neuigkeitenToCache) {
+    Hive.box('Neuigkeiten').deleteAll(neuigkeitenToCache);
+    Hive.box('Neuigkeiten').addAll(neuigkeitenToCache);
+  }
 }

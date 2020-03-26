@@ -1,12 +1,18 @@
+import 'package:eje/pages/neuigkeiten/domain/entitys/neuigkeit.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hive/hive.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:provider/provider.dart';
-import '../pages/neuigkeiten/domain/entitys/neuigkeit.dart';
 import '../pages/neuigkeiten/presentation/neuigkeiten.dart';
+import 'package:path_provider/path_provider.dart' as path_provider;
 
-void main() => runApp(MyApp());
+void main() async {
+  final appDocumentDirectory =
+      await path_provider.getApplicationDocumentsDirectory();
+  Hive.init(appDocumentDirectory.path);
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
@@ -56,7 +62,23 @@ class _MyHomePageState extends State<MyHomePage> {
   _fragmentmanager(int pos) {
     switch (pos) {
       case 0:
-        return Neuigkeiten();
+        {
+          // Cachedaten laden und dann Widget öffnen
+          FutureBuilder(
+            future: Hive.openBox('Neuigkeiten'),
+            builder: (BuildContext context, AsyncSnapshot snapshot) {
+              if (snapshot.connectionState == ConnectionState.done) {
+                if (snapshot.hasError) {
+                  return Text(snapshot.error.toString());
+                } else {
+                  Hive.registerAdapter(NeuigkeitAdapter());
+                  return Neuigkeiten();
+                }
+              } else
+                return Scaffold();
+            },
+          );
+        }
     }
   }
 
@@ -234,5 +256,12 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ),
         body: _fragmentmanager(_selectedItem));
+  }
+
+  @override
+  void dispose() {
+    // Alle Offline Datenbanken schließen
+    Hive.close();
+    super.dispose();
   }
 }
