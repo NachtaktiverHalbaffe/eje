@@ -59,7 +59,7 @@ class NeuigkeitenCard extends StatelessWidget {
                           textAlign: TextAlign.left,
                         ),
                       ),
-                      ButtonTheme.bar(
+                      ButtonBarTheme(
                         child: ButtonBar(
                           children: <Widget>[
                             FlatButton(
@@ -94,7 +94,6 @@ class neuigkeitenCardDetail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
