@@ -55,7 +55,7 @@ class NeuigkeitenCard extends StatelessWidget {
                         padding: EdgeInsets.only(left: 12, right: 12),
                         width: MediaQuery.of(context).size.width,
                         child: Text(
-                          _neuigkeit.vorschau.toString(),
+                          _neuigkeit.text_preview.toString(),
                           textAlign: TextAlign.left,
                         ),
                       ),
@@ -140,7 +140,7 @@ class neuigkeitenCardDetail extends StatelessWidget {
                 width: MediaQuery.of(context).size.width,
                 padding: EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 16),
                 child: Text(
-                  _neuigkeit.inhalt,
+                  _neuigkeit.text,
                   textAlign: TextAlign.justify,
                   style: TextStyle(
                     fontSize: 16,

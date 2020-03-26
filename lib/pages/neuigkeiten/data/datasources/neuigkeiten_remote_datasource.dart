@@ -6,6 +6,6 @@ abstract class NeuigkeitenRemoteDatasource{
 
   Future<NeuigkeitenModel> getNeuigkeit(String Titel);
 
-  Future<NeuigkeitenModel> getNeuigkeiten();
+  Future<List<NeuigkeitenModel>> getNeuigkeiten();
 
 }
