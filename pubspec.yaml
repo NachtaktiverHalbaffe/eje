@@ -17,10 +17,10 @@ dependencies:
   provider:
   json_serializable: ^3.2.3
   # Offline Database
-  hive: ^1.0.0
-  hive_flutter: ^0.2.1
+  hive: ^1.4.1+1
+  hive_flutter: ^0.3.0+2
   # For OS-Specific directories paths
-  path_provider:
+  path_provider: ^1.3.0
   # Service locator
   get_it: ^2.0.1
   # Bloc for state management
@@ -40,8 +40,8 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
     # For Hive to create offline database
-  hive_generator: ^0.5.1
-  build_runner:
+  hive_generator: ^0.7.0+2
+  build_runner: ^1.8.0
   mockito: ^4.1.0
 
 flutter:

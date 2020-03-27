@@ -8,6 +8,9 @@ part of 'neuigkeit.dart';
 
 class NeuigkeitAdapter extends TypeAdapter<Neuigkeit> {
   @override
+  final typeId = 0;
+
+  @override
   Neuigkeit read(BinaryReader reader) {
     var numOfFields = reader.readByte();
     var fields = <int, dynamic>{
@@ -40,7 +43,4 @@ class NeuigkeitAdapter extends TypeAdapter<Neuigkeit> {
       ..writeByte(5)
       ..write(obj.published);
   }
-
-
-  noSuchMethod(Invocation invocation) => super.noSuchMethod(invocation);
 }

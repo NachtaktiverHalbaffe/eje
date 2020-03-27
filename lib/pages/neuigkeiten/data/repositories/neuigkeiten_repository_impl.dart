@@ -1,6 +1,5 @@
 import 'package:dartz/dartz.dart';
 import 'package:eje/core/error/exception.dart';
-import 'package:eje/pages/neuigkeiten/data/models/neuigkeit_model.dart';
 import 'package:meta/meta.dart';
 import 'package:eje/core/error/failures.dart';
 import 'package:eje/core/platform/network_info.dart';
@@ -25,7 +24,7 @@ class NeuigkeitenRepositoryImpl implements NeuigkeitenRespository {
   @override
   Future<Either<Failure, Neuigkeit>> getNeuigkeit(String titel) async {
     try {
-      List<NeuigkeitenModel> _neuigkeiten =
+      List<Neuigkeit> _neuigkeiten =
       await localDatasource.getCachedNeuigkeiten();
       for (var value in _neuigkeiten) {
         if (value.titel == titel) {

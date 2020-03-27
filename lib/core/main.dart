@@ -7,10 +7,11 @@ import 'package:provider/provider.dart';
 import '../pages/neuigkeiten/presentation/widgets/neuigkeiten.dart';
 import 'package:path_provider/path_provider.dart' as path_provider;
 
-void main() async {
-  final appDocumentDirectory =
-      await path_provider.getApplicationDocumentsDirectory();
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  final appDocumentDirectory = await path_provider.getApplicationDocumentsDirectory();
   Hive.init(appDocumentDirectory.path);
+  Hive.registerAdapter(NeuigkeitAdapter());
   runApp(MyApp());
 }
 
@@ -71,7 +72,6 @@ class _MyHomePageState extends State<MyHomePage> {
                 if (snapshot.hasError) {
                   return Text(snapshot.error.toString());
                 } else {
-                  Hive.registerAdapter(NeuigkeitAdapter());
                   return Neuigkeiten();
                 }
               } else
