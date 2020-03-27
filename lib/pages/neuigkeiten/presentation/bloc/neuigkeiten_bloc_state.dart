@@ -15,10 +15,17 @@ class Loading extends NeuigkeitenBlocState {}
 
 // State wenn Neuigkeien fertig geladen sind
 class Loaded extends NeuigkeitenBlocState {
-  final Neuigkeit neuigkeit;
+  final List<Neuigkeit> neuigkeit;
 
   //Constructor
   Loaded({@required this.neuigkeit}):super([neuigkeit]);
+}
+
+class LoadedDetail extends NeuigkeitenBlocState {
+  final Neuigkeit neuigkeit;
+
+  //Constructor
+  LoadedDetail({@required this.neuigkeit}):super([neuigkeit]);
 }
 
 class Error extends NeuigkeitenBlocState {
