@@ -9,8 +9,8 @@ import 'package:meta/meta.dart';
 
 class NeuigkeitenBlocBloc
     extends Bloc<NeuigkeitenBlocEvent, NeuigkeitenBlocState> {
-  final String SERVER_FAILURE_MESSAGE = 'Server Failure';
-  final String CACHE_FAILURE_MESSAGE = 'Cache Failure';
+  final String SERVER_FAILURE_MESSAGE = 'Fehler beim Abrufen der Daten vom Server';
+  final String CACHE_FAILURE_MESSAGE = 'Fehler beim Laden der Daten aus den Cache';
   final GetNeuigkeit getNeuigkeit;
   final GetNeuigkeiten getNeuigkeiten;
 
@@ -38,7 +38,7 @@ class NeuigkeitenBlocBloc
       yield Loading();
       final neuigkeitOrFailure = await getNeuigkeit(titel: event.titel);
       yield neuigkeitOrFailure.fold(
-        (failure) => Error(message: CACHE_FAILURE_MESSAGE),
+        (failure) => Error(message: _mapFailureToMessage(failure)),
         (neuigkeit) => LoadedDetail(neuigkeit: neuigkeit),
       );
     }

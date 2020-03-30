@@ -1,13 +1,20 @@
 import 'package:eje/core/error/exception.dart';
 import 'package:eje/pages/neuigkeiten/domain/entitys/neuigkeit.dart';
 import 'package:hive/hive.dart';
+import 'package:meta/meta.dart';
 
 class NeuigkeitenLocalDatasource {
+  final Box box;
+
+  NeuigkeitenLocalDatasource({@required this.box});
+
   List<Neuigkeit> getCachedNeuigkeiten() {
-    if (Hive.box('Neuigkeiten').isNotEmpty) {
+    if (box.isNotEmpty) {
       List<Neuigkeit> temp = new List<Neuigkeit>();
-      for (int i = 0; i < Hive.box('Neuigkeiten').length; i++) {
-        temp.add(Hive.box('Neuigkeiten').getAt(i));
+      for (int i = 0; i < box.length; i++) {
+        if (box.getAt(i) != null) {
+          temp.add(box.getAt(i));
+        }
       }
       return temp;
     } else {
@@ -16,12 +23,11 @@ class NeuigkeitenLocalDatasource {
   }
 
   Neuigkeit getNeuigkeit(String titel) {
-    if (Hive.box('Neuigkeiten').isNotEmpty) {
-      for (int i = 0; i < Hive.box('Neuigkeiten').length; i++) {
-        Neuigkeit temp = Hive.box('Neuigkeiten').getAt(i);
+    if (box.isNotEmpty) {
+      for (int i = 0; i < box.length; i++) {
+        Neuigkeit temp = box.getAt(i);
         if (temp.titel == titel) {
           return temp;
-          break;
         }
       }
     } else {
@@ -30,7 +36,7 @@ class NeuigkeitenLocalDatasource {
   }
 
   void cacheNeuigkeiten(List<Neuigkeit> neuigkeitenToCache) {
-    Hive.box('Neuigkeiten').deleteAll(neuigkeitenToCache);
-    Hive.box('Neuigkeiten').addAll(neuigkeitenToCache);
+    box.deleteAll(neuigkeitenToCache);
+    box.addAll(neuigkeitenToCache);
   }
 }

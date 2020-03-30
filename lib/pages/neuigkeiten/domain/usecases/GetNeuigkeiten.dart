@@ -5,7 +5,7 @@ import 'package:eje/pages/neuigkeiten/domain/entitys/neuigkeit.dart';
 import 'package:eje/pages/neuigkeiten/domain/repositories/neuigkeiten_repository.dart';
 
 class GetNeuigkeiten implements UseCase<List<Neuigkeit>> {
-  final NeuigkeitenRespository repository;
+  final NeuigkeitenRepository repository;
 
   GetNeuigkeiten(this.repository);
 

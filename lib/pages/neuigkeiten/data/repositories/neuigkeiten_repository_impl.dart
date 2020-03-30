@@ -8,7 +8,7 @@ import 'package:eje/pages/neuigkeiten/data/datasources/neuigkeiten_remote_dataso
 import 'package:eje/pages/neuigkeiten/domain/entitys/neuigkeit.dart';
 import 'package:eje/pages/neuigkeiten/domain/repositories/neuigkeiten_repository.dart';
 
-class NeuigkeitenRepositoryImpl implements NeuigkeitenRespository {
+class NeuigkeitenRepositoryImpl implements NeuigkeitenRepository {
   final NeuigkeitenRemoteDatasource remoteDataSource;
   final NeuigkeitenLocalDatasource localDatasource;
   final NetworkInfo networkInfo;

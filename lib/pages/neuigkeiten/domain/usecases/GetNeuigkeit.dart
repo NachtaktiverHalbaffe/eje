@@ -6,7 +6,7 @@ import 'package:eje/pages/neuigkeiten/domain/repositories/neuigkeiten_repository
 import 'package:flutter/foundation.dart';
 
 class GetNeuigkeit implements UseCase<Neuigkeit> {
-  final NeuigkeitenRespository repository;
+  final NeuigkeitenRepository repository;
 
   GetNeuigkeit(this.repository);
 

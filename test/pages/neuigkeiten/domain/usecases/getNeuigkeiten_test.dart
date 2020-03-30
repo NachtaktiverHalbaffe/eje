@@ -7,7 +7,7 @@ import 'package:mockito/mockito.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 class Mockneuigkeiten_repository extends Mock
-    implements NeuigkeitenRespository {}
+    implements NeuigkeitenRepository {}
 
 void main() {
   GetNeuigkeit usecase;
