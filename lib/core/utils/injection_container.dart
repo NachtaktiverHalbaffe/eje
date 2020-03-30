@@ -54,7 +54,7 @@ Future<void> init() async {
 
   // ! External
   // * Hive box
-  final box_neuigkeiten = await Hive.openBox('Neuigkeiten');
+  final Box box_neuigkeiten = await Hive.openBox('Neuigkeiten');
   sl.registerLazySingleton(() async => box_neuigkeiten);
   // * Remote Access
   sl.registerLazySingleton(() => http.Client);

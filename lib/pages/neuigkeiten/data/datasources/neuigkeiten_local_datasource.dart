@@ -25,7 +25,7 @@ class NeuigkeitenLocalDatasource {
   Neuigkeit getNeuigkeit(String titel) {
     if (box.isNotEmpty) {
       for (int i = 0; i < box.length; i++) {
-        Neuigkeit temp = box.getAt(i);
+        Neuigkeit temp =box.getAt(i);
         if (temp.titel == titel) {
           return temp;
         }

@@ -8,9 +8,10 @@ import '../pages/neuigkeiten/presentation/widgets/neuigkeiten.dart';
 import 'package:path_provider/path_provider.dart' as path_provider;
 import 'utils/injection_container.dart' as di;
 
-void main() async{
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  final appDocumentDirectory = await path_provider.getApplicationDocumentsDirectory();
+  final appDocumentDirectory =
+      await path_provider.getApplicationDocumentsDirectory();
   Hive.init(appDocumentDirectory.path);
   Hive.registerAdapter(NeuigkeitAdapter());
   await di.init();
@@ -63,22 +64,10 @@ class _MyHomePageState extends State<MyHomePage> {
 
   _fragmentmanager(int pos) {
     switch (pos) {
+      // * Neuigkeiten
       case 0:
         {
-          // Cachedaten laden und dann Widget öffnen
-          FutureBuilder(
-            future: Hive.openBox('Neuigkeiten'),
-            builder: (BuildContext context, AsyncSnapshot snapshot) {
-              if (snapshot.connectionState == ConnectionState.done) {
-                if (snapshot.hasError) {
-                  return Text(snapshot.error.toString());
-                } else {
-                  return Neuigkeiten();
-                }
-              } else
-                return Scaffold();
-            },
-          );
+          return Neuigkeiten();
         }
     }
   }
