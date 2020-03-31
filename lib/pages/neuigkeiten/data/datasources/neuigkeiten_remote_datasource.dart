@@ -6,9 +6,9 @@ import 'package:meta/meta.dart';
 
 class NeuigkeitenRemoteDatasource {
   final http.Client client;
-  final String apiUrl;
+  final String apiUrl ="";
 
-  NeuigkeitenRemoteDatasource({@required this.client, @required this.apiUrl});
+  NeuigkeitenRemoteDatasource({@required this.client});
 
   //TODO: Implementierung der Onlineanbindung
 

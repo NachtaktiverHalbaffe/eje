@@ -66,8 +66,20 @@ class _MyHomePageState extends State<MyHomePage> {
     switch (pos) {
       // * Neuigkeiten
       case 0:
-        {
-          return Neuigkeiten();
+        {FutureBuilder(
+          future: Hive.openBox('Neuigkeiten'),
+          builder: (BuildContext context, AsyncSnapshot snapshot) {
+            if (snapshot.connectionState == ConnectionState.done) {
+              if (snapshot.hasError) {
+                return Text(snapshot.error.toString());
+              } else {
+                return Neuigkeiten();
+              }
+            } else
+              return Center(child: Text("Error"),);
+          },
+        );
+        return Neuigkeiten();
         }
     }
   }

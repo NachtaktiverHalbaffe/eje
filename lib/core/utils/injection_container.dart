@@ -39,24 +39,16 @@ Future<void> init() async {
   sl.registerLazySingleton(
     () => NeuigkeitenRemoteDatasource(
       client: sl(),
-      apiUrl: sl(),
     ),
   );
-  sl.registerLazySingleton(
-    () => NeuigkeitenLocalDatasource(
-      box: sl(),
-    ),
-  );
+  sl.registerLazySingleton(() => NeuigkeitenLocalDatasource());
 
   // ! Core
   // * NetworkInfo
   sl.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(sl()));
 
   // ! External
-  // * Hive box
-  final Box box_neuigkeiten = await Hive.openBox('Neuigkeiten');
-  sl.registerLazySingleton(() async => box_neuigkeiten);
   // * Remote Access
-  sl.registerLazySingleton(() => http.Client);
+  sl.registerLazySingleton(() => http.Client());
   sl.registerLazySingleton(() => DataConnectionChecker());
 }
