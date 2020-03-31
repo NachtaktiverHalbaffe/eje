@@ -4,7 +4,10 @@ import 'package:meta/meta.dart';
 
 @immutable
 abstract class NeuigkeitenBlocEvent extends Equatable {
-  NeuigkeitenBlocEvent([List props = const <dynamic>[]]) : super(props);
+  const NeuigkeitenBlocEvent() ;
+
+  @override
+  List<Object> get props => [];
 }
 
 // Zeige ganzen Artikel wenn Button geklicket wird
@@ -12,7 +15,9 @@ class GetNeuigkeitDetails extends NeuigkeitenBlocEvent {
   final String titel;
 
   //Constructor
-  GetNeuigkeitDetails(this.titel) : super([titel]);
+  GetNeuigkeitDetails(this.titel);
+  @override
+  List<Object> get props => [titel];
 }
 
 // Refreshe Neuigkeiten, wenn Liste zum refresen runter gezogen wird

@@ -10,24 +10,13 @@ import 'package:hive/hive.dart';
 
 import 'package:eje/core/utils/injection_container.dart';
 
-class Neuigkeiten extends StatefulWidget{
-  @override
-  State<StatefulWidget> createState() => _Neuigkeiten();
-}
-
-class _Neuigkeiten extends State<Neuigkeiten> {
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    sl<NeuigkeitenBlocBloc>()..add(RefreshNeuigkeiten());
-  }
+class Neuigkeiten extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: BlocProvider(
-        builder: (_) => sl<NeuigkeitenBlocBloc>(),
-        child: BlocListener<NeuigkeitenBlocBloc, NeuigkeitenBlocState>(
+    return  BlocProvider(
+        create: (_) => sl<NeuigkeitenBlocBloc>(),
+        child: BlocConsumer<NeuigkeitenBlocBloc, NeuigkeitenBlocState>(
           listener: (context, state) {
             if (state is Error) {
               Scaffold.of(context).showSnackBar(
@@ -37,55 +26,48 @@ class _Neuigkeiten extends State<Neuigkeiten> {
               );
             }
           },
-          child: BlocBuilder<NeuigkeitenBlocBloc, NeuigkeitenBlocState>(
-            builder: (context, state) {
-              if (state is Empty) {
-                return Center();
-              } else if (state is Loading) {
-                return LoadingIndicator();
-              } else if (state is Loaded) {
-                return NeuigkeitenListView();
-              } else
-                return Scaffold();
-            },
-          ),
+          builder: (context, state) {
+            if (state is Empty) {
+              print("Build Page: Empty");
+              return FlatButton(
+                onPressed: () => sl<NeuigkeitenBlocBloc>()..add(RefreshNeuigkeiten()),
+                child: Text("Refresh"),
+              );
+            } else if (state is Loading) {
+              print("Build Page: Loading");
+              return LoadingIndicator();
+            } else if (state is Loaded) {
+              print("Build Page: Loaded");
+              return LoadingIndicator();
+            } else
+              return LoadingIndicator();
+          },
         ),
-      ),
-    );
-  }
-
-  @override
-  void dispose() {
-    // DB komprimieren
-    Hive.box('Neuigkeiten').compact();
-    // Offline Database für Cached Artikel schließen
-    Hive.box('Neuigkeiten').close();
+      );
   }
 }
 
 class NeuigkeitenListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-      body: new Column(
+    return new Column(
         children: <Widget>[
           new Expanded(
             child: _buildNeuigkeitenList(context),
           ),
         ],
-      ),
-    );
+      );
   }
 }
 
 Widget _buildNeuigkeitenList(BuildContext context) {
   final neuigkeitenBox = Hive.box('Neuigkeiten');
 
- return ListView.builder(
-        itemCount: neuigkeitenBox.length,
-        itemBuilder: (context, index) {
-          final neuigkeit = neuigkeitenBox.getAt(index) as Neuigkeit;
-          return NeuigkeitenCard(neuigkeit, index);
-        },
-      );
+  return ListView.builder(
+    itemCount: neuigkeitenBox.length,
+    itemBuilder: (context, index) {
+      final neuigkeit = neuigkeitenBox.getAt(index) as Neuigkeit;
+      return NeuigkeitenCard(neuigkeit, index);
+    },
+  );
 }

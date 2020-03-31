@@ -14,10 +14,11 @@ class neuigkeitenCardDetail extends StatefulWidget {
   neuigkeitenCardDetail(this._neuigkeit, this.TAG_BILD, this.TAG_TITEL);
 
   @override
-  State<StatefulWidget> createState() => _neuigkeitenCardDetail(_neuigkeit, TAG_BILD, TAG_TITEL);
+  State<StatefulWidget> createState() =>
+      _neuigkeitenCardDetail(_neuigkeit, TAG_BILD, TAG_TITEL);
 }
 
-class _neuigkeitenCardDetail extends State<neuigkeitenCardDetail>{
+class _neuigkeitenCardDetail extends State<neuigkeitenCardDetail> {
   Neuigkeit _neuigkeit;
   final String TAG_TITEL;
   final String TAG_BILD;
@@ -26,8 +27,8 @@ class _neuigkeitenCardDetail extends State<neuigkeitenCardDetail>{
 
   @override
   void didChangeDependencies() {
-      super.didChangeDependencies();
-      sl<NeuigkeitenBlocBloc>()..add(GetNeuigkeitDetails(_neuigkeit.titel));
+    super.didChangeDependencies();
+    sl<NeuigkeitenBlocBloc>()..add(GetNeuigkeitDetails(_neuigkeit.titel));
   }
 
   @override
@@ -40,8 +41,8 @@ class _neuigkeitenCardDetail extends State<neuigkeitenCardDetail>{
         elevation: 0,
       ),
       body: BlocProvider(
-        builder: (_) => sl<NeuigkeitenBlocBloc>(),
-        child: BlocListener<NeuigkeitenBlocBloc, NeuigkeitenBlocState>(
+        create: (_) => sl<NeuigkeitenBlocBloc>(),
+        child: BlocConsumer<NeuigkeitenBlocBloc, NeuigkeitenBlocState>(
           listener: (context, state) {
             if (state is Error) {
               Scaffold.of(context).showSnackBar(
@@ -51,23 +52,21 @@ class _neuigkeitenCardDetail extends State<neuigkeitenCardDetail>{
               );
             }
           },
-          child: BlocBuilder<NeuigkeitenBlocBloc, NeuigkeitenBlocState>(
-            builder: (context, state) {
-              if (state is LoadedDetail) {
-                return card(context,TAG_BILD,TAG_TITEL,_neuigkeit);
-              } else if (state is Loading) {
-                return LoadingIndicator();
-              } else
-                return Center();
-            },
-          ),
+          builder: (context, state) {
+            if (state is LoadedDetail) {
+              return card(context, TAG_BILD, TAG_TITEL, _neuigkeit);
+            } else if (state is Loading) {
+              return LoadingIndicator();
+            } else
+              return Center();
+          },
         ),
       ),
     );
   }
 }
 
-Widget card(context,TAG_BILD,TAG_TITEL,_neuigkeit ) {
+Widget card(context, TAG_BILD, TAG_TITEL, _neuigkeit) {
   return ListView(
     children: <Widget>[
       Column(
@@ -80,18 +79,16 @@ Widget card(context,TAG_BILD,TAG_TITEL,_neuigkeit ) {
               //TODO: Viewpager
               decoration: BoxDecoration(
                   image: DecorationImage(
-                    fit: BoxFit.fitWidth,
-                    image: ExactAssetImage(
-                        _neuigkeit.bilder[0].toString()),
-                  )),
+                fit: BoxFit.fitWidth,
+                image: ExactAssetImage(_neuigkeit.bilder[0].toString()),
+              )),
             ),
           ),
           Hero(
             tag: TAG_TITEL,
             child: Container(
               width: MediaQuery.of(context).size.width,
-              padding:
-              EdgeInsets.only(left: 10, right: 10, top: 16),
+              padding: EdgeInsets.only(left: 10, right: 10, top: 16),
               child: Text(
                 _neuigkeit.titel,
                 textAlign: TextAlign.left,
@@ -105,8 +102,7 @@ Widget card(context,TAG_BILD,TAG_TITEL,_neuigkeit ) {
           ),
           Container(
             width: MediaQuery.of(context).size.width,
-            padding: EdgeInsets.only(
-                left: 10, right: 10, top: 10, bottom: 16),
+            padding: EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 16),
             child: Text(
               _neuigkeit.text,
               textAlign: TextAlign.justify,
@@ -120,5 +116,3 @@ Widget card(context,TAG_BILD,TAG_TITEL,_neuigkeit ) {
     ],
   );
 }
-
-

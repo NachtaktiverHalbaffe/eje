@@ -29,6 +29,7 @@ class NeuigkeitenBlocBloc
   ) async* {
     if (event is RefreshNeuigkeiten) {
       yield Loading();
+      print("Refresh event triggered");
       final neuigkeitOrFailure = await getNeuigkeiten();
       yield neuigkeitOrFailure.fold(
         (failure) => Error(message: _mapFailureToMessage(failure)),
@@ -36,6 +37,7 @@ class NeuigkeitenBlocBloc
       );
     } else if (event is GetNeuigkeitDetails) {
       yield Loading();
+      print("get details event triggered");
       final neuigkeitOrFailure = await getNeuigkeit(titel: event.titel);
       yield neuigkeitOrFailure.fold(
         (failure) => Error(message: _mapFailureToMessage(failure)),

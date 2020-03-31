@@ -10,10 +10,7 @@ class GetNeuigkeiten implements UseCase<List<Neuigkeit>> {
   GetNeuigkeiten(this.repository);
 
   @override
-  Future<Either<Failure, List<Neuigkeit>>> call() {
-    @override
-    Future<Either<Failure, List<Neuigkeit>>> call() async {
+  Future<Either<Failure, List<Neuigkeit>>> call() async{
       return await repository.getNeuigkeiten();
     }
-  }
 }

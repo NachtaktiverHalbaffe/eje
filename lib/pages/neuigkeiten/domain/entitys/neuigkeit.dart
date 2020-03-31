@@ -4,7 +4,7 @@ import 'package:hive/hive.dart';
 
 part 'neuigkeit.g.dart';
 
-@HiveType(typeId:0)
+@HiveType(typeId: 0)
 class Neuigkeit extends Equatable {
   @HiveField(0)
   final String titel; //Titel der Neuigkeit
@@ -27,17 +27,9 @@ class Neuigkeit extends Equatable {
       @required this.text,
       @required this.bilder,
       this.weiterfuehrender_link,
-      this.published})
-      : super([
-          titel,
-          text_preview,
-          text,
-          bilder,
-          weiterfuehrender_link,
-          published
-        ]);
+      this.published});
 
-  factory Neuigkeit.fromJson(Map<String, dynamic> json){
+  factory Neuigkeit.fromJson(Map<String, dynamic> json) {
     return Neuigkeit(
       titel: json['titel'],
       text_preview: json['text_preview'],
@@ -46,12 +38,17 @@ class Neuigkeit extends Equatable {
     );
   }
 
-  Map<String, dynamic> toJson(){
-    return{
+  Map<String, dynamic> toJson() {
+    return {
       'titel': titel,
       'text_preview': text_preview,
       'text': text,
       'bilder': bilder.toString()
     };
   }
+
+  @override
+  // TODO: implement props
+  List<Object> get props =>
+      [titel, text_preview, text, bilder, weiterfuehrender_link, published];
 }

@@ -13,7 +13,7 @@ import 'package:http/http.dart' as http;
 
 final sl = GetIt.instance;
 
-Future<void> init() async {
+Future<void> init() async{
   // ! Pages
 
   // ! Neuigkeiten
@@ -41,13 +41,16 @@ Future<void> init() async {
       client: sl(),
     ),
   );
-  sl.registerLazySingleton(() => NeuigkeitenLocalDatasource());
+  sl.registerLazySingleton(() => NeuigkeitenLocalDatasource(sl()));
 
   // ! Core
   // * NetworkInfo
   sl.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(sl()));
 
   // ! External
+  // * Hive
+  final Box neuigkeiten_box = await Hive.openBox('Neuigkeiten');
+  sl.registerLazySingleton(() => neuigkeiten_box);
   // * Remote Access
   sl.registerLazySingleton(() => http.Client());
   sl.registerLazySingleton(() => DataConnectionChecker());

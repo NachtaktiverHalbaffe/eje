@@ -4,7 +4,10 @@ import 'package:meta/meta.dart';
 
 @immutable
 abstract class NeuigkeitenBlocState extends Equatable {
-  NeuigkeitenBlocState([List props = const <dynamic>[]]) : super(props);
+  const NeuigkeitenBlocState();
+
+  @override
+  List<Object> get props => [];
 }
 
 //State wenn keine Neuigkeit vorhanden ist
@@ -18,19 +21,28 @@ class Loaded extends NeuigkeitenBlocState {
   final List<Neuigkeit> neuigkeit;
 
   //Constructor
-  Loaded({@required this.neuigkeit}):super([neuigkeit]);
+  Loaded({@required this.neuigkeit}){}
+
+  @override
+  List<Object> get props => [neuigkeit];
 }
 
 class LoadedDetail extends NeuigkeitenBlocState {
   final Neuigkeit neuigkeit;
 
   //Constructor
-  LoadedDetail({@required this.neuigkeit}):super([neuigkeit]);
+  LoadedDetail({@required this.neuigkeit});
+
+  @override
+  List<Object> get props => [neuigkeit];
 }
 
 class Error extends NeuigkeitenBlocState {
   final String message;
 
   //Constructor
-  Error({@required this.message}):super([message]);
+  Error({@required this.message});
+
+  @override
+  List<Object> get props => [message];
 }
