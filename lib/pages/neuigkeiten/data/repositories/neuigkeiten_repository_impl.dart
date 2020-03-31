@@ -39,7 +39,7 @@ class NeuigkeitenRepositoryImpl implements NeuigkeitenRepository {
   //Lade Artikel aus den Internet herunter
   @override
   Future<Either<Failure, List<Neuigkeit>>> getNeuigkeiten() async {
-    if (await networkInfo.isConnected) {
+   /* if (await networkInfo.isConnected) {
       try {
         final remoteNeuigkeit = await remoteDataSource.getNeuigkeiten();
         localDatasource.cacheNeuigkeiten(remoteNeuigkeit);
@@ -47,8 +47,6 @@ class NeuigkeitenRepositoryImpl implements NeuigkeitenRepository {
       } on ServerException {
         return Left(ServerFailure());
       }
-    } else {
-      return Right(await localDatasource.getCachedNeuigkeiten());
-    }
+    } else */ return Right(await localDatasource.getCachedNeuigkeiten());
   }
 }
