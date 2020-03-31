@@ -3,12 +3,25 @@ import 'package:eje/pages/neuigkeiten/domain/entitys/neuigkeit.dart';
 import 'package:eje/pages/neuigkeiten/presentation/bloc/bloc.dart';
 import 'package:eje/pages/neuigkeiten/presentation/widgets/neuigkeitenCard.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive/hive.dart';
-import 'package:hive_flutter/hive_flutter.dart';
+
 import 'package:eje/core/utils/injection_container.dart';
 
-class Neuigkeiten extends StatelessWidget {
+class Neuigkeiten extends StatefulWidget{
+  @override
+  State<StatefulWidget> createState() => _Neuigkeiten();
+}
+
+class _Neuigkeiten extends State<Neuigkeiten> {
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    sl<NeuigkeitenBlocBloc>()..add(RefreshNeuigkeiten());
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

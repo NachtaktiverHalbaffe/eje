@@ -6,7 +6,7 @@ import 'package:eje/pages/neuigkeiten/presentation/bloc/neuigkeiten_bloc_bloc.da
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class neuigkeitenCardDetail extends StatelessWidget {
+class neuigkeitenCardDetail extends StatefulWidget {
   Neuigkeit _neuigkeit;
   final String TAG_TITEL;
   final String TAG_BILD;
@@ -14,8 +14,24 @@ class neuigkeitenCardDetail extends StatelessWidget {
   neuigkeitenCardDetail(this._neuigkeit, this.TAG_BILD, this.TAG_TITEL);
 
   @override
+  State<StatefulWidget> createState() => _neuigkeitenCardDetail(_neuigkeit, TAG_BILD, TAG_TITEL);
+}
+
+class _neuigkeitenCardDetail extends State<neuigkeitenCardDetail>{
+  Neuigkeit _neuigkeit;
+  final String TAG_TITEL;
+  final String TAG_BILD;
+
+  _neuigkeitenCardDetail(this._neuigkeit, this.TAG_BILD, this.TAG_TITEL);
+
+  @override
+  void didChangeDependencies() {
+      super.didChangeDependencies();
+      sl<NeuigkeitenBlocBloc>()..add(GetNeuigkeitDetails(_neuigkeit.titel));
+  }
+
+  @override
   Widget build(BuildContext context) {
-    BlocProvider.of<NeuigkeitenBlocBloc>(context)..add(GetNeuigkeitDetails(_neuigkeit.titel));
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -50,6 +66,7 @@ class neuigkeitenCardDetail extends StatelessWidget {
     );
   }
 }
+
 Widget card(context,TAG_BILD,TAG_TITEL,_neuigkeit ) {
   return ListView(
     children: <Widget>[

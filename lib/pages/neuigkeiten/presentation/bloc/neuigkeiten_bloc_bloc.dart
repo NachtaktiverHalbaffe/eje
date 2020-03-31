@@ -9,8 +9,8 @@ import 'package:meta/meta.dart';
 
 class NeuigkeitenBlocBloc
     extends Bloc<NeuigkeitenBlocEvent, NeuigkeitenBlocState> {
-  final String SERVER_FAILURE_MESSAGE = 'Fehler beim Abrufen der Daten vom Server';
-  final String CACHE_FAILURE_MESSAGE = 'Fehler beim Laden der Daten aus den Cache';
+  final String SERVER_FAILURE_MESSAGE = 'Fehler beim Abrufen der Daten vom Server. Ist Ihr Gerät mit den Internet verbunden?';
+  final String CACHE_FAILURE_MESSAGE = 'Fehler beim Laden der Daten aus den Cache. Löschen Sie den Cache oder setzen sie die App zurück.';
   final GetNeuigkeit getNeuigkeit;
   final GetNeuigkeiten getNeuigkeiten;
 
