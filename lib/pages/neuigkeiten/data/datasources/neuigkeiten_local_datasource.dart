@@ -7,7 +7,11 @@ class NeuigkeitenLocalDatasource {
   final Box box ;
   NeuigkeitenLocalDatasource(this.box);
 
-  List<Neuigkeit> getCachedNeuigkeiten() {
+  Future <List<Neuigkeit>> getCachedNeuigkeiten() async{
+    Box _box;
+    if(!box.isOpen){
+      _box= await Hive.openBox('Neuigkeiten');
+    } else _box= box;
     //Testdaten
     print("Triggered Function getCachedNeuigkeiten");
     List<String> bilder = new List();
@@ -15,7 +19,7 @@ class NeuigkeitenLocalDatasource {
     bilder.add("assets/testdata/kc_2.jpg");
     bilder.add("assets/testdata/kc_3.jpg");
     bilder.add("assets/testdata/kc_4.jpg");
-    box.add(
+    _box.add(
       new Neuigkeit(
         titel: "Konficamp 2019- Schön wars!",
         text_preview: "Frieden gesucht!",
@@ -24,11 +28,11 @@ class NeuigkeitenLocalDatasource {
         bilder: bilder,
       ),
     );
-    if (box.isNotEmpty) {
+    if (_box.isNotEmpty) {
       List<Neuigkeit> temp = new List<Neuigkeit>();
-      for (int i = 0; i < box.length; i++) {
-        if (box.getAt(i) != null) {
-          temp.add(box.getAt(i));
+      for (int i = 0; i < _box.length; i++) {
+        if (_box.getAt(i) != null) {
+          temp.add(_box.getAt(i));
         }
       }
       return temp;
@@ -37,10 +41,14 @@ class NeuigkeitenLocalDatasource {
     }
   }
 
-  Neuigkeit getNeuigkeit(String titel) {
-    if (box.isNotEmpty) {
-      for (int i = 0; i < box.length; i++) {
-        Neuigkeit temp =box.getAt(i);
+ Future<Neuigkeit> getNeuigkeit(String titel) async{
+   Box _box;
+   if(!box.isOpen){
+     _box= await Hive.openBox('Neuigkeiten');
+   } else _box= box;
+    if (_box.isNotEmpty) {
+      for (int i = 0; i < _box.length; i++) {
+        Neuigkeit temp =_box.getAt(i);
         if (temp.titel == titel) {
           return temp;
         }
@@ -50,16 +58,20 @@ class NeuigkeitenLocalDatasource {
     }
   }
 
-  void cacheNeuigkeiten(List<Neuigkeit> neuigkeitenToCache) {
+  Future<void> cacheNeuigkeiten(List<Neuigkeit> neuigkeitenToCache) async{
+    Box _box;
+    if(!box.isOpen){
+      _box= await Hive.openBox('Neuigkeiten');
+    } else _box= box;
     //box.deleteAll(neuigkeitenToCache);
-    box.addAll(neuigkeitenToCache);
+    _box.addAll(neuigkeitenToCache);
     //Testdaten
     List<String> bilder = new List();
     bilder.add("assets/testdata/kc.jpg");
     bilder.add("assets/testdata/kc_2.jpg");
     bilder.add("assets/testdata/kc_3.jpg");
     bilder.add("assets/testdata/kc_4.jpg");
-    box.add(
+    _box.add(
       new Neuigkeit(
         titel: "Konficamp 2019- Schön wars!",
         text_preview: "Frieden gesucht!",

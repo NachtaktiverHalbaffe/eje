@@ -32,8 +32,12 @@ class NeuigkeitenBlocBloc
       print("Refresh event triggered");
       final neuigkeitOrFailure = await getNeuigkeiten();
       yield neuigkeitOrFailure.fold(
-        (failure) => Error(message: _mapFailureToMessage(failure)),
-        (neuigkeit) => Loaded(neuigkeit: neuigkeit),
+        (failure){
+          print("Refresh Event: Error");
+          return Error(message: _mapFailureToMessage(failure));},
+        (neuigkeit){
+          print("Refresh Event: Success. Return Loaded state");
+          return Loaded(neuigkeit: neuigkeit);},
       );
     } else if (event is GetNeuigkeitDetails) {
       yield Loading();
