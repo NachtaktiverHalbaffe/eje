@@ -9,8 +9,10 @@ import 'package:meta/meta.dart';
 
 class NeuigkeitenBlocBloc
     extends Bloc<NeuigkeitenBlocEvent, NeuigkeitenBlocState> {
-  final String SERVER_FAILURE_MESSAGE = 'Fehler beim Abrufen der Daten vom Server. Ist Ihr Gerät mit den Internet verbunden?';
-  final String CACHE_FAILURE_MESSAGE = 'Fehler beim Laden der Daten aus den Cache. Löschen Sie den Cache oder setzen sie die App zurück.';
+  final String SERVER_FAILURE_MESSAGE =
+      'Fehler beim Abrufen der Daten vom Server. Ist Ihr Gerät mit den Internet verbunden?';
+  final String CACHE_FAILURE_MESSAGE =
+      'Fehler beim Laden der Daten aus den Cache. Löschen Sie den Cache oder setzen sie die App zurück.';
   final GetNeuigkeit getNeuigkeit;
   final GetNeuigkeiten getNeuigkeiten;
 
@@ -32,12 +34,14 @@ class NeuigkeitenBlocBloc
       print("Refresh event triggered");
       final neuigkeitOrFailure = await getNeuigkeiten();
       yield neuigkeitOrFailure.fold(
-        (failure){
+        (failure) {
           print("Refresh Event: Error");
-          return Error(message: _mapFailureToMessage(failure));},
-        (neuigkeit){
+          return Error(message: _mapFailureToMessage(failure));
+        },
+        (neuigkeit) {
           print("Refresh Event: Success. Return Loaded state");
-          return Loaded(neuigkeit: neuigkeit);},
+          return Loaded(neuigkeit: neuigkeit);
+        },
       );
     } else if (event is GetNeuigkeitDetails) {
       yield Loading();
@@ -45,7 +49,10 @@ class NeuigkeitenBlocBloc
       final neuigkeitOrFailure = await getNeuigkeit(titel: event.titel);
       yield neuigkeitOrFailure.fold(
         (failure) => Error(message: _mapFailureToMessage(failure)),
-        (neuigkeit) => LoadedDetail(neuigkeit: neuigkeit),
+        (neuigkeit) {
+          print("GetDetails Event: Success. Return LoadedDetail state");
+          return LoadedDetail(neuigkeit: neuigkeit);
+        },
       );
     }
   }

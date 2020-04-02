@@ -1,8 +1,10 @@
+import 'package:eje/core/utils/injection_container.dart';
 import 'package:eje/pages/neuigkeiten/domain/entitys/neuigkeit.dart';
 import 'package:eje/pages/neuigkeiten/presentation/bloc/bloc.dart';
 import 'package:eje/pages/neuigkeiten/presentation/widgets/neuigkeitenCardDetail.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:page_view_indicators/circle_page_indicator.dart';
 
 class NeuigkeitenCard extends StatelessWidget {
   final Neuigkeit _neuigkeit;
@@ -11,6 +13,8 @@ class NeuigkeitenCard extends StatelessWidget {
   String TAG_TITEL;
 
   NeuigkeitenCard(this._neuigkeit, this.index);
+
+  final _currentPageNotifier = ValueNotifier<int>(0);
 
   @override
   Widget build(BuildContext context) {
@@ -25,13 +29,18 @@ class NeuigkeitenCard extends StatelessWidget {
       child: ClipRRect(
         borderRadius: new BorderRadius.all(Radius.circular(12)),
         child: new Stack(
-          alignment: Alignment.bottomLeft,
+          alignment: Alignment.bottomCenter,
           children: <Widget>[
             Container(
               width: MediaQuery.of(context).size.width,
               height: 200,
               child: PageView.builder(
-                scrollDirection: Axis.horizontal,
+                physics: ScrollPhysics(
+                  parent: BouncingScrollPhysics(),
+                ),
+                onPageChanged: (int index) {
+                  _currentPageNotifier.value = index;
+                },
                 pageSnapping: true,
                 controller: PageController(initialPage: 0),
                 itemCount: _neuigkeit.bilder.length,
@@ -58,6 +67,22 @@ class NeuigkeitenCard extends StatelessWidget {
                 },
               ),
             ),
+           // ignore: missing_return
+           Container(child: () {
+              if(_neuigkeit.bilder.length != 1){
+             return Container(
+                padding: EdgeInsets.all(8),
+                child: CirclePageIndicator(
+                  size: 5,
+                  selectedSize: 7.5,
+                  dotColor: Colors.white,
+                  selectedDotColor: Theme.of(context).accentColor,
+                  itemCount: _neuigkeit.bilder.length,
+                  currentPageNotifier: _currentPageNotifier,
+                ),
+              );}
+            }()),
+
             Container(
               alignment: Alignment.bottomCenter,
               decoration: BoxDecoration(
@@ -100,6 +125,7 @@ class NeuigkeitenCard extends StatelessWidget {
                     Container(
                       padding: EdgeInsets.only(left: 12, right: 12),
                       width: MediaQuery.of(context).size.width,
+                      height: 75,
                       child: Text(
                         _neuigkeit.text_preview.toString(),
                         textAlign: TextAlign.left,
@@ -128,8 +154,7 @@ class NeuigkeitenCard extends StatelessWidget {
                             context,
                             MaterialPageRoute(
                               builder: (_) => BlocProvider.value(
-                                value: BlocProvider.of<NeuigkeitenBlocBloc>(
-                                    context),
+                                value: sl<NeuigkeitenBlocBloc>(),
                                 child: neuigkeitenCardDetail(
                                     _neuigkeit, TAG_BILD, TAG_TITEL),
                               ),

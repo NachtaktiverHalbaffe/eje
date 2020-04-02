@@ -33,6 +33,7 @@ class _neuigkeitenCardDetail extends State<neuigkeitenCardDetail> {
 
   @override
   Widget build(BuildContext context) {
+    BlocProvider.of<NeuigkeitenBlocBloc>(context).add(GetNeuigkeitDetails(_neuigkeit.titel));
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -54,11 +55,12 @@ class _neuigkeitenCardDetail extends State<neuigkeitenCardDetail> {
           },
           builder: (context, state) {
             if (state is LoadedDetail) {
+              print("Build Page: LoadedDetail");
               return card(context, TAG_BILD, TAG_TITEL, _neuigkeit);
             } else if (state is Loading) {
               return LoadingIndicator();
             } else
-              return Center();
+              return LoadingIndicator();
           },
         ),
       ),
