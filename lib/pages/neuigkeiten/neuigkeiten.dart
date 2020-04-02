@@ -62,7 +62,6 @@ class NeuigkeitenListView extends StatelessWidget {
 
 Widget _buildNeuigkeitenList(BuildContext context, _neuigkeiten) {
   return ListView.builder(
-    padding: EdgeInsets.all(8),
     physics: ScrollPhysics(
       parent: BouncingScrollPhysics(),
     ),
