@@ -263,7 +263,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void dispose() {
     // Alle Offline Datenbanken schließen
-   // Hive.close();
+    Hive.close();
     super.dispose();
   }
 }

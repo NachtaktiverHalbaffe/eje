@@ -19,76 +19,67 @@ class NeuigkeitenCard extends StatelessWidget {
     TAG_BILD = "BILD" + index.toString();
     TAG_TITEL = "TITEL" + index.toString();
     return ClipRRect(
-        borderRadius: new BorderRadius.only(
-            topLeft: Radius.circular(16),
-            topRight: Radius.circular(16),
-            bottomLeft: Radius.circular(8),
-            bottomRight: Radius.circular(8)),
-        child: new Card(
-          elevation: 4,
-          // margin: const EdgeInsets.only(left: 8, right: 8, top: 8),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              Hero(
-                tag: TAG_BILD,
-                child: Container(
-                  //TODO: Viewpager
-                  width: MediaQuery.of(context).size.width,
-                  height: 200,
-                  decoration: BoxDecoration(
-                      image: DecorationImage(
-                    fit: BoxFit.fitWidth,
-                    image: ExactAssetImage(_neuigkeit.bilder[0]),
-                  )),
+      borderRadius: new BorderRadius.all(Radius.circular(16)),
+      child: new Stack(
+          children: <Widget>[
+            Hero(
+              tag: TAG_BILD,
+              child: Container(
+                //TODO: Viewpager
+                width: MediaQuery.of(context).size.width,
+                height: 200,
+                decoration: BoxDecoration(
+                    image: DecorationImage(
+                  fit: BoxFit.fitWidth,
+                  image: ExactAssetImage(_neuigkeit.bilder[0]),
+                )),
+              ),
+            ),
+            ExpansionTile(
+              title: new Hero(
+                tag: TAG_TITEL,
+                child: Text(
+                  _neuigkeit.titel.toString(),
+                  style: TextStyle(fontWeight: FontWeight.bold),
                 ),
               ),
-              ExpansionTile(
-                title: new Hero(
-                  tag: TAG_TITEL,
-                  child: Text(
-                    _neuigkeit.titel.toString(),
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                ),
-                children: <Widget>[
-                  //Inhalt, der gezeigt wird wenn expanded
-                  Column(
-                    children: <Widget>[
-                      Container(
-                        padding: EdgeInsets.only(left: 12, right: 12),
-                        width: MediaQuery.of(context).size.width,
-                        child: Text(
-                          _neuigkeit.text_preview.toString(),
-                          textAlign: TextAlign.left,
-                        ),
+              children: <Widget>[
+                //Inhalt, der gezeigt wird wenn expanded
+                Column(
+                  children: <Widget>[
+                    Container(
+                      padding: EdgeInsets.only(left: 12, right: 12),
+                      width: MediaQuery.of(context).size.width,
+                      child: Text(
+                        _neuigkeit.text_preview.toString(),
+                        textAlign: TextAlign.left,
                       ),
-                      ButtonBarTheme(
-                        child: ButtonBar(
-                          children: <Widget>[
-                            FlatButton(
-                              child: Text("Details"),
-                              color: Theme.of(context).accentColor,
-                              onPressed: () => Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (_) => BlocProvider.value(
-                                    value: sl<NeuigkeitenBlocBloc>(),
-                                    child: neuigkeitenCardDetail(
-                                        _neuigkeit, TAG_BILD, TAG_TITEL),
-                                  ),
-                                ),
+                    ),
+                    ButtonBar(
+                      children: <Widget>[
+                        FlatButton(
+                          child: Text("Details"),
+                          color: Theme.of(context).accentColor,
+                          onPressed: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => BlocProvider.value(
+                                value: BlocProvider.of<NeuigkeitenBlocBloc>(
+                                    context),
+                                child: neuigkeitenCardDetail(
+                                    _neuigkeit, TAG_BILD, TAG_TITEL),
                               ),
-                            )
-                          ],
-                        ),
-                      )
-                    ],
-                  )
-                ],
-              ),
-            ],
-          ),
-        ));
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  ],
+                )
+              ],
+            ),
+          ],
+      ),
+    );
   }
 }

@@ -11,17 +11,27 @@ abstract class NeuigkeitenBlocState extends Equatable {
 }
 
 //State wenn keine Neuigkeit vorhanden ist
-class Empty extends NeuigkeitenBlocState {}
+class Empty extends NeuigkeitenBlocState {
+  const Empty();
+
+  @override
+  List<Object> get props => [];
+}
 
 //State wenn Neuigkeiten geladen werden
-class Loading extends NeuigkeitenBlocState {}
+class Loading extends NeuigkeitenBlocState {
+  const Loading();
+
+  @override
+  List<Object> get props => [];
+}
 
 // State wenn Neuigkeien fertig geladen sind
 class Loaded extends NeuigkeitenBlocState {
   final List<Neuigkeit> neuigkeit;
 
   //Constructor
-  Loaded({@required this.neuigkeit}){}
+  Loaded({@required this.neuigkeit}) {}
 
   @override
   List<Object> get props => [neuigkeit];

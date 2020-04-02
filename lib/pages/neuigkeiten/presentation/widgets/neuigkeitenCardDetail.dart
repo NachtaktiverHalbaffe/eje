@@ -28,7 +28,7 @@ class _neuigkeitenCardDetail extends State<neuigkeitenCardDetail> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    sl<NeuigkeitenBlocBloc>()..add(GetNeuigkeitDetails(_neuigkeit.titel));
+    BlocProvider.of<NeuigkeitenBlocBloc>(context).add(GetNeuigkeitDetails(_neuigkeit.titel));
   }
 
   @override
