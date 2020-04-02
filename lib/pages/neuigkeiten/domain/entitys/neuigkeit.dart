@@ -48,7 +48,5 @@ class Neuigkeit extends Equatable {
   }
 
   @override
-  // TODO: implement props
-  List<Object> get props =>
-      [titel, text_preview, text, bilder, weiterfuehrender_link, published];
+  List<Object> get props => [titel, text_preview, text, bilder, weiterfuehrender_link, published];
 }

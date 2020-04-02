@@ -44,7 +44,7 @@ class NeuigkeitenBlocBloc
         },
       );
     } else if (event is GetNeuigkeitDetails) {
-      yield Loading();
+      yield LoadingDetails();
       print("get details event triggered");
       final neuigkeitOrFailure = await getNeuigkeit(titel: event.titel);
       yield neuigkeitOrFailure.fold(

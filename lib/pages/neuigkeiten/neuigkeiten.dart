@@ -9,6 +9,7 @@ import 'package:hive/hive.dart';
 import 'package:eje/core/utils/injection_container.dart';
 
 class Neuigkeiten extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -27,7 +28,8 @@ class Neuigkeiten extends StatelessWidget {
         builder: (context, state) {
           if (state is Empty) {
             print("Build Page: Empty");
-            BlocProvider.of<NeuigkeitenBlocBloc>(context).add(RefreshNeuigkeiten());
+            BlocProvider.of<NeuigkeitenBlocBloc>(context)
+                .add(RefreshNeuigkeiten());
             return LoadingIndicator();
           } else if (state is Loading) {
             print("Build Page: Loading");
@@ -61,14 +63,22 @@ class NeuigkeitenListView extends StatelessWidget {
 }
 
 Widget _buildNeuigkeitenList(BuildContext context, _neuigkeiten) {
-  return ListView.builder(
-    physics: ScrollPhysics(
-      parent: BouncingScrollPhysics(),
-    ),
-    itemCount: _neuigkeiten.length,
-    itemBuilder: (context, index) {
-      final neuigkeit = _neuigkeiten[index];
-      return NeuigkeitenCard(neuigkeit, index);
+  final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
+  new GlobalKey<RefreshIndicatorState>();
+  return RefreshIndicator(
+    key: _refreshIndicatorKey,
+    onRefresh: () async{
+      await BlocProvider.of<NeuigkeitenBlocBloc>(context).add(RefreshNeuigkeiten());
     },
+    child: ListView.builder(
+      physics: ScrollPhysics(
+        parent: BouncingScrollPhysics(),
+      ),
+      itemCount: _neuigkeiten.length,
+      itemBuilder: (context, index) {
+        final neuigkeit = _neuigkeiten[index];
+        return NeuigkeitenCard(neuigkeit, index);
+      },
+    ),
   );
 }

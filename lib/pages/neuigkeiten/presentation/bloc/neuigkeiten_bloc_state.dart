@@ -26,6 +26,14 @@ class Loading extends NeuigkeitenBlocState {
   List<Object> get props => [];
 }
 
+//State wenn ein Artikel geladen werden
+class LoadingDetails extends NeuigkeitenBlocState {
+  const LoadingDetails();
+
+  @override
+  List<Object> get props => [];
+}
+
 // State wenn Neuigkeien fertig geladen sind
 class Loaded extends NeuigkeitenBlocState {
   final List<Neuigkeit> neuigkeit;
