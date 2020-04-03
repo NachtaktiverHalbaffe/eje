@@ -1,3 +1,4 @@
+import 'package:eje/pages/einstellungen/einstellungen.dart';
 import 'package:eje/pages/neuigkeiten/domain/entitys/neuigkeit.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -65,22 +66,8 @@ class _MyHomePageState extends State<MyHomePage> {
   _fragmentmanager(int pos) {
     switch (pos) {
       // * Neuigkeiten
-      case 0:
-        {FutureBuilder(
-          future: Hive.openBox('Neuigkeiten'),
-          builder: (BuildContext context, AsyncSnapshot snapshot) {
-            if (snapshot.connectionState == ConnectionState.done) {
-              if (snapshot.hasError) {
-                return Text(snapshot.error.toString());
-              } else {
-                return Neuigkeiten();
-              }
-            } else
-              return Center(child: Text("Error"),);
-          },
-        );
-        return Neuigkeiten();
-        }
+      case 0: return Neuigkeiten();
+      case 8: return Einstellungen();
     }
   }
 

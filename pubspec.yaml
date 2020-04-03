@@ -19,6 +19,8 @@ dependencies:
   # Offline Database
   hive:
   hive_flutter: ^0.3.0+2
+  # For Storing Settings
+  shared_preferences: ^0.5.2
   # For OS-Specific directories paths
   path_provider: ^1.3.0
   # Service locator

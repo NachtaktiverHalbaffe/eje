@@ -149,7 +149,7 @@ Widget card(context, TAG_BILD, TAG_TITEL, _neuigkeit) {
             tag: TAG_TITEL,
             child: Container(
               width: MediaQuery.of(context).size.width,
-              padding: EdgeInsets.only(left: 16, right: 16, top: 16),
+              padding: EdgeInsets.only(left: 12, right: 12, top: 16),
               child: Text(
                 _neuigkeit.titel,
                 textAlign: TextAlign.left,
@@ -163,7 +163,7 @@ Widget card(context, TAG_BILD, TAG_TITEL, _neuigkeit) {
           ),
           Container(
             width: MediaQuery.of(context).size.width,
-            padding: EdgeInsets.only(left: 16, right: 16, top: 16, bottom: 16),
+            padding: EdgeInsets.only(left: 12, right: 12, top: 12, bottom: 16),
             child: Text(
               _neuigkeit.text,
               textAlign: TextAlign.justify,
