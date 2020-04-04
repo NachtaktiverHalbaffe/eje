@@ -1,6 +1,10 @@
+import 'package:eje/pages/einstellungen/presentation/bloc/bloc.dart';
+import 'package:eje/pages/einstellungen/presentation/bloc/einstellung_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class EinstellungenPage extends StatelessWidget{
+
   @override
   Widget build(BuildContext context) {
     return ListView(
@@ -9,9 +13,7 @@ class EinstellungenPage extends StatelessWidget{
         CheckboxListTile(
           activeColor: Theme.of(context).accentColor,
           value: false,
-          onChanged: (val) {
-            null;
-          },
+          onChanged: (val) => BlocProvider.of<EinstellungBloc>(context).add(StoringPreferences("nightmode_auto", val)),
           title: Text(
             "Erscheinungsbild automatisch wählen",
           ),
@@ -20,7 +22,7 @@ class EinstellungenPage extends StatelessWidget{
         CheckboxListTile(
           activeColor: Theme.of(context).accentColor,
           value: true,
-          onChanged: (val) =>null,
+          onChanged: (val) => BlocProvider.of<EinstellungBloc>(context).add(StoringPreferences("notification_freizeiten", val)),
           title: Text(
             "Helles Erscheinungsbild",
           ),
@@ -29,7 +31,7 @@ class EinstellungenPage extends StatelessWidget{
         CheckboxListTile(
           activeColor: Theme.of(context).accentColor,
           value: false,
-          onChanged: (val) => null,
+          onChanged: (val) => BlocProvider.of<EinstellungBloc>(context).add(StoringPreferences("nightmode_on", val)),
           title: Text(
             "Dunkles Erscheinungsbild",
           ),
@@ -40,7 +42,7 @@ class EinstellungenPage extends StatelessWidget{
         CheckboxListTile(
           activeColor: Theme.of(context).accentColor,
           value: true,
-          onChanged: (val) => null,
+          onChanged: (val) => BlocProvider.of<EinstellungBloc>(context).add(StoringPreferences("notification_on", val)),
           title: Text(
             "Benachrichtigungen aktivieren",
           ),
@@ -49,8 +51,7 @@ class EinstellungenPage extends StatelessWidget{
         SwitchListTile(
           activeColor: Theme.of(context).accentColor,
           value: true,
-          onChanged: (val) =>
-          null,
+          onChanged: (val) => BlocProvider.of<EinstellungBloc>(context).add(StoringPreferences("notification_veranstaltungen", val)),
           title: Text(
             "Benachrichtigungen zu anstehenden Veranstaltungen erhalten",
           ),
@@ -59,7 +60,7 @@ class EinstellungenPage extends StatelessWidget{
         SwitchListTile(
           activeColor: Theme.of(context).accentColor,
           value: true,
-          onChanged: (val) => null,
+          onChanged:(val) => BlocProvider.of<EinstellungBloc>(context).add(StoringPreferences("notification_freizeiten", val)),
           title: Text(
             "Benachrichtigungen erhalten, wenn neue Freizeitanmeldungen online sind",
           ),
@@ -68,7 +69,7 @@ class EinstellungenPage extends StatelessWidget{
         SwitchListTile(
           activeColor: Theme.of(context).accentColor,
           value: true,
-          onChanged: (val) => null,
+          onChanged: (val) => BlocProvider.of<EinstellungBloc>(context).add(StoringPreferences("notification_neuigkeiten", val)),
           title: Text(
             "Benachrichtigungen erhalten, wenn es Neuigkeiten gibt",
           ),
@@ -79,7 +80,7 @@ class EinstellungenPage extends StatelessWidget{
         CheckboxListTile(
           activeColor: Theme.of(context).accentColor,
           value: true,
-          onChanged: (val) => null,
+          onChanged: (val) => BlocProvider.of<EinstellungBloc>(context).add(StoringPreferences("only_wifi", val)),
           title: Text(
             "Inhalte nur über Wifi aktualisieren",
           ),
@@ -88,7 +89,7 @@ class EinstellungenPage extends StatelessWidget{
         CheckboxListTile(
           activeColor: Theme.of(context).accentColor,
           value: true,
-          onChanged: null,
+          onChanged: (val) => BlocProvider.of<EinstellungBloc>(context).add(StoringPreferences("cache_pictures", val)),
           title: Text(
             "Heruntergeladene Bilder auf Gerät zwischenspeichern (reduziert Datenvolumen)",
           ),

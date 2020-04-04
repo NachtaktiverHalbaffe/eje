@@ -33,7 +33,7 @@ class EinstellungenRepositoryImpl implements EinstellungenRepository {
   }
 
   @override
-  Future<Either<Failure, SharedPreferences>> getPrefrences(SharedPreferences preference) async{
+  Future<Either<Failure, SharedPreferences>> getPrefrences() async{
     final prefs = await SharedPreferences.getInstance();
     return Right(prefs);
   }

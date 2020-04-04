@@ -19,10 +19,7 @@ class StoringPreferences extends EinstellungEvent{
 }
 
 class GettingPreferences extends EinstellungEvent{
-  final SharedPreferences preference;
-
-  GettingPreferences(this.preference);
 
   @override
-  List<Object> get props => [preference];
+  List<Object> get props => [];
 }

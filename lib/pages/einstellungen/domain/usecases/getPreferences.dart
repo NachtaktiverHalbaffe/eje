@@ -11,9 +11,7 @@ class GetPreferences implements UseCase<SharedPreferences> {
   GetPreferences(this.repository);
 
   @override
-  Future<Either<Failure, SharedPreferences>> call({
-    @required SharedPreferences preference,
-  }) async {
-    return await repository.getPrefrences(preference);
+  Future<Either<Failure, SharedPreferences>> call() async {
+    return await repository.getPrefrences();
   }
 }
