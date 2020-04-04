@@ -46,7 +46,6 @@ class MyApp extends StatelessWidget {
         //Iconcolors und Widgetcolors
         dividerColor: Colors.white,
       ),
-      themeMode: ThemeMode.dark,
     );
   }
 }
