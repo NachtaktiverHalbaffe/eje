@@ -8,7 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class EinstellungenRepositoryImpl implements EinstellungenRepository {
   @override
-  Future<Either<Failure, Einstellung>> getPrefrences(String preference) async {
+  Future<Either<Failure, Einstellung>> getPrefrence(String preference) async {
     try {
       final prefs = await SharedPreferences.getInstance();
       return Right(new Einstellung(
@@ -30,5 +30,11 @@ class EinstellungenRepositoryImpl implements EinstellungenRepository {
     } else if (preference == "nightmode_on") {
       ThemeMode.dark;
     }
+  }
+
+  @override
+  Future<Either<Failure, SharedPreferences>> getPrefrences(SharedPreferences preference) async{
+    final prefs = await SharedPreferences.getInstance();
+    return Right(prefs);
   }
 }

@@ -1,5 +1,11 @@
 import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:eje/core/platform/network_info.dart';
+import 'package:eje/pages/einstellungen/data/repositories/einstellungen_repository_impl.dart';
+import 'package:eje/pages/einstellungen/domain/repositories/einstellungen_repository.dart';
+import 'package:eje/pages/einstellungen/domain/usecases/getPreference.dart';
+import 'package:eje/pages/einstellungen/domain/usecases/getPreferences.dart';
+import 'package:eje/pages/einstellungen/domain/usecases/setPrefrences.dart';
+import 'package:eje/pages/einstellungen/presentation/bloc/einstellung_bloc.dart';
 import 'package:eje/pages/neuigkeiten/data/datasources/neuigkeiten_local_datasource.dart';
 import 'package:eje/pages/neuigkeiten/data/datasources/neuigkeiten_remote_datasource.dart';
 import 'package:eje/pages/neuigkeiten/data/repositories/neuigkeiten_repository_impl.dart';
@@ -13,7 +19,7 @@ import 'package:http/http.dart' as http;
 
 final sl = GetIt.instance;
 
-Future<void> init() async{
+Future<void> init() async {
   // ! Pages
 
   // ! Neuigkeiten
@@ -43,6 +49,16 @@ Future<void> init() async{
   );
   sl.registerLazySingleton(() => NeuigkeitenLocalDatasource(sl()));
 
+  // ! Einstellungen
+  // * Bloc
+  sl.registerFactory(() => EinstellungBloc(sl(), sl(), sl()));
+  // * Use cases
+  sl.registerLazySingleton(()=> GetPreference(sl()));
+  sl.registerLazySingleton(()=> SetPreferences(sl()));
+  sl.registerLazySingleton(()=> GetPreferences(sl()));
+  // * Repository
+  sl.registerLazySingleton<EinstellungenRepository>(()=> EinstellungenRepositoryImpl());
+
   // ! Core
   // * NetworkInfo
   sl.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(sl()));
@@ -51,6 +67,7 @@ Future<void> init() async{
   // * Hive
   final Box neuigkeiten_box = await Hive.openBox('Neuigkeiten');
   sl.registerLazySingleton(() => neuigkeiten_box);
+  // * SharedPrefrences
   // * Remote Access
   sl.registerLazySingleton(() => http.Client());
   sl.registerLazySingleton(() => DataConnectionChecker());

@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
+import 'package:eje/pages/einstellungen/domain/usecases/getPreference.dart';
 import 'package:eje/pages/einstellungen/domain/usecases/getPreferences.dart';
 import 'package:eje/pages/einstellungen/domain/usecases/setPrefrences.dart';
 import './bloc.dart';
@@ -9,8 +10,9 @@ class EinstellungBloc extends Bloc<EinstellungEvent, EinstellungState> {
       'Fehler beim Laden der Daten aus den Cache. Löschen Sie den Cache oder setzen sie die App zurück.';
   final SetPreferences storePrefrences;
   final GetPreferences getPrefrences;
+  final GetPreference getPreference;
 
-  EinstellungBloc(this.storePrefrences, this.getPrefrences);
+  EinstellungBloc(this.storePrefrences, this.getPrefrences, this.getPreference);
 
   @override
   EinstellungState get initialState => Empty();
@@ -30,7 +32,7 @@ class EinstellungBloc extends Bloc<EinstellungEvent, EinstellungState> {
           preference: event.preference);
       yield einstellungOrFailure.fold(
               (failure) => Error(message: CACHE_FAILURE_MESSAGE),
-              (einstellung) => LoadedPreferences(einstellung));
+              (prefs) => LoadedPreferences(prefs));
     }
 
   }

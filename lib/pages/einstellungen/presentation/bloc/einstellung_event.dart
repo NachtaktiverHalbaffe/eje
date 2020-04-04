@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 abstract class EinstellungEvent extends Equatable {
   const EinstellungEvent();
@@ -18,7 +19,7 @@ class StoringPreferences extends EinstellungEvent{
 }
 
 class GettingPreferences extends EinstellungEvent{
-  final String preference;
+  final SharedPreferences preference;
 
   GettingPreferences(this.preference);
 

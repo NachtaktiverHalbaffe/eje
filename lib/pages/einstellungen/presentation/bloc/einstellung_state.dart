@@ -25,16 +25,15 @@ class ChangedPreferences extends EinstellungState{
 }
 
 class LoadedPreferences extends EinstellungState{
-  final Einstellung einstellung;
-  LoadedPreferences(this.einstellung);
+  final SharedPreferences prefs;
+  LoadedPreferences(this.prefs);
 
   @override
-  List<Object> get props => [einstellung];
+  List<Object> get props => [prefs];
 }
 
 class Error extends EinstellungState {
   final String message;
-
   //Constructor
   Error({@required this.message});
 
