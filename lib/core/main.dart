@@ -1,4 +1,5 @@
 import 'package:eje/pages/einstellungen/einstellungen.dart';
+import 'package:eje/pages/eje/hauptamtlichen/domain/entitys/hauptamtlicher.dart';
 import 'package:eje/pages/neuigkeiten/domain/entitys/neuigkeit.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -19,6 +20,7 @@ void main() async {
       await path_provider.getApplicationDocumentsDirectory();
   Hive.init(appDocumentDirectory.path);
   Hive.registerAdapter(NeuigkeitAdapter());
+  Hive.registerAdapter(HauptamtlicherAdapter());
   await di.init();
   runApp(MyApp(await SharedPreferences.getInstance()));
 }
