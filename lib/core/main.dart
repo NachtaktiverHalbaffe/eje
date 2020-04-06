@@ -1,5 +1,6 @@
 import 'package:eje/pages/einstellungen/einstellungen.dart';
 import 'package:eje/pages/eje/hauptamtlichen/domain/entitys/hauptamtlicher.dart';
+import 'package:eje/pages/eje/hauptamtlichen/hauptamtliche.dart';
 import 'package:eje/pages/neuigkeiten/domain/entitys/neuigkeit.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -78,6 +79,8 @@ class _MyHomePageState extends State<MyHomePage> {
       // * Neuigkeiten
       case 0:
         return Neuigkeiten();
+      case 2:
+        return Hauptamtliche(context);
       case 8:
         return Einstellungen();
     }

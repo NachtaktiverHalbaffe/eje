@@ -3,7 +3,6 @@ import 'package:hive/hive.dart';
 
 void testdata_neuigkeiten(Box _box) {
   if (_box.length < 6) {
-    print("Triggered Function getCachedNeuigkeiten");
     List<String> bilder = new List();
     bilder.add("assets/testdata/kc.jpg");
     bilder.add("assets/testdata/kc_2.jpg");
