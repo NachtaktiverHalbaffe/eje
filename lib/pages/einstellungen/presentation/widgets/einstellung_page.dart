@@ -12,6 +12,7 @@ Widget EinstellungenPage(BuildContext context, SharedPreferences prefs) {
         activeColor: Theme.of(context).accentColor,
         value: prefs.getBool("nightmode_auto"),
         onChanged: (val) async {
+          print("Setting Nightmode to auto");
           await BlocProvider.of<EinstellungBloc>(context)
               .add(StoringPreferences("nightmode_auto", val));
         },
@@ -24,6 +25,7 @@ Widget EinstellungenPage(BuildContext context, SharedPreferences prefs) {
         activeColor: Theme.of(context).accentColor,
         value: prefs.getBool("nightmode_off"),
         onChanged: (val) async {
+          print("Setting Nightmode to off");
           await BlocProvider.of<EinstellungBloc>(context)
               .add(StoringPreferences("nightmode_off", val));
         },
@@ -36,6 +38,7 @@ Widget EinstellungenPage(BuildContext context, SharedPreferences prefs) {
         activeColor: Theme.of(context).accentColor,
         value: prefs.getBool("nightmode_on"),
         onChanged: (val) async {
+          print("Setting Nightmode to on");
           await BlocProvider.of<EinstellungBloc>(context)
               .add(StoringPreferences("nightmode_on", val));
         },

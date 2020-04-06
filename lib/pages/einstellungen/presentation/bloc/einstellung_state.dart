@@ -24,6 +24,14 @@ class LoadedPreference extends EinstellungState{
   List<Object> get props => [einstellung];
 }
 
+class ChangedPreferences extends EinstellungState{
+  final SharedPreferences prefs;
+  ChangedPreferences(this.prefs);
+
+  @override
+  List<Object> get props => [prefs];
+}
+
 class LoadedPreferences extends EinstellungState{
   final SharedPreferences prefs;
   LoadedPreferences(this.prefs);

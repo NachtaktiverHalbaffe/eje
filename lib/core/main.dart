@@ -4,23 +4,29 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:provider/provider.dart';
-import '../pages/neuigkeiten/neuigkeiten.dart';
 import 'package:path_provider/path_provider.dart' as path_provider;
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../pages/neuigkeiten/neuigkeiten.dart';
+import 'utils/first_startup.dart';
 import 'utils/injection_container.dart' as di;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await prefStartup();
+
   final appDocumentDirectory =
       await path_provider.getApplicationDocumentsDirectory();
   Hive.init(appDocumentDirectory.path);
   Hive.registerAdapter(NeuigkeitAdapter());
   await di.init();
-  runApp(MyApp());
+  runApp(MyApp(await SharedPreferences.getInstance()));
 }
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
+  final SharedPreferences prefs;
+
+  MyApp(this.prefs); // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -46,6 +52,9 @@ class MyApp extends StatelessWidget {
         //Iconcolors und Widgetcolors
         dividerColor: Colors.white,
       ),
+      themeMode: prefs.getBool("nightmode_auto")
+          ? ThemeMode.system
+          : prefs.getBool("nightmode_on") ? ThemeMode.dark : ThemeMode.light,
     );
   }
 }
@@ -65,8 +74,10 @@ class _MyHomePageState extends State<MyHomePage> {
   _fragmentmanager(int pos) {
     switch (pos) {
       // * Neuigkeiten
-      case 0: return Neuigkeiten();
-      case 8: return Einstellungen();
+      case 0:
+        return Neuigkeiten();
+      case 8:
+        return Einstellungen();
     }
   }
 

@@ -1,8 +1,10 @@
 import 'dart:async';
+
 import 'package:bloc/bloc.dart';
 import 'package:eje/pages/einstellungen/domain/usecases/getPreference.dart';
 import 'package:eje/pages/einstellungen/domain/usecases/getPreferences.dart';
 import 'package:eje/pages/einstellungen/domain/usecases/setPrefrences.dart';
+
 import './bloc.dart';
 
 class EinstellungBloc extends Bloc<EinstellungEvent, EinstellungState> {
@@ -26,7 +28,7 @@ class EinstellungBloc extends Bloc<EinstellungEvent, EinstellungState> {
           preference: event.preference, state: event.state);
       yield einstellungOrFailure.fold(
           (failure) => Error(message: CACHE_FAILURE_MESSAGE),
-          (prefs) => LoadedPreferences(prefs));
+          (prefs) => ChangedPreferences(prefs));
     } else if (event is GettingPreferences) {
       final einstellungOrFailure = await getPrefrences();
       yield einstellungOrFailure.fold(

@@ -6,7 +6,6 @@ import 'package:eje/pages/einstellungen/presentation/widgets/einstellung_page.da
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class Einstellungen extends StatelessWidget {
   @override
@@ -22,6 +21,8 @@ class Einstellungen extends StatelessWidget {
                 content: Text(state.toString()),
               ),
             );
+          }else if (state is ChangedPreferences) {
+            BlocProvider.of<EinstellungBloc>(context).add(GettingPreferences());
           }
         },
         // ignore: missing_return
@@ -31,8 +32,6 @@ class Einstellungen extends StatelessWidget {
             return LoadingIndicator();
           } else if (state is LoadedPreferences) {
             return EinstellungenPage(context, state.prefs);
-          } else if (state is StoringPreferences) {
-            return LoadingIndicator();
           }
         },
       ),

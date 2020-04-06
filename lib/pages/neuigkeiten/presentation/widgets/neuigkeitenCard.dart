@@ -129,6 +129,7 @@ class NeuigkeitenCard extends StatelessWidget {
                       _neuigkeit.titel.toString(),
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
+                        color: Colors.white,
                         shadows: <Shadow>[
                           Shadow(
                             offset: Offset(2.0, 2.0),
@@ -157,6 +158,7 @@ class NeuigkeitenCard extends StatelessWidget {
                               _neuigkeit.text_preview.toString(),
                               textAlign: TextAlign.left,
                               style: TextStyle(
+                                color: Colors.white,
                                 shadows: <Shadow>[
                                   Shadow(
                                     offset: Offset(2.0, 2.0),

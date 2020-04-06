@@ -24,10 +24,16 @@ class EinstellungenRepositoryImpl implements EinstellungenRepository {
     final prefs = await SharedPreferences.getInstance();
     prefs.setBool(preference, state);
     if (preference == "nightmode_auto") {
+      prefs.setBool("nightmode_on", false);
+      prefs.setBool("nightmode_off", false);
       ThemeMode.system;
     } else if (preference == "nightmode_off") {
+      prefs.setBool("nightmode_on", false);
+      prefs.setBool("nightmode_auto", false);
       ThemeMode.light;
     } else if (preference == "nightmode_on") {
+      prefs.setBool("nightmode_off", false);
+      prefs.setBool("nightmode_auto", false);
       ThemeMode.dark;
     }
     return Right(prefs);
