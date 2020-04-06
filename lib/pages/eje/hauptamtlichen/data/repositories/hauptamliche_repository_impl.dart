@@ -32,7 +32,9 @@ class HauptamtlicheRepositoryImpl implements HauptamtlicheRepository {
       } on ServerException {
         return Left(ServerFailure());
       }
-    } else */ return Right(await localDatasource.getCachedHauptamtliche());
+    } else */
+    print("GetCachedNeuigkeiten");
+    return Right(await localDatasource.getCachedHauptamtliche());
   }
 
   //Lade bestimmten Artikel aus Cache

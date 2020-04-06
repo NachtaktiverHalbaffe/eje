@@ -87,7 +87,7 @@ Future<void> init() async {
     ),
   );
   // * Datasources
-  sl.registerLazySingleton(()=>HauptamtlicheLocalDatasource(sl()));
+  sl.registerLazySingleton(()=>HauptamtlicheLocalDatasource());
   sl.registerLazySingleton(()=> HauptamtlicheRemoteDatasource(client: sl()));
 
   // ! Core
@@ -98,8 +98,8 @@ Future<void> init() async {
   // * Hive
   final Box neuigkeiten_box = await Hive.openBox('Neuigkeiten');
   sl.registerLazySingleton(() => neuigkeiten_box);
-  final Box hauptamtliche_box = await Hive.openBox('Hauptamtliche');
-  sl.registerLazySingleton(() => hauptamtliche_box);
+  //final Box hauptamtliche_box = await Hive.openBox('Hauptamtliche');
+ // sl.registerLazySingleton(() => hauptamtliche_box);
   // * Remote Access
   sl.registerLazySingleton(() => http.Client());
   sl.registerLazySingleton(() => DataConnectionChecker());

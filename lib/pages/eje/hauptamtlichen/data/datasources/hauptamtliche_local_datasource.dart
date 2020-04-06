@@ -5,15 +5,10 @@ import 'package:eje/pages/eje/hauptamtlichen/domain/entitys/hauptamtlicher.dart'
 import 'package:hive/hive.dart';
 
 class HauptamtlicheLocalDatasource{
-  Box box;
-  HauptamtlicheLocalDatasource(this.box);
+  Box _box;
 
   Future<List<Hauptamtlicher>> getCachedHauptamtliche() async {
-    Box _box;
-    if (!box.isOpen) {
-      _box = await Hive.openBox('Hauptamtliche');
-    } else
-      _box = box;
+    _box = await Hive.openBox('Hauptamtliche');
     //Testdaten
     testdata_hauptamtliche(_box);
     if (_box.isNotEmpty) {
@@ -30,11 +25,8 @@ class HauptamtlicheLocalDatasource{
   }
 
   Future<Hauptamtlicher> getHauptamtliche(String name) async {
-    Box _box;
-    if (!box.isOpen) {
-      _box = await Hive.openBox('Hauptamtliche');
-    } else
-      _box = box;
+     _box = await Hive.openBox('Hauptamtliche');
+    testdata_hauptamtliche(_box);
     if (_box.isNotEmpty) {
       for (int i = 0; i < _box.length; i++) {
         Hauptamtlicher temp = _box.getAt(i);
@@ -48,12 +40,8 @@ class HauptamtlicheLocalDatasource{
   }
 
   Future<void> cacheHauptamtliche(List<Hauptamtlicher> neuigkeitenToCache) async {
-    Box _box;
-    if (!box.isOpen) {
-      _box = await Hive.openBox('Hauptamtliche');
-    } else
-      _box = box;
-    box.deleteAll(neuigkeitenToCache);
+    _box = await Hive.openBox('Hauptamtliche');
+    _box.deleteAll(neuigkeitenToCache);
     _box.addAll(neuigkeitenToCache);
   }
 

@@ -49,14 +49,14 @@ void testdata_hauptamtliche(Box _box) {
     );
     _box.add(
       new Hauptamtlicher(
-        bild: "assets/testdata/joerg.jpg",
-        name: "Jörg Maurer-Pfeiffer",
+        bild: "assets/testdata/lars.jpg",
+        name: "Lars Gildner",
         bereich: "Bezirksjugendreferent",
-        vorstellung:"Seit 1985 arbeite ich als Jugendreferent in Esslingen. Die ersten 10 Jahre beim CVJM, seither im eje.  Mein Haupteinsatzgebiet war immer die Offene Arbeit. Als ausgebildeter Elektroniker und studierter Diakon und Diplom-Sozialarbeiter passt das ganz gut :)Ich habe lange Zeit mit meiner Frau die Familienarbeit mit den eigenen Kindern geteilt. Jetzt  bin ich wieder voll bezahlt und gemeinsam mit den Kolleginnen Ulrike Kuhn (momentan in Elternzeit) und Rebecca Viereg für den Jugendtreff t1 auf dem Zollberg zuständig.Zu den weiteren Verantwortungsgebieten gehört der Fuhrpark des Jugendwerks.Für den Kirchenbezirk bin ich in der  Mitarbeitenden-Vertretung aktiv.",
-        email: "Joerg-Maurer-Pfeiffer@eje-esslingen.de",
-        telefon: "0711/396941-15",
-        handy: " 0162/6129973",
-        threema: "C6CYKZ35",),
+        vorstellung:"Seit Juni 2008 arbeite ich als Jugendreferent im eje. Ich hatte schon unterschiedlichste Dienstaufträge von Freizeiten über Schulungen bis zur Jungschararbeit. Ich bin seit meinem Sozialwesen-Studium im hauptamtlichen Dienst für die Jugend tätig. Ich habe zwar die Vocatio zum Religionslehrer, diese ruht jedoch, da mir die freiwillige, informelle Bildung näher liegt. Ich möchte alle (jungen) Menschen ernst nehmen und ihnen in respektvoller, christlicher Haltung begegnen. In meinem Supervisions-Studium habe ich mir Beratungskompetenzen erworben, die der Jugendarbeit stark zugutekommen. Seit September 2017 arbeite ich ausschließlich im Jugendtreff FunTasia. In dieser Funktion ist mir der Blick auf die Kinder und Jugendlichen im ganzen Stadtteil als Gemeinwesen und Kooperationen mit wesentlichen Einrichtungen und Vereinen besonders wichtig.Für folgende Themenbereiche kann man mich ansprechen. Prävention Kindeswohlgefährdung, Kinderbibeltage, alles im Bereich Offene Jugendarbeit",
+        email: "Lars.Gildener@eje-esslingen.de",
+        telefon: "0711 / 39 69 41 - 17",
+        handy: " 0172-6339921",
+        threema: "FWN4VTU4",),
     );
     _box.add(
       new Hauptamtlicher(

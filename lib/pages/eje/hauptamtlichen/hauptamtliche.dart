@@ -13,10 +13,14 @@ Widget Hauptamtliche(BuildContext context) {
     children: <Widget>[
       Text(
         "Hauptamtliche Mitarbeiter",
+        textAlign: TextAlign.left,
         style: TextStyle(
           fontWeight: FontWeight.bold,
           fontSize: 21,
         ),
+      ),
+      SizedBox(
+        height: 12,
       ),
       BlocProvider(
         create: (_) => sl<HauptamtlicheBloc>(),
@@ -28,15 +32,20 @@ Widget Hauptamtliche(BuildContext context) {
                   content: Text(state.message),
                 ),
               );
-            }else if (state is Empty) {
-              BlocProvider.of<HauptamtlicheBloc>(context).add(RefreshHauptamtliche());
             }
           },
           // ignore: missing_return
           builder: (context, state) {
+            if(state is Empty){
+              print("Build page: Hauptamtliche Empty");
+              BlocProvider.of<HauptamtlicheBloc>(context).add(RefreshHauptamtliche());
+              return LoadingIndicator();
+            }
             if(state is Loading){
+              print("Build page: Hauptamtliche Loading");
               return LoadingIndicator();
             } else if(state is LoadedHauptamtliche){
+              print("Build page: LoadedHauptamtliche");
               return HauptamtlichePageViewer(state.hauptamtliche, context);
             }
           },

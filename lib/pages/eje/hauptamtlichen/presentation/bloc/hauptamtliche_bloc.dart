@@ -29,11 +29,17 @@ class HauptamtlicheBloc extends Bloc<HauptamtlicheEvent, HauptamtlicheState> {
     HauptamtlicheEvent event,
   ) async* {
     if (event is RefreshHauptamtliche) {
+      print("Triggered Event: RefreshHauptamtliche");
       yield Loading();
       final hauptamtlicheOrFailure = await getHauptamtliche();
       yield hauptamtlicheOrFailure.fold(
-        (failure)=> Error(message:_mapFailureToMessage(failure)),
-        (hauptamtliche)=> LoadedHauptamtliche(hauptamtliche),
+        (failure){
+          print("Error");
+          return Error(message:_mapFailureToMessage(failure));
+        },
+        (hauptamtliche){
+          print("Succes. Returning LoadedHauptamtliche");
+          return LoadedHauptamtliche(hauptamtliche);},
       );
     }
     else if(event is GettingHauptamtlicher){
