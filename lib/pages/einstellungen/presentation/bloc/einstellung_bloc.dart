@@ -26,13 +26,18 @@ class EinstellungBloc extends Bloc<EinstellungEvent, EinstellungState> {
           preference: event.preference, state: event.state);
       yield einstellungOrFailure.fold(
           (failure) => Error(message: CACHE_FAILURE_MESSAGE),
-          (einstellung) => ChangedPreferences(einstellung));
+          (prefs) => LoadedPreferences(prefs));
     } else if (event is GettingPreferences) {
       final einstellungOrFailure = await getPrefrences();
       yield einstellungOrFailure.fold(
-              (failure) => Error(message: CACHE_FAILURE_MESSAGE),
-              (prefs) => LoadedPreferences(prefs));
+          (failure) => Error(message: CACHE_FAILURE_MESSAGE),
+          (prefs) => LoadedPreferences(prefs));
+    } else if (event is GettingPreference) {
+      final einstellungOrFailure =
+          await getPreference(preference: event.preference);
+      yield einstellungOrFailure.fold(
+          (failure) => Error(message: CACHE_FAILURE_MESSAGE),
+          (einstellung) => LoadedPreference(einstellung));
     }
-
   }
 }

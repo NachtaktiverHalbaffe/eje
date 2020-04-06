@@ -19,7 +19,7 @@ class EinstellungenRepositoryImpl implements EinstellungenRepository {
   }
 
   @override
-  Future<Either<Failure, void>> storePrefrences(
+  Future<Either<Failure, SharedPreferences>> storePrefrences(
       String preference, bool state) async {
     final prefs = await SharedPreferences.getInstance();
     prefs.setBool(preference, state);
@@ -30,6 +30,7 @@ class EinstellungenRepositoryImpl implements EinstellungenRepository {
     } else if (preference == "nightmode_on") {
       ThemeMode.dark;
     }
+    return Right(prefs);
   }
 
   @override

@@ -15,10 +15,10 @@ class Empty extends EinstellungState {
   List<Object> get props => [];
 }
 
-class ChangedPreferences extends EinstellungState{
+class LoadedPreference extends EinstellungState{
   final Einstellung einstellung;
 
-  ChangedPreferences(this.einstellung);
+  LoadedPreference(this.einstellung);
 
   @override
   List<Object> get props => [einstellung];

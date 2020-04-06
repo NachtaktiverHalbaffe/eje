@@ -1,4 +1,5 @@
 import 'package:eje/core/utils/injection_container.dart';
+import 'package:eje/core/widgets/LoadingIndicator.dart';
 import 'package:eje/pages/einstellungen/presentation/bloc/bloc.dart';
 import 'package:eje/pages/einstellungen/presentation/bloc/einstellung_bloc.dart';
 import 'package:eje/pages/einstellungen/presentation/widgets/einstellung_page.dart';
@@ -12,7 +13,7 @@ class Einstellungen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (_) => sl<EinstellungBloc>(),
-      child: BlocConsumer(
+      child: BlocConsumer<EinstellungBloc, EinstellungState>(
         listener: (context, state) {
           if (state is Error) {
             print("Build Page: Error");
@@ -23,18 +24,16 @@ class Einstellungen extends StatelessWidget {
             );
           }
         },
+        // ignore: missing_return
         builder: (context, state) {
           if (state is Empty) {
             BlocProvider.of<EinstellungBloc>(context).add(GettingPreferences());
-            return EinstellungenPage();
+            return LoadingIndicator();
+          } else if (state is LoadedPreferences) {
+            return EinstellungenPage(context, state.prefs);
+          } else if (state is StoringPreferences) {
+            return LoadingIndicator();
           }
-          if (state is LoadedPreferences) {
-            return EinstellungenPage();
-          }
-          if (state is StoringPreferences) {
-            return EinstellungenPage();
-          } else
-            return EinstellungenPage();
         },
       ),
     );

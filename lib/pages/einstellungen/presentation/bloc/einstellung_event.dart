@@ -23,3 +23,11 @@ class GettingPreferences extends EinstellungEvent{
   @override
   List<Object> get props => [];
 }
+
+class GettingPreference extends EinstellungEvent{
+  final String preference;
+  GettingPreference(this.preference);
+
+  @override
+  List<Object> get props => [preference];
+}
