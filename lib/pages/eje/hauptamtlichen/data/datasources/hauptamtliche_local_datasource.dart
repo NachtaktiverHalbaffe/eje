@@ -1,23 +1,23 @@
+
 import 'package:eje/core/error/exception.dart';
-import 'package:eje/fixtures/testdata_neuigkeiten.dart';
-import 'package:eje/pages/neuigkeiten/domain/entitys/neuigkeit.dart';
+import 'package:eje/fixtures/testdata_hauptamtliche.dart';
+import 'package:eje/pages/eje/hauptamtlichen/domain/entitys/hauptamtlicher.dart';
 import 'package:hive/hive.dart';
 
-class NeuigkeitenLocalDatasource {
-  final Box box;
+class HauptamtlicheLocalDatasource{
+  Box box;
+  HauptamtlicheLocalDatasource(this.box);
 
-  NeuigkeitenLocalDatasource(this.box);
-
-  Future<List<Neuigkeit>> getCachedNeuigkeiten() async {
+  Future<List<Hauptamtlicher>> getCachedHauptamtliche() async {
     Box _box;
     if (!box.isOpen) {
-      _box = await Hive.openBox('Neuigkeiten');
+      _box = await Hive.openBox('Hauptamtliche');
     } else
       _box = box;
     //Testdaten
-   testdata_neuigkeiten(_box);
+    testdata_hauptamtliche(_box);
     if (_box.isNotEmpty) {
-      List<Neuigkeit> temp = new List<Neuigkeit>();
+      List<Hauptamtlicher> temp = new List<Hauptamtlicher>();
       for (int i = 0; i < _box.length; i++) {
         if (_box.getAt(i) != null) {
           temp.add(_box.getAt(i));
@@ -29,16 +29,16 @@ class NeuigkeitenLocalDatasource {
     }
   }
 
-  Future<Neuigkeit> getNeuigkeit(String titel) async {
+  Future<Hauptamtlicher> getHauptamtliche(String name) async {
     Box _box;
     if (!box.isOpen) {
-      _box = await Hive.openBox('Neuigkeiten');
+      _box = await Hive.openBox('Hauptamtliche');
     } else
       _box = box;
     if (_box.isNotEmpty) {
       for (int i = 0; i < _box.length; i++) {
-        Neuigkeit temp = _box.getAt(i);
-        if (temp.titel == titel) {
+        Hauptamtlicher temp = _box.getAt(i);
+        if (temp.name == name) {
           return temp;
         }
       }
@@ -47,13 +47,14 @@ class NeuigkeitenLocalDatasource {
     }
   }
 
-  Future<void> cacheNeuigkeiten(List<Neuigkeit> neuigkeitenToCache) async {
+  Future<void> cacheHauptamtliche(List<Hauptamtlicher> neuigkeitenToCache) async {
     Box _box;
     if (!box.isOpen) {
-      _box = await Hive.openBox('Neuigkeiten');
+      _box = await Hive.openBox('Hauptamtliche');
     } else
       _box = box;
     box.deleteAll(neuigkeitenToCache);
     _box.addAll(neuigkeitenToCache);
   }
+
 }
