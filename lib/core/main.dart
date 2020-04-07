@@ -1,13 +1,20 @@
 import 'package:eje/pages/einstellungen/einstellungen.dart';
+import 'package:eje/pages/eje/eje.dart';
 import 'package:eje/pages/eje/hauptamtlichen/domain/entitys/hauptamtlicher.dart';
 import 'package:eje/pages/eje/hauptamtlichen/hauptamtliche.dart';
+import 'package:eje/pages/instagram/instagram.dart';
 import 'package:eje/pages/neuigkeiten/domain/entitys/neuigkeit.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:path_provider/path_provider.dart' as path_provider;
+import 'package:persistent_bottom_nav_bar/models/persisten-bottom-nav-item.widget.dart';
+import 'package:persistent_bottom_nav_bar/models/persistent-bottom-nav-bar-styles.widget.dart';
+import 'package:persistent_bottom_nav_bar/models/persistent-nav-bar-scaffold.widget.dart';
+import 'package:persistent_bottom_nav_bar/persistent-tab-view.widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
 
 import '../pages/neuigkeiten/neuigkeiten.dart';
 import 'utils/first_startup.dart';
@@ -45,6 +52,7 @@ class MyApp extends StatelessWidget {
         //Iconcolors und Widgetcolors
         primaryIconTheme: IconThemeData(color: Colors.black),
         dividerColor: Colors.black,
+        backgroundColor: Colors.white,
       ),
       darkTheme: ThemeData.dark().copyWith(
         //Firmenfarbe
@@ -53,6 +61,7 @@ class MyApp extends StatelessWidget {
         textSelectionColor: Theme.of(context).accentColor,
         //Iconcolors und Widgetcolors
         dividerColor: Colors.white,
+        backgroundColor: Colors.black12,
       ),
       themeMode: prefs.getBool("nightmode_auto")
           ? ThemeMode.system
@@ -71,194 +80,64 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  var _selectedItem = 0;
-
-  _fragmentmanager(int pos) {
-    switch (pos) {
-      // * Neuigkeiten
-      case 0:
-        return Neuigkeiten();
-      case 2:
-        return Hauptamtliche(context);
-      case 8:
-        return Einstellungen();
-    }
+  // List of Icons for Navigation bar
+  List<PersistentBottomNavBarItem> _navBarsItems() {
+    return [
+      PersistentBottomNavBarItem(
+        icon: Icon(MdiIcons.newspaper),
+        title: ("Neuigkeiten"),
+        activeColor: Theme.of(context).accentColor,
+      ),
+      PersistentBottomNavBarItem(
+        icon: Icon(MdiIcons.accountBox),
+        title: ("Das eje"),
+        activeColor: Theme.of(context).accentColor,
+      ),
+      PersistentBottomNavBarItem(
+        icon: Icon(MdiIcons.instagram),
+        title: ("Instagram"),
+        activeColor: Theme.of(context).accentColor,
+      ),
+      PersistentBottomNavBarItem(
+        icon: Icon(Icons.today),
+        title: ("Angebote"),
+        activeColor: Theme.of(context).accentColor,
+      ),
+      PersistentBottomNavBarItem(
+        icon: Icon(Icons.settings),
+        title: ("Settings"),
+        activeColor: Theme.of(context).accentColor,
+      ),
+    ];
+  }
+  // List of Widgetsscreens fpr navigation bart
+  List<Widget> _buildScreens() {
+    return [
+      Neuigkeiten(),
+      eje(),
+      Instagram(),
+      Center(),
+      Einstellungen()
+    ];
   }
 
-  _onSelectItem(int index) {
-    setState(() => _selectedItem = index);
-    Navigator.of(context).pop(); // close the drawer
-  }
 
   @override
   Widget build(BuildContext context) {
     GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-    const double groupTitlePaddingLeft = 12;
-    const double groupTitlePaddingTop = 10;
-    const double groupTitlePaddingDown = 8;
 
-    return Scaffold(
-        key: _scaffoldKey,
-        appBar: AppBar(
-          centerTitle: true,
-          title: Text(
-            widget.title,
-            style: TextStyle(color: Theme.of(context).accentColor),
-          ),
-          leading: IconButton(
-            icon: Icon(MdiIcons.menu),
-            onPressed: () {
-              _scaffoldKey.currentState.openDrawer();
-            },
-          ),
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-        ),
-        drawer: Drawer(
-          child: new ListView(
-            children: <Widget>[
-              new DrawerHeader(
-                decoration: new BoxDecoration(
-                  image: new DecorationImage(
-                      fit: BoxFit.fitWidth,
-                      alignment: FractionalOffset.bottomCenter,
-                      image: new ExactAssetImage(
-                          "assets/images/eje_transparent_header.gif")),
-                ),
-                child: null,
-              ),
-              new Container(
-                width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.only(
-                    left: groupTitlePaddingLeft,
-                    top: groupTitlePaddingTop,
-                    bottom: groupTitlePaddingDown),
-                child: Text(
-                  "Das Jugendwerk",
-                  textAlign: TextAlign.left,
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-              ),
-              new ListTile(
-                title: Text("Neuigkeiten"),
-                leading: Icon(
-                  MdiIcons.newspaper,
-                  color: Theme.of(context).dividerColor,
-                ),
-                selected: 0 == _selectedItem,
-                onTap: () => _onSelectItem(0),
-              ),
-              new ListTile(
-                title: Text("FAQ"),
-                leading: Icon(
-                  Icons.question_answer,
-                  color: Theme.of(context).dividerColor,
-                ),
-                selected: 1 == _selectedItem,
-                onTap: () => _onSelectItem(1),
-              ),
-              new ListTile(
-                title: Text("Die Hauptamtlichen"),
-                leading: Icon(
-                  Icons.work,
-                  color: Theme.of(context).dividerColor,
-                ),
-                selected: 2 == _selectedItem,
-                onTap: () => _onSelectItem(2),
-              ),
-              new ListTile(
-                title: Text("Der BAK"),
-                leading: Icon(
-                  Icons.account_box,
-                  color: Theme.of(context).dividerColor,
-                ),
-                selected: 3 == _selectedItem,
-                onTap: () => _onSelectItem(3),
-              ),
-              new ListTile(
-                title: Text("Arbeitsfelder"),
-                leading: Icon(
-                  MdiIcons.sitemap,
-                  color: Theme.of(context).dividerColor,
-                ),
-                selected: 4 == _selectedItem,
-                onTap: () => _onSelectItem(4),
-              ),
-              new ListTile(
-                title: Text("Instagram"),
-                leading: Icon(
-                  MdiIcons.instagram,
-                  color: Theme.of(context).dividerColor,
-                ),
-                selected: 5 == _selectedItem,
-                onTap: () => _onSelectItem(5),
-              ),
-              new Divider(),
-              new Container(
-                width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.only(
-                    left: groupTitlePaddingLeft,
-                    top: groupTitlePaddingTop,
-                    bottom: groupTitlePaddingDown),
-                child: Text(
-                  "Angebote",
-                  textAlign: TextAlign.left,
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-              ),
-              new ListTile(
-                title: Text("Freizeiten"),
-                leading: Icon(
-                  Icons.terrain,
-                  color: Theme.of(context).dividerColor,
-                ),
-                selected: 6 == _selectedItem,
-                onTap: () => _onSelectItem(6),
-              ),
-              new ListTile(
-                title: Text("Veranstaltungen"),
-                leading: Icon(
-                  Icons.today,
-                  color: Theme.of(context).dividerColor,
-                ),
-                selected: 7 == _selectedItem,
-                onTap: () => _onSelectItem(7),
-              ),
-              new Divider(),
-              new Container(
-                width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.only(
-                    left: groupTitlePaddingLeft,
-                    top: groupTitlePaddingTop,
-                    bottom: groupTitlePaddingDown),
-                child: Text(
-                  "App",
-                  textAlign: TextAlign.left,
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-              ),
-              new ListTile(
-                title: Text("Einstellungen"),
-                leading: Icon(
-                  Icons.settings,
-                  color: Theme.of(context).dividerColor,
-                ),
-                selected: 8 == _selectedItem,
-                onTap: () => _onSelectItem(8),
-              ),
-              new ListTile(
-                title: Text("Über"),
-                leading: Icon(
-                  Icons.info,
-                  color: Theme.of(context).dividerColor,
-                ),
-                selected: 9 == _selectedItem,
-                onTap: () => _onSelectItem(9),
-              ),
-            ],
-          ),
-        ),
-        body: _fragmentmanager(_selectedItem));
+    return PersistentTabView(
+      controller: PersistentTabController(initialIndex: 0),
+      items: _navBarsItems(),
+      screens: _buildScreens(),
+      showElevation: true,
+      backgroundColor:Theme.of(context).backgroundColor,
+      iconSize: 26.0,
+      navBarStyle: NavBarStyle.style6, // Choose the nav bar style with this property
+      onItemSelected: (index) {
+        print(index);
+      },
+    );
   }
 
   @override

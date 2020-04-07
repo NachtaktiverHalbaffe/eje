@@ -61,6 +61,7 @@ Widget KontaktCard(Hauptamtlicher hauptamtlicher, BuildContext context) {
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 16,
+                      color: Colors.white,
                       fontWeight: FontWeight.bold,
                       shadows: <Shadow>[
                         Shadow(
@@ -80,6 +81,7 @@ Widget KontaktCard(Hauptamtlicher hauptamtlicher, BuildContext context) {
                     hauptamtlicher.bereich,
                     textAlign: TextAlign.center,
                     style: TextStyle(
+                      color: Colors.white,
                       fontSize: 12,
                       shadows: <Shadow>[
                         Shadow(
