@@ -6,6 +6,13 @@ import 'package:eje/pages/einstellungen/domain/usecases/getPreference.dart';
 import 'package:eje/pages/einstellungen/domain/usecases/getPreferences.dart';
 import 'package:eje/pages/einstellungen/domain/usecases/setPrefrences.dart';
 import 'package:eje/pages/einstellungen/presentation/bloc/einstellung_bloc.dart';
+import 'package:eje/pages/eje/bak/data/datasources/bak_local_datasource.dart';
+import 'package:eje/pages/eje/bak/data/datasources/bak_remote_datasource.dart';
+import 'package:eje/pages/eje/bak/data/repositories/bak_repository_impl.dart';
+import 'package:eje/pages/eje/bak/domain/repositories/bak_repository.dart';
+import 'package:eje/pages/eje/bak/domain/usecases/GetBAK.dart';
+import 'package:eje/pages/eje/bak/domain/usecases/GetBAKler.dart';
+import 'package:eje/pages/eje/bak/presentation/bloc/bak_bloc.dart';
 import 'package:eje/pages/eje/hauptamtlichen/data/datasources/hauptamtliche_local_datasource.dart';
 import 'package:eje/pages/eje/hauptamtlichen/data/datasources/hauptamtliche_remote_datasource.dart';
 import 'package:eje/pages/eje/hauptamtlichen/data/repositories/hauptamliche_repository_impl.dart';
@@ -88,6 +95,25 @@ Future<void> init() async {
   // * Datasources
   sl.registerLazySingleton(()=>HauptamtlicheLocalDatasource());
   sl.registerLazySingleton(()=> HauptamtlicheRemoteDatasource(client: sl()));
+  
+  // ! BAK
+  // * Bloc
+  sl.registerFactory(() => BakBloc(
+    getBAK: sl(),
+    getBAKler: sl(),
+  ));
+  // * Use cases
+  sl.registerLazySingleton(() => GetBAKler(sl()));
+  sl.registerLazySingleton(() => GetBAK(repository: sl()));
+  // * Repository
+  sl.registerLazySingleton<BAKRepository>(() => BAKRepositoryImpl(
+    remoteDataSource: sl(),
+    localDatasource: sl(),
+    networkInfo: sl(),
+  ));
+  // * Datasources
+  sl.registerLazySingleton(() => BAKLocalDatasource());
+  sl.registerLazySingleton(() => BAKRemoteDatasource(client: sl()));
 
   // ! Core
   // * NetworkInfo

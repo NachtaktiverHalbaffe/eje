@@ -39,7 +39,7 @@ dependencies:
   # Pageviewer Indicator
   page_view_indicators: ^1.3.1
   # Carousel PageView
-  flutter_swiper : ^1.1.6
+  flutter_swiper: ^1.1.6
   # Icon Shadows
   icon_shadow: ^1.0.1
   # Bottom Nav bar
@@ -59,7 +59,7 @@ flutter:
   assets:
     - assets/images/
     - assets/testdata/
-  #fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: assets/fonts/eje_icon.ttf
+  fonts:
+     - family:  EjeLogo
+       fonts:
+        - asset: assets/fonts/EjeLogo.ttf

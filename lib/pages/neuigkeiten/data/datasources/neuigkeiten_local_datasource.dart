@@ -6,19 +6,19 @@ import 'package:hive/hive.dart';
 class NeuigkeitenLocalDatasource {
 
   Future<List<Neuigkeit>> getCachedNeuigkeiten() async {
-    Box _box = await Hive.openBox('Neuigkeiten');
-
+    Box _box ;
+    _box = await Hive.openBox('Neuigkeiten');
     //Testdaten
    testdata_neuigkeiten(_box);
     if (_box.isNotEmpty) {
       List<Neuigkeit> temp = new List<Neuigkeit>();
       for (int i = 0; i < _box.length; i++) {
         if (_box.getAt(i) != null) {
-          Hive.box('Neuigkeiten').compact();
-          Hive.box('Neuigkeiten').close();
           temp.add(_box.getAt(i));
         }
       }
+      Hive.box('Neuigkeiten').compact();
+      Hive.box('Neuigkeiten').close();
       return temp;
     } else {
       throw CacheException();

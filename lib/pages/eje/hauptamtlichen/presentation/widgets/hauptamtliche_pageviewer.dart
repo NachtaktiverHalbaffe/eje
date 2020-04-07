@@ -58,6 +58,7 @@ Widget KontaktCard(Hauptamtlicher hauptamtlicher, BuildContext context) {
                   ),
                   Text(
                     hauptamtlicher.name,
+                    overflow: TextOverflow.ellipsis,
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 16,
@@ -80,6 +81,7 @@ Widget KontaktCard(Hauptamtlicher hauptamtlicher, BuildContext context) {
                   Text(
                     hauptamtlicher.bereich,
                     textAlign: TextAlign.center,
+                    overflow: TextOverflow.ellipsis,
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 12,

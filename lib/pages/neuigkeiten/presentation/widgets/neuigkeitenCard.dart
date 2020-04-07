@@ -127,6 +127,7 @@ class NeuigkeitenCard extends StatelessWidget {
                     tag: TAG_TITEL,
                     child: Text(
                       _neuigkeit.titel.toString(),
+                      overflow: TextOverflow.ellipsis,
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         color: Colors.white,
@@ -157,6 +158,7 @@ class NeuigkeitenCard extends StatelessWidget {
                             child: Text(
                               _neuigkeit.text_preview.toString(),
                               textAlign: TextAlign.left,
+                              overflow: TextOverflow.ellipsis,
                               style: TextStyle(
                                 color: Colors.white,
                                 shadows: <Shadow>[

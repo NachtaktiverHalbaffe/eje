@@ -1,4 +1,7 @@
+import 'package:eje/core/widgets/eje_logo_icons.dart';
 import 'package:eje/pages/einstellungen/einstellungen.dart';
+import 'package:eje/pages/eje/arbeitsfelder/domain/entities/Arbeitsbereich.dart';
+import 'package:eje/pages/eje/bak/domain/entitys/BAKler.dart';
 import 'package:eje/pages/eje/eje.dart';
 import 'package:eje/pages/eje/hauptamtlichen/domain/entitys/hauptamtlicher.dart';
 import 'package:eje/pages/instagram/instagram.dart';
@@ -26,6 +29,8 @@ void main() async {
   Hive.init(appDocumentDirectory.path);
   Hive.registerAdapter(NeuigkeitAdapter());
   Hive.registerAdapter(HauptamtlicherAdapter());
+  Hive.registerAdapter(BAKlerAdapter());
+  Hive.registerAdapter(ArbeitsbereichAdapter());
   await di.init();
   runApp(MyApp(await SharedPreferences.getInstance()));
 }
@@ -80,6 +85,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   // List of Icons for Navigation bar
   List<PersistentBottomNavBarItem> _navBarsItems() {
+
     return [
       PersistentBottomNavBarItem(
         icon: Icon(MdiIcons.newspaper),
@@ -87,7 +93,7 @@ class _MyHomePageState extends State<MyHomePage> {
         activeColor: Theme.of(context).accentColor,
       ),
       PersistentBottomNavBarItem(
-        icon: Icon(MdiIcons.accountBox),
+        icon: Icon(EjeLogo.ejeLogo),
         title: ("Das eje"),
         activeColor: Theme.of(context).accentColor,
       ),
