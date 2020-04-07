@@ -1,7 +1,6 @@
 import 'package:eje/pages/einstellungen/einstellungen.dart';
 import 'package:eje/pages/eje/eje.dart';
 import 'package:eje/pages/eje/hauptamtlichen/domain/entitys/hauptamtlicher.dart';
-import 'package:eje/pages/eje/hauptamtlichen/hauptamtliche.dart';
 import 'package:eje/pages/instagram/instagram.dart';
 import 'package:eje/pages/neuigkeiten/domain/entitys/neuigkeit.dart';
 import 'package:flutter/cupertino.dart';
@@ -14,7 +13,6 @@ import 'package:persistent_bottom_nav_bar/models/persistent-bottom-nav-bar-style
 import 'package:persistent_bottom_nav_bar/models/persistent-nav-bar-scaffold.widget.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 
 import '../pages/neuigkeiten/neuigkeiten.dart';
 import 'utils/first_startup.dart';
@@ -85,7 +83,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return [
       PersistentBottomNavBarItem(
         icon: Icon(MdiIcons.newspaper),
-        title: ("Neuigkeiten"),
+        title: ("Aktuelles"),
         activeColor: Theme.of(context).accentColor,
       ),
       PersistentBottomNavBarItem(
@@ -105,12 +103,12 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       PersistentBottomNavBarItem(
         icon: Icon(Icons.settings),
-        title: ("Settings"),
+        title: ("Einstellungen"),
         activeColor: Theme.of(context).accentColor,
       ),
     ];
   }
-  // List of Widgetsscreens fpr navigation bart
+  // List of Widgetscreens for navigation bart
   List<Widget> _buildScreens() {
     return [
       Neuigkeiten(),
@@ -124,7 +122,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
     return PersistentTabView(
       controller: PersistentTabController(initialIndex: 0),
