@@ -64,7 +64,7 @@ class MyApp extends StatelessWidget {
         textSelectionColor: Theme.of(context).accentColor,
         //Iconcolors und Widgetcolors
         dividerColor: Colors.white,
-        backgroundColor: Colors.black12,
+        backgroundColor: Colors.black45,
       ),
       themeMode: prefs.getBool("nightmode_auto")
           ? ThemeMode.system
@@ -134,7 +134,6 @@ class _MyHomePageState extends State<MyHomePage> {
       items: _navBarsItems(),
       screens: _buildScreens(),
       showElevation: true,
-
       backgroundColor:Theme.of(context).backgroundColor,
       iconSize: 26.0,
       navBarStyle: NavBarStyle.style6, // Choose the nav bar style with this property

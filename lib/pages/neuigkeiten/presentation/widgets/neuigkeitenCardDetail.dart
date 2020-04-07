@@ -99,7 +99,7 @@ Widget card(context, TAG_BILD, TAG_TITEL, _neuigkeit) {
                             decoration: BoxDecoration(
                               image: DecorationImage(
                                 fit: BoxFit.cover,
-                                image: ExactAssetImage(bild),
+                                image: NetworkImage(bild),
                               ),
                             ),
                           ),

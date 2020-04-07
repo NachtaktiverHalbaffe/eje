@@ -11,13 +11,20 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 Widget Hauptamtliche(BuildContext context) {
   return Column(
     children: <Widget>[
-      Text(
-        "Hauptamtliche Mitarbeiter",
-        textAlign: TextAlign.left,
-        style: TextStyle(
-          fontWeight: FontWeight.bold,
-          fontSize: 21,
-        ),
+      Row(
+        children: <Widget>[
+          SizedBox(
+            width: 24,
+          ),
+          Text(
+            "Hauptamtliche",
+            textAlign: TextAlign.left,
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 28,
+            ),
+          ),
+        ],
       ),
       SizedBox(
         height: 12,
@@ -50,6 +57,9 @@ Widget Hauptamtliche(BuildContext context) {
             }
           },
         ),
+      ),
+      SizedBox(
+        height: 12,
       ),
     ],
   );

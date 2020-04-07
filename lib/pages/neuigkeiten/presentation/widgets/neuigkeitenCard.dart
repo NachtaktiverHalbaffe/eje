@@ -69,7 +69,7 @@ class NeuigkeitenCard extends StatelessWidget {
                             decoration: BoxDecoration(
                               image: DecorationImage(
                                 fit: BoxFit.fitWidth,
-                                image: ExactAssetImage(bild),
+                                image: NetworkImage(bild),
                               ),
                             ),
                           ),

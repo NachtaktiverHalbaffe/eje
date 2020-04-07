@@ -10,13 +10,20 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 Widget BAK(BuildContext context) {
   return Column(
     children: <Widget>[
-      Text(
-        "Vorstand \& BAK",
-        textAlign: TextAlign.left,
-        style: TextStyle(
-          fontWeight: FontWeight.bold,
-          fontSize: 21,
-        ),
+      Row(
+        children: <Widget>[
+          SizedBox(
+            width: 24,
+          ),
+          Text(
+            "Vorstand \& BAK",
+            textAlign: TextAlign.left,
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 28,
+            ),
+          ),
+        ],
       ),
       SizedBox(
         height: 12,
@@ -35,20 +42,23 @@ Widget BAK(BuildContext context) {
           },
           // ignore: missing_return
           builder: (context, state) {
-            if(state is Empty){
+            if (state is Empty) {
               print("Build page: BAK Empty");
               BlocProvider.of<BakBloc>(context).add(RefreshBAK());
               return LoadingIndicator();
             }
-            if(state is Loading){
+            if (state is Loading) {
               print("Build page: Bak Loading");
               return LoadingIndicator();
-            } else if(state is LoadedBAK){
+            } else if (state is LoadedBAK) {
               print("Build page: LoadedBak");
               return BAKPageViewer(state.bak, context);
             }
           },
         ),
+      ),
+      SizedBox(
+        height: 12,
       ),
     ],
   );

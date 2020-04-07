@@ -12,8 +12,8 @@ Widget BAKPageViewer(List<BAKler> bakler,
       return KontaktCard(bakler[index], context);
     },
     itemCount: bakler.length,
-    itemHeight: 180,
-    itemWidth: 140,
+    itemHeight: 200,
+    itemWidth: 150,
     layout: SwiperLayout.STACK,
     loop: true,
 
@@ -52,14 +52,14 @@ Widget KontaktCard(BAKler bakler, BuildContext context) {
             mainAxisSize: MainAxisSize.max,
             children: <Widget>[
               SizedBox(
-                height: 145,
+                height: 160,
               ),
               Text(
                 bakler.name,
                 overflow: TextOverflow.ellipsis,
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  fontSize: 16,
+                  fontSize: 18,
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
                   shadows: <Shadow>[
@@ -82,7 +82,7 @@ Widget KontaktCard(BAKler bakler, BuildContext context) {
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(
                   color: Colors.white,
-                  fontSize: 12,
+                  fontSize: 14,
                   shadows: <Shadow>[
                     Shadow(
                       offset: Offset(2.0, 2.0),

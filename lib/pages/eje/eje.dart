@@ -8,14 +8,17 @@ class eje extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return ListView(
+      physics: ScrollPhysics(
+        parent: BouncingScrollPhysics(),
+      ),
       children: <Widget>[
-        SizedBox(height: 18),
+        SizedBox(height: 20),
         Hauptamtliche(context),
-        SizedBox(height: 18),
+        SizedBox(height: 20),
         BAK(context),
-        SizedBox(height: 18),
+        SizedBox(height: 20),
         Arbeitsbereiche(context),
-        SizedBox(height: 18),
+        SizedBox(height: 20),
       ],
     );
   }

@@ -10,13 +10,20 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 Widget Arbeitsbereiche(BuildContext context) {
   return Column(
     children: <Widget>[
-      Text(
-        "Arbeitsfelder",
-        textAlign: TextAlign.left,
-        style: TextStyle(
-          fontWeight: FontWeight.bold,
-          fontSize: 21,
-        ),
+      Row(
+        children: <Widget>[
+          SizedBox(
+            width: 24,
+          ),
+          Text(
+            "Arbeitsfelder",
+            textAlign: TextAlign.left,
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 28,
+            ),
+          ),
+        ],
       ),
       SizedBox(
         height: 12,
