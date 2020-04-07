@@ -18,6 +18,8 @@ class HauptamtlicheLocalDatasource{
           temp.add(_box.getAt(i));
         }
       }
+      Hive.box('Hauptamtliche').compact();
+      Hive.box('Hauptamtliche').close();
       return temp;
     } else {
       throw CacheException();
@@ -31,6 +33,8 @@ class HauptamtlicheLocalDatasource{
       for (int i = 0; i < _box.length; i++) {
         Hauptamtlicher temp = _box.getAt(i);
         if (temp.name == name) {
+          Hive.box('Hauptamtliche').compact();
+          Hive.box('Hauptamtliche').close();
           return temp;
         }
       }
@@ -43,6 +47,8 @@ class HauptamtlicheLocalDatasource{
     _box = await Hive.openBox('Hauptamtliche');
     _box.deleteAll(neuigkeitenToCache);
     _box.addAll(neuigkeitenToCache);
+    Hive.box('Hauptamtliche').compact();
+    Hive.box('Hauptamtliche').close();
   }
 
 }

@@ -24,16 +24,16 @@ class HauptamtlicheRepositoryImpl implements HauptamtlicheRepository {
   //Lade Artikel aus den Internet herunter
   @override
   Future<Either<Failure, List<Hauptamtlicher>>> getHauptamtliche() async{
-    /* if (await networkInfo.isConnected) {
+    /*if (await networkInfo.isConnected) {
       try {
-        final remoteNeuigkeit = await remoteDataSource.getNeuigkeiten();
-        localDatasource.cacheNeuigkeiten(remoteNeuigkeit);
-        return Right(remoteNeuigkeit);
+        final remoteHauptamtliche = await remoteDataSource.getHauptamliche();
+        localDatasource.cacheHauptamtliche(remoteHauptamtliche);
+        return Right(remoteHauptamtliche);
       } on ServerException {
         return Left(ServerFailure());
       }
     } else */
-    print("GetCachedNeuigkeiten");
+    print("GetCachedHauptamtliche");
     return Right(await localDatasource.getCachedHauptamtliche());
   }
 

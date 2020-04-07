@@ -21,7 +21,6 @@ import 'package:eje/pages/neuigkeiten/domain/usecases/GetNeuigkeit.dart';
 import 'package:eje/pages/neuigkeiten/domain/usecases/GetNeuigkeiten.dart';
 import 'package:eje/pages/neuigkeiten/presentation/bloc/bloc.dart';
 import 'package:get_it/get_it.dart';
-import 'package:hive/hive.dart';
 import 'package:http/http.dart' as http;
 
 final sl = GetIt.instance;
@@ -54,7 +53,7 @@ Future<void> init() async {
       client: sl(),
     ),
   );
-  sl.registerLazySingleton(() => NeuigkeitenLocalDatasource(sl()));
+  sl.registerLazySingleton(() => NeuigkeitenLocalDatasource());
 
   // ! Einstellungen
   // * Bloc
@@ -95,11 +94,6 @@ Future<void> init() async {
   sl.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(sl()));
 
   // ! External
-  // * Hive
-  final Box neuigkeiten_box = await Hive.openBox('Neuigkeiten');
-  sl.registerLazySingleton(() => neuigkeiten_box);
-  //final Box hauptamtliche_box = await Hive.openBox('Hauptamtliche');
- // sl.registerLazySingleton(() => hauptamtliche_box);
   // * Remote Access
   sl.registerLazySingleton(() => http.Client());
   sl.registerLazySingleton(() => DataConnectionChecker());
