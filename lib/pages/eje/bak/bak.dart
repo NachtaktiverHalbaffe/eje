@@ -7,7 +7,7 @@ import 'package:eje/pages/eje/bak/presentation/widgets/bak_pageviewer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-Widget BAK(BuildContext context) {
+Widget BAK(BuildContext context, bool isCacheEnabled) {
   return Column(
     children: <Widget>[
       Row(
@@ -52,7 +52,7 @@ Widget BAK(BuildContext context) {
               return LoadingIndicator();
             } else if (state is LoadedBAK) {
               print("Build page: LoadedBak");
-              return BAKPageViewer(state.bak, context);
+              return BAKPageViewer(state.bak, context, isCacheEnabled);
             }
           },
         ),

@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:eje/core/utils/injection_container.dart';
 import 'package:eje/pages/neuigkeiten/domain/entitys/neuigkeit.dart';
 import 'package:eje/pages/neuigkeiten/presentation/bloc/bloc.dart';
@@ -9,10 +10,11 @@ import 'package:page_view_indicators/circle_page_indicator.dart';
 class NeuigkeitenCard extends StatelessWidget {
   final Neuigkeit _neuigkeit;
   final int index;
+  final bool isCacheEnabled;
   String TAG_BILD;
   String TAG_TITEL;
 
-  NeuigkeitenCard(this._neuigkeit, this.index);
+  NeuigkeitenCard(this._neuigkeit, this.index, this.isCacheEnabled);
 
   final _currentPageNotifier = ValueNotifier<int>(0);
 
@@ -39,7 +41,7 @@ class NeuigkeitenCard extends StatelessWidget {
                   builder: (_) => BlocProvider.value(
                     value: sl<NeuigkeitenBlocBloc>(),
                     child:
-                        neuigkeitenCardDetail(_neuigkeit, TAG_BILD, TAG_TITEL),
+                        neuigkeitenCardDetail(_neuigkeit, TAG_BILD, TAG_TITEL, isCacheEnabled),
                   ),
                 ),
               ),
@@ -69,7 +71,7 @@ class NeuigkeitenCard extends StatelessWidget {
                             decoration: BoxDecoration(
                               image: DecorationImage(
                                 fit: BoxFit.fitWidth,
-                                image: NetworkImage(bild),
+                                image:isCacheEnabled? CachedNetworkImage(imageUrl: bild,) :NetworkImage(bild) ,
                               ),
                             ),
                           ),
@@ -116,7 +118,7 @@ class NeuigkeitenCard extends StatelessWidget {
                   builder: (_) => BlocProvider.value(
                     value: sl<NeuigkeitenBlocBloc>(),
                     child:
-                        neuigkeitenCardDetail(_neuigkeit, TAG_BILD, TAG_TITEL),
+                        neuigkeitenCardDetail(_neuigkeit, TAG_BILD, TAG_TITEL, isCacheEnabled),
                   ),
                 ),
               ),
@@ -158,7 +160,6 @@ class NeuigkeitenCard extends StatelessWidget {
                             child: Text(
                               _neuigkeit.text_preview.toString(),
                               textAlign: TextAlign.left,
-                              overflow: TextOverflow.ellipsis,
                               style: TextStyle(
                                 color: Colors.white,
                                 shadows: <Shadow>[

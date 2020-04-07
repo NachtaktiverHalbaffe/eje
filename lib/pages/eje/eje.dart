@@ -5,6 +5,9 @@ import 'arbeitsfelder/arbeitsbereiche.dart';
 import 'bak/bak.dart';
 
 class eje extends StatelessWidget{
+  final bool isCacheEnabled;
+  eje(this.isCacheEnabled);
+
   @override
   Widget build(BuildContext context) {
     return ListView(
@@ -13,11 +16,11 @@ class eje extends StatelessWidget{
       ),
       children: <Widget>[
         SizedBox(height: 20),
-        Hauptamtliche(context),
+        Hauptamtliche(context,isCacheEnabled),
         SizedBox(height: 20),
-        BAK(context),
+        BAK(context, isCacheEnabled),
         SizedBox(height: 20),
-        Arbeitsbereiche(context),
+        Arbeitsbereiche(context,isCacheEnabled),
         SizedBox(height: 20),
       ],
     );

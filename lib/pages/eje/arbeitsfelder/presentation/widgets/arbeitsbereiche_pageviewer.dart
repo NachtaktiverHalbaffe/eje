@@ -6,10 +6,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 
 Widget ArbeitsbereichePageViewer(List<Arbeitsbereich> arbeitsbereiche,
-    BuildContext context) {
+    BuildContext context, bool isCacheEnabled) {
   return Swiper(
     itemBuilder: (BuildContext context, int index) {
-      return KontaktCard(arbeitsbereiche[index], context);
+      return KontaktCard(arbeitsbereiche[index], context, isCacheEnabled);
     },
     itemCount: arbeitsbereiche.length,
     itemHeight: 200,
@@ -20,7 +20,7 @@ Widget ArbeitsbereichePageViewer(List<Arbeitsbereich> arbeitsbereiche,
   );
 }
 
-Widget KontaktCard(Arbeitsbereich arbeitsbereich, BuildContext context) {
+Widget KontaktCard(Arbeitsbereich arbeitsbereich, BuildContext context, bool isCacheEnabled) {
   return Container(
     child: ClipRRect(
       borderRadius: new BorderRadius.all(Radius.circular(12)),

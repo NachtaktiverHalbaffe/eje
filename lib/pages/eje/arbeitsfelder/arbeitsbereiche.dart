@@ -7,7 +7,7 @@ import 'package:eje/pages/eje/arbeitsfelder/presentation/widgets/arbeitsbereiche
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-Widget Arbeitsbereiche(BuildContext context) {
+Widget Arbeitsbereiche(BuildContext context, bool isCacheEnabled) {
   return Column(
     children: <Widget>[
       Row(
@@ -52,7 +52,7 @@ Widget Arbeitsbereiche(BuildContext context) {
               return LoadingIndicator();
             } else if(state is LoadedArbeitsbereiche){
               print("Build page: LoadedArbeitsbereiche");
-              return ArbeitsbereichePageViewer(state.arbeitsbereiche, context);
+              return ArbeitsbereichePageViewer(state.arbeitsbereiche, context, isCacheEnabled);
             }
           },
         ),

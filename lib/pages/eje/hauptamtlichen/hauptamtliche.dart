@@ -8,7 +8,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-Widget Hauptamtliche(BuildContext context) {
+Widget Hauptamtliche(BuildContext context, bool isCacheEnabled) {
   return Column(
     children: <Widget>[
       Row(
@@ -53,7 +53,7 @@ Widget Hauptamtliche(BuildContext context) {
               return LoadingIndicator();
             } else if(state is LoadedHauptamtliche){
               print("Build page: LoadedHauptamtliche");
-              return HauptamtlichePageViewer(state.hauptamtliche, context);
+              return HauptamtlichePageViewer(state.hauptamtliche, context, isCacheEnabled);
             }
           },
         ),

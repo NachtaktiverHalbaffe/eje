@@ -6,10 +6,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 
 Widget BAKPageViewer(List<BAKler> bakler,
-    BuildContext context) {
+    BuildContext context, bool isCacheEnabled) {
   return Swiper(
     itemBuilder: (BuildContext context, int index) {
-      return KontaktCard(bakler[index], context);
+      return KontaktCard(bakler[index], context, isCacheEnabled);
     },
     itemCount: bakler.length,
     itemHeight: 200,
@@ -20,7 +20,7 @@ Widget BAKPageViewer(List<BAKler> bakler,
   );
 }
 
-Widget KontaktCard(BAKler bakler, BuildContext context) {
+Widget KontaktCard(BAKler bakler, BuildContext context, bool isCacheEnabled) {
   return Container(
     child: ClipRRect(
       borderRadius: new BorderRadius.all(Radius.circular(12)),

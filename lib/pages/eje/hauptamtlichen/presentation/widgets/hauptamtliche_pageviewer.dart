@@ -8,10 +8,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 
 Widget HauptamtlichePageViewer(List<Hauptamtlicher> hauptamtliche,
-    BuildContext context) {
+    BuildContext context, bool isCacheEnabled) {
   return Swiper(
     itemBuilder: (BuildContext context, int index) {
-      return KontaktCard(hauptamtliche[index], context);
+      return KontaktCard(hauptamtliche[index], context, isCacheEnabled);
     },
     itemCount: hauptamtliche.length,
     itemHeight: 200,
@@ -22,7 +22,7 @@ Widget HauptamtlichePageViewer(List<Hauptamtlicher> hauptamtliche,
   );
 }
 
-Widget KontaktCard(Hauptamtlicher hauptamtlicher, BuildContext context) {
+Widget KontaktCard(Hauptamtlicher hauptamtlicher, BuildContext context, bool isCacheEnabled) {
   return Container(
     child: ClipRRect(
       borderRadius: new BorderRadius.all(Radius.circular(12)),

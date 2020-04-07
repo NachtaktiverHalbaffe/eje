@@ -1,4 +1,4 @@
-import 'package:eje/core/utils/injection_container.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:eje/core/widgets/LoadingIndicator.dart';
 import 'package:eje/pages/neuigkeiten/domain/entitys/neuigkeit.dart';
 import 'package:eje/pages/neuigkeiten/presentation/bloc/bloc.dart';
@@ -12,20 +12,25 @@ class neuigkeitenCardDetail extends StatefulWidget {
   Neuigkeit _neuigkeit;
   final String TAG_TITEL;
   final String TAG_BILD;
+  final bool isCacheEnabled;
 
-  neuigkeitenCardDetail(this._neuigkeit, this.TAG_BILD, this.TAG_TITEL);
+  neuigkeitenCardDetail(this._neuigkeit, this.TAG_TITEL, this.TAG_BILD,
+      this.isCacheEnabled);
 
   @override
   State<StatefulWidget> createState() =>
-      _neuigkeitenCardDetail(_neuigkeit, TAG_BILD, TAG_TITEL);
+      _neuigkeitenCardDetail(_neuigkeit, TAG_BILD, TAG_TITEL, isCacheEnabled);
 }
 
 class _neuigkeitenCardDetail extends State<neuigkeitenCardDetail> {
   Neuigkeit _neuigkeit;
   final String TAG_TITEL;
   final String TAG_BILD;
+  final bool isCacheEnabled;
 
-  _neuigkeitenCardDetail(this._neuigkeit, this.TAG_BILD, this.TAG_TITEL);
+
+  _neuigkeitenCardDetail(this._neuigkeit, this.TAG_TITEL, this.TAG_BILD,
+      this.isCacheEnabled);
 
   @override
   void didChangeDependencies() {
@@ -50,7 +55,7 @@ class _neuigkeitenCardDetail extends State<neuigkeitenCardDetail> {
         builder: (context, state) {
           if (state is LoadedDetail) {
             print("Build Page: LoadedDetail");
-            return card(context, TAG_BILD, TAG_TITEL, _neuigkeit);
+            return card(context, TAG_BILD, TAG_TITEL, _neuigkeit, isCacheEnabled);
           } else if (state is LoadingDetails) {
             return LoadingIndicator();
           } else
@@ -61,7 +66,7 @@ class _neuigkeitenCardDetail extends State<neuigkeitenCardDetail> {
   }
 }
 
-Widget card(context, TAG_BILD, TAG_TITEL, _neuigkeit) {
+Widget card(context, TAG_BILD, TAG_TITEL, _neuigkeit, isCacheEnabled) {
   final _currentPageNotifier = ValueNotifier<int>(0);
   return ListView(
     physics: ScrollPhysics(
@@ -99,7 +104,7 @@ Widget card(context, TAG_BILD, TAG_TITEL, _neuigkeit) {
                             decoration: BoxDecoration(
                               image: DecorationImage(
                                 fit: BoxFit.cover,
-                                image: NetworkImage(bild),
+                                image: isCacheEnabled? CachedNetworkImage(imageUrl: bild,) :NetworkImage(bild) ,
                               ),
                             ),
                           ),

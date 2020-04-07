@@ -1,3 +1,4 @@
+import 'package:connectivity/connectivity.dart';
 import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:eje/core/platform/network_info.dart';
 import 'package:eje/pages/einstellungen/data/repositories/einstellungen_repository_impl.dart';
@@ -145,10 +146,11 @@ Future<void> init() async {
 
   // ! Core
   // * NetworkInfo
-  sl.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(sl()));
+  sl.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(sl(),sl()));
 
   // ! External
   // * Remote Access
+  sl.registerLazySingleton(() => Connectivity());
   sl.registerLazySingleton(() => http.Client());
   sl.registerLazySingleton(() => DataConnectionChecker());
 }

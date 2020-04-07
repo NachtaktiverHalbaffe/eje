@@ -43,7 +43,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'EJW Esslingen',
-      home: MyHomePage(title: 'EJW Esslingen'),
+      home: MyHomePage(title: 'EJW Esslingen', isCacheEnabled:prefs.getBool("cache_pictures")),
       //TODO Theming: Selected Text Item
       theme: ThemeData.light().copyWith(
         // Firmenfarbe
@@ -74,16 +74,18 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-
+  MyHomePage({Key key, this.title, this.isCacheEnabled}) : super(key: key);
   final String title;
+  final bool isCacheEnabled;
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _MyHomePageState createState() => _MyHomePageState(isCacheEnabled);
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  // List of Icons for Navigation bar
+  final bool isCacheEnabled;
+
+  _MyHomePageState(this.isCacheEnabled); // List of Icons for Navigation bar
   List<PersistentBottomNavBarItem> _navBarsItems() {
 
     return [
@@ -117,8 +119,8 @@ class _MyHomePageState extends State<MyHomePage> {
   // List of Widgetscreens for navigation bart
   List<Widget> _buildScreens() {
     return [
-      Neuigkeiten(),
-      eje(),
+      Neuigkeiten(isCacheEnabled),
+      eje(isCacheEnabled),
       Instagram(),
       Center(),
       Einstellungen()
