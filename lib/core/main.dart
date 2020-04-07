@@ -98,13 +98,13 @@ class _MyHomePageState extends State<MyHomePage> {
         activeColor: Theme.of(context).accentColor,
       ),
       PersistentBottomNavBarItem(
-        icon: Icon(MdiIcons.instagram),
-        title: ("Instagram"),
+        icon: Icon(Icons.today),
+        title: ("Termine"),
         activeColor: Theme.of(context).accentColor,
       ),
       PersistentBottomNavBarItem(
-        icon: Icon(Icons.today),
-        title: ("Angebote"),
+        icon: Icon(MdiIcons.terrain),
+        title: ("Freizeiten"),
         activeColor: Theme.of(context).accentColor,
       ),
       PersistentBottomNavBarItem(
@@ -134,6 +134,7 @@ class _MyHomePageState extends State<MyHomePage> {
       items: _navBarsItems(),
       screens: _buildScreens(),
       showElevation: true,
+
       backgroundColor:Theme.of(context).backgroundColor,
       iconSize: 26.0,
       navBarStyle: NavBarStyle.style6, // Choose the nav bar style with this property

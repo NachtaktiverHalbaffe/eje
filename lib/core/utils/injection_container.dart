@@ -6,6 +6,13 @@ import 'package:eje/pages/einstellungen/domain/usecases/getPreference.dart';
 import 'package:eje/pages/einstellungen/domain/usecases/getPreferences.dart';
 import 'package:eje/pages/einstellungen/domain/usecases/setPrefrences.dart';
 import 'package:eje/pages/einstellungen/presentation/bloc/einstellung_bloc.dart';
+import 'package:eje/pages/eje/arbeitsfelder/data/datasources/arbeitsbereich_local_datasource.dart';
+import 'package:eje/pages/eje/arbeitsfelder/data/datasources/arbeitsbereich_remote_datasource.dart';
+import 'package:eje/pages/eje/arbeitsfelder/data/repositories/arbeitsbereich_repository_impl.dart';
+import 'package:eje/pages/eje/arbeitsfelder/domain/repositories/arbeitsbereich_repository.dart';
+import 'package:eje/pages/eje/arbeitsfelder/domain/usecases/GetArbeitsbereich.dart';
+import 'package:eje/pages/eje/arbeitsfelder/domain/usecases/GetArbeitsbereiche.dart';
+import 'package:eje/pages/eje/arbeitsfelder/presentation/bloc/arbeitsbereiche_bloc.dart';
 import 'package:eje/pages/eje/bak/data/datasources/bak_local_datasource.dart';
 import 'package:eje/pages/eje/bak/data/datasources/bak_remote_datasource.dart';
 import 'package:eje/pages/eje/bak/data/repositories/bak_repository_impl.dart';
@@ -93,27 +100,48 @@ Future<void> init() async {
     ),
   );
   // * Datasources
-  sl.registerLazySingleton(()=>HauptamtlicheLocalDatasource());
-  sl.registerLazySingleton(()=> HauptamtlicheRemoteDatasource(client: sl()));
-  
+  sl.registerLazySingleton(() => HauptamtlicheLocalDatasource());
+  sl.registerLazySingleton(() => HauptamtlicheRemoteDatasource(client: sl()));
+
   // ! BAK
   // * Bloc
   sl.registerFactory(() => BakBloc(
-    getBAK: sl(),
-    getBAKler: sl(),
-  ));
+        getBAK: sl(),
+        getBAKler: sl(),
+      ));
   // * Use cases
   sl.registerLazySingleton(() => GetBAKler(sl()));
   sl.registerLazySingleton(() => GetBAK(repository: sl()));
   // * Repository
   sl.registerLazySingleton<BAKRepository>(() => BAKRepositoryImpl(
+        remoteDataSource: sl(),
+        localDatasource: sl(),
+        networkInfo: sl(),
+      ));
+  // * Datasources
+  sl.registerLazySingleton(() => BAKLocalDatasource());
+  sl.registerLazySingleton(() => BAKRemoteDatasource(client: sl()));
+
+  // ! Arbeitsbereiche
+  // * Bloc
+  sl.registerFactory(
+    () => ArbeitsbereicheBloc(
+      getArbeitsbereich: sl(),
+      getArbeitsbereiche: sl(),
+    ),
+  );
+  // * Usecases
+  sl.registerLazySingleton(() => GetArbeitsbereich(sl()));
+  sl.registerLazySingleton(() => GetArbeitsbereiche(repository: sl()));
+  // * Repsoitory
+  sl.registerLazySingleton<ArbeitsbereichRepository>(() => ArbeitsbereichRepositoryImpl(
     remoteDataSource: sl(),
     localDatasource: sl(),
     networkInfo: sl(),
   ));
   // * Datasources
-  sl.registerLazySingleton(() => BAKLocalDatasource());
-  sl.registerLazySingleton(() => BAKRemoteDatasource(client: sl()));
+  sl.registerLazySingleton(() => ArbeitsbereicheLocalDatasource());
+  sl.registerLazySingleton(() => ArbeitsbereichRemoteDatasource(client: sl()));
 
   // ! Core
   // * NetworkInfo

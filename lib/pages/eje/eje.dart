@@ -1,6 +1,7 @@
 import 'package:eje/pages/eje/hauptamtlichen/hauptamtliche.dart';
 import 'package:flutter/cupertino.dart';
 
+import 'arbeitsfelder/arbeitsbereiche.dart';
 import 'bak/bak.dart';
 
 class eje extends StatelessWidget{
@@ -12,6 +13,9 @@ class eje extends StatelessWidget{
         Hauptamtliche(context),
         SizedBox(height: 18),
         BAK(context),
+        SizedBox(height: 18),
+        Arbeitsbereiche(context),
+        SizedBox(height: 18),
       ],
     );
   }
