@@ -40,8 +40,18 @@ class ArbeitsbereicheLocalDatasource{
 
   Future<void> cacheBAK(List<Arbeitsbereich> arbeitsbereicheToCache) async {
     _box = await Hive.openBox('Arbeitsbereiche');
-    _box.deleteAll(arbeitsbereicheToCache);
-    _box.addAll(arbeitsbereicheToCache);
+    for(int i=0; i<   arbeitsbereicheToCache.length;i++){
+      bool alreadyexists=false;
+      for(int k=0; k< _box.length;k++){
+        final Arbeitsbereich _arbeitsbereich = _box.getAt(k);
+        if(_arbeitsbereich.arbeitsfeld == arbeitsbereicheToCache[i].arbeitsfeld){
+          alreadyexists=true;
+        }
+      }
+      if(alreadyexists==false){
+        _box.add( arbeitsbereicheToCache[i]);
+      }
+    }
     Hive.box('Arbeitsbereiche').compact();
     Hive.box('Arbeitsbereiche').close();
   }

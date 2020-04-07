@@ -28,12 +28,11 @@ class HauptamtlicheRepositoryImpl implements HauptamtlicheRepository {
       try {
         final remoteHauptamtliche = await remoteDataSource.getHauptamliche();
         localDatasource.cacheHauptamtliche(remoteHauptamtliche);
-        return Right(remoteHauptamtliche);
+        return Right(await localDatasource.getCachedHauptamtliche());
       } on ServerException {
         return Left(ServerFailure());
       }
     } else */
-    print("GetCachedHauptamtliche");
     return Right(await localDatasource.getCachedHauptamtliche());
   }
 

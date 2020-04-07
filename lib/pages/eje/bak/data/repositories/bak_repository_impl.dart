@@ -27,12 +27,11 @@ class BAKRepositoryImpl implements BAKRepository {
       try {
         final remoteBAK = await remoteDataSource.getBAK();
         localDatasource.cacheBAK(remoteBAK);
-        return Right(remoteBAK);
+        return Right(await localDatasource.getCachedBAK());
       } on ServerException {
         return Left(ServerFailure());
       }
-    } else*/
-    print("GetCachedBAK");
+    } else */
     return Right(await localDatasource.getCachedBAK());
   }
 

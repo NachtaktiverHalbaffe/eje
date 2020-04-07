@@ -43,10 +43,20 @@ class BAKLocalDatasource{
     }
   }
 
-  Future<void> cacheBAK(List<BAKler> neuigkeitenToCache) async {
+  Future<void> cacheBAK(List<BAKler> bakToCache) async {
     _box = await Hive.openBox('BAK');
-    _box.deleteAll(neuigkeitenToCache);
-    _box.addAll(neuigkeitenToCache);
+    for(int i=0; i<  bakToCache.length;i++){
+      bool alreadyexists=false;
+      for(int k=0; k< _box.length;k++){
+        final BAKler _bakler = _box.getAt(k);
+        if(_bakler.name == bakToCache[i].name){
+          alreadyexists=true;
+        }
+      }
+      if(alreadyexists==false){
+        _box.add(bakToCache[i]);
+      }
+    }
     Hive.box('BAK').compact();
     Hive.box('BAK').close();
   }

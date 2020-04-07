@@ -43,10 +43,20 @@ class HauptamtlicheLocalDatasource{
     }
   }
 
-  Future<void> cacheHauptamtliche(List<Hauptamtlicher> neuigkeitenToCache) async {
+  Future<void> cacheHauptamtliche(List<Hauptamtlicher> hauptamtlicheToCache) async {
     _box = await Hive.openBox('Hauptamtliche');
-    _box.deleteAll(neuigkeitenToCache);
-    _box.addAll(neuigkeitenToCache);
+    for(int i=0; i<  hauptamtlicheToCache.length;i++){
+      bool alreadyexists=false;
+      for(int k=0; k< _box.length;k++){
+        final Hauptamtlicher _hauptamtlicher = _box.getAt(k);
+        if(_hauptamtlicher.name == hauptamtlicheToCache[i].name){
+          alreadyexists=true;
+        }
+      }
+      if(alreadyexists==false){
+        _box.add(hauptamtlicheToCache[i]);
+      }
+    }
     Hive.box('Hauptamtliche').compact();
     Hive.box('Hauptamtliche').close();
   }
