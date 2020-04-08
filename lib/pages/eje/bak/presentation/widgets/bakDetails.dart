@@ -1,64 +1,64 @@
 import 'package:eje/core/widgets/LoadingIndicator.dart';
-import 'package:eje/pages/eje/hauptamtlichen/domain/entitys/hauptamtlicher.dart';
-import 'package:eje/pages/eje/hauptamtlichen/presentation/bloc/bloc.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:eje/pages/eje/bak/domain/entitys/BAKler.dart';
+import 'package:eje/pages/eje/bak/presentation/bloc/bak_bloc.dart';
+import 'package:eje/pages/eje/bak/presentation/bloc/bak_event.dart';
+import 'package:eje/pages/eje/bak/presentation/bloc/bak_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:icon_shadow/icon_shadow.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
-class HauptamtlicheDetails extends StatefulWidget {
+class BAKDetails extends StatefulWidget {
   final bool isCacheEnabled;
-  final Hauptamtlicher hauptamtlicher;
+  final BAKler bakler;
 
-  HauptamtlicheDetails(this.isCacheEnabled, this.hauptamtlicher);
+  BAKDetails(this.isCacheEnabled, this.bakler);
 
   @override
-  _HauptamtlicheDetailsState createState() =>
-      _HauptamtlicheDetailsState(isCacheEnabled, hauptamtlicher);
+  _BAKDetailsState createState() =>
+      _BAKDetailsState(isCacheEnabled,bakler);
 }
 
-class _HauptamtlicheDetailsState extends State<HauptamtlicheDetails> {
+class _BAKDetailsState extends State<BAKDetails> {
   final bool isCacheEnabled;
-  final Hauptamtlicher hauptamtlicher;
+  final BAKler bakler;
 
-  _HauptamtlicheDetailsState(this.isCacheEnabled, this.hauptamtlicher);
+  _BAKDetailsState(this.isCacheEnabled, this.bakler);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BlocConsumer<HauptamtlicheBloc, HauptamtlicheState>(
+      body: BlocConsumer<BakBloc, BakState>(
           listener: (context, state) {
-        if (state is Error) {
-          Scaffold.of(context).showSnackBar(
-            SnackBar(
-              content: Text(state.message),
-            ),
-          );
-        }
-      },
+            if (state is Error) {
+              Scaffold.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(state.message),
+                ),
+              );
+            }
+          },
           // ignore: missing_return
           builder: (context, state) {
-        if (state is Loading) {
-          return LoadingIndicator();
-        } else if (state is LoadedHauptamtlicher) {
-          return HauptamtlicheDetailsCard(
-              state.hauptamtlicher, widget.isCacheEnabled, context);
-        }
-      }),
+            if (state is Loading) {
+              return LoadingIndicator();
+            } else if (state is LoadedBAKler) {
+              return HauptamtlicheDetailsCard(
+                  state.bakler, widget.isCacheEnabled, context);
+            }
+          }),
     );
   }
 
   @override
   void didChangeDependencies() {
-    BlocProvider.of<HauptamtlicheBloc>(context)
-        .add(GettingHauptamtlicher(hauptamtlicher.name));
+    BlocProvider.of<BakBloc>(context)
+        .add(GettingBAKler(bakler.name));
   }
 }
 
 Widget HauptamtlicheDetailsCard(
-    Hauptamtlicher hauptamtlicher, bool isCacheEnabled, BuildContext context) {
+    BAKler bakler, bool isCacheEnabled, BuildContext context) {
   return ListView(
     physics: ScrollPhysics(parent: BouncingScrollPhysics()),
     children: <Widget>[
@@ -71,7 +71,7 @@ Widget HauptamtlicheDetailsCard(
             decoration: BoxDecoration(
               image: DecorationImage(
                 fit: BoxFit.cover,
-                image: ExactAssetImage(hauptamtlicher.bild),
+                image: ExactAssetImage(bakler.bild),
               ),
             ),
           ),
@@ -101,7 +101,7 @@ Widget HauptamtlicheDetailsCard(
                     width: 16,
                   ),
                   Text(
-                    hauptamtlicher.name,
+                    bakler.name,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
                       fontSize: 40,
@@ -134,7 +134,7 @@ Widget HauptamtlicheDetailsCard(
       Container(
         padding: EdgeInsets.only(left:14,top:12),
         child: Text(
-          hauptamtlicher.bereich,
+          bakler.amt,
           textAlign: TextAlign.justify,
           style: TextStyle(
             fontSize: 24,
@@ -144,7 +144,7 @@ Widget HauptamtlicheDetailsCard(
       Container(
         padding: EdgeInsets.all(14),
         child: Text(
-          hauptamtlicher.vorstellung,
+          bakler.vorstellung,
           textAlign: TextAlign.justify,
           style: TextStyle(
             fontSize: 16,
@@ -160,7 +160,7 @@ Widget HauptamtlicheDetailsCard(
           color: Theme.of(context).dividerColor,
         ),
         title: Text(
-          hauptamtlicher.threema,
+          bakler.threema,
           style: TextStyle(fontSize: 14),
         ),
       ),
@@ -170,29 +170,7 @@ Widget HauptamtlicheDetailsCard(
           size: 24,
         ),
         title: Text(
-          hauptamtlicher.email,
-          style: TextStyle(fontSize: 14),
-        ),
-        dense: true,
-      ),
-      ListTile(
-        leading: Icon(
-          MdiIcons.phone,
-          size: 24,
-        ),
-        title: Text(
-          hauptamtlicher.telefon,
-          style: TextStyle(fontSize: 14),
-        ),
-        dense: true,
-      ),
-      ListTile(
-        leading: Icon(
-          MdiIcons.cellphone,
-          size: 24,
-        ),
-        title: Text(
-          hauptamtlicher.handy,
+          bakler.email,
           style: TextStyle(fontSize: 14),
         ),
         dense: true,

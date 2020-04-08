@@ -35,7 +35,7 @@ class NeuigkeitenRemoteDatasource {
                   ]
                 : [items[i].enclosure.url],
             weiterfuehrender_link: items[i].guid,
-            published: DateTime.parse(items[i].pubDate),
+            //published: DateTime.parse(items[i].pubDate),
           ),
         );
       }

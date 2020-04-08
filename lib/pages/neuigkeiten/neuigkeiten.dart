@@ -31,9 +31,9 @@ class Neuigkeiten extends StatelessWidget {
             print("Build Page: Empty");
             BlocProvider.of<NeuigkeitenBlocBloc>(context)
                 .add(RefreshNeuigkeiten());
-            return LoadingIndicator();
+            return Center();
           } else if (state is Loading) {
-            print("Build Page: Loading");
+            print("Build Page Neuigkeiten: Loading");
             return LoadingIndicator();
           } else if (state is Loaded) {
             print("Build Page: Loaded");

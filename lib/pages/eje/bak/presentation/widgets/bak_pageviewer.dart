@@ -1,6 +1,7 @@
 import 'package:eje/core/utils/injection_container.dart';
 import 'package:eje/pages/eje/bak/domain/entitys/BAKler.dart';
 import 'package:eje/pages/eje/bak/presentation/bloc/bak_bloc.dart';
+import 'package:eje/pages/eje/bak/presentation/widgets/bakDetails.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
@@ -35,7 +36,7 @@ Widget KontaktCard(BAKler bakler, BuildContext context, bool isCacheEnabled) {
                     builder: (_) =>
                         BlocProvider.value(
                           value: sl<BakBloc>(),
-                          child: null,
+                          child: BAKDetails(isCacheEnabled, bakler),
                         ),
                   ),
                 ),

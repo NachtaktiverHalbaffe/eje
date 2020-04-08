@@ -1,6 +1,7 @@
 import 'package:eje/core/utils/injection_container.dart';
 import 'package:eje/pages/eje/arbeitsfelder/domain/entities/Arbeitsbereich.dart';
 import 'package:eje/pages/eje/arbeitsfelder/presentation/bloc/arbeitsbereiche_bloc.dart';
+import 'package:eje/pages/eje/arbeitsfelder/presentation/widgets/arbeitsbereicheDetails.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
@@ -35,7 +36,7 @@ Widget KontaktCard(Arbeitsbereich arbeitsbereich, BuildContext context, bool isC
                     builder: (_) =>
                         BlocProvider.value(
                           value: sl<ArbeitsbereicheBloc>(),
-                          child: null,
+                          child: ArbeitsbereicheDetails(isCacheEnabled, arbeitsbereich),
                         ),
                   ),
                 ),
