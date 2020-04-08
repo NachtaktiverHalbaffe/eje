@@ -63,6 +63,7 @@ flutter:
     - assets/images/
     - assets/testdata/
   fonts:
-     - family:  EjeLogo
-       fonts:
-        - asset: assets/fonts/EjeLogo.ttf
+    - family:  CostumIcons
+      fonts:
+        - asset: assets/fonts/CostumIcons.ttf
+

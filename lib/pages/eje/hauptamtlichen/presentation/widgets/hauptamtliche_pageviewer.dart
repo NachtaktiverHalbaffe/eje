@@ -1,6 +1,7 @@
 import 'package:eje/core/utils/injection_container.dart';
 import 'package:eje/pages/eje/hauptamtlichen/domain/entitys/hauptamtlicher.dart';
 import 'package:eje/pages/eje/hauptamtlichen/presentation/bloc/hauptamtliche_bloc.dart';
+import 'package:eje/pages/eje/hauptamtlichen/presentation/widgets/hauptamtliche_details.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -37,7 +38,7 @@ Widget KontaktCard(Hauptamtlicher hauptamtlicher, BuildContext context, bool isC
                     builder: (_) =>
                         BlocProvider.value(
                           value: sl<HauptamtlicheBloc>(),
-                          child: null,
+                          child: HauptamtlicheDetails(isCacheEnabled,hauptamtlicher),
                         ),
                   ),
                 ),
