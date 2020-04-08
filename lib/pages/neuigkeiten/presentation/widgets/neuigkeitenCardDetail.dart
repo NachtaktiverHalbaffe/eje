@@ -1,5 +1,5 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:eje/core/widgets/LoadingIndicator.dart';
+import 'package:eje/core/widgets/PrefImage.dart';
 import 'package:eje/pages/neuigkeiten/domain/entitys/neuigkeit.dart';
 import 'package:eje/pages/neuigkeiten/presentation/bloc/bloc.dart';
 import 'package:eje/pages/neuigkeiten/presentation/bloc/neuigkeiten_bloc_bloc.dart';
@@ -104,7 +104,7 @@ Widget card(context, TAG_BILD, TAG_TITEL, _neuigkeit, isCacheEnabled) {
                             decoration: BoxDecoration(
                               image: DecorationImage(
                                 fit: BoxFit.cover,
-                                image: isCacheEnabled? CachedNetworkImage(imageUrl: bild,) :NetworkImage(bild) ,
+                                image: PrefImage(bild, isCacheEnabled),
                               ),
                             ),
                           ),

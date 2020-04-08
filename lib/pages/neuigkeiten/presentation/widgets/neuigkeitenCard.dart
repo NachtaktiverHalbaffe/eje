@@ -1,5 +1,5 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:eje/core/utils/injection_container.dart';
+import 'package:eje/core/widgets/PrefImage.dart';
 import 'package:eje/pages/neuigkeiten/domain/entitys/neuigkeit.dart';
 import 'package:eje/pages/neuigkeiten/presentation/bloc/bloc.dart';
 import 'package:eje/pages/neuigkeiten/presentation/widgets/neuigkeitenCardDetail.dart';
@@ -71,7 +71,7 @@ class NeuigkeitenCard extends StatelessWidget {
                             decoration: BoxDecoration(
                               image: DecorationImage(
                                 fit: BoxFit.fitWidth,
-                                image:isCacheEnabled? CachedNetworkImage(imageUrl: bild,) :NetworkImage(bild) ,
+                                image:PrefImage(bild, isCacheEnabled),
                               ),
                             ),
                           ),

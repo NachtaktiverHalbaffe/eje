@@ -19,11 +19,15 @@ class NeuigkeitenRemoteDatasource {
     var items = channel.items.toList();
     if (items.length != 0) {
       for (int i = 0; i < items.length; i++) {
+        String content = items[i].description;
+        if (content.contains("<img src=")){
+          content=items[i].description.substring(0,items[i].description.indexOf("<img src="));
+        }
         temp.add(
           new Neuigkeit(
             titel: items[i].title,
-            text_preview: items[i].description,
-            text: items[i].description,
+            text_preview: content,
+            text: content,
             bilder: items[i].enclosure == null
                 ? [
                     "http://www.sjr-es.de/media/zoo/images/eje_logo_9df3b8fbf18c2d3a99928fa9bfbe0da3.jpg"
