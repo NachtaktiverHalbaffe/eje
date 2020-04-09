@@ -9,7 +9,6 @@ import 'package:eje/pages/termine/domain/entities/Termin.dart';
 import 'package:eje/pages/termine/domain/repsoitories/termin_repositoy.dart';
 import 'package:meta/meta.dart';
 
-
 class TermineRepositoryImpl implements TerminRepository {
   final TermineRemoteDatasource remoteDataSource;
   final TermineLocalDatasource localDatasource;
