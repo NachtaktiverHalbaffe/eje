@@ -35,6 +35,13 @@ import 'package:eje/pages/neuigkeiten/domain/repositories/neuigkeiten_repository
 import 'package:eje/pages/neuigkeiten/domain/usecases/GetNeuigkeit.dart';
 import 'package:eje/pages/neuigkeiten/domain/usecases/GetNeuigkeiten.dart';
 import 'package:eje/pages/neuigkeiten/presentation/bloc/bloc.dart';
+import 'package:eje/pages/termine/data/datasources/termine_local_datasource.dart';
+import 'package:eje/pages/termine/data/datasources/termine_remote_datasource.dart';
+import 'package:eje/pages/termine/data/repositories/termine_repositoy_impl.dart';
+import 'package:eje/pages/termine/domain/repsoitories/termin_repositoy.dart';
+import 'package:eje/pages/termine/domain/usecases/getTermin.dart';
+import 'package:eje/pages/termine/domain/usecases/get_Termine.dart';
+import 'package:eje/pages/termine/presentation/bloc/bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;
 
@@ -135,18 +142,35 @@ Future<void> init() async {
   sl.registerLazySingleton(() => GetArbeitsbereich(sl()));
   sl.registerLazySingleton(() => GetArbeitsbereiche(repository: sl()));
   // * Repsoitory
-  sl.registerLazySingleton<ArbeitsbereichRepository>(() => ArbeitsbereichRepositoryImpl(
-    remoteDataSource: sl(),
-    localDatasource: sl(),
-    networkInfo: sl(),
-  ));
+  sl.registerLazySingleton<ArbeitsbereichRepository>(
+      () => ArbeitsbereichRepositoryImpl(
+            remoteDataSource: sl(),
+            localDatasource: sl(),
+            networkInfo: sl(),
+          ));
   // * Datasources
   sl.registerLazySingleton(() => ArbeitsbereicheLocalDatasource());
   sl.registerLazySingleton(() => ArbeitsbereichRemoteDatasource(client: sl()));
 
+  // ! Termine
+  // * Bloc
+  sl.registerFactory(() => TermineBloc(getTermine: sl(), getTermin: sl()));
+  // * Usecases
+  sl.registerLazySingleton(() => GetTermin(sl()));
+  sl.registerLazySingleton(() => GetTermine(repository: sl()));
+  // * Repository
+  sl.registerLazySingleton<TerminRepository>(() => TermineRepositoryImpl(
+        remoteDataSource: sl(),
+        localDatasource: sl(),
+        networkInfo: sl(),
+      ));
+  // * Datasources
+  sl.registerLazySingleton(() => TermineLocalDatasource());
+  sl.registerLazySingleton(() => TermineRemoteDatasource(client: sl()));
+  
   // ! Core
   // * NetworkInfo
-  sl.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(sl(),sl()));
+  sl.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(sl(), sl()));
 
   // ! External
   // * Remote Access
