@@ -1,4 +1,13 @@
+import 'package:eje/pages/eje/arbeitsfelder/domain/entities/Arbeitsbereich.dart';
+import 'package:eje/pages/eje/bak/domain/entitys/BAKler.dart';
+import 'package:eje/pages/eje/hauptamtlichen/domain/entitys/hauptamtlicher.dart';
+import 'package:eje/pages/neuigkeiten/domain/entitys/neuigkeit.dart';
+import 'package:eje/pages/termine/domain/entities/Termin.dart';
+import 'package:hive/hive.dart';
+import 'package:path_provider/path_provider.dart' as path_provider;
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'injection_container.dart' as di;
 
 Future<void> prefStartup() async{
   SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -15,4 +24,13 @@ Future<void> prefStartup() async{
     prefs.setBool("only_wifi", false);
     prefs.setBool("cache_pictures", true);
   }
+  final appDocumentDirectory =
+  await path_provider.getApplicationDocumentsDirectory();
+  Hive.init(appDocumentDirectory.path);
+  Hive.registerAdapter(NeuigkeitAdapter());
+  Hive.registerAdapter(HauptamtlicherAdapter());
+  Hive.registerAdapter(BAKlerAdapter());
+  Hive.registerAdapter(ArbeitsbereichAdapter());
+  Hive.registerAdapter(TerminAdapter());
+  await di.init();
 }
