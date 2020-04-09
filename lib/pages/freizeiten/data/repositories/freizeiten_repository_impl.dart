@@ -23,7 +23,7 @@ class FreizeitenRepositoryImpl implements FreizeitRepository {
   //Lade Freizeiten aus den Internet herunter
   @override
   Future<Either<Failure, List<Freizeit>>> getFreizeiten() async{
-    if (await networkInfo.isConnected) {
+    /*if (await networkInfo.isConnected) {
       try {
         final remoteFreizeiten= await remoteDataSource.getFreizeiten();
         localDatasource.cacheFreizeiten(remoteFreizeiten);
@@ -31,7 +31,7 @@ class FreizeitenRepositoryImpl implements FreizeitRepository {
       } on ServerException {
         return Left(ServerFailure());
       }
-    } else
+    } else */
     return Right(await localDatasource.getCachedFreizeiten());
   }
 
