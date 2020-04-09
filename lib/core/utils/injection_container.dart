@@ -28,6 +28,13 @@ import 'package:eje/pages/eje/hauptamtlichen/domain/repositories/hauptamtliche_r
 import 'package:eje/pages/eje/hauptamtlichen/domain/usecases/GetHauptamtliche.dart';
 import 'package:eje/pages/eje/hauptamtlichen/domain/usecases/GetHauptamtlicher.dart';
 import 'package:eje/pages/eje/hauptamtlichen/presentation/bloc/bloc.dart';
+import 'package:eje/pages/freizeiten/data/datasources/freizeiten_local_datasource.dart';
+import 'package:eje/pages/freizeiten/data/datasources/freizeiten_remote_datasource.dart';
+import 'package:eje/pages/freizeiten/data/repositories/freizeiten_repository_impl.dart';
+import 'package:eje/pages/freizeiten/domain/repositories/freizeit_repository.dart';
+import 'package:eje/pages/freizeiten/domain/usecases/get_Freizeit.dart';
+import 'package:eje/pages/freizeiten/domain/usecases/get_Freizeiten.dart';
+import 'package:eje/pages/freizeiten/presentation/bloc/bloc.dart';
 import 'package:eje/pages/neuigkeiten/data/datasources/neuigkeiten_local_datasource.dart';
 import 'package:eje/pages/neuigkeiten/data/datasources/neuigkeiten_remote_datasource.dart';
 import 'package:eje/pages/neuigkeiten/data/repositories/neuigkeiten_repository_impl.dart';
@@ -167,7 +174,25 @@ Future<void> init() async {
   // * Datasources
   sl.registerLazySingleton(() => TermineLocalDatasource());
   sl.registerLazySingleton(() => TermineRemoteDatasource(client: sl()));
-  
+
+  // ! Freizeiten
+  sl.registerFactory(() => FreizeitenBloc(
+        getFreizeit: sl(),
+        getFreizeiten: sl(),
+      ));
+  // * Usecases
+  sl.registerLazySingleton(() => GetFreizeit(sl()));
+  sl.registerLazySingleton(() => GetFreizeiten(repository: sl()));
+  // * Repository
+  sl.registerLazySingleton<FreizeitRepository>(() => FreizeitenRepositoryImpl(
+        remoteDataSource: sl(),
+        localDatasource: sl(),
+        networkInfo: sl(),
+      ));
+  // * Datrasources
+  sl.registerLazySingleton(() => FreizeitenLocalDatasource());
+  sl.registerLazySingleton(() => FreizeitenRemoteDatasource(client: sl()));
+
   // ! Core
   // * NetworkInfo
   sl.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(sl(), sl()));
