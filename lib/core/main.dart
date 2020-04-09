@@ -1,3 +1,5 @@
+import 'package:eje/core/widgets/bloc/main_bloc.dart';
+import 'package:eje/core/widgets/bloc/main_state.dart';
 import 'package:eje/core/widgets/costum_icons_icons.dart';
 import 'package:eje/pages/einstellungen/einstellungen.dart';
 import 'package:eje/pages/eje/eje.dart';
@@ -5,6 +7,7 @@ import 'package:eje/pages/freizeiten/freizeiten.dart';
 import 'package:eje/pages/termine/termine.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive/hive.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:persistent_bottom_nav_bar/models/persisten-bottom-nav-item.widget.dart';
@@ -28,34 +31,16 @@ class MyApp extends StatelessWidget {
   MyApp(this.prefs); // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'EJW Esslingen',
-      home: MyHomePage(title: 'EJW Esslingen', isCacheEnabled:prefs.getBool("cache_pictures")),
-      //TODO Theming: Selected Text Item
-      theme: ThemeData.light().copyWith(
-        // Firmenfarbe
-        accentColor: Color(0xFFCD2E32),
-        //Textcolors
-        primaryTextTheme: Typography(platform: TargetPlatform.android).black,
-        textTheme: Typography(platform: TargetPlatform.android).black,
-        textSelectionColor: Theme.of(context).accentColor,
-        //Iconcolors und Widgetcolors
-        primaryIconTheme: IconThemeData(color: Colors.black),
-        dividerColor: Colors.black,
-        backgroundColor: Colors.white,
-      ),
-      darkTheme: ThemeData.dark().copyWith(
-        //Firmenfarbe
-        accentColor: Color(0xFFCD2E32),
-        //Textcolors
-        textSelectionColor: Theme.of(context).accentColor,
-        //Iconcolors und Widgetcolors
-        dividerColor: Colors.white,
-        backgroundColor: Colors.black45,
-      ),
-      themeMode: prefs.getBool("nightmode_auto")
-          ? ThemeMode.system
-          : prefs.getBool("nightmode_on") ? ThemeMode.dark : ThemeMode.light,
+    return BlocProvider(
+      create: (context) => MainBloc(),
+      // ignore: missing_return
+      child: BlocBuilder<MainBloc, MainState>(builder: (context, state) {
+        if (state is InitialMainState) {
+          return _MaterialApp(context, prefs);
+        } else if (state is ChangedTheme) {
+          return _MaterialApp(context, prefs);
+        }
+      }),
     );
   }
 }
@@ -74,7 +59,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   _MyHomePageState(this.isCacheEnabled); // List of Icons for Navigation bar
   List<PersistentBottomNavBarItem> _navBarsItems() {
-
     return [
       PersistentBottomNavBarItem(
         icon: Icon(MdiIcons.newspaper),
@@ -103,6 +87,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
     ];
   }
+
   // List of Widgetscreens for navigation bart
   List<Widget> _buildScreens() {
     return [
@@ -114,18 +99,17 @@ class _MyHomePageState extends State<MyHomePage> {
     ];
   }
 
-
   @override
   Widget build(BuildContext context) {
-
     return PersistentTabView(
       controller: PersistentTabController(initialIndex: 0),
       items: _navBarsItems(),
       screens: _buildScreens(),
       showElevation: true,
-      backgroundColor:Theme.of(context).backgroundColor,
+      backgroundColor: Theme.of(context).backgroundColor,
       iconSize: 26.0,
-      navBarStyle: NavBarStyle.style6, // Choose the nav bar style with this property
+      navBarStyle: NavBarStyle.style6,
+      // Choose the nav bar style with this property
       onItemSelected: (index) {
         print(index);
       },
@@ -138,4 +122,37 @@ class _MyHomePageState extends State<MyHomePage> {
     Hive.close();
     super.dispose();
   }
+}
+
+Widget _MaterialApp(BuildContext context, SharedPreferences prefs) {
+  return MaterialApp(
+    title: 'EJW Esslingen',
+    home: MyHomePage(
+        title: 'EJW Esslingen',
+        isCacheEnabled: prefs.getBool("cache_pictures")),
+    theme: ThemeData.light().copyWith(
+// Firmenfarbe
+      accentColor: Color(0xFFCD2E32),
+//Textcolors
+      primaryTextTheme: Typography(platform: TargetPlatform.android).black,
+      textTheme: Typography(platform: TargetPlatform.android).black,
+      textSelectionColor: Theme.of(context).accentColor,
+//Iconcolors und Widgetcolors
+      primaryIconTheme: IconThemeData(color: Colors.black),
+      dividerColor: Colors.black,
+      backgroundColor: Colors.white,
+    ),
+    darkTheme: ThemeData.dark().copyWith(
+//Firmenfarbe
+      accentColor: Color(0xFFCD2E32),
+//Textcolors
+      textSelectionColor: Theme.of(context).accentColor,
+//Iconcolors und Widgetcolors
+      dividerColor: Colors.white,
+      backgroundColor: Colors.black,
+    ),
+    themeMode: prefs.getBool("nightmode_auto")
+        ? ThemeMode.system
+        : prefs.getBool("nightmode_on") ? ThemeMode.dark : ThemeMode.light,
+  );
 }

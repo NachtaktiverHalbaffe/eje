@@ -4,6 +4,7 @@ import 'package:eje/pages/freizeiten/presentation/bloc/freizeiten_bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 Widget FreizeitCard(
     Freizeit freizeit, BuildContext context, bool isCacheEnabled) {
@@ -30,7 +31,7 @@ Widget FreizeitCard(
             children: <Widget>[
               Container(
                 width: MediaQuery.of(context).size.width,
-                height: 230,
+                height: 275,
                 decoration: BoxDecoration(
                   image: DecorationImage(
                     fit: BoxFit.cover,
@@ -40,7 +41,7 @@ Widget FreizeitCard(
               ),
               Column(
                 children: <Widget>[
-                  SizedBox(height: 190),
+                  SizedBox(height: 210),
                   Text(
                     freizeit.freizeit,
                     style: TextStyle(
@@ -61,15 +62,114 @@ Widget FreizeitCard(
                       ],
                     ),
                   ),
+                  Text(
+                    freizeit.motto,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      fontSize: 20,
+                      color: Colors.white,
+                      shadows: <Shadow>[
+                        Shadow(
+                          offset: Offset(2.0, 2.0),
+                          blurRadius: 6.0,
+                          color: Colors.black,
+                        ),
+                        Shadow(
+                          offset: Offset(2.0, 2.0),
+                          blurRadius: 6.0,
+                          color: Colors.black,
+                        ),
+                      ],
+                    ),
+                  ),
                 ],
               ),
             ],
           ),
-          Container(
-            width:MediaQuery.of(context).size.width ,
-              height: 120,
-            color: Theme.of(context).backgroundColor,
-          )
+          Stack(
+            children: <Widget>[
+              Container(
+                width: MediaQuery.of(context).size.width,
+                height: 75,
+                color: Theme.of(context).cardColor,
+              ),
+              Column(
+                children: <Widget>[
+                  SizedBox(height: 12),
+                  Table(
+                    defaultVerticalAlignment: TableCellVerticalAlignment.middle,
+                    children: [
+                      TableRow(
+                        children: <Widget>[
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: <Widget>[
+                              SizedBox(width: 12),
+                              Icon(Icons.today),
+                              SizedBox(width: 4),
+                              Text(
+                                freizeit.datum,
+                                style: TextStyle(
+                                  fontSize: 12,
+                                ),
+                              ),
+                            ],
+                          ),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: <Widget>[
+                              SizedBox(width: 60),
+                              Icon(MdiIcons.currencyEur),
+                              SizedBox(width: 4),
+                              Text(
+                                freizeit.preis,
+                                style: TextStyle(
+                                  fontSize: 12,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ]
+                      ),
+                      TableRow(children:[SizedBox(height: 4),SizedBox(height: 4)]),
+                      TableRow(
+                          children: <Widget>[
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: <Widget>[
+                                SizedBox(width: 12),
+                                Icon(MdiIcons.mapMarker),
+                                SizedBox(width: 4),
+                                Text(
+                                  freizeit.ort.Anschrift,
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: <Widget>[
+                                SizedBox(width: 60),
+                                Icon(MdiIcons.cakeVariant),
+                                SizedBox(width: 4),
+                                Text(
+                                  freizeit.alter,
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ]
+                      )
+                    ],
+                  )
+                ],
+              )
+            ],
+          ),
         ],
       ),
     ),

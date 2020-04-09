@@ -60,9 +60,6 @@ class NeuigkeitenListView extends StatelessWidget {
         new Expanded(
           child: _buildNeuigkeitenList(context, _neuigkeiten,isCacheEnabled),
         ),
-        SizedBox(
-          height: 12,
-        )
       ],
     );
   }

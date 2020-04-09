@@ -1,3 +1,5 @@
+import 'package:eje/core/widgets/bloc/bloc.dart';
+import 'package:eje/core/widgets/bloc/main_bloc.dart';
 import 'package:eje/pages/einstellungen/presentation/bloc/bloc.dart';
 import 'package:eje/pages/einstellungen/presentation/bloc/einstellung_bloc.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +17,7 @@ Widget EinstellungenPage(BuildContext context, SharedPreferences prefs) {
           print("Setting Nightmode to auto");
           await BlocProvider.of<EinstellungBloc>(context)
               .add(StoringPreferences("nightmode_auto", val));
+          BlocProvider.of<MainBloc>(context).add(ChangingTheme());
         },
         title: Text(
           "Erscheinungsbild automatisch wählen",
@@ -28,6 +31,7 @@ Widget EinstellungenPage(BuildContext context, SharedPreferences prefs) {
           print("Setting Nightmode to off");
           await BlocProvider.of<EinstellungBloc>(context)
               .add(StoringPreferences("nightmode_off", val));
+          BlocProvider.of<MainBloc>(context).add(ChangingTheme());
         },
         title: Text(
           "Helles Erscheinungsbild",
@@ -41,6 +45,7 @@ Widget EinstellungenPage(BuildContext context, SharedPreferences prefs) {
           print("Setting Nightmode to on");
           await BlocProvider.of<EinstellungBloc>(context)
               .add(StoringPreferences("nightmode_on", val));
+          BlocProvider.of<MainBloc>(context).add(ChangingTheme());
         },
         title: Text(
           "Dunkles Erscheinungsbild",
