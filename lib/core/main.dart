@@ -2,6 +2,7 @@ import 'package:eje/core/widgets/costum_icons_icons.dart';
 import 'package:eje/pages/einstellungen/einstellungen.dart';
 import 'package:eje/pages/eje/eje.dart';
 import 'package:eje/pages/instagram/instagram.dart';
+import 'package:eje/pages/termine/termine.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
@@ -107,7 +108,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return [
       Neuigkeiten(isCacheEnabled),
       eje(isCacheEnabled),
-      Instagram(),
+      Termine(isCacheEnabled),
       Center(),
       Einstellungen()
     ];

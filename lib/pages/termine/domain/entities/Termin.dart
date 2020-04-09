@@ -1,12 +1,12 @@
-
 import 'package:eje/pages/termine/domain/entities/Ort.dart';
 import 'package:equatable/equatable.dart';
 import 'package:hive/hive.dart';
+import 'package:meta/meta.dart';
 
 part 'Termin.g.dart';
 
 @HiveType(typeId: 4)
-class Termin extends Equatable{
+class Termin extends Equatable {
   @HiveField(0)
   String veranstaltung;
   @HiveField(1)
@@ -20,7 +20,14 @@ class Termin extends Equatable{
   @HiveField(5)
   Ort ort;
 
-  @override
-  List<Object> get props => [veranstaltung,motto,text,bild,datum,ort];
+  Termin(
+      {@required this.veranstaltung,
+      this.motto,
+        this.text,
+      @required this.bild,
+      @required this.datum,
+      @required this.ort});
 
+  @override
+  List<Object> get props => [veranstaltung, motto, text, bild, datum, ort];
 }
