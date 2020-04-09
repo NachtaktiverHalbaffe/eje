@@ -16,13 +16,14 @@ class TerminAdapter extends TypeAdapter<Termin> {
     var fields = <int, dynamic>{
       for (var i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return Termin()
-      ..veranstaltung = fields[0] as String
-      ..motto = fields[1] as String
-      ..text = fields[2] as String
-      ..bild = fields[3] as String
-      ..datum = fields[4] as String
-      ..ort = fields[5] as Ort;
+    return Termin(
+      veranstaltung: fields[0] as String,
+      motto: fields[1] as String,
+      text: fields[2] as String,
+      bild: fields[3] as String,
+      datum: fields[4] as String,
+      ort: fields[5] as Ort,
+    );
   }
 
   @override

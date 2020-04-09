@@ -1,6 +1,10 @@
+import 'package:eje/core/utils/injection_container.dart';
 import 'package:eje/pages/termine/domain/entities/Termin.dart';
+import 'package:eje/pages/termine/presentation/bloc/termine_bloc.dart';
+import 'package:eje/pages/termine/presentation/widgets/termineDetail.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class TerminCard extends StatelessWidget {
@@ -18,7 +22,15 @@ class TerminCard extends StatelessWidget {
       ),
       child: Card(
         child: ListTile(
-          onTap: null,
+          onTap: () => Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (_) => BlocProvider.value(
+                value: sl<TermineBloc>(),
+                child: TerminDetails(termin, isCacheEnabled),
+              ),
+            ),
+          ),
           isThreeLine: true,
           leading: CircleAvatar(
             radius: 28,

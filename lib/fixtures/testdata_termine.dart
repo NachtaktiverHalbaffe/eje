@@ -1,6 +1,5 @@
 import 'package:eje/pages/termine/domain/entities/Ort.dart';
 import 'package:eje/pages/termine/domain/entities/Termin.dart';
-import 'package:eje/pages/termine/termine.dart';
 import 'package:hive/hive.dart';
 
 void testdata_termine(Box _box) {
@@ -73,6 +72,7 @@ void testdata_termine(Box _box) {
         veranstaltung:"AHOJ",
         motto: "Der Jugendgottesdienst in Esslingen",
         bild: "assets/testdata/ahoj_logo.png",
+        text: "",
         datum: "21.06.2020, 18:00 Uhr - 19:00 Uhr",
         ort: Ort("Johanneskirche Esslingen", "Neckarstraße 81", "73728 Esslingen"),
       ),
