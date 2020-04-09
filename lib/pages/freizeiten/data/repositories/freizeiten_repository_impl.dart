@@ -42,7 +42,7 @@ class FreizeitenRepositoryImpl implements FreizeitRepository {
       List<Freizeit> _freizeit =
       await localDatasource.getCachedFreizeiten();
       for (var value in _freizeit) {
-        if (value== freizeit) {
+        if (value.freizeit== freizeit.freizeit) {
           return Right(value);
         }
       }

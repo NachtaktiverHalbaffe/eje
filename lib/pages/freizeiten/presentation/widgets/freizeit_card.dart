@@ -1,6 +1,7 @@
 import 'package:eje/core/utils/injection_container.dart';
 import 'package:eje/pages/freizeiten/domain/entities/Freizeit.dart';
 import 'package:eje/pages/freizeiten/presentation/bloc/freizeiten_bloc.dart';
+import 'package:eje/pages/freizeiten/presentation/widgets/freizeitDetails.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -18,7 +19,7 @@ Widget FreizeitCard(
         MaterialPageRoute(
           builder: (_) => BlocProvider.value(
             value: sl<FreizeitenBloc>(),
-            child: null,
+            child: FreizeitDetails(freizeit, isCacheEnabled),
           ),
         ),
       ),
