@@ -37,7 +37,7 @@ class Neuigkeiten extends StatelessWidget {
             return LoadingIndicator();
           } else if (state is Loaded) {
             print("Build Page: Loaded");
-            return NeuigkeitenListView(state.neuigkeit,isCacheEnabled);
+            return NeuigkeitenListView(state.neuigkeit.reversed.toList(),isCacheEnabled);
           } else
             return LoadingIndicator();
         },
