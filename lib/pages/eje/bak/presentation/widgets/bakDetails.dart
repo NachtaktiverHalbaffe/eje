@@ -15,8 +15,7 @@ class BAKDetails extends StatefulWidget {
   BAKDetails(this.isCacheEnabled, this.bakler);
 
   @override
-  _BAKDetailsState createState() =>
-      _BAKDetailsState(isCacheEnabled,bakler);
+  _BAKDetailsState createState() => _BAKDetailsState(isCacheEnabled, bakler);
 }
 
 class _BAKDetailsState extends State<BAKDetails> {
@@ -28,32 +27,30 @@ class _BAKDetailsState extends State<BAKDetails> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BlocConsumer<BakBloc, BakState>(
-          listener: (context, state) {
-            if (state is Error) {
-              Scaffold.of(context).showSnackBar(
-                SnackBar(
-                  content: Text(state.message),
-                ),
-              );
-            }
-          },
+      body: BlocConsumer<BakBloc, BakState>(listener: (context, state) {
+        if (state is Error) {
+          Scaffold.of(context).showSnackBar(
+            SnackBar(
+              content: Text(state.message),
+            ),
+          );
+        }
+      },
           // ignore: missing_return
           builder: (context, state) {
-            if (state is Loading) {
-              return LoadingIndicator();
-            } else if (state is LoadedBAKler) {
-              return HauptamtlicheDetailsCard(
-                  state.bakler, widget.isCacheEnabled, context);
-            }
-          }),
+        if (state is Loading) {
+          return LoadingIndicator();
+        } else if (state is LoadedBAKler) {
+          return HauptamtlicheDetailsCard(
+              state.bakler, widget.isCacheEnabled, context);
+        }
+      }),
     );
   }
 
   @override
   void didChangeDependencies() {
-    BlocProvider.of<BakBloc>(context)
-        .add(GettingBAKler(bakler.name));
+    BlocProvider.of<BakBloc>(context).add(GettingBAKler(bakler.name));
   }
 }
 
@@ -100,25 +97,27 @@ Widget HauptamtlicheDetailsCard(
                   SizedBox(
                     width: 16,
                   ),
-                  Text(
-                    bakler.name,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                      fontSize: 40,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                      shadows: <Shadow>[
-                        Shadow(
-                          offset: Offset(2.0, 2.0),
-                          blurRadius: 6.0,
-                          color: Colors.black,
-                        ),
-                        Shadow(
-                          offset: Offset(2.0, 2.0),
-                          blurRadius: 6.0,
-                          color: Colors.black,
-                        ),
-                      ],
+                  Flexible(
+                    child: Text(
+                      bakler.name,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        fontSize: 32,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                        shadows: <Shadow>[
+                          Shadow(
+                            offset: Offset(2.0, 2.0),
+                            blurRadius: 6.0,
+                            color: Colors.black,
+                          ),
+                          Shadow(
+                            offset: Offset(2.0, 2.0),
+                            blurRadius: 6.0,
+                            color: Colors.black,
+                          ),
+                        ],
+                      ),
                     ),
                   )
                 ],
@@ -132,12 +131,12 @@ Widget HauptamtlicheDetailsCard(
       ),
       SizedBox(height: 8),
       Container(
-        padding: EdgeInsets.only(left:14,top:12),
+        padding: EdgeInsets.only(left: 14, top: 12),
         child: Text(
           bakler.amt,
           textAlign: TextAlign.justify,
           style: TextStyle(
-            fontSize: 24,
+            fontSize: 21,
           ),
         ),
       ),

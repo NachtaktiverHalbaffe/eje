@@ -8,6 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:icon_shadow/icon_shadow.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:page_view_indicators/circle_page_indicator.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
 class FreizeitDetails extends StatefulWidget {
   final Freizeit freizeit;
@@ -103,21 +104,23 @@ Widget FreizeitDetailsCard(
             ),
           ),
           // ignore: missing_return
-          Container(alignment:Alignment.center ,child: () {
-            if (freizeit.bilder.length != 1) {
-              return Container(
-                padding: EdgeInsets.all(8),
-                child: CirclePageIndicator(
-                  size: 5,
-                  selectedSize: 7.5,
-                  dotColor: Colors.white,
-                  selectedDotColor: Theme.of(context).accentColor,
-                  itemCount: freizeit.bilder.length,
-                  currentPageNotifier: _currentPageNotifier,
-                ),
-              );
-            }
-          }()),
+          Container(
+              alignment: Alignment.center,
+              child: () {
+                if (freizeit.bilder.length != 1) {
+                  return Container(
+                    padding: EdgeInsets.all(8),
+                    child: CirclePageIndicator(
+                      size: 5,
+                      selectedSize: 7.5,
+                      dotColor: Colors.white,
+                      selectedDotColor: Theme.of(context).accentColor,
+                      itemCount: freizeit.bilder.length,
+                      currentPageNotifier: _currentPageNotifier,
+                    ),
+                  );
+                }
+              }()),
           Positioned(
             left: 16.0,
             top: 16.0,
@@ -286,14 +289,23 @@ Widget FreizeitDetailsCard(
           style: TextStyle(fontSize: 14),
         ),
       ),
-      ListTile(
-        leading: Icon(
-          MdiIcons.timerSand,
-          size: 24,
+      GestureDetector(
+        onTap: () => WebView(
+          initialUrl: freizeit.link,
+          javascriptMode: JavascriptMode.unrestricted,
         ),
-        title: Text(
-          freizeit.anmeldeschluss,
-          style: TextStyle(fontSize: 14),
+        child: ListTile(
+          leading: Icon(
+            MdiIcons.fileDocumentEditOutline,
+            size: 24,
+          ),
+          title: Text(
+            freizeit.anmeldeschluss,
+            style: TextStyle(
+              fontSize: 14,
+              color: Colors.blue,
+            ),
+          ),
         ),
       ),
       SizedBox(
@@ -302,3 +314,4 @@ Widget FreizeitDetailsCard(
     ],
   );
 }
+

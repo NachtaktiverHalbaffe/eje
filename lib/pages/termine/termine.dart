@@ -38,7 +38,7 @@ class Termine extends StatelessWidget {
           } else if (state is Loading) {
             return LoadingIndicator();
           } else if (state is LoadedTermine) {
-            return TermineListView(state.termine, context, isCacheEnabled);
+            return TermineListView(state.termine.reversed.toList(), context, isCacheEnabled);
           }
         },
       ),

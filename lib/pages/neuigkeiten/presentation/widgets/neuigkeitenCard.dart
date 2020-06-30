@@ -15,13 +15,13 @@ class NeuigkeitenCard extends StatelessWidget {
   String TAG_TITEL;
 
   NeuigkeitenCard(this._neuigkeit, this.index, this.isCacheEnabled);
-
   final _currentPageNotifier = ValueNotifier<int>(0);
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context).copyWith(dividerColor: Colors.transparent);
     TAG_BILD = "BILD" + index.toString();
+    print(MediaQuery.of(context).devicePixelRatio);
     TAG_TITEL = "TITEL" + index.toString();
     return Container(
       padding: EdgeInsets.only(

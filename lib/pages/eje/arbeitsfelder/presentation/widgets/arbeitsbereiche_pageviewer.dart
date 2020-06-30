@@ -60,7 +60,7 @@ Widget KontaktCard(Arbeitsbereich arbeitsbereich, BuildContext context, bool isC
                 overflow: TextOverflow.ellipsis,
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  fontSize: 20,
+                  fontSize: 72/MediaQuery.of(context).devicePixelRatio,
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
                   shadows: <Shadow>[

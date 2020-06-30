@@ -45,8 +45,9 @@ Widget FreizeitCard(
                   SizedBox(height: 210),
                   Text(
                     freizeit.freizeit,
+                    overflow: TextOverflow.ellipsis,
                     style: TextStyle(
-                      fontSize: 32,
+                      fontSize: 92/MediaQuery.of(context).devicePixelRatio,
                       fontWeight: FontWeight.bold,
                       color: Colors.white,
                       shadows: <Shadow>[
@@ -67,7 +68,7 @@ Widget FreizeitCard(
                     freizeit.motto,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
-                      fontSize: 20,
+                      fontSize: 50/MediaQuery.of(context).devicePixelRatio,
                       color: Colors.white,
                       shadows: <Shadow>[
                         Shadow(
@@ -100,71 +101,80 @@ Widget FreizeitCard(
                   Table(
                     defaultVerticalAlignment: TableCellVerticalAlignment.middle,
                     children: [
-                      TableRow(
-                        children: <Widget>[
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: <Widget>[
-                              SizedBox(width: 12),
-                              Icon(Icons.today),
-                              SizedBox(width: 4),
-                              Text(
-                                freizeit.datum,
-                                style: TextStyle(
-                                  fontSize: 12,
-                                ),
-                              ),
-                            ],
-                          ),
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: <Widget>[
-                              SizedBox(width: 60),
-                              Icon(MdiIcons.currencyEur),
-                              SizedBox(width: 4),
-                              Text(
-                                freizeit.preis,
-                                style: TextStyle(
-                                  fontSize: 12,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ]
-                      ),
-                      TableRow(children:[SizedBox(height: 4),SizedBox(height: 4)]),
-                      TableRow(
+                      TableRow(children: <Widget>[
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: <Widget>[
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: <Widget>[
-                                SizedBox(width: 12),
-                                Icon(MdiIcons.mapMarker),
-                                SizedBox(width: 4),
-                                Text(
-                                  freizeit.ort.Anschrift,
-                                  style: TextStyle(
-                                    fontSize: 12,
-                                  ),
+                            SizedBox(width: 12),
+                            Icon(Icons.today),
+                            SizedBox(width: 4),
+                            Flexible(
+                              child: Text(
+                                freizeit.datum,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                  fontSize: 40/MediaQuery.of(context).devicePixelRatio,
                                 ),
-                              ],
+                              ),
                             ),
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: <Widget>[
-                                SizedBox(width: 60),
-                                Icon(MdiIcons.cakeVariant),
-                                SizedBox(width: 4),
-                                Text(
-                                  freizeit.alter,
-                                  style: TextStyle(
-                                    fontSize: 12,
-                                  ),
+                          ],
+                        ),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: <Widget>[
+                            SizedBox(width: 60),
+                            Icon(MdiIcons.currencyEur),
+                            SizedBox(width: 4),
+                            Flexible(
+                              child: Text(
+                                freizeit.preis,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                  fontSize: 40/MediaQuery.of(context).devicePixelRatio,
                                 ),
-                              ],
+                              ),
                             ),
-                          ]
-                      )
+                          ],
+                        ),
+                      ]),
+                      TableRow(
+                          children: [SizedBox(height: 4), SizedBox(height: 4)]),
+                      TableRow(children: <Widget>[
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: <Widget>[
+                            SizedBox(width: 12),
+                            Icon(MdiIcons.mapMarker),
+                            SizedBox(width: 4),
+                            Flexible(
+                              child: Text(
+                                freizeit.ort.Anschrift,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                  fontSize: 40/MediaQuery.of(context).devicePixelRatio,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: <Widget>[
+                            SizedBox(width: 60),
+                            Icon(MdiIcons.cakeVariant),
+                            SizedBox(width: 4),
+                            Flexible(
+                              child: Text(
+                                freizeit.alter,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                  fontSize: 40/MediaQuery.of(context).devicePixelRatio,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ])
                     ],
                   )
                 ],

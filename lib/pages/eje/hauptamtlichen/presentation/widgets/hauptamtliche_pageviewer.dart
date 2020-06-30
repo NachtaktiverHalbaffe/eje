@@ -62,7 +62,7 @@ Widget KontaktCard(Hauptamtlicher hauptamtlicher, BuildContext context, bool isC
                     overflow: TextOverflow.ellipsis,
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      fontSize: 18,
+                      fontSize: 62/MediaQuery.of(context).devicePixelRatio,
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
                       shadows: <Shadow>[
@@ -85,7 +85,7 @@ Widget KontaktCard(Hauptamtlicher hauptamtlicher, BuildContext context, bool isC
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
                       color: Colors.white,
-                      fontSize: 14,
+                      fontSize: 46/MediaQuery.of(context).devicePixelRatio,
                       shadows: <Shadow>[
                         Shadow(
                           offset: Offset(2.0, 2.0),

@@ -100,25 +100,27 @@ Widget HauptamtlicheDetailsCard(
                   SizedBox(
                     width: 16,
                   ),
-                  Text(
-                    hauptamtlicher.name,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                      fontSize: 40,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                      shadows: <Shadow>[
-                        Shadow(
-                          offset: Offset(2.0, 2.0),
-                          blurRadius: 6.0,
-                          color: Colors.black,
-                        ),
-                        Shadow(
-                          offset: Offset(2.0, 2.0),
-                          blurRadius: 6.0,
-                          color: Colors.black,
-                        ),
-                      ],
+                  Flexible(
+                    child: Text(
+                      hauptamtlicher.name,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        fontSize: 32 ,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                        shadows: <Shadow>[
+                          Shadow(
+                            offset: Offset(2.0, 2.0),
+                            blurRadius: 6.0,
+                            color: Colors.black,
+                          ),
+                          Shadow(
+                            offset: Offset(2.0, 2.0),
+                            blurRadius: 6.0,
+                            color: Colors.black,
+                          ),
+                        ],
+                      ),
                     ),
                   )
                 ],
@@ -137,7 +139,7 @@ Widget HauptamtlicheDetailsCard(
           hauptamtlicher.bereich,
           textAlign: TextAlign.justify,
           style: TextStyle(
-            fontSize: 24,
+            fontSize: 21,
           ),
         ),
       ),

@@ -34,7 +34,7 @@ void testdata_freizeiten(Box _box) {
         preis: "295 Euro",
         alter: "8 - 12 Jahre",
         datum: "30.07 - 07.08.2020",
-        ort: Ort("Zeltplatz am Hopfensee", "Dornach 108", "87659 Hopferau"),
+        ort: Ort("Freizeitheim Asch", "Dorfstraße 100", "12345 Blaubeuren"),
         anmeldeschluss: "	14. Juli 2020",
         verpflegung: "Vollverpflegung",
         unterbringung: "Zelte mit Boden und Feldbett",
