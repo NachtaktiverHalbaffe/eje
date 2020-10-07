@@ -40,8 +40,8 @@ class NeuigkeitenCard extends StatelessWidget {
                 MaterialPageRoute(
                   builder: (_) => BlocProvider.value(
                     value: sl<NeuigkeitenBlocBloc>(),
-                    child:
-                        neuigkeitenCardDetail(_neuigkeit, TAG_BILD, TAG_TITEL, isCacheEnabled),
+                    child: neuigkeitenCardDetail(
+                        _neuigkeit, TAG_BILD, TAG_TITEL, isCacheEnabled),
                   ),
                 ),
               ),
@@ -71,7 +71,7 @@ class NeuigkeitenCard extends StatelessWidget {
                             decoration: BoxDecoration(
                               image: DecorationImage(
                                 fit: BoxFit.fitWidth,
-                                image:PrefImage(bild, isCacheEnabled),
+                                image: PrefImage(bild, isCacheEnabled),
                               ),
                             ),
                           ),
@@ -104,7 +104,7 @@ class NeuigkeitenCard extends StatelessWidget {
                 gradient: LinearGradient(
                   begin: Alignment.bottomCenter,
                   end: Alignment.topCenter,
-                  colors: <Color>[
+                  colors: [
                     Colors.black,
                     Colors.black87,
                   ],
@@ -117,8 +117,8 @@ class NeuigkeitenCard extends StatelessWidget {
                 MaterialPageRoute(
                   builder: (_) => BlocProvider.value(
                     value: sl<NeuigkeitenBlocBloc>(),
-                    child:
-                        neuigkeitenCardDetail(_neuigkeit, TAG_BILD, TAG_TITEL, isCacheEnabled),
+                    child: neuigkeitenCardDetail(
+                        _neuigkeit, TAG_BILD, TAG_TITEL, isCacheEnabled),
                   ),
                 ),
               ),

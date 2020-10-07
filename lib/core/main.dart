@@ -15,7 +15,6 @@ import 'package:persistent_bottom_nav_bar/models/persistent-bottom-nav-bar-style
 import 'package:persistent_bottom_nav_bar/models/persistent-nav-bar-scaffold.widget.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../pages/neuigkeiten/neuigkeiten.dart';
 import 'utils/first_startup.dart';
 
@@ -134,8 +133,10 @@ Widget _MaterialApp(BuildContext context, SharedPreferences prefs) {
 // Firmenfarbe
       accentColor: Color(0xFFCD2E32),
 //Textcolors
-      primaryTextTheme: Typography(platform: TargetPlatform.android).black,
-      textTheme: Typography(platform: TargetPlatform.android).black,
+      primaryTextTheme:
+          Typography.material2018(platform: TargetPlatform.android).black,
+      textTheme:
+          Typography.material2018(platform: TargetPlatform.android).black,
       textSelectionColor: Theme.of(context).accentColor,
 //Iconcolors und Widgetcolors
       primaryIconTheme: IconThemeData(color: Colors.black),
@@ -153,6 +154,8 @@ Widget _MaterialApp(BuildContext context, SharedPreferences prefs) {
     ),
     themeMode: prefs.getBool("nightmode_auto")
         ? ThemeMode.system
-        : prefs.getBool("nightmode_on") ? ThemeMode.dark : ThemeMode.light,
+        : prefs.getBool("nightmode_on")
+            ? ThemeMode.dark
+            : ThemeMode.light,
   );
 }
