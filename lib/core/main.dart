@@ -60,26 +60,36 @@ class _MyHomePageState extends State<MyHomePage> {
         icon: Icon(MdiIcons.newspaper),
         title: ("Aktuelles"),
         activeColor: Theme.of(context).accentColor,
+        activeContentColor: Colors.white,
+        inactiveColor: Theme.of(context).accentColor,
       ),
       PersistentBottomNavBarItem(
         icon: Icon(CostumIcons.eje),
         title: ("Das eje"),
         activeColor: Theme.of(context).accentColor,
+        activeContentColor: Colors.white,
+        inactiveColor: Theme.of(context).accentColor,
       ),
       PersistentBottomNavBarItem(
         icon: Icon(Icons.today),
         title: ("Termine"),
         activeColor: Theme.of(context).accentColor,
+        activeContentColor: Colors.white,
+        inactiveColor: Theme.of(context).accentColor,
       ),
       PersistentBottomNavBarItem(
         icon: Icon(MdiIcons.terrain),
         title: ("Freizeiten"),
         activeColor: Theme.of(context).accentColor,
+        activeContentColor: Colors.white,
+        inactiveColor: Theme.of(context).accentColor,
       ),
       PersistentBottomNavBarItem(
         icon: Icon(Icons.settings),
         title: ("Einstellungen"),
         activeColor: Theme.of(context).accentColor,
+        activeContentColor: Colors.white,
+        inactiveColor: Theme.of(context).accentColor,
       ),
     ];
   }
@@ -105,7 +115,8 @@ class _MyHomePageState extends State<MyHomePage> {
       stateManagement: true,
       backgroundColor: Theme.of(context).backgroundColor,
       iconSize: 26.0,
-      //navBarStyle: NavBarStyle.style6,
+      navBarStyle: NavBarStyle
+          .style7, //!Good looking alternatives: sytle3, style6, style7, style 15
       itemAnimationProperties: ItemAnimationProperties(
         duration: Duration(milliseconds: 400),
         curve: Curves.ease,
@@ -115,11 +126,15 @@ class _MyHomePageState extends State<MyHomePage> {
         curve: Curves.ease,
         duration: Duration(milliseconds: 200),
       ),
+      decoration: NavBarDecoration(
+        borderRadius: BorderRadius.circular(10.0),
+        colorBehindNavBar: Theme.of(context).backgroundColor,
+      ),
+      popAllScreensOnTapOfSelectedTab: true,
       // Choose the nav bar style with this property
       onItemSelected: (index) {
         print(index);
       },
-      navBarStyle: NavBarStyle.style1,
     );
   }
 
