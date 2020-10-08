@@ -19,32 +19,29 @@ class FreizeitenBloc extends Bloc<FreizeitenEvent, FreizeitenState> {
   FreizeitenBloc({
     @required this.getFreizeit,
     @required this.getFreizeiten,
-  });
-
-  @override
-  FreizeitenState get initialState => Empty();
+  }) : super(Empty());
 
   @override
   Stream<FreizeitenState> mapEventToState(
-      FreizeitenEvent event,
-      ) async* {
+    FreizeitenEvent event,
+  ) async* {
     if (event is RefreshFreizeiten) {
       yield Loading();
       final freizeitenOrFailure = await getFreizeiten();
-      yield  freizeitenOrFailure.fold(
-            (failure){
-          return Error(message:_mapFailureToMessage(failure));
-        },
-            (freizeiten){
-          return LoadedFreizeiten(freizeiten);},
-      );
-    }
-    else if(event is GettingFreizeit){
-      yield Loading();
-      final freizeitenOrFailure = await getFreizeit(freizeit:event.freizeit);
       yield freizeitenOrFailure.fold(
-            (failure)=> Error(message:_mapFailureToMessage(failure)),
-            (freizeit)=> LoadedFreizeit(freizeit),
+        (failure) {
+          return Error(message: _mapFailureToMessage(failure));
+        },
+        (freizeiten) {
+          return LoadedFreizeiten(freizeiten);
+        },
+      );
+    } else if (event is GettingFreizeit) {
+      yield Loading();
+      final freizeitenOrFailure = await getFreizeit(freizeit: event.freizeit);
+      yield freizeitenOrFailure.fold(
+        (failure) => Error(message: _mapFailureToMessage(failure)),
+        (freizeit) => LoadedFreizeit(freizeit),
       );
     }
   }

@@ -8,13 +8,13 @@ part of 'neuigkeit.dart';
 
 class NeuigkeitAdapter extends TypeAdapter<Neuigkeit> {
   @override
-  final typeId = 0;
+  final int typeId = 0;
 
   @override
   Neuigkeit read(BinaryReader reader) {
-    var numOfFields = reader.readByte();
-    var fields = <int, dynamic>{
-      for (var i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
+    final numOfFields = reader.readByte();
+    final fields = <int, dynamic>{
+      for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return Neuigkeit(
       titel: fields[0] as String,
@@ -43,4 +43,14 @@ class NeuigkeitAdapter extends TypeAdapter<Neuigkeit> {
       ..writeByte(5)
       ..write(obj.published);
   }
+
+  @override
+  int get hashCode => typeId.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is NeuigkeitAdapter &&
+          runtimeType == other.runtimeType &&
+          typeId == other.typeId;
 }

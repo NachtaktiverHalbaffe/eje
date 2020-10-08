@@ -6,7 +6,8 @@ import 'package:eje/pages/eje/arbeitsfelder/domain/usecases/GetArbeitsbereiche.d
 import './bloc.dart';
 import 'package:meta/meta.dart';
 
-class ArbeitsbereicheBloc extends Bloc<ArbeitsbereicheEvent, ArbeitsbereicheState> {
+class ArbeitsbereicheBloc
+    extends Bloc<ArbeitsbereicheEvent, ArbeitsbereicheState> {
   final String SERVER_FAILURE_MESSAGE =
       'Fehler beim Abrufen der Daten vom Server. Ist Ihr Gerät mit den Internet verbunden?';
   final String CACHE_FAILURE_MESSAGE =
@@ -17,35 +18,33 @@ class ArbeitsbereicheBloc extends Bloc<ArbeitsbereicheEvent, ArbeitsbereicheStat
   ArbeitsbereicheBloc({
     @required this.getArbeitsbereich,
     @required this.getArbeitsbereiche,
-  });
-
-  @override
-  ArbeitsbereicheState get initialState => Empty();
+  }) : super(Empty());
 
   @override
   Stream<ArbeitsbereicheState> mapEventToState(
-      ArbeitsbereicheEvent event,
-      ) async* {
+    ArbeitsbereicheEvent event,
+  ) async* {
     if (event is RefreshArbeitsbereiche) {
       print("Triggered Event: RefreshArbeitsbereiche");
       yield Loading();
       final arbeitsbereicheOrFailure = await getArbeitsbereiche();
-      yield  arbeitsbereicheOrFailure.fold(
-            (failure){
-          print("Error");
-          return Error(message:_mapFailureToMessage(failure));
-        },
-            (arbeitsbereiche){
-          print("Succes. Returning LoadedArbeitsbereiche");
-          return LoadedArbeitsbereiche(arbeitsbereiche);},
-      );
-    }
-    else if(event is GettingArbeitsbereich){
-      yield Loading();
-      final arbeitsbereicheOrFailure = await getArbeitsbereich(arbeitsbereich:event.arbeitsfeld);
       yield arbeitsbereicheOrFailure.fold(
-            (failure)=> Error(message:_mapFailureToMessage(failure)),
-            (arbeitsfeld)=> LoadedArbeitsbereich(arbeitsfeld),
+        (failure) {
+          print("Error");
+          return Error(message: _mapFailureToMessage(failure));
+        },
+        (arbeitsbereiche) {
+          print("Succes. Returning LoadedArbeitsbereiche");
+          return LoadedArbeitsbereiche(arbeitsbereiche);
+        },
+      );
+    } else if (event is GettingArbeitsbereich) {
+      yield Loading();
+      final arbeitsbereicheOrFailure =
+          await getArbeitsbereich(arbeitsbereich: event.arbeitsfeld);
+      yield arbeitsbereicheOrFailure.fold(
+        (failure) => Error(message: _mapFailureToMessage(failure)),
+        (arbeitsfeld) => LoadedArbeitsbereich(arbeitsfeld),
       );
     }
   }

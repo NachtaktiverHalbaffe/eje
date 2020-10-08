@@ -19,35 +19,32 @@ class BakBloc extends Bloc<BakEvent, BakState> {
   BakBloc({
     @required this.getBAK,
     @required this.getBAKler,
-  });
-
-  @override
-  BakState get initialState => Empty();
+  }) : super(Empty());
 
   @override
   Stream<BakState> mapEventToState(
-      BakEvent event,
-      ) async* {
+    BakEvent event,
+  ) async* {
     if (event is RefreshBAK) {
       print("Triggered Event: RefreshBak");
       yield Loading();
       final bakOrFailure = await getBAK();
       yield bakOrFailure.fold(
-            (failure){
+        (failure) {
           print("Error");
-          return Error(message:_mapFailureToMessage(failure));
+          return Error(message: _mapFailureToMessage(failure));
         },
-            (bak){
+        (bak) {
           print("Succes. Returning LoadedHauptamtliche");
-          return LoadedBAK(bak);},
+          return LoadedBAK(bak);
+        },
       );
-    }
-    else if(event is GettingBAKler){
+    } else if (event is GettingBAKler) {
       yield Loading();
-      final bakOrFailure = await getBAKler(name:event.name);
+      final bakOrFailure = await getBAKler(name: event.name);
       yield bakOrFailure.fold(
-            (failure)=> Error(message:_mapFailureToMessage(failure)),
-            (bakler)=> LoadedBAKler(bakler),
+        (failure) => Error(message: _mapFailureToMessage(failure)),
+        (bakler) => LoadedBAKler(bakler),
       );
     }
   }

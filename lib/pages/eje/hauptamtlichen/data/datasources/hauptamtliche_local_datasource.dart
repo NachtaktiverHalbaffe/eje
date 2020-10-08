@@ -1,10 +1,9 @@
-
 import 'package:eje/core/error/exception.dart';
 import 'package:eje/fixtures/testdata_hauptamtliche.dart';
 import 'package:eje/pages/eje/hauptamtlichen/domain/entitys/hauptamtlicher.dart';
 import 'package:hive/hive.dart';
 
-class HauptamtlicheLocalDatasource{
+class HauptamtlicheLocalDatasource {
   Box _box;
 
   Future<List<Hauptamtlicher>> getCachedHauptamtliche() async {
@@ -27,7 +26,7 @@ class HauptamtlicheLocalDatasource{
   }
 
   Future<Hauptamtlicher> getHauptamtliche(String name) async {
-     _box = await Hive.openBox('Hauptamtliche');
+    _box = await Hive.openBox('Hauptamtliche');
     testdata_hauptamtliche(_box);
     if (_box.isNotEmpty) {
       for (int i = 0; i < _box.length; i++) {
@@ -43,22 +42,22 @@ class HauptamtlicheLocalDatasource{
     }
   }
 
-  Future<void> cacheHauptamtliche(List<Hauptamtlicher> hauptamtlicheToCache) async {
+  Future<void> cacheHauptamtliche(
+      List<Hauptamtlicher> hauptamtlicheToCache) async {
     _box = await Hive.openBox('Hauptamtliche');
-    for(int i=0; i<  hauptamtlicheToCache.length;i++){
-      bool alreadyexists=false;
-      for(int k=0; k< _box.length;k++){
+    for (int i = 0; i < hauptamtlicheToCache.length; i++) {
+      bool alreadyexists = false;
+      for (int k = 0; k < _box.length; k++) {
         final Hauptamtlicher _hauptamtlicher = _box.getAt(k);
-        if(_hauptamtlicher.name == hauptamtlicheToCache[i].name){
-          alreadyexists=true;
+        if (_hauptamtlicher.name == hauptamtlicheToCache[i].name) {
+          alreadyexists = true;
         }
       }
-      if(alreadyexists==false){
+      if (alreadyexists == false) {
         _box.add(hauptamtlicheToCache[i]);
       }
     }
     Hive.box('Hauptamtliche').compact();
-    Hive.box('Hauptamtliche').close();
+    //Hive.box('Hauptamtliche').close();
   }
-
 }

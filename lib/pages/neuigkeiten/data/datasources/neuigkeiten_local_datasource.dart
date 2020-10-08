@@ -3,9 +3,8 @@ import 'package:eje/pages/neuigkeiten/domain/entitys/neuigkeit.dart';
 import 'package:hive/hive.dart';
 
 class NeuigkeitenLocalDatasource {
-
   Future<List<Neuigkeit>> getCachedNeuigkeiten() async {
-    Box _box ;
+    Box _box;
     _box = await Hive.openBox('Neuigkeiten');
     if (_box.isNotEmpty) {
       List<Neuigkeit> temp = new List<Neuigkeit>();
@@ -16,6 +15,7 @@ class NeuigkeitenLocalDatasource {
       }
       Hive.box('Neuigkeiten').compact();
       Hive.box('Neuigkeiten').close();
+      temp.sort((a, b) => a.published.compareTo(b.published));
       return temp;
     } else {
       throw CacheException();
@@ -40,19 +40,19 @@ class NeuigkeitenLocalDatasource {
 
   Future<void> cacheNeuigkeiten(List<Neuigkeit> neuigkeitenToCache) async {
     Box _box = await Hive.openBox('Neuigkeiten');
-    for(int i=0; i<  neuigkeitenToCache.length;i++){
-      bool alreadyexists=false;
-     for(int k=0; k< _box.length;k++){
-       final Neuigkeit _neuigkeit = _box.getAt(k);
-       if(_neuigkeit.titel == neuigkeitenToCache[i].titel){
-         alreadyexists=true;
-       }
-     }
-     if(alreadyexists==false){
-       _box.add(neuigkeitenToCache[i]);
-     }
+    for (int i = 0; i < neuigkeitenToCache.length; i++) {
+      bool alreadyexists = false;
+      for (int k = 0; k < _box.length; k++) {
+        final Neuigkeit _neuigkeit = _box.getAt(k);
+        if (_neuigkeit.titel == neuigkeitenToCache[i].titel) {
+          alreadyexists = true;
+        }
+      }
+      if (alreadyexists == false) {
+        _box.add(neuigkeitenToCache[i]);
+      }
     }
     Hive.box('Neuigkeiten').compact();
-    Hive.box('Neuigkeiten').close();
+    //Hive.box('Neuigkeiten').close();
   }
 }

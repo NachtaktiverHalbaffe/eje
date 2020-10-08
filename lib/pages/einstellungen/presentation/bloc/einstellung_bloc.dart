@@ -14,10 +14,8 @@ class EinstellungBloc extends Bloc<EinstellungEvent, EinstellungState> {
   final GetPreferences getPrefrences;
   final GetPreference getPreference;
 
-  EinstellungBloc(this.storePrefrences, this.getPrefrences, this.getPreference);
-
-  @override
-  EinstellungState get initialState => Empty();
+  EinstellungBloc(this.storePrefrences, this.getPrefrences, this.getPreference)
+      : super(Empty());
 
   @override
   Stream<EinstellungState> mapEventToState(

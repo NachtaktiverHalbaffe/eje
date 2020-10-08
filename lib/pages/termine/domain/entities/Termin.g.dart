@@ -8,13 +8,13 @@ part of 'Termin.dart';
 
 class TerminAdapter extends TypeAdapter<Termin> {
   @override
-  final typeId = 4;
+  final int typeId = 4;
 
   @override
   Termin read(BinaryReader reader) {
-    var numOfFields = reader.readByte();
-    var fields = <int, dynamic>{
-      for (var i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
+    final numOfFields = reader.readByte();
+    final fields = <int, dynamic>{
+      for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return Termin(
       veranstaltung: fields[0] as String,
@@ -43,4 +43,14 @@ class TerminAdapter extends TypeAdapter<Termin> {
       ..writeByte(5)
       ..write(obj.ort);
   }
+
+  @override
+  int get hashCode => typeId.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is TerminAdapter &&
+          runtimeType == other.runtimeType &&
+          typeId == other.typeId;
 }

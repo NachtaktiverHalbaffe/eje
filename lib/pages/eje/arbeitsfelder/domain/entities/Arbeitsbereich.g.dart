@@ -8,13 +8,13 @@ part of 'Arbeitsbereich.dart';
 
 class ArbeitsbereichAdapter extends TypeAdapter<Arbeitsbereich> {
   @override
-  final typeId = 3;
+  final int typeId = 3;
 
   @override
   Arbeitsbereich read(BinaryReader reader) {
-    var numOfFields = reader.readByte();
-    var fields = <int, dynamic>{
-      for (var i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
+    final numOfFields = reader.readByte();
+    final fields = <int, dynamic>{
+      for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return Arbeitsbereich(
       arbeitsfeld: fields[0] as String,
@@ -37,4 +37,14 @@ class ArbeitsbereichAdapter extends TypeAdapter<Arbeitsbereich> {
       ..writeByte(3)
       ..write(obj.children);
   }
+
+  @override
+  int get hashCode => typeId.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is ArbeitsbereichAdapter &&
+          runtimeType == other.runtimeType &&
+          typeId == other.typeId;
 }

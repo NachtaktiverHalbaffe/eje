@@ -8,13 +8,13 @@ part of 'BAKler.dart';
 
 class BAKlerAdapter extends TypeAdapter<BAKler> {
   @override
-  final typeId = 2;
+  final int typeId = 2;
 
   @override
   BAKler read(BinaryReader reader) {
-    var numOfFields = reader.readByte();
-    var fields = <int, dynamic>{
-      for (var i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
+    final numOfFields = reader.readByte();
+    final fields = <int, dynamic>{
+      for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return BAKler(
       bild: fields[0] as String,
@@ -43,4 +43,14 @@ class BAKlerAdapter extends TypeAdapter<BAKler> {
       ..writeByte(5)
       ..write(obj.threema);
   }
+
+  @override
+  int get hashCode => typeId.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is BAKlerAdapter &&
+          runtimeType == other.runtimeType &&
+          typeId == other.typeId;
 }

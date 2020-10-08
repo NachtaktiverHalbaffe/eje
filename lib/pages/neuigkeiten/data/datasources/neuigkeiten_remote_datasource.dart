@@ -40,7 +40,6 @@ class NeuigkeitenRemoteDatasource {
           ),
         );
       }
-      print(temp);
       return temp;
     } else {
       throw ServerException();

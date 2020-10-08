@@ -20,10 +20,8 @@ class NeuigkeitenBlocBloc
     @required this.getNeuigkeit,
     @required this.getNeuigkeiten,
   })  : assert(getNeuigkeiten != null),
-        assert(getNeuigkeit != null);
-
-  @override
-  NeuigkeitenBlocState get initialState => Empty();
+        assert(getNeuigkeit != null),
+        super(Empty());
 
   @override
   Stream<NeuigkeitenBlocState> mapEventToState(

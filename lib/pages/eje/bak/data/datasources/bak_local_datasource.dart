@@ -1,10 +1,9 @@
-
 import 'package:eje/core/error/exception.dart';
 import 'package:eje/fixtures/testdata_bak.dart';
 import 'package:eje/pages/eje/bak/domain/entitys/BAKler.dart';
 import 'package:hive/hive.dart';
 
-class BAKLocalDatasource{
+class BAKLocalDatasource {
   Box _box;
 
   Future<List<BAKler>> getCachedBAK() async {
@@ -45,20 +44,19 @@ class BAKLocalDatasource{
 
   Future<void> cacheBAK(List<BAKler> bakToCache) async {
     _box = await Hive.openBox('BAK');
-    for(int i=0; i<  bakToCache.length;i++){
-      bool alreadyexists=false;
-      for(int k=0; k< _box.length;k++){
+    for (int i = 0; i < bakToCache.length; i++) {
+      bool alreadyexists = false;
+      for (int k = 0; k < _box.length; k++) {
         final BAKler _bakler = _box.getAt(k);
-        if(_bakler.name == bakToCache[i].name){
-          alreadyexists=true;
+        if (_bakler.name == bakToCache[i].name) {
+          alreadyexists = true;
         }
       }
-      if(alreadyexists==false){
+      if (alreadyexists == false) {
         _box.add(bakToCache[i]);
       }
     }
     Hive.box('BAK').compact();
-    Hive.box('BAK').close();
+    //Hive.box('BAK').close();
   }
-
 }

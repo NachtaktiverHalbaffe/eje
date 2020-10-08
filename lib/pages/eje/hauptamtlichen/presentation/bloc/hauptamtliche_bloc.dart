@@ -19,10 +19,7 @@ class HauptamtlicheBloc extends Bloc<HauptamtlicheEvent, HauptamtlicheState> {
   HauptamtlicheBloc({
     @required this.getHauptamtliche,
     @required this.getHauptamtlicher,
-  });
-
-  @override
-  HauptamtlicheState get initialState => Empty();
+  }) : super(Empty());
 
   @override
   Stream<HauptamtlicheState> mapEventToState(
@@ -33,21 +30,21 @@ class HauptamtlicheBloc extends Bloc<HauptamtlicheEvent, HauptamtlicheState> {
       yield Loading();
       final hauptamtlicheOrFailure = await getHauptamtliche();
       yield hauptamtlicheOrFailure.fold(
-        (failure){
+        (failure) {
           print("Error");
-          return Error(message:_mapFailureToMessage(failure));
+          return Error(message: _mapFailureToMessage(failure));
         },
-        (hauptamtliche){
+        (hauptamtliche) {
           print("Succes. Returning LoadedHauptamtliche");
-          return LoadedHauptamtliche(hauptamtliche);},
+          return LoadedHauptamtliche(hauptamtliche);
+        },
       );
-    }
-    else if(event is GettingHauptamtlicher){
+    } else if (event is GettingHauptamtlicher) {
       yield Loading();
-      final hauptamtlicheOrFailure = await getHauptamtlicher(name:event.name);
+      final hauptamtlicheOrFailure = await getHauptamtlicher(name: event.name);
       yield hauptamtlicheOrFailure.fold(
-            (failure)=> Error(message:_mapFailureToMessage(failure)),
-            (hauptamtlicher)=> LoadedHauptamtlicher(hauptamtlicher),
+        (failure) => Error(message: _mapFailureToMessage(failure)),
+        (hauptamtlicher) => LoadedHauptamtlicher(hauptamtlicher),
       );
     }
   }

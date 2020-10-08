@@ -25,7 +25,7 @@ class NeuigkeitenRepositoryImpl implements NeuigkeitenRepository {
   Future<Either<Failure, Neuigkeit>> getNeuigkeit(String titel) async {
     try {
       List<Neuigkeit> _neuigkeiten =
-      await localDatasource.getCachedNeuigkeiten();
+          await localDatasource.getCachedNeuigkeiten();
       for (var value in _neuigkeiten) {
         if (value.titel == titel) {
           return Right(value);
@@ -39,16 +39,17 @@ class NeuigkeitenRepositoryImpl implements NeuigkeitenRepository {
   //Lade Artikel aus den Internet herunter
   @override
   Future<Either<Failure, List<Neuigkeit>>> getNeuigkeiten() async {
-   if (await networkInfo.isConnected) {
+    if (await networkInfo.isConnected) {
       try {
-        final remoteNeuigkeit = await remoteDataSource.getNeuigkeiten();
+        final remoteNeuigkeiten = await remoteDataSource.getNeuigkeiten();
         print("Got Neuigkeiten from Internet");
-        localDatasource.cacheNeuigkeiten(remoteNeuigkeit);
+        await localDatasource.cacheNeuigkeiten(remoteNeuigkeiten);
         return Right(await localDatasource.getCachedNeuigkeiten());
       } on ServerException {
         print("Neuigkeiten: Serverexception");
         return Left(ServerFailure());
       }
-    } else return Right(await localDatasource.getCachedNeuigkeiten());
+    } else
+      return Right(await localDatasource.getCachedNeuigkeiten());
   }
 }

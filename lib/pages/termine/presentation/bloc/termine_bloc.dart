@@ -19,35 +19,33 @@ class TermineBloc extends Bloc<TermineEvent, TermineState> {
   TermineBloc({
     @required this.getTermine,
     @required this.getTermin,
-  });
-
-  @override
-  TermineState get initialState => Empty();
+  }) : super(Empty());
 
   @override
   Stream<TermineState> mapEventToState(
-      TermineEvent event,
-      ) async* {
+    TermineEvent event,
+  ) async* {
     if (event is RefreshTermine) {
       print("Triggered Event: RefreshTermine");
       yield Loading();
       final termineOrFailure = await getTermine();
-      yield  termineOrFailure.fold(
-            (failure){
+      yield termineOrFailure.fold(
+        (failure) {
           print("Error");
-          return Error(message:_mapFailureToMessage(failure));
+          return Error(message: _mapFailureToMessage(failure));
         },
-            (termine){
+        (termine) {
           print("Succes. Returning LoadedTermine");
-          return LoadedTermine(termine);},
+          return LoadedTermine(termine);
+        },
       );
-    }
-    else if(event is GettingTermin){
+    } else if (event is GettingTermin) {
       yield Loading();
-      final arbeitsbereicheOrFailure = await getTermin(veranstaltung: event.veranstaltung,dateTime:event.dateTime);
+      final arbeitsbereicheOrFailure = await getTermin(
+          veranstaltung: event.veranstaltung, dateTime: event.dateTime);
       yield arbeitsbereicheOrFailure.fold(
-            (failure)=> Error(message:_mapFailureToMessage(failure)),
-            (termin)=> LoadedTermin(termin),
+        (failure) => Error(message: _mapFailureToMessage(failure)),
+        (termin) => LoadedTermin(termin),
       );
     }
   }

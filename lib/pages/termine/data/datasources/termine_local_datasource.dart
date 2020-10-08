@@ -3,7 +3,7 @@ import 'package:eje/fixtures/testdata_termine.dart';
 import 'package:eje/pages/termine/domain/entities/Termin.dart';
 import 'package:hive/hive.dart';
 
-class TermineLocalDatasource{
+class TermineLocalDatasource {
   Box _box;
 
   Future<List<Termin>> getCachedTermine() async {
@@ -42,20 +42,19 @@ class TermineLocalDatasource{
 
   Future<void> cacheTermine(List<Termin> termineToCache) async {
     _box = await Hive.openBox('Termine');
-    for(int i=0; i<   termineToCache.length;i++){
-      bool alreadyexists=false;
-      for(int k=0; k< _box.length;k++){
+    for (int i = 0; i < termineToCache.length; i++) {
+      bool alreadyexists = false;
+      for (int k = 0; k < _box.length; k++) {
         final Termin _termin = _box.getAt(k);
-        if(_termin == termineToCache[i]){
-          alreadyexists=true;
+        if (_termin == termineToCache[i]) {
+          alreadyexists = true;
         }
       }
-      if(alreadyexists==false){
-        _box.add( termineToCache[i]);
+      if (alreadyexists == false) {
+        _box.add(termineToCache[i]);
       }
     }
     Hive.box('Termine').compact();
-    Hive.box('Termine').close();
+    //Hive.box('Termine').close();
   }
-
 }

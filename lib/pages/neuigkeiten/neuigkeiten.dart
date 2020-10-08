@@ -37,7 +37,8 @@ class Neuigkeiten extends StatelessWidget {
             return LoadingIndicator();
           } else if (state is Loaded) {
             print("Build Page: Loaded");
-            return NeuigkeitenListView(state.neuigkeit.reversed.toList(),isCacheEnabled);
+            return NeuigkeitenListView(
+                state.neuigkeit.toList(), isCacheEnabled);
           } else
             return LoadingIndicator();
         },
@@ -50,7 +51,6 @@ class NeuigkeitenListView extends StatelessWidget {
   final List<Neuigkeit> _neuigkeiten;
   final bool isCacheEnabled;
 
-
   NeuigkeitenListView(this._neuigkeiten, this.isCacheEnabled);
 
   @override
@@ -58,20 +58,22 @@ class NeuigkeitenListView extends StatelessWidget {
     return new Column(
       children: <Widget>[
         new Expanded(
-          child: _buildNeuigkeitenList(context, _neuigkeiten,isCacheEnabled),
+          child: _buildNeuigkeitenList(context, _neuigkeiten, isCacheEnabled),
         ),
       ],
     );
   }
 }
 
-Widget _buildNeuigkeitenList(BuildContext context, _neuigkeiten, bool isCacheEnabled) {
+Widget _buildNeuigkeitenList(
+    BuildContext context, _neuigkeiten, bool isCacheEnabled) {
   final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
-  new GlobalKey<RefreshIndicatorState>();
+      new GlobalKey<RefreshIndicatorState>();
   return RefreshIndicator(
     key: _refreshIndicatorKey,
-    onRefresh: () async{
-      await BlocProvider.of<NeuigkeitenBlocBloc>(context).add(RefreshNeuigkeiten());
+    onRefresh: () async {
+      await BlocProvider.of<NeuigkeitenBlocBloc>(context)
+          .add(RefreshNeuigkeiten());
     },
     child: ListView.builder(
       physics: ScrollPhysics(
@@ -80,7 +82,7 @@ Widget _buildNeuigkeitenList(BuildContext context, _neuigkeiten, bool isCacheEna
       itemCount: _neuigkeiten.length,
       itemBuilder: (context, index) {
         final neuigkeit = _neuigkeiten[index];
-        return NeuigkeitenCard(neuigkeit, index,isCacheEnabled);
+        return NeuigkeitenCard(neuigkeit, index, isCacheEnabled);
       },
     ),
   );

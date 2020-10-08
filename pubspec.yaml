@@ -18,7 +18,7 @@ dependencies:
   json_serializable: ^3.2.3
   # Offline Database
   hive:
-  hive_flutter: ^0.3.0+2
+  hive_flutter:
   # For Storing Settings
   shared_preferences: ^0.5.2
   # For OS-Specific directories paths
@@ -26,6 +26,7 @@ dependencies:
   # Service locator
   get_it: ^2.0.1
   # Bloc for state management
+  bloc: 
   flutter_bloc:
   # Value equality
   equatable: ^0.6.0

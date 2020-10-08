@@ -10,10 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive/hive.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:persistent_bottom_nav_bar/models/persisten-bottom-nav-item.widget.dart';
-import 'package:persistent_bottom_nav_bar/models/persistent-bottom-nav-bar-styles.widget.dart';
-import 'package:persistent_bottom_nav_bar/models/persistent-nav-bar-scaffold.widget.dart';
-import 'package:persistent_bottom_nav_bar/persistent-tab-view.widget.dart';
+import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../pages/neuigkeiten/neuigkeiten.dart';
 import 'utils/first_startup.dart';
@@ -104,14 +101,25 @@ class _MyHomePageState extends State<MyHomePage> {
       controller: PersistentTabController(initialIndex: 0),
       items: _navBarsItems(),
       screens: _buildScreens(),
-      showElevation: true,
+      handleAndroidBackButtonPress: true,
+      stateManagement: true,
       backgroundColor: Theme.of(context).backgroundColor,
       iconSize: 26.0,
-      navBarStyle: NavBarStyle.style6,
+      //navBarStyle: NavBarStyle.style6,
+      itemAnimationProperties: ItemAnimationProperties(
+        duration: Duration(milliseconds: 400),
+        curve: Curves.ease,
+      ),
+      screenTransitionAnimation: ScreenTransitionAnimation(
+        animateTabTransition: true,
+        curve: Curves.ease,
+        duration: Duration(milliseconds: 200),
+      ),
       // Choose the nav bar style with this property
       onItemSelected: (index) {
         print(index);
       },
+      navBarStyle: NavBarStyle.style1,
     );
   }
 

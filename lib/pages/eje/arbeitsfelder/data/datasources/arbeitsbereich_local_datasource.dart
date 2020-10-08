@@ -3,7 +3,7 @@ import 'package:eje/fixtures/testdata_arbeitsbereiche.dart';
 import 'package:eje/pages/eje/arbeitsfelder/domain/entities/Arbeitsbereich.dart';
 import 'package:hive/hive.dart';
 
-class ArbeitsbereicheLocalDatasource{
+class ArbeitsbereicheLocalDatasource {
   Box _box;
 
   Future<List<Arbeitsbereich>> getCachedArbeitsbereiche() async {
@@ -42,20 +42,20 @@ class ArbeitsbereicheLocalDatasource{
 
   Future<void> cacheBAK(List<Arbeitsbereich> arbeitsbereicheToCache) async {
     _box = await Hive.openBox('Arbeitsbereiche');
-    for(int i=0; i<   arbeitsbereicheToCache.length;i++){
-      bool alreadyexists=false;
-      for(int k=0; k< _box.length;k++){
+    for (int i = 0; i < arbeitsbereicheToCache.length; i++) {
+      bool alreadyexists = false;
+      for (int k = 0; k < _box.length; k++) {
         final Arbeitsbereich _arbeitsbereich = _box.getAt(k);
-        if(_arbeitsbereich.arbeitsfeld == arbeitsbereicheToCache[i].arbeitsfeld){
-          alreadyexists=true;
+        if (_arbeitsbereich.arbeitsfeld ==
+            arbeitsbereicheToCache[i].arbeitsfeld) {
+          alreadyexists = true;
         }
       }
-      if(alreadyexists==false){
-        _box.add( arbeitsbereicheToCache[i]);
+      if (alreadyexists == false) {
+        _box.add(arbeitsbereicheToCache[i]);
       }
     }
     Hive.box('Arbeitsbereiche').compact();
-    Hive.box('Arbeitsbereiche').close();
+    //Hive.box('Arbeitsbereiche').close();
   }
-
 }
