@@ -58,7 +58,8 @@ class NeuigkeitenListView extends StatelessWidget {
     return new Column(
       children: <Widget>[
         new Expanded(
-          child: _buildNeuigkeitenList(context, _neuigkeiten, isCacheEnabled),
+          child: _buildNeuigkeitenList(
+              context, _neuigkeiten.reversed.toList(), isCacheEnabled),
         ),
       ],
     );

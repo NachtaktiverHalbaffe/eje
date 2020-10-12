@@ -11,11 +11,15 @@ class NeuigkeitenLocalDatasource {
       for (int i = 0; i < _box.length; i++) {
         if (_box.getAt(i) != null) {
           temp.add(_box.getAt(i));
+          Neuigkeit neuigkeit = _box.getAt(i);
+          print(neuigkeit.published);
         }
       }
       Hive.box('Neuigkeiten').compact();
       Hive.box('Neuigkeiten').close();
-      temp.sort((a, b) => a.published.compareTo(b.published));
+      if (temp.isNotEmpty) {
+        temp.sort((a, b) => a.published.compareTo(b.published));
+      }
       return temp;
     } else {
       throw CacheException();

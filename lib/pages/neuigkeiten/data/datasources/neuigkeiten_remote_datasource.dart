@@ -39,8 +39,6 @@ class NeuigkeitenRemoteDatasource {
             published: parseDateTimeFromRSS(items[i].pubDate.toString()),
           ),
         );
-        print(items[i].pubDate);
-        print(temp[i].published);
       }
       return temp;
     } else {
