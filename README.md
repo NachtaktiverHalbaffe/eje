@@ -28,7 +28,7 @@ In der Presentationebene wird das Statemanagment betrieben, die Logik für das F
 - [Bloc](https://github.com/felangel/bloc/tree/master/packages/bloc) für State-Managment
 - [Equatable](https://github.com/felangel/equatable) und [Dartz](https://github.com/spebbe/dartz) als Tools für die Architektur
 - [Data Connection Checker](https://github.com/komapeb/data_connection_checker), [connectivity](https://github.com/flutter/plugins) und [http](https://github.com/dart-lang/http) für online-API-Aufrufe
-- [Get it}(https://github.com/fluttercommunity/get_it) für Dependency Injection
+- [Get it](https://github.com/fluttercommunity/get_it) für Dependency Injection
 - [Persistent Bottom Nav Bar](https://github.com/BilalShahid13/PersistentBottomNavBar) als Widget für die Navigation
 - [Material Design Icons](https://github.com/ziofat/material_design_icons_flutter) und [Icon Shadow](https://github.com/mehrtarh/flutter_icon_shadow) für Icons
 - [WebView](https://github.com/flutter/plugins) und [URL-Launcher](https://github.com/flutter/plugins) für das Anzeigen von Websiten
