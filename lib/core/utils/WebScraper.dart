@@ -26,6 +26,10 @@ class WebScraper {
           if (parent[i].getElementsByClassName('news-teaser').isNotEmpty) {
             content =
                 parent[i].getElementsByClassName('news-teaser')[0].innerHtml;
+            if (content.contains('<br>')) {
+              //TODO Fix einrückungen
+              content = content.replaceAll('<br>', "\n");
+            }
           } else if (parent[i].getElementsByClassName('bodytext') != null) {
             final List<String> contentList = parent[i]
                 .getElementsByClassName('bodytext')
@@ -48,6 +52,7 @@ class WebScraper {
             bilder = parent[i]
                 .getElementsByClassName('text-pic-right')
                 .map((elements) =>
+                    "https://www.eje-esslingen.de/" +
                     elements.getElementsByTagName('img')[0].attributes['src'])
                 .toList();
           } else if (parent[i]
@@ -57,6 +62,7 @@ class WebScraper {
             bilder = parent[i]
                 .getElementsByClassName("width100 center marginBottom10")
                 .map((elements) =>
+                    "https://www.eje-esslingen.de/" +
                     elements.getElementsByTagName('img')[0].attributes['src'])
                 .toList();
           } else

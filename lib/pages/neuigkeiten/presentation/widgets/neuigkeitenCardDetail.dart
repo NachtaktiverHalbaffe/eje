@@ -1,3 +1,4 @@
+import 'package:eje/core/platform/Article.dart';
 import 'package:eje/core/widgets/LoadingIndicator.dart';
 import 'package:eje/core/widgets/PrefImage.dart';
 import 'package:eje/pages/neuigkeiten/domain/entitys/neuigkeit.dart';
@@ -9,34 +10,33 @@ import 'package:icon_shadow/icon_shadow.dart';
 import 'package:page_view_indicators/circle_page_indicator.dart';
 
 class neuigkeitenCardDetail extends StatefulWidget {
-  Neuigkeit _neuigkeit;
+  String title;
   final String TAG_TITEL;
   final String TAG_BILD;
   final bool isCacheEnabled;
 
-  neuigkeitenCardDetail(this._neuigkeit, this.TAG_TITEL, this.TAG_BILD,
-      this.isCacheEnabled);
+  neuigkeitenCardDetail(
+      this.title, this.TAG_TITEL, this.TAG_BILD, this.isCacheEnabled);
 
   @override
   State<StatefulWidget> createState() =>
-      _neuigkeitenCardDetail(_neuigkeit, TAG_BILD, TAG_TITEL, isCacheEnabled);
+      _neuigkeitenCardDetail(title, TAG_BILD, TAG_TITEL, isCacheEnabled);
 }
 
 class _neuigkeitenCardDetail extends State<neuigkeitenCardDetail> {
-  Neuigkeit _neuigkeit;
+  String title;
   final String TAG_TITEL;
   final String TAG_BILD;
   final bool isCacheEnabled;
 
-
-  _neuigkeitenCardDetail(this._neuigkeit, this.TAG_TITEL, this.TAG_BILD,
-      this.isCacheEnabled);
+  _neuigkeitenCardDetail(
+      this.title, this.TAG_TITEL, this.TAG_BILD, this.isCacheEnabled);
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     BlocProvider.of<NeuigkeitenBlocBloc>(context)
-        .add(GetNeuigkeitDetails(_neuigkeit.titel));
+        .add(GetNeuigkeitDetails(title));
   }
 
   @override
@@ -55,7 +55,8 @@ class _neuigkeitenCardDetail extends State<neuigkeitenCardDetail> {
         builder: (context, state) {
           if (state is LoadedDetail) {
             print("Build Page: LoadedDetail");
-            return card(context, TAG_BILD, TAG_TITEL, _neuigkeit, isCacheEnabled);
+            return card(
+                context, TAG_BILD, TAG_TITEL, state.article[0], isCacheEnabled);
           } else if (state is LoadingDetails) {
             return LoadingIndicator();
           } else
@@ -66,7 +67,7 @@ class _neuigkeitenCardDetail extends State<neuigkeitenCardDetail> {
   }
 }
 
-Widget card(context, TAG_BILD, TAG_TITEL, _neuigkeit, isCacheEnabled) {
+Widget card(context, TAG_BILD, TAG_TITEL, _article, isCacheEnabled) {
   final _currentPageNotifier = ValueNotifier<int>(0);
   return ListView(
     physics: ScrollPhysics(
@@ -90,9 +91,9 @@ Widget card(context, TAG_BILD, TAG_TITEL, _neuigkeit, isCacheEnabled) {
                   },
                   pageSnapping: true,
                   controller: PageController(initialPage: 0),
-                  itemCount: _neuigkeit.bilder.length,
+                  itemCount: _article.bilder.length,
                   itemBuilder: (context, position) {
-                    final bild = _neuigkeit.bilder[position];
+                    final bild = _article.bilder[position];
                     return Hero(
                       tag: TAG_BILD,
                       child: Stack(
@@ -116,7 +117,7 @@ Widget card(context, TAG_BILD, TAG_TITEL, _neuigkeit, isCacheEnabled) {
               ),
               // ignore: missing_return
               Container(child: () {
-                if (_neuigkeit.bilder.length != 1) {
+                if (_article.bilder.length != 1) {
                   return Container(
                     padding: EdgeInsets.all(8),
                     child: CirclePageIndicator(
@@ -124,7 +125,7 @@ Widget card(context, TAG_BILD, TAG_TITEL, _neuigkeit, isCacheEnabled) {
                       selectedSize: 7.5,
                       dotColor: Colors.white,
                       selectedDotColor: Theme.of(context).accentColor,
-                      itemCount: _neuigkeit.bilder.length,
+                      itemCount: _article.bilder.length,
                       currentPageNotifier: _currentPageNotifier,
                     ),
                   );
@@ -156,7 +157,7 @@ Widget card(context, TAG_BILD, TAG_TITEL, _neuigkeit, isCacheEnabled) {
               width: MediaQuery.of(context).size.width,
               padding: EdgeInsets.only(left: 12, right: 12, top: 16),
               child: Text(
-                _neuigkeit.titel,
+                _article.titel,
                 textAlign: TextAlign.left,
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
@@ -170,7 +171,7 @@ Widget card(context, TAG_BILD, TAG_TITEL, _neuigkeit, isCacheEnabled) {
             width: MediaQuery.of(context).size.width,
             padding: EdgeInsets.only(left: 12, right: 12, top: 12, bottom: 16),
             child: Text(
-              _neuigkeit.text,
+              _article.content,
               textAlign: TextAlign.justify,
               style: TextStyle(
                 fontSize: 16,

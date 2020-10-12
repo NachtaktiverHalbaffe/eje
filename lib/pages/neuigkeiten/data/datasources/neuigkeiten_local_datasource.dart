@@ -24,7 +24,7 @@ class NeuigkeitenLocalDatasource {
     }
   }
 
-  Future<Neuigkeit> getNeuigkeit(String titel) async {
+  /* Future<Neuigkeit> getNeuigkeit(String titel) async {
     Box _box = await Hive.openBox('Neuigkeiten');
     if (_box.isNotEmpty) {
       for (int i = 0; i < _box.length; i++) {
@@ -38,7 +38,7 @@ class NeuigkeitenLocalDatasource {
     } else {
       throw CacheException();
     }
-  }
+  }*/
 
   Future<void> cacheNeuigkeiten(List<Neuigkeit> neuigkeitenToCache) async {
     Box _box = await Hive.openBox('Neuigkeiten');

@@ -1,5 +1,8 @@
 import 'package:dartz/dartz.dart';
 import 'package:eje/core/error/exception.dart';
+import 'package:eje/core/platform/Article.dart';
+import 'package:eje/core/utils/WebScraper.dart';
+import 'package:hive/hive.dart';
 import 'package:meta/meta.dart';
 import 'package:eje/core/error/failures.dart';
 import 'package:eje/core/platform/network_info.dart';
@@ -22,15 +25,39 @@ class NeuigkeitenRepositoryImpl implements NeuigkeitenRepository {
 
   //Lade bestimmten Artikel aus Cache
   @override
-  Future<Either<Failure, Neuigkeit>> getNeuigkeit(String titel) async {
+  Future<Either<Failure, List<Article>>> getNeuigkeit(String titel) async {
+    Box _box;
+    List<Article> article = List();
+    //open database
+    _box = await Hive.openBox('Articles');
     try {
+      bool isInCache = false;
+      String url = "";
       List<Neuigkeit> _neuigkeiten =
           await localDatasource.getCachedNeuigkeiten();
       for (var value in _neuigkeiten) {
         if (value.titel == titel) {
-          return Right(value);
+          //sing url of ticle if ticle isnt in cache
+          url = value.weiterfuehrender_link;
+          for (int k = 0; k < _box.length; k++) {
+            final Article _article = _box.getAt(k);
+            if (_article.url == value.weiterfuehrender_link) {
+              article.add(_box.getAt(k));
+              isInCache = true;
+            }
+          }
         }
       }
+      if (isInCache == false) {
+        List<Article> _webScrapingResult =
+            await WebScraper().scrapeWebPage(url);
+        _box.addAll(_webScrapingResult);
+        print(_webScrapingResult[0].content);
+        article.addAll(_webScrapingResult);
+      }
+      Hive.box('Articles').compact();
+      Hive.box('Articles').close();
+      return Right(article);
     } on CacheException {
       return Left(CacheFailure());
     }

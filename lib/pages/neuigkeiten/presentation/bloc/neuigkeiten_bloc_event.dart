@@ -4,7 +4,7 @@ import 'package:meta/meta.dart';
 
 @immutable
 abstract class NeuigkeitenBlocEvent extends Equatable {
-  const NeuigkeitenBlocEvent() ;
+  const NeuigkeitenBlocEvent();
 
   @override
   List<Object> get props => [];

@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:eje/core/error/failures.dart';
-import 'package:eje/pages/neuigkeiten/domain/entitys/neuigkeit.dart';
 import 'package:eje/pages/neuigkeiten/domain/usecases/GetNeuigkeit.dart';
 import 'package:eje/pages/neuigkeiten/domain/usecases/GetNeuigkeiten.dart';
 import './bloc.dart';
@@ -49,7 +48,7 @@ class NeuigkeitenBlocBloc
         (failure) => Error(message: _mapFailureToMessage(failure)),
         (neuigkeit) {
           print("GetDetails Event: Success. Return LoadedDetail state");
-          return LoadedDetail(neuigkeit: neuigkeit);
+          return LoadedDetail(article: neuigkeit);
         },
       );
     }

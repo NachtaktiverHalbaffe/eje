@@ -40,7 +40,7 @@ class NeuigkeitenCard extends StatelessWidget {
                   builder: (_) => BlocProvider.value(
                     value: sl<NeuigkeitenBlocBloc>(),
                     child: neuigkeitenCardDetail(
-                        _neuigkeit, TAG_BILD, TAG_TITEL, isCacheEnabled),
+                        _neuigkeit.titel, TAG_BILD, TAG_TITEL, isCacheEnabled),
                   ),
                 ),
               ),
@@ -117,7 +117,7 @@ class NeuigkeitenCard extends StatelessWidget {
                   builder: (_) => BlocProvider.value(
                     value: sl<NeuigkeitenBlocBloc>(),
                     child: neuigkeitenCardDetail(
-                        _neuigkeit, TAG_BILD, TAG_TITEL, isCacheEnabled),
+                        _neuigkeit.titel, TAG_BILD, TAG_TITEL, isCacheEnabled),
                   ),
                 ),
               ),

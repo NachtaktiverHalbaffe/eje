@@ -1,3 +1,4 @@
+import 'package:eje/core/platform/Article.dart';
 import 'package:eje/pages/neuigkeiten/domain/entitys/neuigkeit.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
@@ -46,13 +47,13 @@ class Loaded extends NeuigkeitenBlocState {
 }
 
 class LoadedDetail extends NeuigkeitenBlocState {
-  final Neuigkeit neuigkeit;
+  final List<Article> article;
 
   //Constructor
-  LoadedDetail({@required this.neuigkeit});
+  LoadedDetail({@required this.article});
 
   @override
-  List<Object> get props => [neuigkeit];
+  List<Object> get props => [article];
 }
 
 class Error extends NeuigkeitenBlocState {
