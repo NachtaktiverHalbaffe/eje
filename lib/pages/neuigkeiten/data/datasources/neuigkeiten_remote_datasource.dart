@@ -35,7 +35,7 @@ class NeuigkeitenRemoteDatasource {
                     "http://www.sjr-es.de/media/zoo/images/eje_logo_9df3b8fbf18c2d3a99928fa9bfbe0da3.jpg"
                   ]
                 : [items[i].enclosure.url],
-            weiterfuehrender_link: items[i].guid,
+            weiterfuehrender_link: items[i].link,
             published: parseDateTimeFromRSS(items[i].pubDate.toString()),
           ),
         );

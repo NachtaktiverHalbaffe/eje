@@ -11,8 +11,6 @@ class NeuigkeitenLocalDatasource {
       for (int i = 0; i < _box.length; i++) {
         if (_box.getAt(i) != null) {
           temp.add(_box.getAt(i));
-          Neuigkeit neuigkeit = _box.getAt(i);
-          print(neuigkeit.published);
         }
       }
       Hive.box('Neuigkeiten').compact();
