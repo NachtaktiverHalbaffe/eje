@@ -58,9 +58,9 @@ Die Pages enthalten die einzelnen Menüpunkte und haben alle denselben Aufbau. D
 - presentation: Bloc für Statemanagment. Innerhalb von Bloc gibt es Bloc_Events für verschiedene Events, die ein State-wechsel verursachen, Bloc-STates für die verschiedene zustände der WIdgets und BLoc selber als Buisness Logic, welche festlegt welche Events welche States hervorrufen. Widgets sind frontend widgets für die Darstellung zuständig (UI)
 - außerhalb der packages ist immer ein übergeordnetes Widgets, was das oberstes WIdgets eines Menüpunktes darstellt und die verschiedenen unterwidgets eines Menüpunktes zusammenführt
 
-## Widget-Tree
+### Klassen
 
-## Klassen
+## Widget-Tree
 
 ## Benutzte Librarys
 - [Hive](https://github.com/hivedb/hive) und [Path Provider](https://github.com/flutter/plugins) (Depenmdency von Hive) als Offline-Database
