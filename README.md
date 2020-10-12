@@ -19,7 +19,48 @@ In der Presentationebene wird das Statemanagment betrieben, die Logik für das F
 
 ## Module
 
+### Core
+**Error**
+- exeption als Models für die verschiedene Arten von Fehlern im Data/Domain-Layer
+- failure als Models für die verschiedene Arten von Operationsfehlschlägen im Data/Domain-Layer
+
+**Platform**
+- Article und Article.g (generiert durch Hive) als Entität für Inhalte einer Seite der Homepage
+- network_info als Methode zum herausfinden ob die App Verbindung zum Internet hat
+
+**Usecases**
+- usecases als Template für usecases für die Architektur
+
+**Utils**
+- first_startup um beim aller ersten starten der AppStandardwerte zu setzen
+- injection_container für Dependency Injection, um die losen Module der Architektur zu verbinden
+- WebScraper um Artikel von der Homepage webzuscrapen (breiter angelehte Online-Datenquelle)
+
+**Widgets**
+- bloc für Statemanagment auf der obersten Ebene
+- Loadingindicator als universelle Ladeanmiation
+- Prefimage als Widget für die darstellung von network images, die je nach Einstellung aus dem cache oder jedes mal aus den Internet geladen werden
+
+### Pages
+Die Pages enthalten die einzelnen Menüpunkte und haben alle denselben Aufbau. Daher werden nur die einzelnen Menüpunkte un der generelle Aufbau gelistet
+
+**Pages**
+- Einstellungen: Appeinstellungen und rechtliche Angaben wie Datenschutz und Lizenzen
+- eje: Vorstellung der Arbeitsbereiche, des BAK/Vorstandes, der Hauptamtlichen und ausgewählten Services
+- freizeiten: Auflistung der Freizeiten, die im ejw-Manager öffentlich gelistet sind
+- instagram: Anzeigen der Website des eje-Instagrams, wird im Release nicht übernommen
+- neuigkeiten: Auflistung der neuesten news des eje
+- termine: Auflistung der Veranstaltungen des ejw-managers, die dort öffentlich gelistet werden
+
+**Generelle Aufbau**
+- data: Wird aufgeteilt in Local-Datasource (Cache mithilfe von Hive) und Remote-Datasource(RSS-Feed, API des ejw-Managers oder WebScraping) und repository für die Zusammenführung
+- domain: Entities, die die Daten darstellen, repositories die Entitäten generieren und verschiedene usecases um verschiedene Entitäten anzufragen (meistens eine Liste von Entitäten oder eine einzelne Entität)
+- presentation: Bloc für Statemanagment. Innerhalb von Bloc gibt es Bloc_Events für verschiedene Events, die ein State-wechsel verursachen, Bloc-STates für die verschiedene zustände der WIdgets und BLoc selber als Buisness Logic, welche festlegt welche Events welche States hervorrufen. Widgets sind frontend widgets für die Darstellung zuständig (UI)
+- außerhalb der packages ist immer ein übergeordnetes Widgets, was das oberstes WIdgets eines Menüpunktes darstellt und die verschiedenen unterwidgets eines Menüpunktes zusammenführt
+
 ## Widget-Tree
+
+## Klassen
 
 ## Benutzte Librarys
 - [Hive](https://github.com/hivedb/hive) und [Path Provider](https://github.com/flutter/plugins) (Depenmdency von Hive) als Offline-Database
