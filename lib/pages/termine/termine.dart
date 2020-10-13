@@ -66,7 +66,7 @@ Widget TermineListView(
               return TerminCard(termine[index], isCacheEnabled);
             },
             itemCount: termine.length,
-            itemHeight: 510,
+            itemHeight: 550,
             itemWidth: 300,
             layout: SwiperLayout.STACK,
             loop: true,

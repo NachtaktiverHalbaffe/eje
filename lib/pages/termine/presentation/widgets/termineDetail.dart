@@ -9,14 +9,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:icon_shadow/icon_shadow.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
-class TerminDetails extends StatefulWidget{
- final Termin termin;
- final bool isCacheEnabled;
+class TerminDetails extends StatefulWidget {
+  final Termin termin;
+  final bool isCacheEnabled;
 
- TerminDetails(this.termin, this.isCacheEnabled);
+  TerminDetails(this.termin, this.isCacheEnabled);
 
   @override
-  _TerminDetailsState createState() => _TerminDetailsState(isCacheEnabled, termin);
+  _TerminDetailsState createState() =>
+      _TerminDetailsState(isCacheEnabled, termin);
 }
 
 class _TerminDetailsState extends State<TerminDetails> {
@@ -28,32 +29,31 @@ class _TerminDetailsState extends State<TerminDetails> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BlocConsumer<TermineBloc, TermineState>(
-          listener: (context, state) {
-            if (state is Error) {
-              Scaffold.of(context).showSnackBar(
-                SnackBar(
-                  content: Text(state.message),
-                ),
-              );
-            }
-          },
+      body: BlocConsumer<TermineBloc, TermineState>(listener: (context, state) {
+        if (state is Error) {
+          Scaffold.of(context).showSnackBar(
+            SnackBar(
+              content: Text(state.message),
+            ),
+          );
+        }
+      },
           // ignore: missing_return
           builder: (context, state) {
-            if (state is Loading) {
-              return LoadingIndicator();
-            } else if (state is LoadedTermin) {
-              return TerminDetailsCard(
-                  state.termin, widget.isCacheEnabled, context);
-            }
-          }),
+        if (state is Loading) {
+          return LoadingIndicator();
+        } else if (state is LoadedTermin) {
+          return TerminDetailsCard(
+              state.termin, widget.isCacheEnabled, context);
+        }
+      }),
     );
   }
 
   @override
   void didChangeDependencies() {
     BlocProvider.of<TermineBloc>(context)
-        .add(GettingTermin(termin.veranstaltung,termin.datum));
+        .add(GettingTermin(termin.veranstaltung, termin.datum));
   }
 }
 
@@ -124,29 +124,31 @@ Widget TerminDetailsCard(
                   )
                 ],
               ),
-              termin.motto!=null ? Container(
-                padding: EdgeInsets.only(left:14,top:12),
-                child: Text(
-                  termin.motto,
-                  textAlign: TextAlign.justify,
-                  style: TextStyle(
-                    fontSize: 20,
-                    color: Colors.white,
-                    shadows: <Shadow>[
-                      Shadow(
-                        offset: Offset(2.0, 2.0),
-                        blurRadius: 6.0,
-                        color: Colors.black,
+              termin.motto != null
+                  ? Container(
+                      padding: EdgeInsets.only(left: 14, top: 12),
+                      child: Text(
+                        termin.motto,
+                        textAlign: TextAlign.justify,
+                        style: TextStyle(
+                          fontSize: 20,
+                          color: Colors.white,
+                          shadows: <Shadow>[
+                            Shadow(
+                              offset: Offset(2.0, 2.0),
+                              blurRadius: 6.0,
+                              color: Colors.black,
+                            ),
+                            Shadow(
+                              offset: Offset(2.0, 2.0),
+                              blurRadius: 6.0,
+                              color: Colors.black,
+                            ),
+                          ],
+                        ),
                       ),
-                      Shadow(
-                        offset: Offset(2.0, 2.0),
-                        blurRadius: 6.0,
-                        color: Colors.black,
-                      ),
-                    ],
-                  ),
-                ),
-              ):SizedBox(height: 2),
+                    )
+                  : SizedBox(height: 2),
               SizedBox(
                 height: 12,
               )
@@ -155,16 +157,18 @@ Widget TerminDetailsCard(
         ],
       ),
       SizedBox(height: 8),
-      termin.text!=null ? Container(
-        padding: EdgeInsets.all(14),
-        child: Text(
-          termin.text,
-          textAlign: TextAlign.justify,
-          style: TextStyle(
-            fontSize: 16,
-          ),
-        ),
-      ):SizedBox(height: 8),
+      termin.text != null
+          ? Container(
+              padding: EdgeInsets.all(14),
+              child: Text(
+                termin.text,
+                textAlign: TextAlign.justify,
+                style: TextStyle(
+                  fontSize: 16,
+                ),
+              ),
+            )
+          : SizedBox(height: 8),
       Divider(),
       ListTile(
         leading: Icon(
@@ -182,14 +186,30 @@ Widget TerminDetailsCard(
           size: 24,
         ),
         title: Text(
-          termin.ort.Anschrift +"\n"+termin.ort.Strasse +"\n"+termin.ort.PLZ,
+          termin.ort.Anschrift +
+              "\n" +
+              termin.ort.Strasse +
+              "\n" +
+              termin.ort.PLZ,
           style: TextStyle(fontSize: 14),
         ),
         dense: true,
       ),
       SizedBox(
         height: 12,
-      )
+      ),
+      Container(
+        margin: EdgeInsets.all(8),
+        child: OutlineButton(
+          onPressed: () {},
+          child: Text("Veranstaltung merken"),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        ),
+      ),
+      SizedBox(
+        height: 12,
+      ),
     ],
   );
 }

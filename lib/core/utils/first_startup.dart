@@ -1,3 +1,5 @@
+import 'package:eje/core/platform/Article.dart';
+import 'package:eje/core/platform/Reminder.dart';
 import 'package:eje/pages/eje/arbeitsfelder/domain/entities/Arbeitsbereich.dart';
 import 'package:eje/pages/eje/bak/domain/entitys/BAKler.dart';
 import 'package:eje/pages/eje/hauptamtlichen/domain/entitys/hauptamtlicher.dart';
@@ -10,9 +12,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'injection_container.dart' as di;
 
-Future<void> prefStartup() async{
+Future<void> prefStartup() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
-  if(prefs.getBool("First_Startup") == null){
+  if (prefs.getBool("First_Startup") == null) {
     print("First startup. Setting default Preferences");
     prefs.setBool("First_Startup", true);
     prefs.setBool("nightmode_auto", true);
@@ -26,7 +28,7 @@ Future<void> prefStartup() async{
     prefs.setBool("cache_pictures", true);
   }
   final appDocumentDirectory =
-  await path_provider.getApplicationDocumentsDirectory();
+      await path_provider.getApplicationDocumentsDirectory();
   Hive.init(appDocumentDirectory.path);
   Hive.registerAdapter(NeuigkeitAdapter());
   Hive.registerAdapter(HauptamtlicherAdapter());
@@ -34,5 +36,7 @@ Future<void> prefStartup() async{
   Hive.registerAdapter(ArbeitsbereichAdapter());
   Hive.registerAdapter(TerminAdapter());
   Hive.registerAdapter(FreizeitAdapter());
+  Hive.registerAdapter(ArticleAdapter());
+  Hive.registerAdapter(ReminderAdapter());
   await di.init();
 }

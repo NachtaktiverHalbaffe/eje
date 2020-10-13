@@ -52,7 +52,7 @@ class TerminCard extends StatelessWidget {
               children: [
                 Container(
                   width: MediaQuery.of(context).size.width,
-                  height: 235,
+                  height: 275,
                   color: Theme.of(context).cardColor,
                 ),
                 Column(
@@ -98,7 +98,7 @@ class TerminCard extends StatelessWidget {
                     ),
                     Divider(),
                     SizedBox(
-                      height: 12,
+                      height: 4,
                     ),
                     ListTile(
                       leading: Icon(MdiIcons.calendar),
@@ -121,6 +121,15 @@ class TerminCard extends StatelessWidget {
                             fontSize:
                                 44 / MediaQuery.of(context).devicePixelRatio),
                       ),
+                    ),
+                    SizedBox(
+                      height: 6,
+                    ),
+                    OutlineButton(
+                      onPressed: () {},
+                      child: Text("Veranstaltung merken"),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12)),
                     ),
                   ],
                 )
