@@ -1,10 +1,12 @@
 import 'package:eje/core/widgets/bloc/bloc.dart';
 import 'package:eje/core/widgets/bloc/main_bloc.dart';
+import 'package:eje/core/widgets/costum_icons_icons.dart';
 import 'package:eje/pages/einstellungen/presentation/bloc/bloc.dart';
 import 'package:eje/pages/einstellungen/presentation/bloc/einstellung_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 Widget EinstellungenPage(BuildContext context, SharedPreferences prefs) {
   return ListView(
@@ -127,6 +129,64 @@ Widget EinstellungenPage(BuildContext context, SharedPreferences prefs) {
           "Heruntergeladene Bilder auf Gerät zwischenspeichern (reduziert Datenvolumen)",
         ),
         key: Key("cache_pictures"),
+      ),
+      Divider(),
+      SettingGroupTitle("Über", context),
+      Container(
+        margin: EdgeInsets.only(
+          left: 25.0,
+          right: 25.0,
+          bottom: 24.0,
+          top: 10.0,
+        ),
+        child: OutlineButton(
+          onPressed: () {
+            showAboutDialog(
+              context: context,
+              //TODO Update Appicon
+              applicationIcon: Icon(CostumIcons.eje),
+              applicationName: 'Über die App',
+              applicationVersion: 'Pre-Release',
+              applicationLegalese: 'Entwickelt vom LeMonkay VT&IT',
+              children: <Widget>[
+                Column(
+                  children: [
+                    SizedBox(
+                      height: 40 / MediaQuery.of(context).devicePixelRatio,
+                    ),
+                    Text(
+                      'Inhaltliche Administration durch das Evang. Jugendwerk Bezirk Esslingen',
+                    ),
+                    SizedBox(
+                      height: 60 / MediaQuery.of(context).devicePixelRatio,
+                    ),
+                    OutlineButton(
+                      onPressed: () async {
+                        if (await canLaunch(
+                            "https://www.eje-esslingen.de/meta/datenschutz/")) {
+                          await launch(
+                              "https://www.eje-esslingen.de/meta/datenschutz/");
+                        } else {
+                          throw 'Could not launch https://www.eje-esslingen.de/meta/datenschutz/';
+                        }
+                      },
+                      child: Text(
+                        "Datenschutz",
+                      ),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15)),
+                    ),
+                  ],
+                ),
+              ],
+            );
+          },
+          child: Text(
+            "Über die App, Datenschutz und Lizenzen",
+          ),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+        ),
       ),
     ],
   );
