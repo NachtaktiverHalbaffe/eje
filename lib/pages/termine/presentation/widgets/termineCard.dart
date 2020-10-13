@@ -15,55 +15,118 @@ class TerminCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.only(
-        left: 6,
-        right: 6,
-      ),
-      child: Card(
-        child: ListTile(
-          onTap: () => Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (_) => BlocProvider.value(
-                value: sl<TermineBloc>(),
-                child: TerminDetails(termin, isCacheEnabled),
-              ),
+    return ClipRRect(
+      borderRadius: new BorderRadius.all(Radius.circular(18)),
+      child: GestureDetector(
+        onTap: () => Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (_) => BlocProvider.value(
+              value: sl<TermineBloc>(),
+              child: TerminDetails(termin, isCacheEnabled),
             ),
           ),
-          isThreeLine: true,
-          leading: CircleAvatar(
-            radius: 28,
-            backgroundImage: ExactAssetImage(termin.bild),
-          ),
-          title: Text(
-            termin.veranstaltung,
-            style: TextStyle(fontSize: 18),
-          ),
-          subtitle: Column(
-            children: <Widget>[
-              SizedBox(height: 6),
-              Row(
-                children: <Widget>[
-                  Icon(Icons.today, size: 16),
-                  SizedBox(width: 4),
-                  Flexible(
-                      child:
-                          Text(termin.datum, overflow: TextOverflow.ellipsis))
-                ],
-              ),
-              SizedBox(height: 2),
-              Row(
-                children: <Widget>[
-                  Icon(MdiIcons.mapMarker, size: 16),
-                  SizedBox(width: 4),
-                  Flexible(
-                      child: Text(termin.ort.Anschrift,
-                          overflow: TextOverflow.ellipsis)),
-                ],
-              )
-            ],
-          ),
+        ),
+        child: Column(
+          children: [
+            Stack(
+              children: [
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: 275,
+                  color: Theme.of(context).cardColor,
+                ),
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: 275,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      fit: BoxFit.cover,
+                      image: ExactAssetImage(termin.bild),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            Stack(
+              children: [
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: 235,
+                  color: Theme.of(context).cardColor,
+                ),
+                Column(
+                  children: [
+                    SizedBox(
+                      height: 12,
+                    ),
+                    Row(
+                      children: [
+                        SizedBox(
+                            width:
+                                48 / MediaQuery.of(context).devicePixelRatio),
+                        Text(
+                          termin.veranstaltung,
+                          style: TextStyle(
+                              fontSize:
+                                  84 / MediaQuery.of(context).devicePixelRatio,
+                              fontWeight: FontWeight.bold,
+                              color: Theme.of(context).accentColor),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 4,
+                    ),
+                    Row(
+                      children: [
+                        SizedBox(
+                            width:
+                                48 / MediaQuery.of(context).devicePixelRatio),
+                        Text(
+                          termin.motto,
+                          style: TextStyle(
+                            fontSize:
+                                56 / MediaQuery.of(context).devicePixelRatio,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 12,
+                    ),
+                    Divider(),
+                    SizedBox(
+                      height: 12,
+                    ),
+                    ListTile(
+                      leading: Icon(MdiIcons.calendar),
+                      title: Text(
+                        termin.datum,
+                        style: TextStyle(
+                            fontSize:
+                                48 / MediaQuery.of(context).devicePixelRatio),
+                      ),
+                    ),
+                    ListTile(
+                      leading: Icon(MdiIcons.mapMarker),
+                      title: Text(
+                        termin.ort.Anschrift +
+                            "\n" +
+                            termin.ort.Strasse +
+                            "\n" +
+                            termin.ort.PLZ,
+                        style: TextStyle(
+                            fontSize:
+                                44 / MediaQuery.of(context).devicePixelRatio),
+                      ),
+                    ),
+                  ],
+                )
+              ],
+            ),
+          ],
         ),
       ),
     );

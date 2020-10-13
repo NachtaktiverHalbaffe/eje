@@ -7,6 +7,7 @@ import 'package:eje/pages/termine/presentation/widgets/termineCard.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_swiper/flutter_swiper.dart';
 
 import 'domain/entities/Termin.dart';
 
@@ -38,7 +39,8 @@ class Termine extends StatelessWidget {
           } else if (state is Loading) {
             return LoadingIndicator();
           } else if (state is LoadedTermine) {
-            return TermineListView(state.termine.reversed.toList(), context, isCacheEnabled);
+            return TermineListView(
+                state.termine.reversed.toList(), context, isCacheEnabled);
           }
         },
       ),
@@ -59,15 +61,15 @@ Widget TermineListView(
           onRefresh: () async {
             await BlocProvider.of<TermineBloc>(context).add(RefreshTermine());
           },
-          child: ListView.builder(
-            physics: ScrollPhysics(
-              parent: BouncingScrollPhysics(),
-            ),
-            itemCount: termine.length,
-            itemBuilder: (context, index) {
-              final termin = termine[index];
-              return TerminCard(termin, isCacheEnabled);
+          child: Swiper(
+            itemBuilder: (BuildContext context, int index) {
+              return TerminCard(termine[index], isCacheEnabled);
             },
+            itemCount: termine.length,
+            itemHeight: 510,
+            itemWidth: 300,
+            layout: SwiperLayout.STACK,
+            loop: true,
           ),
         ),
       ),
