@@ -19,7 +19,7 @@ Widget EinstellungenPage(BuildContext context, SharedPreferences prefs) {
           print("Setting Nightmode to auto");
           await BlocProvider.of<EinstellungBloc>(context)
               .add(StoringPreferences("nightmode_auto", val));
-          BlocProvider.of<MainBloc>(context).add(ChangingTheme());
+          BlocProvider.of<MainBloc>(context).add(ChangingThemeToLight());
         },
         title: Text(
           "Erscheinungsbild automatisch wählen",
@@ -33,7 +33,7 @@ Widget EinstellungenPage(BuildContext context, SharedPreferences prefs) {
           print("Setting Nightmode to off");
           await BlocProvider.of<EinstellungBloc>(context)
               .add(StoringPreferences("nightmode_off", val));
-          BlocProvider.of<MainBloc>(context).add(ChangingTheme());
+          BlocProvider.of<MainBloc>(context).add(ChangingThemeToLight());
         },
         title: Text(
           "Helles Erscheinungsbild",
@@ -47,7 +47,7 @@ Widget EinstellungenPage(BuildContext context, SharedPreferences prefs) {
           print("Setting Nightmode to on");
           await BlocProvider.of<EinstellungBloc>(context)
               .add(StoringPreferences("nightmode_on", val));
-          BlocProvider.of<MainBloc>(context).add(ChangingTheme());
+          BlocProvider.of<MainBloc>(context).add(ChangingThemeToAuto());
         },
         title: Text(
           "Dunkles Erscheinungsbild",

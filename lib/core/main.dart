@@ -33,7 +33,11 @@ class MyApp extends StatelessWidget {
       child: BlocBuilder<MainBloc, MainState>(builder: (context, state) {
         if (state is InitialMainState) {
           return _MaterialApp(context, prefs);
-        } else if (state is ChangedTheme) {
+        } else if (state is ChangedThemeToLight) {
+          return _MaterialApp(context, prefs);
+        } else if (state is ChangedThemeToDark) {
+          return _MaterialApp(context, prefs);
+        } else if (state is ChangedThemeToAuto) {
           return _MaterialApp(context, prefs);
         }
       }),

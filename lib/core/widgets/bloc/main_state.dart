@@ -9,7 +9,17 @@ class InitialMainState extends MainState {
   List<Object> get props => [];
 }
 
-class ChangedTheme extends MainState {
+class ChangedThemeToLight extends MainState {
+  @override
+  List<Object> get props => [];
+}
+
+class ChangedThemeToDark extends MainState {
+  @override
+  List<Object> get props => [];
+}
+
+class ChangedThemeToAuto extends MainState {
   @override
   List<Object> get props => [];
 }

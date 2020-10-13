@@ -12,8 +12,14 @@ class MainBloc extends Bloc<MainEvent, MainState> {
   Stream<MainState> mapEventToState(
     MainEvent event,
   ) async* {
-    if (event is ChangingTheme) {
-      yield ChangedTheme();
+    if (event is ChangingThemeToLight) {
+      yield ChangedThemeToLight();
+    }
+    if (event is ChangingThemeToDark) {
+      yield ChangedThemeToDark();
+    }
+    if (event is ChangingThemeToAuto) {
+      yield ChangedThemeToAuto();
     }
   }
 }
