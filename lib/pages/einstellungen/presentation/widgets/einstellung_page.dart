@@ -174,7 +174,7 @@ Widget EinstellungenPage(BuildContext context, SharedPreferences prefs) {
                         "Datenschutz",
                       ),
                       shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15)),
+                          borderRadius: BorderRadius.circular(12)),
                     ),
                   ],
                 ),
@@ -185,7 +185,7 @@ Widget EinstellungenPage(BuildContext context, SharedPreferences prefs) {
             "Über die App, Datenschutz und Lizenzen",
           ),
           shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         ),
       ),
     ],

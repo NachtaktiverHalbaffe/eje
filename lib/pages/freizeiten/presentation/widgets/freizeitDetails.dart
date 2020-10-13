@@ -290,26 +290,23 @@ Widget FreizeitDetailsCard(
           style: TextStyle(fontSize: 14),
         ),
       ),
-      GestureDetector(
-        onTap: () async {
-          if (await canLaunch(freizeit.link)) {
-            await launch(freizeit.link);
-          } else {
-            throw 'Could not launch $freizeit.link';
-          }
-        },
-        child: ListTile(
-          leading: Icon(
-            MdiIcons.fileDocumentEditOutline,
-            size: 24,
-          ),
-          title: Text(
-            freizeit.anmeldeschluss,
-            style: TextStyle(
-              fontSize: 14,
-              color: Colors.blue,
-            ),
-          ),
+      ListTile(
+        leading: Icon(
+          MdiIcons.fileDocumentEditOutline,
+          size: 24,
+        ),
+        title: OutlineButton(
+          onPressed: () async {
+            if (await canLaunch(freizeit.link)) {
+              await launch(freizeit.link);
+            } else {
+              throw 'Could not launch $freizeit.link';
+            }
+          },
+          child: Text(
+              "Anmelden (Anmeldeschluss: " + freizeit.anmeldeschluss + ")"),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         ),
       ),
       SizedBox(
