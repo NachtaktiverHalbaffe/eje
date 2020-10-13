@@ -154,18 +154,18 @@ Widget _MaterialApp(BuildContext context, SharedPreferences prefs) {
         isCacheEnabled: prefs.getBool("cache_pictures")),
     theme: ThemeData.light().copyWith(
 // Firmenfarbe
-      accentColor: Color(0xFFCD2E32),
+        accentColor: Color(0xFFCD2E32),
 //Textcolors
-      primaryTextTheme:
-          Typography.material2018(platform: TargetPlatform.android).black,
-      textTheme:
-          Typography.material2018(platform: TargetPlatform.android).black,
-      textSelectionColor: Theme.of(context).accentColor,
+        primaryTextTheme:
+            Typography.material2018(platform: TargetPlatform.android).black,
+        textTheme:
+            Typography.material2018(platform: TargetPlatform.android).black,
+        textSelectionColor: Theme.of(context).accentColor,
 //Iconcolors und Widgetcolors
-      primaryIconTheme: IconThemeData(color: Colors.black),
-      dividerColor: Colors.black,
-      backgroundColor: Colors.white,
-    ),
+        primaryIconTheme: IconThemeData(color: Colors.black),
+        dividerColor: Colors.black,
+        backgroundColor: Colors.white,
+        cardColor: Colors.white),
     darkTheme: ThemeData.dark().copyWith(
 //Firmenfarbe
       accentColor: Color(0xFFCD2E32),
