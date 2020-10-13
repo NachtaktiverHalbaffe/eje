@@ -6,6 +6,7 @@ import 'package:eje/pages/eje/arbeitsfelder/presentation/bloc/arbeitsbereiche_st
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:icon_shadow/icon_shadow.dart';
+import 'package:page_view_indicators/circle_page_indicator.dart';
 
 class ArbeitsbereicheDetails extends StatefulWidget {
   final bool isCacheEnabled;
@@ -29,23 +30,23 @@ class _ArbeitsbereicheDetailsState extends State<ArbeitsbereicheDetails> {
     return Scaffold(
       body: BlocConsumer<ArbeitsbereicheBloc, ArbeitsbereicheState>(
           listener: (context, state) {
-            if (state is Error) {
-              Scaffold.of(context).showSnackBar(
-                SnackBar(
-                  content: Text(state.message),
-                ),
-              );
-            }
-          },
+        if (state is Error) {
+          Scaffold.of(context).showSnackBar(
+            SnackBar(
+              content: Text(state.message),
+            ),
+          );
+        }
+      },
           // ignore: missing_return
           builder: (context, state) {
-            if (state is Loading) {
-              return LoadingIndicator();
-            } else if (state is LoadedArbeitsbereich) {
-              return HauptamtlicheDetailsCard(
-                  state.arbeitsbereich, widget.isCacheEnabled, context);
-            }
-          }),
+        if (state is Loading) {
+          return LoadingIndicator();
+        } else if (state is LoadedArbeitsbereich) {
+          return HauptamtlicheDetailsCard(
+              state.arbeitsbereich, widget.isCacheEnabled, context);
+        }
+      }),
     );
   }
 
@@ -58,23 +59,64 @@ class _ArbeitsbereicheDetailsState extends State<ArbeitsbereicheDetails> {
 
 Widget HauptamtlicheDetailsCard(
     Arbeitsbereich arbeitsbereich, bool isCacheEnabled, BuildContext context) {
+  final _currentPageNotifier = ValueNotifier<int>(0);
   return ListView(
     physics: ScrollPhysics(parent: BouncingScrollPhysics()),
     children: <Widget>[
       Stack(
         alignment: Alignment.bottomLeft,
         children: <Widget>[
-          // TODO Viewpager
           Container(
             width: MediaQuery.of(context).size.width,
-            height: 350,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                fit: BoxFit.cover,
-                image: ExactAssetImage(arbeitsbereich.bilder[0]),
+            height: 300,
+            child: PageView.builder(
+              physics: ScrollPhysics(
+                parent: BouncingScrollPhysics(),
               ),
+              onPageChanged: (int index) {
+                _currentPageNotifier.value = index;
+              },
+              pageSnapping: true,
+              controller: PageController(initialPage: 0),
+              itemCount: arbeitsbereich.bilder.length,
+              itemBuilder: (context, position) {
+                final bild = arbeitsbereich.bilder[position];
+                return Stack(
+                  alignment: Alignment.bottomCenter,
+                  children: <Widget>[
+                    Container(
+                      width: MediaQuery.of(context).size.width,
+                      height: MediaQuery.of(context).size.height,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          fit: BoxFit.cover,
+                          image: ExactAssetImage(bild),
+                        ),
+                      ),
+                    ),
+                  ],
+                );
+              },
             ),
           ),
+          // ignore: missing_return
+          Container(
+              alignment: Alignment.center,
+              child: () {
+                if (arbeitsbereich.bilder.length != 1) {
+                  return Container(
+                    padding: EdgeInsets.all(8),
+                    child: CirclePageIndicator(
+                      size: 5,
+                      selectedSize: 7.5,
+                      dotColor: Colors.white,
+                      selectedDotColor: Theme.of(context).accentColor,
+                      itemCount: arbeitsbereich.bilder.length,
+                      currentPageNotifier: _currentPageNotifier,
+                    ),
+                  );
+                }
+              }()),
           Positioned(
             left: 16.0,
             top: 16.0,
