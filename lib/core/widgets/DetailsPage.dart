@@ -1,13 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:icon_shadow/icon_shadow.dart';
+import 'package:page_view_indicators/circle_page_indicator.dart';
 
+import 'PrefImage.dart';
+
+// ignore: non_constant_identifier_names
 Widget DetailsPage(
     {String titel,
     String untertitel,
     String text,
-    String bild_url,
+    List<String> bild_url,
+    double pixtureHeight = 0,
+    bool isCacheEnabled = false,
     BuildContext context,
-    Widget child_widget}) {
+    Widget childWidget}) {
+  final _currentPageNotifier = ValueNotifier<int>(0);
   return ListView(
     physics: ScrollPhysics(parent: BouncingScrollPhysics()),
     children: <Widget>[
@@ -16,14 +23,58 @@ Widget DetailsPage(
         children: <Widget>[
           Container(
             width: MediaQuery.of(context).size.width,
-            height: 1050 / MediaQuery.of(context).devicePixelRatio,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                fit: BoxFit.cover,
-                image: ExactAssetImage(bild_url),
+            height: pixtureHeight == 0
+                ? 900 / MediaQuery.of(context).devicePixelRatio
+                : 1200 / MediaQuery.of(context).devicePixelRatio,
+            child: PageView.builder(
+              physics: ScrollPhysics(
+                parent: BouncingScrollPhysics(),
               ),
+              onPageChanged: (int index) {
+                _currentPageNotifier.value = index;
+              },
+              pageSnapping: true,
+              controller: PageController(initialPage: 0),
+              itemCount: bild_url.length,
+              itemBuilder: (context, position) {
+                final bild = bild_url[position];
+                return Stack(
+                  alignment: Alignment.bottomCenter,
+                  children: <Widget>[
+                    Container(
+                      width: MediaQuery.of(context).size.width,
+                      height: MediaQuery.of(context).size.height,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          fit: BoxFit.cover,
+                          image: bild.contains("http")
+                              ? PrefImage(bild, isCacheEnabled)
+                              : ExactAssetImage(bild),
+                        ),
+                      ),
+                    ),
+                  ],
+                );
+              },
             ),
           ),
+          Container(
+              alignment: Alignment.center,
+              child: () {
+                if (bild_url.length != 1) {
+                  return Container(
+                    padding: EdgeInsets.all(8),
+                    child: CirclePageIndicator(
+                      size: 5,
+                      selectedSize: 7.5,
+                      dotColor: Colors.white,
+                      selectedDotColor: Theme.of(context).accentColor,
+                      itemCount: bild_url.length,
+                      currentPageNotifier: _currentPageNotifier,
+                    ),
+                  );
+                }
+              }()),
           Positioned(
             left: 48.0 / MediaQuery.of(context).devicePixelRatio,
             top: 48.0 / MediaQuery.of(context).devicePixelRatio,
@@ -50,34 +101,44 @@ Widget DetailsPage(
                   SizedBox(
                     width: 36 / MediaQuery.of(context).devicePixelRatio,
                   ),
-                  Text(
-                    titel,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                      fontSize: 120 / MediaQuery.of(context).devicePixelRatio,
-                      fontWeight: FontWeight.bold,
-                      color: Theme.of(context).accentColor,
-                      shadows: <Shadow>[
-                        Shadow(
-                          offset: Offset(2.0, 2.0),
-                          blurRadius: 6.0,
-                          color: Colors.black,
-                        ),
-                        Shadow(
-                          offset: Offset(2.0, 2.0),
-                          blurRadius: 6.0,
-                          color: Colors.black,
-                        ),
-                      ],
+                  Flexible(
+                    child: Text(
+                      titel,
+                      textAlign: TextAlign.left,
+                      maxLines: 3,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        fontSize: 100 / MediaQuery.of(context).devicePixelRatio,
+                        fontWeight: FontWeight.bold,
+                        color: Theme.of(context).accentColor,
+                        shadows: <Shadow>[
+                          Shadow(
+                            offset: Offset(
+                                6 / MediaQuery.of(context).devicePixelRatio,
+                                6 / MediaQuery.of(context).devicePixelRatio),
+                            blurRadius:
+                                18 / MediaQuery.of(context).devicePixelRatio,
+                            color: Colors.black,
+                          ),
+                          Shadow(
+                            offset: Offset(
+                                6 / MediaQuery.of(context).devicePixelRatio,
+                                6 / MediaQuery.of(context).devicePixelRatio),
+                            blurRadius:
+                                18 / MediaQuery.of(context).devicePixelRatio,
+                            color: Colors.black,
+                          ),
+                        ],
+                      ),
                     ),
-                  )
+                  ),
                 ],
               ),
-              untertitel != null
+              untertitel != ""
                   ? Container(
                       padding: EdgeInsets.only(
                           left: 36 / MediaQuery.of(context).devicePixelRatio,
-                          top: 36 / MediaQuery.of(context).devicePixelRatio),
+                          top: 24 / MediaQuery.of(context).devicePixelRatio),
                       child: Text(
                         untertitel,
                         textAlign: TextAlign.justify,
@@ -87,13 +148,19 @@ Widget DetailsPage(
                           color: Colors.white,
                           shadows: <Shadow>[
                             Shadow(
-                              offset: Offset(2.0, 2.0),
-                              blurRadius: 6.0,
+                              offset: Offset(
+                                  6 / MediaQuery.of(context).devicePixelRatio,
+                                  6 / MediaQuery.of(context).devicePixelRatio),
+                              blurRadius:
+                                  18 / MediaQuery.of(context).devicePixelRatio,
                               color: Colors.black,
                             ),
                             Shadow(
-                              offset: Offset(2.0, 2.0),
-                              blurRadius: 6.0,
+                              offset: Offset(
+                                  6 / MediaQuery.of(context).devicePixelRatio,
+                                  6 / MediaQuery.of(context).devicePixelRatio),
+                              blurRadius:
+                                  18 / MediaQuery.of(context).devicePixelRatio,
                               color: Colors.black,
                             ),
                           ],
@@ -123,7 +190,7 @@ Widget DetailsPage(
               ),
             )
           : SizedBox(height: 24 / MediaQuery.of(context).devicePixelRatio),
-      child_widget,
+      childWidget,
     ],
   );
 }

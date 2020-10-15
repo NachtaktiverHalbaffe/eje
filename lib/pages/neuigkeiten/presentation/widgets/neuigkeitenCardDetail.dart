@@ -1,4 +1,5 @@
 import 'package:eje/core/platform/Article.dart';
+import 'package:eje/core/widgets/DetailsPage.dart';
 import 'package:eje/core/widgets/LoadingIndicator.dart';
 import 'package:eje/core/widgets/PrefImage.dart';
 import 'package:eje/pages/neuigkeiten/domain/entitys/neuigkeit.dart';
@@ -11,26 +12,21 @@ import 'package:page_view_indicators/circle_page_indicator.dart';
 
 class neuigkeitenCardDetail extends StatefulWidget {
   String title;
-  final String TAG_TITEL;
-  final String TAG_BILD;
   final bool isCacheEnabled;
 
-  neuigkeitenCardDetail(
-      this.title, this.TAG_TITEL, this.TAG_BILD, this.isCacheEnabled);
+  neuigkeitenCardDetail(this.title, this.isCacheEnabled);
 
   @override
   State<StatefulWidget> createState() =>
-      _neuigkeitenCardDetail(title, TAG_BILD, TAG_TITEL, isCacheEnabled);
+      _neuigkeitenCardDetail(title, isCacheEnabled);
 }
 
 class _neuigkeitenCardDetail extends State<neuigkeitenCardDetail> {
   String title;
-  final String TAG_TITEL;
-  final String TAG_BILD;
+
   final bool isCacheEnabled;
 
-  _neuigkeitenCardDetail(
-      this.title, this.TAG_TITEL, this.TAG_BILD, this.isCacheEnabled);
+  _neuigkeitenCardDetail(this.title, this.isCacheEnabled);
 
   @override
   void didChangeDependencies() {
@@ -55,8 +51,7 @@ class _neuigkeitenCardDetail extends State<neuigkeitenCardDetail> {
         builder: (context, state) {
           if (state is LoadedDetail) {
             print("Build Page: LoadedDetail");
-            return card(
-                context, TAG_BILD, TAG_TITEL, state.article[0], isCacheEnabled);
+            return card(context, state.article[0], isCacheEnabled);
           } else if (state is LoadingDetails) {
             return LoadingIndicator();
           } else
@@ -67,9 +62,21 @@ class _neuigkeitenCardDetail extends State<neuigkeitenCardDetail> {
   }
 }
 
-Widget card(context, TAG_BILD, TAG_TITEL, _article, isCacheEnabled) {
+Widget card(context, _article, isCacheEnabled) {
   final _currentPageNotifier = ValueNotifier<int>(0);
-  return ListView(
+  return DetailsPage(
+    titel: _article.titel,
+    untertitel: "",
+    text: _article.content,
+    bild_url: _article.bilder,
+    context: context,
+    isCacheEnabled: isCacheEnabled,
+    childWidget: SizedBox(
+      height: 36 / MediaQuery.of(context).devicePixelRatio,
+    ),
+  );
+
+  /*ListView(
     physics: ScrollPhysics(
       parent: BouncingScrollPhysics(),
     ),
@@ -181,5 +188,5 @@ Widget card(context, TAG_BILD, TAG_TITEL, _article, isCacheEnabled) {
         ],
       ),
     ],
-  );
+  );*/
 }

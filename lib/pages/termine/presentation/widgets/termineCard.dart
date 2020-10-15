@@ -16,7 +16,8 @@ class TerminCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
-      borderRadius: new BorderRadius.all(Radius.circular(18)),
+      borderRadius: new BorderRadius.all(
+          Radius.circular(54 / MediaQuery.of(context).devicePixelRatio)),
       child: GestureDetector(
         onTap: () => Navigator.push(
           context,
@@ -33,12 +34,12 @@ class TerminCard extends StatelessWidget {
               children: [
                 Container(
                   width: MediaQuery.of(context).size.width,
-                  height: 275,
+                  height: 825 / MediaQuery.of(context).devicePixelRatio,
                   color: Theme.of(context).cardColor,
                 ),
                 Container(
                   width: MediaQuery.of(context).size.width,
-                  height: 275,
+                  height: 825 / MediaQuery.of(context).devicePixelRatio,
                   decoration: BoxDecoration(
                     image: DecorationImage(
                       fit: BoxFit.cover,
@@ -52,13 +53,13 @@ class TerminCard extends StatelessWidget {
               children: [
                 Container(
                   width: MediaQuery.of(context).size.width,
-                  height: 275,
+                  height: 825 / MediaQuery.of(context).devicePixelRatio,
                   color: Theme.of(context).cardColor,
                 ),
                 Column(
                   children: [
                     SizedBox(
-                      height: 12,
+                      height: 36 / MediaQuery.of(context).devicePixelRatio,
                     ),
                     Row(
                       children: [
@@ -94,11 +95,11 @@ class TerminCard extends StatelessWidget {
                       ],
                     ),
                     SizedBox(
-                      height: 12,
+                      height: 36 / MediaQuery.of(context).devicePixelRatio,
                     ),
                     Divider(),
                     SizedBox(
-                      height: 4,
+                      height: 12 / MediaQuery.of(context).devicePixelRatio,
                     ),
                     ListTile(
                       leading: Icon(MdiIcons.calendar),
@@ -123,13 +124,14 @@ class TerminCard extends StatelessWidget {
                       ),
                     ),
                     SizedBox(
-                      height: 6,
+                      height: 18 / MediaQuery.of(context).devicePixelRatio,
                     ),
                     OutlineButton(
                       onPressed: () {},
                       child: Text("Veranstaltung merken"),
                       shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12)),
+                          borderRadius: BorderRadius.circular(
+                              36 / MediaQuery.of(context).devicePixelRatio)),
                     ),
                   ],
                 )

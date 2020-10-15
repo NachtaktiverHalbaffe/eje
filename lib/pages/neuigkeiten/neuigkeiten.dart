@@ -83,7 +83,7 @@ Widget _buildNeuigkeitenList(
       itemCount: _neuigkeiten.length,
       itemBuilder: (context, index) {
         final neuigkeit = _neuigkeiten[index];
-        return NeuigkeitenCard(neuigkeit, index, isCacheEnabled);
+        return NeuigkeitenCard(neuigkeit, isCacheEnabled);
       },
     ),
   );

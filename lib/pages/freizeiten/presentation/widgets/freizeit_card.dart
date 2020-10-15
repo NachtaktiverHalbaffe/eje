@@ -12,7 +12,8 @@ Widget FreizeitCard(
   final _currentPageNotifier = ValueNotifier<int>(0);
 
   return ClipRRect(
-    borderRadius: new BorderRadius.all(Radius.circular(12)),
+    borderRadius: new BorderRadius.all(
+        Radius.circular(36 / MediaQuery.of(context).devicePixelRatio)),
     child: GestureDetector(
       onTap: () => Navigator.push(
         context,
@@ -32,7 +33,7 @@ Widget FreizeitCard(
             children: <Widget>[
               Container(
                 width: MediaQuery.of(context).size.width,
-                height: 275,
+                height: 825 / MediaQuery.of(context).devicePixelRatio,
                 decoration: BoxDecoration(
                   image: DecorationImage(
                     fit: BoxFit.cover,
@@ -42,23 +43,30 @@ Widget FreizeitCard(
               ),
               Column(
                 children: <Widget>[
-                  SizedBox(height: 210),
+                  SizedBox(
+                      height: 630 / MediaQuery.of(context).devicePixelRatio),
                   Text(
                     freizeit.freizeit,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
-                      fontSize: 92/MediaQuery.of(context).devicePixelRatio,
+                      fontSize: 92 / MediaQuery.of(context).devicePixelRatio,
                       fontWeight: FontWeight.bold,
                       color: Colors.white,
                       shadows: <Shadow>[
                         Shadow(
-                          offset: Offset(2.0, 2.0),
-                          blurRadius: 6.0,
+                          offset: Offset(
+                              6 / MediaQuery.of(context).devicePixelRatio,
+                              6 / MediaQuery.of(context).devicePixelRatio),
+                          blurRadius:
+                              18 / MediaQuery.of(context).devicePixelRatio,
                           color: Colors.black,
                         ),
                         Shadow(
-                          offset: Offset(2.0, 2.0),
-                          blurRadius: 6.0,
+                          offset: Offset(
+                              6 / MediaQuery.of(context).devicePixelRatio,
+                              6 / MediaQuery.of(context).devicePixelRatio),
+                          blurRadius:
+                              18 / MediaQuery.of(context).devicePixelRatio,
                           color: Colors.black,
                         ),
                       ],
@@ -68,17 +76,24 @@ Widget FreizeitCard(
                     freizeit.motto,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
-                      fontSize: 50/MediaQuery.of(context).devicePixelRatio,
+                      fontSize: 50 / MediaQuery.of(context).devicePixelRatio,
                       color: Colors.white,
                       shadows: <Shadow>[
                         Shadow(
-                          offset: Offset(2.0, 2.0),
-                          blurRadius: 6.0,
+                          offset: Offset(
+                            6 / MediaQuery.of(context).devicePixelRatio,
+                            6 / MediaQuery.of(context).devicePixelRatio,
+                          ),
+                          blurRadius:
+                              18 / MediaQuery.of(context).devicePixelRatio,
                           color: Colors.black,
                         ),
                         Shadow(
-                          offset: Offset(2.0, 2.0),
-                          blurRadius: 6.0,
+                          offset: Offset(
+                              6 / MediaQuery.of(context).devicePixelRatio,
+                              6 / MediaQuery.of(context).devicePixelRatio),
+                          blurRadius:
+                              18 / MediaQuery.of(context).devicePixelRatio,
                           color: Colors.black,
                         ),
                       ],
@@ -92,12 +107,13 @@ Widget FreizeitCard(
             children: <Widget>[
               Container(
                 width: MediaQuery.of(context).size.width,
-                height: 75,
+                height: 225 / MediaQuery.of(context).devicePixelRatio,
                 color: Theme.of(context).cardColor,
               ),
               Column(
                 children: <Widget>[
-                  SizedBox(height: 12),
+                  SizedBox(
+                      height: 36 / MediaQuery.of(context).devicePixelRatio),
                   Table(
                     defaultVerticalAlignment: TableCellVerticalAlignment.middle,
                     children: [
@@ -105,15 +121,20 @@ Widget FreizeitCard(
                         Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: <Widget>[
-                            SizedBox(width: 12),
+                            SizedBox(
+                                width: 36 /
+                                    MediaQuery.of(context).devicePixelRatio),
                             Icon(Icons.today),
-                            SizedBox(width: 4),
+                            SizedBox(
+                                width: 12 /
+                                    MediaQuery.of(context).devicePixelRatio),
                             Flexible(
                               child: Text(
                                 freizeit.datum,
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyle(
-                                  fontSize: 40/MediaQuery.of(context).devicePixelRatio,
+                                  fontSize: 40 /
+                                      MediaQuery.of(context).devicePixelRatio,
                                 ),
                               ),
                             ),
@@ -122,36 +143,52 @@ Widget FreizeitCard(
                         Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: <Widget>[
-                            SizedBox(width: 60),
+                            SizedBox(
+                                width: 180 /
+                                    MediaQuery.of(context).devicePixelRatio),
                             Icon(MdiIcons.currencyEur),
-                            SizedBox(width: 4),
+                            SizedBox(
+                                width: 12 /
+                                    MediaQuery.of(context).devicePixelRatio),
                             Flexible(
                               child: Text(
                                 freizeit.preis,
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyle(
-                                  fontSize: 40/MediaQuery.of(context).devicePixelRatio,
+                                  fontSize: 40 /
+                                      MediaQuery.of(context).devicePixelRatio,
                                 ),
                               ),
                             ),
                           ],
                         ),
                       ]),
-                      TableRow(
-                          children: [SizedBox(height: 4), SizedBox(height: 4)]),
+                      TableRow(children: [
+                        SizedBox(
+                            height:
+                                12 / MediaQuery.of(context).devicePixelRatio),
+                        SizedBox(
+                            height:
+                                12 / MediaQuery.of(context).devicePixelRatio)
+                      ]),
                       TableRow(children: <Widget>[
                         Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: <Widget>[
-                            SizedBox(width: 12),
+                            SizedBox(
+                                width: 36 /
+                                    MediaQuery.of(context).devicePixelRatio),
                             Icon(MdiIcons.mapMarker),
-                            SizedBox(width: 4),
+                            SizedBox(
+                                width: 12 /
+                                    MediaQuery.of(context).devicePixelRatio),
                             Flexible(
                               child: Text(
                                 freizeit.ort.Anschrift,
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyle(
-                                  fontSize: 40/MediaQuery.of(context).devicePixelRatio,
+                                  fontSize: 40 /
+                                      MediaQuery.of(context).devicePixelRatio,
                                 ),
                               ),
                             ),
@@ -160,15 +197,20 @@ Widget FreizeitCard(
                         Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: <Widget>[
-                            SizedBox(width: 60),
+                            SizedBox(
+                                width: 180 /
+                                    MediaQuery.of(context).devicePixelRatio),
                             Icon(MdiIcons.cakeVariant),
-                            SizedBox(width: 4),
+                            SizedBox(
+                                width: 12 /
+                                    MediaQuery.of(context).devicePixelRatio),
                             Flexible(
                               child: Text(
                                 freizeit.alter,
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyle(
-                                  fontSize: 40/MediaQuery.of(context).devicePixelRatio,
+                                  fontSize: 40 /
+                                      MediaQuery.of(context).devicePixelRatio,
                                 ),
                               ),
                             ),

@@ -1,3 +1,4 @@
+import 'package:eje/core/widgets/DetailsPage.dart';
 import 'package:eje/core/widgets/LoadingIndicator.dart';
 import 'package:eje/pages/eje/arbeitsfelder/domain/entities/Arbeitsbereich.dart';
 import 'package:eje/pages/eje/arbeitsfelder/presentation/bloc/arbeitsbereiche_bloc.dart';
@@ -59,133 +60,12 @@ class _ArbeitsbereicheDetailsState extends State<ArbeitsbereicheDetails> {
 
 Widget HauptamtlicheDetailsCard(
     Arbeitsbereich arbeitsbereich, bool isCacheEnabled, BuildContext context) {
-  final _currentPageNotifier = ValueNotifier<int>(0);
-  return ListView(
-    physics: ScrollPhysics(parent: BouncingScrollPhysics()),
-    children: <Widget>[
-      Stack(
-        alignment: Alignment.bottomLeft,
-        children: <Widget>[
-          Container(
-            width: MediaQuery.of(context).size.width,
-            height: 300,
-            child: PageView.builder(
-              physics: ScrollPhysics(
-                parent: BouncingScrollPhysics(),
-              ),
-              onPageChanged: (int index) {
-                _currentPageNotifier.value = index;
-              },
-              pageSnapping: true,
-              controller: PageController(initialPage: 0),
-              itemCount: arbeitsbereich.bilder.length,
-              itemBuilder: (context, position) {
-                final bild = arbeitsbereich.bilder[position];
-                return Stack(
-                  alignment: Alignment.bottomCenter,
-                  children: <Widget>[
-                    Container(
-                      width: MediaQuery.of(context).size.width,
-                      height: MediaQuery.of(context).size.height,
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          fit: BoxFit.cover,
-                          image: ExactAssetImage(bild),
-                        ),
-                      ),
-                    ),
-                  ],
-                );
-              },
-            ),
-          ),
-          // ignore: missing_return
-          Container(
-              alignment: Alignment.center,
-              child: () {
-                if (arbeitsbereich.bilder.length != 1) {
-                  return Container(
-                    padding: EdgeInsets.all(8),
-                    child: CirclePageIndicator(
-                      size: 5,
-                      selectedSize: 7.5,
-                      dotColor: Colors.white,
-                      selectedDotColor: Theme.of(context).accentColor,
-                      itemCount: arbeitsbereich.bilder.length,
-                      currentPageNotifier: _currentPageNotifier,
-                    ),
-                  );
-                }
-              }()),
-          Positioned(
-            left: 16.0,
-            top: 16.0,
-            child: InkWell(
-              onTap: () {
-                Navigator.pop(context);
-              },
-              child: IconShadowWidget(
-                Icon(
-                  Icons.arrow_back,
-                  color: Colors.white,
-                  size: 24,
-                ),
-                showShadow: true,
-                shadowColor: Colors.black,
-              ),
-            ),
-          ),
-          Column(
-            children: <Widget>[
-              Row(
-                children: <Widget>[
-                  SizedBox(
-                    width: 16,
-                  ),
-                  Text(
-                    arbeitsbereich.arbeitsfeld,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                      fontSize: 40,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                      shadows: <Shadow>[
-                        Shadow(
-                          offset: Offset(2.0, 2.0),
-                          blurRadius: 6.0,
-                          color: Colors.black,
-                        ),
-                        Shadow(
-                          offset: Offset(2.0, 2.0),
-                          blurRadius: 6.0,
-                          color: Colors.black,
-                        ),
-                      ],
-                    ),
-                  )
-                ],
-              ),
-              SizedBox(
-                height: 12,
-              )
-            ],
-          ),
-        ],
-      ),
-      SizedBox(height: 8),
-      Container(
-        padding: EdgeInsets.all(14),
-        child: Text(
-          arbeitsbereich.inhalt,
-          textAlign: TextAlign.justify,
-          style: TextStyle(
-            fontSize: 16,
-          ),
-        ),
-      ),
-      SizedBox(
-        height: 12,
-      )
-    ],
+  return DetailsPage(
+    titel: arbeitsbereich.arbeitsfeld,
+    text: arbeitsbereich.inhalt,
+    bild_url: arbeitsbereich.bilder,
+    context: context,
+    untertitel: "",
+    childWidget: SizedBox(height: 36 / MediaQuery.of(context).devicePixelRatio),
   );
 }

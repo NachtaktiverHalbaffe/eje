@@ -134,10 +134,10 @@ Widget EinstellungenPage(BuildContext context, SharedPreferences prefs) {
       SettingGroupTitle("Über", context),
       Container(
         margin: EdgeInsets.only(
-          left: 25.0,
-          right: 25.0,
-          bottom: 24.0,
-          top: 10.0,
+          left: 75 / MediaQuery.of(context).devicePixelRatio,
+          right: 75 / MediaQuery.of(context).devicePixelRatio,
+          bottom: 72 / MediaQuery.of(context).devicePixelRatio,
+          top: 30 / MediaQuery.of(context).devicePixelRatio,
         ),
         child: OutlineButton(
           onPressed: () {
@@ -174,7 +174,8 @@ Widget EinstellungenPage(BuildContext context, SharedPreferences prefs) {
                         "Datenschutz",
                       ),
                       shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12)),
+                          borderRadius: BorderRadius.circular(
+                              36 / MediaQuery.of(context).devicePixelRatio)),
                     ),
                   ],
                 ),
@@ -184,8 +185,9 @@ Widget EinstellungenPage(BuildContext context, SharedPreferences prefs) {
           child: Text(
             "Über die App, Datenschutz und Lizenzen",
           ),
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(
+                  36 / MediaQuery.of(context).devicePixelRatio)),
         ),
       ),
     ],

@@ -29,15 +29,16 @@ class Freizeiten extends StatelessWidget {
           }
         },
         // ignore: missing_return
-        builder:(context, state) {
-          if(state is Empty){
+        builder: (context, state) {
+          if (state is Empty) {
             BlocProvider.of<FreizeitenBloc>(context).add(RefreshFreizeiten());
             return Center();
           }
-          if(state is Loading){
+          if (state is Loading) {
             return LoadingIndicator();
-          } else if(state is LoadedFreizeiten){
-            return FreizeitenPageViewer(state.freizeiten, context, isCacheEnabled);
+          } else if (state is LoadedFreizeiten) {
+            return FreizeitenPageViewer(
+                state.freizeiten, context, isCacheEnabled);
           }
         },
       ),
@@ -45,17 +46,27 @@ class Freizeiten extends StatelessWidget {
   }
 }
 
-Widget FreizeitenPageViewer(List<Freizeit> freizeiten,
-    BuildContext context, bool isCacheEnabled) {
-  return Swiper(
-    itemBuilder: (BuildContext context, int index) {
-      return FreizeitCard(freizeiten[index], context, isCacheEnabled);
-    },
-    itemCount: freizeiten.length,
-    itemHeight: 350,
-    itemWidth: 325,
-    layout: SwiperLayout.STACK,
-    loop: true,
-
-  );
+Widget FreizeitenPageViewer(
+    List<Freizeit> freizeiten, BuildContext context, bool isCacheEnabled) {
+  return RefreshIndicator(
+      child: ListView(
+        children: [
+          SizedBox(
+            height: 400 / MediaQuery.of(context).devicePixelRatio,
+          ),
+          Swiper(
+            itemBuilder: (BuildContext context, int index) {
+              return FreizeitCard(freizeiten[index], context, isCacheEnabled);
+            },
+            itemCount: freizeiten.length,
+            itemHeight: 1050 / MediaQuery.of(context).devicePixelRatio,
+            itemWidth: 975 / MediaQuery.of(context).devicePixelRatio,
+            layout: SwiperLayout.STACK,
+            loop: true,
+          )
+        ],
+      ),
+      onRefresh: () {
+        BlocProvider.of<FreizeitenBloc>(context).add(RefreshFreizeiten());
+      });
 }

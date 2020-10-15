@@ -1,3 +1,4 @@
+import 'package:eje/core/widgets/DetailsPage.dart';
 import 'package:eje/core/widgets/LoadingIndicator.dart';
 import 'package:eje/pages/freizeiten/domain/entities/Freizeit.dart';
 import 'package:eje/pages/freizeiten/presentation/bloc/bloc.dart';
@@ -64,182 +65,46 @@ class _FreizeitDetailsState extends State<FreizeitDetails> {
 Widget FreizeitDetailsCard(
     Freizeit freizeit, bool isCacheEnabled, BuildContext context) {
   final _currentPageNotifier = ValueNotifier<int>(0);
+  return DetailsPage(
+    titel: freizeit.freizeit,
+    untertitel: freizeit.motto,
+    text: freizeit.beschreibung,
+    bild_url: freizeit.bilder,
+    context: context,
+    childWidget: _freizeitChildWidget(freizeit, context),
+  );
+}
 
-  return ListView(
-    physics: ScrollPhysics(parent: BouncingScrollPhysics()),
-    children: <Widget>[
-      Stack(
-        alignment: Alignment.bottomLeft,
-        children: <Widget>[
-          Container(
-            width: MediaQuery.of(context).size.width,
-            height: 300,
-            child: PageView.builder(
-              physics: ScrollPhysics(
-                parent: BouncingScrollPhysics(),
-              ),
-              onPageChanged: (int index) {
-                _currentPageNotifier.value = index;
-              },
-              pageSnapping: true,
-              controller: PageController(initialPage: 0),
-              itemCount: freizeit.bilder.length,
-              itemBuilder: (context, position) {
-                final bild = freizeit.bilder[position];
-                return Stack(
-                  alignment: Alignment.bottomCenter,
-                  children: <Widget>[
-                    Container(
-                      width: MediaQuery.of(context).size.width,
-                      height: MediaQuery.of(context).size.height,
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          fit: BoxFit.cover,
-                          image: ExactAssetImage(bild),
-                        ),
-                      ),
-                    ),
-                  ],
-                );
-              },
-            ),
-          ),
-          // ignore: missing_return
-          Container(
-              alignment: Alignment.center,
-              child: () {
-                if (freizeit.bilder.length != 1) {
-                  return Container(
-                    padding: EdgeInsets.all(8),
-                    child: CirclePageIndicator(
-                      size: 5,
-                      selectedSize: 7.5,
-                      dotColor: Colors.white,
-                      selectedDotColor: Theme.of(context).accentColor,
-                      itemCount: freizeit.bilder.length,
-                      currentPageNotifier: _currentPageNotifier,
-                    ),
-                  );
-                }
-              }()),
-          Positioned(
-            left: 16.0,
-            top: 16.0,
-            child: InkWell(
-              onTap: () {
-                Navigator.pop(context);
-              },
-              child: IconShadowWidget(
-                Icon(
-                  Icons.arrow_back,
-                  color: Colors.white,
-                  size: 24,
-                ),
-                showShadow: true,
-                shadowColor: Colors.black,
-              ),
-            ),
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Row(
-                children: <Widget>[
-                  SizedBox(
-                    width: 14,
-                  ),
-                  Text(
-                    freizeit.freizeit,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                      fontSize: 32,
-                      fontWeight: FontWeight.bold,
-                      color: Theme.of(context).accentColor,
-                      shadows: <Shadow>[
-                        Shadow(
-                          offset: Offset(2.0, 2.0),
-                          blurRadius: 6.0,
-                          color: Colors.black,
-                        ),
-                        Shadow(
-                          offset: Offset(2.0, 2.0),
-                          blurRadius: 6.0,
-                          color: Colors.black,
-                        ),
-                      ],
-                    ),
-                  )
-                ],
-              ),
-              freizeit.motto != null
-                  ? Container(
-                      padding: EdgeInsets.only(left: 14, top: 12),
-                      child: Text(
-                        freizeit.motto,
-                        style: TextStyle(
-                          fontSize: 20,
-                          color: Colors.white,
-                          shadows: <Shadow>[
-                            Shadow(
-                              offset: Offset(2.0, 2.0),
-                              blurRadius: 6.0,
-                              color: Colors.black,
-                            ),
-                            Shadow(
-                              offset: Offset(2.0, 2.0),
-                              blurRadius: 6.0,
-                              color: Colors.black,
-                            ),
-                          ],
-                        ),
-                      ),
-                    )
-                  : SizedBox(height: 2),
-              SizedBox(
-                height: 20,
-              )
-            ],
-          ),
-        ],
-      ),
-      SizedBox(height: 8),
-      freizeit.beschreibung != null
-          ? Container(
-              padding: EdgeInsets.all(14),
-              child: Text(
-                freizeit.beschreibung,
-                textAlign: TextAlign.justify,
-                style: TextStyle(
-                  fontSize: 16,
-                ),
-              ),
-            )
-          : SizedBox(height: 8),
+Widget _freizeitChildWidget(Freizeit freizeit, BuildContext context) {
+  return Column(
+    children: [
       Divider(),
       ListTile(
         leading: Icon(
           Icons.today,
-          size: 24,
+          size: 72 / MediaQuery.of(context).devicePixelRatio,
         ),
         title: Text(
           freizeit.datum,
-          style: TextStyle(fontSize: 14),
+          style:
+              TextStyle(fontSize: 42 / MediaQuery.of(context).devicePixelRatio),
         ),
       ),
       ListTile(
         leading: Icon(
           MdiIcons.currencyEur,
-          size: 24,
+          size: 72 / MediaQuery.of(context).devicePixelRatio,
         ),
         title: Text(
           freizeit.preis,
-          style: TextStyle(fontSize: 14),
+          style:
+              TextStyle(fontSize: 42 / MediaQuery.of(context).devicePixelRatio),
         ),
       ),
       ListTile(
         leading: Icon(
           MdiIcons.mapMarker,
-          size: 24,
+          size: 72 / MediaQuery.of(context).devicePixelRatio,
         ),
         title: Text(
           freizeit.ort.Anschrift +
@@ -247,53 +112,58 @@ Widget FreizeitDetailsCard(
               freizeit.ort.Strasse +
               "\n" +
               freizeit.ort.PLZ,
-          style: TextStyle(fontSize: 14),
+          style:
+              TextStyle(fontSize: 42 / MediaQuery.of(context).devicePixelRatio),
         ),
       ),
       ListTile(
         leading: Icon(
           MdiIcons.cakeVariant,
-          size: 24,
+          size: 72 / MediaQuery.of(context).devicePixelRatio,
         ),
         title: Text(
           freizeit.alter,
-          style: TextStyle(fontSize: 14),
+          style:
+              TextStyle(fontSize: 42 / MediaQuery.of(context).devicePixelRatio),
         ),
       ),
       ListTile(
         leading: Icon(
           MdiIcons.silverwareForkKnife,
-          size: 24,
+          size: 72 / MediaQuery.of(context).devicePixelRatio,
         ),
         title: Text(
           freizeit.verpflegung,
-          style: TextStyle(fontSize: 14),
+          style:
+              TextStyle(fontSize: 42 / MediaQuery.of(context).devicePixelRatio),
         ),
       ),
       ListTile(
         leading: Icon(
           MdiIcons.home,
-          size: 24,
+          size: 72 / MediaQuery.of(context).devicePixelRatio,
         ),
         title: Text(
           freizeit.unterbringung,
-          style: TextStyle(fontSize: 14),
+          style:
+              TextStyle(fontSize: 42 / MediaQuery.of(context).devicePixelRatio),
         ),
       ),
       ListTile(
         leading: Icon(
           MdiIcons.carSide,
-          size: 24,
+          size: 72 / MediaQuery.of(context).devicePixelRatio,
         ),
         title: Text(
           freizeit.anreise,
-          style: TextStyle(fontSize: 14),
+          style:
+              TextStyle(fontSize: 42 / MediaQuery.of(context).devicePixelRatio),
         ),
       ),
       ListTile(
         leading: Icon(
           MdiIcons.fileDocumentEditOutline,
-          size: 24,
+          size: 72 / MediaQuery.of(context).devicePixelRatio,
         ),
         title: OutlineButton(
           onPressed: () async {
@@ -305,12 +175,13 @@ Widget FreizeitDetailsCard(
           },
           child: Text(
               "Anmelden (Anmeldeschluss: " + freizeit.anmeldeschluss + ")"),
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(
+                  30 / MediaQuery.of(context).devicePixelRatio)),
         ),
       ),
       SizedBox(
-        height: 12,
+        height: 36 / MediaQuery.of(context).devicePixelRatio,
       )
     ],
   );

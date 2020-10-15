@@ -1,3 +1,4 @@
+import 'package:eje/core/widgets/DetailsPage.dart';
 import 'package:eje/core/widgets/LoadingIndicator.dart';
 import 'package:eje/pages/termine/domain/entities/Termin.dart';
 import 'package:eje/pages/termine/presentation/bloc/bloc.dart';
@@ -59,156 +60,64 @@ class _TerminDetailsState extends State<TerminDetails> {
 
 Widget TerminDetailsCard(
     Termin termin, bool isCacheEnabled, BuildContext context) {
-  return ListView(
-    physics: ScrollPhysics(parent: BouncingScrollPhysics()),
-    children: <Widget>[
-      Stack(
-        alignment: Alignment.bottomLeft,
-        children: <Widget>[
-          Container(
-            width: MediaQuery.of(context).size.width,
-            height: 350,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                fit: BoxFit.cover,
-                image: ExactAssetImage(termin.bild),
-              ),
-            ),
-          ),
-          Positioned(
-            left: 16.0,
-            top: 16.0,
-            child: InkWell(
-              onTap: () {
-                Navigator.pop(context);
-              },
-              child: IconShadowWidget(
-                Icon(
-                  Icons.arrow_back,
-                  color: Colors.white,
-                  size: 24,
-                ),
-                showShadow: true,
-                shadowColor: Colors.black,
-              ),
-            ),
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Row(
-                children: <Widget>[
-                  SizedBox(
-                    width: 14,
-                  ),
-                  Text(
-                    termin.veranstaltung,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                      fontSize: 40,
-                      fontWeight: FontWeight.bold,
-                      color: Theme.of(context).accentColor,
-                      shadows: <Shadow>[
-                        Shadow(
-                          offset: Offset(2.0, 2.0),
-                          blurRadius: 6.0,
-                          color: Colors.black,
-                        ),
-                        Shadow(
-                          offset: Offset(2.0, 2.0),
-                          blurRadius: 6.0,
-                          color: Colors.black,
-                        ),
-                      ],
-                    ),
-                  )
-                ],
-              ),
-              termin.motto != null
-                  ? Container(
-                      padding: EdgeInsets.only(left: 14, top: 12),
-                      child: Text(
-                        termin.motto,
-                        textAlign: TextAlign.justify,
-                        style: TextStyle(
-                          fontSize: 20,
-                          color: Colors.white,
-                          shadows: <Shadow>[
-                            Shadow(
-                              offset: Offset(2.0, 2.0),
-                              blurRadius: 6.0,
-                              color: Colors.black,
-                            ),
-                            Shadow(
-                              offset: Offset(2.0, 2.0),
-                              blurRadius: 6.0,
-                              color: Colors.black,
-                            ),
-                          ],
-                        ),
-                      ),
-                    )
-                  : SizedBox(height: 2),
-              SizedBox(
-                height: 12,
-              )
-            ],
-          ),
-        ],
-      ),
-      SizedBox(height: 8),
-      termin.text != null
-          ? Container(
-              padding: EdgeInsets.all(14),
-              child: Text(
-                termin.text,
-                textAlign: TextAlign.justify,
-                style: TextStyle(
-                  fontSize: 16,
-                ),
-              ),
-            )
-          : SizedBox(height: 8),
+  List<String> bilder = List();
+  bilder.add(termin.bild);
+  return DetailsPage(
+    titel: termin.veranstaltung,
+    untertitel: termin.motto,
+    text: termin.text,
+    bild_url: bilder,
+    context: context,
+    childWidget: _terminChildWidget(termin, context),
+  );
+}
+
+Widget _terminChildWidget(Termin _termin, BuildContext context) {
+  return Column(
+    children: [
       Divider(),
       ListTile(
         leading: Icon(
           Icons.today,
-          size: 24,
+          size: 72 / MediaQuery.of(context).devicePixelRatio,
         ),
         title: Text(
-          termin.datum,
-          style: TextStyle(fontSize: 14),
+          _termin.datum,
+          style:
+              TextStyle(fontSize: 42 / MediaQuery.of(context).devicePixelRatio),
         ),
       ),
       ListTile(
         leading: Icon(
           MdiIcons.mapMarker,
-          size: 24,
+          size: 72 / MediaQuery.of(context).devicePixelRatio,
         ),
         title: Text(
-          termin.ort.Anschrift +
+          _termin.ort.Anschrift +
               "\n" +
-              termin.ort.Strasse +
+              _termin.ort.Strasse +
               "\n" +
-              termin.ort.PLZ,
-          style: TextStyle(fontSize: 14),
+              _termin.ort.PLZ,
+          style:
+              TextStyle(fontSize: 42 / MediaQuery.of(context).devicePixelRatio),
         ),
         dense: true,
       ),
       SizedBox(
-        height: 12,
+        height: 36 / MediaQuery.of(context).devicePixelRatio,
       ),
       Container(
-        margin: EdgeInsets.all(8),
+        margin: EdgeInsets.all(24 / MediaQuery.of(context).devicePixelRatio),
         child: OutlineButton(
           onPressed: () {},
           child: Text("Veranstaltung merken"),
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(
+                  36 / MediaQuery.of(context).devicePixelRatio)),
         ),
       ),
       SizedBox(
-        height: 12,
+        height: 36 / MediaQuery.of(context).devicePixelRatio,
       ),
     ],
   );

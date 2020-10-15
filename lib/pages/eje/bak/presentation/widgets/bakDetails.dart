@@ -1,3 +1,4 @@
+import 'package:eje/core/widgets/DetailsPage.dart';
 import 'package:eje/core/widgets/LoadingIndicator.dart';
 import 'package:eje/pages/eje/bak/domain/entitys/BAKler.dart';
 import 'package:eje/pages/eje/bak/presentation/bloc/bak_bloc.dart';
@@ -56,126 +57,49 @@ class _BAKDetailsState extends State<BAKDetails> {
 
 Widget HauptamtlicheDetailsCard(
     BAKler bakler, bool isCacheEnabled, BuildContext context) {
-  return ListView(
-    physics: ScrollPhysics(parent: BouncingScrollPhysics()),
-    children: <Widget>[
-      Stack(
-        alignment: Alignment.bottomLeft,
-        children: <Widget>[
-          Container(
-            width: MediaQuery.of(context).size.width,
-            height: 450,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                fit: BoxFit.cover,
-                image: ExactAssetImage(bakler.bild),
-              ),
-            ),
-          ),
-          Positioned(
-            left: 16.0,
-            top: 16.0,
-            child: InkWell(
-              onTap: () {
-                Navigator.pop(context);
-              },
-              child: IconShadowWidget(
-                Icon(
-                  Icons.arrow_back,
-                  color: Colors.white,
-                  size: 24,
-                ),
-                showShadow: true,
-                shadowColor: Colors.black,
-              ),
-            ),
-          ),
-          Column(
-            children: <Widget>[
-              Row(
-                children: <Widget>[
-                  SizedBox(
-                    width: 16,
-                  ),
-                  Flexible(
-                    child: Text(
-                      bakler.name,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                        fontSize: 32,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                        shadows: <Shadow>[
-                          Shadow(
-                            offset: Offset(2.0, 2.0),
-                            blurRadius: 6.0,
-                            color: Colors.black,
-                          ),
-                          Shadow(
-                            offset: Offset(2.0, 2.0),
-                            blurRadius: 6.0,
-                            color: Colors.black,
-                          ),
-                        ],
-                      ),
-                    ),
-                  )
-                ],
-              ),
-              SizedBox(
-                height: 12,
-              )
-            ],
-          ),
-        ],
-      ),
-      SizedBox(height: 8),
-      Container(
-        padding: EdgeInsets.only(left: 14, top: 12),
-        child: Text(
-          bakler.amt,
-          textAlign: TextAlign.justify,
-          style: TextStyle(
-            fontSize: 21,
-          ),
-        ),
-      ),
-      Container(
-        padding: EdgeInsets.all(14),
-        child: Text(
-          bakler.vorstellung,
-          textAlign: TextAlign.justify,
-          style: TextStyle(
-            fontSize: 16,
-          ),
-        ),
-      ),
+  List<String> bilder = List();
+  bilder.add(bakler.bild);
+  return DetailsPage(
+      titel: bakler.name,
+      untertitel: bakler.amt,
+      text: bakler.vorstellung,
+      bild_url: bilder,
+      pixtureHeight: 1200,
+      context: context,
+      childWidget: _childBak(bakler, context));
+}
+
+Widget _childBak(BAKler bakler, BuildContext context) {
+  return Column(
+    children: [
       Divider(),
       ListTile(
         leading: Image(
           image: ExactAssetImage("assets/images/icons8_threema_48.png"),
-          width: 24,
-          height: 24,
+          width: 72 / MediaQuery.of(context).devicePixelRatio,
+          height: 72 / MediaQuery.of(context).devicePixelRatio,
           color: Theme.of(context).dividerColor,
         ),
         title: Text(
           bakler.threema,
-          style: TextStyle(fontSize: 14),
+          style:
+              TextStyle(fontSize: 42 / MediaQuery.of(context).devicePixelRatio),
         ),
       ),
       ListTile(
         leading: Icon(
           MdiIcons.email,
-          size: 24,
+          size: 42 / MediaQuery.of(context).devicePixelRatio,
         ),
         title: Text(
           bakler.email,
-          style: TextStyle(fontSize: 14),
+          style:
+              TextStyle(fontSize: 42 / MediaQuery.of(context).devicePixelRatio),
         ),
         dense: true,
       ),
       SizedBox(
-        height: 12,
+        height: 36 / MediaQuery.of(context).devicePixelRatio,
       )
     ],
   );

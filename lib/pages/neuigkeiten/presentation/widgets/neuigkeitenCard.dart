@@ -9,27 +9,23 @@ import 'package:page_view_indicators/circle_page_indicator.dart';
 
 class NeuigkeitenCard extends StatelessWidget {
   final Neuigkeit _neuigkeit;
-  final int index;
   final bool isCacheEnabled;
-  String TAG_BILD;
-  String TAG_TITEL;
 
-  NeuigkeitenCard(this._neuigkeit, this.index, this.isCacheEnabled);
+  NeuigkeitenCard(this._neuigkeit, this.isCacheEnabled);
   final _currentPageNotifier = ValueNotifier<int>(0);
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context).copyWith(dividerColor: Colors.transparent);
-    TAG_BILD = "BILD" + index.toString();
-    TAG_TITEL = "TITEL" + index.toString();
     return Container(
       padding: EdgeInsets.only(
-        left: 12,
-        right: 12,
-        top: 12,
+        left: 36 / MediaQuery.of(context).devicePixelRatio,
+        right: 36 / MediaQuery.of(context).devicePixelRatio,
+        top: 36 / MediaQuery.of(context).devicePixelRatio,
       ),
       child: ClipRRect(
-        borderRadius: new BorderRadius.all(Radius.circular(12)),
+        borderRadius: new BorderRadius.all(
+            Radius.circular(36 / MediaQuery.of(context).devicePixelRatio)),
         child: new Stack(
           alignment: Alignment.bottomCenter,
           children: <Widget>[
@@ -39,14 +35,14 @@ class NeuigkeitenCard extends StatelessWidget {
                 MaterialPageRoute(
                   builder: (_) => BlocProvider.value(
                     value: sl<NeuigkeitenBlocBloc>(),
-                    child: neuigkeitenCardDetail(
-                        _neuigkeit.titel, TAG_BILD, TAG_TITEL, isCacheEnabled),
+                    child:
+                        neuigkeitenCardDetail(_neuigkeit.titel, isCacheEnabled),
                   ),
                 ),
               ),
               child: Container(
                 width: MediaQuery.of(context).size.width,
-                height: 200,
+                height: 600 / MediaQuery.of(context).devicePixelRatio,
                 color: Theme.of(context).cardColor,
                 child: PageView.builder(
                   physics: ScrollPhysics(
@@ -60,23 +56,20 @@ class NeuigkeitenCard extends StatelessWidget {
                   itemCount: _neuigkeit.bilder.length,
                   itemBuilder: (context, position) {
                     final bild = _neuigkeit.bilder[position];
-                    return Hero(
-                      tag: TAG_BILD,
-                      child: Stack(
-                        alignment: Alignment.bottomCenter,
-                        children: <Widget>[
-                          Container(
-                            width: MediaQuery.of(context).size.width,
-                            height: MediaQuery.of(context).size.height,
-                            decoration: BoxDecoration(
-                              image: DecorationImage(
-                                fit: BoxFit.fitWidth,
-                                image: PrefImage(bild, isCacheEnabled),
-                              ),
+                    return Stack(
+                      alignment: Alignment.bottomCenter,
+                      children: <Widget>[
+                        Container(
+                          width: MediaQuery.of(context).size.width,
+                          height: MediaQuery.of(context).size.height,
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              fit: BoxFit.fitWidth,
+                              image: PrefImage(bild, isCacheEnabled),
                             ),
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     );
                   },
                 ),
@@ -86,10 +79,12 @@ class NeuigkeitenCard extends StatelessWidget {
             Container(child: () {
               if (_neuigkeit.bilder.length != 1) {
                 return Container(
-                  padding: EdgeInsets.all(8),
+                  padding: EdgeInsets.all(
+                      24 / MediaQuery.of(context).devicePixelRatio),
                   child: CirclePageIndicator(
-                    size: 5,
-                    selectedSize: 7.5,
+                    size: 15 / MediaQuery.of(context).devicePixelRatio,
+                    selectedSize:
+                        22.5 / MediaQuery.of(context).devicePixelRatio,
                     dotColor: Colors.white,
                     selectedDotColor: Theme.of(context).accentColor,
                     itemCount: _neuigkeit.bilder.length,
@@ -117,35 +112,38 @@ class NeuigkeitenCard extends StatelessWidget {
                 MaterialPageRoute(
                   builder: (_) => BlocProvider.value(
                     value: sl<NeuigkeitenBlocBloc>(),
-                    child: neuigkeitenCardDetail(
-                        _neuigkeit.titel, TAG_BILD, TAG_TITEL, isCacheEnabled),
+                    child:
+                        neuigkeitenCardDetail(_neuigkeit.titel, isCacheEnabled),
                   ),
                 ),
               ),
               child: Theme(
                 data: theme,
                 child: ExpansionTile(
-                  title: new Hero(
-                    tag: TAG_TITEL,
-                    child: Text(
-                      _neuigkeit.titel.toString(),
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                        shadows: <Shadow>[
-                          Shadow(
-                            offset: Offset(2.0, 2.0),
-                            blurRadius: 6.0,
-                            color: Colors.black,
-                          ),
-                          Shadow(
-                            offset: Offset(2.0, 2.0),
-                            blurRadius: 6.0,
-                            color: Colors.black,
-                          ),
-                        ],
-                      ),
+                  title: Text(
+                    _neuigkeit.titel.toString(),
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                      shadows: <Shadow>[
+                        Shadow(
+                          offset: Offset(
+                              6 / MediaQuery.of(context).devicePixelRatio,
+                              6 / MediaQuery.of(context).devicePixelRatio),
+                          blurRadius:
+                              18 / MediaQuery.of(context).devicePixelRatio,
+                          color: Colors.black,
+                        ),
+                        Shadow(
+                          offset: Offset(
+                              6 / MediaQuery.of(context).devicePixelRatio,
+                              6 / MediaQuery.of(context).devicePixelRatio),
+                          blurRadius:
+                              18 / MediaQuery.of(context).devicePixelRatio,
+                          color: Colors.black,
+                        ),
+                      ],
                     ),
                   ),
                   children: <Widget>[
@@ -153,9 +151,13 @@ class NeuigkeitenCard extends StatelessWidget {
                     Column(
                       children: <Widget>[
                         Container(
-                          padding: EdgeInsets.only(left: 12, right: 12),
+                          padding: EdgeInsets.only(
+                              left:
+                                  36 / MediaQuery.of(context).devicePixelRatio,
+                              right:
+                                  36 / MediaQuery.of(context).devicePixelRatio),
                           width: MediaQuery.of(context).size.width,
-                          height: 140,
+                          height: 420 / MediaQuery.of(context).devicePixelRatio,
                           child: SingleChildScrollView(
                             child: Text(
                               _neuigkeit.text_preview.toString(),
@@ -164,13 +166,27 @@ class NeuigkeitenCard extends StatelessWidget {
                                 color: Colors.white,
                                 shadows: <Shadow>[
                                   Shadow(
-                                    offset: Offset(2.0, 2.0),
-                                    blurRadius: 6.0,
+                                    offset: Offset(
+                                        6 /
+                                            MediaQuery.of(context)
+                                                .devicePixelRatio,
+                                        6 /
+                                            MediaQuery.of(context)
+                                                .devicePixelRatio),
+                                    blurRadius: 18 /
+                                        MediaQuery.of(context).devicePixelRatio,
                                     color: Colors.black,
                                   ),
                                   Shadow(
-                                    offset: Offset(2.0, 2.0),
-                                    blurRadius: 6.0,
+                                    offset: Offset(
+                                        6 /
+                                            MediaQuery.of(context)
+                                                .devicePixelRatio,
+                                        6 /
+                                            MediaQuery.of(context)
+                                                .devicePixelRatio),
+                                    blurRadius: 18 /
+                                        MediaQuery.of(context).devicePixelRatio,
                                     color: Colors.black,
                                   ),
                                 ],
