@@ -7,7 +7,7 @@ class ServicesLocalDatasource {
   Box _box;
 
   Future<List<Service>> getCachedServices() async {
-    _box = await Hive.openBox('Services');
+    _box = await Hive.box('Services');
     data_services(_box);
     if (_box.isNotEmpty) {
       List<Service> temp = new List<Service>();
@@ -16,8 +16,8 @@ class ServicesLocalDatasource {
           temp.add(_box.getAt(i));
         }
       }
-      Hive.box('Arbeitsbereiche').compact();
-      Hive.box('Arbeitsbereiche').close();
+      _box.compact();
+      _box.close();
       return temp;
     } else {
       throw CacheException();
@@ -25,13 +25,13 @@ class ServicesLocalDatasource {
   }
 
   Future<Service> getService(String service) async {
-    _box = await Hive.openBox('Services');
+    _box = await Hive.box('Services');
     if (_box.isNotEmpty) {
       for (int i = 0; i < _box.length; i++) {
         Service temp = _box.getAt(i);
         if (temp.service == service) {
           _box.compact();
-          _box.close();
+
           return temp;
         }
       }
@@ -41,7 +41,7 @@ class ServicesLocalDatasource {
   }
 
   Future<void> cacheService(Service service) async {
-    _box = await Hive.openBox('Services');
+    _box = await Hive.box('Services');
     if (_box.isNotEmpty) {
       for (int i = 0; i < _box.length; i++) {
         Service temp = _box.getAt(i);
@@ -53,7 +53,6 @@ class ServicesLocalDatasource {
               inhalt: temp.inhalt,
               hyperlinks: service.hyperlinks));
           _box.compact();
-          _box.close();
         }
       }
     } else {
@@ -62,7 +61,7 @@ class ServicesLocalDatasource {
   }
 
   Future<void> cacheServices(List<Service> servicesToCache) async {
-    _box = await Hive.openBox('Services');
+    _box = await Hive.box('Services');
     for (int i = 0; i < servicesToCache.length; i++) {
       bool alreadyexists = false;
       for (int k = 0; k < _box.length; k++) {
@@ -76,6 +75,5 @@ class ServicesLocalDatasource {
       }
     }
     _box.compact();
-    _box.close();
   }
 }

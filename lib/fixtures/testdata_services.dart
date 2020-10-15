@@ -21,6 +21,8 @@ void data_services(Box _box) {
     hyperlinks = new List();
     hyperlinks.add(
         "https://www.eje-esslingen.de/fileadmin/mediapool/gemeinden/ejw_esslingen/Service/Ausleihgebuehren_2018_Homepage.pdf");
+    hyperlinks.add(
+        "https://www.eje-esslingen.de/fileadmin/mediapool/gemeinden/ejw_esslingen/Service/Ausleihgebuehren_2018_Homepage.pdf");
     _box.add(new Service(
         service: "Verleih",
         bilder: bilder,

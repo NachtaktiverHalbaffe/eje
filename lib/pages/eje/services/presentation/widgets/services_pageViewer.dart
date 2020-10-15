@@ -1,6 +1,10 @@
+import 'package:eje/core/utils/injection_container.dart';
 import 'package:eje/core/widgets/PrefImage.dart';
 import 'package:eje/pages/eje/services/domain/entities/Service.dart';
+import 'package:eje/pages/eje/services/presentation/bloc/services_bloc.dart';
+import 'package:eje/pages/eje/services/presentation/widgets/servicesDetails.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 
 Widget ServicesPageViewer(
@@ -29,7 +33,10 @@ Widget ServicesCard(
             onTap: () => Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (_) {},
+                builder: (_) => BlocProvider.value(
+                  value: sl<ServicesBloc>(),
+                  child: ServiceDetails(isCacheEnabled, service),
+                ),
               ),
             ),
             child: Container(

@@ -28,6 +28,13 @@ import 'package:eje/pages/eje/hauptamtlichen/domain/repositories/hauptamtliche_r
 import 'package:eje/pages/eje/hauptamtlichen/domain/usecases/GetHauptamtliche.dart';
 import 'package:eje/pages/eje/hauptamtlichen/domain/usecases/GetHauptamtlicher.dart';
 import 'package:eje/pages/eje/hauptamtlichen/presentation/bloc/bloc.dart';
+import 'package:eje/pages/eje/services/data/datasources/ServicesLocalDatasource.dart';
+import 'package:eje/pages/eje/services/data/datasources/ServicesRemoteDatasource.dart';
+import 'package:eje/pages/eje/services/data/repositories/services_repository_impl.dart';
+import 'package:eje/pages/eje/services/domain/repositories/services_repository.dart';
+import 'package:eje/pages/eje/services/domain/usecases/GetService.dart';
+import 'package:eje/pages/eje/services/domain/usecases/GetServices.dart';
+import 'package:eje/pages/eje/services/presentation/bloc/services_bloc.dart';
 import 'package:eje/pages/freizeiten/data/datasources/freizeiten_local_datasource.dart';
 import 'package:eje/pages/freizeiten/data/datasources/freizeiten_remote_datasource.dart';
 import 'package:eje/pages/freizeiten/data/repositories/freizeiten_repository_impl.dart';
@@ -158,6 +165,24 @@ Future<void> init() async {
   // * Datasources
   sl.registerLazySingleton(() => ArbeitsbereicheLocalDatasource());
   sl.registerLazySingleton(() => ArbeitsbereichRemoteDatasource(client: sl()));
+
+  // ! Services
+  sl.registerFactory(() => ServicesBloc(
+        getService: sl(),
+        getServices: sl(),
+      ));
+  // * Usecases
+  sl.registerLazySingleton(() => GetService(sl()));
+  sl.registerLazySingleton(() => GetServices(repository: sl()));
+  // * Repository
+  sl.registerLazySingleton<ServicesRepository>(() => ServicesRepositoryImpl(
+        remoteDataSource: sl(),
+        localDatasource: sl(),
+        networkInfo: sl(),
+      ));
+  // * Datrasources
+  sl.registerLazySingleton(() => ServicesLocalDatasource());
+  sl.registerLazySingleton(() => ServicesRemoteDatasource(client: sl()));
 
   // ! Termine
   // * Bloc

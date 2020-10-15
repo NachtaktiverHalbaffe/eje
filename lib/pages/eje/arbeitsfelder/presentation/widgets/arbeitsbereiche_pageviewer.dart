@@ -17,11 +17,11 @@ Widget ArbeitsbereichePageViewer(List<Arbeitsbereich> arbeitsbereiche,
     itemWidth: 200,
     layout: SwiperLayout.STACK,
     loop: true,
-
   );
 }
 
-Widget KontaktCard(Arbeitsbereich arbeitsbereich, BuildContext context, bool isCacheEnabled) {
+Widget KontaktCard(
+    Arbeitsbereich arbeitsbereich, BuildContext context, bool isCacheEnabled) {
   return Container(
     child: ClipRRect(
       borderRadius: new BorderRadius.all(Radius.circular(12)),
@@ -29,17 +29,15 @@ Widget KontaktCard(Arbeitsbereich arbeitsbereich, BuildContext context, bool isC
         alignment: Alignment.bottomCenter,
         children: <Widget>[
           GestureDetector(
-            onTap: () =>
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) =>
-                        BlocProvider.value(
-                          value: sl<ArbeitsbereicheBloc>(),
-                          child: ArbeitsbereicheDetails(isCacheEnabled, arbeitsbereich),
-                        ),
-                  ),
+            onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (_) => BlocProvider.value(
+                  value: sl<ArbeitsbereicheBloc>(),
+                  child: ArbeitsbereicheDetails(isCacheEnabled, arbeitsbereich),
                 ),
+              ),
+            ),
             child: Container(
               decoration: BoxDecoration(
                 image: DecorationImage(
@@ -60,7 +58,7 @@ Widget KontaktCard(Arbeitsbereich arbeitsbereich, BuildContext context, bool isC
                 overflow: TextOverflow.ellipsis,
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  fontSize: 72/MediaQuery.of(context).devicePixelRatio,
+                  fontSize: 72 / MediaQuery.of(context).devicePixelRatio,
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
                   shadows: <Shadow>[

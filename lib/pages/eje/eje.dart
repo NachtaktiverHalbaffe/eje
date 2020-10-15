@@ -14,6 +14,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'arbeitsfelder/arbeitsbereiche.dart';
 import 'bak/bak.dart';
+import 'services/presentation/bloc/services_bloc.dart';
 
 class eje extends StatelessWidget {
   final bool isCacheEnabled;
@@ -44,6 +45,7 @@ class eje extends StatelessWidget {
           BlocProvider.of<HauptamtlicheBloc>(context)
               .add(RefreshHauptamtliche());
           BlocProvider.of<BakBloc>(context).add(RefreshBAK());
+          BlocProvider.of<ServicesBloc>(context).add(RefreshServices());
         });
   }
 }
