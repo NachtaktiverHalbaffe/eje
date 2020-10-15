@@ -22,13 +22,16 @@ class WebScraper {
           List<String> hyperlinks = List();
           List<String> bilder = List();
           title = parent[i].getElementsByClassName('icon-left')[0].innerHtml;
+          // Delete first space in title
+          title = title.substring(1);
           // check if content is in "news-teaser" or "bodytext class"
           if (parent[i].getElementsByClassName('news-teaser').isNotEmpty) {
             content =
                 parent[i].getElementsByClassName('news-teaser')[0].innerHtml;
-            if (content.contains('<br>')) {
-              //TODO Fix einrückungen
-              content = content.replaceAll('<br>', "\n");
+            if (content.contains("<br> ")) {
+              //Einrückungen bei neuen Paragraph entfernen
+              content = content.replaceAll("<br> ", "\n");
+              content = content.replaceAll("<br>", "\n");
             }
           } else if (parent[i].getElementsByClassName('bodytext') != null) {
             final List<String> contentList = parent[i]
