@@ -55,7 +55,7 @@ class ArbeitsbereicheLocalDatasource {
         _box.add(arbeitsbereicheToCache[i]);
       }
     }
-    Hive.box('Arbeitsbereiche').compact();
+    _box.compact();
     //Hive.box('Arbeitsbereiche').close();
   }
 }

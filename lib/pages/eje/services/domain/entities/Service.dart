@@ -1,13 +1,13 @@
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
-import 'package:meta/meta.dart';
 
-part 'Arbeitsbereich.g.dart';
+part 'Service.g.dart';
 
-@HiveType(typeId: 3)
-class Arbeitsbereich extends Equatable {
+@HiveType(typeId: 8)
+class Service extends Equatable {
   @HiveField(0)
-  final String arbeitsfeld;
+  final String service;
   @HiveField(1)
   final List<String> bilder;
   @HiveField(2)
@@ -15,13 +15,13 @@ class Arbeitsbereich extends Equatable {
   @HiveField(3)
   final List<String> hyperlinks;
 
-  Arbeitsbereich({
-    @required this.arbeitsfeld,
+  Service({
+    @required this.service,
     @required this.bilder,
     @required this.inhalt,
     this.hyperlinks,
   });
 
   @override
-  List<Object> get props => [arbeitsfeld, bilder, inhalt, hyperlinks];
+  List<Object> get props => [service, bilder, inhalt, hyperlinks];
 }

@@ -3,6 +3,7 @@ import 'package:eje/core/platform/Reminder.dart';
 import 'package:eje/pages/eje/arbeitsfelder/domain/entities/Arbeitsbereich.dart';
 import 'package:eje/pages/eje/bak/domain/entitys/BAKler.dart';
 import 'package:eje/pages/eje/hauptamtlichen/domain/entitys/hauptamtlicher.dart';
+import 'package:eje/pages/eje/services/domain/entities/Service.dart';
 import 'package:eje/pages/freizeiten/domain/entities/Freizeit.dart';
 import 'package:eje/pages/neuigkeiten/domain/entitys/neuigkeit.dart';
 import 'package:eje/pages/termine/domain/entities/Termin.dart';
@@ -38,5 +39,6 @@ Future<void> prefStartup() async {
   Hive.registerAdapter(FreizeitAdapter());
   Hive.registerAdapter(ArticleAdapter());
   Hive.registerAdapter(ReminderAdapter());
+  Hive.registerAdapter(ServiceAdapter());
   await di.init();
 }
