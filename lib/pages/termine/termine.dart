@@ -61,15 +61,22 @@ Widget TermineListView(
           onRefresh: () async {
             await BlocProvider.of<TermineBloc>(context).add(RefreshTermine());
           },
-          child: Swiper(
-            itemBuilder: (BuildContext context, int index) {
-              return TerminCard(termine[index], isCacheEnabled);
-            },
-            itemCount: termine.length,
-            itemHeight: 550,
-            itemWidth: 300,
-            layout: SwiperLayout.STACK,
-            loop: true,
+          child: ListView(
+            children: [
+              SizedBox(
+                height: 92 / MediaQuery.of(context).devicePixelRatio,
+              ),
+              Swiper(
+                itemBuilder: (BuildContext context, int index) {
+                  return TerminCard(termine[index], isCacheEnabled);
+                },
+                itemCount: termine.length,
+                itemHeight: 1650 / MediaQuery.of(context).devicePixelRatio,
+                itemWidth: 900 / MediaQuery.of(context).devicePixelRatio,
+                layout: SwiperLayout.STACK,
+                loop: true,
+              ),
+            ],
           ),
         ),
       ),
