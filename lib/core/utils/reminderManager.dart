@@ -1,8 +1,10 @@
+import 'dart:async';
+import 'dart:core';
 import 'package:eje/core/platform/Reminder.dart';
 import 'package:hive/hive.dart';
 
 class ReminderManager {
-  void setReminder(Reminder reminderToCache) async {
+  Future<void> setReminder(Reminder reminderToCache) async {
     Box _box = await Hive.openBox('Reminder');
     bool isAlreadyCached = false;
     // Check if reminderToCache is already cached
@@ -36,5 +38,14 @@ class ReminderManager {
         identifier: "",
         date: DateTime.now(),
         notificationtext: "");
+  }
+
+  Future<List<Reminder>> getAllReminder() async {
+    Box _box = await Hive.openBox('Reminder');
+    List<Reminder> _reminder;
+    for (int i = 0; i < _box.length; i++) {
+      _reminder.add(_box.getAt(i));
+    }
+    return _reminder;
   }
 }
