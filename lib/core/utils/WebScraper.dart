@@ -29,7 +29,7 @@ class WebScraper {
               if (parent[i]
                   .getElementsByClassName('icon-left')[0]
                   .getElementsByTagName("a")
-                  .isNotEmpty) {
+                  .isEmpty) {
                 title =
                     parent[i].getElementsByClassName('icon-left')[0].innerHtml;
               } else {
