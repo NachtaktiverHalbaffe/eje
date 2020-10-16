@@ -26,8 +26,18 @@ class WebScraper {
           if (parent[i].getElementsByClassName('icon-left').isNotEmpty) {
             if (parent[i].getElementsByClassName('icon-left')[0].innerHtml !=
                 " Kontakt ") {
-              title =
-                  parent[i].getElementsByClassName('icon-left')[0].innerHtml;
+              if (parent[i]
+                  .getElementsByClassName('icon-left')[0]
+                  .getElementsByTagName("a")
+                  .isNotEmpty) {
+                title =
+                    parent[i].getElementsByClassName('icon-left')[0].innerHtml;
+              } else {
+                title = parent[i]
+                    .getElementsByClassName('icon-left')[0]
+                    .getElementsByTagName("a")[0]
+                    .innerHtml;
+              }
               // Delete first space in title
               title = title.substring(1);
             }
