@@ -40,9 +40,11 @@ class ServicesRepositoryImpl implements ServicesRepository {
         localDatasource.cacheService(remoteService);
         Service _service =
             await localDatasource.getService(remoteService.service);
+        Hive.box('Services').compact();
         Hive.box('Services').close();
         return Right(_service);
       } on ServerException {
+        Hive.box('Services').compact();
         Hive.box('Services').close();
         return Left(ServerFailure());
       }
@@ -51,11 +53,13 @@ class ServicesRepositoryImpl implements ServicesRepository {
         List<Service> _services = await localDatasource.getCachedServices();
         for (var value in _services) {
           if (value.service == service.service) {
+            Hive.box('Services').compact();
             Hive.box('Services').close();
             return Right(value);
           }
         }
       } on CacheException {
+        Hive.box('Services').compact();
         Hive.box('Services').close();
         return Left(CacheFailure());
       }

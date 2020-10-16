@@ -1,3 +1,4 @@
+import 'package:eje/core/platform/Hyperlink.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
@@ -13,7 +14,7 @@ class Service extends Equatable {
   @HiveField(2)
   final String inhalt;
   @HiveField(3)
-  final List<String> hyperlinks;
+  final List<Hyperlink> hyperlinks;
 
   Service({
     @required this.service,

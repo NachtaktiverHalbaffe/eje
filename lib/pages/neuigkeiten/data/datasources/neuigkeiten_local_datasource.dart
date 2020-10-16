@@ -5,7 +5,7 @@ import 'package:hive/hive.dart';
 class NeuigkeitenLocalDatasource {
   Future<List<Neuigkeit>> getCachedNeuigkeiten() async {
     Box _box;
-    _box = await Hive.openBox('Neuigkeiten');
+    _box = Hive.box('Neuigkeiten');
     if (_box.isNotEmpty) {
       List<Neuigkeit> temp = new List<Neuigkeit>();
       for (int i = 0; i < _box.length; i++) {
@@ -13,8 +13,7 @@ class NeuigkeitenLocalDatasource {
           temp.add(_box.getAt(i));
         }
       }
-      Hive.box('Neuigkeiten').compact();
-      Hive.box('Neuigkeiten').close();
+      _box.compact();
       if (temp.isNotEmpty) {
         temp.sort((a, b) => a.published.compareTo(b.published));
       }
@@ -41,7 +40,7 @@ class NeuigkeitenLocalDatasource {
   }*/
 
   Future<void> cacheNeuigkeiten(List<Neuigkeit> neuigkeitenToCache) async {
-    Box _box = await Hive.openBox('Neuigkeiten');
+    Box _box = Hive.box('Neuigkeiten');
     for (int i = 0; i < neuigkeitenToCache.length; i++) {
       bool alreadyexists = false;
       for (int k = 0; k < _box.length; k++) {
@@ -54,7 +53,6 @@ class NeuigkeitenLocalDatasource {
         _box.add(neuigkeitenToCache[i]);
       }
     }
-    Hive.box('Neuigkeiten').compact();
-    //Hive.box('Neuigkeiten').close();
+    _box.compact();
   }
 }

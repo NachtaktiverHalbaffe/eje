@@ -1,5 +1,6 @@
 import 'package:eje/core/error/exception.dart';
 import 'package:eje/core/platform/Article.dart';
+import 'package:eje/core/platform/Hyperlink.dart';
 import 'package:eje/core/utils/WebScraper.dart';
 import 'package:eje/pages/eje/services/domain/entities/Service.dart';
 import 'package:eje/pages/eje/services/domain/usecases/GetServices.dart';
@@ -16,9 +17,13 @@ class ServicesRemoteDatasource {
   //TODO: Implementierung der Onlineanbindung
 
   Future<Service> getService(Service service) async {
-    List<String> hyperlinks = service.hyperlinks;
+    const String DOMAIN = "https://www.eje-esslingen.de";
+
+    List<Hyperlink> hyperlinks = service.hyperlinks;
+    List<String> links = List();
+    List<String> description = List();
     List<String> bilder = service.bilder;
-    final response = await client.get(hyperlinks[0]);
+    final response = await client.get(service.hyperlinks[0].link);
     if (response.statusCode == 200) {
       print("Services: Getting Data from Internet");
       dom.Document document = parser.parse(response.body);
@@ -29,7 +34,7 @@ class ServicesRemoteDatasource {
           for (int i = 0; i < parent.length; i++) {
             bool isAlreadyInCache = false;
             for (int k = 0; k < hyperlinks.length; k++) {
-              if ("https://www.eje-esslingen.de/" +
+              if (DOMAIN +
                       parent[i]
                           .getElementsByTagName('a')[0]
                           .attributes['href'] ==
@@ -38,16 +43,20 @@ class ServicesRemoteDatasource {
               }
             }
             if (!isAlreadyInCache) {
-              hyperlinks.add("https://www.eje-esslingen.de/" +
+              links.add(DOMAIN +
                   parent[i].getElementsByTagName('a')[0].attributes['href']);
+              description.add(
+                  parent[i].getElementsByTagName('a')[0].attributes['title']);
+            }
+            for (int k = 0; k < links.length; k++) {
+              hyperlinks
+                  .add(Hyperlink(link: links[k], description: description[k]));
             }
           }
         } else {
-          print("https://www.eje-esslingen.de/" +
-              parent[0].getElementsByTagName('a')[0].attributes['href']);
-          hyperlinks.addAll(parent
+          links.addAll(parent
               .map((element) =>
-                  "https://www.eje-esslingen.de/" +
+                  DOMAIN +
                   element.getElementsByTagName('a')[0].attributes['href'])
               .toList());
         }
@@ -59,9 +68,9 @@ class ServicesRemoteDatasource {
       } //Service is a webpage which to webscrape
       else {
         List<Article> _article =
-            await WebScraper().scrapeWebPage(service.hyperlinks[0]);
+            await WebScraper().scrapeWebPage(service.hyperlinks[0].link);
         List<String> bilder = List();
-        List<String> hyperlinks = service.hyperlinks;
+        List<Hyperlink> hyperlinks = service.hyperlinks;
         String content = service.inhalt;
         for (int i = 0; i < _article.length; i++) {
           if (_article[i].bilder[0] != "") {

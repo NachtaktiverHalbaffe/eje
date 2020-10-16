@@ -41,7 +41,7 @@ class ServicesLocalDatasource {
   }
 
   Future<void> cacheService(Service service) async {
-    _box = await Hive.box('Services');
+    _box = Hive.box('Services');
     if (_box.isNotEmpty) {
       for (int i = 0; i < _box.length; i++) {
         Service temp = _box.getAt(i);
@@ -51,6 +51,8 @@ class ServicesLocalDatasource {
           _box.compact();
         }
       }
+    } else if (_box.isEmpty) {
+      _box.add(service);
     } else {
       throw CacheException();
     }

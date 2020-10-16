@@ -1,3 +1,4 @@
+import 'package:eje/core/platform/Hyperlink.dart';
 import 'package:equatable/equatable.dart';
 import 'package:hive/hive.dart';
 
@@ -14,7 +15,7 @@ class Article extends Equatable {
   @HiveField(3)
   List<String> bilder;
   @HiveField(4)
-  List<String> hyperlinks;
+  List<Hyperlink> hyperlinks;
 
   Article({
     this.url,

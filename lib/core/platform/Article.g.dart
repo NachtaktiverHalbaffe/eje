@@ -21,7 +21,7 @@ class ArticleAdapter extends TypeAdapter<Article> {
       titel: fields[1] as String,
       content: fields[2] as String,
       bilder: (fields[3] as List)?.cast<String>(),
-      hyperlinks: (fields[4] as List)?.cast<String>(),
+      hyperlinks: (fields[4] as List)?.cast<Hyperlink>(),
     );
   }
 

@@ -20,7 +20,7 @@ class ServiceAdapter extends TypeAdapter<Service> {
       service: fields[0] as String,
       bilder: (fields[1] as List)?.cast<String>(),
       inhalt: fields[2] as String,
-      hyperlinks: (fields[3] as List)?.cast<String>(),
+      hyperlinks: (fields[3] as List)?.cast<Hyperlink>(),
     );
   }
 

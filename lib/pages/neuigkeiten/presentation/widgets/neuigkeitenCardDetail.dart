@@ -1,4 +1,5 @@
 import 'package:eje/core/platform/Article.dart';
+import 'package:eje/core/platform/Hyperlink.dart';
 import 'package:eje/core/widgets/DetailsPage.dart';
 import 'package:eje/core/widgets/LoadingIndicator.dart';
 import 'package:eje/core/widgets/PrefImage.dart';
@@ -51,7 +52,7 @@ class _neuigkeitenCardDetail extends State<neuigkeitenCardDetail> {
         builder: (context, state) {
           if (state is LoadedDetail) {
             print("Build Page: LoadedDetail");
-            return card(context, state.article[0], isCacheEnabled);
+            return card(context, state.article, isCacheEnabled);
           } else if (state is LoadingDetails) {
             return LoadingIndicator();
           } else
@@ -62,13 +63,27 @@ class _neuigkeitenCardDetail extends State<neuigkeitenCardDetail> {
   }
 }
 
-Widget card(context, _article, isCacheEnabled) {
-  final _currentPageNotifier = ValueNotifier<int>(0);
+Widget card(context, List<Article> _article, isCacheEnabled) {
+  // Merge all information from List<Article> to one data-entry
+  String content = "";
+  List<String> bilder = List();
+  List<Hyperlink> hyperlinks = List();
+  for (int i = 0; i < _article.length; i++) {
+    if (_article[i].bilder[0] != "") {
+      bilder.addAll(_article[i].bilder);
+    }
+    if (_article[i].content != "") {
+      content = content + _article[i].content;
+    }
+    if (_article[i].hyperlinks[0].link != "") {
+      hyperlinks.addAll(_article[i].hyperlinks);
+    }
+  }
   return DetailsPage(
-    titel: _article.titel,
+    titel: _article[0].titel,
     untertitel: "",
-    text: _article.content,
-    bild_url: _article.bilder,
+    text: content,
+    bild_url: bilder,
     context: context,
     isCacheEnabled: isCacheEnabled,
     childWidget: SizedBox(
