@@ -13,20 +13,20 @@ Widget Arbeitsbereiche(BuildContext context, bool isCacheEnabled) {
       Row(
         children: <Widget>[
           SizedBox(
-            width: 24,
+            width: 72 / MediaQuery.of(context).devicePixelRatio,
           ),
           Text(
             "Arbeitsfelder",
             textAlign: TextAlign.left,
             style: TextStyle(
               fontWeight: FontWeight.bold,
-              fontSize: 28,
+              fontSize: 84 / MediaQuery.of(context).devicePixelRatio,
             ),
           ),
         ],
       ),
       SizedBox(
-        height: 12,
+        height: 36 / MediaQuery.of(context).devicePixelRatio,
       ),
       BlocProvider(
         create: (_) => sl<ArbeitsbereicheBloc>(),
@@ -42,17 +42,19 @@ Widget Arbeitsbereiche(BuildContext context, bool isCacheEnabled) {
           },
           // ignore: missing_return
           builder: (context, state) {
-            if(state is Empty){
+            if (state is Empty) {
               print("Build page: Arbeitsbereiche Empty");
-              BlocProvider.of<ArbeitsbereicheBloc>(context).add(RefreshArbeitsbereiche());
+              BlocProvider.of<ArbeitsbereicheBloc>(context)
+                  .add(RefreshArbeitsbereiche());
               return LoadingIndicator();
             }
-            if(state is Loading){
+            if (state is Loading) {
               print("Build page: Arbeitsbereiche Loading");
               return LoadingIndicator();
-            } else if(state is LoadedArbeitsbereiche){
+            } else if (state is LoadedArbeitsbereiche) {
               print("Build page: LoadedArbeitsbereiche");
-              return ArbeitsbereichePageViewer(state.arbeitsbereiche, context, isCacheEnabled);
+              return ArbeitsbereichePageViewer(
+                  state.arbeitsbereiche, context, isCacheEnabled);
             }
           },
         ),

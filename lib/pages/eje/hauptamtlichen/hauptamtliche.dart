@@ -14,20 +14,20 @@ Widget Hauptamtliche(BuildContext context, bool isCacheEnabled) {
       Row(
         children: <Widget>[
           SizedBox(
-            width: 24,
+            width: 72 / MediaQuery.of(context).devicePixelRatio,
           ),
           Text(
             "Hauptamtliche",
             textAlign: TextAlign.left,
             style: TextStyle(
               fontWeight: FontWeight.bold,
-              fontSize: 28,
+              fontSize: 84 / MediaQuery.of(context).devicePixelRatio,
             ),
           ),
         ],
       ),
       SizedBox(
-        height: 12,
+        height: 36 / MediaQuery.of(context).devicePixelRatio,
       ),
       BlocProvider(
         create: (_) => sl<HauptamtlicheBloc>(),
@@ -43,23 +43,25 @@ Widget Hauptamtliche(BuildContext context, bool isCacheEnabled) {
           },
           // ignore: missing_return
           builder: (context, state) {
-            if(state is Empty){
+            if (state is Empty) {
               print("Build page: Hauptamtliche Empty");
-              BlocProvider.of<HauptamtlicheBloc>(context).add(RefreshHauptamtliche());
+              BlocProvider.of<HauptamtlicheBloc>(context)
+                  .add(RefreshHauptamtliche());
               return LoadingIndicator();
             }
-            if(state is Loading){
+            if (state is Loading) {
               print("Build page: Hauptamtliche Loading");
               return LoadingIndicator();
-            } else if(state is LoadedHauptamtliche){
+            } else if (state is LoadedHauptamtliche) {
               print("Build page: LoadedHauptamtliche");
-              return HauptamtlichePageViewer(state.hauptamtliche, context, isCacheEnabled);
+              return HauptamtlichePageViewer(
+                  state.hauptamtliche, context, isCacheEnabled);
             }
           },
         ),
       ),
       SizedBox(
-        height: 12,
+        height: 36 / MediaQuery.of(context).devicePixelRatio,
       ),
     ],
   );

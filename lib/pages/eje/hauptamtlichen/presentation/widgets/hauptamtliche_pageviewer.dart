@@ -15,33 +15,32 @@ Widget HauptamtlichePageViewer(List<Hauptamtlicher> hauptamtliche,
       return KontaktCard(hauptamtliche[index], context, isCacheEnabled);
     },
     itemCount: hauptamtliche.length,
-    itemHeight: 200,
-    itemWidth: 150,
+    itemHeight: 600 / MediaQuery.of(context).devicePixelRatio,
+    itemWidth: 450 / MediaQuery.of(context).devicePixelRatio,
     layout: SwiperLayout.STACK,
     loop: true,
-
   );
 }
 
-Widget KontaktCard(Hauptamtlicher hauptamtlicher, BuildContext context, bool isCacheEnabled) {
+Widget KontaktCard(
+    Hauptamtlicher hauptamtlicher, BuildContext context, bool isCacheEnabled) {
   return Container(
     child: ClipRRect(
-      borderRadius: new BorderRadius.all(Radius.circular(12)),
+      borderRadius: new BorderRadius.all(
+          Radius.circular(36 / MediaQuery.of(context).devicePixelRatio)),
       child: Stack(
         alignment: Alignment.bottomCenter,
         children: <Widget>[
           GestureDetector(
-            onTap: () =>
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) =>
-                        BlocProvider.value(
-                          value: sl<HauptamtlicheBloc>(),
-                          child: HauptamtlicheDetails(isCacheEnabled,hauptamtlicher),
-                        ),
-                  ),
+            onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (_) => BlocProvider.value(
+                  value: sl<HauptamtlicheBloc>(),
+                  child: HauptamtlicheDetails(isCacheEnabled, hauptamtlicher),
                 ),
+              ),
+            ),
             child: Container(
               decoration: BoxDecoration(
                 image: DecorationImage(
@@ -52,56 +51,64 @@ Widget KontaktCard(Hauptamtlicher hauptamtlicher, BuildContext context, bool isC
             ),
           ),
           Column(
-                mainAxisSize: MainAxisSize.max,
-                children: <Widget>[
-                  SizedBox(
-                    height: 160,
-                  ),
-                  Text(
-                    hauptamtlicher.name,
-                    overflow: TextOverflow.ellipsis,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 62/MediaQuery.of(context).devicePixelRatio,
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      shadows: <Shadow>[
-                        Shadow(
-                          offset: Offset(2.0, 2.0),
-                          blurRadius: 6.0,
-                          color: Colors.black,
-                        ),
-                        Shadow(
-                          offset: Offset(2.0, 2.0),
-                          blurRadius: 6.0,
-                          color: Colors.black,
-                        ),
-                      ],
-                    ),
-                  ),
-                  Text(
-                    hauptamtlicher.bereich,
-                    textAlign: TextAlign.center,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 46/MediaQuery.of(context).devicePixelRatio,
-                      shadows: <Shadow>[
-                        Shadow(
-                          offset: Offset(2.0, 2.0),
-                          blurRadius: 6.0,
-                          color: Colors.black,
-                        ),
-                        Shadow(
-                          offset: Offset(2.0, 2.0),
-                          blurRadius: 6.0,
-                          color: Colors.black,
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
+            mainAxisSize: MainAxisSize.max,
+            children: <Widget>[
+              SizedBox(
+                height: 480 / MediaQuery.of(context).devicePixelRatio,
               ),
+              Text(
+                hauptamtlicher.name,
+                overflow: TextOverflow.ellipsis,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 62 / MediaQuery.of(context).devicePixelRatio,
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  shadows: <Shadow>[
+                    Shadow(
+                      offset: Offset(
+                          6 / MediaQuery.of(context).devicePixelRatio,
+                          6 / MediaQuery.of(context).devicePixelRatio),
+                      blurRadius: 18 / MediaQuery.of(context).devicePixelRatio,
+                      color: Colors.black,
+                    ),
+                    Shadow(
+                      offset: Offset(
+                          6 / MediaQuery.of(context).devicePixelRatio,
+                          6 / MediaQuery.of(context).devicePixelRatio),
+                      blurRadius: 18 / MediaQuery.of(context).devicePixelRatio,
+                      color: Colors.black,
+                    ),
+                  ],
+                ),
+              ),
+              Text(
+                hauptamtlicher.bereich,
+                textAlign: TextAlign.center,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 46 / MediaQuery.of(context).devicePixelRatio,
+                  shadows: <Shadow>[
+                    Shadow(
+                      offset: Offset(
+                          6 / MediaQuery.of(context).devicePixelRatio,
+                          6 / MediaQuery.of(context).devicePixelRatio),
+                      blurRadius: 18 / MediaQuery.of(context).devicePixelRatio,
+                      color: Colors.black,
+                    ),
+                    Shadow(
+                      offset: Offset(
+                          6 / MediaQuery.of(context).devicePixelRatio,
+                          6 / MediaQuery.of(context).devicePixelRatio),
+                      blurRadius: 18 / MediaQuery.of(context).devicePixelRatio,
+                      color: Colors.black,
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ],
       ),
     ),
