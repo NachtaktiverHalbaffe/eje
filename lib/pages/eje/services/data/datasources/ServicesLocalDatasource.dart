@@ -1,5 +1,5 @@
 import 'package:eje/core/error/exception.dart';
-import 'package:eje/fixtures/testdata_services.dart';
+import 'package:eje/fixtures/data_services.dart';
 import 'package:eje/pages/eje/services/domain/entities/Service.dart';
 import 'package:hive/hive.dart';
 
@@ -47,11 +47,7 @@ class ServicesLocalDatasource {
         Service temp = _box.getAt(i);
         if (temp.service == service.service) {
           _box.deleteAt(i);
-          _box.add(new Service(
-              service: temp.service,
-              bilder: service.bilder,
-              inhalt: temp.inhalt,
-              hyperlinks: service.hyperlinks));
+          _box.add(service);
           _box.compact();
         }
       }
