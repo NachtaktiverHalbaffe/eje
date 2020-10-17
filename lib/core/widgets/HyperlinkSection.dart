@@ -42,7 +42,8 @@ Widget HyperlinkSection(
 Widget _column(Hyperlink hyperlink, BuildContext context, bool isCacheEnabled) {
   return GestureDetector(
     onTap: () async {
-      if (hyperlink.link.contains("fileadmin")) {
+      if (hyperlink.link.contains("fileadmin") ||
+          !hyperlink.link.contains("https://www.eje-esslingen.de")) {
         if (await canLaunch(hyperlink.link)) {
           await launch(hyperlink.link);
         } else {

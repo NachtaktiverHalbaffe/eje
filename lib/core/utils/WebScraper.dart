@@ -165,6 +165,26 @@ class WebScraper {
                       Hyperlink(link: links[k], description: description[k]));
                 }
               }
+              if (parent[i]
+                  .getElementsByClassName("external-link-new-window")
+                  .isNotEmpty) {
+                // hyperlinks are in existing parent class
+                List<String> links = parent[i]
+                    .getElementsByClassName("external-link-new-window")
+                    .map((elements) => elements.attributes['href'])
+                    .toList();
+                print(links.toString());
+                List<String> description = parent[i]
+                    .getElementsByClassName("external-link-new-window")
+                    .map((elements) => elements.text)
+                    .toList();
+                //map webscraped links and descriptions to hyperlinks
+                for (int k = 0; k < links.length; k++) {
+                  hyperlinks.add(
+                      Hyperlink(link: links[k], description: description[k]));
+                }
+              }
+
               if (document.getElementById('row h-bulldozer default') != null) {
                 //hyperlinks are in another parent class
                 List<String> links = document
