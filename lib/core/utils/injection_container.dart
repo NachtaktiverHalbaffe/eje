@@ -1,6 +1,7 @@
 import 'package:connectivity/connectivity.dart';
 import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:eje/core/platform/network_info.dart';
+import 'package:eje/core/utils/WebScraper.dart';
 import 'package:eje/pages/articles/data/datasources/articlesLocalDatasource.dart';
 import 'package:eje/pages/articles/data/repository/articlesRepositoryImpl.dart';
 import 'package:eje/pages/articles/domain/repositories/ArticlesRepository.dart';

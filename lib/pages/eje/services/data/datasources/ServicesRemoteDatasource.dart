@@ -14,8 +14,6 @@ class ServicesRemoteDatasource {
 
   ServicesRemoteDatasource({@required this.client});
 
-  //TODO: Implementierung der Onlineanbindung
-
   Future<Service> getService(Service service) async {
     const String DOMAIN = "https://www.eje-esslingen.de";
 

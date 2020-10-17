@@ -23,3 +23,12 @@ class GettingArticle extends ArticlesEvent {
   @override
   List<Object> get props => [url];
 }
+
+class FollowingHyperlink extends ArticlesEvent {
+  String url;
+
+  FollowingHyperlink(@required this.url);
+
+  @override
+  List<Object> get props => [url];
+}

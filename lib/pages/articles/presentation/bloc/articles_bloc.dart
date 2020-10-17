@@ -49,6 +49,13 @@ class ArticlesBloc extends Bloc<ArticlesEvent, ArticlesState> {
         (failure) => Error(message: _mapFailureToMessage(failure)),
         (article) => LoadedArticle(article),
       );
+    } else if (event is FollowingHyperlink) {
+      yield Loading();
+      final serviceOrFailure = await getArticle(url: event.url);
+      yield serviceOrFailure.fold(
+        (failure) => Error(message: _mapFailureToMessage(failure)),
+        (article) => FollowedHyperlink(article),
+      );
     }
   }
 

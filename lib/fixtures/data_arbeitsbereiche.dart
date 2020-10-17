@@ -1,7 +1,7 @@
 import 'package:eje/pages/eje/arbeitsfelder/domain/entities/Arbeitsbereich.dart';
 import 'package:hive/hive.dart';
 
-void testdata_arbeitsbereiche(Box _box) {
+void data_arbeitsbereiche(Box _box) {
   if (_box.length < 6) {
     List<String> bilder = new List();
     bilder.add("assets/testdata/jungscharlogo.gif");

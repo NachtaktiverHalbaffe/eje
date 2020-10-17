@@ -36,6 +36,15 @@ class LoadedArticle extends ArticlesState {
   List<Object> get props => [article];
 }
 
+class FollowedHyperlink extends ArticlesState {
+  Article article;
+
+  FollowedHyperlink(this.article);
+
+  @override
+  List<Object> get props => [article];
+}
+
 class Error extends ArticlesState {
   final String message;
 

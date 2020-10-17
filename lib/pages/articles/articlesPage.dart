@@ -61,6 +61,9 @@ class _articleBloc extends State<ArticlesPage> {
           } else if (state is ReloadedArticle) {
             print("Build Page Articles: Reloaded");
             return _articlePage(state.article, isCacheEnabled, context);
+          } else if (state is FollowedHyperlink) {
+            print("Build Page Articles: FollowedHyperlink");
+            return _articlePage(state.article, isCacheEnabled, context);
           } else
             return Center();
         },
