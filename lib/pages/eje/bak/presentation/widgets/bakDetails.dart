@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:icon_shadow/icon_shadow.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class BAKDetails extends StatefulWidget {
   final bool isCacheEnabled;
@@ -91,14 +92,22 @@ Widget _childBak(BAKler bakler, BuildContext context) {
       ListTile(
         leading: Icon(
           MdiIcons.email,
-          size: 42 / MediaQuery.of(context).devicePixelRatio,
         ),
         title: Text(
           bakler.email,
           style:
               TextStyle(fontSize: 42 / MediaQuery.of(context).devicePixelRatio),
         ),
-        dense: true,
+        trailing: GestureDetector(
+          child: Icon(MdiIcons.emailEdit),
+          onTap: () async {
+            if (await canLaunch("mailto:" + bakler.email)) {
+              await launch("mailto:" + bakler.email);
+            } else {
+              throw 'Could not open Email';
+            }
+          },
+        ),
       ),
       SizedBox(
         height: 36 / MediaQuery.of(context).devicePixelRatio,

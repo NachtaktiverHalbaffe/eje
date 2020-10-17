@@ -9,6 +9,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:icon_shadow/icon_shadow.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class HauptamtlicheDetails extends StatefulWidget {
   final bool isCacheEnabled;
@@ -103,6 +104,16 @@ Widget _childHauptamtlicheDetails(
               TextStyle(fontSize: 42 / MediaQuery.of(context).devicePixelRatio),
         ),
         dense: true,
+        trailing: GestureDetector(
+          child: Icon(MdiIcons.emailEdit),
+          onTap: () async {
+            if (await canLaunch("mailto:" + hauptamtlicher.email)) {
+              await launch("mailto:" + hauptamtlicher.email);
+            } else {
+              throw 'Could not open Email';
+            }
+          },
+        ),
       ),
       ListTile(
         leading: Icon(
@@ -115,19 +126,38 @@ Widget _childHauptamtlicheDetails(
               TextStyle(fontSize: 42 / MediaQuery.of(context).devicePixelRatio),
         ),
         dense: true,
+        trailing: GestureDetector(
+          child: Icon(MdiIcons.phoneOutgoing),
+          onTap: () async {
+            if (await canLaunch("tel:" + hauptamtlicher.telefon)) {
+              await launch("tel:" + hauptamtlicher.telefon);
+            } else {
+              throw 'Could not open Email';
+            }
+          },
+        ),
       ),
       ListTile(
-        leading: Icon(
-          MdiIcons.cellphone,
-          size: 72 / MediaQuery.of(context).devicePixelRatio,
-        ),
-        title: Text(
-          hauptamtlicher.handy,
-          style:
-              TextStyle(fontSize: 42 / MediaQuery.of(context).devicePixelRatio),
-        ),
-        dense: true,
-      ),
+          leading: Icon(
+            MdiIcons.cellphone,
+            size: 72 / MediaQuery.of(context).devicePixelRatio,
+          ),
+          title: Text(
+            hauptamtlicher.handy,
+            style: TextStyle(
+                fontSize: 42 / MediaQuery.of(context).devicePixelRatio),
+          ),
+          dense: true,
+          trailing: GestureDetector(
+            child: Icon(MdiIcons.phoneOutgoing),
+            onTap: () async {
+              if (await canLaunch("tel:" + hauptamtlicher.handy)) {
+                await launch("tel:" + hauptamtlicher.handy);
+              } else {
+                throw 'Could not open Email';
+              }
+            },
+          )),
       SizedBox(
         height: 42 / MediaQuery.of(context).devicePixelRatio,
       )

@@ -51,7 +51,7 @@ Widget KontaktCard(BAKler bakler, BuildContext context, bool isCacheEnabled) {
             mainAxisSize: MainAxisSize.max,
             children: <Widget>[
               SizedBox(
-                height: 480 / MediaQuery.of(context).devicePixelRatio,
+                height: 460 / MediaQuery.of(context).devicePixelRatio,
               ),
               Text(
                 bakler.name,

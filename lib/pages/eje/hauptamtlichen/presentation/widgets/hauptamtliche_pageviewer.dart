@@ -54,7 +54,7 @@ Widget KontaktCard(
             mainAxisSize: MainAxisSize.max,
             children: <Widget>[
               SizedBox(
-                height: 480 / MediaQuery.of(context).devicePixelRatio,
+                height: 460 / MediaQuery.of(context).devicePixelRatio,
               ),
               Text(
                 hauptamtlicher.name,
