@@ -25,7 +25,7 @@ In der Presentationebene wird das Statemanagment betrieben, die Logik für das F
 - failure als Models für die verschiedene Arten von Operationsfehlschlägen im Data/Domain-Layer
 
 **Platform**
-- Article und Article.g (generiert durch Hive) als Entität für Inhalte einer Seite der Homepage
+- Reminder als Entität für das Speichern von Erinnerungen für push-notifications (Termine)
 - network_info als Methode zum herausfinden ob die App Verbindung zum Internet hat
 
 **Usecases**
@@ -34,17 +34,20 @@ In der Presentationebene wird das Statemanagment betrieben, die Logik für das F
 **Utils**
 - first_startup um beim aller ersten starten der AppStandardwerte zu setzen
 - injection_container für Dependency Injection, um die losen Module der Architektur zu verbinden
-- WebScraper um Artikel von der Homepage webzuscrapen (breiter angelehte Online-Datenquelle)
+- WebScraper um Artikel von der Homepage webzuscrapen (breiter angelegte Online-Datenquelle)
 
 **Widgets**
 - bloc für Statemanagment auf der obersten Ebene
 - Loadingindicator als universelle Ladeanmiation
+- DetailsPage für die Darstellung einzelner Seiten der Website oder Detaileinzeige einer page aus der App
+- Hyperlinksectiom für die Darstellung und das öffnen von Hyperlinks in DetailsPage
 - Prefimage als Widget für die darstellung von network images, die je nach Einstellung aus dem cache oder jedes mal aus den Internet geladen werden
 
 ### Pages
 Die Pages enthalten die einzelnen Menüpunkte und haben alle denselben Aufbau. Daher werden nur die einzelnen Menüpunkte un der generelle Aufbau gelistet
 
 **Pages**
+- Articles: Bildet den Inhalt einer Seite der Homepage ab auf DetailsPage
 - Einstellungen: Appeinstellungen und rechtliche Angaben wie Datenschutz und Lizenzen
 - eje: Vorstellung der Arbeitsbereiche, des BAK/Vorstandes, der Hauptamtlichen und ausgewählten Services
 - freizeiten: Auflistung der Freizeiten, die im ejw-Manager öffentlich gelistet sind
