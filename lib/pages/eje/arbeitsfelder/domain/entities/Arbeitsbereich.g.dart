@@ -20,7 +20,7 @@ class ArbeitsbereichAdapter extends TypeAdapter<Arbeitsbereich> {
       arbeitsfeld: fields[0] as String,
       bilder: (fields[1] as List)?.cast<String>(),
       inhalt: fields[2] as String,
-      hyperlinks: (fields[3] as List)?.cast<String>(),
+      url: fields[3] as String,
     );
   }
 
@@ -35,7 +35,7 @@ class ArbeitsbereichAdapter extends TypeAdapter<Arbeitsbereich> {
       ..writeByte(2)
       ..write(obj.inhalt)
       ..writeByte(3)
-      ..write(obj.hyperlinks);
+      ..write(obj.url);
   }
 
   @override

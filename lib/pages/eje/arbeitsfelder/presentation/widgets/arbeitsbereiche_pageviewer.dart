@@ -1,4 +1,6 @@
 import 'package:eje/core/utils/injection_container.dart';
+import 'package:eje/pages/articles/articlesPage.dart';
+import 'package:eje/pages/articles/presentation/bloc/articles_bloc.dart';
 import 'package:eje/pages/eje/arbeitsfelder/domain/entities/Arbeitsbereich.dart';
 import 'package:eje/pages/eje/arbeitsfelder/presentation/bloc/arbeitsbereiche_bloc.dart';
 import 'package:eje/pages/eje/arbeitsfelder/presentation/widgets/arbeitsbereicheDetails.dart';
@@ -34,8 +36,11 @@ Widget KontaktCard(
               context,
               MaterialPageRoute(
                 builder: (_) => BlocProvider.value(
-                  value: sl<ArbeitsbereicheBloc>(),
-                  child: ArbeitsbereicheDetails(isCacheEnabled, arbeitsbereich),
+                  value: sl<ArticlesBloc>(),
+                  child: ArticlesPage(
+                    url: arbeitsbereich.url,
+                    isCacheEnabled: isCacheEnabled,
+                  ),
                 ),
               ),
             ),

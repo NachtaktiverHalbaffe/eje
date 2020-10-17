@@ -13,15 +13,15 @@ class Arbeitsbereich extends Equatable {
   @HiveField(2)
   final String inhalt;
   @HiveField(3)
-  final List<String> hyperlinks;
+  final String url;
 
   Arbeitsbereich({
     @required this.arbeitsfeld,
     @required this.bilder,
     @required this.inhalt,
-    this.hyperlinks,
+    this.url,
   });
 
   @override
-  List<Object> get props => [arbeitsfeld, bilder, inhalt, hyperlinks];
+  List<Object> get props => [arbeitsfeld, bilder, inhalt, url];
 }

@@ -84,7 +84,6 @@ Widget _articlePage(
         ),
       ),
       onRefresh: () async {
-        await BlocProvider.of<ArticlesBloc>(context)
-            .add(RefreshArticle(article.url));
+        BlocProvider.of<ArticlesBloc>(context).add(RefreshArticle(article.url));
       });
 }
