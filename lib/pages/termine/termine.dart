@@ -64,7 +64,7 @@ Widget TermineListView(
           child: ListView(
             children: [
               SizedBox(
-                height: 92 / MediaQuery.of(context).devicePixelRatio,
+                height: MediaQuery.of(context).size.height / 8,
               ),
               Swiper(
                 itemBuilder: (BuildContext context, int index) {

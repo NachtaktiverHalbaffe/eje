@@ -52,7 +52,7 @@ Widget FreizeitenPageViewer(
       child: ListView(
         children: [
           SizedBox(
-            height: 400 / MediaQuery.of(context).devicePixelRatio,
+            height: MediaQuery.of(context).size.height / 5,
           ),
           Swiper(
             itemBuilder: (BuildContext context, int index) {

@@ -66,13 +66,16 @@ class TerminCard extends StatelessWidget {
                         SizedBox(
                             width:
                                 48 / MediaQuery.of(context).devicePixelRatio),
-                        Text(
-                          termin.veranstaltung,
-                          style: TextStyle(
-                              fontSize:
-                                  84 / MediaQuery.of(context).devicePixelRatio,
-                              fontWeight: FontWeight.bold,
-                              color: Theme.of(context).accentColor),
+                        Flexible(
+                          child: Text(
+                            termin.veranstaltung,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                                fontSize: 84 /
+                                    MediaQuery.of(context).devicePixelRatio,
+                                fontWeight: FontWeight.bold,
+                                color: Theme.of(context).accentColor),
+                          ),
                         ),
                       ],
                     ),
@@ -84,12 +87,15 @@ class TerminCard extends StatelessWidget {
                         SizedBox(
                             width:
                                 48 / MediaQuery.of(context).devicePixelRatio),
-                        Text(
-                          termin.motto,
-                          style: TextStyle(
-                            fontSize:
-                                56 / MediaQuery.of(context).devicePixelRatio,
-                            fontWeight: FontWeight.bold,
+                        Flexible(
+                          child: Text(
+                            termin.motto,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                              fontSize:
+                                  56 / MediaQuery.of(context).devicePixelRatio,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
                       ],
