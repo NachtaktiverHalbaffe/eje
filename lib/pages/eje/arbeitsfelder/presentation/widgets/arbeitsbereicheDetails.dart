@@ -65,7 +65,6 @@ Widget HauptamtlicheDetailsCard(
     titel: arbeitsbereich.arbeitsfeld,
     text: arbeitsbereich.inhalt,
     bild_url: arbeitsbereich.bilder,
-    context: context,
     untertitel: "",
     hyperlinks: [Hyperlink(link: "", description: "")],
     childWidget: SizedBox(height: 36 / MediaQuery.of(context).devicePixelRatio),

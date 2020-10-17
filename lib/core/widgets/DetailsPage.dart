@@ -15,7 +15,6 @@ class DetailsPage extends StatelessWidget {
   final double pixtureHeight;
   final List<Hyperlink> hyperlinks;
   final bool isCacheEnabled;
-  final BuildContext context;
   final Widget childWidget;
 
   DetailsPage(
@@ -27,7 +26,6 @@ class DetailsPage extends StatelessWidget {
       this.pixtureHeight = 0,
       this.hyperlinks,
       this.isCacheEnabled = false,
-      this.context,
       this.childWidget});
 
   @override

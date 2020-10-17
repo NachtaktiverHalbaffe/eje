@@ -61,7 +61,6 @@ Widget ServiceDetailsCard(
     titel: service.service,
     text: service.inhalt,
     bild_url: service.bilder,
-    context: context,
     untertitel: "",
     hyperlinks: service.service != "Verleih"
         ? service.hyperlinks.sublist(1)

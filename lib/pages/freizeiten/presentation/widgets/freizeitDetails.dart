@@ -1,5 +1,6 @@
 import 'package:eje/core/widgets/DetailsPage.dart';
 import 'package:eje/core/widgets/LoadingIndicator.dart';
+import 'package:eje/pages/articles/domain/entity/Hyperlink.dart';
 import 'package:eje/pages/freizeiten/domain/entities/Freizeit.dart';
 import 'package:eje/pages/freizeiten/presentation/bloc/bloc.dart';
 import 'package:eje/pages/freizeiten/presentation/bloc/freizeiten_bloc.dart';
@@ -64,13 +65,12 @@ class _FreizeitDetailsState extends State<FreizeitDetails> {
 
 Widget FreizeitDetailsCard(
     Freizeit freizeit, bool isCacheEnabled, BuildContext context) {
-  final _currentPageNotifier = ValueNotifier<int>(0);
   return DetailsPage(
     titel: freizeit.freizeit,
     untertitel: freizeit.motto,
     text: freizeit.beschreibung,
     bild_url: freizeit.bilder,
-    context: context,
+    hyperlinks: [Hyperlink(link: "", description: "")],
     childWidget: _freizeitChildWidget(freizeit, context),
   );
 }

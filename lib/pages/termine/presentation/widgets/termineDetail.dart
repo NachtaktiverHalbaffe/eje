@@ -1,5 +1,6 @@
 import 'package:eje/core/widgets/DetailsPage.dart';
 import 'package:eje/core/widgets/LoadingIndicator.dart';
+import 'package:eje/pages/articles/domain/entity/Hyperlink.dart';
 import 'package:eje/pages/termine/domain/entities/Termin.dart';
 import 'package:eje/pages/termine/presentation/bloc/bloc.dart';
 import 'package:eje/pages/termine/presentation/bloc/termine_bloc.dart';
@@ -67,7 +68,7 @@ Widget TerminDetailsCard(
     untertitel: termin.motto,
     text: termin.text,
     bild_url: bilder,
-    context: context,
+    hyperlinks: [Hyperlink(link: "", description: "")],
     childWidget: _terminChildWidget(termin, context),
   );
 }

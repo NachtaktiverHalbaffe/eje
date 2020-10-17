@@ -70,7 +70,6 @@ Widget HauptamtlicheDetailsCard(
       bild_url: bilder,
       pixtureHeight: 1200,
       text: hauptamtlicher.vorstellung,
-      context: context,
       hyperlinks: [Hyperlink(link: "", description: "")],
       childWidget: _childHauptamtlicheDetails(hauptamtlicher, context));
 }

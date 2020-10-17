@@ -80,7 +80,6 @@ Widget _articlePage(
         bild_url: article.bilder,
         hyperlinks: article.hyperlinks,
         isCacheEnabled: isCacheEnabled,
-        context: context,
         childWidget: SizedBox(
           height: 1 / MediaQuery.of(context).devicePixelRatio,
         ),

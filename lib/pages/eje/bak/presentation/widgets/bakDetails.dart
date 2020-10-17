@@ -68,7 +68,6 @@ Widget HauptamtlicheDetailsCard(
       bild_url: bilder,
       hyperlinks: [Hyperlink(link: "", description: "")],
       pixtureHeight: 1200,
-      context: context,
       childWidget: _childBak(bakler, context));
 }
 

@@ -84,7 +84,6 @@ Widget card(context, List<Article> _article, isCacheEnabled) {
     untertitel: "",
     text: content,
     bild_url: bilder,
-    context: context,
     hyperlinks: hyperlinks.isEmpty
         ? [Hyperlink(link: "", description: "")]
         : hyperlinks,
