@@ -85,7 +85,9 @@ Widget card(context, List<Article> _article, isCacheEnabled) {
     text: content,
     bild_url: bilder,
     context: context,
-    hyperlinks: hyperlinks,
+    hyperlinks: hyperlinks.isEmpty
+        ? [Hyperlink(link: "", description: "")]
+        : hyperlinks,
     isCacheEnabled: isCacheEnabled,
     childWidget: SizedBox(
       height: 36 / MediaQuery.of(context).devicePixelRatio,

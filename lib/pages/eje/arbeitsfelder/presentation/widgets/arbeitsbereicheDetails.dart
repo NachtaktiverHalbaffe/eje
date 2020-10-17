@@ -1,5 +1,6 @@
 import 'package:eje/core/widgets/DetailsPage.dart';
 import 'package:eje/core/widgets/LoadingIndicator.dart';
+import 'package:eje/pages/articles/domain/entity/Hyperlink.dart';
 import 'package:eje/pages/eje/arbeitsfelder/domain/entities/Arbeitsbereich.dart';
 import 'package:eje/pages/eje/arbeitsfelder/presentation/bloc/arbeitsbereiche_bloc.dart';
 import 'package:eje/pages/eje/arbeitsfelder/presentation/bloc/arbeitsbereiche_event.dart';
@@ -66,6 +67,7 @@ Widget HauptamtlicheDetailsCard(
     bild_url: arbeitsbereich.bilder,
     context: context,
     untertitel: "",
+    hyperlinks: [Hyperlink(link: "", description: "")],
     childWidget: SizedBox(height: 36 / MediaQuery.of(context).devicePixelRatio),
   );
 }

@@ -62,7 +62,8 @@ class _articleBloc extends State<ArticlesPage> {
             print("Build Page Articles: Loaded");
             return _articlePage(state.article, isCacheEnabled, context);
           } else
-            return LoadingIndicator();
+            print("Build Page Articles: Loaded");
+          return Center();
         },
       ),
     );

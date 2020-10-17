@@ -19,7 +19,7 @@ class ServicesRemoteDatasource {
   Future<Service> getService(Service service) async {
     const String DOMAIN = "https://www.eje-esslingen.de";
 
-    List<Hyperlink> hyperlinks = service.hyperlinks;
+    List<Hyperlink> hyperlinks = service.hyperlinks.sublist(0, 1);
     List<String> links = List();
     List<String> description = List();
     List<String> bilder = service.bilder;
@@ -48,10 +48,6 @@ class ServicesRemoteDatasource {
               description.add(
                   parent[i].getElementsByTagName('a')[0].attributes['title']);
             }
-            for (int k = 0; k < links.length; k++) {
-              hyperlinks
-                  .add(Hyperlink(link: links[k], description: description[k]));
-            }
           }
         } else {
           links.addAll(parent
@@ -59,6 +55,14 @@ class ServicesRemoteDatasource {
                   DOMAIN +
                   element.getElementsByTagName('a')[0].attributes['href'])
               .toList());
+          description.addAll(parent
+              .map((element) =>
+                  element.getElementsByTagName('a')[0].attributes['title'])
+              .toList());
+        }
+        for (int k = 0; k < links.length; k++) {
+          hyperlinks
+              .add(Hyperlink(link: links[k], description: description[k]));
         }
         return Service(
             service: service.service,
@@ -69,23 +73,15 @@ class ServicesRemoteDatasource {
       else {
         List<Article> _article =
             await WebScraper().scrapeWebPage(service.hyperlinks[0].link);
-        List<String> bilder = List();
-        List<Hyperlink> hyperlinks = service.hyperlinks;
+        List<String> bilder = service.bilder.sublist(0, 1);
+        List<Hyperlink> hyperlinks = service.hyperlinks.sublist(0, 1);
         String content = service.inhalt;
         for (int i = 0; i < _article.length; i++) {
           if (_article[i].bilder[0] != "") {
-            for (int k = 0; k < _article[i].bilder.length; k++) {
-              if (!bilder.contains(_article[i].bilder[k])) {
-                bilder.add(_article[i].bilder[k]);
-              }
-            }
+            bilder.addAll(_article[i].bilder);
           }
-          if (_article[i].hyperlinks.isNotEmpty) {
-            for (int k = 0; k < _article[i].hyperlinks.length; k++) {
-              if (!hyperlinks.contains(_article[i].hyperlinks[k])) {
-                hyperlinks.add(_article[i].hyperlinks[k]);
-              }
-            }
+          if (_article[i].hyperlinks[0].link != "") {
+            hyperlinks.addAll(_article[i].hyperlinks);
           }
           if (_article[i].content.isNotEmpty) {
             if (!content.contains(_article[i].content)) {
@@ -95,6 +91,9 @@ class ServicesRemoteDatasource {
         }
         if (bilder.length > 1) {
           bilder = bilder.sublist(1);
+        }
+        if (hyperlinks.length == 1) {
+          hyperlinks.add(Hyperlink(link: "", description: ""));
         }
         return Service(
           service: service.service,

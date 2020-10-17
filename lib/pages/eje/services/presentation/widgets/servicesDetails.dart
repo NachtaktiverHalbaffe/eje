@@ -63,7 +63,9 @@ Widget ServiceDetailsCard(
     bild_url: service.bilder,
     context: context,
     untertitel: "",
-    hyperlinks: service.hyperlinks,
+    hyperlinks: service.service != "Verleih"
+        ? service.hyperlinks.sublist(1)
+        : service.hyperlinks.sublist(0, 1),
     childWidget: SizedBox(height: 36 / MediaQuery.of(context).devicePixelRatio),
   );
 }

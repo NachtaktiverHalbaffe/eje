@@ -6,6 +6,7 @@ import 'package:eje/pages/articles/domain/entity/Hyperlink.dart';
 import 'package:eje/pages/articles/presentation/bloc/articles_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 Widget HyperlinkSection(
@@ -64,17 +65,28 @@ Widget _column(Hyperlink hyperlink, BuildContext context, bool isCacheEnabled) {
             );
       }
     },
-    child: Row(
+    child: Column(
       children: [
-        SizedBox(
-          width: 42 / MediaQuery.of(context).devicePixelRatio,
+        Row(
+          children: [
+            SizedBox(
+              width: 40 / MediaQuery.of(context).devicePixelRatio,
+            ),
+            Icon(MdiIcons.openInNew),
+            SizedBox(
+              width: 12 / MediaQuery.of(context).devicePixelRatio,
+            ),
+            Text(
+              hyperlink.description,
+              style: TextStyle(
+                fontSize: 48 / MediaQuery.of(context).devicePixelRatio,
+                decoration: TextDecoration.underline,
+              ),
+            ),
+          ],
         ),
-        Text(
-          hyperlink.description,
-          style: TextStyle(
-            fontSize: 48 / MediaQuery.of(context).devicePixelRatio,
-            decoration: TextDecoration.underline,
-          ),
+        SizedBox(
+          height: 12 / MediaQuery.of(context).devicePixelRatio,
         ),
       ],
     ),

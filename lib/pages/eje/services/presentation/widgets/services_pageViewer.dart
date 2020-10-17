@@ -1,7 +1,5 @@
 import 'package:eje/core/utils/injection_container.dart';
 import 'package:eje/core/widgets/PrefImage.dart';
-import 'package:eje/pages/articles/articlesPage.dart';
-import 'package:eje/pages/articles/presentation/bloc/articles_bloc.dart';
 import 'package:eje/pages/eje/services/domain/entities/Service.dart';
 import 'package:eje/pages/eje/services/presentation/bloc/services_bloc.dart';
 import 'package:eje/pages/eje/services/presentation/widgets/servicesDetails.dart';
@@ -32,20 +30,15 @@ Widget ServicesCard(
         alignment: Alignment.bottomCenter,
         children: <Widget>[
           GestureDetector(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (_) => BlocProvider.value(
-                    value: sl<ArticlesBloc>(),
-                    child: ArticlesPage(
-                      isCacheEnabled: isCacheEnabled,
-                      url: service.hyperlinks[0].link,
-                    ),
-                  ),
+            onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (_) => BlocProvider.value(
+                  value: sl<ServicesBloc>(),
+                  child: ServiceDetails(isCacheEnabled, service),
                 ),
-              );
-            },
+              ),
+            ),
             child: Container(
               decoration: BoxDecoration(
                 image: DecorationImage(

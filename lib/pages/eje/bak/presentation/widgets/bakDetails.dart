@@ -1,5 +1,6 @@
 import 'package:eje/core/widgets/DetailsPage.dart';
 import 'package:eje/core/widgets/LoadingIndicator.dart';
+import 'package:eje/pages/articles/domain/entity/Hyperlink.dart';
 import 'package:eje/pages/eje/bak/domain/entitys/BAKler.dart';
 import 'package:eje/pages/eje/bak/presentation/bloc/bak_bloc.dart';
 import 'package:eje/pages/eje/bak/presentation/bloc/bak_event.dart';
@@ -64,6 +65,7 @@ Widget HauptamtlicheDetailsCard(
       untertitel: bakler.amt,
       text: bakler.vorstellung,
       bild_url: bilder,
+      hyperlinks: [Hyperlink(link: "", description: "")],
       pixtureHeight: 1200,
       context: context,
       childWidget: _childBak(bakler, context));
