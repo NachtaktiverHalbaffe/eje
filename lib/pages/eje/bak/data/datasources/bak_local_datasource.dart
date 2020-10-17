@@ -6,8 +6,8 @@ import 'package:hive/hive.dart';
 class BAKLocalDatasource {
   Box _box;
 
-  Future<List<BAKler>> getCachedBAK() async {
-    _box = await Hive.openBox('BAK');
+  List<BAKler> getCachedBAK() {
+    Box _box = Hive.box('BAK');
     //Testdaten
     testdata_bak(_box);
     if (_box.isNotEmpty) {
@@ -17,23 +17,19 @@ class BAKLocalDatasource {
           temp.add(_box.getAt(i));
         }
       }
-      Hive.box('BAK').compact();
-      Hive.box('BAK').close();
       return temp;
     } else {
       throw CacheException();
     }
   }
 
-  Future<BAKler> getBAKler(String name) async {
-    _box = await Hive.openBox('Hauptamtliche');
+  BAKler getBAKler(String name) {
+    Box _box = Hive.box('Hauptamtliche');
     testdata_bak(_box);
     if (_box.isNotEmpty) {
       for (int i = 0; i < _box.length; i++) {
         BAKler temp = _box.getAt(i);
         if (temp.name == name) {
-          Hive.box('BAK').compact();
-          Hive.box('BAK').close();
           return temp;
         }
       }
@@ -42,8 +38,8 @@ class BAKLocalDatasource {
     }
   }
 
-  Future<void> cacheBAK(List<BAKler> bakToCache) async {
-    _box = await Hive.openBox('BAK');
+  void cacheBAK(List<BAKler> bakToCache) {
+    Box _box = Hive.box('BAK');
     for (int i = 0; i < bakToCache.length; i++) {
       bool alreadyexists = false;
       for (int k = 0; k < _box.length; k++) {
@@ -56,7 +52,5 @@ class BAKLocalDatasource {
         _box.add(bakToCache[i]);
       }
     }
-    Hive.box('BAK').compact();
-    //Hive.box('BAK').close();
   }
 }

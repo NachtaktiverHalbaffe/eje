@@ -6,8 +6,8 @@ import 'package:hive/hive.dart';
 class ArbeitsbereicheLocalDatasource {
   Box _box;
 
-  Future<List<Arbeitsbereich>> getCachedArbeitsbereiche() async {
-    _box = await Hive.openBox('Arbeitsbereiche');
+  List<Arbeitsbereich> getCachedArbeitsbereiche() {
+    Box _box = Hive.box('Arbeitsbereiche');
     testdata_arbeitsbereiche(_box);
     if (_box.isNotEmpty) {
       List<Arbeitsbereich> temp = new List<Arbeitsbereich>();
@@ -16,22 +16,19 @@ class ArbeitsbereicheLocalDatasource {
           temp.add(_box.getAt(i));
         }
       }
-      Hive.box('Arbeitsbereiche').compact();
-      Hive.box('Arbeitsbereiche').close();
+
       return temp;
     } else {
       throw CacheException();
     }
   }
 
-  Future<Arbeitsbereich> getArbeitsbereich(String arbeitsfeld) async {
-    _box = await Hive.openBox('Arbeitsbereiche');
+  Arbeitsbereich getArbeitsbereich(String arbeitsfeld) {
+    Box _box = Hive.box('Arbeitsbereiche');
     if (_box.isNotEmpty) {
       for (int i = 0; i < _box.length; i++) {
         Arbeitsbereich temp = _box.getAt(i);
         if (temp.arbeitsfeld == arbeitsfeld) {
-          Hive.box('Arbeitsbereiche').compact();
-          Hive.box('Arbeitsbereiche').close();
           return temp;
         }
       }
@@ -40,8 +37,8 @@ class ArbeitsbereicheLocalDatasource {
     }
   }
 
-  Future<void> cacheBAK(List<Arbeitsbereich> arbeitsbereicheToCache) async {
-    _box = await Hive.openBox('Arbeitsbereiche');
+  void cacheBAK(List<Arbeitsbereich> arbeitsbereicheToCache) {
+    _box = Hive.box('Arbeitsbereiche');
     for (int i = 0; i < arbeitsbereicheToCache.length; i++) {
       bool alreadyexists = false;
       for (int k = 0; k < _box.length; k++) {
@@ -55,7 +52,5 @@ class ArbeitsbereicheLocalDatasource {
         _box.add(arbeitsbereicheToCache[i]);
       }
     }
-    _box.compact();
-    //Hive.box('Arbeitsbereiche').close();
   }
 }

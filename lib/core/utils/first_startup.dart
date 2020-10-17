@@ -1,11 +1,13 @@
 import 'package:eje/core/platform/Reminder.dart';
 import 'package:eje/pages/articles/domain/entity/Article.dart';
+import 'package:eje/pages/articles/domain/entity/Hyperlink.dart';
 import 'package:eje/pages/eje/arbeitsfelder/domain/entities/Arbeitsbereich.dart';
 import 'package:eje/pages/eje/bak/domain/entitys/BAKler.dart';
 import 'package:eje/pages/eje/hauptamtlichen/domain/entitys/hauptamtlicher.dart';
 import 'package:eje/pages/eje/services/domain/entities/Service.dart';
 import 'package:eje/pages/freizeiten/domain/entities/Freizeit.dart';
 import 'package:eje/pages/neuigkeiten/domain/entitys/neuigkeit.dart';
+import 'package:eje/pages/termine/domain/entities/Ort.dart';
 import 'package:eje/pages/termine/domain/entities/Termin.dart';
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart' as path_provider;
@@ -40,5 +42,7 @@ Future<void> prefStartup() async {
   Hive.registerAdapter(ArticleAdapter());
   Hive.registerAdapter(ReminderAdapter());
   Hive.registerAdapter(ServiceAdapter());
+  Hive.registerAdapter(HyperlinkAdapter());
+  Hive.registerAdapter(OrtAdapter());
   await di.init();
 }

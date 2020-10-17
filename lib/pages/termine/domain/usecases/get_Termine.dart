@@ -3,14 +3,20 @@ import 'package:eje/core/error/failures.dart';
 import 'package:eje/core/usecases/usecase.dart';
 import 'package:eje/pages/termine/domain/entities/Termin.dart';
 import 'package:eje/pages/termine/domain/repsoitories/termin_repositoy.dart';
+import 'package:hive/hive.dart';
 import 'package:meta/meta.dart';
 
-class GetTermine implements UseCase< List<Termin>>{
+class GetTermine implements UseCase<List<Termin>> {
   final TerminRepository repository;
 
   GetTermine({@required this.repository});
 
   @override
-  Future<Either<Failure, List<Termin>>> call() async{ return await repository.getTermine();
+  Future<Either<Failure, List<Termin>>> call() async {
+    Box _box = await Hive.openBox('Termine');
+    final result = await repository.getTermine();
+    await _box.compact();
+    await _box.close();
+    return result;
   }
 }

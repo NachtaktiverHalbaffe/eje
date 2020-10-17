@@ -13,7 +13,6 @@ class ArticlesLocalDatasource {
           temp.add(_box.getAt(i));
         }
       }
-      _box.compact();
       return temp;
     } else {
       throw CacheException();
@@ -26,10 +25,26 @@ class ArticlesLocalDatasource {
       for (int i = 0; i < _box.length; i++) {
         Article temp = _box.getAt(i);
         if (temp.url == url) {
-          _box.compact();
           return temp;
         }
       }
+    } else {
+      throw CacheException();
+    }
+  }
+
+  void cacheArticle(Article article) async {
+    Box _box = Hive.box('Articles');
+    if (_box.isNotEmpty) {
+      for (int i = 0; i < _box.length; i++) {
+        Article temp = _box.getAt(i);
+        if (temp.url == article.url) {
+          _box.deleteAt(i);
+          _box.add(article);
+        }
+      }
+    } else if (_box.isEmpty) {
+      _box.add(article);
     } else {
       throw CacheException();
     }
@@ -49,6 +64,5 @@ class ArticlesLocalDatasource {
         _box.add(articlesToCache[i]);
       }
     }
-    _box.compact();
   }
 }

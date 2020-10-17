@@ -59,11 +59,10 @@ class _articleBloc extends State<ArticlesPage> {
             print("Build Page Articles: Loaded");
             return _articlePage(state.article, isCacheEnabled, context);
           } else if (state is ReloadedArticle) {
-            print("Build Page Articles: Loaded");
+            print("Build Page Articles: Reloaded");
             return _articlePage(state.article, isCacheEnabled, context);
           } else
-            print("Build Page Articles: Loaded");
-          return Center();
+            return Center();
         },
       ),
     );

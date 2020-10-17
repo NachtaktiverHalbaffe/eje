@@ -6,8 +6,8 @@ import 'package:hive/hive.dart';
 class ServicesLocalDatasource {
   Box _box;
 
-  Future<List<Service>> getCachedServices() async {
-    _box = await Hive.box('Services');
+  List<Service> getCachedServices() {
+    Box _box = Hive.box('Services');
     data_services(_box);
     if (_box.isNotEmpty) {
       List<Service> temp = new List<Service>();
@@ -16,21 +16,18 @@ class ServicesLocalDatasource {
           temp.add(_box.getAt(i));
         }
       }
-      _box.compact();
-      _box.close();
       return temp;
     } else {
       throw CacheException();
     }
   }
 
-  Future<Service> getService(String service) async {
-    _box = await Hive.box('Services');
+  Service getService(String service) {
+    Box _box = Hive.box('Services');
     if (_box.isNotEmpty) {
       for (int i = 0; i < _box.length; i++) {
         Service temp = _box.getAt(i);
         if (temp.service == service) {
-          _box.compact();
           return temp;
         }
       }
@@ -39,15 +36,14 @@ class ServicesLocalDatasource {
     }
   }
 
-  Future<void> cacheService(Service service) async {
-    _box = Hive.box('Services');
+  void cacheService(Service service) {
+    Box _box = Hive.box('Services');
     if (_box.isNotEmpty) {
       for (int i = 0; i < _box.length; i++) {
         Service temp = _box.getAt(i);
         if (temp.service == service.service) {
           _box.deleteAt(i);
           _box.add(service);
-          _box.compact();
         }
       }
     } else if (_box.isEmpty) {
@@ -57,8 +53,8 @@ class ServicesLocalDatasource {
     }
   }
 
-  Future<void> cacheServices(List<Service> servicesToCache) async {
-    _box = await Hive.box('Services');
+  void cacheServices(List<Service> servicesToCache) {
+    Box _box = Hive.box('Services');
     for (int i = 0; i < servicesToCache.length; i++) {
       bool alreadyexists = false;
       for (int k = 0; k < _box.length; k++) {
@@ -71,6 +67,5 @@ class ServicesLocalDatasource {
         _box.add(servicesToCache[i]);
       }
     }
-    _box.compact();
   }
 }

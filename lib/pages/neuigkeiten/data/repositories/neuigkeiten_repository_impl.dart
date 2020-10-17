@@ -26,16 +26,13 @@ class NeuigkeitenRepositoryImpl implements NeuigkeitenRepository {
   //Lade bestimmten Artikel aus Cache
   @override
   Future<Either<Failure, List<Article>>> getNeuigkeit(String titel) async {
-    Box _box, _box2;
     List<Article> article = List();
     //open database
-    _box = await Hive.openBox('Articles');
-    _box2 = await Hive.openBox('Neuigkeiten');
+    Box _box = await Hive.openBox('Articles');
     try {
       bool isInCache = false;
       String url = "";
-      List<Neuigkeit> _neuigkeiten =
-          await localDatasource.getCachedNeuigkeiten();
+      List<Neuigkeit> _neuigkeiten = localDatasource.getCachedNeuigkeiten();
       for (var value in _neuigkeiten) {
         if (value.titel == titel) {
           //sing url of ticle if ticle isnt in cache
@@ -58,8 +55,7 @@ class NeuigkeitenRepositoryImpl implements NeuigkeitenRepository {
       }
       _box.compact();
       _box.close();
-      _box2.compact();
-      _box2.close();
+
       return Right(article);
     } on CacheException {
       return Left(CacheFailure());
@@ -71,22 +67,18 @@ class NeuigkeitenRepositoryImpl implements NeuigkeitenRepository {
   Future<Either<Failure, List<Neuigkeit>>> getNeuigkeiten() async {
     Box _box;
     //open database
-    _box = await Hive.openBox('Neuigkeiten');
     if (await networkInfo.isConnected) {
       try {
         final remoteNeuigkeiten = await remoteDataSource.getNeuigkeiten();
         print("Got Neuigkeiten from Internet");
-        await localDatasource.cacheNeuigkeiten(remoteNeuigkeiten);
-        return Right(await localDatasource.getCachedNeuigkeiten());
+        localDatasource.cacheNeuigkeiten(remoteNeuigkeiten);
+        return Right(localDatasource.getCachedNeuigkeiten());
       } on ServerException {
         print("Neuigkeiten: Serverexception");
-        _box.compact();
-        _box.close();
+
         return Left(ServerFailure());
       }
     } else
-      _box.compact();
-    _box.close();
-    return Right(await localDatasource.getCachedNeuigkeiten());
+      return Right(localDatasource.getCachedNeuigkeiten());
   }
 }

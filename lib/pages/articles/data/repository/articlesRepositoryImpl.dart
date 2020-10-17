@@ -78,7 +78,7 @@ class ArticlesRepositoryImpl implements ArticlesRepository {
   //Lade bestimmten Artikel aus Cache
   @override
   Future<Either<Failure, Article>> getArticle(String url) async {
-    Box _box = await Hive.openBox('Articles');
+    Box _box = await Hive.box('Articles');
     List<Article> articles;
     if (await networkInfo.isConnected && url != "") {
       try {
@@ -119,23 +119,16 @@ class ArticlesRepositoryImpl implements ArticlesRepository {
           content: content,
           url: url,
         );
-        await _box.compact();
-        await _box.close();
+        localDatasource.cacheArticle(_article);
         return Right(_article);
       } on ServerException {
-        await _box.compact();
-        await _box.close();
         return Left(ServerFailure());
       }
     } else
       try {
         Article _article = localDatasource.getArticle(url);
-        await _box.compact();
-        await _box.close();
         return Right(_article);
       } on CacheException {
-        await _box.compact();
-        await _box.close();
         return Left(CacheFailure());
       }
   }

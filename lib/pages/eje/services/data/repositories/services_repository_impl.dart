@@ -24,43 +24,32 @@ class ServicesRepositoryImpl implements ServicesRepository {
   //Lade Artikel aus den Internet herunter
   @override
   Future<Either<Failure, List<Service>>> getServices() async {
-    await Hive.openBox('Services');
-    List<Service> _service = await localDatasource.getCachedServices();
-    Hive.box('Services').close();
+    List<Service> _service = localDatasource.getCachedServices();
     return Right(_service);
   }
 
   //Lade bestimmten Artikel aus Cache
   @override
   Future<Either<Failure, Service>> getService(Service service) async {
-    await Hive.openBox('Services');
     if (await networkInfo.isConnected) {
       try {
         final remoteService = await remoteDataSource.getService(service);
         localDatasource.cacheService(remoteService);
         Service _service =
             await localDatasource.getService(remoteService.service);
-        Hive.box('Services').compact();
-        Hive.box('Services').close();
         return Right(_service);
       } on ServerException {
-        Hive.box('Services').compact();
-        Hive.box('Services').close();
         return Left(ServerFailure());
       }
     } else
       try {
-        List<Service> _services = await localDatasource.getCachedServices();
+        List<Service> _services = localDatasource.getCachedServices();
         for (var value in _services) {
           if (value.service == service.service) {
-            Hive.box('Services').compact();
-            Hive.box('Services').close();
             return Right(value);
           }
         }
       } on CacheException {
-        Hive.box('Services').compact();
-        Hive.box('Services').close();
         return Left(CacheFailure());
       }
   }

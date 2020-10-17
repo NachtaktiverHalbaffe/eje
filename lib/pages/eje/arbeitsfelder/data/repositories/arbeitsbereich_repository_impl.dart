@@ -22,7 +22,7 @@ class ArbeitsbereichRepositoryImpl implements ArbeitsbereichRepository {
 
   //Lade Artikel aus den Internet herunter
   @override
-  Future<Either<Failure, List<Arbeitsbereich>>> getArbeitsbereiche() async{
+  Future<Either<Failure, List<Arbeitsbereich>>> getArbeitsbereiche() async {
     /*if (await networkInfo.isConnected) {
       try {
         final remoteArbeitsbereich= await remoteDataSource.getArtbeitsbereiche();
@@ -37,10 +37,11 @@ class ArbeitsbereichRepositoryImpl implements ArbeitsbereichRepository {
 
   //Lade bestimmten Artikel aus Cache
   @override
-  Future<Either<Failure, Arbeitsbereich>> getArbeitsbereich(String arbeitsfeld) async{
+  Future<Either<Failure, Arbeitsbereich>> getArbeitsbereich(
+      String arbeitsfeld) async {
     try {
       List<Arbeitsbereich> _arbeitsfeld =
-      await localDatasource.getCachedArbeitsbereiche();
+          localDatasource.getCachedArbeitsbereiche();
       for (var value in _arbeitsfeld) {
         if (value.arbeitsfeld == arbeitsfeld) {
           return Right(value);

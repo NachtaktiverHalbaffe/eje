@@ -3,6 +3,7 @@ import 'package:eje/core/error/failures.dart';
 import 'package:eje/core/usecases/usecase.dart';
 import 'package:eje/pages/eje/arbeitsfelder/domain/entities/Arbeitsbereich.dart';
 import 'package:eje/pages/eje/arbeitsfelder/domain/repositories/arbeitsbereich_repository.dart';
+import 'package:hive/hive.dart';
 import 'package:meta/meta.dart';
 
 class GetArbeitsbereich implements UseCase<Arbeitsbereich> {
@@ -14,6 +15,10 @@ class GetArbeitsbereich implements UseCase<Arbeitsbereich> {
   Future<Either<Failure, Arbeitsbereich>> call({
     @required String arbeitsbereich,
   }) async {
-    return await repository.getArbeitsbereich(arbeitsbereich);
+    Box _box = await Hive.openBox('Arbeitsbereiche');
+    final result = await repository.getArbeitsbereich(arbeitsbereich);
+    await _box.compact();
+    await _box.close();
+    return result;
   }
 }

@@ -6,8 +6,8 @@ import 'package:hive/hive.dart';
 class TermineLocalDatasource {
   Box _box;
 
-  Future<List<Termin>> getCachedTermine() async {
-    _box = await Hive.openBox('Termine');
+  List<Termin> getCachedTermine() {
+    Box _box = Hive.box('Termine');
     testdata_termine(_box);
     if (_box.isNotEmpty) {
       List<Termin> temp = new List<Termin>();
@@ -16,22 +16,18 @@ class TermineLocalDatasource {
           temp.add(_box.getAt(i));
         }
       }
-      Hive.box('Termine').compact();
-      Hive.box('Termine').close();
       return temp;
     } else {
       throw CacheException();
     }
   }
 
-  Future<Termin> getTermin(String veranstaltung, String dateTime) async {
-    _box = await Hive.openBox('Termine');
+  Termin getTermin(String veranstaltung, String dateTime) {
+    _box = Hive.box('Termine');
     if (_box.isNotEmpty) {
       for (int i = 0; i < _box.length; i++) {
         Termin temp = _box.getAt(i);
         if (temp.veranstaltung == veranstaltung && temp.datum == dateTime) {
-          Hive.box('Termine').compact();
-          Hive.box('Termine').close();
           return temp;
         }
       }
@@ -40,8 +36,8 @@ class TermineLocalDatasource {
     }
   }
 
-  Future<void> cacheTermine(List<Termin> termineToCache) async {
-    _box = await Hive.openBox('Termine');
+  void cacheTermine(List<Termin> termineToCache) {
+    _box = Hive.box('Termine');
     for (int i = 0; i < termineToCache.length; i++) {
       bool alreadyexists = false;
       for (int k = 0; k < _box.length; k++) {
@@ -54,7 +50,5 @@ class TermineLocalDatasource {
         _box.add(termineToCache[i]);
       }
     }
-    Hive.box('Termine').compact();
-    //Hive.box('Termine').close();
   }
 }

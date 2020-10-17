@@ -3,7 +3,7 @@ import 'package:eje/pages/neuigkeiten/domain/entitys/neuigkeit.dart';
 import 'package:hive/hive.dart';
 
 class NeuigkeitenLocalDatasource {
-  Future<List<Neuigkeit>> getCachedNeuigkeiten() async {
+  List<Neuigkeit> getCachedNeuigkeiten() {
     Box _box;
     _box = Hive.box('Neuigkeiten');
     if (_box.isNotEmpty) {
@@ -13,7 +13,6 @@ class NeuigkeitenLocalDatasource {
           temp.add(_box.getAt(i));
         }
       }
-      _box.compact();
       if (temp.isNotEmpty) {
         temp.sort((a, b) => a.published.compareTo(b.published));
       }
@@ -39,7 +38,7 @@ class NeuigkeitenLocalDatasource {
     }
   }*/
 
-  Future<void> cacheNeuigkeiten(List<Neuigkeit> neuigkeitenToCache) async {
+  void cacheNeuigkeiten(List<Neuigkeit> neuigkeitenToCache) {
     Box _box = Hive.box('Neuigkeiten');
     for (int i = 0; i < neuigkeitenToCache.length; i++) {
       bool alreadyexists = false;
@@ -53,6 +52,5 @@ class NeuigkeitenLocalDatasource {
         _box.add(neuigkeitenToCache[i]);
       }
     }
-    _box.compact();
   }
 }

@@ -1,4 +1,3 @@
-
 import 'package:dartz/dartz.dart';
 import 'package:eje/core/error/exception.dart';
 import 'package:eje/core/error/failures.dart';
@@ -23,7 +22,7 @@ class TermineRepositoryImpl implements TerminRepository {
 
   //Lade Artikel aus den Internet herunter
   @override
-  Future<Either<Failure, List<Termin>>> getTermine() async{
+  Future<Either<Failure, List<Termin>>> getTermine() async {
     /*if (await networkInfo.isConnected) {
       try {
         final remoteTermine= await remoteDataSource.getTermine();
@@ -33,17 +32,17 @@ class TermineRepositoryImpl implements TerminRepository {
         return Left(ServerFailure());
       }
     } else */
-    return Right(await localDatasource.getCachedTermine());
+    return Right(localDatasource.getCachedTermine());
   }
 
   //Lade bestimmten Artikel aus Cache
   @override
-  Future<Either<Failure, Termin>> getTermin(String veranstaltung,String dateTime) async{
+  Future<Either<Failure, Termin>> getTermin(
+      String veranstaltung, String dateTime) async {
     try {
-      List<Termin> _termin =
-      await localDatasource.getCachedTermine();
+      List<Termin> _termin = localDatasource.getCachedTermine();
       for (var value in _termin) {
-        if (value.veranstaltung == veranstaltung && value.datum== dateTime) {
+        if (value.veranstaltung == veranstaltung && value.datum == dateTime) {
           return Right(value);
         }
       }
@@ -51,5 +50,4 @@ class TermineRepositoryImpl implements TerminRepository {
       return Left(CacheFailure());
     }
   }
-
 }

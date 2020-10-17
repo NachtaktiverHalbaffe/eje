@@ -22,7 +22,7 @@ class FreizeitenRepositoryImpl implements FreizeitRepository {
 
   //Lade Freizeiten aus den Internet herunter
   @override
-  Future<Either<Failure, List<Freizeit>>> getFreizeiten() async{
+  Future<Either<Failure, List<Freizeit>>> getFreizeiten() async {
     /*if (await networkInfo.isConnected) {
       try {
         final remoteFreizeiten= await remoteDataSource.getFreizeiten();
@@ -32,17 +32,16 @@ class FreizeitenRepositoryImpl implements FreizeitRepository {
         return Left(ServerFailure());
       }
     } else */
-    return Right(await localDatasource.getCachedFreizeiten());
+    return Right(localDatasource.getCachedFreizeiten());
   }
 
   //Lade bestimmte Freizeit aus Cache
   @override
-  Future<Either<Failure,Freizeit>> getFreizeit(Freizeit freizeit) async{
+  Future<Either<Failure, Freizeit>> getFreizeit(Freizeit freizeit) async {
     try {
-      List<Freizeit> _freizeit =
-      await localDatasource.getCachedFreizeiten();
+      List<Freizeit> _freizeit = localDatasource.getCachedFreizeiten();
       for (var value in _freizeit) {
-        if (value.freizeit== freizeit.freizeit) {
+        if (value.freizeit == freizeit.freizeit) {
           return Right(value);
         }
       }
@@ -50,5 +49,4 @@ class FreizeitenRepositoryImpl implements FreizeitRepository {
       return Left(CacheFailure());
     }
   }
-
 }

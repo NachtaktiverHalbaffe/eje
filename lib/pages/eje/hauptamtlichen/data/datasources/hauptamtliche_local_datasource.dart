@@ -6,8 +6,8 @@ import 'package:hive/hive.dart';
 class HauptamtlicheLocalDatasource {
   Box _box;
 
-  Future<List<Hauptamtlicher>> getCachedHauptamtliche() async {
-    _box = await Hive.openBox('Hauptamtliche');
+  List<Hauptamtlicher> getCachedHauptamtliche() {
+    Box _box = Hive.box('Hauptamtliche');
     //Testdaten
     testdata_hauptamtliche(_box);
     if (_box.isNotEmpty) {
@@ -17,23 +17,19 @@ class HauptamtlicheLocalDatasource {
           temp.add(_box.getAt(i));
         }
       }
-      Hive.box('Hauptamtliche').compact();
-      Hive.box('Hauptamtliche').close();
       return temp;
     } else {
       throw CacheException();
     }
   }
 
-  Future<Hauptamtlicher> getHauptamtliche(String name) async {
-    _box = await Hive.openBox('Hauptamtliche');
+  Hauptamtlicher getHauptamtliche(String name) {
+    Box _box = Hive.box('Hauptamtliche');
     testdata_hauptamtliche(_box);
     if (_box.isNotEmpty) {
       for (int i = 0; i < _box.length; i++) {
         Hauptamtlicher temp = _box.getAt(i);
         if (temp.name == name) {
-          Hive.box('Hauptamtliche').compact();
-          Hive.box('Hauptamtliche').close();
           return temp;
         }
       }
@@ -42,9 +38,8 @@ class HauptamtlicheLocalDatasource {
     }
   }
 
-  Future<void> cacheHauptamtliche(
-      List<Hauptamtlicher> hauptamtlicheToCache) async {
-    _box = await Hive.openBox('Hauptamtliche');
+  void cacheHauptamtliche(List<Hauptamtlicher> hauptamtlicheToCache) {
+    Box _box = Hive.box('Hauptamtliche');
     for (int i = 0; i < hauptamtlicheToCache.length; i++) {
       bool alreadyexists = false;
       for (int k = 0; k < _box.length; k++) {
@@ -57,7 +52,5 @@ class HauptamtlicheLocalDatasource {
         _box.add(hauptamtlicheToCache[i]);
       }
     }
-    Hive.box('Hauptamtliche').compact();
-    //Hive.box('Hauptamtliche').close();
   }
 }

@@ -5,6 +5,7 @@ import 'package:eje/pages/articles/domain/entity/Article.dart';
 import 'package:eje/pages/neuigkeiten/domain/entitys/neuigkeit.dart';
 import 'package:eje/pages/neuigkeiten/domain/repositories/neuigkeiten_repository.dart';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 
 class GetNeuigkeit implements UseCase<List<Article>> {
   final NeuigkeitenRepository repository;
@@ -15,6 +16,10 @@ class GetNeuigkeit implements UseCase<List<Article>> {
   Future<Either<Failure, List<Article>>> call({
     @required String titel,
   }) async {
-    return await repository.getNeuigkeit(titel);
+    Box _box = await Hive.openBox('Neuigkeiten');
+    final result = await repository.getNeuigkeit(titel);
+    await _box.compact();
+    await _box.close();
+    return result;
   }
 }
