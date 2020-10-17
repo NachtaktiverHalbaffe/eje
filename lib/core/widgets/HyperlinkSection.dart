@@ -74,12 +74,14 @@ Widget _column(Hyperlink hyperlink, BuildContext context, bool isCacheEnabled) {
             SizedBox(
               width: 12 / MediaQuery.of(context).devicePixelRatio,
             ),
-            Text(
-              hyperlink.description,
-              overflow: TextOverflow.ellipsis,
-              style: TextStyle(
-                fontSize: 48 / MediaQuery.of(context).devicePixelRatio,
-                decoration: TextDecoration.underline,
+            Flexible(
+              child: Text(
+                hyperlink.description,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                  fontSize: 48 / MediaQuery.of(context).devicePixelRatio,
+                  decoration: TextDecoration.underline,
+                ),
               ),
             ),
           ],
