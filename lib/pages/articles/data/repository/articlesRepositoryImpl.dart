@@ -50,8 +50,6 @@ class ArticlesRepositoryImpl implements ArticlesRepository {
           _box.addAll(_webScrapingResult);
           articles.addAll(_webScrapingResult);
         }
-        _box.compact();
-        _box.close();
         return Right(articles);
       } else {
         for (var value in _article) {
@@ -69,8 +67,6 @@ class ArticlesRepositoryImpl implements ArticlesRepository {
         return Right(articles);
       }
     } on CacheException {
-      _box.compact();
-      _box.close();
       return Left(CacheFailure());
     }
   }
