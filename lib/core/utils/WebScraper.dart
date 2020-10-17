@@ -63,8 +63,8 @@ class WebScraper {
                   }
                 }
               }
+              // Content is in MSoNormal class, not often used
               if (parent[i].getElementsByClassName('MsoNormal').isNotEmpty) {
-                //TODO Fix webscraping für komisches msonormal
                 for (int k = 0;
                     k < parent[i].getElementsByClassName('MsoNormal').length;
                     k++) {
@@ -90,6 +90,7 @@ class WebScraper {
                   }
                 }
               }
+              //Auflistung mit speziellen Symbolen
               if (parent[i].getElementsByClassName('cms').isNotEmpty) {
                 for (int l = 0;
                     l < parent[i].getElementsByClassName('cms').length;
@@ -165,6 +166,7 @@ class WebScraper {
                       Hyperlink(link: links[k], description: description[k]));
                 }
               }
+              // Hyperlinks are links to external websites
               if (parent[i]
                   .getElementsByClassName("external-link-new-window")
                   .isNotEmpty) {
@@ -184,9 +186,8 @@ class WebScraper {
                       Hyperlink(link: links[k], description: description[k]));
                 }
               }
-
+              //check if hyperlinks are in a seperate special section
               if (document.getElementById('row h-bulldozer default') != null) {
-                //hyperlinks are in another parent class
                 List<String> links = document
                     .getElementsByClassName('row h-bulldozer default')[0]
                     .getElementsByClassName(
@@ -218,13 +219,16 @@ class WebScraper {
                 content = content.replaceAll("<br>", "\n");
               }
               //HTML-Formatierungszeichen bei neuen Paragraph entfernen
+              //und neuen Abschnitt für content anfangen
               if (content.contains("&nbsp;")) {
                 content = content.replaceAll("&nbsp;", " ");
               }
               content = content + "\n\n";
+              //Default values if no hyperlinks are scraped
               if (hyperlinks.isEmpty) {
                 hyperlinks.add(Hyperlink(link: "", description: ""));
               }
+              //add scraped Section to List of Articles
               article.add(Article(
                   url: url,
                   titel: title,
@@ -237,6 +241,7 @@ class WebScraper {
       }
       return article;
     } else {
+      // No Internet connection, returning empty Article
       print("Error: No internet Connection");
       return [
         Article(
