@@ -30,16 +30,12 @@ class WebScraper {
                     .getElementsByClassName('icon-left')[0]
                     .getElementsByTagName("a")
                     .isEmpty) {
-                  print("Titel ohne hyperlink");
-                  title = parent[i]
-                      .getElementsByClassName('icon-left')[0]
-                      .innerHtml;
+                  title = parent[i].getElementsByClassName('icon-left')[0].text;
                 } else {
                   title = parent[i]
                       .getElementsByClassName('icon-left')[0]
                       .getElementsByTagName("a")[0]
-                      .innerHtml;
-                  print("Titel mit hyperlink");
+                      .text;
                 }
                 // Delete first space in title
                 title = title.substring(1);
@@ -48,12 +44,10 @@ class WebScraper {
               // ! Content parsen
               // check if content is in "news-teaser" or "bodytext class"
               if (parent[i].getElementsByClassName('news-teaser').isNotEmpty) {
-                content = parent[i]
-                    .getElementsByClassName('news-teaser')[0]
-                    .innerHtml;
-              } else if (parent[i]
-                  .getElementsByClassName('bodytext')
-                  .isNotEmpty) {
+                content =
+                    parent[i].getElementsByClassName('news-teaser')[0].text;
+              }
+              if (parent[i].getElementsByClassName('bodytext').isNotEmpty) {
                 for (int k = 0;
                     k < parent[i].getElementsByClassName('bodytext').length;
                     k++) {
@@ -68,9 +62,8 @@ class WebScraper {
                         "\n\n";
                   }
                 }
-              } else if (parent[i]
-                  .getElementsByClassName('MsoNormal')
-                  .isNotEmpty) {
+              }
+              if (parent[i].getElementsByClassName('MsoNormal').isNotEmpty) {
                 //TODO Fix webscraping für komisches msonormal
                 for (int k = 0;
                     k < parent[i].getElementsByClassName('MsoNormal').length;
@@ -85,18 +78,39 @@ class WebScraper {
                     if (!parent[i]
                         .getElementsByClassName('MsoNormal')[k]
                         .getElementsByTagName('span')[j]
-                        .innerHtml
+                        .text
                         .contains("font")) {
                       content = content +
                           parent[i]
                               .getElementsByClassName('MsoNormal')[k]
                               .getElementsByTagName('span')[j]
-                              .innerHtml;
+                              .text +
+                          "\n";
                     }
                   }
                 }
-              } else
-                content = "";
+              }
+              if (parent[i].getElementsByClassName('cms').isNotEmpty) {
+                for (int l = 0;
+                    l < parent[i].getElementsByClassName('cms').length;
+                    l++) {
+                  for (int j = 0;
+                      j <
+                          parent[i]
+                              .getElementsByClassName('cms')[l]
+                              .getElementsByTagName('li')
+                              .length;
+                      j++) {
+                    String _parsed = parent[i]
+                        .getElementsByClassName('cms')[l]
+                        .getElementsByTagName('li')[j]
+                        .text;
+                    if (!content.contains(_parsed)) {
+                      content = content + "• " + _parsed + "\n";
+                    }
+                  }
+                }
+              }
               // ! pictures parsen
               //check if picture links are in "text-pic-right" or "width100 center marginBottom10" class
               if (parent[i]
@@ -143,15 +157,15 @@ class WebScraper {
                     .toList();
                 List<String> description = parent[i]
                     .getElementsByClassName('internal-link')
-                    .map((elements) => elements.innerHtml)
+                    .map((elements) => elements.text)
                     .toList();
                 //map webscraped links and descriptions to hyperlinks
                 for (int k = 0; k < links.length; k++) {
                   hyperlinks.add(
                       Hyperlink(link: links[k], description: description[k]));
                 }
-              } else if (document.getElementById('row h-bulldozer default') !=
-                  null) {
+              }
+              if (document.getElementById('row h-bulldozer default') != null) {
                 //hyperlinks are in another parent class
                 List<String> links = document
                     .getElementsByClassName('row h-bulldozer default')[0]
@@ -176,9 +190,7 @@ class WebScraper {
                   hyperlinks.add(
                       Hyperlink(link: links[k], description: description[k]));
                 }
-              } else
-                hyperlinks.add(Hyperlink(link: "", description: ""));
-
+              }
               // ! Formatting if needed
               //Einrückungen bei neuen Paragraph entfernen
               if (content.contains("<br>")) {
@@ -190,7 +202,9 @@ class WebScraper {
                 content = content.replaceAll("&nbsp;", " ");
               }
               content = content + "\n\n";
-
+              if (hyperlinks.isEmpty) {
+                hyperlinks.add(Hyperlink(link: "", description: ""));
+              }
               article.add(Article(
                   url: url,
                   titel: title,
