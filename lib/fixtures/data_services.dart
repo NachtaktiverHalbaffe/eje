@@ -1,4 +1,4 @@
-import 'package:eje/core/platform/Hyperlink.dart';
+import 'package:eje/pages/articles/domain/entity/Hyperlink.dart';
 import 'package:eje/pages/eje/services/domain/entities/Service.dart';
 import 'package:hive/hive.dart';
 

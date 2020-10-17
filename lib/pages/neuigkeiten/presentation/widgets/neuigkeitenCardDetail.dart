@@ -1,8 +1,8 @@
-import 'package:eje/core/platform/Article.dart';
-import 'package:eje/core/platform/Hyperlink.dart';
 import 'package:eje/core/widgets/DetailsPage.dart';
 import 'package:eje/core/widgets/LoadingIndicator.dart';
 import 'package:eje/core/widgets/PrefImage.dart';
+import 'package:eje/pages/articles/domain/entity/Article.dart';
+import 'package:eje/pages/articles/domain/entity/Hyperlink.dart';
 import 'package:eje/pages/neuigkeiten/domain/entitys/neuigkeit.dart';
 import 'package:eje/pages/neuigkeiten/presentation/bloc/bloc.dart';
 import 'package:eje/pages/neuigkeiten/presentation/bloc/neuigkeiten_bloc_bloc.dart';
@@ -85,123 +85,10 @@ Widget card(context, List<Article> _article, isCacheEnabled) {
     text: content,
     bild_url: bilder,
     context: context,
+    hyperlinks: hyperlinks,
     isCacheEnabled: isCacheEnabled,
     childWidget: SizedBox(
       height: 36 / MediaQuery.of(context).devicePixelRatio,
     ),
   );
-
-  /*ListView(
-    physics: ScrollPhysics(
-      parent: BouncingScrollPhysics(),
-    ),
-    children: <Widget>[
-      Column(
-        children: <Widget>[
-          Stack(
-            alignment: Alignment.bottomCenter,
-            children: <Widget>[
-              Container(
-                width: MediaQuery.of(context).size.width,
-                height: 300,
-                child: PageView.builder(
-                  physics: ScrollPhysics(
-                    parent: BouncingScrollPhysics(),
-                  ),
-                  onPageChanged: (int index) {
-                    _currentPageNotifier.value = index;
-                  },
-                  pageSnapping: true,
-                  controller: PageController(initialPage: 0),
-                  itemCount: _article.bilder.length,
-                  itemBuilder: (context, position) {
-                    final bild = _article.bilder[position];
-                    return Hero(
-                      tag: TAG_BILD,
-                      child: Stack(
-                        alignment: Alignment.bottomCenter,
-                        children: <Widget>[
-                          Container(
-                            width: MediaQuery.of(context).size.width,
-                            height: MediaQuery.of(context).size.height,
-                            decoration: BoxDecoration(
-                              image: DecorationImage(
-                                fit: BoxFit.cover,
-                                image: PrefImage(bild, isCacheEnabled),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    );
-                  },
-                ),
-              ),
-              // ignore: missing_return
-              Container(child: () {
-                if (_article.bilder.length != 1) {
-                  return Container(
-                    padding: EdgeInsets.all(8),
-                    child: CirclePageIndicator(
-                      size: 5,
-                      selectedSize: 7.5,
-                      dotColor: Colors.white,
-                      selectedDotColor: Theme.of(context).accentColor,
-                      itemCount: _article.bilder.length,
-                      currentPageNotifier: _currentPageNotifier,
-                    ),
-                  );
-                }
-              }()),
-              Positioned(
-                left: 16.0,
-                top: 16.0,
-                child: InkWell(
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
-                  child: IconShadowWidget(
-                    Icon(
-                      Icons.arrow_back,
-                      color: Colors.white,
-                      size: 24,
-                    ),
-                    showShadow: true,
-                    shadowColor: Colors.black,
-                  ),
-                ),
-              ),
-            ],
-          ),
-          Hero(
-            tag: TAG_TITEL,
-            child: Container(
-              width: MediaQuery.of(context).size.width,
-              padding: EdgeInsets.only(left: 12, right: 12, top: 16),
-              child: Text(
-                _article.titel,
-                textAlign: TextAlign.left,
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 28,
-                  color: Theme.of(context).accentColor,
-                ),
-              ),
-            ),
-          ),
-          Container(
-            width: MediaQuery.of(context).size.width,
-            padding: EdgeInsets.only(left: 12, right: 12, top: 12, bottom: 16),
-            child: Text(
-              _article.content,
-              textAlign: TextAlign.justify,
-              style: TextStyle(
-                fontSize: 16,
-              ),
-            ),
-          ),
-        ],
-      ),
-    ],
-  );*/
 }

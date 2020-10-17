@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:eje/core/error/exception.dart';
-import 'package:eje/core/platform/Article.dart';
 import 'package:eje/core/utils/WebScraper.dart';
+import 'package:eje/pages/articles/domain/entity/Article.dart';
 import 'package:hive/hive.dart';
 import 'package:meta/meta.dart';
 import 'package:eje/core/error/failures.dart';

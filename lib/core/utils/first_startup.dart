@@ -1,5 +1,5 @@
-import 'package:eje/core/platform/Article.dart';
 import 'package:eje/core/platform/Reminder.dart';
+import 'package:eje/pages/articles/domain/entity/Article.dart';
 import 'package:eje/pages/eje/arbeitsfelder/domain/entities/Arbeitsbereich.dart';
 import 'package:eje/pages/eje/bak/domain/entitys/BAKler.dart';
 import 'package:eje/pages/eje/hauptamtlichen/domain/entitys/hauptamtlicher.dart';

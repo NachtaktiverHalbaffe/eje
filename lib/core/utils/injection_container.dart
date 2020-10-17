@@ -1,6 +1,12 @@
 import 'package:connectivity/connectivity.dart';
 import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:eje/core/platform/network_info.dart';
+import 'package:eje/pages/articles/data/datasources/articlesLocalDatasource.dart';
+import 'package:eje/pages/articles/data/repository/articlesRepositoryImpl.dart';
+import 'package:eje/pages/articles/domain/repositories/ArticlesRepository.dart';
+import 'package:eje/pages/articles/domain/usecases/getArticle.dart';
+import 'package:eje/pages/articles/domain/usecases/getArticles.dart';
+import 'package:eje/pages/articles/presentation/bloc/articles_bloc.dart';
 import 'package:eje/pages/einstellungen/data/repositories/einstellungen_repository_impl.dart';
 import 'package:eje/pages/einstellungen/domain/repositories/einstellungen_repository.dart';
 import 'package:eje/pages/einstellungen/domain/usecases/getPreference.dart';
@@ -214,9 +220,25 @@ Future<void> init() async {
         localDatasource: sl(),
         networkInfo: sl(),
       ));
-  // * Datrasources
+  // * Datasources
   sl.registerLazySingleton(() => FreizeitenLocalDatasource());
   sl.registerLazySingleton(() => FreizeitenRemoteDatasource(client: sl()));
+
+  // ! Articles
+  sl.registerFactory(() => ArticlesBloc(
+        getArticle: sl(),
+        getArticles: sl(),
+      ));
+  // * Usecases
+  sl.registerLazySingleton(() => GetArticle(sl()));
+  sl.registerLazySingleton(() => GetArticles(sl()));
+  // * Repository
+  sl.registerLazySingleton<ArticlesRepository>(() => ArticlesRepositoryImpl(
+        localDatasource: sl(),
+        networkInfo: sl(),
+      ));
+  // * Datasources
+  sl.registerLazySingleton(() => ArticlesLocalDatasource());
 
   // ! Core
   // * NetworkInfo

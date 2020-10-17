@@ -63,6 +63,7 @@ Widget ServiceDetailsCard(
     bild_url: service.bilder,
     context: context,
     untertitel: "",
+    hyperlinks: service.hyperlinks,
     childWidget: SizedBox(height: 36 / MediaQuery.of(context).devicePixelRatio),
   );
 }

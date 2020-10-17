@@ -31,7 +31,6 @@ class ServicesLocalDatasource {
         Service temp = _box.getAt(i);
         if (temp.service == service) {
           _box.compact();
-
           return temp;
         }
       }
