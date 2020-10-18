@@ -92,7 +92,6 @@ class ArticlesRepositoryImpl implements ArticlesRepository {
             hyperlink.addAll(articles[i].hyperlinks);
           }
           if (articles[i].content != "" && articles[i].content.length != 2) {
-            print("Content: " + articles[i].content);
             content = content + articles[i].content;
           }
           if (articles[i].titel != "") {

@@ -211,8 +211,11 @@ class DetailsPage extends StatelessWidget {
           SizedBox(height: 24 / MediaQuery.of(context).devicePixelRatio),
           text != null
               ? Container(
-                  padding: EdgeInsets.all(
-                      42 / MediaQuery.of(context).devicePixelRatio),
+                  padding: EdgeInsets.only(
+                    left: 42 / MediaQuery.of(context).devicePixelRatio,
+                    top: 42 / MediaQuery.of(context).devicePixelRatio,
+                    right: 42 / MediaQuery.of(context).devicePixelRatio,
+                  ),
                   child: Text(
                     text,
                     textAlign: TextAlign.justify,

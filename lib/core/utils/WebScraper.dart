@@ -9,11 +9,13 @@ class WebScraper {
   Future<List<Article>> scrapeWebPage(String url) async {
     List<Article> article = List();
     const String DOMAIN = "https://www.eje-esslingen.de";
+    bool alreadyHasTitele = false;
     // Get data from Internet
     var response = await http.get(url);
     if (response.statusCode == 200) {
       dom.Document document = parser.parse(response.body);
       final parent = document.getElementsByClassName('col s12 default');
+
       for (int i = 0; i < parent.length; i++) {
         //checking if element is not header or footer of website
         if (parent[i].id != 'c762177') {
@@ -30,88 +32,40 @@ class WebScraper {
                     .getElementsByClassName('icon-left')[0]
                     .getElementsByTagName("a")
                     .isEmpty) {
-                  title = parent[i].getElementsByClassName('icon-left')[0].text;
+                  // Checking if article has already title, otherwise integrating it into content
+                  if (!alreadyHasTitele) {
+                    title =
+                        parent[i].getElementsByClassName('icon-left')[0].text;
+                    alreadyHasTitele = true;
+                    title = title.substring(1);
+                  } else
+                    content = content +
+                        parent[i].getElementsByClassName('icon-left')[0].text +
+                        "\n\n";
                 } else {
-                  title = parent[i]
-                      .getElementsByClassName('icon-left')[0]
-                      .getElementsByTagName("a")[0]
-                      .text;
+                  // Checking if article has already title, otherwise integrating it into content
+                  if (!alreadyHasTitele) {
+                    title = parent[i]
+                        .getElementsByClassName('icon-left')[0]
+                        .getElementsByTagName("a")[0]
+                        .text;
+                    title = title.substring(1);
+                    alreadyHasTitele = true;
+                  } else
+                    content = content +
+                        parent[i]
+                            .getElementsByClassName('icon-left')[0]
+                            .getElementsByTagName("a")[0]
+                            .text +
+                        "\n\n";
                 }
                 // Delete first space in title
-                title = title.substring(1);
+
               } else
                 title = "";
               // ! Content parsen
-              // check if content is in "news-teaser" or "bodytext class"
-              if (parent[i].getElementsByClassName('news-teaser').isNotEmpty) {
-                content =
-                    parent[i].getElementsByClassName('news-teaser')[0].text;
-              }
-              if (parent[i].getElementsByClassName('bodytext').isNotEmpty) {
-                for (int k = 0;
-                    k < parent[i].getElementsByClassName('bodytext').length;
-                    k++) {
-                  if (parent[i]
-                      .getElementsByClassName('bodytext')[k]
-                      .getElementsByTagName('a')
-                      .isEmpty) {
-                    content = content +
-                        parent[i]
-                            .getElementsByClassName('bodytext')[k]
-                            .innerHtml +
-                        "\n\n";
-                  }
-                }
-              }
-              // Content is in MSoNormal class, not often used
-              if (parent[i].getElementsByClassName('MsoNormal').isNotEmpty) {
-                for (int k = 0;
-                    k < parent[i].getElementsByClassName('MsoNormal').length;
-                    k++) {
-                  for (int j = 0;
-                      j <
-                          parent[i]
-                              .getElementsByClassName('MsoNormal')[k]
-                              .getElementsByTagName('span')
-                              .length;
-                      j++) {
-                    if (!parent[i]
-                        .getElementsByClassName('MsoNormal')[k]
-                        .getElementsByTagName('span')[j]
-                        .text
-                        .contains("font")) {
-                      content = content +
-                          parent[i]
-                              .getElementsByClassName('MsoNormal')[k]
-                              .getElementsByTagName('span')[j]
-                              .text +
-                          "\n";
-                    }
-                  }
-                }
-              }
-              //Auflistung mit speziellen Symbolen
-              if (parent[i].getElementsByClassName('cms').isNotEmpty) {
-                for (int l = 0;
-                    l < parent[i].getElementsByClassName('cms').length;
-                    l++) {
-                  for (int j = 0;
-                      j <
-                          parent[i]
-                              .getElementsByClassName('cms')[l]
-                              .getElementsByTagName('li')
-                              .length;
-                      j++) {
-                    String _parsed = parent[i]
-                        .getElementsByClassName('cms')[l]
-                        .getElementsByTagName('li')[j]
-                        .text;
-                    if (!content.contains(_parsed)) {
-                      content = content + "• " + _parsed + "\n";
-                    }
-                  }
-                }
-              }
+              content = content + _parseContent(parent[i]);
+
               // ! pictures parsen
               //check if picture links are in "text-pic-right" or "width100 center marginBottom10" class
               if (parent[i]
@@ -175,7 +129,6 @@ class WebScraper {
                     .getElementsByClassName("external-link-new-window")
                     .map((elements) => elements.attributes['href'])
                     .toList();
-                print(links.toString());
                 List<String> description = parent[i]
                     .getElementsByClassName("external-link-new-window")
                     .map((elements) => elements.text)
@@ -256,4 +209,42 @@ class WebScraper {
       ];
     }
   }
+}
+
+String _parseContent(parent) {
+  String content = "";
+  for (int r = 0; r < parent.children.length; r++) {
+    final child = parent.children[r];
+    print(child.className);
+    if (child.className.toString().contains('csc')) {
+      print("Entering csc mode");
+      content = content + _parseContent(child);
+    }
+    // check if content is in "news-teaser" or "bodytext class"
+    if (child.className == 'news-teaser') {
+      content = child.text;
+    } else if (child.className == 'bodytext') {
+      content = content + child.text + "\n\n";
+    }
+    // Content is in MSoNormal class, not often used
+    if (child.className == 'MsoNormal') {
+      for (int j = 0; j < child.getElementsByTagName('span').length; j++) {
+        if (child.getElementsByTagName('span')[j].text != "-") {
+          content = content + child.getElementsByTagName('span')[j].text + "\n";
+        } else
+          content = content + child.getElementsByTagName('span')[j].text + " ";
+      }
+    }
+    //Auflistung mit speziellen Symbolen
+    if (child.className == 'cms') {
+      for (int j = 0; j < child.getElementsByTagName('li').length; j++) {
+        String _parsed = child.getElementsByTagName('li')[j].text;
+        if (!content.contains(_parsed)) {
+          content = content + "• " + _parsed + "\n";
+        }
+      }
+      content = content + "\n";
+    }
+  }
+  return content;
 }
