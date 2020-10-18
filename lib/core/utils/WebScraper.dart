@@ -165,6 +165,29 @@ class WebScraper {
                       Hyperlink(link: links[k], description: description[k]));
                 }
               }
+              if (document
+                  .getElementsByClassName('collection-item row')
+                  .isNotEmpty) {
+                List<String> links = List();
+                List<String> description = List();
+                links.addAll(parent[i]
+                    .getElementsByClassName('collection-item row')
+                    .map((element) =>
+                        DOMAIN +
+                        element.getElementsByTagName('a')[0].attributes['href'])
+                    .toList());
+                description.addAll(parent[i]
+                    .getElementsByClassName('collection-item row')
+                    .map((element) => element
+                        .getElementsByTagName('a')[0]
+                        .attributes['title'])
+                    .toList());
+
+                for (int k = 0; k < links.length; k++) {
+                  hyperlinks.add(
+                      Hyperlink(link: links[k], description: description[k]));
+                }
+              }
               // ! Formatting if needed
               //Einrückungen bei neuen Paragraph entfernen
               if (content.contains("<br>")) {
@@ -211,20 +234,28 @@ class WebScraper {
   }
 }
 
+//Parses content in order of appearing in parent class
 String _parseContent(parent) {
   String content = "";
   for (int r = 0; r < parent.children.length; r++) {
     final child = parent.children[r];
     print(child.className);
-    if (child.className.toString().contains('csc')) {
+    if (child.className.toString().contains('csc') ||
+        child.className == "row" ||
+        child.className == "col s12") {
       print("Entering csc mode");
       content = content + _parseContent(child);
     }
     // check if content is in "news-teaser" or "bodytext class"
     if (child.className == 'news-teaser') {
-      content = child.text;
-    } else if (child.className == 'bodytext') {
-      content = content + child.text + "\n\n";
+      content = child.innerHtml;
+    }
+    if (child.className == 'bodytext') {
+      if (!child.innerHtml.contains("<br>") ||
+          child.getElementsByTagName('span').isNotEmpty) {
+        content = content + child.text + "\n\n";
+      } else
+        content = content + child.innerHtml + "\n\n";
     }
     // Content is in MSoNormal class, not often used
     if (child.className == 'MsoNormal') {
