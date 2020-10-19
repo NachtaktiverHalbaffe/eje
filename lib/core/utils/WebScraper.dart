@@ -191,6 +191,23 @@ class WebScraper {
                       Hyperlink(link: links[k], description: description[k]));
                 }
               }
+              if (document.getElementsByClassName('download').isNotEmpty) {
+                List<String> links = List();
+                List<String> description = List();
+                links.addAll(parent[i]
+                    .getElementsByClassName('download')
+                    .map((element) => DOMAIN + element.attributes['href'])
+                    .toList());
+                description.addAll(parent[i]
+                    .getElementsByClassName('download')
+                    .map((element) => element.text)
+                    .toList());
+
+                for (int k = 0; k < links.length; k++) {
+                  hyperlinks.add(
+                      Hyperlink(link: links[k], description: description[k]));
+                }
+              }
               // ! Formatting if needed
               //Einrückungen bei neuen Paragraph entfernen
               if (content.contains("<br>")) {

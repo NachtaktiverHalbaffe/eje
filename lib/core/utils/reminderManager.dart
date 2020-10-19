@@ -18,8 +18,8 @@ class ReminderManager {
     if (isAlreadyCached == false) {
       _box.add(reminderToCache);
     }
-    _box.compact();
-    _box.close();
+    await _box.compact();
+    await _box.close();
   }
 
   Future<Reminder> getReminder(String identifier) async {

@@ -55,6 +55,9 @@ dependencies:
   persistent_bottom_nav_bar: any
   # Cached Networkimage
   cached_network_image: ^2.3.3
+  # Local Push-Notification
+  rxdart: ^0.24.1
+  flutter_local_notifications: ^2.0.1
 
 
 dev_dependencies:
