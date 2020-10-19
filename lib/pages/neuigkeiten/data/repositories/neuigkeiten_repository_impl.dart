@@ -65,7 +65,6 @@ class NeuigkeitenRepositoryImpl implements NeuigkeitenRepository {
   //Lade Artikel aus den Internet herunter
   @override
   Future<Either<Failure, List<Neuigkeit>>> getNeuigkeiten() async {
-    Box _box;
     //open database
     if (await networkInfo.isConnected) {
       try {

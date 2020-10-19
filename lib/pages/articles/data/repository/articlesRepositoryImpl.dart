@@ -5,6 +5,7 @@ import 'package:eje/core/platform/network_info.dart';
 import 'package:eje/core/utils/WebScraper.dart';
 import 'package:eje/pages/articles/data/datasources/articlesLocalDatasource.dart';
 import 'package:eje/pages/articles/domain/entity/Article.dart';
+import 'package:eje/pages/articles/domain/entity/ErrorArticle.dart';
 import 'package:eje/pages/articles/domain/entity/Hyperlink.dart';
 import 'package:eje/pages/articles/domain/repositories/ArticlesRepository.dart';
 import 'package:eje/pages/articles/domain/usecases/getArticles.dart';
@@ -76,55 +77,57 @@ class ArticlesRepositoryImpl implements ArticlesRepository {
   Future<Either<Failure, Article>> getArticle(String url) async {
     Box _box = await Hive.box('Articles');
     List<Article> articles;
-    if (await networkInfo.isConnected && url != "") {
-      try {
-        articles = await WebScraper().scrapeWebPage(url);
-        List<Hyperlink> hyperlink = List();
-        List<String> bilder = List();
-        String content = "";
-        String titel = "";
-        bool foundTitle = false;
-        for (int i = 0; i < articles.length; i++) {
-          if (articles[i].bilder[0] != "") {
-            bilder.addAll(articles[i].bilder);
-          }
-          if (articles[i].hyperlinks[0].link != "") {
-            hyperlink.addAll(articles[i].hyperlinks);
-          }
-          if (articles[i].content != "" && articles[i].content.length != 2) {
-            content = content + articles[i].content;
-          }
-          if (articles[i].titel != "") {
-            if (!foundTitle) {
-              foundTitle = true;
-              titel = articles[i].titel;
+    if (await networkInfo.isConnected) {
+      if (url != "") {
+        try {
+          articles = await WebScraper().scrapeWebPage(url);
+          List<Hyperlink> hyperlink = List();
+          List<String> bilder = List();
+          String content = "";
+          String titel = "";
+          bool foundTitle = false;
+          for (int i = 0; i < articles.length; i++) {
+            if (articles[i].bilder[0] != "") {
+              bilder.addAll(articles[i].bilder);
+            }
+            if (articles[i].hyperlinks[0].link != "") {
+              hyperlink.addAll(articles[i].hyperlinks);
+            }
+            if (articles[i].content != "" && articles[i].content.length != 2) {
+              content = content + articles[i].content;
+            }
+            if (articles[i].titel != "") {
+              if (!foundTitle) {
+                foundTitle = true;
+                titel = articles[i].titel;
+              }
             }
           }
+          if (hyperlink.isEmpty) {
+            hyperlink.add(Hyperlink(link: "", description: ""));
+          }
+          if (bilder.isEmpty) {
+            bilder.add("");
+          }
+          Article _article = Article(
+            bilder: bilder,
+            hyperlinks: hyperlink,
+            titel: titel,
+            content: content,
+            url: url,
+          );
+          localDatasource.cacheArticle(_article);
+          return Right(_article);
+        } on ServerException {
+          return Right(getErrorArticle());
         }
-        if (hyperlink.isEmpty) {
-          hyperlink.add(Hyperlink(link: "", description: ""));
-        }
-        if (bilder.isEmpty) {
-          bilder.add("");
-        }
-        Article _article = Article(
-          bilder: bilder,
-          hyperlinks: hyperlink,
-          titel: titel,
-          content: content,
-          url: url,
-        );
-        localDatasource.cacheArticle(_article);
-        return Right(_article);
-      } on ServerException {
-        return Left(ServerFailure());
       }
     } else
       try {
         Article _article = localDatasource.getArticle(url);
         return Right(_article);
       } on CacheException {
-        return Left(CacheFailure());
+        return Right(getErrorArticle());
       }
   }
 }

@@ -1,5 +1,7 @@
 import 'package:eje/core/error/exception.dart';
 import 'package:eje/pages/articles/domain/entity/Article.dart';
+import 'package:eje/pages/articles/domain/entity/ErrorArticle.dart';
+import 'package:eje/pages/articles/domain/entity/Hyperlink.dart';
 import 'package:hive/hive.dart';
 
 class ArticlesLocalDatasource {
@@ -28,20 +30,26 @@ class ArticlesLocalDatasource {
           return temp;
         }
       }
+      return getErrorArticle();
     } else {
-      throw CacheException();
+      return getErrorArticle();
     }
   }
 
   void cacheArticle(Article article) async {
     Box _box = Hive.box('Articles');
+    bool isAlreadyCached = false;
     if (_box.isNotEmpty) {
       for (int i = 0; i < _box.length; i++) {
         Article temp = _box.getAt(i);
         if (temp.url == article.url) {
+          isAlreadyCached == true;
           _box.deleteAt(i);
           _box.add(article);
         }
+      }
+      if (!isAlreadyCached) {
+        _box.add(article);
       }
     } else if (_box.isEmpty) {
       _box.add(article);
