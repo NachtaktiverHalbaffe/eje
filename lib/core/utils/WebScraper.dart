@@ -1,4 +1,5 @@
 import 'package:eje/pages/articles/domain/entity/Article.dart';
+import 'package:eje/pages/articles/domain/entity/ErrorArticle.dart';
 import 'package:eje/pages/articles/domain/entity/Hyperlink.dart';
 import 'package:http/http.dart' as http;
 import 'package:html/dom.dart' as dom;
@@ -221,17 +222,7 @@ class WebScraper {
     } else {
       // No Internet connection, returning empty Article
       print("Error: No internet Connection");
-      return [
-        Article(
-          titel: "",
-          content: "",
-          bilder: [""],
-          hyperlinks: [
-            Hyperlink(link: "", description: ""),
-          ],
-          url: "",
-        )
-      ];
+      return [getErrorArticle()];
     }
   }
 }

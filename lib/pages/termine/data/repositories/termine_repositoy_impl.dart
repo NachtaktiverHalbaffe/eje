@@ -5,6 +5,7 @@ import 'package:eje/core/platform/network_info.dart';
 import 'package:eje/pages/termine/data/datasources/termine_local_datasource.dart';
 import 'package:eje/pages/termine/data/datasources/termine_remote_datasource.dart';
 import 'package:eje/pages/termine/domain/entities/Termin.dart';
+import 'package:eje/pages/termine/domain/entities/errorTermin.dart';
 import 'package:eje/pages/termine/domain/repsoitories/termin_repositoy.dart';
 import 'package:meta/meta.dart';
 
@@ -29,7 +30,7 @@ class TermineRepositoryImpl implements TerminRepository {
         localDatasource.cacheTermine(remoteTermine);
         return Right(await localDatasource.getCachedTermine());
       } on ServerException {
-        return Left(ServerFailure());
+        return Right([getErrorTermin()]);
       }
     } else */
     return Right(localDatasource.getCachedTermine());
@@ -47,7 +48,7 @@ class TermineRepositoryImpl implements TerminRepository {
         }
       }
     } on CacheException {
-      return Left(CacheFailure());
+      return Right(getErrorTermin());
     }
   }
 }

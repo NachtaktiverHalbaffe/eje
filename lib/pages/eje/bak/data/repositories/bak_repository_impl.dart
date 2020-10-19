@@ -5,6 +5,7 @@ import 'package:eje/core/platform/network_info.dart';
 import 'package:eje/pages/eje/bak/data/datasources/bak_local_datasource.dart';
 import 'package:eje/pages/eje/bak/data/datasources/bak_remote_datasource.dart';
 import 'package:eje/pages/eje/bak/domain/entitys/BAKler.dart';
+import 'package:eje/pages/eje/bak/domain/entitys/ErrorBAKler.dart';
 import 'package:eje/pages/eje/bak/domain/repositories/bak_repository.dart';
 import 'package:meta/meta.dart';
 
@@ -29,7 +30,7 @@ class BAKRepositoryImpl implements BAKRepository {
         localDatasource.cacheBAK(remoteBAK);
         return Right(await localDatasource.getCachedBAK());
       } on ServerException {
-        return Left(ServerFailure());
+        return Right([getErrorBAKler()]);
       }
     } else */
     return Right(localDatasource.getCachedBAK());
@@ -46,7 +47,7 @@ class BAKRepositoryImpl implements BAKRepository {
         }
       }
     } on CacheException {
-      return Left(CacheFailure());
+      return Right(getErrorBAKler());
     }
   }
 }

@@ -5,6 +5,7 @@ import 'package:eje/core/platform/network_info.dart';
 import 'package:eje/pages/eje/arbeitsfelder/data/datasources/arbeitsbereich_local_datasource.dart';
 import 'package:eje/pages/eje/arbeitsfelder/data/datasources/arbeitsbereich_remote_datasource.dart';
 import 'package:eje/pages/eje/arbeitsfelder/domain/entities/Arbeitsbereich.dart';
+import 'package:eje/pages/eje/arbeitsfelder/domain/entities/errorArbeitsbereich.dart';
 import 'package:eje/pages/eje/arbeitsfelder/domain/repositories/arbeitsbereich_repository.dart';
 import 'package:meta/meta.dart';
 
@@ -29,13 +30,13 @@ class ArbeitsbereichRepositoryImpl implements ArbeitsbereichRepository {
         localDatasource.cacheBAK(remoteArbeitsbereich);
         return Right(await localDatasource.getCachedArbeitsbereiche());
       } on ServerException {
-        return Left(ServerFailure());
+        return Right([getErrorArbeitsbereich()]);
       }
     } else */
-    return Right(await localDatasource.getCachedArbeitsbereiche());
+    return Right(localDatasource.getCachedArbeitsbereiche());
   }
 
-  //Lade bestimmten Artikel aus Cache
+  //Lade bestimmten Artikel aus Cache, inaktiv da durch getArticle ersetzt
   @override
   Future<Either<Failure, Arbeitsbereich>> getArbeitsbereich(
       String arbeitsfeld) async {
@@ -48,7 +49,7 @@ class ArbeitsbereichRepositoryImpl implements ArbeitsbereichRepository {
         }
       }
     } on CacheException {
-      return Left(CacheFailure());
+      return Right(getErrorArbeitsbereich());
     }
   }
 }

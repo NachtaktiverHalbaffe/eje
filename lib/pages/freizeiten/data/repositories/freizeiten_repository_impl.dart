@@ -5,6 +5,7 @@ import 'package:eje/core/platform/network_info.dart';
 import 'package:eje/pages/freizeiten/data/datasources/freizeiten_local_datasource.dart';
 import 'package:eje/pages/freizeiten/data/datasources/freizeiten_remote_datasource.dart';
 import 'package:eje/pages/freizeiten/domain/entities/Freizeit.dart';
+import 'package:eje/pages/freizeiten/domain/entities/errorFreizeit.dart';
 import 'package:eje/pages/freizeiten/domain/repositories/freizeit_repository.dart';
 import 'package:meta/meta.dart';
 
@@ -29,7 +30,7 @@ class FreizeitenRepositoryImpl implements FreizeitRepository {
         localDatasource.cacheFreizeiten(remoteFreizeiten);
         return Right(await localDatasource.getCachedFreizeiten());
       } on ServerException {
-        return Left(ServerFailure());
+        return Right([getErrorFreizeit()]);;
       }
     } else */
     return Right(localDatasource.getCachedFreizeiten());
@@ -46,7 +47,7 @@ class FreizeitenRepositoryImpl implements FreizeitRepository {
         }
       }
     } on CacheException {
-      return Left(CacheFailure());
+      return Right(getErrorFreizeit());
     }
   }
 }

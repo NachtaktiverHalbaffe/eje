@@ -23,7 +23,7 @@ class Termin extends Equatable {
   Termin(
       {@required this.veranstaltung,
       this.motto,
-        this.text,
+      this.text,
       @required this.bild,
       @required this.datum,
       @required this.ort});

@@ -4,6 +4,7 @@ import 'package:eje/core/error/failures.dart';
 import 'package:eje/core/platform/network_info.dart';
 import 'package:eje/pages/eje/services/data/datasources/ServicesLocalDatasource.dart';
 import 'package:eje/pages/eje/services/data/datasources/ServicesRemoteDatasource.dart';
+import 'package:eje/pages/eje/services/domain/entities/ErrorService.dart';
 import 'package:eje/pages/eje/services/domain/entities/Service.dart';
 import 'package:eje/pages/eje/services/domain/repositories/services_repository.dart';
 import 'package:flutter/material.dart';
@@ -39,7 +40,7 @@ class ServicesRepositoryImpl implements ServicesRepository {
             await localDatasource.getService(remoteService.service);
         return Right(_service);
       } on ServerException {
-        return Left(ServerFailure());
+        return Right(getErrorService());
       }
     } else
       try {
@@ -50,7 +51,7 @@ class ServicesRepositoryImpl implements ServicesRepository {
           }
         }
       } on CacheException {
-        return Left(CacheFailure());
+        return Right(getErrorService());
       }
   }
 }

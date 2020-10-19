@@ -2,6 +2,8 @@ import 'package:dartz/dartz.dart';
 import 'package:eje/core/error/exception.dart';
 import 'package:eje/core/utils/WebScraper.dart';
 import 'package:eje/pages/articles/domain/entity/Article.dart';
+import 'package:eje/pages/articles/domain/entity/ErrorArticle.dart';
+import 'package:eje/pages/neuigkeiten/domain/entitys/errorNeuigkeit.dart';
 import 'package:hive/hive.dart';
 import 'package:meta/meta.dart';
 import 'package:eje/core/error/failures.dart';
@@ -28,7 +30,7 @@ class NeuigkeitenRepositoryImpl implements NeuigkeitenRepository {
   Future<Either<Failure, List<Article>>> getNeuigkeit(String titel) async {
     List<Article> article = List();
     //open database
-    Box _box = await Hive.openBox('Articles');
+    Box _box = await Hive.box('Articles');
     try {
       bool isInCache = false;
       String url = "";
@@ -53,12 +55,9 @@ class NeuigkeitenRepositoryImpl implements NeuigkeitenRepository {
         print(_webScrapingResult[0].content);
         article.addAll(_webScrapingResult);
       }
-      _box.compact();
-      _box.close();
-
       return Right(article);
     } on CacheException {
-      return Left(CacheFailure());
+      return Right([getErrorArticle()]);
     }
   }
 
@@ -74,8 +73,7 @@ class NeuigkeitenRepositoryImpl implements NeuigkeitenRepository {
         return Right(localDatasource.getCachedNeuigkeiten());
       } on ServerException {
         print("Neuigkeiten: Serverexception");
-
-        return Left(ServerFailure());
+        return Right([getErrorNeuigkeit()]);
       }
     } else
       return Right(localDatasource.getCachedNeuigkeiten());
