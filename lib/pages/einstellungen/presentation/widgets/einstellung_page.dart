@@ -183,7 +183,7 @@ Widget EinstellungenPage(BuildContext context, SharedPreferences prefs) {
             );
           },
           child: Text(
-            "Über die App, Datenschutz und Lizenzen",
+            "Über",
           ),
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(

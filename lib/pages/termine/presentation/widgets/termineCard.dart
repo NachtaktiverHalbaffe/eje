@@ -1,4 +1,6 @@
+import 'package:eje/core/platform/Reminder.dart';
 import 'package:eje/core/utils/injection_container.dart';
+import 'package:eje/core/utils/reminderManager.dart';
 import 'package:eje/pages/termine/domain/entities/Termin.dart';
 import 'package:eje/pages/termine/presentation/bloc/termine_bloc.dart';
 import 'package:eje/pages/termine/presentation/widgets/termineDetail.dart';
@@ -133,7 +135,20 @@ class TerminCard extends StatelessWidget {
                       height: 18 / MediaQuery.of(context).devicePixelRatio,
                     ),
                     OutlineButton(
-                      onPressed: () {},
+                      onPressed: () async {
+                        await ReminderManager().setReminder(
+                          Reminder(
+                            kategorie: "Termin",
+                            //date: termin.datum,
+                            identifier: termin.veranstaltung,
+                            notificationtext: "Erinnerung: Veranstaltung " +
+                                termin.veranstaltung +
+                                " findet am " +
+                                termin.datum +
+                                " statt",
+                          ),
+                        );
+                      },
                       child: Text("Veranstaltung merken"),
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(

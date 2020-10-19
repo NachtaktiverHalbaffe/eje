@@ -1,3 +1,5 @@
+import 'package:eje/core/platform/Reminder.dart';
+import 'package:eje/core/utils/reminderManager.dart';
 import 'package:eje/core/widgets/DetailsPage.dart';
 import 'package:eje/core/widgets/LoadingIndicator.dart';
 import 'package:eje/pages/articles/domain/entity/Hyperlink.dart';
@@ -110,7 +112,20 @@ Widget _terminChildWidget(Termin _termin, BuildContext context) {
       Container(
         margin: EdgeInsets.all(24 / MediaQuery.of(context).devicePixelRatio),
         child: OutlineButton(
-          onPressed: () {},
+          onPressed: () async {
+            await ReminderManager().setReminder(
+              Reminder(
+                kategorie: "Termin",
+                //date: _termin.datum,
+                identifier: _termin.veranstaltung,
+                notificationtext: "Erinnerung: Veranstaltung " +
+                    _termin.veranstaltung +
+                    " findet am " +
+                    _termin.datum +
+                    " statt",
+              ),
+            );
+          },
           child: Text("Veranstaltung merken"),
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(

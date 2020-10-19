@@ -31,8 +31,8 @@ class ReminderManager {
         return _box.getAt(i);
       }
     }
-    _box.compact();
-    _box.close();
+    await _box.compact();
+    await _box.close();
     return Reminder(
         kategorie: "",
         identifier: "",
@@ -46,6 +46,8 @@ class ReminderManager {
     for (int i = 0; i < _box.length; i++) {
       _reminder.add(_box.getAt(i));
     }
+    await _box.compact();
+    await _box.close();
     return _reminder;
   }
 }
