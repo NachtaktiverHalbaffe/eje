@@ -57,7 +57,7 @@ Die Pages enthalten die einzelnen Menüpunkte und haben alle denselben Aufbau. D
 
 **Generelle Aufbau**
 - data: Wird aufgeteilt in Local-Datasource (Cache mithilfe von Hive) und Remote-Datasource(RSS-Feed, API des ejw-Managers oder WebScraping) und repository für die Zusammenführung
-- domain: Entities, die die Daten darstellen, repositories die Entitäten generieren und verschiedene usecases um verschiedene Entitäten anzufragen (meistens eine Liste von Entitäten oder eine einzelne Entität)
+- domain: Entities, die die Daten darstellen inklusive einer Error-Entity mit Minimaldaten, repositories die Entitäten generieren und verschiedene usecases um verschiedene Entitäten anzufragen (meistens eine Liste von Entitäten oder eine einzelne Entität)
 - presentation: Bloc für Statemanagment. Innerhalb von Bloc gibt es Bloc_Events für verschiedene Events, die ein State-wechsel verursachen, Bloc-STates für die verschiedene zustände der WIdgets und BLoc selber als Buisness Logic, welche festlegt welche Events welche States hervorrufen. Widgets sind frontend widgets für die Darstellung zuständig (UI)
 - außerhalb der packages ist immer ein übergeordnetes Widgets, was das oberstes WIdgets eines Menüpunktes darstellt und die verschiedenen unterwidgets eines Menüpunktes zusammenführt
 
