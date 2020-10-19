@@ -9,18 +9,20 @@ class WebScraper {
   Future<List<Article>> scrapeWebPage(String url) async {
     List<Article> article = List();
     const String DOMAIN = "https://www.eje-esslingen.de";
+    const String ID_HEADER = 'c845041';
+    const String ID_KONTAKT = 'c762177';
+    const String ID_ANSCHRIFT = 'c762175';
     bool alreadyHasTitele = false;
     // Get data from Internet
     var response = await http.get(url);
     if (response.statusCode == 200) {
       dom.Document document = parser.parse(response.body);
       final parent = document.getElementsByClassName('col s12 default');
-
       for (int i = 0; i < parent.length; i++) {
         //checking if element is not header or footer of website
-        if (parent[i].id != 'c762177') {
-          if (parent[i].id != 'c845041') {
-            if (parent[i].id != 'c762175') {
+        if (parent[i].id != ID_KONTAKT) {
+          if (parent[i].id != ID_HEADER) {
+            if (parent[i].id != ID_ANSCHRIFT) {
               //Parse data to article
               String content = "";
               String title;
@@ -240,12 +242,7 @@ String _parseContent(parent) {
   for (int r = 0; r < parent.children.length; r++) {
     final child = parent.children[r];
     print(child.className);
-    if (child.className.toString().contains('csc') ||
-        child.className == "row" ||
-        child.className == "col s12") {
-      print("Entering csc mode");
-      content = content + _parseContent(child);
-    }
+
     // check if content is in "news-teaser" or "bodytext class"
     if (child.className == 'news-teaser') {
       content = child.innerHtml;
@@ -254,7 +251,7 @@ String _parseContent(parent) {
       if (!child.innerHtml.contains("<br>") ||
           child.getElementsByTagName('span').isNotEmpty) {
         content = content + child.text + "\n\n";
-      } else
+      } else if (child.getElementsByTagName('a').isEmpty)
         content = content + child.innerHtml + "\n\n";
     }
     // Content is in MSoNormal class, not often used
@@ -276,6 +273,10 @@ String _parseContent(parent) {
       }
       content = content + "\n";
     }
+    if (child.hasChildNodes()) {
+      content = content + _parseContent(child);
+    }
   }
+  //check if current child has more children which have to been checked
   return content;
 }
