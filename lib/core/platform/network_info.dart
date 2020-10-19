@@ -23,7 +23,19 @@ class NetworkInfoImpl implements NetworkInfo {
       } else if (result == ConnectivityResult.wifi) {
         return connectionChecker.hasConnection;
       }
-    } else
-      return connectionChecker.hasConnection;
+    } else {
+      ConnectivityResult result = await connectivity.checkConnectivity();
+      if (result != ConnectivityResult.wifi) {
+        return false;
+      } else if (result == ConnectivityResult.wifi) {
+        return connectionChecker.hasConnection;
+      } else if (result != ConnectivityResult.mobile) {
+        return false;
+      } else if (result == ConnectivityResult.mobile) {
+        return connectionChecker.hasConnection;
+      } else if (result == ConnectivityResult.none) {
+        return false;
+      }
+    }
   }
 }
