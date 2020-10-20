@@ -1,4 +1,5 @@
 import 'package:eje/core/platform/Reminder.dart';
+import 'package:eje/core/utils/notificationplugin.dart';
 import 'package:eje/core/utils/reminderManager.dart';
 import 'package:eje/core/widgets/DetailsPage.dart';
 import 'package:eje/core/widgets/LoadingIndicator.dart';
@@ -23,14 +24,15 @@ class TerminDetails extends StatefulWidget {
 
   @override
   _TerminDetailsState createState() =>
-      _TerminDetailsState(isCacheEnabled, termin);
+      _TerminDetailsState(isCacheEnabled, termin, prefs);
 }
 
 class _TerminDetailsState extends State<TerminDetails> {
   final bool isCacheEnabled;
   final Termin termin;
+  final SharedPreferences prefs;
 
-  _TerminDetailsState(this.isCacheEnabled, this.termin);
+  _TerminDetailsState(this.isCacheEnabled, this.termin, this.prefs);
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +52,7 @@ class _TerminDetailsState extends State<TerminDetails> {
           return LoadingIndicator();
         } else if (state is LoadedTermin) {
           return TerminDetailsCard(
-              state.termin, widget.isCacheEnabled, context);
+              state.termin, widget.isCacheEnabled, context, prefs);
         }
       }),
     );
@@ -63,8 +65,8 @@ class _TerminDetailsState extends State<TerminDetails> {
   }
 }
 
-Widget TerminDetailsCard(
-    Termin termin, bool isCacheEnabled, BuildContext context) {
+Widget TerminDetailsCard(Termin termin, bool isCacheEnabled,
+    BuildContext context, SharedPreferences prefs) {
   List<String> bilder = List();
   bilder.add(termin.bild);
   return DetailsPage(
@@ -73,11 +75,12 @@ Widget TerminDetailsCard(
     text: termin.text,
     bild_url: bilder,
     hyperlinks: [Hyperlink(link: "", description: "")],
-    childWidget: _terminChildWidget(termin, context),
+    childWidget: _terminChildWidget(termin, context, prefs),
   );
 }
 
-Widget _terminChildWidget(Termin _termin, BuildContext context) {
+Widget _terminChildWidget(
+    Termin _termin, BuildContext context, SharedPreferences prefs) {
   return Column(
     children: [
       Divider(),
@@ -115,18 +118,7 @@ Widget _terminChildWidget(Termin _termin, BuildContext context) {
         margin: EdgeInsets.all(24 / MediaQuery.of(context).devicePixelRatio),
         child: OutlineButton(
           onPressed: () async {
-            await ReminderManager().setReminder(
-              Reminder(
-                kategorie: "Termin",
-                //date: _termin.datum,
-                identifier: _termin.veranstaltung,
-                notificationtext: "Erinnerung: Veranstaltung " +
-                    _termin.veranstaltung +
-                    " findet am " +
-                    _termin.datum +
-                    " statt",
-              ),
-            );
+            _setNotification(_termin, prefs);
           },
           child: Text("Veranstaltung merken"),
           shape: RoundedRectangleBorder(
@@ -139,4 +131,50 @@ Widget _terminChildWidget(Termin _termin, BuildContext context) {
       ),
     ],
   );
+}
+
+void _setNotification(Termin termin, SharedPreferences prefs) async {
+  final String CHANNEL_NAME = "Erinnerungen an Veranstaltungen";
+  final String CHANNEL_DESCRIPTION =
+      "Erinnerung an eine Veranstaltung, die der Benutzer zum Merken ausgewählt hat";
+  final String CHANNEL_ID = "1";
+  await ReminderManager().setReminder(
+    Reminder(
+        kategorie: "Termin",
+        //date: termin.datum,
+        identifier: termin.veranstaltung,
+        notificationtext:
+            "Erinnerung: " + termin.veranstaltung + " findet morgen statt "),
+  );
+  // Notification schedulen
+  if (prefs.getBool("notifications_on")) {
+    if (prefs.getBool("notifications_veranstaltungen")) {
+      List<Reminder> _reminder = await ReminderManager().getAllReminder();
+      await notificationPlugin.scheduledNotification(
+        id: _reminder.length,
+        title: "Erinnerung",
+        body: "Erinnerung: Veranstaltung " +
+            termin.veranstaltung +
+            " findet am " +
+            termin.datum +
+            " statt",
+        scheduleNotificationsDateTime:
+            DateTime.now().add(Duration(days: 1, seconds: 5)),
+        payload: "2",
+        channelDescription: CHANNEL_DESCRIPTION,
+        channelId: CHANNEL_ID,
+        channelName: CHANNEL_NAME,
+      );
+    } else
+      notificationPlugin.showNotification(
+          id: 0,
+          payload: "4",
+          title: "Benachrichtigungen für Veranstaltungen nicht aktiviert",
+          body: "Diese Funktion muss in den Einstellungen aktiviert werden",
+          channelId: "0",
+          channelName: "App-Benachrichtigungen",
+          channelDescription:
+              "Grundlegende Benachrichtigungen von der App über Appfunktionen");
+  } else
+    notificationPlugin.showNotificationsDisabled();
 }
