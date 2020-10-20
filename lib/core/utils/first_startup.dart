@@ -48,4 +48,10 @@ Future<void> prefStartup() async {
   Hive.registerAdapter(OrtAdapter());
   await di.init();
   //Local notifications
+  notificationPlugin.setListenerForLowerVersions(onNotificationInLowerVersion);
+  notificationPlugin.setOnNotificationClick(onNotificationClick);
 }
+
+onNotificationClick(String payload) {}
+
+onNotificationInLowerVersion(ReceivedNotification receivedNotification) {}

@@ -9,6 +9,7 @@ import 'package:eje/pages/termine/termine.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:hive/hive.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
@@ -17,25 +18,16 @@ import '../pages/neuigkeiten/neuigkeiten.dart';
 import 'utils/first_startup.dart';
 
 void main() async {
-  int initialIndex = 0;
   WidgetsFlutterBinding.ensureInitialized();
   await prefStartup();
-  //Setting up local notifications
-  onNotificationClick(String payload) {
-    print("Payload: " + payload);
-    //changing initialindex whem app is launched over notification
-    if (payload.contains("0") ||
-        payload.contains("1") ||
-        payload.contains("2") ||
-        payload.contains("3") ||
-        payload.contains("4")) {
-      initialIndex = int.parse(payload);
-    }
+  //Getting data if app was launched from application
+  int initialIndex = 0;
+  final NotificationAppLaunchDetails notificationAppLaunchDetails =
+      await notificationPlugin.flutterLocalNotificationsPlugin
+          .getNotificationAppLaunchDetails();
+  if (notificationAppLaunchDetails.didNotificationLaunchApp) {
+    initialIndex = int.parse(notificationAppLaunchDetails.payload);
   }
-
-  onNotificationInLowerVersion(ReceivedNotification receivedNotification) {}
-  notificationPlugin.setListenerForLowerVersions(onNotificationInLowerVersion);
-  notificationPlugin.setOnNotificationClick(onNotificationClick);
   runApp(MyApp(await SharedPreferences.getInstance(), initialIndex));
 }
 
