@@ -119,6 +119,29 @@ class NotificationPlugin {
     );
   }
 
+  Future<void> showNotificationsDisabled() async {
+    var paltformChannelSpecifics = NotificationDetails(
+      android: AndroidNotificationDetails(
+        "0",
+        "App-Benachrichtigungen",
+        "Grundlegende Benachrichtigungen von der App über Appfunktionen",
+        importance: Importance.max,
+        priority: Priority.high,
+        playSound: true,
+        timeoutAfter: 5000,
+        styleInformation: DefaultStyleInformation(true, true),
+      ),
+      iOS: IOSNotificationDetails(),
+    );
+    await FlutterLocalNotificationsPlugin().show(
+      0,
+      "Benachrichtigungen nicht aktiviert",
+      "Bitte Benachrichtigungen in den Einstellungen aktivieren",
+      paltformChannelSpecifics,
+      payload: "4",
+    );
+  }
+
   Future<void> cancelNotification() async {
     await flutterLocalNotificationsPlugin.cancel(0);
   }

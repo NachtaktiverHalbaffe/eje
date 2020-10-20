@@ -46,18 +46,22 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title, this.isCacheEnabled}) : super(key: key);
+  MyHomePage({Key key, this.title, this.isCacheEnabled, this.prefs})
+      : super(key: key);
   final String title;
   final bool isCacheEnabled;
+  final SharedPreferences prefs;
 
   @override
-  _MyHomePageState createState() => _MyHomePageState(isCacheEnabled);
+  _MyHomePageState createState() => _MyHomePageState(isCacheEnabled, prefs);
 }
 
 class _MyHomePageState extends State<MyHomePage> {
   final bool isCacheEnabled;
+  final SharedPreferences prefs;
 
-  _MyHomePageState(this.isCacheEnabled); // List of Icons for Navigation bar
+  _MyHomePageState(
+      this.isCacheEnabled, this.prefs); // List of Icons for Navigation bar
   List<PersistentBottomNavBarItem> _navBarsItems() {
     return [
       PersistentBottomNavBarItem(
@@ -103,7 +107,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return [
       Neuigkeiten(isCacheEnabled),
       eje(isCacheEnabled),
-      Termine(isCacheEnabled),
+      Termine(isCacheEnabled, prefs),
       Freizeiten(isCacheEnabled),
       Einstellungen()
     ];
@@ -154,8 +158,10 @@ Widget _MaterialApp(BuildContext context, SharedPreferences prefs) {
   return MaterialApp(
     title: 'EJW Esslingen',
     home: MyHomePage(
-        title: 'EJW Esslingen',
-        isCacheEnabled: prefs.getBool("cache_pictures")),
+      title: 'EJW Esslingen',
+      isCacheEnabled: prefs.getBool("cache_pictures"),
+      prefs: prefs,
+    ),
     theme: ThemeData.light().copyWith(
 // Firmenfarbe
         accentColor: Color(0xFFCD2E32),

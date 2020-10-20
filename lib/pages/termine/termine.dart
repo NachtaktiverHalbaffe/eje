@@ -8,13 +8,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'domain/entities/Termin.dart';
 
 class Termine extends StatelessWidget {
-  bool isCacheEnabled;
+  final bool isCacheEnabled;
+  final SharedPreferences prefs;
 
-  Termine(this.isCacheEnabled);
+  Termine(this.isCacheEnabled, this.prefs);
 
   @override
   Widget build(BuildContext context) {
@@ -39,8 +41,8 @@ class Termine extends StatelessWidget {
           } else if (state is Loading) {
             return LoadingIndicator();
           } else if (state is LoadedTermine) {
-            return TermineListView(
-                state.termine.reversed.toList(), context, isCacheEnabled);
+            return TermineListView(state.termine.reversed.toList(), context,
+                isCacheEnabled, prefs);
           }
         },
       ),
@@ -48,8 +50,8 @@ class Termine extends StatelessWidget {
   }
 }
 
-Widget TermineListView(
-    List<Termin> termine, BuildContext context, bool isCacheEnabled) {
+Widget TermineListView(List<Termin> termine, BuildContext context,
+    bool isCacheEnabled, SharedPreferences prefs) {
   final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
       new GlobalKey<RefreshIndicatorState>();
 
@@ -68,7 +70,7 @@ Widget TermineListView(
               ),
               Swiper(
                 itemBuilder: (BuildContext context, int index) {
-                  return TerminCard(termine[index], isCacheEnabled);
+                  return TerminCard(termine[index], isCacheEnabled, prefs);
                 },
                 itemCount: termine.length,
                 itemHeight: 1650 / MediaQuery.of(context).devicePixelRatio,

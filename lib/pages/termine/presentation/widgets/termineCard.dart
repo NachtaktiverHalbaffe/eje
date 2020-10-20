@@ -9,6 +9,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class TerminCard extends StatelessWidget {
   final Termin termin;
@@ -17,8 +18,9 @@ class TerminCard extends StatelessWidget {
   final String CHANNEL_DESCRIPTION =
       "Erinnerung an eine Veranstaltung, die der Benutzer zum Merken ausgewählt hat";
   final String CHANNEL_ID = "1";
+  final SharedPreferences prefs;
 
-  TerminCard(this.termin, this.isCacheEnabled);
+  TerminCard(this.termin, this.isCacheEnabled, this.prefs);
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +33,7 @@ class TerminCard extends StatelessWidget {
           MaterialPageRoute(
             builder: (_) => BlocProvider.value(
               value: sl<TermineBloc>(),
-              child: TerminDetails(termin, isCacheEnabled),
+              child: TerminDetails(termin, isCacheEnabled, prefs),
             ),
           ),
         ),
@@ -141,33 +143,7 @@ class TerminCard extends StatelessWidget {
                     ),
                     OutlineButton(
                       onPressed: () async {
-                        await ReminderManager().setReminder(
-                          Reminder(
-                              kategorie: "Termin",
-                              //date: termin.datum,
-                              identifier: termin.veranstaltung,
-                              notificationtext: "Erinnerung: " +
-                                  termin.veranstaltung +
-                                  " findet morgen statt "),
-                        );
-                        // Notification schedulen
-                        List<Reminder> _reminder =
-                            await ReminderManager().getAllReminder();
-                        await notificationPlugin.scheduledNotification(
-                          id: _reminder.length,
-                          title: "Erinnerung",
-                          body: "Erinnerung: Veranstaltung " +
-                              termin.veranstaltung +
-                              " findet am " +
-                              termin.datum +
-                              " statt",
-                          scheduleNotificationsDateTime:
-                              DateTime.now().add(Duration(days: 1, seconds: 5)),
-                          payload: "Termin",
-                          channelDescription: CHANNEL_DESCRIPTION,
-                          channelId: CHANNEL_ID,
-                          channelName: CHANNEL_NAME,
-                        );
+                        await _setNotification();
                       },
                       child: Text("Veranstaltung merken"),
                       shape: RoundedRectangleBorder(
@@ -182,5 +158,47 @@ class TerminCard extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void _setNotification() async {
+    await ReminderManager().setReminder(
+      Reminder(
+          kategorie: "Termin",
+          //date: termin.datum,
+          identifier: termin.veranstaltung,
+          notificationtext:
+              "Erinnerung: " + termin.veranstaltung + " findet morgen statt "),
+    );
+    // Notification schedulen
+    if (prefs.getBool("notifications_on")) {
+      if (prefs.getBool("notifications_veranstaltungen")) {
+        List<Reminder> _reminder = await ReminderManager().getAllReminder();
+        await notificationPlugin.scheduledNotification(
+          id: _reminder.length,
+          title: "Erinnerung",
+          body: "Erinnerung: Veranstaltung " +
+              termin.veranstaltung +
+              " findet am " +
+              termin.datum +
+              " statt",
+          scheduleNotificationsDateTime:
+              DateTime.now().add(Duration(days: 1, seconds: 5)),
+          payload: "2",
+          channelDescription: CHANNEL_DESCRIPTION,
+          channelId: CHANNEL_ID,
+          channelName: CHANNEL_NAME,
+        );
+      } else
+        notificationPlugin.showNotification(
+            id: 0,
+            payload: "4",
+            title: "Benachrichtigungen für Veranstaltungen nicht aktiviert",
+            body: "Diese Funktion muss in den Einstellungen aktiviert werden",
+            channelId: "0",
+            channelName: "App-Benachrichtigungen",
+            channelDescription:
+                "Grundlegende Benachrichtigungen von der App über Appfunktionen");
+    } else
+      notificationPlugin.showNotificationsDisabled();
   }
 }
