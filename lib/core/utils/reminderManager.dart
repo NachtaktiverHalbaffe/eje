@@ -42,7 +42,7 @@ class ReminderManager {
 
   Future<List<Reminder>> getAllReminder() async {
     Box _box = await Hive.openBox('Reminder');
-    List<Reminder> _reminder;
+    List<Reminder> _reminder = List();
     for (int i = 0; i < _box.length; i++) {
       _reminder.add(_box.getAt(i));
     }

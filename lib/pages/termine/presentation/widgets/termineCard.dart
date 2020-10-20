@@ -1,5 +1,6 @@
 import 'package:eje/core/platform/Reminder.dart';
 import 'package:eje/core/utils/injection_container.dart';
+import 'package:eje/core/utils/notificationplugin.dart';
 import 'package:eje/core/utils/reminderManager.dart';
 import 'package:eje/pages/termine/domain/entities/Termin.dart';
 import 'package:eje/pages/termine/presentation/bloc/termine_bloc.dart';
@@ -12,6 +13,10 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 class TerminCard extends StatelessWidget {
   final Termin termin;
   final bool isCacheEnabled;
+  final String CHANNEL_NAME = "Erinnerungen an Veranstaltungen";
+  final String CHANNEL_DESCRIPTION =
+      "Erinnerung an eine Veranstaltung, die der Benutzer zum Merken ausgewählt hat";
+  final String CHANNEL_ID = "1";
 
   TerminCard(this.termin, this.isCacheEnabled);
 
@@ -138,15 +143,30 @@ class TerminCard extends StatelessWidget {
                       onPressed: () async {
                         await ReminderManager().setReminder(
                           Reminder(
-                            kategorie: "Termin",
-                            //date: termin.datum,
-                            identifier: termin.veranstaltung,
-                            notificationtext: "Erinnerung: Veranstaltung " +
-                                termin.veranstaltung +
-                                " findet am " +
-                                termin.datum +
-                                " statt",
-                          ),
+                              kategorie: "Termin",
+                              //date: termin.datum,
+                              identifier: termin.veranstaltung,
+                              notificationtext: "Erinnerung: " +
+                                  termin.veranstaltung +
+                                  " findet morgen statt "),
+                        );
+                        // Notification schedulen
+                        List<Reminder> _reminder =
+                            await ReminderManager().getAllReminder();
+                        await notificationPlugin.scheduledNotification(
+                          id: _reminder.length,
+                          title: "Erinnerung",
+                          body: "Erinnerung: Veranstaltung " +
+                              termin.veranstaltung +
+                              " findet am " +
+                              termin.datum +
+                              " statt",
+                          scheduleNotificationsDateTime:
+                              DateTime.now().add(Duration(days: 1, seconds: 5)),
+                          payload: "Termin",
+                          channelDescription: CHANNEL_DESCRIPTION,
+                          channelId: CHANNEL_ID,
+                          channelName: CHANNEL_NAME,
                         );
                       },
                       child: Text("Veranstaltung merken"),

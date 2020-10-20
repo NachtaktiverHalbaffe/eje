@@ -1,4 +1,5 @@
 import 'package:eje/core/platform/Reminder.dart';
+import 'package:eje/core/utils/notificationplugin.dart';
 import 'package:eje/pages/articles/domain/entity/Article.dart';
 import 'package:eje/pages/articles/domain/entity/Hyperlink.dart';
 import 'package:eje/pages/eje/arbeitsfelder/domain/entities/Arbeitsbereich.dart';
@@ -30,6 +31,7 @@ Future<void> prefStartup() async {
     prefs.setBool("only_wifi", false);
     prefs.setBool("cache_pictures", true);
   }
+  //Setting Hive up
   final appDocumentDirectory =
       await path_provider.getApplicationDocumentsDirectory();
   Hive.init(appDocumentDirectory.path);
@@ -45,4 +47,11 @@ Future<void> prefStartup() async {
   Hive.registerAdapter(HyperlinkAdapter());
   Hive.registerAdapter(OrtAdapter());
   await di.init();
+  //Local notifications
+  notificationPlugin.setListenerForLowerVersions(onNotificationInLowerVersion);
+  notificationPlugin.setOnNotificationClick(onNotificationClick);
 }
+
+onNotificationInLowerVersion(ReceivedNotification receivedNotification) {}
+
+onNotificationClick(String payload) {}
