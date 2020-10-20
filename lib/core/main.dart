@@ -1,3 +1,4 @@
+import 'package:eje/core/utils/notificationplugin.dart';
 import 'package:eje/core/widgets/bloc/main_bloc.dart';
 import 'package:eje/core/widgets/bloc/main_state.dart';
 import 'package:eje/core/widgets/costum_icons_icons.dart';
@@ -16,15 +17,34 @@ import '../pages/neuigkeiten/neuigkeiten.dart';
 import 'utils/first_startup.dart';
 
 void main() async {
+  int initialIndex = 0;
   WidgetsFlutterBinding.ensureInitialized();
   await prefStartup();
-  runApp(MyApp(await SharedPreferences.getInstance()));
+  //Setting up local notifications
+  onNotificationClick(String payload) {
+    print("Payload: " + payload);
+    //changing initialindex whem app is launched over notification
+    if (payload.contains("0") ||
+        payload.contains("1") ||
+        payload.contains("2") ||
+        payload.contains("3") ||
+        payload.contains("4")) {
+      initialIndex = int.parse(payload);
+    }
+  }
+
+  onNotificationInLowerVersion(ReceivedNotification receivedNotification) {}
+  notificationPlugin.setListenerForLowerVersions(onNotificationInLowerVersion);
+  notificationPlugin.setOnNotificationClick(onNotificationClick);
+  runApp(MyApp(await SharedPreferences.getInstance(), initialIndex));
 }
 
 class MyApp extends StatelessWidget {
   final SharedPreferences prefs;
+  final int initialIndex;
 
-  MyApp(this.prefs); // This widget is the root of your application.
+  MyApp(this.prefs,
+      this.initialIndex); // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -32,13 +52,13 @@ class MyApp extends StatelessWidget {
       // ignore: missing_return
       child: BlocBuilder<MainBloc, MainState>(builder: (context, state) {
         if (state is InitialMainState) {
-          return _MaterialApp(context, prefs);
+          return _MaterialApp(context, prefs, initialIndex);
         } else if (state is ChangedThemeToLight) {
-          return _MaterialApp(context, prefs);
+          return _MaterialApp(context, prefs, initialIndex);
         } else if (state is ChangedThemeToDark) {
-          return _MaterialApp(context, prefs);
+          return _MaterialApp(context, prefs, initialIndex);
         } else if (state is ChangedThemeToAuto) {
-          return _MaterialApp(context, prefs);
+          return _MaterialApp(context, prefs, initialIndex);
         }
       }),
     );
@@ -46,22 +66,26 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title, this.isCacheEnabled, this.prefs})
+  MyHomePage(
+      {Key key, this.title, this.isCacheEnabled, this.prefs, this.initialIndex})
       : super(key: key);
   final String title;
   final bool isCacheEnabled;
   final SharedPreferences prefs;
+  final int initialIndex;
 
   @override
-  _MyHomePageState createState() => _MyHomePageState(isCacheEnabled, prefs);
+  _MyHomePageState createState() =>
+      _MyHomePageState(isCacheEnabled, prefs, initialIndex);
 }
 
 class _MyHomePageState extends State<MyHomePage> {
   final bool isCacheEnabled;
   final SharedPreferences prefs;
+  final int initialIndex;
 
-  _MyHomePageState(
-      this.isCacheEnabled, this.prefs); // List of Icons for Navigation bar
+  _MyHomePageState(this.isCacheEnabled, this.prefs,
+      this.initialIndex); // List of Icons for Navigation bar
   List<PersistentBottomNavBarItem> _navBarsItems() {
     return [
       PersistentBottomNavBarItem(
@@ -116,7 +140,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return PersistentTabView(
-      controller: PersistentTabController(initialIndex: 0),
+      controller: PersistentTabController(initialIndex: initialIndex),
       items: _navBarsItems(),
       screens: _buildScreens(),
       handleAndroidBackButtonPress: true,
@@ -154,13 +178,15 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
-Widget _MaterialApp(BuildContext context, SharedPreferences prefs) {
+Widget _MaterialApp(
+    BuildContext context, SharedPreferences prefs, int initialIndex) {
   return MaterialApp(
     title: 'EJW Esslingen',
     home: MyHomePage(
       title: 'EJW Esslingen',
       isCacheEnabled: prefs.getBool("cache_pictures"),
       prefs: prefs,
+      initialIndex: initialIndex,
     ),
     theme: ThemeData.light().copyWith(
 // Firmenfarbe
