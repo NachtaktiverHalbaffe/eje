@@ -12,8 +12,7 @@ Widget FreizeitCard(
   final _currentPageNotifier = ValueNotifier<int>(0);
 
   return ClipRRect(
-    borderRadius: new BorderRadius.all(
-        Radius.circular(36 / MediaQuery.of(context).devicePixelRatio)),
+    borderRadius: new BorderRadius.all(Radius.circular(12)),
     child: GestureDetector(
       onTap: () => Navigator.push(
         context,
@@ -33,7 +32,7 @@ Widget FreizeitCard(
             children: <Widget>[
               Container(
                 width: MediaQuery.of(context).size.width,
-                height: 825 / MediaQuery.of(context).devicePixelRatio,
+                height: 275,
                 decoration: BoxDecoration(
                   image: DecorationImage(
                     fit: BoxFit.cover,
@@ -43,8 +42,7 @@ Widget FreizeitCard(
               ),
               Column(
                 children: <Widget>[
-                  SizedBox(
-                      height: 630 / MediaQuery.of(context).devicePixelRatio),
+                  SizedBox(height: 210),
                   Text(
                     freizeit.freizeit,
                     overflow: TextOverflow.ellipsis,
@@ -54,19 +52,13 @@ Widget FreizeitCard(
                       color: Colors.white,
                       shadows: <Shadow>[
                         Shadow(
-                          offset: Offset(
-                              6 / MediaQuery.of(context).devicePixelRatio,
-                              6 / MediaQuery.of(context).devicePixelRatio),
-                          blurRadius:
-                              18 / MediaQuery.of(context).devicePixelRatio,
+                          offset: Offset(2, 2),
+                          blurRadius: 6,
                           color: Colors.black,
                         ),
                         Shadow(
-                          offset: Offset(
-                              6 / MediaQuery.of(context).devicePixelRatio,
-                              6 / MediaQuery.of(context).devicePixelRatio),
-                          blurRadius:
-                              18 / MediaQuery.of(context).devicePixelRatio,
+                          offset: Offset(2, 2),
+                          blurRadius: 6,
                           color: Colors.black,
                         ),
                       ],
@@ -81,19 +73,15 @@ Widget FreizeitCard(
                       shadows: <Shadow>[
                         Shadow(
                           offset: Offset(
-                            6 / MediaQuery.of(context).devicePixelRatio,
-                            6 / MediaQuery.of(context).devicePixelRatio,
+                            2,
+                            2,
                           ),
-                          blurRadius:
-                              18 / MediaQuery.of(context).devicePixelRatio,
+                          blurRadius: 6,
                           color: Colors.black,
                         ),
                         Shadow(
-                          offset: Offset(
-                              6 / MediaQuery.of(context).devicePixelRatio,
-                              6 / MediaQuery.of(context).devicePixelRatio),
-                          blurRadius:
-                              18 / MediaQuery.of(context).devicePixelRatio,
+                          offset: Offset(2, 2),
+                          blurRadius: 6,
                           color: Colors.black,
                         ),
                       ],
@@ -107,13 +95,12 @@ Widget FreizeitCard(
             children: <Widget>[
               Container(
                 width: MediaQuery.of(context).size.width,
-                height: 225 / MediaQuery.of(context).devicePixelRatio,
+                height: 75,
                 color: Theme.of(context).cardColor,
               ),
               Column(
                 children: <Widget>[
-                  SizedBox(
-                      height: 36 / MediaQuery.of(context).devicePixelRatio),
+                  SizedBox(height: 12),
                   Table(
                     defaultVerticalAlignment: TableCellVerticalAlignment.middle,
                     children: [
@@ -121,13 +108,9 @@ Widget FreizeitCard(
                         Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: <Widget>[
-                            SizedBox(
-                                width: 36 /
-                                    MediaQuery.of(context).devicePixelRatio),
+                            SizedBox(width: 12),
                             Icon(Icons.today),
-                            SizedBox(
-                                width: 12 /
-                                    MediaQuery.of(context).devicePixelRatio),
+                            SizedBox(width: 4),
                             Flexible(
                               child: Text(
                                 freizeit.datum,
@@ -143,13 +126,9 @@ Widget FreizeitCard(
                         Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: <Widget>[
-                            SizedBox(
-                                width: 180 /
-                                    MediaQuery.of(context).devicePixelRatio),
+                            SizedBox(width: 60),
                             Icon(MdiIcons.currencyEur),
-                            SizedBox(
-                                width: 12 /
-                                    MediaQuery.of(context).devicePixelRatio),
+                            SizedBox(width: 4),
                             Flexible(
                               child: Text(
                                 freizeit.preis,
@@ -163,25 +142,15 @@ Widget FreizeitCard(
                           ],
                         ),
                       ]),
-                      TableRow(children: [
-                        SizedBox(
-                            height:
-                                12 / MediaQuery.of(context).devicePixelRatio),
-                        SizedBox(
-                            height:
-                                12 / MediaQuery.of(context).devicePixelRatio)
-                      ]),
+                      TableRow(
+                          children: [SizedBox(height: 4), SizedBox(height: 4)]),
                       TableRow(children: <Widget>[
                         Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: <Widget>[
-                            SizedBox(
-                                width: 36 /
-                                    MediaQuery.of(context).devicePixelRatio),
+                            SizedBox(width: 12),
                             Icon(MdiIcons.mapMarker),
-                            SizedBox(
-                                width: 12 /
-                                    MediaQuery.of(context).devicePixelRatio),
+                            SizedBox(width: 4),
                             Flexible(
                               child: Text(
                                 freizeit.ort.Anschrift,
@@ -197,13 +166,9 @@ Widget FreizeitCard(
                         Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: <Widget>[
-                            SizedBox(
-                                width: 180 /
-                                    MediaQuery.of(context).devicePixelRatio),
+                            SizedBox(width: 60),
                             Icon(MdiIcons.cakeVariant),
-                            SizedBox(
-                                width: 12 /
-                                    MediaQuery.of(context).devicePixelRatio),
+                            SizedBox(width: 4),
                             Flexible(
                               child: Text(
                                 freizeit.alter,

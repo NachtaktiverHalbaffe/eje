@@ -40,9 +40,7 @@ class DetailsPage extends StatelessWidget {
             children: <Widget>[
               Container(
                 width: MediaQuery.of(context).size.width,
-                height: pixtureHeight == 0
-                    ? 900 / MediaQuery.of(context).devicePixelRatio
-                    : 1200 / MediaQuery.of(context).devicePixelRatio,
+                height: pixtureHeight == 0 ? 300 : pixtureHeight,
                 child: PageView.builder(
                   physics: ScrollPhysics(
                     parent: BouncingScrollPhysics(),
@@ -93,8 +91,8 @@ class DetailsPage extends StatelessWidget {
                     }
                   }()),
               Positioned(
-                left: 48.0 / MediaQuery.of(context).devicePixelRatio,
-                top: 48.0 / MediaQuery.of(context).devicePixelRatio,
+                left: 16,
+                top: 16,
                 child: InkWell(
                   onTap: () {
                     Navigator.pop(context);
@@ -103,7 +101,7 @@ class DetailsPage extends StatelessWidget {
                     Icon(
                       Icons.arrow_back,
                       color: Colors.white,
-                      size: 72 / MediaQuery.of(context).devicePixelRatio,
+                      size: 24,
                     ),
                     showShadow: true,
                     shadowColor: Colors.black,
@@ -116,7 +114,7 @@ class DetailsPage extends StatelessWidget {
                   Row(
                     children: <Widget>[
                       SizedBox(
-                        width: 36 / MediaQuery.of(context).devicePixelRatio,
+                        width: 12,
                       ),
                       Flexible(
                         child: Text(
@@ -131,23 +129,13 @@ class DetailsPage extends StatelessWidget {
                             color: Theme.of(context).accentColor,
                             shadows: <Shadow>[
                               Shadow(
-                                offset: Offset(
-                                    6 / MediaQuery.of(context).devicePixelRatio,
-                                    6 /
-                                        MediaQuery.of(context)
-                                            .devicePixelRatio),
-                                blurRadius: 18 /
-                                    MediaQuery.of(context).devicePixelRatio,
+                                offset: Offset(2, 2),
+                                blurRadius: 16,
                                 color: Colors.black,
                               ),
                               Shadow(
-                                offset: Offset(
-                                    6 / MediaQuery.of(context).devicePixelRatio,
-                                    6 /
-                                        MediaQuery.of(context)
-                                            .devicePixelRatio),
-                                blurRadius: 18 /
-                                    MediaQuery.of(context).devicePixelRatio,
+                                offset: Offset(2, 2),
+                                blurRadius: 6,
                                 color: Colors.black,
                               ),
                             ],
@@ -158,11 +146,7 @@ class DetailsPage extends StatelessWidget {
                   ),
                   untertitel != ""
                       ? Container(
-                          padding: EdgeInsets.only(
-                              left:
-                                  36 / MediaQuery.of(context).devicePixelRatio,
-                              top:
-                                  24 / MediaQuery.of(context).devicePixelRatio),
+                          padding: EdgeInsets.only(left: 12, top: 8),
                           child: Text(
                             untertitel,
                             textAlign: TextAlign.justify,
@@ -172,49 +156,34 @@ class DetailsPage extends StatelessWidget {
                               color: Colors.white,
                               shadows: <Shadow>[
                                 Shadow(
-                                  offset: Offset(
-                                      6 /
-                                          MediaQuery.of(context)
-                                              .devicePixelRatio,
-                                      6 /
-                                          MediaQuery.of(context)
-                                              .devicePixelRatio),
-                                  blurRadius: 18 /
-                                      MediaQuery.of(context).devicePixelRatio,
+                                  offset: Offset(2, 2),
+                                  blurRadius: 6,
                                   color: Colors.black,
                                 ),
                                 Shadow(
-                                  offset: Offset(
-                                      6 /
-                                          MediaQuery.of(context)
-                                              .devicePixelRatio,
-                                      6 /
-                                          MediaQuery.of(context)
-                                              .devicePixelRatio),
-                                  blurRadius: 18 /
-                                      MediaQuery.of(context).devicePixelRatio,
+                                  offset: Offset(2, 2),
+                                  blurRadius: 6,
                                   color: Colors.black,
                                 ),
                               ],
                             ),
                           ),
                         )
-                      : SizedBox(
-                          height: 6 / MediaQuery.of(context).devicePixelRatio),
+                      : SizedBox(height: 2),
                   SizedBox(
-                    height: 36 / MediaQuery.of(context).devicePixelRatio,
+                    height: 12,
                   )
                 ],
               ),
             ],
           ),
-          SizedBox(height: 24 / MediaQuery.of(context).devicePixelRatio),
+          SizedBox(height: 8),
           text != null
               ? Container(
                   padding: EdgeInsets.only(
-                    left: 42 / MediaQuery.of(context).devicePixelRatio,
-                    top: 42 / MediaQuery.of(context).devicePixelRatio,
-                    right: 42 / MediaQuery.of(context).devicePixelRatio,
+                    left: 14,
+                    top: 14,
+                    right: 14,
                   ),
                   child: Text(
                     text,
@@ -224,15 +193,15 @@ class DetailsPage extends StatelessWidget {
                     ),
                   ),
                 )
-              : SizedBox(height: 24 / MediaQuery.of(context).devicePixelRatio),
+              : SizedBox(height: 8),
           childWidget,
           hyperlinks[0].link != ""
               ? HyperlinkSection(
                   hyperlinks: hyperlinks,
                   isCacheEnabled: isCacheEnabled,
                   context: context)
-              : SizedBox(height: 24 / MediaQuery.of(context).devicePixelRatio),
-          SizedBox(height: 48 / MediaQuery.of(context).devicePixelRatio)
+              : SizedBox(height: 8),
+          SizedBox(height: 16)
         ],
       ),
     );

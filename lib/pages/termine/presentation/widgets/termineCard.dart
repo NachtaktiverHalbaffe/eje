@@ -43,12 +43,12 @@ class TerminCard extends StatelessWidget {
               children: [
                 Container(
                   width: MediaQuery.of(context).size.width,
-                  height: 825 / MediaQuery.of(context).devicePixelRatio,
+                  height: 275,
                   color: Theme.of(context).cardColor,
                 ),
                 Container(
                   width: MediaQuery.of(context).size.width,
-                  height: 825 / MediaQuery.of(context).devicePixelRatio,
+                  height: 275,
                   decoration: BoxDecoration(
                     image: DecorationImage(
                       fit: BoxFit.cover,
@@ -62,19 +62,17 @@ class TerminCard extends StatelessWidget {
               children: [
                 Container(
                   width: MediaQuery.of(context).size.width,
-                  height: 825 / MediaQuery.of(context).devicePixelRatio,
+                  height: 275,
                   color: Theme.of(context).cardColor,
                 ),
                 Column(
                   children: [
                     SizedBox(
-                      height: 36 / MediaQuery.of(context).devicePixelRatio,
+                      height: 12,
                     ),
                     Row(
                       children: [
-                        SizedBox(
-                            width:
-                                48 / MediaQuery.of(context).devicePixelRatio),
+                        SizedBox(width: 16),
                         Flexible(
                           child: Text(
                             termin.veranstaltung,
@@ -93,16 +91,14 @@ class TerminCard extends StatelessWidget {
                     ),
                     Row(
                       children: [
-                        SizedBox(
-                            width:
-                                48 / MediaQuery.of(context).devicePixelRatio),
+                        SizedBox(width: 16),
                         Flexible(
                           child: Text(
                             termin.motto,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
                               fontSize:
-                                  56 / MediaQuery.of(context).devicePixelRatio,
+                                  54 / MediaQuery.of(context).devicePixelRatio,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -110,11 +106,11 @@ class TerminCard extends StatelessWidget {
                       ],
                     ),
                     SizedBox(
-                      height: 36 / MediaQuery.of(context).devicePixelRatio,
+                      height: 12,
                     ),
                     Divider(),
                     SizedBox(
-                      height: 12 / MediaQuery.of(context).devicePixelRatio,
+                      height: 4,
                     ),
                     ListTile(
                       leading: Icon(MdiIcons.calendar),
@@ -135,11 +131,11 @@ class TerminCard extends StatelessWidget {
                             termin.ort.PLZ,
                         style: TextStyle(
                             fontSize:
-                                44 / MediaQuery.of(context).devicePixelRatio),
+                                45 / MediaQuery.of(context).devicePixelRatio),
                       ),
                     ),
                     SizedBox(
-                      height: 18 / MediaQuery.of(context).devicePixelRatio,
+                      height: 6,
                     ),
                     OutlineButton(
                       onPressed: () async {
@@ -147,8 +143,7 @@ class TerminCard extends StatelessWidget {
                       },
                       child: Text("Veranstaltung merken"),
                       shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(
-                              36 / MediaQuery.of(context).devicePixelRatio)),
+                          borderRadius: BorderRadius.circular(12)),
                     ),
                   ],
                 )

@@ -67,7 +67,7 @@ Widget HauptamtlicheDetailsCard(
       text: bakler.vorstellung,
       bild_url: bilder,
       hyperlinks: [Hyperlink(link: "", description: "")],
-      pixtureHeight: 1200,
+      pixtureHeight: 400,
       childWidget: _childBak(bakler, context));
 }
 
@@ -75,11 +75,14 @@ Widget _childBak(BAKler bakler, BuildContext context) {
   return Column(
     children: [
       Divider(),
+      SizedBox(
+        height: 12,
+      ),
       ListTile(
         leading: Image(
           image: ExactAssetImage("assets/images/icons8_threema_48.png"),
-          width: 72 / MediaQuery.of(context).devicePixelRatio,
-          height: 72 / MediaQuery.of(context).devicePixelRatio,
+          width: 24,
+          height: 24,
           color: Theme.of(context).dividerColor,
         ),
         title: Text(
@@ -109,7 +112,7 @@ Widget _childBak(BAKler bakler, BuildContext context) {
         ),
       ),
       SizedBox(
-        height: 36 / MediaQuery.of(context).devicePixelRatio,
+        height: 12,
       )
     ],
   );

@@ -36,7 +36,7 @@ class eje extends StatelessWidget {
             SizedBox(height: 62 / MediaQuery.of(context).devicePixelRatio),
           ],
         ),
-        onRefresh: () {
+        onRefresh: () async {
           BlocProvider.of<ArbeitsbereicheBloc>(context)
               .add(RefreshArbeitsbereiche());
           BlocProvider.of<HauptamtlicheBloc>(context)

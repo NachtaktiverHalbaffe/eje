@@ -59,14 +59,14 @@ Widget FreizeitenPageViewer(
               return FreizeitCard(freizeiten[index], context, isCacheEnabled);
             },
             itemCount: freizeiten.length,
-            itemHeight: 1050 / MediaQuery.of(context).devicePixelRatio,
-            itemWidth: 975 / MediaQuery.of(context).devicePixelRatio,
+            itemHeight: 350,
+            itemWidth: 325,
             layout: SwiperLayout.STACK,
             loop: true,
           )
         ],
       ),
-      onRefresh: () {
+      onRefresh: () async {
         BlocProvider.of<FreizeitenBloc>(context).add(RefreshFreizeiten());
       });
 }

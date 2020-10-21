@@ -15,8 +15,8 @@ Widget HauptamtlichePageViewer(List<Hauptamtlicher> hauptamtliche,
       return KontaktCard(hauptamtliche[index], context, isCacheEnabled);
     },
     itemCount: hauptamtliche.length,
-    itemHeight: 600 / MediaQuery.of(context).devicePixelRatio,
-    itemWidth: 450 / MediaQuery.of(context).devicePixelRatio,
+    itemHeight: 200,
+    itemWidth: 150,
     layout: SwiperLayout.STACK,
     loop: true,
   );
@@ -26,8 +26,7 @@ Widget KontaktCard(
     Hauptamtlicher hauptamtlicher, BuildContext context, bool isCacheEnabled) {
   return Container(
     child: ClipRRect(
-      borderRadius: new BorderRadius.all(
-          Radius.circular(36 / MediaQuery.of(context).devicePixelRatio)),
+      borderRadius: new BorderRadius.all(Radius.circular(12)),
       child: Stack(
         alignment: Alignment.bottomCenter,
         children: <Widget>[
@@ -54,7 +53,7 @@ Widget KontaktCard(
             mainAxisSize: MainAxisSize.max,
             children: <Widget>[
               SizedBox(
-                height: 460 / MediaQuery.of(context).devicePixelRatio,
+                height: 160,
               ),
               Text(
                 hauptamtlicher.name,
@@ -66,17 +65,13 @@ Widget KontaktCard(
                   fontWeight: FontWeight.bold,
                   shadows: <Shadow>[
                     Shadow(
-                      offset: Offset(
-                          6 / MediaQuery.of(context).devicePixelRatio,
-                          6 / MediaQuery.of(context).devicePixelRatio),
-                      blurRadius: 18 / MediaQuery.of(context).devicePixelRatio,
+                      offset: Offset(2, 2),
+                      blurRadius: 6,
                       color: Colors.black,
                     ),
                     Shadow(
-                      offset: Offset(
-                          6 / MediaQuery.of(context).devicePixelRatio,
-                          6 / MediaQuery.of(context).devicePixelRatio),
-                      blurRadius: 18 / MediaQuery.of(context).devicePixelRatio,
+                      offset: Offset(2, 2),
+                      blurRadius: 6,
                       color: Colors.black,
                     ),
                   ],

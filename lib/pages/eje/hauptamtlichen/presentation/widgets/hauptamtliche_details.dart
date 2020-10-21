@@ -68,7 +68,7 @@ Widget HauptamtlicheDetailsCard(
       titel: hauptamtlicher.name,
       untertitel: hauptamtlicher.bereich,
       bild_url: bilder,
-      pixtureHeight: 1200,
+      pixtureHeight: 400,
       text: hauptamtlicher.vorstellung,
       hyperlinks: [Hyperlink(link: "", description: "")],
       childWidget: _childHauptamtlicheDetails(hauptamtlicher, context));
@@ -78,12 +78,15 @@ Widget _childHauptamtlicheDetails(
     Hauptamtlicher hauptamtlicher, BuildContext context) {
   return Column(
     children: [
+      SizedBox(
+        height: 12,
+      ),
       Divider(),
       ListTile(
         leading: Image(
           image: ExactAssetImage("assets/images/icons8_threema_48.png"),
-          width: 72 / MediaQuery.of(context).devicePixelRatio,
-          height: 72 / MediaQuery.of(context).devicePixelRatio,
+          width: 24,
+          height: 24,
           color: Theme.of(context).dividerColor,
         ),
         title: Text(
@@ -95,7 +98,7 @@ Widget _childHauptamtlicheDetails(
       ListTile(
         leading: Icon(
           MdiIcons.email,
-          size: 72 / MediaQuery.of(context).devicePixelRatio,
+          size: 24,
         ),
         title: Text(
           hauptamtlicher.email,
@@ -117,7 +120,7 @@ Widget _childHauptamtlicheDetails(
       ListTile(
         leading: Icon(
           MdiIcons.phone,
-          size: 72 / MediaQuery.of(context).devicePixelRatio,
+          size: 24,
         ),
         title: Text(
           hauptamtlicher.telefon,
@@ -139,7 +142,7 @@ Widget _childHauptamtlicheDetails(
       ListTile(
           leading: Icon(
             MdiIcons.cellphone,
-            size: 72 / MediaQuery.of(context).devicePixelRatio,
+            size: 24,
           ),
           title: Text(
             hauptamtlicher.handy,
@@ -158,7 +161,7 @@ Widget _childHauptamtlicheDetails(
             },
           )),
       SizedBox(
-        height: 42 / MediaQuery.of(context).devicePixelRatio,
+        height: 14,
       )
     ],
   );

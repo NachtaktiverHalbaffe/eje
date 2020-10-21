@@ -83,11 +83,12 @@ Widget _terminChildWidget(
     Termin _termin, BuildContext context, SharedPreferences prefs) {
   return Column(
     children: [
+      SizedBox(height: 12),
       Divider(),
       ListTile(
         leading: Icon(
           Icons.today,
-          size: 72 / MediaQuery.of(context).devicePixelRatio,
+          size: 24,
         ),
         title: Text(
           _termin.datum,
@@ -98,7 +99,7 @@ Widget _terminChildWidget(
       ListTile(
         leading: Icon(
           MdiIcons.mapMarker,
-          size: 72 / MediaQuery.of(context).devicePixelRatio,
+          size: 24,
         ),
         title: Text(
           _termin.ort.Anschrift +
@@ -112,22 +113,21 @@ Widget _terminChildWidget(
         dense: true,
       ),
       SizedBox(
-        height: 36 / MediaQuery.of(context).devicePixelRatio,
+        height: 12,
       ),
       Container(
-        margin: EdgeInsets.all(24 / MediaQuery.of(context).devicePixelRatio),
+        margin: EdgeInsets.all(8),
         child: OutlineButton(
           onPressed: () async {
             _setNotification(_termin, prefs);
           },
           child: Text("Veranstaltung merken"),
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(
-                  36 / MediaQuery.of(context).devicePixelRatio)),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         ),
       ),
       SizedBox(
-        height: 36 / MediaQuery.of(context).devicePixelRatio,
+        height: 12,
       ),
     ],
   );

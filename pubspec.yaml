@@ -56,7 +56,7 @@ dependencies:
   # Cached Networkimage
   cached_network_image: ^2.3.3
   # Local Push-Notification
-  flutter_local_notifications: ^2.0.1
+  flutter_local_notifications: ^3.0.0
   # Background services
   #workmanager: ^0.2.3
 

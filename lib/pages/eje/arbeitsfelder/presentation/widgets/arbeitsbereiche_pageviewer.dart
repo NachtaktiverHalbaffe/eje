@@ -15,8 +15,8 @@ Widget ArbeitsbereichePageViewer(List<Arbeitsbereich> arbeitsbereiche,
       return KontaktCard(arbeitsbereiche[index], context, isCacheEnabled);
     },
     itemCount: arbeitsbereiche.length,
-    itemHeight: 600 / MediaQuery.of(context).devicePixelRatio,
-    itemWidth: 600 / MediaQuery.of(context).devicePixelRatio,
+    itemHeight: 200,
+    itemWidth: 200,
     layout: SwiperLayout.STACK,
     loop: true,
   );
@@ -26,8 +26,7 @@ Widget KontaktCard(
     Arbeitsbereich arbeitsbereich, BuildContext context, bool isCacheEnabled) {
   return Container(
     child: ClipRRect(
-      borderRadius: new BorderRadius.all(
-          Radius.circular(36 / MediaQuery.of(context).devicePixelRatio)),
+      borderRadius: new BorderRadius.all(Radius.circular(12)),
       child: Stack(
         alignment: Alignment.bottomCenter,
         children: <Widget>[
@@ -57,7 +56,7 @@ Widget KontaktCard(
             mainAxisSize: MainAxisSize.max,
             children: <Widget>[
               SizedBox(
-                height: 495 / MediaQuery.of(context).devicePixelRatio,
+                height: 165,
               ),
               Text(
                 arbeitsbereich.arbeitsfeld,
@@ -69,17 +68,13 @@ Widget KontaktCard(
                   fontWeight: FontWeight.bold,
                   shadows: <Shadow>[
                     Shadow(
-                      offset: Offset(
-                          6 / MediaQuery.of(context).devicePixelRatio,
-                          6 / MediaQuery.of(context).devicePixelRatio),
-                      blurRadius: 18 / MediaQuery.of(context).devicePixelRatio,
+                      offset: Offset(2, 2),
+                      blurRadius: 6,
                       color: Colors.black,
                     ),
                     Shadow(
-                      offset: Offset(
-                          6 / MediaQuery.of(context).devicePixelRatio,
-                          6 / MediaQuery.of(context).devicePixelRatio),
-                      blurRadius: 18 / MediaQuery.of(context).devicePixelRatio,
+                      offset: Offset(2, 2),
+                      blurRadius: 6,
                       color: Colors.black,
                     ),
                   ],

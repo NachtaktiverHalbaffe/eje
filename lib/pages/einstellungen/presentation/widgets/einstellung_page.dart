@@ -23,6 +23,9 @@ Widget EinstellungenPage(BuildContext context, SharedPreferences prefs) {
         },
         title: Text(
           "Erscheinungsbild automatisch wählen",
+          style: TextStyle(
+            fontSize: 48 / MediaQuery.of(context).devicePixelRatio,
+          ),
         ),
         key: Key("nightmode_auto"),
       ),
@@ -37,6 +40,9 @@ Widget EinstellungenPage(BuildContext context, SharedPreferences prefs) {
         },
         title: Text(
           "Helles Erscheinungsbild",
+          style: TextStyle(
+            fontSize: 48 / MediaQuery.of(context).devicePixelRatio,
+          ),
         ),
         key: Key("nightmode_off"),
       ),
@@ -51,6 +57,9 @@ Widget EinstellungenPage(BuildContext context, SharedPreferences prefs) {
         },
         title: Text(
           "Dunkles Erscheinungsbild",
+          style: TextStyle(
+            fontSize: 48 / MediaQuery.of(context).devicePixelRatio,
+          ),
         ),
         key: Key("nightmode_on"),
       ),
@@ -65,6 +74,9 @@ Widget EinstellungenPage(BuildContext context, SharedPreferences prefs) {
         },
         title: Text(
           "Benachrichtigungen aktivieren",
+          style: TextStyle(
+            fontSize: 48 / MediaQuery.of(context).devicePixelRatio,
+          ),
         ),
         key: Key("notifitcations_on"),
       ),
@@ -77,6 +89,9 @@ Widget EinstellungenPage(BuildContext context, SharedPreferences prefs) {
         },
         title: Text(
           "Benachrichtigungen zu anstehenden Veranstaltungen erhalten",
+          style: TextStyle(
+            fontSize: 48 / MediaQuery.of(context).devicePixelRatio,
+          ),
         ),
         key: Key("notification_veranstaltungen"),
       ),
@@ -89,6 +104,9 @@ Widget EinstellungenPage(BuildContext context, SharedPreferences prefs) {
         },
         title: Text(
           "Benachrichtigungen erhalten, wenn neue Freizeitanmeldungen online sind",
+          style: TextStyle(
+            fontSize: 48 / MediaQuery.of(context).devicePixelRatio,
+          ),
         ),
         key: Key("notification_freizeiten"),
       ),
@@ -101,6 +119,9 @@ Widget EinstellungenPage(BuildContext context, SharedPreferences prefs) {
         },
         title: Text(
           "Benachrichtigungen erhalten, wenn es Neuigkeiten gibt",
+          style: TextStyle(
+            fontSize: 48 / MediaQuery.of(context).devicePixelRatio,
+          ),
         ),
         key: Key("notification_neuigkeiten"),
       ),
@@ -115,6 +136,9 @@ Widget EinstellungenPage(BuildContext context, SharedPreferences prefs) {
         },
         title: Text(
           "Inhalte nur über Wifi aktualisieren",
+          style: TextStyle(
+            fontSize: 48 / MediaQuery.of(context).devicePixelRatio,
+          ),
         ),
         key: Key("only_wifi"),
       ),
@@ -127,6 +151,9 @@ Widget EinstellungenPage(BuildContext context, SharedPreferences prefs) {
         },
         title: Text(
           "Heruntergeladene Bilder auf Gerät zwischenspeichern (reduziert Datenvolumen)",
+          style: TextStyle(
+            fontSize: 48 / MediaQuery.of(context).devicePixelRatio,
+          ),
         ),
         key: Key("cache_pictures"),
       ),
@@ -134,10 +161,10 @@ Widget EinstellungenPage(BuildContext context, SharedPreferences prefs) {
       SettingGroupTitle("Über", context),
       Container(
         margin: EdgeInsets.only(
-          left: 75 / MediaQuery.of(context).devicePixelRatio,
-          right: 75 / MediaQuery.of(context).devicePixelRatio,
-          bottom: 72 / MediaQuery.of(context).devicePixelRatio,
-          top: 30 / MediaQuery.of(context).devicePixelRatio,
+          left: 25,
+          right: 25,
+          bottom: 24,
+          top: 10,
         ),
         child: OutlineButton(
           onPressed: () {
@@ -172,6 +199,10 @@ Widget EinstellungenPage(BuildContext context, SharedPreferences prefs) {
                       },
                       child: Text(
                         "Datenschutz",
+                        style: TextStyle(
+                          fontSize:
+                              48 / MediaQuery.of(context).devicePixelRatio,
+                        ),
                       ),
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(
@@ -207,7 +238,7 @@ Widget SettingGroupTitle(String title, BuildContext context) {
       textAlign: TextAlign.left,
       style: TextStyle(
         color: Theme.of(context).accentColor,
-        fontSize: 16,
+        fontSize: 54 / MediaQuery.of(context).devicePixelRatio,
       ),
     ),
   );
