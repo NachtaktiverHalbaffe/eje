@@ -77,7 +77,7 @@ class _NeuigkeitenCardState extends State<NeuigkeitenCard> {
                           height: MediaQuery.of(context).size.height,
                           decoration: BoxDecoration(
                             image: DecorationImage(
-                              fit: BoxFit.fitWidth,
+                              fit: BoxFit.cover,
                               image: PrefImage(bild, widget.isCacheEnabled),
                             ),
                           ),
@@ -160,7 +160,7 @@ class _NeuigkeitenCardState extends State<NeuigkeitenCard> {
                           Container(
                             padding: EdgeInsets.only(left: 12, right: 12),
                             width: MediaQuery.of(context).size.width,
-                            height: 140,
+                            height: 130,
                             child: SingleChildScrollView(
                               child: Text(
                                 widget._neuigkeit.text_preview.toString(),
