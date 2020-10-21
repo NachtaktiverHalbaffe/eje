@@ -40,7 +40,7 @@ class Neuigkeiten extends StatelessWidget {
             return NeuigkeitenListView(
                 state.neuigkeit.toList(), isCacheEnabled);
           } else
-            return LoadingIndicator();
+            return Center();
         },
       ),
     );
