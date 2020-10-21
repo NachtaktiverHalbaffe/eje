@@ -56,8 +56,9 @@ dependencies:
   # Cached Networkimage
   cached_network_image: ^2.3.3
   # Local Push-Notification
-  rxdart: ^0.24.1
   flutter_local_notifications: ^2.0.1
+  # Background services
+  #workmanager: ^0.2.3
 
 
 dev_dependencies:

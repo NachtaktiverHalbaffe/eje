@@ -17,9 +17,12 @@ class GetNeuigkeit implements UseCase<List<Article>> {
     @required String titel,
   }) async {
     Box _box = await Hive.openBox('Neuigkeiten');
+    Box _box2 = await Hive.openBox('Articles');
     final result = await repository.getNeuigkeit(titel);
     await _box.compact();
     await _box.close();
+    await _box2.compact();
+    await _box2.close();
     return result;
   }
 }

@@ -30,7 +30,7 @@ class NeuigkeitenRepositoryImpl implements NeuigkeitenRepository {
   Future<Either<Failure, List<Article>>> getNeuigkeit(String titel) async {
     List<Article> article = List();
     //open database
-    Box _box = await Hive.box('Articles');
+    Box _box = Hive.box('Articles');
     try {
       bool isInCache = false;
       String url = "";

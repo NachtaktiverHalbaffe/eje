@@ -92,9 +92,7 @@ Future<void> init() async {
   );
   // * Datasources
   sl.registerLazySingleton(
-    () => NeuigkeitenRemoteDatasource(
-      client: sl(),
-    ),
+    () => NeuigkeitenRemoteDatasource(),
   );
   sl.registerLazySingleton(() => NeuigkeitenLocalDatasource());
 

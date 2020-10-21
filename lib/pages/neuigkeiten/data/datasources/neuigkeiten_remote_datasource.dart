@@ -6,14 +6,11 @@ import 'package:meta/meta.dart';
 import 'package:webfeed/domain/rss_feed.dart';
 
 class NeuigkeitenRemoteDatasource {
-  final http.Client client;
   final String apiUrl = "https://www.eje-esslingen.de/meta/rss/";
-
-  NeuigkeitenRemoteDatasource({@required this.client});
 
   Future<List<Neuigkeit>> getNeuigkeiten() async {
     List<Neuigkeit> temp = new List<Neuigkeit>();
-    final response = await client.get(apiUrl);
+    final response = await http.get(apiUrl);
     String bodyString = response.body;
     var channel = new RssFeed.parse(bodyString);
     var items = channel.items.toList();
