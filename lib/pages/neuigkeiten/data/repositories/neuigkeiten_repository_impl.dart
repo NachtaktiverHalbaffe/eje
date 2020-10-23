@@ -12,6 +12,7 @@ import 'package:eje/pages/neuigkeiten/data/datasources/neuigkeiten_local_datasou
 import 'package:eje/pages/neuigkeiten/data/datasources/neuigkeiten_remote_datasource.dart';
 import 'package:eje/pages/neuigkeiten/domain/entitys/neuigkeit.dart';
 import 'package:eje/pages/neuigkeiten/domain/repositories/neuigkeiten_repository.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class NeuigkeitenRepositoryImpl implements NeuigkeitenRepository {
   final NeuigkeitenRemoteDatasource remoteDataSource;
@@ -64,12 +65,17 @@ class NeuigkeitenRepositoryImpl implements NeuigkeitenRepository {
   //Lade Artikel aus den Internet herunter
   @override
   Future<Either<Failure, List<Neuigkeit>>> getNeuigkeiten() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
     //open database
     if (await networkInfo.isConnected) {
       try {
         final remoteNeuigkeiten = await remoteDataSource.getNeuigkeiten();
         print("Got Neuigkeiten from Internet");
+        //cache articles from article into local storage
         localDatasource.cacheNeuigkeiten(remoteNeuigkeiten);
+        //Storing length of items for notification background service
+        prefs.setInt("neuigkeiten_length",
+            localDatasource.getCachedNeuigkeiten().length);
         return Right(localDatasource.getCachedNeuigkeiten());
       } on ServerException {
         print("Neuigkeiten: Serverexception");

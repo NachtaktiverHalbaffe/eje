@@ -8,6 +8,7 @@ import 'package:eje/pages/freizeiten/domain/entities/Freizeit.dart';
 import 'package:eje/pages/freizeiten/domain/entities/errorFreizeit.dart';
 import 'package:eje/pages/freizeiten/domain/repositories/freizeit_repository.dart';
 import 'package:meta/meta.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class FreizeitenRepositoryImpl implements FreizeitRepository {
   final FreizeitenRemoteDatasource remoteDataSource;
@@ -24,6 +25,7 @@ class FreizeitenRepositoryImpl implements FreizeitRepository {
   //Lade Freizeiten aus den Internet herunter
   @override
   Future<Either<Failure, List<Freizeit>>> getFreizeiten() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
     /*if (await networkInfo.isConnected) {
       try {
         final remoteFreizeiten= await remoteDataSource.getFreizeiten();
@@ -33,6 +35,8 @@ class FreizeitenRepositoryImpl implements FreizeitRepository {
         return Right([getErrorFreizeit()]);;
       }
     } else */
+    prefs.setInt(
+        "freizeiten_length", localDatasource.getCachedFreizeiten().length);
     return Right(localDatasource.getCachedFreizeiten());
   }
 

@@ -1,3 +1,4 @@
+import 'package:android_alarm_manager/android_alarm_manager.dart';
 import 'package:eje/core/platform/Reminder.dart';
 import 'package:eje/core/utils/notificationplugin.dart';
 import 'package:eje/pages/articles/domain/entity/Article.dart';
@@ -16,7 +17,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'injection_container.dart' as di;
 
-Future<void> prefStartup() async {
+Future<void> startup() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   if (prefs.getBool("First_Startup") == null) {
     print("First startup. Setting default Preferences");
@@ -30,6 +31,8 @@ Future<void> prefStartup() async {
     prefs.setBool("notifications_veranstaltungen", true);
     prefs.setBool("only_wifi", false);
     prefs.setBool("cache_pictures", true);
+    prefs.setInt("neuigkeiten_length", 0);
+    prefs.setInt("freizeiten_length", 0);
   }
   //Setting Hive up
   final appDocumentDirectory =
@@ -50,6 +53,10 @@ Future<void> prefStartup() async {
   //Local notifications
   notificationPlugin.setListenerForLowerVersions(onNotificationInLowerVersion);
   notificationPlugin.setOnNotificationClick(onNotificationClick);
+
+  //TODO Setting up background services for notifications
+  // Background Services
+  await AndroidAlarmManager.initialize();
 }
 
 onNotificationClick(String payload) {}

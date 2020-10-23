@@ -1,3 +1,4 @@
+import 'package:eje/core/utils/BackgroundServicesManager.dart';
 import 'package:eje/core/utils/notificationplugin.dart';
 import 'package:eje/core/widgets/bloc/main_bloc.dart';
 import 'package:eje/core/widgets/bloc/main_state.dart';
@@ -15,11 +16,11 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../pages/neuigkeiten/neuigkeiten.dart';
-import 'utils/first_startup.dart';
+import 'utils/startup.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await prefStartup();
+  await startup();
   //Getting data if app was launched from application
   int initialIndex = 0;
   final NotificationAppLaunchDetails notificationAppLaunchDetails =
@@ -29,6 +30,7 @@ void main() async {
     initialIndex = int.parse(notificationAppLaunchDetails.payload);
   }
   runApp(MyApp(await SharedPreferences.getInstance(), initialIndex));
+  await BackgroundServicesManager().connectBackgroundServices();
 }
 
 class MyApp extends StatelessWidget {
