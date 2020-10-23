@@ -14,7 +14,7 @@ import 'package:eje/pages/termine/domain/entities/Termin.dart';
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart' as path_provider;
 import 'package:shared_preferences/shared_preferences.dart';
-
+import 'dart:io' show Platform;
 import 'injection_container.dart' as di;
 
 Future<void> startup() async {
@@ -54,9 +54,10 @@ Future<void> startup() async {
   notificationPlugin.setListenerForLowerVersions(onNotificationInLowerVersion);
   notificationPlugin.setOnNotificationClick(onNotificationClick);
 
-  //TODO Setting up background services for notifications
   // Background Services
-  await AndroidAlarmManager.initialize();
+  if (Platform.isAndroid) {
+    await AndroidAlarmManager.initialize();
+  }
 }
 
 onNotificationClick(String payload) {}
