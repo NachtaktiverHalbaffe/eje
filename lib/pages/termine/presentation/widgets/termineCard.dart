@@ -24,132 +24,149 @@ class TerminCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ClipRRect(
-      borderRadius: new BorderRadius.all(
-          Radius.circular(54 / MediaQuery.of(context).devicePixelRatio)),
-      child: GestureDetector(
-        onTap: () => Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (_) => BlocProvider.value(
-              value: sl<TermineBloc>(),
-              child: TerminDetails(termin, isCacheEnabled, prefs),
+    return Container(
+      height: MediaQuery.of(context).size.height,
+      decoration: new BoxDecoration(
+        boxShadow: [
+          //background color of box
+          BoxShadow(
+            color: Colors.black,
+            blurRadius: 20.0, // soften the shadow
+            spreadRadius: 2.0, //extend the shadow
+            offset: Offset(
+              2, // Move to right 10  horizontally
+              2, // Move to bottom 10 Vertically
+            ),
+          )
+        ],
+      ),
+      child: ClipRRect(
+        borderRadius: new BorderRadius.all(
+            Radius.circular(54 / MediaQuery.of(context).devicePixelRatio)),
+        child: GestureDetector(
+          onTap: () => Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (_) => BlocProvider.value(
+                value: sl<TermineBloc>(),
+                child: TerminDetails(termin, isCacheEnabled, prefs),
+              ),
             ),
           ),
-        ),
-        child: Column(
-          children: [
-            Stack(
-              children: [
-                Container(
-                  width: MediaQuery.of(context).size.width,
-                  height: 275,
-                  color: Theme.of(context).cardColor,
-                ),
-                Container(
-                  width: MediaQuery.of(context).size.width,
-                  height: 275,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      fit: BoxFit.cover,
-                      image: ExactAssetImage(termin.bild),
+          child: Column(
+            children: [
+              Stack(
+                children: [
+                  Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: 275,
+                    color: Theme.of(context).cardColor,
+                  ),
+                  Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: 275,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        fit: BoxFit.cover,
+                        image: ExactAssetImage(termin.bild),
+                      ),
                     ),
                   ),
-                ),
-              ],
-            ),
-            Stack(
-              children: [
-                Container(
-                  width: MediaQuery.of(context).size.width,
-                  height: 275,
-                  color: Theme.of(context).cardColor,
-                ),
-                Column(
-                  children: [
-                    SizedBox(
-                      height: 12,
-                    ),
-                    Row(
-                      children: [
-                        SizedBox(width: 16),
-                        Flexible(
-                          child: Text(
-                            termin.veranstaltung,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                                fontSize: 84 /
-                                    MediaQuery.of(context).devicePixelRatio,
-                                fontWeight: FontWeight.bold,
-                                color: Theme.of(context).accentColor),
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 4,
-                    ),
-                    Row(
-                      children: [
-                        SizedBox(width: 16),
-                        Flexible(
-                          child: Text(
-                            termin.motto,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                              fontSize:
-                                  54 / MediaQuery.of(context).devicePixelRatio,
-                              fontWeight: FontWeight.bold,
+                ],
+              ),
+              Stack(
+                children: [
+                  Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: 275,
+                    color: Theme.of(context).cardColor,
+                  ),
+                  Column(
+                    children: [
+                      SizedBox(
+                        height: 12,
+                      ),
+                      Row(
+                        children: [
+                          SizedBox(width: 16),
+                          Flexible(
+                            child: Text(
+                              termin.veranstaltung,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                  fontSize: 84 /
+                                      MediaQuery.of(context).devicePixelRatio,
+                                  fontWeight: FontWeight.bold,
+                                  color: Theme.of(context).accentColor),
                             ),
                           ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 4,
+                      ),
+                      Row(
+                        children: [
+                          SizedBox(width: 16),
+                          Flexible(
+                            child: Text(
+                              termin.motto,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                fontSize: 54 /
+                                    MediaQuery.of(context).devicePixelRatio,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 12,
+                      ),
+                      Divider(),
+                      SizedBox(
+                        height: 4,
+                      ),
+                      ListTile(
+                        leading: Icon(MdiIcons.calendar),
+                        title: Text(
+                          termin.datum,
+                          style: TextStyle(
+                              fontSize:
+                                  48 / MediaQuery.of(context).devicePixelRatio),
                         ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 12,
-                    ),
-                    Divider(),
-                    SizedBox(
-                      height: 4,
-                    ),
-                    ListTile(
-                      leading: Icon(MdiIcons.calendar),
-                      title: Text(
-                        termin.datum,
-                        style: TextStyle(
-                            fontSize:
-                                48 / MediaQuery.of(context).devicePixelRatio),
                       ),
-                    ),
-                    ListTile(
-                      leading: Icon(MdiIcons.mapMarker),
-                      title: Text(
-                        termin.ort.Anschrift +
-                            "\n" +
-                            termin.ort.Strasse +
-                            "\n" +
-                            termin.ort.PLZ,
-                        style: TextStyle(
-                            fontSize:
-                                45 / MediaQuery.of(context).devicePixelRatio),
+                      ListTile(
+                        leading: Icon(MdiIcons.mapMarker),
+                        title: Text(
+                          termin.ort.Anschrift +
+                              "\n" +
+                              termin.ort.Strasse +
+                              "\n" +
+                              termin.ort.PLZ,
+                          style: TextStyle(
+                              fontSize:
+                                  45 / MediaQuery.of(context).devicePixelRatio),
+                        ),
                       ),
-                    ),
-                    SizedBox(
-                      height: 6,
-                    ),
-                    OutlineButton(
-                      onPressed: () async {
-                        await _setNotification();
-                      },
-                      child: Text("Veranstaltung merken"),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12)),
-                    ),
-                  ],
-                )
-              ],
-            ),
-          ],
+                      SizedBox(
+                        height: 6,
+                      ),
+                      OutlineButton(
+                        onPressed: () async {
+                          await _setNotification();
+                        },
+                        child: Text("Veranstaltung merken"),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12)),
+                      ),
+                    ],
+                  )
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );

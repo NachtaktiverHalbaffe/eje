@@ -8,7 +8,6 @@ import 'domain/entities/Service.dart';
 import 'presentation/bloc/services_bloc.dart';
 
 Widget Services(BuildContext context, bool isCacheEnabled) {
-  List<Service> services;
   return Column(
     children: <Widget>[
       Row(
@@ -21,7 +20,7 @@ Widget Services(BuildContext context, bool isCacheEnabled) {
             textAlign: TextAlign.left,
             style: TextStyle(
               fontWeight: FontWeight.bold,
-              fontSize: 28,
+              fontSize: 84 / MediaQuery.of(context).devicePixelRatio,
             ),
           ),
         ],

@@ -14,7 +14,7 @@ Widget Hauptamtliche(BuildContext context, bool isCacheEnabled) {
       Row(
         children: <Widget>[
           SizedBox(
-            width: 72 / MediaQuery.of(context).devicePixelRatio,
+            width: 24,
           ),
           Text(
             "Hauptamtliche",
@@ -27,7 +27,7 @@ Widget Hauptamtliche(BuildContext context, bool isCacheEnabled) {
         ],
       ),
       SizedBox(
-        height: 36 / MediaQuery.of(context).devicePixelRatio,
+        height: 12,
       ),
       BlocProvider(
         create: (_) => sl<HauptamtlicheBloc>(),
@@ -61,7 +61,7 @@ Widget Hauptamtliche(BuildContext context, bool isCacheEnabled) {
         ),
       ),
       SizedBox(
-        height: 36 / MediaQuery.of(context).devicePixelRatio,
+        height: 12,
       ),
     ],
   );

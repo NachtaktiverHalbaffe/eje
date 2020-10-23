@@ -13,7 +13,7 @@ Widget BAK(BuildContext context, bool isCacheEnabled) {
       Row(
         children: <Widget>[
           SizedBox(
-            width: 72 / MediaQuery.of(context).devicePixelRatio,
+            width: 24,
           ),
           Text(
             "Vorstand \& BAK",
@@ -26,7 +26,7 @@ Widget BAK(BuildContext context, bool isCacheEnabled) {
         ],
       ),
       SizedBox(
-        height: 36 / MediaQuery.of(context).devicePixelRatio,
+        height: 12,
       ),
       BlocProvider(
         create: (_) => sl<BakBloc>(),
@@ -58,7 +58,7 @@ Widget BAK(BuildContext context, bool isCacheEnabled) {
         ),
       ),
       SizedBox(
-        height: 36 / MediaQuery.of(context).devicePixelRatio,
+        height: 12,
       ),
     ],
   );

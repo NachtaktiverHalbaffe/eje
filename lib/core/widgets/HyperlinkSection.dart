@@ -14,7 +14,7 @@ Widget HyperlinkSection(
       Row(
         children: [
           SizedBox(
-            width: 42 / MediaQuery.of(context).devicePixelRatio,
+            width: 14,
           ),
           Text(
             "Weiterführende Links",
@@ -27,7 +27,7 @@ Widget HyperlinkSection(
         ],
       ),
       SizedBox(
-        height: 36 / MediaQuery.of(context).devicePixelRatio,
+        height: 12,
       ),
       ColumnBuilder(
         itemBuilder: (context, index) {
@@ -69,11 +69,11 @@ Widget _column(Hyperlink hyperlink, BuildContext context, bool isCacheEnabled) {
         Row(
           children: [
             SizedBox(
-              width: 40 / MediaQuery.of(context).devicePixelRatio,
+              width: 14,
             ),
             Icon(MdiIcons.openInNew),
             SizedBox(
-              width: 12 / MediaQuery.of(context).devicePixelRatio,
+              width: 4,
             ),
             Flexible(
               child: Text(
@@ -88,7 +88,7 @@ Widget _column(Hyperlink hyperlink, BuildContext context, bool isCacheEnabled) {
           ],
         ),
         SizedBox(
-          height: 12 / MediaQuery.of(context).devicePixelRatio,
+          height: 4,
         ),
       ],
     ),

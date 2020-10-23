@@ -63,12 +63,11 @@ Widget TermineListView(List<Termin> termine, BuildContext context,
           onRefresh: () async {
             await BlocProvider.of<TermineBloc>(context).add(RefreshTermine());
           },
-          child: ListView(
-            children: [
-              SizedBox(
-                height: MediaQuery.of(context).size.height / 20,
-              ),
-              Swiper(
+          child: SingleChildScrollView(
+            child: Container(
+              constraints:
+                  BoxConstraints(minHeight: MediaQuery.of(context).size.height),
+              child: Swiper(
                 itemBuilder: (BuildContext context, int index) {
                   return TerminCard(termine[index], isCacheEnabled, prefs);
                 },
@@ -78,7 +77,7 @@ Widget TermineListView(List<Termin> termine, BuildContext context,
                 layout: SwiperLayout.STACK,
                 loop: true,
               ),
-            ],
+            ),
           ),
         ),
       ),

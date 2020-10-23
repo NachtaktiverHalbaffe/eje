@@ -12,10 +12,13 @@ Widget HauptamtlichePageViewer(List<Hauptamtlicher> hauptamtliche,
     BuildContext context, bool isCacheEnabled) {
   return Swiper(
     itemBuilder: (BuildContext context, int index) {
-      return KontaktCard(hauptamtliche[index], context, isCacheEnabled);
+      return Container(
+        child: KontaktCard(hauptamtliche[index], context, isCacheEnabled),
+        padding: EdgeInsets.only(top: 15, bottom: 15),
+      );
     },
     itemCount: hauptamtliche.length,
-    itemHeight: 200,
+    itemHeight: 230,
     itemWidth: 150,
     layout: SwiperLayout.STACK,
     loop: true,
@@ -25,6 +28,20 @@ Widget HauptamtlichePageViewer(List<Hauptamtlicher> hauptamtliche,
 Widget KontaktCard(
     Hauptamtlicher hauptamtlicher, BuildContext context, bool isCacheEnabled) {
   return Container(
+    decoration: new BoxDecoration(
+      boxShadow: [
+        //background color of box
+        BoxShadow(
+          color: Colors.black,
+          blurRadius: 10.0, // soften the shadow
+          spreadRadius: 1.0, //extend the shadow
+          offset: Offset(
+            1, // Move to right 10  horizontally
+            1, // Move to bottom 10 Vertically
+          ),
+        )
+      ],
+    ),
     child: ClipRRect(
       borderRadius: new BorderRadius.all(Radius.circular(12)),
       child: Stack(

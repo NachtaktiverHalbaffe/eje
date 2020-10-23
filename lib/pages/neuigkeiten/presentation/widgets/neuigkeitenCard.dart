@@ -32,169 +32,181 @@ class _NeuigkeitenCardState extends State<NeuigkeitenCard> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context).copyWith(dividerColor: Colors.transparent);
     return Container(
-      padding: EdgeInsets.only(
-        left: 12,
-        right: 12,
-        top: 12,
-      ),
-      child: ClipRRect(
-        borderRadius: new BorderRadius.all(Radius.circular(12)),
-        child: new Stack(
-          alignment: Alignment.bottomCenter,
-          children: <Widget>[
-            GestureDetector(
-              onTap: () => Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (_) => BlocProvider.value(
-                    value: sl<NeuigkeitenBlocBloc>(),
-                    child: neuigkeitenCardDetail(
-                        widget._neuigkeit.titel, widget.isCacheEnabled),
-                  ),
-                ),
+      padding: EdgeInsets.only(left: 12, top: 12, right: 12),
+      child: Container(
+        decoration: new BoxDecoration(
+          boxShadow: [
+            //background color of box
+            BoxShadow(
+              color: Colors.black,
+              blurRadius: 10.0, // soften the shadow
+              spreadRadius: 0.25, //extend the shadow
+              offset: Offset(
+                2, // Move to right 10  horizontally
+                2, // Move to bottom 10 Vertically
               ),
-              child: Container(
-                width: MediaQuery.of(context).size.width,
-                height: 200,
-                color: Theme.of(context).cardColor,
-                child: PageView.builder(
-                  physics: ScrollPhysics(
-                    parent: BouncingScrollPhysics(),
-                  ),
-                  onPageChanged: (int index) {
-                    _currentPageNotifier.value = index;
-                  },
-                  pageSnapping: true,
-                  controller: PageController(initialPage: 0),
-                  itemCount: widget._neuigkeit.bilder.length,
-                  itemBuilder: (context, position) {
-                    final bild = widget._neuigkeit.bilder[position];
-                    return Stack(
-                      alignment: Alignment.bottomCenter,
-                      children: <Widget>[
-                        Container(
-                          width: MediaQuery.of(context).size.width,
-                          height: MediaQuery.of(context).size.height,
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              fit: BoxFit.cover,
-                              image: PrefImage(bild, widget.isCacheEnabled),
-                            ),
-                          ),
-                        ),
-                      ],
-                    );
-                  },
-                ),
-              ),
-            ),
-            // ignore: missing_return
-            Container(child: () {
-              if (widget._neuigkeit.bilder.length != 1) {
-                return Container(
-                  padding: EdgeInsets.all(8),
-                  child: CirclePageIndicator(
-                    size: 5,
-                    selectedSize: 7.5,
-                    dotColor: Colors.white,
-                    selectedDotColor: Theme.of(context).accentColor,
-                    itemCount: widget._neuigkeit.bilder.length,
-                    currentPageNotifier: _currentPageNotifier,
-                  ),
-                );
-              }
-            }()),
-            Container(
-              alignment: Alignment.bottomCenter,
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.bottomCenter,
-                  end: Alignment.topCenter,
-                  colors: [
-                    Colors.black,
-                    Colors.black87,
-                  ],
-                ),
-              ),
-            ),
-            GestureDetector(
-              onTap: () => Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (_) => BlocProvider.value(
-                    value: sl<NeuigkeitenBlocBloc>(),
-                    child: neuigkeitenCardDetail(
-                        widget._neuigkeit.titel, widget.isCacheEnabled),
-                  ),
-                ),
-              ),
-              child: Theme(
-                data: theme,
-                child: BackdropFilter(
-                  filter: ImageFilter.blur(sigmaX: sigmax, sigmaY: sigmay),
-                  child: ExpansionTile(
-                    onExpansionChanged: (isExpanded) => _setBlur(isExpanded),
-                    title: Text(
-                      widget._neuigkeit.titel.toString(),
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                        shadows: <Shadow>[
-                          Shadow(
-                            offset: Offset(2, 2),
-                            blurRadius: 6,
-                            color: Colors.black,
-                          ),
-                          Shadow(
-                            offset: Offset(2, 2),
-                            blurRadius: 6,
-                            color: Colors.black,
-                          ),
-                        ],
-                      ),
+            )
+          ],
+        ),
+        child: ClipRRect(
+          borderRadius: new BorderRadius.all(Radius.circular(12)),
+          child: new Stack(
+            alignment: Alignment.bottomCenter,
+            children: <Widget>[
+              GestureDetector(
+                onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => BlocProvider.value(
+                      value: sl<NeuigkeitenBlocBloc>(),
+                      child: neuigkeitenCardDetail(
+                          widget._neuigkeit.titel, widget.isCacheEnabled),
                     ),
-                    children: <Widget>[
-                      Column(
+                  ),
+                ),
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: 200,
+                  color: Theme.of(context).cardColor,
+                  child: PageView.builder(
+                    physics: ScrollPhysics(
+                      parent: BouncingScrollPhysics(),
+                    ),
+                    onPageChanged: (int index) {
+                      _currentPageNotifier.value = index;
+                    },
+                    pageSnapping: true,
+                    controller: PageController(initialPage: 0),
+                    itemCount: widget._neuigkeit.bilder.length,
+                    itemBuilder: (context, position) {
+                      final bild = widget._neuigkeit.bilder[position];
+                      return Stack(
+                        alignment: Alignment.bottomCenter,
                         children: <Widget>[
                           Container(
-                            padding: EdgeInsets.only(left: 12, right: 12),
                             width: MediaQuery.of(context).size.width,
-                            height: 130,
-                            child: SingleChildScrollView(
-                              child: Text(
-                                widget._neuigkeit.text_preview.toString(),
-                                textAlign: TextAlign.left,
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  shadows: <Shadow>[
-                                    Shadow(
-                                      offset: Offset(2, 2),
-                                      blurRadius: 6,
-                                      color: Colors.black,
-                                    ),
-                                    Shadow(
-                                      offset: Offset(2, 2),
-                                      blurRadius: 6,
-                                      color: Colors.black,
-                                    ),
-                                  ],
-                                ),
+                            height: MediaQuery.of(context).size.height,
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                fit: BoxFit.cover,
+                                image: PrefImage(bild, widget.isCacheEnabled),
                               ),
                             ),
                           ),
-                          SizedBox(
-                            height: 12,
-                          ),
                         ],
-                      ),
-                      //Inhalt, der gezeigt wird wenn expanded
+                      );
+                    },
+                  ),
+                ),
+              ),
+              // ignore: missing_return
+              Container(child: () {
+                if (widget._neuigkeit.bilder.length != 1) {
+                  return Container(
+                    padding: EdgeInsets.all(8),
+                    child: CirclePageIndicator(
+                      size: 5,
+                      selectedSize: 7.5,
+                      dotColor: Colors.white,
+                      selectedDotColor: Theme.of(context).accentColor,
+                      itemCount: widget._neuigkeit.bilder.length,
+                      currentPageNotifier: _currentPageNotifier,
+                    ),
+                  );
+                }
+              }()),
+              Container(
+                alignment: Alignment.bottomCenter,
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.bottomCenter,
+                    end: Alignment.topCenter,
+                    colors: [
+                      Colors.black,
+                      Colors.black87,
                     ],
                   ),
                 ),
               ),
-            ),
-          ],
+              GestureDetector(
+                onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => BlocProvider.value(
+                      value: sl<NeuigkeitenBlocBloc>(),
+                      child: neuigkeitenCardDetail(
+                          widget._neuigkeit.titel, widget.isCacheEnabled),
+                    ),
+                  ),
+                ),
+                child: Theme(
+                  data: theme,
+                  child: BackdropFilter(
+                    filter: ImageFilter.blur(sigmaX: sigmax, sigmaY: sigmay),
+                    child: ExpansionTile(
+                      onExpansionChanged: (isExpanded) => _setBlur(isExpanded),
+                      title: Text(
+                        widget._neuigkeit.titel.toString(),
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                          shadows: <Shadow>[
+                            Shadow(
+                              offset: Offset(2, 2),
+                              blurRadius: 6,
+                              color: Colors.black,
+                            ),
+                            Shadow(
+                              offset: Offset(2, 2),
+                              blurRadius: 6,
+                              color: Colors.black,
+                            ),
+                          ],
+                        ),
+                      ),
+                      children: <Widget>[
+                        Column(
+                          children: <Widget>[
+                            Container(
+                              padding: EdgeInsets.only(left: 12, right: 12),
+                              width: MediaQuery.of(context).size.width,
+                              height: 130,
+                              child: SingleChildScrollView(
+                                child: Text(
+                                  widget._neuigkeit.text_preview.toString(),
+                                  textAlign: TextAlign.left,
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    shadows: <Shadow>[
+                                      Shadow(
+                                        offset: Offset(2, 2),
+                                        blurRadius: 6,
+                                        color: Colors.black,
+                                      ),
+                                      Shadow(
+                                        offset: Offset(2, 2),
+                                        blurRadius: 6,
+                                        color: Colors.black,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 12,
+                            ),
+                          ],
+                        ),
+                        //Inhalt, der gezeigt wird wenn expanded
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

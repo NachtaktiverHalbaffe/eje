@@ -49,12 +49,12 @@ class Freizeiten extends StatelessWidget {
 Widget FreizeitenPageViewer(
     List<Freizeit> freizeiten, BuildContext context, bool isCacheEnabled) {
   return RefreshIndicator(
-      child: ListView(
-        children: [
-          SizedBox(
-            height: MediaQuery.of(context).size.height / 5,
-          ),
-          Swiper(
+      child: SingleChildScrollView(
+        physics: AlwaysScrollableScrollPhysics(),
+        child: ConstrainedBox(
+          constraints:
+              BoxConstraints(minHeight: MediaQuery.of(context).size.height),
+          child: Swiper(
             itemBuilder: (BuildContext context, int index) {
               return FreizeitCard(freizeiten[index], context, isCacheEnabled);
             },
@@ -63,8 +63,8 @@ Widget FreizeitenPageViewer(
             itemWidth: 325,
             layout: SwiperLayout.STACK,
             loop: true,
-          )
-        ],
+          ),
+        ),
       ),
       onRefresh: () async {
         BlocProvider.of<FreizeitenBloc>(context).add(RefreshFreizeiten());
