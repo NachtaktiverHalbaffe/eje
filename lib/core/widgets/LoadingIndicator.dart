@@ -1,8 +1,18 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'dart:io' show Platform;
 
 // ignore: non_constant_identifier_names
-Widget LoadingIndicator() {
-  return Center(
-    child: CircularProgressIndicator(),
-  );
+class LoadingIndicator extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: Theme.of(context).backgroundColor,
+      child: Center(
+        child: Platform.isAndroid
+            ? CircularProgressIndicator()
+            : CupertinoActivityIndicator(),
+      ),
+    );
+  }
 }
