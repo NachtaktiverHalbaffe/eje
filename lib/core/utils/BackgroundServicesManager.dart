@@ -6,15 +6,18 @@ import 'package:eje/pages/neuigkeiten/data/datasources/neuigkeiten_remote_dataso
 import 'package:eje/pages/neuigkeiten/domain/entitys/neuigkeit.dart';
 import 'package:hive/hive.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:io' show Platform;
 
 class BackgroundServicesManager {
   final Duration runServiceIntervall = Duration(hours: 1);
 
   Future<void> connectBackgroundServices() async {
-    await AndroidAlarmManager.periodic(
-        runServiceIntervall, 0, await _checkNeuigkeitenNotification);
-    await AndroidAlarmManager.periodic(
-        runServiceIntervall, 1, await _checkFreizeitenNotification);
+    if (Platform.isAndroid) {
+      await AndroidAlarmManager.periodic(
+          runServiceIntervall, 0, await _checkNeuigkeitenNotification);
+      await AndroidAlarmManager.periodic(
+          runServiceIntervall, 1, await _checkFreizeitenNotification);
+    }
   }
 
 //Check if new Neuigkeiten are available
