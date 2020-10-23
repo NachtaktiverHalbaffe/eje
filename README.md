@@ -73,9 +73,13 @@ Die Pages enthalten die einzelnen Menüpunkte und haben alle denselben Aufbau. D
 - [Equatable](https://github.com/felangel/equatable) und [Dartz](https://github.com/spebbe/dartz) als Tools für die Architektur
 - [Data Connection Checker](https://github.com/komapeb/data_connection_checker), [connectivity](https://github.com/flutter/plugins) und [http](https://github.com/dart-lang/http) für online-API-Aufrufe
 - [Get it](https://github.com/fluttercommunity/get_it) für Dependency Injection
+- [Flutter Local Notifications](https://github.com/MaikuB/flutter_local_notifications) für Push-Benachrichtigungen
+- [Android Alarm Manager](https://pub.dev/packages/android_alarm_manager) für Android Background Services
+- [Bkground Fetch](https://pub.dev/packages/background_fetch/install) für IOS Bkground Services
 - [Persistent Bottom Nav Bar](https://github.com/BilalShahid13/PersistentBottomNavBar) als Widget für die Navigation
 - [Material Design Icons](https://github.com/ziofat/material_design_icons_flutter) und [Icon Shadow](https://github.com/mehrtarh/flutter_icon_shadow) für Icons
 - [WebView](https://github.com/flutter/plugins) und [URL-Launcher](https://github.com/flutter/plugins) für das Anzeigen von Websiten
 - [Pageview-Indicators](https://github.com/figengungor/page_view_indicators) für Indicator-Punkte bei Pageviewer (größtenteils swipebare Bilder)
 - [Flutter-Swiper](https://github.com/best-flutter/flutter_swiper) für Card-Swipe-Views (Widget im Frontend)
 - [Cached Network Image](https://github.com/Baseflow/flutter_cached_network_image) zum cachen von Bildern
+

@@ -1,5 +1,6 @@
 import 'package:android_alarm_manager/android_alarm_manager.dart';
 import 'package:eje/core/platform/Reminder.dart';
+import 'package:eje/core/utils/BackgroundServicesManager.dart';
 import 'package:eje/core/utils/notificationplugin.dart';
 import 'package:eje/pages/articles/domain/entity/Article.dart';
 import 'package:eje/pages/articles/domain/entity/Hyperlink.dart';
@@ -58,6 +59,7 @@ Future<void> startup() async {
   if (Platform.isAndroid) {
     await AndroidAlarmManager.initialize();
   }
+  BackgroundServicesManager().initPlatformState();
 }
 
 onNotificationClick(String payload) {}

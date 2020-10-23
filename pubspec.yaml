@@ -59,6 +59,7 @@ dependencies:
   flutter_local_notifications: ^3.0.0
   # Background services
   android_alarm_manager: '>=0.4.5+15 <2.0.0'
+  background_fetch: ^0.6.0
 
 
 dev_dependencies:
