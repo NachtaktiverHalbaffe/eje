@@ -89,17 +89,21 @@ Widget _terminChildWidget(
         leading: Icon(
           Icons.today,
           size: 24,
+          color: Theme.of(context).dividerColor,
         ),
         title: Text(
           _termin.datum,
-          style:
-              TextStyle(fontSize: 42 / MediaQuery.of(context).devicePixelRatio),
+          style: TextStyle(
+            fontSize: 42 / MediaQuery.of(context).devicePixelRatio,
+            color: Theme.of(context).dividerColor,
+          ),
         ),
       ),
       ListTile(
         leading: Icon(
           MdiIcons.mapMarker,
           size: 24,
+          color: Theme.of(context).dividerColor,
         ),
         title: Text(
           _termin.ort.Anschrift +
@@ -107,8 +111,10 @@ Widget _terminChildWidget(
               _termin.ort.Strasse +
               "\n" +
               _termin.ort.PLZ,
-          style:
-              TextStyle(fontSize: 42 / MediaQuery.of(context).devicePixelRatio),
+          style: TextStyle(
+            fontSize: 42 / MediaQuery.of(context).devicePixelRatio,
+            color: Theme.of(context).dividerColor,
+          ),
         ),
         dense: true,
       ),
@@ -118,10 +124,16 @@ Widget _terminChildWidget(
       Container(
         margin: EdgeInsets.all(8),
         child: OutlineButton(
+          color: Theme.of(context).dividerColor,
           onPressed: () async {
             _setNotification(_termin, prefs);
           },
-          child: Text("Veranstaltung merken"),
+          child: Text(
+            "Veranstaltung merken",
+            style: TextStyle(
+              color: Theme.of(context).dividerColor,
+            ),
+          ),
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         ),

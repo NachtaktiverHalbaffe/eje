@@ -190,6 +190,7 @@ class DetailsPage extends StatelessWidget {
                     textAlign: TextAlign.justify,
                     style: TextStyle(
                       fontSize: 48 / MediaQuery.of(context).devicePixelRatio,
+                      color: Theme.of(context).dividerColor,
                     ),
                   ),
                 )

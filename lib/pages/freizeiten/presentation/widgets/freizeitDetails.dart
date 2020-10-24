@@ -82,28 +82,35 @@ Widget _freizeitChildWidget(Freizeit freizeit, BuildContext context) {
       ListTile(
         leading: Icon(
           Icons.today,
+          color: Theme.of(context).dividerColor,
           size: 72 / MediaQuery.of(context).devicePixelRatio,
         ),
         title: Text(
           freizeit.datum,
-          style:
-              TextStyle(fontSize: 42 / MediaQuery.of(context).devicePixelRatio),
+          style: TextStyle(
+            fontSize: 42 / MediaQuery.of(context).devicePixelRatio,
+            color: Theme.of(context).dividerColor,
+          ),
         ),
       ),
       ListTile(
         leading: Icon(
           MdiIcons.currencyEur,
+          color: Theme.of(context).dividerColor,
           size: 72 / MediaQuery.of(context).devicePixelRatio,
         ),
         title: Text(
           freizeit.preis,
-          style:
-              TextStyle(fontSize: 42 / MediaQuery.of(context).devicePixelRatio),
+          style: TextStyle(
+            fontSize: 42 / MediaQuery.of(context).devicePixelRatio,
+            color: Theme.of(context).dividerColor,
+          ),
         ),
       ),
       ListTile(
         leading: Icon(
           MdiIcons.mapMarker,
+          color: Theme.of(context).dividerColor,
           size: 72 / MediaQuery.of(context).devicePixelRatio,
         ),
         title: Text(
@@ -112,60 +119,75 @@ Widget _freizeitChildWidget(Freizeit freizeit, BuildContext context) {
               freizeit.ort.Strasse +
               "\n" +
               freizeit.ort.PLZ,
-          style:
-              TextStyle(fontSize: 42 / MediaQuery.of(context).devicePixelRatio),
+          style: TextStyle(
+            fontSize: 42 / MediaQuery.of(context).devicePixelRatio,
+          ),
         ),
       ),
       ListTile(
         leading: Icon(
           MdiIcons.cakeVariant,
+          color: Theme.of(context).dividerColor,
           size: 72 / MediaQuery.of(context).devicePixelRatio,
         ),
         title: Text(
           freizeit.alter,
-          style:
-              TextStyle(fontSize: 42 / MediaQuery.of(context).devicePixelRatio),
+          style: TextStyle(
+            fontSize: 42 / MediaQuery.of(context).devicePixelRatio,
+            color: Theme.of(context).dividerColor,
+          ),
         ),
       ),
       ListTile(
         leading: Icon(
           MdiIcons.silverwareForkKnife,
+          color: Theme.of(context).dividerColor,
           size: 72 / MediaQuery.of(context).devicePixelRatio,
         ),
         title: Text(
           freizeit.verpflegung,
-          style:
-              TextStyle(fontSize: 42 / MediaQuery.of(context).devicePixelRatio),
+          style: TextStyle(
+            fontSize: 42 / MediaQuery.of(context).devicePixelRatio,
+            color: Theme.of(context).dividerColor,
+          ),
         ),
       ),
       ListTile(
         leading: Icon(
           MdiIcons.home,
+          color: Theme.of(context).dividerColor,
           size: 72 / MediaQuery.of(context).devicePixelRatio,
         ),
         title: Text(
           freizeit.unterbringung,
-          style:
-              TextStyle(fontSize: 42 / MediaQuery.of(context).devicePixelRatio),
+          style: TextStyle(
+            fontSize: 42 / MediaQuery.of(context).devicePixelRatio,
+            color: Theme.of(context).dividerColor,
+          ),
         ),
       ),
       ListTile(
         leading: Icon(
           MdiIcons.carSide,
+          color: Theme.of(context).dividerColor,
           size: 72 / MediaQuery.of(context).devicePixelRatio,
         ),
         title: Text(
           freizeit.anreise,
-          style:
-              TextStyle(fontSize: 42 / MediaQuery.of(context).devicePixelRatio),
+          style: TextStyle(
+            fontSize: 42 / MediaQuery.of(context).devicePixelRatio,
+            color: Theme.of(context).dividerColor,
+          ),
         ),
       ),
       ListTile(
         leading: Icon(
           MdiIcons.fileDocumentEditOutline,
+          color: Theme.of(context).dividerColor,
           size: 72 / MediaQuery.of(context).devicePixelRatio,
         ),
         title: OutlineButton(
+          color: Theme.of(context).dividerColor,
           onPressed: () async {
             if (await canLaunch(freizeit.link)) {
               await launch(freizeit.link);
@@ -174,7 +196,11 @@ Widget _freizeitChildWidget(Freizeit freizeit, BuildContext context) {
             }
           },
           child: Text(
-              "Anmelden (Anmeldeschluss: " + freizeit.anmeldeschluss + ")"),
+            "Anmelden (Anmeldeschluss: " + freizeit.anmeldeschluss + ")",
+            style: TextStyle(
+              color: Theme.of(context).dividerColor,
+            ),
+          ),
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(
                   30 / MediaQuery.of(context).devicePixelRatio)),

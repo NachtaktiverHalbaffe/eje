@@ -129,16 +129,23 @@ class TerminCard extends StatelessWidget {
                         height: 4,
                       ),
                       ListTile(
-                        leading: Icon(MdiIcons.calendar),
+                        leading: Icon(
+                          MdiIcons.calendar,
+                          color: Theme.of(context).dividerColor,
+                        ),
                         title: Text(
                           termin.datum,
                           style: TextStyle(
+                              color: Theme.of(context).dividerColor,
                               fontSize:
                                   48 / MediaQuery.of(context).devicePixelRatio),
                         ),
                       ),
                       ListTile(
-                        leading: Icon(MdiIcons.mapMarker),
+                        leading: Icon(
+                          MdiIcons.mapMarker,
+                          color: Theme.of(context).dividerColor,
+                        ),
                         title: Text(
                           termin.ort.Anschrift +
                               "\n" +
@@ -147,17 +154,24 @@ class TerminCard extends StatelessWidget {
                               termin.ort.PLZ,
                           style: TextStyle(
                               fontSize:
-                                  45 / MediaQuery.of(context).devicePixelRatio),
+                                  45 / MediaQuery.of(context).devicePixelRatio,
+                              color: Theme.of(context).dividerColor),
                         ),
                       ),
                       SizedBox(
                         height: 6,
                       ),
                       OutlineButton(
+                        color: Theme.of(context).dividerColor,
                         onPressed: () async {
                           await _setNotification();
                         },
-                        child: Text("Veranstaltung merken"),
+                        child: Text(
+                          "Veranstaltung merken",
+                          style: TextStyle(
+                            color: Theme.of(context).dividerColor,
+                          ),
+                        ),
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12)),
                       ),

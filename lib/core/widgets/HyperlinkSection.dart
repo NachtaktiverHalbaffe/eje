@@ -71,7 +71,10 @@ Widget _column(Hyperlink hyperlink, BuildContext context, bool isCacheEnabled) {
             SizedBox(
               width: 14,
             ),
-            Icon(MdiIcons.openInNew),
+            Icon(
+              MdiIcons.openInNew,
+              color: Theme.of(context).dividerColor,
+            ),
             SizedBox(
               width: 4,
             ),
@@ -82,6 +85,7 @@ Widget _column(Hyperlink hyperlink, BuildContext context, bool isCacheEnabled) {
                 style: TextStyle(
                   fontSize: 48 / MediaQuery.of(context).devicePixelRatio,
                   decoration: TextDecoration.underline,
+                  color: Theme.of(context).dividerColor,
                 ),
               ),
             ),

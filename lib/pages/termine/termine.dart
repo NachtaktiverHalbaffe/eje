@@ -65,8 +65,8 @@ Widget TermineListView(List<Termin> termine, BuildContext context,
           },
           child: SingleChildScrollView(
             child: Container(
-              constraints:
-                  BoxConstraints(minHeight: MediaQuery.of(context).size.height),
+              constraints: BoxConstraints(
+                  minHeight: MediaQuery.of(context).size.height - 45),
               child: Swiper(
                 itemBuilder: (BuildContext context, int index) {
                   return TerminCard(termine[index], isCacheEnabled, prefs);

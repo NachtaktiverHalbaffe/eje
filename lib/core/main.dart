@@ -30,7 +30,7 @@ void main() async {
     initialIndex = int.parse(notificationAppLaunchDetails.payload);
   }
   runApp(MyApp(await SharedPreferences.getInstance(), initialIndex));
-  // Connect background services
+  // Connect background
   await BackgroundServicesManager().connectBackgroundServices();
 }
 

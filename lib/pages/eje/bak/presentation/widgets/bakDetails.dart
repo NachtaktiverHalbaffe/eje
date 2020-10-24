@@ -87,21 +87,28 @@ Widget _childBak(BAKler bakler, BuildContext context) {
         ),
         title: Text(
           bakler.threema,
-          style:
-              TextStyle(fontSize: 42 / MediaQuery.of(context).devicePixelRatio),
+          style: TextStyle(
+              fontSize: 42 / MediaQuery.of(context).devicePixelRatio,
+              color: Theme.of(context).dividerColor),
         ),
       ),
       ListTile(
         leading: Icon(
           MdiIcons.email,
+          color: Theme.of(context).dividerColor,
         ),
         title: Text(
           bakler.email,
-          style:
-              TextStyle(fontSize: 42 / MediaQuery.of(context).devicePixelRatio),
+          style: TextStyle(
+            fontSize: 42 / MediaQuery.of(context).devicePixelRatio,
+            color: Theme.of(context).dividerColor,
+          ),
         ),
         trailing: GestureDetector(
-          child: Icon(MdiIcons.emailEdit),
+          child: Icon(
+            MdiIcons.emailEdit,
+            color: Theme.of(context).dividerColor,
+          ),
           onTap: () async {
             if (await canLaunch("mailto:" + bakler.email)) {
               await launch("mailto:" + bakler.email);

@@ -215,10 +215,10 @@ class _NeuigkeitenCardState extends State<NeuigkeitenCard> {
   void _setBlur(bool isExpanded) {
     if (isExpanded) {
       setState(() {
-        sigmax = 5;
+        sigmax = 4;
       });
       setState(() {
-        sigmay = 5;
+        sigmay = 4;
       });
     } else {
       setState(() {

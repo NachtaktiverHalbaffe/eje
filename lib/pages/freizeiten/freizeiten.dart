@@ -52,8 +52,8 @@ Widget FreizeitenPageViewer(
       child: SingleChildScrollView(
         physics: AlwaysScrollableScrollPhysics(),
         child: ConstrainedBox(
-          constraints:
-              BoxConstraints(minHeight: MediaQuery.of(context).size.height),
+          constraints: BoxConstraints(
+              minHeight: MediaQuery.of(context).size.height - 48),
           child: Swiper(
             itemBuilder: (BuildContext context, int index) {
               return FreizeitCard(freizeiten[index], context, isCacheEnabled);

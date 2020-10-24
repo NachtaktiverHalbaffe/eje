@@ -91,23 +91,31 @@ Widget _childHauptamtlicheDetails(
         ),
         title: Text(
           hauptamtlicher.threema,
-          style:
-              TextStyle(fontSize: 42 / MediaQuery.of(context).devicePixelRatio),
+          style: TextStyle(
+            fontSize: 42 / MediaQuery.of(context).devicePixelRatio,
+            color: Theme.of(context).dividerColor,
+          ),
         ),
       ),
       ListTile(
         leading: Icon(
           MdiIcons.email,
+          color: Theme.of(context).dividerColor,
           size: 24,
         ),
         title: Text(
           hauptamtlicher.email,
-          style:
-              TextStyle(fontSize: 42 / MediaQuery.of(context).devicePixelRatio),
+          style: TextStyle(
+            fontSize: 42 / MediaQuery.of(context).devicePixelRatio,
+            color: Theme.of(context).dividerColor,
+          ),
         ),
         dense: true,
         trailing: GestureDetector(
-          child: Icon(MdiIcons.emailEdit),
+          child: Icon(
+            MdiIcons.emailEdit,
+            color: Theme.of(context).dividerColor,
+          ),
           onTap: () async {
             if (await canLaunch("mailto:" + hauptamtlicher.email)) {
               await launch("mailto:" + hauptamtlicher.email);
@@ -120,16 +128,22 @@ Widget _childHauptamtlicheDetails(
       ListTile(
         leading: Icon(
           MdiIcons.phone,
+          color: Theme.of(context).dividerColor,
           size: 24,
         ),
         title: Text(
           hauptamtlicher.telefon,
-          style:
-              TextStyle(fontSize: 42 / MediaQuery.of(context).devicePixelRatio),
+          style: TextStyle(
+            fontSize: 42 / MediaQuery.of(context).devicePixelRatio,
+            color: Theme.of(context).dividerColor,
+          ),
         ),
         dense: true,
         trailing: GestureDetector(
-          child: Icon(MdiIcons.phoneOutgoing),
+          child: Icon(
+            MdiIcons.phoneOutgoing,
+            color: Theme.of(context).dividerColor,
+          ),
           onTap: () async {
             if (await canLaunch("tel:" + hauptamtlicher.telefon)) {
               await launch("tel:" + hauptamtlicher.telefon);
@@ -142,16 +156,22 @@ Widget _childHauptamtlicheDetails(
       ListTile(
           leading: Icon(
             MdiIcons.cellphone,
+            color: Theme.of(context).dividerColor,
             size: 24,
           ),
           title: Text(
             hauptamtlicher.handy,
             style: TextStyle(
-                fontSize: 42 / MediaQuery.of(context).devicePixelRatio),
+              fontSize: 42 / MediaQuery.of(context).devicePixelRatio,
+              color: Theme.of(context).dividerColor,
+            ),
           ),
           dense: true,
           trailing: GestureDetector(
-            child: Icon(MdiIcons.phoneOutgoing),
+            child: Icon(
+              MdiIcons.phoneOutgoing,
+              color: Theme.of(context).dividerColor,
+            ),
             onTap: () async {
               if (await canLaunch("tel:" + hauptamtlicher.handy)) {
                 await launch("tel:" + hauptamtlicher.handy);
