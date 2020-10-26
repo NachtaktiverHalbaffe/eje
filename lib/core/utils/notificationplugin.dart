@@ -57,6 +57,15 @@ class NotificationPlugin {
     });
   }
 
+  /// Function to show Notification one Time
+//* It creates Notificationsdetails with the information and then push a Notification to the OS
+//* @param id: Unique id for the notification
+//* @param title: title which is displayed in the notification
+//* @param body: Text which is displayed in the notification
+//* @param payload: information stored in the notification, can be used when launched, but isnt displayed
+//* @param channelID: id for the notification channel for Android Notifications managment
+//* @param channelName: name of the channel for Android Notifications managment
+//* @param channelDescription: decription of the channel for Android Notifications managment
   Future<void> showNotification(
       {@required int id,
       @required String title,
@@ -73,7 +82,6 @@ class NotificationPlugin {
         importance: Importance.max,
         priority: Priority.high,
         playSound: true,
-        timeoutAfter: 5000,
         styleInformation: DefaultStyleInformation(true, true),
       ),
       iOS: IOSNotificationDetails(),
@@ -87,15 +95,29 @@ class NotificationPlugin {
     );
   }
 
+  /// Function to show Notification at a given DateTime
+//* It creates Notificationsdetails with the information and then push a Notification to the OS
+//* @param id: Unique id for the notification
+//* @param title: title which is displayed in the notification
+//* @param body: Text which is displayed in the notification
+//* @param payload: information stored in the notification, can be used when launched, but isnt displayed
+//* @param channelID: id for the notification channel for Android Notifications managment
+//* @param channelName: name of the channel for Android Notifications managment
+//* @param channelDescription: decription of the channel for Android Notifications managment
+//* @param scheduleNotificationsDateTime: DateTime when notification should pe pushed
+//* @param scheduleoffset: Offset of scheduledNotificationDateTime if notification should be pushed earlier or later;
+//*                        offset<0: pushed earlier, offset>0 scheduled later
   Future<void> scheduledNotification(
       {@required int id,
       @required String title,
       String body,
       String payload,
       @required DateTime scheduleNotificationsDateTime,
+      @required Duration scheduleoffest,
       @required String channelId,
       @required String channelName,
       @required String channelDescription}) async {
+    //Platformspecific settings for Notifications
     var paltformChannelSpecifics = NotificationDetails(
       android: AndroidNotificationDetails(
         channelId,
@@ -112,13 +134,15 @@ class NotificationPlugin {
       id,
       title,
       body,
-      scheduleNotificationsDateTime.subtract(Duration(days: 1)),
+      scheduleNotificationsDateTime.add(scheduleoffest),
       paltformChannelSpecifics,
       payload: payload,
       androidAllowWhileIdle: true,
     );
   }
 
+//Default Notification which is pushed if push-notifications are disabled in settings an a notifications
+//wants to be pushed
   Future<void> showNotificationsDisabled() async {
     var paltformChannelSpecifics = NotificationDetails(
       android: AndroidNotificationDetails(

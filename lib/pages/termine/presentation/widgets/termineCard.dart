@@ -209,6 +209,7 @@ class TerminCard extends StatelessWidget {
               " statt",
           scheduleNotificationsDateTime:
               DateTime.now().add(Duration(days: 1, seconds: 5)),
+          scheduleoffest: Duration(days: -1),
           payload: "2",
           channelDescription: CHANNEL_DESCRIPTION,
           channelId: CHANNEL_ID,
