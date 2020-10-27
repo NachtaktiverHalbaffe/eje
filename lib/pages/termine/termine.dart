@@ -14,9 +14,7 @@ import 'domain/entities/Termin.dart';
 
 class Termine extends StatelessWidget {
   final bool isCacheEnabled;
-  final SharedPreferences prefs;
-
-  Termine(this.isCacheEnabled, this.prefs);
+  Termine(this.isCacheEnabled);
 
   @override
   Widget build(BuildContext context) {
@@ -41,8 +39,8 @@ class Termine extends StatelessWidget {
           } else if (state is Loading) {
             return LoadingIndicator();
           } else if (state is LoadedTermine) {
-            return TermineListView(state.termine.reversed.toList(), context,
-                isCacheEnabled, prefs);
+            return TermineListView(
+                state.termine.reversed.toList(), context, isCacheEnabled);
           }
         },
       ),
@@ -50,8 +48,8 @@ class Termine extends StatelessWidget {
   }
 }
 
-Widget TermineListView(List<Termin> termine, BuildContext context,
-    bool isCacheEnabled, SharedPreferences prefs) {
+Widget TermineListView(
+    List<Termin> termine, BuildContext context, bool isCacheEnabled) {
   final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
       new GlobalKey<RefreshIndicatorState>();
 
@@ -69,7 +67,7 @@ Widget TermineListView(List<Termin> termine, BuildContext context,
                   minHeight: MediaQuery.of(context).size.height - 45),
               child: Swiper(
                 itemBuilder: (BuildContext context, int index) {
-                  return TerminCard(termine[index], isCacheEnabled, prefs);
+                  return TerminCard(termine[index], isCacheEnabled);
                 },
                 itemCount: termine.length,
                 itemHeight: 550,

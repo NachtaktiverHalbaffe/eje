@@ -18,21 +18,19 @@ import 'package:shared_preferences/shared_preferences.dart';
 class TerminDetails extends StatefulWidget {
   final Termin termin;
   final bool isCacheEnabled;
-  final SharedPreferences prefs;
 
-  TerminDetails(this.termin, this.isCacheEnabled, this.prefs);
+  TerminDetails(this.termin, this.isCacheEnabled);
 
   @override
   _TerminDetailsState createState() =>
-      _TerminDetailsState(isCacheEnabled, termin, prefs);
+      _TerminDetailsState(isCacheEnabled, termin);
 }
 
 class _TerminDetailsState extends State<TerminDetails> {
   final bool isCacheEnabled;
   final Termin termin;
-  final SharedPreferences prefs;
 
-  _TerminDetailsState(this.isCacheEnabled, this.termin, this.prefs);
+  _TerminDetailsState(this.isCacheEnabled, this.termin);
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +50,7 @@ class _TerminDetailsState extends State<TerminDetails> {
           return LoadingIndicator();
         } else if (state is LoadedTermin) {
           return TerminDetailsCard(
-              state.termin, widget.isCacheEnabled, context, prefs);
+              state.termin, widget.isCacheEnabled, context);
         }
       }),
     );
@@ -65,8 +63,8 @@ class _TerminDetailsState extends State<TerminDetails> {
   }
 }
 
-Widget TerminDetailsCard(Termin termin, bool isCacheEnabled,
-    BuildContext context, SharedPreferences prefs) {
+Widget TerminDetailsCard(
+    Termin termin, bool isCacheEnabled, BuildContext context) {
   List<String> bilder = List();
   bilder.add(termin.bild);
   return DetailsPage(
@@ -75,12 +73,11 @@ Widget TerminDetailsCard(Termin termin, bool isCacheEnabled,
     text: termin.text,
     bild_url: bilder,
     hyperlinks: [Hyperlink(link: "", description: "")],
-    childWidget: _terminChildWidget(termin, context, prefs),
+    childWidget: _terminChildWidget(termin, context),
   );
 }
 
-Widget _terminChildWidget(
-    Termin _termin, BuildContext context, SharedPreferences prefs) {
+Widget _terminChildWidget(Termin _termin, BuildContext context) {
   return Column(
     children: [
       SizedBox(height: 12),
@@ -126,7 +123,7 @@ Widget _terminChildWidget(
         child: OutlineButton(
           color: Theme.of(context).dividerColor,
           onPressed: () async {
-            _setNotification(_termin, prefs);
+            _setNotification(_termin);
           },
           child: Text(
             "Veranstaltung merken",
@@ -145,7 +142,8 @@ Widget _terminChildWidget(
   );
 }
 
-void _setNotification(Termin termin, SharedPreferences prefs) async {
+void _setNotification(Termin termin) async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
   final String CHANNEL_NAME = "Erinnerungen an Veranstaltungen";
   final String CHANNEL_DESCRIPTION =
       "Erinnerung an eine Veranstaltung, die der Benutzer zum Merken ausgewählt hat";
@@ -172,7 +170,7 @@ void _setNotification(Termin termin, SharedPreferences prefs) async {
             " statt",
         scheduleNotificationsDateTime:
             DateTime.now().add(Duration(days: 1, seconds: 5)),
-        scheduleoffest: Duration(days: -1),
+        scheduleoffest: Duration(days: prefs.getInt("schedule_offset")),
         payload: "2",
         channelDescription: CHANNEL_DESCRIPTION,
         channelId: CHANNEL_ID,

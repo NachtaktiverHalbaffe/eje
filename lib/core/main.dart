@@ -126,7 +126,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return [
       Neuigkeiten(isCacheEnabled),
       eje(isCacheEnabled),
-      Termine(isCacheEnabled, prefs),
+      Termine(isCacheEnabled),
       Freizeiten(isCacheEnabled),
       Einstellungen()
     ];

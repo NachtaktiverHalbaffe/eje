@@ -18,9 +18,8 @@ class TerminCard extends StatelessWidget {
   final String CHANNEL_DESCRIPTION =
       "Erinnerung an eine Veranstaltung, die der Benutzer zum Merken ausgewählt hat";
   final String CHANNEL_ID = "1";
-  final SharedPreferences prefs;
 
-  TerminCard(this.termin, this.isCacheEnabled, this.prefs);
+  TerminCard(this.termin, this.isCacheEnabled);
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +48,7 @@ class TerminCard extends StatelessWidget {
             MaterialPageRoute(
               builder: (_) => BlocProvider.value(
                 value: sl<TermineBloc>(),
-                child: TerminDetails(termin, isCacheEnabled, prefs),
+                child: TerminDetails(termin, isCacheEnabled),
               ),
             ),
           ),
@@ -187,6 +186,7 @@ class TerminCard extends StatelessWidget {
   }
 
   void _setNotification() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
     await ReminderManager().setReminder(
       Reminder(
           kategorie: "Termin",
@@ -209,7 +209,7 @@ class TerminCard extends StatelessWidget {
               " statt",
           scheduleNotificationsDateTime:
               DateTime.now().add(Duration(days: 1, seconds: 5)),
-          scheduleoffest: Duration(days: -1),
+          scheduleoffest: Duration(days: prefs.getInt("schedule_offset")),
           payload: "2",
           channelDescription: CHANNEL_DESCRIPTION,
           channelId: CHANNEL_ID,

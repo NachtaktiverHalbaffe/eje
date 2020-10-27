@@ -95,6 +95,20 @@ Widget EinstellungenPage(BuildContext context, SharedPreferences prefs) {
         ),
         key: Key("notification_veranstaltungen"),
       ),
+      Container(
+        padding: EdgeInsets.only(left: 14, right: 22, top: 8, bottom: 8),
+        child: TextField(
+          controller: TextEditingController(text: '1'),
+          keyboardType: TextInputType.number,
+          onSubmitted: (value) =>
+              prefs.setInt("schedule_offset", int.parse(value)),
+          decoration: InputDecoration(
+              border: OutlineInputBorder(),
+              labelText: 'Anzahl der Tage',
+              helperText:
+                  "Tage vor der Veranstaltung, in der die Erinnerung kommen soll"),
+        ),
+      ),
       SwitchListTile(
         activeColor: Theme.of(context).accentColor,
         value: prefs.getBool("notifications_freizeiten"),

@@ -134,7 +134,7 @@ class NotificationPlugin {
       id,
       title,
       body,
-      scheduleNotificationsDateTime.add(scheduleoffest),
+      scheduleNotificationsDateTime.subtract(scheduleoffest),
       paltformChannelSpecifics,
       payload: payload,
       androidAllowWhileIdle: true,
