@@ -96,6 +96,20 @@ Widget _childHauptamtlicheDetails(
             color: Theme.of(context).dividerColor,
           ),
         ),
+        trailing: GestureDetector(
+          child: Icon(
+            MdiIcons.messageReplyText,
+            color: Theme.of(context).accentColor,
+          ),
+          onTap: () async {
+            if (await canLaunch(
+                "https://threema.id/" + hauptamtlicher.threema)) {
+              await launch("https://threema.id/" + hauptamtlicher.threema);
+            } else {
+              throw 'Could not open Threema';
+            }
+          },
+        ),
       ),
       ListTile(
         leading: Icon(
@@ -114,7 +128,7 @@ Widget _childHauptamtlicheDetails(
         trailing: GestureDetector(
           child: Icon(
             MdiIcons.emailEdit,
-            color: Theme.of(context).dividerColor,
+            color: Theme.of(context).accentColor,
           ),
           onTap: () async {
             if (await canLaunch("mailto:" + hauptamtlicher.email)) {
@@ -142,13 +156,13 @@ Widget _childHauptamtlicheDetails(
         trailing: GestureDetector(
           child: Icon(
             MdiIcons.phoneOutgoing,
-            color: Theme.of(context).dividerColor,
+            color: Theme.of(context).accentColor,
           ),
           onTap: () async {
             if (await canLaunch("tel:" + hauptamtlicher.telefon)) {
               await launch("tel:" + hauptamtlicher.telefon);
             } else {
-              throw 'Could not open Email';
+              throw 'Could not open telephone';
             }
           },
         ),
@@ -170,13 +184,13 @@ Widget _childHauptamtlicheDetails(
           trailing: GestureDetector(
             child: Icon(
               MdiIcons.phoneOutgoing,
-              color: Theme.of(context).dividerColor,
+              color: Theme.of(context).accentColor,
             ),
             onTap: () async {
               if (await canLaunch("tel:" + hauptamtlicher.handy)) {
                 await launch("tel:" + hauptamtlicher.handy);
               } else {
-                throw 'Could not open Email';
+                throw 'Could not open telephone';
               }
             },
           )),

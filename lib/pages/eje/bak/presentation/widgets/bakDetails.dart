@@ -91,6 +91,19 @@ Widget _childBak(BAKler bakler, BuildContext context) {
               fontSize: 42 / MediaQuery.of(context).devicePixelRatio,
               color: Theme.of(context).dividerColor),
         ),
+        trailing: GestureDetector(
+          child: Icon(
+            MdiIcons.messageReplyText,
+            color: Theme.of(context).accentColor,
+          ),
+          onTap: () async {
+            if (await canLaunch("https://threema.id/" + bakler.threema)) {
+              await launch("https://threema.id/" + bakler.threema);
+            } else {
+              throw 'Could not open Threema';
+            }
+          },
+        ),
       ),
       ListTile(
         leading: Icon(
@@ -107,7 +120,7 @@ Widget _childBak(BAKler bakler, BuildContext context) {
         trailing: GestureDetector(
           child: Icon(
             MdiIcons.emailEdit,
-            color: Theme.of(context).dividerColor,
+            color: Theme.of(context).accentColor,
           ),
           onTap: () async {
             if (await canLaunch("mailto:" + bakler.email)) {
