@@ -9,16 +9,29 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 Widget EinstellungenPage(BuildContext context, SharedPreferences prefs) {
+  var _groupID;
+  if (prefs.getBool("nightmode_auto")) {
+    _groupID = "nightmode_auto";
+  } else if (prefs.getBool("nightmode_off")) {
+    _groupID = "nightmode_off";
+  } else {
+    _groupID = "nightmode_on";
+  }
+
   return ListView(
     children: <Widget>[
       SettingGroupTitle("Erscheinungsbild", context),
-      CheckboxListTile(
+      RadioListTile(
         activeColor: Theme.of(context).accentColor,
-        value: prefs.getBool("nightmode_auto"),
+        value: "nightmode_auto",
+        groupValue: _groupID,
         onChanged: (val) async {
           print("Setting Nightmode to auto");
-          await BlocProvider.of<EinstellungBloc>(context)
-              .add(StoringPreferences("nightmode_auto", val));
+          val == "nightmode_auto"
+              ? BlocProvider.of<EinstellungBloc>(context)
+                  .add(StoringPreferences("nightmode_auto", true))
+              : BlocProvider.of<EinstellungBloc>(context)
+                  .add(StoringPreferences("nightmode_auto", false));
           BlocProvider.of<MainBloc>(context).add(ChangingThemeToLight());
         },
         title: Text(
@@ -29,13 +42,17 @@ Widget EinstellungenPage(BuildContext context, SharedPreferences prefs) {
         ),
         key: Key("nightmode_auto"),
       ),
-      CheckboxListTile(
+      RadioListTile(
         activeColor: Theme.of(context).accentColor,
-        value: prefs.getBool("nightmode_off"),
+        value: "nightmode_off",
+        groupValue: _groupID,
         onChanged: (val) async {
           print("Setting Nightmode to off");
-          await BlocProvider.of<EinstellungBloc>(context)
-              .add(StoringPreferences("nightmode_off", val));
+          val == "nightmode_off"
+              ? BlocProvider.of<EinstellungBloc>(context)
+                  .add(StoringPreferences("nightmode_off", true))
+              : BlocProvider.of<EinstellungBloc>(context)
+                  .add(StoringPreferences("nightmode_off", false));
           BlocProvider.of<MainBloc>(context).add(ChangingThemeToLight());
         },
         title: Text(
@@ -46,13 +63,17 @@ Widget EinstellungenPage(BuildContext context, SharedPreferences prefs) {
         ),
         key: Key("nightmode_off"),
       ),
-      CheckboxListTile(
+      RadioListTile(
         activeColor: Theme.of(context).accentColor,
-        value: prefs.getBool("nightmode_on"),
+        value: "nightmode_on",
+        groupValue: _groupID,
         onChanged: (val) async {
           print("Setting Nightmode to on");
-          await BlocProvider.of<EinstellungBloc>(context)
-              .add(StoringPreferences("nightmode_on", val));
+          val == "nightmode_on"
+              ? BlocProvider.of<EinstellungBloc>(context)
+                  .add(StoringPreferences("nightmode_on", true))
+              : BlocProvider.of<EinstellungBloc>(context)
+                  .add(StoringPreferences("nightmode_on", false));
           BlocProvider.of<MainBloc>(context).add(ChangingThemeToAuto());
         },
         title: Text(
