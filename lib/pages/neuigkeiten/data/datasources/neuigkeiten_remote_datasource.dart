@@ -48,7 +48,7 @@ class NeuigkeitenRemoteDatasource {
     //? Format from RSS-Feed: Mon, 15 Mar 21 09:00:00 +0100
     //Parse elements from unformatted DateTime
     int day = int.parse(dateFromSource.substring(5, 7));
-    String monthString = dateFromSource.substring(0, 3);
+    String monthString = dateFromSource.substring(8, 11);
     int month = 1;
     if (monthString.toLowerCase() == "jan") {
       month = 1;
