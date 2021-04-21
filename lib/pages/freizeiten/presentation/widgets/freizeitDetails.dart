@@ -1,3 +1,4 @@
+import 'package:eje/core/utils/MapLauncher.dart';
 import 'package:eje/core/widgets/DetailsPage.dart';
 import 'package:eje/core/widgets/LoadingIndicator.dart';
 import 'package:eje/pages/articles/domain/entity/Hyperlink.dart';
@@ -122,6 +123,19 @@ Widget _freizeitChildWidget(Freizeit freizeit, BuildContext context) {
           style: TextStyle(
             fontSize: 42 / MediaQuery.of(context).devicePixelRatio,
           ),
+        ),
+        trailing: GestureDetector(
+          child: Icon(
+            MdiIcons.navigation,
+            color: Theme.of(context).accentColor,
+          ),
+          onTap: () async {
+            await MapLauncher.launchQuery(freizeit.ort.Anschrift +
+                "," +
+                freizeit.ort.Strasse +
+                ", " +
+                freizeit.ort.PLZ);
+          },
         ),
       ),
       ListTile(

@@ -1,4 +1,5 @@
 import 'package:eje/core/platform/Reminder.dart';
+import 'package:eje/core/utils/MapLauncher.dart';
 import 'package:eje/core/utils/notificationplugin.dart';
 import 'package:eje/core/utils/reminderManager.dart';
 import 'package:eje/core/widgets/DetailsPage.dart';
@@ -114,6 +115,19 @@ Widget _terminChildWidget(Termin _termin, BuildContext context) {
           ),
         ),
         dense: true,
+        trailing: GestureDetector(
+          child: Icon(
+            MdiIcons.navigation,
+            color: Theme.of(context).accentColor,
+          ),
+          onTap: () async {
+            await MapLauncher.launchQuery(_termin.ort.Anschrift +
+                "," +
+                _termin.ort.Strasse +
+                ", " +
+                _termin.ort.PLZ);
+          },
+        ),
       ),
       SizedBox(
         height: 12,
