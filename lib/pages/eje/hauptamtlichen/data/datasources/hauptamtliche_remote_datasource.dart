@@ -5,14 +5,14 @@ import 'package:meta/meta.dart';
 
 class HauptamtlicheRemoteDatasource {
   final http.Client client;
-  final String apiUrl ="";
+  final String apiUrl = "";
 
   HauptamtlicheRemoteDatasource({@required this.client});
 
   //TODO: Implementierung der Onlineanbindung
 
   Future<List<Hauptamtlicher>> getHauptamliche() async {
-    final response = await client.get(apiUrl);
+    final response = await client.get(Uri.parse(apiUrl));
     if (response.statusCode == 200) {
       // return Hauptamtliche.fromJson(json.decode(response.body));
     } else {

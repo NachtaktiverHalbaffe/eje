@@ -21,7 +21,7 @@ class ServicesRemoteDatasource {
     List<String> links = List();
     List<String> description = List();
     List<String> bilder = service.bilder;
-    final response = await client.get(service.hyperlinks[0].link);
+    final response = await client.get(Uri.parse(service.hyperlinks[0].link));
     if (response.statusCode == 200) {
       print("Services: Getting Data from Internet");
       dom.Document document = parser.parse(response.body);
@@ -54,8 +54,7 @@ class ServicesRemoteDatasource {
                   element.getElementsByTagName('a')[0].attributes['href'])
               .toList());
           description.addAll(parent
-              .map((element) =>
-                  element.getElementsByTagName('a')[0].attributes['title'])
+              .map((element) => element.getElementsByTagName('a')[0].innerHtml)
               .toList());
         }
         for (int k = 0; k < links.length; k++) {

@@ -15,7 +15,8 @@ class WebScraper {
     const String ID_ANSCHRIFT = 'c762175';
     bool alreadyHasTitele = false;
     // Get data from Internet
-    var response = await http.get(url);
+
+    var response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {
       dom.Document document = parser.parse(response.body);
       final parent = document.getElementsByClassName('col s12 default');

@@ -85,38 +85,43 @@ class _MyHomePageState extends State<MyHomePage> {
     return [
       PersistentBottomNavBarItem(
         icon: Icon(MdiIcons.newspaper),
+        iconSize: 26.0,
         title: ("Aktuelles"),
-        activeColor: Theme.of(context).accentColor,
-        activeContentColor: Colors.white,
-        inactiveColor: Theme.of(context).accentColor,
+        activeColorPrimary: Theme.of(context).accentColor,
+        activeColorSecondary: Colors.white,
+        inactiveColorPrimary: Theme.of(context).accentColor,
       ),
       PersistentBottomNavBarItem(
         icon: Icon(CostumIcons.eje),
+        iconSize: 26.0,
         title: ("Das eje"),
-        activeColor: Theme.of(context).accentColor,
-        activeContentColor: Colors.white,
-        inactiveColor: Theme.of(context).accentColor,
+        activeColorPrimary: Theme.of(context).accentColor,
+        activeColorSecondary: Colors.white,
+        inactiveColorPrimary: Theme.of(context).accentColor,
       ),
       PersistentBottomNavBarItem(
         icon: Icon(Icons.today),
+        iconSize: 26.0,
         title: ("Termine"),
-        activeColor: Theme.of(context).accentColor,
-        activeContentColor: Colors.white,
-        inactiveColor: Theme.of(context).accentColor,
+        activeColorPrimary: Theme.of(context).accentColor,
+        activeColorSecondary: Colors.white,
+        inactiveColorPrimary: Theme.of(context).accentColor,
       ),
       PersistentBottomNavBarItem(
         icon: Icon(MdiIcons.terrain),
+        iconSize: 26.0,
         title: ("Freizeiten"),
-        activeColor: Theme.of(context).accentColor,
-        activeContentColor: Colors.white,
-        inactiveColor: Theme.of(context).accentColor,
+        activeColorPrimary: Theme.of(context).accentColor,
+        activeColorSecondary: Colors.white,
+        inactiveColorPrimary: Theme.of(context).accentColor,
       ),
       PersistentBottomNavBarItem(
         icon: Icon(Icons.settings),
+        iconSize: 26.0,
         title: ("Einstellungen"),
-        activeColor: Theme.of(context).accentColor,
-        activeContentColor: Colors.white,
-        inactiveColor: Theme.of(context).accentColor,
+        activeColorPrimary: Theme.of(context).accentColor,
+        activeColorSecondary: Colors.white,
+        inactiveColorPrimary: Theme.of(context).accentColor,
       ),
     ];
   }
@@ -135,13 +140,13 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return PersistentTabView(
+      context,
       controller: PersistentTabController(initialIndex: initialIndex),
       items: _navBarsItems(),
       screens: _buildScreens(),
       handleAndroidBackButtonPress: true,
       stateManagement: true,
       backgroundColor: Theme.of(context).backgroundColor,
-      iconSize: 26.0,
       navBarStyle: NavBarStyle
           .style7, //!Good looking alternatives: sytle3, style6, style7, style 15
       itemAnimationProperties: ItemAnimationProperties(
