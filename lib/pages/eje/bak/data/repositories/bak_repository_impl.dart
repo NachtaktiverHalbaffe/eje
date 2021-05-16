@@ -24,7 +24,7 @@ class BAKRepositoryImpl implements BAKRepository {
   //Lade Artikel aus den Internet herunter
   @override
   Future<Either<Failure, List<BAKler>>> getBAK() async {
-    /*if (await networkInfo.isConnected) {
+    if (await networkInfo.isConnected) {
       try {
         final remoteBAK = await remoteDataSource.getBAK();
         localDatasource.cacheBAK(remoteBAK);
@@ -32,8 +32,8 @@ class BAKRepositoryImpl implements BAKRepository {
       } on ServerException {
         return Right([getErrorBAKler()]);
       }
-    } else */
-    return Right(localDatasource.getCachedBAK());
+    } else
+      return Right(localDatasource.getCachedBAK());
   }
 
   //Lade bestimmten Artikel aus Cache

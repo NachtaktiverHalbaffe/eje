@@ -1,4 +1,5 @@
 import 'package:eje/core/utils/injection_container.dart';
+import 'package:eje/core/widgets/PrefImage.dart';
 import 'package:eje/pages/eje/bak/domain/entitys/BAKler.dart';
 import 'package:eje/pages/eje/bak/presentation/bloc/bak_bloc.dart';
 import 'package:eje/pages/eje/bak/presentation/widgets/bakDetails.dart';
@@ -58,7 +59,7 @@ Widget KontaktCard(BAKler bakler, BuildContext context, bool isCacheEnabled) {
               decoration: BoxDecoration(
                 image: DecorationImage(
                   fit: BoxFit.cover,
-                  image: ExactAssetImage(bakler.bild),
+                  image: PrefImage(bakler.bild, isCacheEnabled),
                 ),
               ),
             ),

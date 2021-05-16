@@ -78,59 +78,67 @@ Widget _childBak(BAKler bakler, BuildContext context) {
       SizedBox(
         height: 12,
       ),
-      ListTile(
-        leading: Image(
-          image: ExactAssetImage("assets/images/icons8_threema_48.png"),
-          width: 24,
-          height: 24,
-          color: Theme.of(context).dividerColor,
-        ),
-        title: Text(
-          bakler.threema,
-          style: TextStyle(
-              fontSize: 42 / MediaQuery.of(context).devicePixelRatio,
-              color: Theme.of(context).dividerColor),
-        ),
-        trailing: GestureDetector(
-          child: Icon(
-            MdiIcons.messageReplyText,
-            color: Theme.of(context).accentColor,
-          ),
-          onTap: () async {
-            if (await canLaunch("https://threema.id/" + bakler.threema)) {
-              await launch("https://threema.id/" + bakler.threema);
-            } else {
-              throw 'Could not open Threema';
-            }
-          },
-        ),
-      ),
-      ListTile(
-        leading: Icon(
-          MdiIcons.email,
-          color: Theme.of(context).dividerColor,
-        ),
-        title: Text(
-          bakler.email,
-          style: TextStyle(
-            fontSize: 42 / MediaQuery.of(context).devicePixelRatio,
-            color: Theme.of(context).dividerColor,
-          ),
-        ),
-        trailing: GestureDetector(
-          child: Icon(
-            MdiIcons.emailEdit,
-            color: Theme.of(context).accentColor,
-          ),
-          onTap: () async {
-            if (await canLaunch("mailto:" + bakler.email)) {
-              await launch("mailto:" + bakler.email);
-            } else {
-              throw 'Could not open Email';
-            }
-          },
-        ),
-      ),
+      bakler.threema != ''
+          ? ListTile(
+              leading: Image(
+                image: ExactAssetImage("assets/images/icons8_threema_48.png"),
+                width: 24,
+                height: 24,
+                color: Theme.of(context).dividerColor,
+              ),
+              title: Text(
+                bakler.threema,
+                style: TextStyle(
+                    fontSize: 42 / MediaQuery.of(context).devicePixelRatio,
+                    color: Theme.of(context).dividerColor),
+              ),
+              trailing: GestureDetector(
+                child: Icon(
+                  MdiIcons.messageReplyText,
+                  color: Theme.of(context).accentColor,
+                ),
+                onTap: () async {
+                  if (await canLaunch("https://threema.id/" + bakler.threema)) {
+                    await launch("https://threema.id/" + bakler.threema);
+                  } else {
+                    throw 'Could not open Threema';
+                  }
+                },
+              ),
+            )
+          : SizedBox(
+              height: 2,
+            ),
+      bakler.email != ''
+          ? ListTile(
+              leading: Icon(
+                MdiIcons.email,
+                color: Theme.of(context).dividerColor,
+              ),
+              title: Text(
+                bakler.email,
+                style: TextStyle(
+                  fontSize: 42 / MediaQuery.of(context).devicePixelRatio,
+                  color: Theme.of(context).dividerColor,
+                ),
+              ),
+              trailing: GestureDetector(
+                child: Icon(
+                  MdiIcons.emailEdit,
+                  color: Theme.of(context).accentColor,
+                ),
+                onTap: () async {
+                  if (await canLaunch("mailto:" + bakler.email)) {
+                    await launch("mailto:" + bakler.email);
+                  } else {
+                    throw 'Could not open Email';
+                  }
+                },
+              ),
+            )
+          : SizedBox(
+              height: 2,
+            ),
       SizedBox(
         height: 12,
       )

@@ -8,7 +8,7 @@ void data_services(Box _box) {
     bilder.add("assets/images/info.jpg");
     List<Hyperlink> hyperlinks = new List();
     hyperlinks.add(Hyperlink(
-        link: "https://www.eje-esslingen.de/service/eje-info/",
+        link: "https://www.eje-esslingen.de/?id=311673",
         description: "eje-infos"));
     _box.add(
       new Service(
@@ -23,8 +23,7 @@ void data_services(Box _box) {
     bilder.add("assets/images/rent.jpg");
     hyperlinks = new List();
     hyperlinks.add(Hyperlink(
-        link:
-            "https://www.eje-esslingen.de/fileadmin/mediapool/gemeinden/ejw_esslingen/Service/Ausleihgebuehren_2018_Homepage.pdf",
+        link: "https://www.eje-esslingen.de/?id=264807",
         description: "Verleih-Liste runterladen"));
     _box.add(new Service(
         service: "Verleih",
@@ -38,7 +37,7 @@ void data_services(Box _box) {
         "https://www.eje-esslingen.de/fileadmin/mediapool/gemeinden/ejw_esslingen/Freizeitheim_Asch/Freizeitheim_Asch.jpg");
     hyperlinks = new List();
     hyperlinks.add(Hyperlink(
-        link: "https://www.eje-esslingen.de/service/freizeitheim-asch/",
+        link: "https://www.eje-esslingen.de/?id=305545",
         description: "Freizeitheim Asch"));
     _box.add(
       new Service(
@@ -54,7 +53,7 @@ void data_services(Box _box) {
         "https://www.eje-esslingen.de/fileadmin/mediapool/gemeinden/ejw_esslingen/Zeltplatz_Hopfensee/HOPFENSEELOGO.jpg");
     hyperlinks = new List();
     hyperlinks.add(Hyperlink(
-        link: "https://www.eje-esslingen.de/service/zeltplatz-hopfensee/",
+        link: "https://www.eje-esslingen.de/?id=264813",
         description: "Hopfensee"));
     _box.add(
       new Service(
@@ -70,7 +69,7 @@ void data_services(Box _box) {
         "https://www.eje-esslingen.de/fileadmin/mediapool/gemeinden/ejw_esslingen/Bilder_fuer_NEWS/Delegiertenversammlung_2018_14.jpg");
     hyperlinks = new List();
     hyperlinks.add(Hyperlink(
-        link: "https://www.eje-esslingen.de/service/vernetzung/",
+        link: "https://www.eje-esslingen.de/?id=285500",
         description: "Vernetzung"));
     _box.add(
       new Service(
