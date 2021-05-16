@@ -24,16 +24,17 @@ class ArbeitsbereichRepositoryImpl implements ArbeitsbereichRepository {
   //Lade Artikel aus den Internet herunter
   @override
   Future<Either<Failure, List<Arbeitsbereich>>> getArbeitsbereiche() async {
-    /*if (await networkInfo.isConnected) {
+    if (await networkInfo.isConnected) {
       try {
-        final remoteArbeitsbereich= await remoteDataSource.getArtbeitsbereiche();
+        final remoteArbeitsbereich =
+            await remoteDataSource.getArtbeitsbereiche();
         localDatasource.cacheBAK(remoteArbeitsbereich);
         return Right(await localDatasource.getCachedArbeitsbereiche());
       } on ServerException {
         return Right([getErrorArbeitsbereich()]);
       }
-    } else */
-    return Right(localDatasource.getCachedArbeitsbereiche());
+    } else
+      return Right(localDatasource.getCachedArbeitsbereiche());
   }
 
   //Lade bestimmten Artikel aus Cache, inaktiv da durch getArticle ersetzt

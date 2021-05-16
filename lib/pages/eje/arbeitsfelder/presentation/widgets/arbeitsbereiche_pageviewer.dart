@@ -1,4 +1,5 @@
 import 'package:eje/core/utils/injection_container.dart';
+import 'package:eje/core/widgets/PrefImage.dart';
 import 'package:eje/pages/articles/articlesPage.dart';
 import 'package:eje/pages/articles/presentation/bloc/articles_bloc.dart';
 import 'package:eje/pages/eje/arbeitsfelder/domain/entities/Arbeitsbereich.dart';
@@ -64,7 +65,7 @@ Widget KontaktCard(
               decoration: BoxDecoration(
                 image: DecorationImage(
                   fit: BoxFit.cover,
-                  image: ExactAssetImage(arbeitsbereich.bilder[0]),
+                  image: PrefImage(arbeitsbereich.bilder[0], isCacheEnabled),
                 ),
               ),
             ),

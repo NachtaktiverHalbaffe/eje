@@ -1,8 +1,13 @@
 import 'package:eje/pages/articles/domain/entity/Article.dart';
 import 'package:eje/pages/articles/domain/entity/ErrorArticle.dart';
 import 'package:eje/pages/articles/domain/entity/Hyperlink.dart';
+import 'package:eje/pages/eje/arbeitsfelder/domain/entities/Arbeitsbereich.dart';
+import 'package:eje/pages/eje/arbeitsfelder/domain/entities/errorArbeitsbereich.dart';
+import 'package:eje/pages/eje/bak/domain/entitys/BAKler.dart';
+import 'package:eje/pages/eje/bak/domain/entitys/ErrorBAKler.dart';
 import 'package:eje/pages/eje/hauptamtlichen/domain/entitys/errorHauptamtlicher.dart';
 import 'package:eje/pages/eje/hauptamtlichen/domain/entitys/hauptamtlicher.dart';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:html/dom.dart' as dom;
 import 'package:html/parser.dart' as parser;
@@ -310,9 +315,11 @@ class WebScraper {
                           .replaceAll('gowaway.', '')
                           .trimLeft()
                           .trimRight();
-                    } else
-                      vorstellung =
-                          vorstellung + element.text.trimLeft().trimRight();
+                    } else if (element.text != "") {
+                      vorstellung = vorstellung +
+                          element.text.trimLeft().trimRight() +
+                          "\n";
+                    }
                   }
                 });
               }
@@ -385,6 +392,216 @@ class WebScraper {
       // No Internet connection, returning empty Article
       print("Error: No internet Connection");
       return [getErrorHauptamtlicher()];
+    }
+  }
+
+  Future<List<BAKler>> scrapeBAKler() async {
+    List<BAKler> bakler = new List<BAKler>();
+    const String DOMAIN = "https://www.eje-esslingen.de";
+    const String URL = DOMAIN + "/?id=246890";
+    const String ID_HEADER = 'c845041';
+    const String ID_KONTAKT = 'c762177';
+    const String ID_ANSCHRIFT = 'c762175';
+    // Get data from Internet
+    var response = await http.get(Uri.parse(URL));
+    if (response.statusCode == 200) {
+      dom.Document document = parser.parse(response.body);
+      final parent = document.getElementsByClassName('col s12 default');
+      for (int i = 0; i < parent.length; i++) {
+        //checking if element is not header or footer of website
+        if (parent[i].id != ID_KONTAKT) {
+          if (parent[i].id != ID_HEADER) {
+            if (parent[i].id != ID_ANSCHRIFT) {
+              //Parse data to article
+              String vorstellung = "";
+              String amt = "";
+              String name = "";
+              String bild = "";
+              String email = "";
+              String threema = "";
+              // ! name parsen
+              if (parent[i].getElementsByClassName('icon-left').isNotEmpty) {
+                // get title
+                String _title =
+                    parent[i].getElementsByClassName('icon-left')[0].text;
+                // Split title into name and amt
+                List<String> splitTitle;
+                splitTitle = _title.split('-');
+                name = splitTitle[0].trimLeft().trimRight();
+                if (splitTitle.length == 2) {
+                  amt = splitTitle[1].trimLeft().trimRight();
+                }
+              }
+              // ! Beschreibung parsen
+              String content = '';
+              if (parent[i]
+                  .getElementsByClassName(
+                      'col s12 m8 l8 bildtextteaser-content halfpic')
+                  .isNotEmpty) {
+                parent[i].getElementsByClassName('bodytext').forEach((element) {
+                  if (!element.text.contains('Ich bin erreichbar unter')) {
+                    if (element.text.contains('Threema')) {
+                      threema = element.text
+                          .split('Mein Threema-ID ist:')[1]
+                          .trimLeft()
+                          .trimRight();
+                    } else if (element.getElementsByTagName('a').isNotEmpty) {
+                      email = element
+                          .getElementsByTagName('a')[0]
+                          .text
+                          .replaceAll('dontospamme', '')
+                          .replaceAll('gowaway.', '')
+                          .trimLeft()
+                          .trimRight();
+                    } else if (element.text != "") {
+                      vorstellung = vorstellung +
+                          element.text.trimLeft().trimRight() +
+                          "\n";
+                    }
+                  }
+                });
+              }
+              // ! bilder parsen
+              //check if picture links are in "text-pic-right" or "width100 center marginBottom10" class
+              if (parent[i]
+                  .getElementsByClassName('copy-hover width100 ')
+                  .isNotEmpty) {
+                //picture-link is in text-pic-right class
+                bild = DOMAIN +
+                    parent[i]
+                        .getElementsByClassName('copy-hover width100 ')[0]
+                        .getElementsByTagName('img')[0]
+                        .attributes['src']
+                        .trimLeft()
+                        .trimRight();
+              } else if (parent[i]
+                  .getElementsByClassName(
+                      'col s12 m4 l4 width100 bildtextteaser-image halfpic')
+                  .isNotEmpty) {
+                bild = DOMAIN +
+                    parent[i]
+                        .getElementsByClassName(
+                            'col s12 m4 l4 width100 bildtextteaser-image halfpic')[0]
+                        .getElementsByTagName('img')[0]
+                        .attributes['src']
+                        .trimLeft()
+                        .trimRight();
+              }
+
+              // ! Formatting if needed
+              //Einrückungen bei neuen Paragraph entfernen
+              if (content.contains("<br>")) {
+                content = content.replaceAll("<br> ", "\n");
+                content = content.replaceAll("<br>", "\n");
+              }
+              //HTML-Formatierungszeichen bei neuen Paragraph entfernen
+              //und neuen Abschnitt für content anfangen
+              if (content.contains("&nbsp;")) {
+                content = content.replaceAll("&nbsp;", " ");
+              }
+              content = content + "\n\n";
+              //Default values if no hyperlinks are scraped
+
+              //add scraped Section to List of Articles
+              if (name != "" ||
+                  bild != "" ||
+                  amt != "" ||
+                  vorstellung != "" ||
+                  email != "" ||
+                  threema != "") {
+                bakler.add(new BAKler(
+                    bild: bild,
+                    name: name,
+                    amt: amt,
+                    vorstellung: vorstellung,
+                    email: email,
+                    threema: threema));
+              }
+            }
+          }
+        }
+      }
+      return bakler;
+    } else {
+      // No Internet connection, returning empty Article
+      print("Error: No internet Connection");
+      return [getErrorBAKler()];
+    }
+  }
+
+  Future<List<Arbeitsbereich>> scrapeArbeitsbereiche() async {
+    List<Arbeitsbereich> arbeitsbereiche = new List<Arbeitsbereich>();
+    const String DOMAIN = "https://www.eje-esslingen.de";
+    const String URL = DOMAIN + "/?id=246887";
+    const String ID_HEADER = 'c845041';
+    const String ID_KONTAKT = 'c762177';
+    const String ID_ANSCHRIFT = 'c762175';
+    // Get data from Internet
+    var response = await http.get(Uri.parse(URL));
+    if (response.statusCode == 200) {
+      dom.Document document = parser.parse(response.body);
+      final parent = document.getElementsByClassName('card link-area');
+      for (int i = 0; i < parent.length; i++) {
+        //checking if element is not header or footer of website
+        if (parent[i].id != ID_KONTAKT) {
+          if (parent[i].id != ID_HEADER) {
+            if (parent[i].id != ID_ANSCHRIFT) {
+              //Parse data to article
+              String arbeitsbereich = "";
+              List<String> bild = List<String>();
+              String url = "";
+              // ! arbeitsfeld parsen
+              if (parent[i]
+                  .getElementsByClassName('card-title icon-left ')
+                  .isNotEmpty) {
+                arbeitsbereich = parent[i]
+                    .getElementsByClassName('card-title icon-left ')[0]
+                    .text
+                    .trimLeft()
+                    .trimRight();
+              }
+
+              // ! bilder parsen
+              //check if picture links are in "text-pic-right" or "width100 center marginBottom10" class
+              if (parent[i].getElementsByClassName('card-image').isNotEmpty) {
+                //picture-link is in text-pic-right class
+                bild.add(DOMAIN +
+                    parent[i]
+                        .getElementsByClassName('card-image')[0]
+                        .getElementsByTagName('img')[0]
+                        .attributes['src']
+                        .trimLeft()
+                        .trimRight());
+              }
+              // ! link parsen
+              if (parent[i].getElementsByClassName('card-action').isNotEmpty) {
+                url = DOMAIN +
+                    parent[i]
+                        .getElementsByClassName('card-action')[0]
+                        .getElementsByTagName('a')[0]
+                        .attributes['href']
+                        .trimLeft()
+                        .trimRight();
+              }
+
+              //add scraped Section to List of Articles
+              if (arbeitsbereich != "" || bild.isNotEmpty || url != "") {
+                arbeitsbereiche.add(new Arbeitsbereich(
+                  arbeitsfeld: arbeitsbereich,
+                  bilder: bild,
+                  inhalt: "",
+                  url: url,
+                ));
+              }
+            }
+          }
+        }
+      }
+      return arbeitsbereiche;
+    } else {
+      // No Internet connection, returning empty Article
+      print("Error: No internet Connection");
+      return [getErrorArbeitsbereich()];
     }
   }
 }

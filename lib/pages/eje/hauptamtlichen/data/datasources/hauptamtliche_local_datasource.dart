@@ -1,5 +1,4 @@
 import 'package:eje/core/error/exception.dart';
-import 'package:eje/fixtures/testdata_hauptamtliche.dart';
 import 'package:eje/pages/eje/hauptamtlichen/domain/entitys/hauptamtlicher.dart';
 import 'package:hive/hive.dart';
 
@@ -8,8 +7,7 @@ class HauptamtlicheLocalDatasource {
 
   List<Hauptamtlicher> getCachedHauptamtliche() {
     Box _box = Hive.box('Hauptamtliche');
-    //Testdaten
-    //testdata_hauptamtliche(_box);
+
     if (_box.isNotEmpty) {
       List<Hauptamtlicher> temp = new List<Hauptamtlicher>();
       for (int i = 0; i < _box.length; i++) {
@@ -25,7 +23,7 @@ class HauptamtlicheLocalDatasource {
 
   Hauptamtlicher getHauptamtliche(String name) {
     Box _box = Hive.box('Hauptamtliche');
-    testdata_hauptamtliche(_box);
+
     if (_box.isNotEmpty) {
       for (int i = 0; i < _box.length; i++) {
         Hauptamtlicher temp = _box.getAt(i);

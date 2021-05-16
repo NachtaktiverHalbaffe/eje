@@ -1,5 +1,5 @@
 import 'package:eje/core/error/exception.dart';
-import 'package:eje/fixtures/data_arbeitsbereiche.dart';
+
 import 'package:eje/pages/eje/arbeitsfelder/domain/entities/Arbeitsbereich.dart';
 import 'package:hive/hive.dart';
 
@@ -8,7 +8,7 @@ class ArbeitsbereicheLocalDatasource {
 
   List<Arbeitsbereich> getCachedArbeitsbereiche() {
     Box _box = Hive.box('Arbeitsbereiche');
-    data_arbeitsbereiche(_box);
+
     if (_box.isNotEmpty) {
       List<Arbeitsbereich> temp = new List<Arbeitsbereich>();
       for (int i = 0; i < _box.length; i++) {
