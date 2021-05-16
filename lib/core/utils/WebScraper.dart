@@ -119,7 +119,9 @@ class WebScraper {
                 // hyperlinks are in existing parent class
                 List<String> links = parent[i]
                     .getElementsByClassName('internal-link')
-                    .map((elements) => DOMAIN + elements.attributes['href'])
+                    .map((elements) => elements.attributes['href'] != null
+                        ? DOMAIN + elements.attributes['href']
+                        : "")
                     .toList();
                 List<String> description = parent[i]
                     .getElementsByClassName('internal-link')
@@ -579,9 +581,7 @@ class WebScraper {
                     parent[i]
                         .getElementsByClassName('card-action')[0]
                         .getElementsByTagName('a')[0]
-                        .attributes['href']
-                        .trimLeft()
-                        .trimRight();
+                        .attributes['href'];
               }
 
               //add scraped Section to List of Articles

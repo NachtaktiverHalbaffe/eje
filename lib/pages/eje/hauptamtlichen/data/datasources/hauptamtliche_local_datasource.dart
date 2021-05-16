@@ -38,17 +38,15 @@ class HauptamtlicheLocalDatasource {
 
   void cacheHauptamtliche(List<Hauptamtlicher> hauptamtlicheToCache) {
     Box _box = Hive.box('Hauptamtliche');
+
     for (int i = 0; i < hauptamtlicheToCache.length; i++) {
-      bool alreadyexists = false;
       for (int k = 0; k < _box.length; k++) {
         final Hauptamtlicher _hauptamtlicher = _box.getAt(k);
         if (_hauptamtlicher.name == hauptamtlicheToCache[i].name) {
-          alreadyexists = true;
+          _box.deleteAt(k);
         }
       }
-      if (alreadyexists == false) {
-        _box.add(hauptamtlicheToCache[i]);
-      }
+      _box.add(hauptamtlicheToCache[i]);
     }
   }
 }

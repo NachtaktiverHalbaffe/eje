@@ -38,17 +38,15 @@ class BAKLocalDatasource {
 
   void cacheBAK(List<BAKler> bakToCache) {
     Box _box = Hive.box('BAK');
+
     for (int i = 0; i < bakToCache.length; i++) {
-      bool alreadyexists = false;
       for (int k = 0; k < _box.length; k++) {
         final BAKler _bakler = _box.getAt(k);
         if (_bakler.name == bakToCache[i].name) {
-          alreadyexists = true;
+          _box.deleteAt(k);
         }
       }
-      if (alreadyexists == false) {
-        _box.add(bakToCache[i]);
-      }
+      _box.add(bakToCache[i]);
     }
   }
 }

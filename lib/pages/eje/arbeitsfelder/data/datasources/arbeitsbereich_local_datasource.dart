@@ -39,18 +39,16 @@ class ArbeitsbereicheLocalDatasource {
 
   void cacheBAK(List<Arbeitsbereich> arbeitsbereicheToCache) {
     _box = Hive.box('Arbeitsbereiche');
+
     for (int i = 0; i < arbeitsbereicheToCache.length; i++) {
-      bool alreadyexists = false;
       for (int k = 0; k < _box.length; k++) {
         final Arbeitsbereich _arbeitsbereich = _box.getAt(k);
         if (_arbeitsbereich.arbeitsfeld ==
             arbeitsbereicheToCache[i].arbeitsfeld) {
-          alreadyexists = true;
+          _box.deleteAt(k);
         }
       }
-      if (alreadyexists == false) {
-        _box.add(arbeitsbereicheToCache[i]);
-      }
+      _box.add(arbeitsbereicheToCache[i]);
     }
   }
 }
