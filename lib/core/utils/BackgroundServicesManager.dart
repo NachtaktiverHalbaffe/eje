@@ -10,6 +10,7 @@ import 'package:hive/hive.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:io' show Platform;
 import 'package:path_provider/path_provider.dart' as path_provider;
+import 'package:collection/collection.dart';
 
 class BackgroundServicesManager {
   final Duration runServiceIntervall = Duration(hours: 1);
@@ -53,14 +54,21 @@ class BackgroundServicesManager {
 //* @param taskID: for Background_fetch for identifying the background task
 void _checkNeuigkeitenNotification(String taskId) async {
   final SharedPreferences prefs = await SharedPreferences.getInstance();
-  List<Neuigkeit> _neuigkeiten = List();
+  List<Neuigkeit> _neuigkeiten;
+  List<String> _neuigkeiten_namen;
+  Function eq = const ListEquality().equals;
+
   if (prefs.getBool("notifications_neuigkeiten")) {
     //Donwloading content from internet
     _neuigkeiten = await NeuigkeitenRemoteDatasource().getNeuigkeiten();
-    //checking if List had growed
-    if (prefs.getInt("neuigkeiten_length") != _neuigkeiten.length) {
+    _neuigkeiten.forEach((element) {
+      _neuigkeiten_namen.add(element.titel);
+    });
+
+    //checking if List is diffrent from data in cache
+    if (!eq(prefs.getStringList("cached_neuigkeiten"), _neuigkeiten_namen)) {
       //storing actual length of Neuigkeiten in SharedPrefrences
-      prefs.setInt("neuigkeiten_length", _neuigkeiten.length);
+      prefs.setStringList("cached_neuigkeiten", _neuigkeiten_namen);
       //Displaying notification
       notificationPlugin.showNotification(
         id: 0,
@@ -83,16 +91,21 @@ void _checkNeuigkeitenNotification(String taskId) async {
 //* @params taskId: taskID for Background fetch
 void _checkFreizeitenNotification(String taskId) async {
   final SharedPreferences prefs = await SharedPreferences.getInstance();
-  List<Freizeit> _freizeiten = List();
+  List<Freizeit> _freizeiten;
+  List<String> _freizeiten_namen;
+  Function eq = const ListEquality().equals;
+
   Box _box = await Hive.openBox('Freizeiten');
   if (prefs.getBool("notifications_freizeiten")) {
     //Donwloading content from internet
     //TODO connect to online API
-
-    //checking if List had growed
-    if (prefs.getInt("freizeiten_length") != _freizeiten.length) {
+    _freizeiten.forEach((element) {
+      _freizeiten_namen.add(element.freizeit);
+    });
+    //checking if List had groweds
+    if (!eq(prefs.getStringList("cached_freizeiten"), _freizeiten_namen)) {
       //storing actual length of Neuigkeiten in SharedPrefrences
-      prefs.setInt("freizeiten_length", _freizeiten.length);
+      prefs.setStringList("cached_freizeiten", _freizeiten_namen);
       //Displaying notification
       notificationPlugin.showNotification(
         id: 0,

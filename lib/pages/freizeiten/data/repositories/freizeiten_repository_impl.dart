@@ -35,8 +35,12 @@ class FreizeitenRepositoryImpl implements FreizeitRepository {
         return Right([getErrorFreizeit()]);;
       }
     } else */
-    prefs.setInt(
-        "freizeiten_length", localDatasource.getCachedFreizeiten().length);
+    List<String> _freizeiten_namen = List();
+    List<Freizeit> _freizeiten = localDatasource.getCachedFreizeiten();
+    _freizeiten.forEach((element) {
+      _freizeiten_namen.add(element.freizeit);
+    });
+    prefs.setStringList("cached_freizeiten", _freizeiten_namen);
     return Right(localDatasource.getCachedFreizeiten());
   }
 

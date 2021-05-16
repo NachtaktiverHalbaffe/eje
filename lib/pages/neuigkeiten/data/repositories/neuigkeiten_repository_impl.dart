@@ -74,8 +74,12 @@ class NeuigkeitenRepositoryImpl implements NeuigkeitenRepository {
         //cache articles from article into local storage
         localDatasource.cacheNeuigkeiten(remoteNeuigkeiten);
         //Storing length of items for notification background service
-        prefs.setInt("neuigkeiten_length",
-            localDatasource.getCachedNeuigkeiten().length);
+        List<String> _neuigkeiten_namen = List();
+        List<Neuigkeit> _neuigkeiten = localDatasource.getCachedNeuigkeiten();
+        _neuigkeiten.forEach((element) {
+          _neuigkeiten_namen.add(element.titel);
+        });
+        prefs.setStringList("cached_neuigkeiten", _neuigkeiten_namen);
         return Right(localDatasource.getCachedNeuigkeiten());
       } on ServerException {
         print("Neuigkeiten: Serverexception");

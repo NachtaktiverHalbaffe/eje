@@ -32,8 +32,8 @@ Future<void> startup() async {
     prefs.setBool("notifications_veranstaltungen", true);
     prefs.setBool("only_wifi", false);
     prefs.setBool("cache_pictures", true);
-    prefs.setInt("neuigkeiten_length", 0);
-    prefs.setInt("freizeiten_length", 0);
+    prefs.setStringList("cached_neuigkeiten", [""]);
+    prefs.setStringList("cached_freizeiten", [""]);
     prefs.setInt("schedule_offset", 0);
   }
   //Setting Hive up
