@@ -1,6 +1,10 @@
 import 'package:eje/core/error/exception.dart';
+import 'package:eje/core/utils/WebScraper.dart';
+import 'package:eje/pages/eje/hauptamtlichen/domain/entitys/errorHauptamtlicher.dart';
 import 'package:eje/pages/eje/hauptamtlichen/domain/entitys/hauptamtlicher.dart';
 import 'package:http/http.dart' as http;
+import 'package:html/dom.dart' as dom;
+import 'package:html/parser.dart' as parser;
 import 'package:meta/meta.dart';
 
 class HauptamtlicheRemoteDatasource {
@@ -12,11 +16,6 @@ class HauptamtlicheRemoteDatasource {
   //TODO: Implementierung der Onlineanbindung
 
   Future<List<Hauptamtlicher>> getHauptamliche() async {
-    final response = await client.get(Uri.parse(apiUrl));
-    if (response.statusCode == 200) {
-      // return Hauptamtliche.fromJson(json.decode(response.body));
-    } else {
-      throw ServerException();
-    }
+    return await WebScraper().scrapeHauptamliche();
   }
 }

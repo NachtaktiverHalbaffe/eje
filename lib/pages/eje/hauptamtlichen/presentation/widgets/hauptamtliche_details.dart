@@ -82,118 +82,135 @@ Widget _childHauptamtlicheDetails(
         height: 12,
       ),
       Divider(),
-      ListTile(
-        leading: Image(
-          image: ExactAssetImage("assets/images/icons8_threema_48.png"),
-          width: 24,
-          height: 24,
-          color: Theme.of(context).dividerColor,
-        ),
-        title: Text(
-          hauptamtlicher.threema,
-          style: TextStyle(
-            fontSize: 42 / MediaQuery.of(context).devicePixelRatio,
-            color: Theme.of(context).dividerColor,
-          ),
-        ),
-        trailing: GestureDetector(
-          child: Icon(
-            MdiIcons.messageReplyText,
-            color: Theme.of(context).accentColor,
-          ),
-          onTap: () async {
-            if (await canLaunch(
-                "https://threema.id/" + hauptamtlicher.threema)) {
-              await launch("https://threema.id/" + hauptamtlicher.threema);
-            } else {
-              throw 'Could not open Threema';
-            }
-          },
-        ),
-      ),
-      ListTile(
-        leading: Icon(
-          MdiIcons.email,
-          color: Theme.of(context).dividerColor,
-          size: 24,
-        ),
-        title: Text(
-          hauptamtlicher.email,
-          style: TextStyle(
-            fontSize: 42 / MediaQuery.of(context).devicePixelRatio,
-            color: Theme.of(context).dividerColor,
-          ),
-        ),
-        dense: true,
-        trailing: GestureDetector(
-          child: Icon(
-            MdiIcons.emailEdit,
-            color: Theme.of(context).accentColor,
-          ),
-          onTap: () async {
-            if (await canLaunch("mailto:" + hauptamtlicher.email)) {
-              await launch("mailto:" + hauptamtlicher.email);
-            } else {
-              throw 'Could not open Email';
-            }
-          },
-        ),
-      ),
-      ListTile(
-        leading: Icon(
-          MdiIcons.phone,
-          color: Theme.of(context).dividerColor,
-          size: 24,
-        ),
-        title: Text(
-          hauptamtlicher.telefon,
-          style: TextStyle(
-            fontSize: 42 / MediaQuery.of(context).devicePixelRatio,
-            color: Theme.of(context).dividerColor,
-          ),
-        ),
-        dense: true,
-        trailing: GestureDetector(
-          child: Icon(
-            MdiIcons.phoneOutgoing,
-            color: Theme.of(context).accentColor,
-          ),
-          onTap: () async {
-            if (await canLaunch("tel:" + hauptamtlicher.telefon)) {
-              await launch("tel:" + hauptamtlicher.telefon);
-            } else {
-              throw 'Could not open telephone';
-            }
-          },
-        ),
-      ),
-      ListTile(
-          leading: Icon(
-            MdiIcons.cellphone,
-            color: Theme.of(context).dividerColor,
-            size: 24,
-          ),
-          title: Text(
-            hauptamtlicher.handy,
-            style: TextStyle(
-              fontSize: 42 / MediaQuery.of(context).devicePixelRatio,
-              color: Theme.of(context).dividerColor,
+      hauptamtlicher.threema != ''
+          ? ListTile(
+              leading: Image(
+                image: ExactAssetImage("assets/images/icons8_threema_48.png"),
+                width: 24,
+                height: 24,
+                color: Theme.of(context).dividerColor,
+              ),
+              title: Text(
+                hauptamtlicher.threema,
+                style: TextStyle(
+                  fontSize: 42 / MediaQuery.of(context).devicePixelRatio,
+                  color: Theme.of(context).dividerColor,
+                ),
+              ),
+              trailing: GestureDetector(
+                child: Icon(
+                  MdiIcons.messageReplyText,
+                  color: Theme.of(context).accentColor,
+                ),
+                onTap: () async {
+                  if (await canLaunch(
+                      "https://threema.id/" + hauptamtlicher.threema)) {
+                    await launch(
+                        "https://threema.id/" + hauptamtlicher.threema);
+                  } else {
+                    throw 'Could not open Threema';
+                  }
+                },
+              ),
+            )
+          : SizedBox(
+              height: 12,
             ),
-          ),
-          dense: true,
-          trailing: GestureDetector(
-            child: Icon(
-              MdiIcons.phoneOutgoing,
-              color: Theme.of(context).accentColor,
+      hauptamtlicher.email != ''
+          ? ListTile(
+              leading: Icon(
+                MdiIcons.email,
+                color: Theme.of(context).dividerColor,
+                size: 24,
+              ),
+              title: Text(
+                hauptamtlicher.email,
+                style: TextStyle(
+                  fontSize: 42 / MediaQuery.of(context).devicePixelRatio,
+                  color: Theme.of(context).dividerColor,
+                ),
+              ),
+              dense: true,
+              trailing: GestureDetector(
+                child: Icon(
+                  MdiIcons.emailEdit,
+                  color: Theme.of(context).accentColor,
+                ),
+                onTap: () async {
+                  if (await canLaunch("mailto:" + hauptamtlicher.email)) {
+                    await launch("mailto:" + hauptamtlicher.email);
+                  } else {
+                    throw 'Could not open Email';
+                  }
+                },
+              ),
+            )
+          : SizedBox(
+              height: 12,
             ),
-            onTap: () async {
-              if (await canLaunch("tel:" + hauptamtlicher.handy)) {
-                await launch("tel:" + hauptamtlicher.handy);
-              } else {
-                throw 'Could not open telephone';
-              }
-            },
-          )),
+      hauptamtlicher.telefon != ''
+          ? ListTile(
+              leading: Icon(
+                MdiIcons.phone,
+                color: Theme.of(context).dividerColor,
+                size: 24,
+              ),
+              title: Text(
+                hauptamtlicher.telefon,
+                style: TextStyle(
+                  fontSize: 42 / MediaQuery.of(context).devicePixelRatio,
+                  color: Theme.of(context).dividerColor,
+                ),
+              ),
+              dense: true,
+              trailing: GestureDetector(
+                child: Icon(
+                  MdiIcons.phoneOutgoing,
+                  color: Theme.of(context).accentColor,
+                ),
+                onTap: () async {
+                  if (await canLaunch("tel:" + hauptamtlicher.telefon)) {
+                    await launch("tel:" + hauptamtlicher.telefon);
+                  } else {
+                    throw 'Could not open telephone';
+                  }
+                },
+              ),
+            )
+          : SizedBox(
+              height: 12,
+            ),
+      hauptamtlicher.handy != ''
+          ? ListTile(
+              leading: Icon(
+                MdiIcons.cellphone,
+                color: Theme.of(context).dividerColor,
+                size: 24,
+              ),
+              title: Text(
+                hauptamtlicher.handy,
+                style: TextStyle(
+                  fontSize: 42 / MediaQuery.of(context).devicePixelRatio,
+                  color: Theme.of(context).dividerColor,
+                ),
+              ),
+              dense: true,
+              trailing: GestureDetector(
+                child: Icon(
+                  MdiIcons.phoneOutgoing,
+                  color: Theme.of(context).accentColor,
+                ),
+                onTap: () async {
+                  if (await canLaunch("tel:" + hauptamtlicher.handy)) {
+                    await launch("tel:" + hauptamtlicher.handy);
+                  } else {
+                    throw 'Could not open telephone';
+                  }
+                },
+              ))
+          : SizedBox(
+              height: 12,
+            ),
       SizedBox(
         height: 14,
       )

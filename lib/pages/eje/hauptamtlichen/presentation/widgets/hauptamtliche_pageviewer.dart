@@ -1,4 +1,5 @@
 import 'package:eje/core/utils/injection_container.dart';
+import 'package:eje/core/widgets/PrefImage.dart';
 import 'package:eje/pages/eje/hauptamtlichen/domain/entitys/hauptamtlicher.dart';
 import 'package:eje/pages/eje/hauptamtlichen/presentation/bloc/hauptamtliche_bloc.dart';
 import 'package:eje/pages/eje/hauptamtlichen/presentation/widgets/hauptamtliche_details.dart';
@@ -7,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 Widget HauptamtlichePageViewer(List<Hauptamtlicher> hauptamtliche,
     BuildContext context, bool isCacheEnabled) {
@@ -61,7 +63,7 @@ Widget KontaktCard(
               decoration: BoxDecoration(
                 image: DecorationImage(
                   fit: BoxFit.cover,
-                  image: ExactAssetImage(hauptamtlicher.bild),
+                  image: PrefImage(hauptamtlicher.bild, isCacheEnabled),
                 ),
               ),
             ),
