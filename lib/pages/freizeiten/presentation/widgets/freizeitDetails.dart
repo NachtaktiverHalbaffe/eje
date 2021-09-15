@@ -8,11 +8,9 @@ import 'package:eje/pages/freizeiten/presentation/bloc/freizeiten_bloc.dart';
 import 'package:eje/pages/freizeiten/presentation/bloc/freizeiten_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:icon_shadow/icon_shadow.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:page_view_indicators/circle_page_indicator.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:webview_flutter/webview_flutter.dart';
 
 class FreizeitDetails extends StatefulWidget {
   final Freizeit freizeit;
