@@ -6,7 +6,6 @@ import 'package:meta/meta.dart';
 
 class BAKRemoteDatasource {
   final http.Client client;
-  final String apiUrl = "";
 
   BAKRemoteDatasource({@required this.client});
 

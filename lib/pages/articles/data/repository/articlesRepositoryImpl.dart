@@ -12,6 +12,8 @@ import 'package:eje/pages/articles/domain/usecases/getArticles.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 
+import '../../../../app_config.dart';
+
 class ArticlesRepositoryImpl implements ArticlesRepository {
   final ArticlesLocalDatasource localDatasource;
   final NetworkInfo networkInfo;
@@ -25,9 +27,8 @@ class ArticlesRepositoryImpl implements ArticlesRepository {
   //Lade Artikel aus den Internet herunter
   Future<Either<Failure, List<Article>>> getArticles(String url) async {
     Box _box;
-    List<Article> articles = List();
-    //open database
-    _box = await Hive.openBox('Articles');
+    List<Article> articles = new List.empty(growable: true);
+
     try {
       bool isInCache = false;
       List<Article> _article = await WebScraper().scrapeWebPage(url);
@@ -75,8 +76,9 @@ class ArticlesRepositoryImpl implements ArticlesRepository {
   //Lade bestimmten Artikel aus Cache
   @override
   Future<Either<Failure, Article>> getArticle(String url) async {
-    Box _box = await Hive.box('Articles');
-    List<Article> articles;
+    final appConfig = await AppConfig.loadConfig();
+    final Box _box = Hive.box(appConfig.articlesBox);
+    List<Article> articles = new List.empty(growable: true);
     if (await networkInfo.isConnected) {
       if (url != "") {
         try {
@@ -124,7 +126,7 @@ class ArticlesRepositoryImpl implements ArticlesRepository {
       }
     } else
       try {
-        Article _article = localDatasource.getArticle(url);
+        Article _article = await localDatasource.getArticle(url);
         return Right(_article);
       } on CacheException {
         return Right(getErrorArticle());

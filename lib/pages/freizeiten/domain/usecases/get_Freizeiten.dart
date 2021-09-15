@@ -6,6 +6,8 @@ import 'package:eje/pages/freizeiten/domain/repositories/freizeit_repository.dar
 import 'package:hive/hive.dart';
 import 'package:meta/meta.dart';
 
+import '../../../../app_config.dart';
+
 class GetFreizeiten implements UseCase<List<Freizeit>> {
   final FreizeitRepository repository;
 
@@ -13,7 +15,8 @@ class GetFreizeiten implements UseCase<List<Freizeit>> {
 
   @override
   Future<Either<Failure, List<Freizeit>>> call() async {
-    Box _box = await Hive.openBox('Freizeiten');
+    final AppConfig appConfig = await AppConfig.loadConfig();
+    final Box _box = await Hive.openBox(appConfig.campsBox);
     final result = await repository.getFreizeiten();
     await _box.compact();
     await _box.close();

@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:eje/app_config.dart';
 import 'package:eje/core/error/failures.dart';
 import 'package:eje/core/usecases/usecase.dart';
 import 'package:eje/pages/freizeiten/domain/entities/Freizeit.dart';
@@ -15,7 +16,8 @@ class GetFreizeit implements UseCase<Freizeit> {
   Future<Either<Failure, Freizeit>> call({
     @required Freizeit freizeit,
   }) async {
-    Box _box = await Hive.openBox('Freizeiten');
+    final AppConfig appConfig = await AppConfig.loadConfig();
+    final Box _box = await Hive.openBox(appConfig.campsBox);
     final result = await repository.getFreizeit(freizeit);
     await _box.compact();
     await _box.close();

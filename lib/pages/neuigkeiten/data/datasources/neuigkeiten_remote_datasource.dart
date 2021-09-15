@@ -1,3 +1,4 @@
+import 'package:eje/app_config.dart';
 import 'package:eje/core/error/exception.dart';
 import 'package:eje/pages/neuigkeiten/domain/entitys/neuigkeit.dart';
 import 'package:flutter/material.dart';
@@ -7,38 +8,41 @@ import 'package:dart_rss/dart_rss.dart';
 
 class NeuigkeitenRemoteDatasource {
   final client = http.Client();
-  var apiUrl = Uri.parse("https://www.eje-esslingen.de/meta/rss/");
 
   Future<List<Neuigkeit>> getNeuigkeiten() async {
-    List<Neuigkeit> temp = new List<Neuigkeit>();
+    // Load config constants
+    final appConfig = await AppConfig.loadConfig();
+    final apiUrl = Uri.parse(appConfig.domain + appConfig.newsEndpoint);
+    // Init vars
+    List<Neuigkeit> data = List.empty(growable: true);
     final response = await client.get(apiUrl);
-    String bodyString = response.body;
-    var channel = new RssFeed.parse(bodyString);
-    var items = channel.items.toList();
-    if (items.length != 0) {
-      for (int i = 0; i < items.length; i++) {
-        String content = items[i].description;
+    var payload = new RssFeed.parse(response.body).items.toList();
+
+    // Parsing
+    if (payload.length != 0) {
+      for (int i = 0; i < payload.length; i++) {
+        String content = payload[i].description;
         if (content.contains("<img src=")) {
-          content = items[i]
+          content = payload[i]
               .description
-              .substring(0, items[i].description.indexOf("<img src="));
+              .substring(0, payload[i].description.indexOf("<img src="));
         }
-        temp.add(
+        data.add(
           new Neuigkeit(
-            titel: items[i].title,
+            titel: payload[i].title,
             text_preview: content,
             text: content,
-            bilder: items[i].enclosure == null
+            bilder: payload[i].enclosure == null
                 ? [
                     "http://www.sjr-es.de/media/zoo/images/eje_logo_9df3b8fbf18c2d3a99928fa9bfbe0da3.jpg"
                   ]
-                : [items[i].enclosure.url],
-            weiterfuehrender_link: items[i].link,
-            published: parseDateTimeFromRSS(items[i].pubDate),
+                : [payload[i].enclosure.url],
+            weiterfuehrender_link: payload[i].link,
+            published: parseDateTimeFromRSS(payload[i].pubDate),
           ),
         );
       }
-      return temp;
+      return data;
     } else {
       throw ServerException();
     }

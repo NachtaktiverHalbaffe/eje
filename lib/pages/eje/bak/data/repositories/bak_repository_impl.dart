@@ -33,14 +33,14 @@ class BAKRepositoryImpl implements BAKRepository {
         return Right([getErrorBAKler()]);
       }
     } else
-      return Right(localDatasource.getCachedBAK());
+      return Right(await localDatasource.getCachedBAK());
   }
 
   //Lade bestimmten Artikel aus Cache
   @override
   Future<Either<Failure, BAKler>> getBAKler(String name) async {
     try {
-      List<BAKler> _bak = localDatasource.getCachedBAK();
+      List<BAKler> _bak = await localDatasource.getCachedBAK();
       for (var value in _bak) {
         if (value.name == name) {
           return Right(value);

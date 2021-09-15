@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:eje/app_config.dart';
 import 'package:eje/core/error/failures.dart';
 import 'package:eje/core/usecases/usecase.dart';
 import 'package:eje/pages/articles/domain/entity/Article.dart';
@@ -16,8 +17,9 @@ class GetNeuigkeit implements UseCase<List<Article>> {
   Future<Either<Failure, List<Article>>> call({
     @required String titel,
   }) async {
-    Box _box = await Hive.openBox('Neuigkeiten');
-    Box _box2 = await Hive.openBox('Articles');
+    final AppConfig appConfig = await AppConfig.loadConfig();
+    final Box _box = await Hive.openBox(appConfig.newsBox);
+    final Box _box2 = await Hive.openBox(appConfig.articlesBox);
     final result = await repository.getNeuigkeit(titel);
     await _box.compact();
     await _box.close();

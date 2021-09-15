@@ -6,6 +6,8 @@ import 'package:eje/pages/eje/arbeitsfelder/domain/repositories/arbeitsbereich_r
 import 'package:hive/hive.dart';
 import 'package:meta/meta.dart';
 
+import '../../../../../app_config.dart';
+
 class GetArbeitsbereiche implements UseCase<List<Arbeitsbereich>> {
   final ArbeitsbereichRepository repository;
 
@@ -13,7 +15,8 @@ class GetArbeitsbereiche implements UseCase<List<Arbeitsbereich>> {
 
   @override
   Future<Either<Failure, List<Arbeitsbereich>>> call() async {
-    Box _box = await Hive.openBox('Arbeitsbereiche');
+    final AppConfig appConfig = await AppConfig.loadConfig();
+    final Box _box = await Hive.openBox(appConfig.fieldOfWorkBox);
     final result = await repository.getArbeitsbereiche();
     await _box.compact();
     await _box.close();

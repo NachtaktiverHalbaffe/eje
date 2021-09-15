@@ -6,6 +6,8 @@ import 'package:eje/pages/eje/hauptamtlichen/domain/repositories/hauptamtliche_r
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 
+import '../../../../../app_config.dart';
+
 class GetHauptamtlicher implements UseCase<Hauptamtlicher> {
   final HauptamtlicheRepository repository;
 
@@ -15,7 +17,8 @@ class GetHauptamtlicher implements UseCase<Hauptamtlicher> {
   Future<Either<Failure, Hauptamtlicher>> call({
     @required String name,
   }) async {
-    Box _box = await Hive.openBox('Hauptamtliche');
+    final AppConfig appConfig = await AppConfig.loadConfig();
+    final Box _box = await Hive.openBox(appConfig.employeesBox);
     final result = await repository.getHauptamtlicher(name);
     await _box.compact();
     await _box.close();

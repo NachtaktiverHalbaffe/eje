@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:eje/app_config.dart';
 import 'package:eje/core/error/failures.dart';
 import 'package:eje/core/usecases/usecase.dart';
 import 'package:eje/pages/eje/hauptamtlichen/domain/entitys/hauptamtlicher.dart';
@@ -13,7 +14,8 @@ class GetHauptamtliche implements UseCase<List<Hauptamtlicher>> {
 
   @override
   Future<Either<Failure, List<Hauptamtlicher>>> call() async {
-    Box _box = await Hive.openBox('Hauptamtliche');
+    final AppConfig appConfig = await AppConfig.loadConfig();
+    final Box _box = await Hive.openBox(appConfig.employeesBox);
     final result = await repository.getHauptamtliche();
     await _box.compact();
     await _box.close();

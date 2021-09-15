@@ -29,16 +29,17 @@ class NeuigkeitenRepositoryImpl implements NeuigkeitenRepository {
   //Lade bestimmten Artikel aus Cache
   @override
   Future<Either<Failure, List<Article>>> getNeuigkeit(String titel) async {
-    List<Article> article = List();
+    List<Article> article = new List.empty(growable: true);
     //open database
     Box _box = Hive.box('Articles');
     try {
       bool isInCache = false;
       String url = "";
-      List<Neuigkeit> _neuigkeiten = localDatasource.getCachedNeuigkeiten();
+      List<Neuigkeit> _neuigkeiten =
+          await localDatasource.getCachedNeuigkeiten();
       for (var value in _neuigkeiten) {
         if (value.titel == titel) {
-          //sing url of ticle if ticle isnt in cache
+          //sing url of article if article isnt in cache
           url = value.weiterfuehrender_link;
           for (int k = 0; k < _box.length; k++) {
             final Article _article = _box.getAt(k);
@@ -75,17 +76,18 @@ class NeuigkeitenRepositoryImpl implements NeuigkeitenRepository {
         localDatasource.cacheNeuigkeiten(remoteNeuigkeiten);
         //Storing length of items for notification background service
         List<String> _neuigkeiten_namen = List();
-        List<Neuigkeit> _neuigkeiten = localDatasource.getCachedNeuigkeiten();
+        List<Neuigkeit> _neuigkeiten =
+            await localDatasource.getCachedNeuigkeiten();
         _neuigkeiten.forEach((element) {
           _neuigkeiten_namen.add(element.titel);
         });
         prefs.setStringList("cached_neuigkeiten", _neuigkeiten_namen);
-        return Right(localDatasource.getCachedNeuigkeiten());
+        return Right(await localDatasource.getCachedNeuigkeiten());
       } on ServerException {
         print("Neuigkeiten: Serverexception");
         return Right([getErrorNeuigkeit()]);
       }
     } else
-      return Right(localDatasource.getCachedNeuigkeiten());
+      return Right(await localDatasource.getCachedNeuigkeiten());
   }
 }

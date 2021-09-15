@@ -6,6 +6,8 @@ import 'package:eje/pages/eje/services/domain/repositories/services_repository.d
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 
+import '../../../../../app_config.dart';
+
 class GetServices implements UseCase<List<Service>> {
   final ServicesRepository repository;
 
@@ -13,7 +15,8 @@ class GetServices implements UseCase<List<Service>> {
 
   @override
   Future<Either<Failure, List<Service>>> call() async {
-    Box _box = await Hive.openBox('Services');
+    final AppConfig appConfig = await AppConfig.loadConfig();
+    final Box _box = await Hive.openBox(appConfig.servicesBox);
     final result = await repository.getServices();
     await _box.compact();
     await _box.close();

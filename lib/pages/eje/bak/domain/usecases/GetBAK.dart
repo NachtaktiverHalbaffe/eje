@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:eje/app_config.dart';
 import 'package:eje/core/error/failures.dart';
 import 'package:eje/core/usecases/usecase.dart';
 import 'package:eje/pages/eje/bak/domain/entitys/BAKler.dart';
@@ -13,7 +14,8 @@ class GetBAK implements UseCase<List<BAKler>> {
 
   @override
   Future<Either<Failure, List<BAKler>>> call() async {
-    Box _box = await Hive.openBox('BAK');
+    final AppConfig appConfig = await AppConfig.loadConfig();
+    final Box _box = await Hive.openBox(appConfig.bakBox);
     final result = await repository.getBAK();
     await _box.compact();
     await _box.close();

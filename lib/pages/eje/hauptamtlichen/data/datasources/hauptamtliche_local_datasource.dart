@@ -1,29 +1,32 @@
+import 'package:eje/app_config.dart';
 import 'package:eje/core/error/exception.dart';
 import 'package:eje/pages/eje/hauptamtlichen/domain/entitys/hauptamtlicher.dart';
 import 'package:hive/hive.dart';
 
 class HauptamtlicheLocalDatasource {
-  Box _box;
+  Future<List<Hauptamtlicher>> getCachedHauptamtliche() async {
+    final AppConfig appConfig = await AppConfig.loadConfig();
+    final Box _box = Hive.box(appConfig.employeesBox);
 
-  List<Hauptamtlicher> getCachedHauptamtliche() {
-    Box _box = Hive.box('Hauptamtliche');
-
+    // load data from cache
     if (_box.isNotEmpty) {
-      List<Hauptamtlicher> temp = new List<Hauptamtlicher>();
+      List<Hauptamtlicher> data = new List.empty(growable: true);
       for (int i = 0; i < _box.length; i++) {
         if (_box.getAt(i) != null) {
-          temp.add(_box.getAt(i));
+          data.add(_box.getAt(i));
         }
       }
-      return temp;
+      return data;
     } else {
       throw CacheException();
     }
   }
 
-  Hauptamtlicher getHauptamtliche(String name) {
-    Box _box = Hive.box('Hauptamtliche');
+  Future<Hauptamtlicher> getHauptamtliche(String name) async {
+    final AppConfig appConfig = await AppConfig.loadConfig();
+    final Box _box = Hive.box(appConfig.employeesBox);
 
+    // load specific data entry from cache
     if (_box.isNotEmpty) {
       for (int i = 0; i < _box.length; i++) {
         Hauptamtlicher temp = _box.getAt(i);
@@ -36,9 +39,11 @@ class HauptamtlicheLocalDatasource {
     }
   }
 
-  void cacheHauptamtliche(List<Hauptamtlicher> hauptamtlicheToCache) {
-    Box _box = Hive.box('Hauptamtliche');
+  void cacheHauptamtliche(List<Hauptamtlicher> hauptamtlicheToCache) async {
+    final AppConfig appConfig = await AppConfig.loadConfig();
+    final Box _box = Hive.box(appConfig.employeesBox);
 
+    // cache data if not already cached
     for (int i = 0; i < hauptamtlicheToCache.length; i++) {
       for (int k = 0; k < _box.length; k++) {
         final Hauptamtlicher _hauptamtlicher = _box.getAt(k);

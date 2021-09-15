@@ -2,21 +2,26 @@ import 'package:eje/core/error/exception.dart';
 import 'package:eje/pages/neuigkeiten/domain/entitys/neuigkeit.dart';
 import 'package:hive/hive.dart';
 
+import '../../../../app_config.dart';
+
 class NeuigkeitenLocalDatasource {
-  List<Neuigkeit> getCachedNeuigkeiten() {
-    Box _box;
-    _box = Hive.box('Neuigkeiten');
+  Future<List<Neuigkeit>> getCachedNeuigkeiten() async {
+    // Load appconfig
+    final AppConfig appConfig = await AppConfig.loadConfig();
+    final Box _box = Hive.box(appConfig.newsBox);
+
+    // Load local data
     if (_box.isNotEmpty) {
-      List<Neuigkeit> temp = new List<Neuigkeit>();
+      List<Neuigkeit> data = new List.empty(growable: true);
       for (int i = 0; i < _box.length; i++) {
         if (_box.getAt(i) != null) {
-          temp.add(_box.getAt(i));
+          data.add(_box.getAt(i));
         }
       }
-      if (temp.isNotEmpty) {
-        temp.sort((a, b) => a.published.compareTo(b.published));
+      if (data.isNotEmpty) {
+        data.sort((a, b) => a.published.compareTo(b.published));
       }
-      return temp;
+      return data;
     } else {
       throw CacheException();
     }
@@ -38,8 +43,12 @@ class NeuigkeitenLocalDatasource {
     }
   }*/
 
-  void cacheNeuigkeiten(List<Neuigkeit> neuigkeitenToCache) {
-    Box _box = Hive.box('Neuigkeiten');
+  void cacheNeuigkeiten(List<Neuigkeit> neuigkeitenToCache) async {
+    // Load appconfig
+    final AppConfig appConfig = await AppConfig.loadConfig();
+    final Box _box = Hive.box(appConfig.newsBox);
+
+    // Check for each news if it already exists, if not save it to cache
     for (int i = 0; i < neuigkeitenToCache.length; i++) {
       bool alreadyexists = false;
       for (int k = 0; k < _box.length; k++) {

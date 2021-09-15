@@ -1,3 +1,5 @@
+import 'package:eje/app_config.dart';
+import 'package:eje/core/error/exception.dart';
 import 'package:eje/pages/articles/domain/entity/Article.dart';
 import 'package:eje/pages/articles/domain/entity/ErrorArticle.dart';
 import 'package:eje/pages/articles/domain/entity/Hyperlink.dart';
@@ -7,6 +9,7 @@ import 'package:eje/pages/eje/bak/domain/entitys/BAKler.dart';
 import 'package:eje/pages/eje/bak/domain/entitys/ErrorBAKler.dart';
 import 'package:eje/pages/eje/hauptamtlichen/domain/entitys/errorHauptamtlicher.dart';
 import 'package:eje/pages/eje/hauptamtlichen/domain/entitys/hauptamtlicher.dart';
+import 'package:eje/pages/eje/services/domain/entities/Service.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:html/dom.dart' as dom;
@@ -15,11 +18,12 @@ import 'package:html/parser.dart' as parser;
 class WebScraper {
   //Scraping a Webpage amd parsing to an List of article
   Future<List<Article>> scrapeWebPage(String url) async {
-    List<Article> article = List();
-    const String DOMAIN = "https://www.eje-esslingen.de";
-    const String ID_HEADER = 'c845041';
-    const String ID_KONTAKT = 'c762177';
-    const String ID_ANSCHRIFT = 'c762175';
+    List<Article> article = new List.empty(growable: true);
+    final AppConfig appConfig = await AppConfig.loadConfig();
+    final String DOMAIN = appConfig.domain;
+    final String ID_HEADER = appConfig.idHeader;
+    final String ID_KONTAKT = appConfig.idContact;
+    final String ID_ANSCHRIFT = appConfig.idAdress;
     bool alreadyHasTitele = false;
     // Get data from Internet
 
@@ -35,8 +39,8 @@ class WebScraper {
               //Parse data to article
               String content = "";
               String title;
-              List<Hyperlink> hyperlinks = List();
-              List<String> bilder = List();
+              List<Hyperlink> hyperlinks = new List.empty(growable: true);
+              List<String> bilder = new List.empty(growable: true);
               // ! Title parsen
               if (parent[i].getElementsByClassName('icon-left').isNotEmpty) {
                 if (parent[i]
@@ -181,8 +185,8 @@ class WebScraper {
               if (document
                   .getElementsByClassName('collection-item row')
                   .isNotEmpty) {
-                List<String> links = List();
-                List<String> description = List();
+                List<String> links;
+                List<String> description;
                 links.addAll(parent[i]
                     .getElementsByClassName('collection-item row')
                     .map((element) =>
@@ -202,8 +206,8 @@ class WebScraper {
                 }
               }
               if (document.getElementsByClassName('download').isNotEmpty) {
-                List<String> links = List();
-                List<String> description = List();
+                List<String> links;
+                List<String> description;
                 links.addAll(parent[i]
                     .getElementsByClassName('download')
                     .map((element) => DOMAIN + element.attributes['href'])
@@ -254,12 +258,13 @@ class WebScraper {
   }
 
   Future<List<Hauptamtlicher>> scrapeHauptamliche() async {
-    List<Hauptamtlicher> hauptamtliche = new List<Hauptamtlicher>();
-    const String DOMAIN = "https://www.eje-esslingen.de";
-    const String URL = DOMAIN + "/?id=246889";
-    const String ID_HEADER = 'c845041';
-    const String ID_KONTAKT = 'c762177';
-    const String ID_ANSCHRIFT = 'c762175';
+    List<Hauptamtlicher> hauptamtliche = new List.empty(growable: true);
+    final AppConfig appConfig = await AppConfig.loadConfig();
+    final String DOMAIN = appConfig.domain;
+    final String URL = DOMAIN + appConfig.employeesEndpoint;
+    final String ID_HEADER = appConfig.idHeader;
+    final String ID_KONTAKT = appConfig.idContact;
+    final String ID_ANSCHRIFT = appConfig.idAdress;
     // Get data from Internet
     var response = await http.get(Uri.parse(URL));
     if (response.statusCode == 200) {
@@ -398,12 +403,13 @@ class WebScraper {
   }
 
   Future<List<BAKler>> scrapeBAKler() async {
-    List<BAKler> bakler = new List<BAKler>();
-    const String DOMAIN = "https://www.eje-esslingen.de";
-    const String URL = DOMAIN + "/?id=246890";
-    const String ID_HEADER = 'c845041';
-    const String ID_KONTAKT = 'c762177';
-    const String ID_ANSCHRIFT = 'c762175';
+    List<BAKler> bakler = new List.empty(growable: true);
+    final AppConfig appConfig = await AppConfig.loadConfig();
+    final String DOMAIN = appConfig.domain;
+    final String URL = DOMAIN + appConfig.bakEndpoint;
+    final String ID_HEADER = appConfig.idHeader;
+    final String ID_KONTAKT = appConfig.idContact;
+    final String ID_ANSCHRIFT = appConfig.idAdress;
     // Get data from Internet
     var response = await http.get(Uri.parse(URL));
     if (response.statusCode == 200) {
@@ -532,12 +538,13 @@ class WebScraper {
   }
 
   Future<List<Arbeitsbereich>> scrapeArbeitsbereiche() async {
-    List<Arbeitsbereich> arbeitsbereiche = new List<Arbeitsbereich>();
-    const String DOMAIN = "https://www.eje-esslingen.de";
-    const String URL = DOMAIN + "/?id=246887";
-    const String ID_HEADER = 'c845041';
-    const String ID_KONTAKT = 'c762177';
-    const String ID_ANSCHRIFT = 'c762175';
+    List<Arbeitsbereich> arbeitsbereiche = new List.empty(growable: true);
+    final AppConfig appConfig = await AppConfig.loadConfig();
+    final String DOMAIN = appConfig.domain;
+    final String URL = DOMAIN + appConfig.fieldOfWorkEndpoint;
+    final String ID_HEADER = appConfig.idHeader;
+    final String ID_KONTAKT = appConfig.idContact;
+    final String ID_ANSCHRIFT = appConfig.idAdress;
     // Get data from Internet
     var response = await http.get(Uri.parse(URL));
     if (response.statusCode == 200) {
@@ -550,7 +557,7 @@ class WebScraper {
             if (parent[i].id != ID_ANSCHRIFT) {
               //Parse data to article
               String arbeitsbereich = "";
-              List<String> bild = List<String>();
+              List<String> bild = new List.empty(growable: true);
               String url = "";
               // ! arbeitsfeld parsen
               if (parent[i]
@@ -602,6 +609,97 @@ class WebScraper {
       // No Internet connection, returning empty Article
       print("Error: No internet Connection");
       return [getErrorArbeitsbereich()];
+    }
+  }
+
+  Future<Service> scrapeServices(Service service) async {
+    final appConfig = await AppConfig.loadConfig();
+    final String DOMAIN = appConfig.domain;
+
+    List<Hyperlink> hyperlinks = service.hyperlinks.sublist(0, 1);
+    List<String> links = new List.empty(growable: true);
+    List<String> description = new List.empty(growable: true);
+    List<String> bilder = service.bilder;
+    final response = await http.get(Uri.parse(service.hyperlinks[0].link));
+    if (response.statusCode == 200) {
+      print("Services: Getting Data from Internet");
+      dom.Document document = parser.parse(response.body);
+      //Check if service is eje-info
+      if (document.getElementsByClassName('collection-item row').isNotEmpty) {
+        final parent = document.getElementsByClassName('collection-item row');
+        if (hyperlinks.length > 1) {
+          for (int i = 0; i < parent.length; i++) {
+            bool isAlreadyInCache = false;
+            for (int k = 0; k < hyperlinks.length; k++) {
+              if (DOMAIN +
+                      parent[i]
+                          .getElementsByTagName('a')[0]
+                          .attributes['href'] ==
+                  hyperlinks[k]) {
+                isAlreadyInCache = true;
+              }
+            }
+            if (!isAlreadyInCache) {
+              links.add(DOMAIN +
+                  parent[i].getElementsByTagName('a')[0].attributes['href']);
+              description.add(
+                  parent[i].getElementsByTagName('a')[0].attributes['title']);
+            }
+          }
+        } else {
+          links.addAll(parent
+              .map((element) =>
+                  DOMAIN +
+                  element.getElementsByTagName('a')[0].attributes['href'])
+              .toList());
+          description.addAll(parent
+              .map((element) => element.getElementsByTagName('a')[0].innerHtml)
+              .toList());
+        }
+        for (int k = 0; k < links.length; k++) {
+          hyperlinks
+              .add(Hyperlink(link: links[k], description: description[k]));
+        }
+        return Service(
+            service: service.service,
+            bilder: service.bilder,
+            inhalt: service.inhalt,
+            hyperlinks: hyperlinks);
+      } //Service is a webpage which to webscrape
+      else {
+        List<Article> _article =
+            await WebScraper().scrapeWebPage(service.hyperlinks[0].link);
+        List<String> bilder = service.bilder.sublist(0, 1);
+        List<Hyperlink> hyperlinks = service.hyperlinks.sublist(0, 1);
+        String content = service.inhalt;
+        for (int i = 0; i < _article.length; i++) {
+          if (_article[i].bilder[0] != "") {
+            bilder.addAll(_article[i].bilder);
+          }
+          if (_article[i].hyperlinks[0].link != "") {
+            hyperlinks.addAll(_article[i].hyperlinks);
+          }
+          if (_article[i].content.isNotEmpty) {
+            if (!content.contains(_article[i].content)) {
+              content = content + _article[i].content;
+            }
+          }
+        }
+        if (bilder.length > 1) {
+          bilder = bilder.sublist(1);
+        }
+        if (hyperlinks.length == 1) {
+          hyperlinks.add(Hyperlink(link: "", description: ""));
+        }
+        return Service(
+          service: service.service,
+          bilder: bilder,
+          inhalt: content,
+          hyperlinks: hyperlinks,
+        );
+      }
+    } else {
+      throw ServerException();
     }
   }
 }

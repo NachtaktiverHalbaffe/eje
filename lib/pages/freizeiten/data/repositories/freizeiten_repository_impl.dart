@@ -36,19 +36,19 @@ class FreizeitenRepositoryImpl implements FreizeitRepository {
       }
     } else */
     List<String> _freizeiten_namen = List();
-    List<Freizeit> _freizeiten = localDatasource.getCachedFreizeiten();
+    List<Freizeit> _freizeiten = await localDatasource.getCachedFreizeiten();
     _freizeiten.forEach((element) {
       _freizeiten_namen.add(element.freizeit);
     });
     prefs.setStringList("cached_freizeiten", _freizeiten_namen);
-    return Right(localDatasource.getCachedFreizeiten());
+    return Right(await localDatasource.getCachedFreizeiten());
   }
 
   //Lade bestimmte Freizeit aus Cache
   @override
   Future<Either<Failure, Freizeit>> getFreizeit(Freizeit freizeit) async {
     try {
-      List<Freizeit> _freizeit = localDatasource.getCachedFreizeiten();
+      List<Freizeit> _freizeit = await localDatasource.getCachedFreizeiten();
       for (var value in _freizeit) {
         if (value.freizeit == freizeit.freizeit) {
           return Right(value);

@@ -34,7 +34,7 @@ class ArbeitsbereichRepositoryImpl implements ArbeitsbereichRepository {
         return Right([getErrorArbeitsbereich()]);
       }
     } else
-      return Right(localDatasource.getCachedArbeitsbereiche());
+      return Right(await localDatasource.getCachedArbeitsbereiche());
   }
 
   //Lade bestimmten Artikel aus Cache, inaktiv da durch getArticle ersetzt
@@ -43,7 +43,7 @@ class ArbeitsbereichRepositoryImpl implements ArbeitsbereichRepository {
       String arbeitsfeld) async {
     try {
       List<Arbeitsbereich> _arbeitsfeld =
-          localDatasource.getCachedArbeitsbereiche();
+          await localDatasource.getCachedArbeitsbereiche();
       for (var value in _arbeitsfeld) {
         if (value.arbeitsfeld == arbeitsfeld) {
           return Right(value);

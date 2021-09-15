@@ -73,6 +73,7 @@ flutter:
   assets:
     - assets/images/
     - assets/testdata/
+    - assets/config/
   fonts:
     - family: CostumIcons
       fonts:

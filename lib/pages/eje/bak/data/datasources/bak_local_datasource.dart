@@ -1,29 +1,32 @@
+import 'package:eje/app_config.dart';
 import 'package:eje/core/error/exception.dart';
 import 'package:eje/pages/eje/bak/domain/entitys/BAKler.dart';
 import 'package:hive/hive.dart';
 
 class BAKLocalDatasource {
-  Box _box;
+  Future<List<BAKler>> getCachedBAK() async {
+    final AppConfig appConfig = await AppConfig.loadConfig();
+    Box _box = Hive.box(appConfig.bakBox);
 
-  List<BAKler> getCachedBAK() {
-    Box _box = Hive.box('BAK');
-
+    // load data from cache
     if (_box.isNotEmpty) {
-      List<BAKler> temp = new List<BAKler>();
+      List<BAKler> data = new List.empty(growable: true);
       for (int i = 0; i < _box.length; i++) {
         if (_box.getAt(i) != null) {
-          temp.add(_box.getAt(i));
+          data.add(_box.getAt(i));
         }
       }
-      return temp;
+      return data;
     } else {
       throw CacheException();
     }
   }
 
-  BAKler getBAKler(String name) {
-    Box _box = Hive.box('Hauptamtliche');
+  Future<BAKler> getBAKler(String name) async {
+    final appConfig = await AppConfig.loadConfig();
+    Box _box = Hive.box(appConfig.bakBox);
 
+    // load specific data entry from cache
     if (_box.isNotEmpty) {
       for (int i = 0; i < _box.length; i++) {
         BAKler temp = _box.getAt(i);
@@ -36,9 +39,11 @@ class BAKLocalDatasource {
     }
   }
 
-  void cacheBAK(List<BAKler> bakToCache) {
-    Box _box = Hive.box('BAK');
+  void cacheBAK(List<BAKler> bakToCache) async {
+    final AppConfig appConfig = await AppConfig.loadConfig();
+    Box _box = Hive.box(appConfig.bakBox);
 
+    // cache data if not already cached
     for (int i = 0; i < bakToCache.length; i++) {
       for (int k = 0; k < _box.length; k++) {
         final BAKler _bakler = _box.getAt(k);

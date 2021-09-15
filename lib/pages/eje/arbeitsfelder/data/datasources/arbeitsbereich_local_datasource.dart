@@ -1,30 +1,34 @@
+import 'package:eje/app_config.dart';
 import 'package:eje/core/error/exception.dart';
 
 import 'package:eje/pages/eje/arbeitsfelder/domain/entities/Arbeitsbereich.dart';
 import 'package:hive/hive.dart';
 
 class ArbeitsbereicheLocalDatasource {
-  Box _box;
+  Future<List<Arbeitsbereich>> getCachedArbeitsbereiche() async {
+    final AppConfig appConfig = await AppConfig.loadConfig();
+    final Box _box = Hive.box(appConfig.fieldOfWorkBox);
 
-  List<Arbeitsbereich> getCachedArbeitsbereiche() {
-    Box _box = Hive.box('Arbeitsbereiche');
-
+    //Load all field of works from cache
     if (_box.isNotEmpty) {
-      List<Arbeitsbereich> temp = new List<Arbeitsbereich>();
+      List<Arbeitsbereich> data = new List.empty(growable: true);
       for (int i = 0; i < _box.length; i++) {
         if (_box.getAt(i) != null) {
-          temp.add(_box.getAt(i));
+          data.add(_box.getAt(i));
         }
       }
 
-      return temp;
+      return data;
     } else {
       throw CacheException();
     }
   }
 
-  Arbeitsbereich getArbeitsbereich(String arbeitsfeld) {
-    Box _box = Hive.box('Arbeitsbereiche');
+  Future<Arbeitsbereich> getArbeitsbereich(String arbeitsfeld) async {
+    final AppConfig appConfig = await AppConfig.loadConfig();
+    final Box _box = Hive.box(appConfig.fieldOfWorkBox);
+
+    // Load specific field of work
     if (_box.isNotEmpty) {
       for (int i = 0; i < _box.length; i++) {
         Arbeitsbereich temp = _box.getAt(i);
@@ -37,9 +41,11 @@ class ArbeitsbereicheLocalDatasource {
     }
   }
 
-  void cacheBAK(List<Arbeitsbereich> arbeitsbereicheToCache) {
-    _box = Hive.box('Arbeitsbereiche');
+  void cacheBAK(List<Arbeitsbereich> arbeitsbereicheToCache) async {
+    final AppConfig appConfig = await AppConfig.loadConfig();
+    final Box _box = Hive.box(appConfig.fieldOfWorkBox);
 
+    // cache field of work if not already cached
     for (int i = 0; i < arbeitsbereicheToCache.length; i++) {
       for (int k = 0; k < _box.length; k++) {
         final Arbeitsbereich _arbeitsbereich = _box.getAt(k);

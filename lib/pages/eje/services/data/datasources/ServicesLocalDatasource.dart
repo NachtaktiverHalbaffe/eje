@@ -1,34 +1,39 @@
+import 'package:eje/app_config.dart';
 import 'package:eje/core/error/exception.dart';
 import 'package:eje/fixtures/data_services.dart';
 import 'package:eje/pages/eje/services/domain/entities/Service.dart';
 import 'package:hive/hive.dart';
 
 class ServicesLocalDatasource {
-  Box _box;
-
-  List<Service> getCachedServices() {
-    Box _box = Hive.box('Services');
+  Future<List<Service>> getCachedServices() async {
+    final AppConfig appConfig = await AppConfig.loadConfig();
+    final Box _box = Hive.box(appConfig.servicesBox);
     data_services(_box);
+
+    // load data from cache
     if (_box.isNotEmpty) {
-      List<Service> temp = new List<Service>();
+      List<Service> data = new List.empty(growable: true);
       for (int i = 0; i < _box.length; i++) {
         if (_box.getAt(i) != null) {
-          temp.add(_box.getAt(i));
+          data.add(_box.getAt(i));
         }
       }
-      return temp;
+      return data;
     } else {
       throw CacheException();
     }
   }
 
-  Service getService(String service) {
-    Box _box = Hive.box('Services');
+  Future<Service> getService(String service) async {
+    final AppConfig appConfig = await AppConfig.loadConfig();
+    final Box _box = Hive.box(appConfig.servicesBox);
+
+    // get specific data entry
     if (_box.isNotEmpty) {
       for (int i = 0; i < _box.length; i++) {
-        Service temp = _box.getAt(i);
-        if (temp.service == service) {
-          return temp;
+        Service data = _box.getAt(i);
+        if (data.service == service) {
+          return data;
         }
       }
     } else {
@@ -36,12 +41,15 @@ class ServicesLocalDatasource {
     }
   }
 
-  void cacheService(Service service) {
-    Box _box = Hive.box('Services');
+  void cacheService(Service service) async {
+    final AppConfig appConfig = await AppConfig.loadConfig();
+    final Box _box = Hive.box(appConfig.servicesBox);
+
+    // cache specific data entry if not already cached
     if (_box.isNotEmpty) {
       for (int i = 0; i < _box.length; i++) {
-        Service temp = _box.getAt(i);
-        if (temp.service == service.service) {
+        Service _service = _box.getAt(i);
+        if (_service.service == service.service) {
           _box.deleteAt(i);
           _box.add(service);
         }
@@ -53,8 +61,11 @@ class ServicesLocalDatasource {
     }
   }
 
-  void cacheServices(List<Service> servicesToCache) {
-    Box _box = Hive.box('Services');
+  void cacheServices(List<Service> servicesToCache) async {
+    final AppConfig appConfig = await AppConfig.loadConfig();
+    final Box _box = Hive.box(appConfig.servicesBox);
+
+    // cache data if not already cached
     for (int i = 0; i < servicesToCache.length; i++) {
       bool alreadyexists = false;
       for (int k = 0; k < _box.length; k++) {

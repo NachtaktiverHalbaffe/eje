@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:eje/app_config.dart';
 import 'package:eje/core/error/failures.dart';
 import 'package:eje/core/usecases/usecase.dart';
 import 'package:eje/pages/eje/services/domain/entities/Service.dart';
@@ -15,7 +16,8 @@ class GetService implements UseCase<Service> {
   Future<Either<Failure, Service>> call({
     @required Service service,
   }) async {
-    Box _box = await Hive.openBox('Services');
+    final AppConfig appConfig = await AppConfig.loadConfig();
+    final Box _box = await Hive.openBox(appConfig.servicesBox);
     final result = await repository.getService(service);
     await _box.compact();
     await _box.close();

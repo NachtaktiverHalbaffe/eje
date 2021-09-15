@@ -1,34 +1,39 @@
+import 'package:eje/app_config.dart';
 import 'package:eje/core/error/exception.dart';
 import 'package:eje/fixtures/testdata_termine.dart';
 import 'package:eje/pages/termine/domain/entities/Termin.dart';
 import 'package:hive/hive.dart';
 
 class TermineLocalDatasource {
-  Box _box;
-
-  List<Termin> getCachedTermine() {
-    Box _box = Hive.box('Termine');
+  Future<List<Termin>> getCachedTermine() async {
+    final AppConfig appConfig = await AppConfig.loadConfig();
+    final Box _box = Hive.box(appConfig.eventsBox);
     testdata_termine(_box);
+
+    // load data from cache
     if (_box.isNotEmpty) {
-      List<Termin> temp = new List<Termin>();
+      List<Termin> data = new List.empty(growable: true);
       for (int i = 0; i < _box.length; i++) {
         if (_box.getAt(i) != null) {
-          temp.add(_box.getAt(i));
+          data.add(_box.getAt(i));
         }
       }
-      return temp;
+      return data;
     } else {
       throw CacheException();
     }
   }
 
-  Termin getTermin(String veranstaltung, String dateTime) {
-    _box = Hive.box('Termine');
+  Future<Termin> getTermin(String veranstaltung, String dateTime) async {
+    final AppConfig appConfig = await AppConfig.loadConfig();
+    final Box _box = Hive.box(appConfig.eventsBox);
+
+    // load specific data entry from cache
     if (_box.isNotEmpty) {
       for (int i = 0; i < _box.length; i++) {
-        Termin temp = _box.getAt(i);
-        if (temp.veranstaltung == veranstaltung && temp.datum == dateTime) {
-          return temp;
+        Termin event = _box.getAt(i);
+        if (event.veranstaltung == veranstaltung && event.datum == dateTime) {
+          return event;
         }
       }
     } else {
@@ -36,8 +41,11 @@ class TermineLocalDatasource {
     }
   }
 
-  void cacheTermine(List<Termin> termineToCache) {
-    _box = Hive.box('Termine');
+  void cacheTermine(List<Termin> termineToCache) async {
+    final AppConfig appConfig = await AppConfig.loadConfig();
+    final Box _box = Hive.box(appConfig.eventsBox);
+
+    // cache data if not already cached
     for (int i = 0; i < termineToCache.length; i++) {
       bool alreadyexists = false;
       for (int k = 0; k < _box.length; k++) {

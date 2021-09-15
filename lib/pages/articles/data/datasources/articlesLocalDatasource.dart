@@ -1,3 +1,4 @@
+import 'package:eje/app_config.dart';
 import 'package:eje/core/error/exception.dart';
 import 'package:eje/pages/articles/domain/entity/Article.dart';
 import 'package:eje/pages/articles/domain/entity/ErrorArticle.dart';
@@ -5,29 +6,34 @@ import 'package:eje/pages/articles/domain/entity/Hyperlink.dart';
 import 'package:hive/hive.dart';
 
 class ArticlesLocalDatasource {
-  List<Article> getCachedArticles() {
-    Box _box;
-    _box = Hive.box('Articles');
+  Future<List<Article>> getCachedArticles() async {
+    final AppConfig appConfig = await AppConfig.loadConfig();
+    final Box _box = Hive.box(appConfig.articlesBox);
+
+    // Load data from cache
     if (_box.isNotEmpty) {
-      List<Article> temp = new List<Article>();
+      List<Article> data = List.empty(growable: true);
       for (int i = 0; i < _box.length; i++) {
         if (_box.getAt(i) != null) {
-          temp.add(_box.getAt(i));
+          data.add(_box.getAt(i));
         }
       }
-      return temp;
+      return data;
     } else {
       throw CacheException();
     }
   }
 
-  Article getArticle(String url) {
-    Box _box = Hive.box('Articles');
+  Future<Article> getArticle(String url) async {
+    final AppConfig appConfig = await AppConfig.loadConfig();
+    final Box _box = Hive.box(appConfig.articlesBox);
+
+    // Load specific article from cache
     if (_box.isNotEmpty) {
       for (int i = 0; i < _box.length; i++) {
-        Article temp = _box.getAt(i);
-        if (temp.url == url) {
-          return temp;
+        Article article = _box.getAt(i);
+        if (article.url == url) {
+          return article;
         }
       }
       return getErrorArticle();
@@ -37,8 +43,11 @@ class ArticlesLocalDatasource {
   }
 
   void cacheArticle(Article article) async {
-    Box _box = Hive.box('Articles');
+    final AppConfig appConfig = await AppConfig.loadConfig();
+    final Box _box = Hive.box(appConfig.articlesBox);
     bool isAlreadyCached = false;
+
+    // Cache an article if not already cached
     if (_box.isNotEmpty) {
       for (int i = 0; i < _box.length; i++) {
         Article temp = _box.getAt(i);
@@ -58,8 +67,11 @@ class ArticlesLocalDatasource {
     }
   }
 
-  void cacheArticles(List<Article> articlesToCache) {
-    Box _box = Hive.box('Articles');
+  void cacheArticles(List<Article> articlesToCache) async {
+    final AppConfig appConfig = await AppConfig.loadConfig();
+    final Box _box = Hive.box(appConfig.articlesBox);
+
+    // Cache multiple articles if not already cached
     for (int i = 0; i < articlesToCache.length; i++) {
       bool alreadyexists = false;
       for (int k = 0; k < _box.length; k++) {

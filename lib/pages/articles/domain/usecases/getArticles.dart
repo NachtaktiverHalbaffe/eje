@@ -6,6 +6,8 @@ import 'package:eje/pages/articles/domain/repositories/ArticlesRepository.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 
+import '../../../../app_config.dart';
+
 class GetArticles implements UseCase<List<Article>> {
   final ArticlesRepository repository;
 
@@ -15,7 +17,8 @@ class GetArticles implements UseCase<List<Article>> {
   Future<Either<Failure, List<Article>>> call({
     @required String url,
   }) async {
-    Box _box = await Hive.openBox('Articles');
+    final AppConfig appConfig = await AppConfig.loadConfig();
+    final Box _box = await Hive.openBox(appConfig.articlesBox);
     final result = await repository.getArticles(url);
     await _box.compact();
     await _box.close();

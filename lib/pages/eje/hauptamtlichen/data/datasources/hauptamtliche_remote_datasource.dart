@@ -9,11 +9,8 @@ import 'package:meta/meta.dart';
 
 class HauptamtlicheRemoteDatasource {
   final http.Client client;
-  final String apiUrl = "";
 
   HauptamtlicheRemoteDatasource({@required this.client});
-
-  //TODO: Implementierung der Onlineanbindung
 
   Future<List<Hauptamtlicher>> getHauptamliche() async {
     return await WebScraper().scrapeHauptamliche();

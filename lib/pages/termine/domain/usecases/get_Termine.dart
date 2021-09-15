@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:eje/app_config.dart';
 import 'package:eje/core/error/failures.dart';
 import 'package:eje/core/usecases/usecase.dart';
 import 'package:eje/pages/termine/domain/entities/Termin.dart';
@@ -13,7 +14,8 @@ class GetTermine implements UseCase<List<Termin>> {
 
   @override
   Future<Either<Failure, List<Termin>>> call() async {
-    Box _box = await Hive.openBox('Termine');
+    final AppConfig appConfig = await AppConfig.loadConfig();
+    final Box _box = await Hive.openBox(appConfig.eventsBox);
     final result = await repository.getTermine();
     await _box.compact();
     await _box.close();

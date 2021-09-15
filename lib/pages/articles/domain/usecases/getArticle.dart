@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:eje/app_config.dart';
 import 'package:eje/core/error/failures.dart';
 import 'package:eje/core/usecases/usecase.dart';
 import 'package:eje/pages/articles/domain/entity/Article.dart';
@@ -15,10 +16,11 @@ class GetArticle implements UseCase<Article> {
   Future<Either<Failure, Article>> call({
     @required String url,
   }) async {
-    Box _box = await Hive.openBox('Articles');
+    final AppConfig appConfig = await AppConfig.loadConfig();
+    final Box _box = await Hive.openBox(appConfig.articlesBox);
     final result = await repository.getArticle(url);
     await _box.compact();
-    //await _box.close();
+    // await _box.close();
     return result;
   }
 }

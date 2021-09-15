@@ -33,7 +33,7 @@ class TermineRepositoryImpl implements TerminRepository {
         return Right([getErrorTermin()]);
       }
     } else */
-    return Right(localDatasource.getCachedTermine());
+    return Right(await localDatasource.getCachedTermine());
   }
 
   //Lade bestimmten Artikel aus Cache
@@ -41,7 +41,7 @@ class TermineRepositoryImpl implements TerminRepository {
   Future<Either<Failure, Termin>> getTermin(
       String veranstaltung, String dateTime) async {
     try {
-      List<Termin> _termin = localDatasource.getCachedTermine();
+      List<Termin> _termin = await localDatasource.getCachedTermine();
       for (var value in _termin) {
         if (value.veranstaltung == veranstaltung && value.datum == dateTime) {
           return Right(value);

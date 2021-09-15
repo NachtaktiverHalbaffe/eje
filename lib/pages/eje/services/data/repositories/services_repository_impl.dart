@@ -25,7 +25,7 @@ class ServicesRepositoryImpl implements ServicesRepository {
   //Lade Artikel aus den Internet herunter
   @override
   Future<Either<Failure, List<Service>>> getServices() async {
-    List<Service> _service = localDatasource.getCachedServices();
+    List<Service> _service = await localDatasource.getCachedServices();
     return Right(_service);
   }
 
@@ -44,7 +44,7 @@ class ServicesRepositoryImpl implements ServicesRepository {
       }
     } else
       try {
-        List<Service> _services = localDatasource.getCachedServices();
+        List<Service> _services = await localDatasource.getCachedServices();
         for (var value in _services) {
           if (value.service == service.service) {
             return Right(value);
