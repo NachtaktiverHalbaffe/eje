@@ -8,21 +8,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ServiceDetails extends StatefulWidget {
-  final bool isCacheEnabled;
   final Service service;
 
-  ServiceDetails(this.isCacheEnabled, this.service);
+  ServiceDetails(this.service);
 
   @override
-  _ServiceDetailsState createState() =>
-      _ServiceDetailsState(isCacheEnabled, service);
+  _ServiceDetailsState createState() => _ServiceDetailsState(service);
 }
 
 class _ServiceDetailsState extends State<ServiceDetails> {
-  final bool isCacheEnabled;
   final Service service;
 
-  _ServiceDetailsState(this.isCacheEnabled, this.service);
+  _ServiceDetailsState(this.service);
 
   @override
   Widget build(BuildContext context) {
@@ -42,8 +39,7 @@ class _ServiceDetailsState extends State<ServiceDetails> {
         if (state is Loading) {
           return LoadingIndicator();
         } else if (state is LoadedService) {
-          return ServiceDetailsCard(
-              state.service, widget.isCacheEnabled, context);
+          return ServiceDetailsCard(service: state.service);
         }
       }),
     );
@@ -55,16 +51,23 @@ class _ServiceDetailsState extends State<ServiceDetails> {
   }
 }
 
-Widget ServiceDetailsCard(
-    Service service, bool isCacheEnabled, BuildContext context) {
-  return DetailsPage(
-    titel: service.service,
-    text: service.inhalt,
-    bild_url: service.bilder,
-    untertitel: "",
-    hyperlinks: service.service != "Verleih"
-        ? service.hyperlinks.sublist(1)
-        : service.hyperlinks.sublist(0, 1),
-    childWidget: SizedBox(height: 36 / MediaQuery.of(context).devicePixelRatio),
-  );
+class ServiceDetailsCard extends StatelessWidget {
+  final Service service;
+
+  const ServiceDetailsCard({Key key, this.service}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return DetailsPage(
+      titel: service.service,
+      text: service.inhalt,
+      bild_url: service.bilder,
+      untertitel: "",
+      hyperlinks: service.service != "Verleih"
+          ? service.hyperlinks.sublist(1)
+          : service.hyperlinks.sublist(0, 1),
+      childWidget:
+          SizedBox(height: 36 / MediaQuery.of(context).devicePixelRatio),
+    );
+  }
 }

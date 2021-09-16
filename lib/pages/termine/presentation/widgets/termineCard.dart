@@ -2,6 +2,7 @@ import 'package:eje/core/platform/Reminder.dart';
 import 'package:eje/core/utils/injection_container.dart';
 import 'package:eje/core/utils/notificationplugin.dart';
 import 'package:eje/core/utils/reminderManager.dart';
+import 'package:eje/core/widgets/PrefImage.dart';
 import 'package:eje/pages/termine/domain/entities/Termin.dart';
 import 'package:eje/pages/termine/presentation/bloc/termine_bloc.dart';
 import 'package:eje/pages/termine/presentation/widgets/termineDetail.dart';
@@ -13,13 +14,12 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class TerminCard extends StatelessWidget {
   final Termin termin;
-  final bool isCacheEnabled;
   final String CHANNEL_NAME = "Erinnerungen an Veranstaltungen";
   final String CHANNEL_DESCRIPTION =
       "Erinnerung an eine Veranstaltung, die der Benutzer zum Merken ausgewählt hat";
   final String CHANNEL_ID = "1";
 
-  TerminCard(this.termin, this.isCacheEnabled);
+  TerminCard(this.termin);
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +48,7 @@ class TerminCard extends StatelessWidget {
             MaterialPageRoute(
               builder: (_) => BlocProvider.value(
                 value: sl<TermineBloc>(),
-                child: TerminDetails(termin, isCacheEnabled),
+                child: TerminDetails(termin),
               ),
             ),
           ),
@@ -61,15 +61,10 @@ class TerminCard extends StatelessWidget {
                     height: 275,
                     color: Theme.of(context).cardColor,
                   ),
-                  Container(
+                  CachedImage(
+                    url: termin.bild,
                     width: MediaQuery.of(context).size.width,
                     height: 275,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        fit: BoxFit.cover,
-                        image: ExactAssetImage(termin.bild),
-                      ),
-                    ),
                   ),
                 ],
               ),

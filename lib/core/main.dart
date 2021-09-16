@@ -1,5 +1,7 @@
+import 'package:eje/app_config.dart';
 import 'package:eje/core/utils/BackgroundServicesManager.dart';
 import 'package:eje/core/utils/notificationplugin.dart';
+import 'package:eje/core/widgets/LoadingIndicator.dart';
 import 'package:eje/core/widgets/bloc/main_bloc.dart';
 import 'package:eje/core/widgets/bloc/main_state.dart';
 import 'package:eje/core/widgets/costum_icons_icons.dart';
@@ -29,17 +31,15 @@ void main() async {
   if (notificationAppLaunchDetails.didNotificationLaunchApp) {
     initialIndex = int.parse(notificationAppLaunchDetails.payload);
   }
-  runApp(MyApp(await SharedPreferences.getInstance(), initialIndex));
+  runApp(MyApp(initialIndex));
   // Connect background
   await BackgroundServicesManager().connectBackgroundServices();
 }
 
 class MyApp extends StatelessWidget {
-  final SharedPreferences prefs;
   final int initialIndex;
 
-  MyApp(this.prefs,
-      this.initialIndex); // This widget is the root of your application.
+  MyApp(this.initialIndex); // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -47,13 +47,13 @@ class MyApp extends StatelessWidget {
       // ignore: missing_return
       child: BlocBuilder<MainBloc, MainState>(builder: (context, state) {
         if (state is InitialMainState) {
-          return _MaterialApp(context, prefs, initialIndex);
+          return _MaterialApp(context, initialIndex);
         } else if (state is ChangedThemeToLight) {
-          return _MaterialApp(context, prefs, initialIndex);
+          return _MaterialApp(context, initialIndex);
         } else if (state is ChangedThemeToDark) {
-          return _MaterialApp(context, prefs, initialIndex);
+          return _MaterialApp(context, initialIndex);
         } else if (state is ChangedThemeToAuto) {
-          return _MaterialApp(context, prefs, initialIndex);
+          return _MaterialApp(context, initialIndex);
         }
       }),
     );
@@ -61,26 +61,19 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage(
-      {Key key, this.title, this.isCacheEnabled, this.prefs, this.initialIndex})
-      : super(key: key);
+  MyHomePage({Key key, this.title, this.initialIndex}) : super(key: key);
   final String title;
-  final bool isCacheEnabled;
-  final SharedPreferences prefs;
+
   final int initialIndex;
 
   @override
-  _MyHomePageState createState() =>
-      _MyHomePageState(isCacheEnabled, prefs, initialIndex);
+  _MyHomePageState createState() => _MyHomePageState(initialIndex);
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final bool isCacheEnabled;
-  final SharedPreferences prefs;
   final int initialIndex;
 
-  _MyHomePageState(this.isCacheEnabled, this.prefs,
-      this.initialIndex); // List of Icons for Navigation bar
+  _MyHomePageState(this.initialIndex); // List of Icons for Navigation bar
   List<PersistentBottomNavBarItem> _navBarsItems() {
     return [
       PersistentBottomNavBarItem(
@@ -128,13 +121,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   // List of Widgetscreens for navigation bart
   List<Widget> _buildScreens() {
-    return [
-      Neuigkeiten(isCacheEnabled),
-      eje(isCacheEnabled),
-      Termine(isCacheEnabled),
-      Freizeiten(isCacheEnabled),
-      Einstellungen()
-    ];
+    return [Neuigkeiten(), eje(), Termine(), Freizeiten(), Einstellungen()];
   }
 
   @override
@@ -178,43 +165,50 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
-Widget _MaterialApp(
-    BuildContext context, SharedPreferences prefs, int initialIndex) {
-  return MaterialApp(
-    title: 'EJW Esslingen',
-    home: MyHomePage(
-      title: 'EJW Esslingen',
-      isCacheEnabled: prefs.getBool("cache_pictures"),
-      prefs: prefs,
-      initialIndex: initialIndex,
-    ),
-    theme: ThemeData.light().copyWith(
-// Firmenfarbe
-        accentColor: Color(0xFFCD2E32),
-//Textcolors
-        primaryTextTheme:
-            Typography.material2018(platform: TargetPlatform.android).black,
-        textTheme:
-            Typography.material2018(platform: TargetPlatform.android).black,
-        textSelectionColor: Theme.of(context).accentColor,
-//Iconcolors und Widgetcolors
-        primaryIconTheme: IconThemeData(color: Colors.black),
-        dividerColor: Colors.black,
-        backgroundColor: Colors.white,
-        cardColor: Colors.white),
-    darkTheme: ThemeData.dark().copyWith(
-//Firmenfarbe
-      accentColor: Color(0xFFCD2E32),
-//Textcolors
-      textSelectionColor: Theme.of(context).accentColor,
-//Iconcolors und Widgetcolors
-      dividerColor: Colors.white,
-      backgroundColor: Colors.black,
-    ),
-    themeMode: prefs.getBool("nightmode_auto")
-        ? ThemeMode.system
-        : prefs.getBool("nightmode_on")
-            ? ThemeMode.dark
-            : ThemeMode.light,
+Widget _MaterialApp(BuildContext context, int initialIndex) {
+  return FutureBuilder<SharedPreferences>(
+    future: SharedPreferences.getInstance(),
+    initialData: null,
+    builder: (BuildContext context, AsyncSnapshot<SharedPreferences> snapshot) {
+      return snapshot.hasData
+          ? MaterialApp(
+              title: 'EJW Esslingen',
+              home: MyHomePage(
+                title: 'EJW Esslingen',
+                initialIndex: initialIndex,
+              ),
+              theme: ThemeData.light().copyWith(
+                  // Firmenfarbe
+                  accentColor: Color(0xFFCD2E32),
+                  //Textcolors
+                  primaryTextTheme:
+                      Typography.material2018(platform: TargetPlatform.android)
+                          .black,
+                  textTheme:
+                      Typography.material2018(platform: TargetPlatform.android)
+                          .black,
+                  textSelectionColor: Theme.of(context).accentColor,
+                  //Iconcolors und Widgetcolors
+                  primaryIconTheme: IconThemeData(color: Colors.black),
+                  dividerColor: Colors.black,
+                  backgroundColor: Colors.white,
+                  cardColor: Colors.white),
+              darkTheme: ThemeData.dark().copyWith(
+                //Firmenfarbe
+                accentColor: Color(0xFFCD2E32),
+                //Textcolors
+                textSelectionColor: Theme.of(context).accentColor,
+                //Iconcolors und Widgetcolors
+                dividerColor: Colors.white,
+                backgroundColor: Colors.black,
+              ),
+              themeMode: snapshot.data.getBool("nightmode_auto")
+                  ? ThemeMode.system
+                  : snapshot.data.getBool("nightmode_on")
+                      ? ThemeMode.dark
+                      : ThemeMode.light,
+            )
+          : LoadingIndicator();
+    },
   );
 }

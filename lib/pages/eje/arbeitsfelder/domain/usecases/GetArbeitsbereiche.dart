@@ -8,13 +8,13 @@ import 'package:meta/meta.dart';
 
 import '../../../../../app_config.dart';
 
-class GetArbeitsbereiche implements UseCase<List<Arbeitsbereich>> {
+class GetArbeitsbereiche implements UseCase<List<FieldOfWork>> {
   final ArbeitsbereichRepository repository;
 
   GetArbeitsbereiche({@required this.repository});
 
   @override
-  Future<Either<Failure, List<Arbeitsbereich>>> call() async {
+  Future<Either<Failure, List<FieldOfWork>>> call() async {
     final AppConfig appConfig = await AppConfig.loadConfig();
     final Box _box = await Hive.openBox(appConfig.fieldOfWorkBox);
     final result = await repository.getArbeitsbereiche();

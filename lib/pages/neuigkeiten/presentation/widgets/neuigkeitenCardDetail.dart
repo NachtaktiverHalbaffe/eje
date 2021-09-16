@@ -13,21 +13,15 @@ import 'package:page_view_indicators/circle_page_indicator.dart';
 
 class neuigkeitenCardDetail extends StatefulWidget {
   String title;
-  final bool isCacheEnabled;
-
-  neuigkeitenCardDetail(this.title, this.isCacheEnabled);
+  neuigkeitenCardDetail(this.title);
 
   @override
-  State<StatefulWidget> createState() =>
-      _neuigkeitenCardDetail(title, isCacheEnabled);
+  State<StatefulWidget> createState() => _neuigkeitenCardDetail(title);
 }
 
 class _neuigkeitenCardDetail extends State<neuigkeitenCardDetail> {
   String title;
-
-  final bool isCacheEnabled;
-
-  _neuigkeitenCardDetail(this.title, this.isCacheEnabled);
+  _neuigkeitenCardDetail(this.title);
 
   @override
   void didChangeDependencies() {
@@ -52,7 +46,7 @@ class _neuigkeitenCardDetail extends State<neuigkeitenCardDetail> {
         builder: (context, state) {
           if (state is LoadedDetail) {
             print("Build Page: LoadedDetail");
-            return card(context, state.article, isCacheEnabled);
+            return card(article: state.article);
           } else if (state is LoadingDetails) {
             return LoadingIndicator();
           } else
@@ -63,33 +57,38 @@ class _neuigkeitenCardDetail extends State<neuigkeitenCardDetail> {
   }
 }
 
-Widget card(context, List<Article> _article, isCacheEnabled) {
-  // Merge all information from List<Article> to one data-entry
-  String content = "";
-  List<String> bilder = List();
-  List<Hyperlink> hyperlinks = List();
-  for (int i = 0; i < _article.length; i++) {
-    if (_article[i].bilder[0] != "") {
-      bilder.addAll(_article[i].bilder);
+class card extends StatelessWidget {
+  final List<Article> article;
+  const card({Key key, this.article}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    // Merge all information from List<Article> to one data-entry
+    String content = "";
+    List<String> bilder = List.empty(growable: true);
+    List<Hyperlink> hyperlinks = List.empty(growable: true);
+    for (int i = 0; i < article.length; i++) {
+      if (article[i].bilder[0] != "") {
+        bilder.addAll(article[i].bilder);
+      }
+      if (article[i].content != "") {
+        content = content + article[i].content;
+      }
+      if (article[i].hyperlinks[0].link != "") {
+        hyperlinks.addAll(article[i].hyperlinks);
+      }
     }
-    if (_article[i].content != "") {
-      content = content + _article[i].content;
-    }
-    if (_article[i].hyperlinks[0].link != "") {
-      hyperlinks.addAll(_article[i].hyperlinks);
-    }
+    return DetailsPage(
+      titel: article[0].titel,
+      untertitel: "",
+      text: content,
+      bild_url: bilder,
+      hyperlinks: hyperlinks.isEmpty
+          ? [Hyperlink(link: "", description: "")]
+          : hyperlinks,
+      childWidget: SizedBox(
+        height: 36 / MediaQuery.of(context).devicePixelRatio,
+      ),
+    );
   }
-  return DetailsPage(
-    titel: _article[0].titel,
-    untertitel: "",
-    text: content,
-    bild_url: bilder,
-    hyperlinks: hyperlinks.isEmpty
-        ? [Hyperlink(link: "", description: "")]
-        : hyperlinks,
-    isCacheEnabled: isCacheEnabled,
-    childWidget: SizedBox(
-      height: 36 / MediaQuery.of(context).devicePixelRatio,
-    ),
-  );
 }

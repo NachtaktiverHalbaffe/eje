@@ -3,6 +3,7 @@ import 'package:eje/pages/articles/domain/entity/Hyperlink.dart';
 import 'package:flutter/material.dart';
 import 'package:icon_shadow/icon_shadow.dart';
 import 'package:page_view_indicators/circle_page_indicator.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'PrefImage.dart';
 
@@ -14,7 +15,7 @@ class DetailsPage extends StatelessWidget {
   final List<String> bild_url;
   final double pixtureHeight;
   final List<Hyperlink> hyperlinks;
-  final bool isCacheEnabled;
+
   final Widget childWidget;
 
   DetailsPage(
@@ -25,12 +26,14 @@ class DetailsPage extends StatelessWidget {
       this.bild_url,
       this.pixtureHeight = 0,
       this.hyperlinks,
-      this.isCacheEnabled = false,
       this.childWidget});
 
   @override
   Widget build(BuildContext context) {
     final _currentPageNotifier = ValueNotifier<int>(0);
+    // Load prefrence if image caching is enabled
+
+    // Widget itself
     return Scaffold(
       body: ListView(
         physics: ScrollPhysics(parent: BouncingScrollPhysics()),
@@ -56,18 +59,7 @@ class DetailsPage extends StatelessWidget {
                     return Stack(
                       alignment: Alignment.bottomCenter,
                       children: <Widget>[
-                        Container(
-                          width: MediaQuery.of(context).size.width,
-                          height: MediaQuery.of(context).size.height,
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              fit: BoxFit.cover,
-                              image: bild.contains("http")
-                                  ? PrefImage(bild, isCacheEnabled)
-                                  : ExactAssetImage(bild),
-                            ),
-                          ),
-                        ),
+                        CachedImage(url: bild),
                       ],
                     );
                   },
@@ -197,10 +189,7 @@ class DetailsPage extends StatelessWidget {
               : SizedBox(height: 8),
           childWidget,
           hyperlinks[0].link != ""
-              ? HyperlinkSection(
-                  hyperlinks: hyperlinks,
-                  isCacheEnabled: isCacheEnabled,
-                  context: context)
+              ? HyperlinkSection(hyperlinks: hyperlinks, context: context)
               : SizedBox(height: 8),
           SizedBox(height: 16)
         ],

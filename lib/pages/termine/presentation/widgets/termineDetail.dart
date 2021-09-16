@@ -18,20 +18,15 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class TerminDetails extends StatefulWidget {
   final Termin termin;
-  final bool isCacheEnabled;
-
-  TerminDetails(this.termin, this.isCacheEnabled);
+  TerminDetails(this.termin);
 
   @override
-  _TerminDetailsState createState() =>
-      _TerminDetailsState(isCacheEnabled, termin);
+  _TerminDetailsState createState() => _TerminDetailsState(termin);
 }
 
 class _TerminDetailsState extends State<TerminDetails> {
-  final bool isCacheEnabled;
   final Termin termin;
-
-  _TerminDetailsState(this.isCacheEnabled, this.termin);
+  _TerminDetailsState(this.termin);
 
   @override
   Widget build(BuildContext context) {
@@ -50,8 +45,7 @@ class _TerminDetailsState extends State<TerminDetails> {
         if (state is Loading) {
           return LoadingIndicator();
         } else if (state is LoadedTermin) {
-          return TerminDetailsCard(
-              state.termin, widget.isCacheEnabled, context);
+          return TerminDetailsCard(state.termin);
         }
       }),
     );
@@ -64,96 +58,107 @@ class _TerminDetailsState extends State<TerminDetails> {
   }
 }
 
-Widget TerminDetailsCard(
-    Termin termin, bool isCacheEnabled, BuildContext context) {
-  List<String> bilder = List();
-  bilder.add(termin.bild);
-  return DetailsPage(
-    titel: termin.veranstaltung,
-    untertitel: termin.motto,
-    text: termin.text,
-    bild_url: bilder,
-    hyperlinks: [Hyperlink(link: "", description: "")],
-    childWidget: _terminChildWidget(termin, context),
-  );
+class TerminDetailsCard extends StatelessWidget {
+  final Termin termin;
+  TerminDetailsCard(this.termin);
+
+  @override
+  Widget build(BuildContext context) {
+    List<String> bilder = List();
+    bilder.add(termin.bild);
+    return DetailsPage(
+      titel: termin.veranstaltung,
+      untertitel: termin.motto,
+      text: termin.text,
+      bild_url: bilder,
+      hyperlinks: [Hyperlink(link: "", description: "")],
+      childWidget: _terminChildWidget(termin),
+    );
+  }
 }
 
-Widget _terminChildWidget(Termin _termin, BuildContext context) {
-  return Column(
-    children: [
-      SizedBox(height: 12),
-      Divider(),
-      ListTile(
-        leading: Icon(
-          Icons.today,
-          size: 24,
-          color: Theme.of(context).dividerColor,
-        ),
-        title: Text(
-          _termin.datum,
-          style: TextStyle(
-            fontSize: 42 / MediaQuery.of(context).devicePixelRatio,
+class _terminChildWidget extends StatelessWidget {
+  final Termin _termin;
+  _terminChildWidget(this._termin);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        SizedBox(height: 12),
+        Divider(),
+        ListTile(
+          leading: Icon(
+            Icons.today,
+            size: 24,
             color: Theme.of(context).dividerColor,
           ),
-        ),
-      ),
-      ListTile(
-        leading: Icon(
-          MdiIcons.mapMarker,
-          size: 24,
-          color: Theme.of(context).dividerColor,
-        ),
-        title: Text(
-          _termin.ort.Anschrift +
-              "\n" +
-              _termin.ort.Strasse +
-              "\n" +
-              _termin.ort.PLZ,
-          style: TextStyle(
-            fontSize: 42 / MediaQuery.of(context).devicePixelRatio,
-            color: Theme.of(context).dividerColor,
-          ),
-        ),
-        dense: true,
-        trailing: GestureDetector(
-          child: Icon(
-            MdiIcons.navigation,
-            color: Theme.of(context).accentColor,
-          ),
-          onTap: () async {
-            await MapLauncher.launchQuery(_termin.ort.Anschrift +
-                "," +
-                _termin.ort.Strasse +
-                ", " +
-                _termin.ort.PLZ);
-          },
-        ),
-      ),
-      SizedBox(
-        height: 12,
-      ),
-      Container(
-        margin: EdgeInsets.all(8),
-        child: OutlineButton(
-          color: Theme.of(context).dividerColor,
-          onPressed: () async {
-            _setNotification(_termin);
-          },
-          child: Text(
-            "Veranstaltung merken",
+          title: Text(
+            _termin.datum,
             style: TextStyle(
+              fontSize: 42 / MediaQuery.of(context).devicePixelRatio,
               color: Theme.of(context).dividerColor,
             ),
           ),
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         ),
-      ),
-      SizedBox(
-        height: 12,
-      ),
-    ],
-  );
+        ListTile(
+          leading: Icon(
+            MdiIcons.mapMarker,
+            size: 24,
+            color: Theme.of(context).dividerColor,
+          ),
+          title: Text(
+            _termin.ort.Anschrift +
+                "\n" +
+                _termin.ort.Strasse +
+                "\n" +
+                _termin.ort.PLZ,
+            style: TextStyle(
+              fontSize: 42 / MediaQuery.of(context).devicePixelRatio,
+              color: Theme.of(context).dividerColor,
+            ),
+          ),
+          dense: true,
+          trailing: GestureDetector(
+            child: Icon(
+              MdiIcons.navigation,
+              color: Theme.of(context).accentColor,
+            ),
+            onTap: () async {
+              await MapLauncher.launchQuery(_termin.ort.Anschrift +
+                  "," +
+                  _termin.ort.Strasse +
+                  ", " +
+                  _termin.ort.PLZ);
+            },
+          ),
+        ),
+        SizedBox(
+          height: 12,
+        ),
+        Container(
+          margin: EdgeInsets.all(8),
+          child: OutlineButton(
+            color: Theme.of(context).dividerColor,
+            onPressed: () async {
+              _setNotification(_termin);
+            },
+            child: Text(
+              "Veranstaltung merken",
+              style: TextStyle(
+                color: Theme.of(context).dividerColor,
+              ),
+            ),
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+          ),
+        ),
+        SizedBox(
+          height: 12,
+        ),
+      ],
+    );
+  }
 }
 
 void _setNotification(Termin termin) async {

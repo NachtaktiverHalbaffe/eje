@@ -7,7 +7,7 @@ abstract class EinstellungEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class StoringPreferences extends EinstellungEvent{
+class StoringPreferences extends EinstellungEvent {
   final String preference;
   final bool state;
 
@@ -17,13 +17,12 @@ class StoringPreferences extends EinstellungEvent{
   List<Object> get props => [preference, state];
 }
 
-class GettingPreferences extends EinstellungEvent{
-
+class GettingPreferences extends EinstellungEvent {
   @override
   List<Object> get props => [];
 }
 
-class GettingPreference extends EinstellungEvent{
+class GettingPreference extends EinstellungEvent {
   final String preference;
   GettingPreference(this.preference);
 

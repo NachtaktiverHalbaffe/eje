@@ -46,7 +46,7 @@ dependencies:
   # Pageviewer Indicator
   page_view_indicators: ^2.0.0
   # Carousel PageView
-  flutter_swiper: ^1.1.6
+  flutter_swiper_plus: ^2.0.4
   # Icon Shadows
   icon_shadow: ^1.0.1
   # Bottom Nav bar

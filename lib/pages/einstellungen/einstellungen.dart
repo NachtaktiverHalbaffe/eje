@@ -21,7 +21,7 @@ class Einstellungen extends StatelessWidget {
                 content: Text(state.toString()),
               ),
             );
-          }else if (state is ChangedPreferences) {
+          } else if (state is ChangedPreferences) {
             BlocProvider.of<EinstellungBloc>(context).add(GettingPreferences());
           }
         },
@@ -31,7 +31,7 @@ class Einstellungen extends StatelessWidget {
             BlocProvider.of<EinstellungBloc>(context).add(GettingPreferences());
             return LoadingIndicator();
           } else if (state is LoadedPreferences) {
-            return EinstellungenPage(context, state.prefs);
+            return EinstellungenPage();
           }
         },
       ),

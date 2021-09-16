@@ -1,7 +1,7 @@
 import 'package:eje/pages/eje/arbeitsfelder/domain/entities/Arbeitsbereich.dart';
 
-Arbeitsbereich getErrorArbeitsbereich() {
-  return Arbeitsbereich(
+FieldOfWork getErrorArbeitsbereich() {
+  return FieldOfWork(
     arbeitsfeld: "Keine Internetverbindung oder keine Daten im Cache ",
     bilder: [""],
     inhalt:

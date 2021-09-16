@@ -7,13 +7,13 @@ import 'package:eje/pages/eje/arbeitsfelder/domain/repositories/arbeitsbereich_r
 import 'package:hive/hive.dart';
 import 'package:meta/meta.dart';
 
-class GetArbeitsbereich implements UseCase<Arbeitsbereich> {
+class GetArbeitsbereich implements UseCase<FieldOfWork> {
   final ArbeitsbereichRepository repository;
 
   GetArbeitsbereich(this.repository);
 
   @override
-  Future<Either<Failure, Arbeitsbereich>> call({
+  Future<Either<Failure, FieldOfWork>> call({
     @required String arbeitsbereich,
   }) async {
     final AppConfig appConfig = await AppConfig.loadConfig();

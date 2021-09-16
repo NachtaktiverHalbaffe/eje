@@ -10,21 +10,18 @@ import 'domain/usecases/getArticle.dart';
 import 'presentation/bloc/articles_bloc.dart';
 
 class ArticlesPage extends StatefulWidget {
-  final bool isCacheEnabled;
   final String url;
 
-  const ArticlesPage({this.isCacheEnabled, this.url});
+  const ArticlesPage({this.url});
 
   @override
-  State<StatefulWidget> createState() =>
-      _articleBloc(isCacheEnabled: isCacheEnabled, url: url);
+  State<StatefulWidget> createState() => _articleBloc(url: url);
 }
 
 class _articleBloc extends State<ArticlesPage> {
-  final bool isCacheEnabled;
   final String url;
 
-  _articleBloc({this.isCacheEnabled, this.url});
+  _articleBloc({this.url});
 
   @override
   void didChangeDependencies() {
@@ -57,13 +54,13 @@ class _articleBloc extends State<ArticlesPage> {
             return LoadingIndicator();
           } else if (state is LoadedArticle) {
             print("Build Page Articles: Loaded");
-            return _articlePage(state.article, isCacheEnabled, context);
+            return _articlePage(state.article, context);
           } else if (state is ReloadedArticle) {
             print("Build Page Articles: Reloaded");
-            return _articlePage(state.article, isCacheEnabled, context);
+            return _articlePage(state.article, context);
           } else if (state is FollowedHyperlink) {
             print("Build Page Articles: FollowedHyperlink");
-            return _articlePage(state.article, isCacheEnabled, context);
+            return _articlePage(state.article, context);
           } else
             return Center();
         },
@@ -72,8 +69,7 @@ class _articleBloc extends State<ArticlesPage> {
   }
 }
 
-Widget _articlePage(
-    Article article, bool isCacheEnabled, BuildContext context) {
+Widget _articlePage(Article article, BuildContext context) {
   return RefreshIndicator(
       child: DetailsPage(
         titel: article.titel,
@@ -81,7 +77,6 @@ Widget _articlePage(
         text: article.content,
         bild_url: article.bilder,
         hyperlinks: article.hyperlinks,
-        isCacheEnabled: isCacheEnabled,
         childWidget: SizedBox(
           height: 1 / MediaQuery.of(context).devicePixelRatio,
         ),

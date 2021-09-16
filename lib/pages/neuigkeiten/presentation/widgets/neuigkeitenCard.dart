@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:eje/core/utils/injection_container.dart';
+import 'package:eje/core/widgets/LoadingIndicator.dart';
 import 'package:eje/core/widgets/PrefImage.dart';
 import 'package:eje/pages/neuigkeiten/domain/entitys/neuigkeit.dart';
 import 'package:eje/pages/neuigkeiten/presentation/bloc/bloc.dart';
@@ -11,9 +12,7 @@ import 'package:page_view_indicators/circle_page_indicator.dart';
 
 class NeuigkeitenCard extends StatefulWidget {
   final Neuigkeit _neuigkeit;
-  final bool isCacheEnabled;
-
-  NeuigkeitenCard(this._neuigkeit, this.isCacheEnabled);
+  NeuigkeitenCard(this._neuigkeit);
 
   @override
   _NeuigkeitenCardState createState() => _NeuigkeitenCardState();
@@ -59,8 +58,7 @@ class _NeuigkeitenCardState extends State<NeuigkeitenCard> {
                   MaterialPageRoute(
                     builder: (_) => BlocProvider.value(
                       value: sl<NeuigkeitenBlocBloc>(),
-                      child: neuigkeitenCardDetail(
-                          widget._neuigkeit.titel, widget.isCacheEnabled),
+                      child: neuigkeitenCardDetail(widget._neuigkeit.titel),
                     ),
                   ),
                 ),
@@ -83,16 +81,7 @@ class _NeuigkeitenCardState extends State<NeuigkeitenCard> {
                       return Stack(
                         alignment: Alignment.bottomCenter,
                         children: <Widget>[
-                          Container(
-                            width: MediaQuery.of(context).size.width,
-                            height: MediaQuery.of(context).size.height,
-                            decoration: BoxDecoration(
-                              image: DecorationImage(
-                                fit: BoxFit.cover,
-                                image: PrefImage(bild, widget.isCacheEnabled),
-                              ),
-                            ),
-                          ),
+                          CachedImage(url: bild),
                         ],
                       );
                     },
@@ -134,8 +123,7 @@ class _NeuigkeitenCardState extends State<NeuigkeitenCard> {
                   MaterialPageRoute(
                     builder: (_) => BlocProvider.value(
                       value: sl<NeuigkeitenBlocBloc>(),
-                      child: neuigkeitenCardDetail(
-                          widget._neuigkeit.titel, widget.isCacheEnabled),
+                      child: neuigkeitenCardDetail(widget._neuigkeit.titel),
                     ),
                   ),
                 ),

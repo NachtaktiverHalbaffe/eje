@@ -9,7 +9,7 @@ class ArbeitsbereichRemoteDatasource {
 
   ArbeitsbereichRemoteDatasource({@required this.client});
 
-  Future<List<Arbeitsbereich>> getArtbeitsbereiche() async {
+  Future<List<FieldOfWork>> getArtbeitsbereiche() async {
     return await WebScraper().scrapeArbeitsbereiche();
   }
 }

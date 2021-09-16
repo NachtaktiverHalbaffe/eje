@@ -7,10 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class Neuigkeiten extends StatelessWidget {
-  final bool isCacheEnabled;
-
-  Neuigkeiten(this.isCacheEnabled);
-
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -37,8 +33,7 @@ class Neuigkeiten extends StatelessWidget {
             return LoadingIndicator();
           } else if (state is Loaded) {
             print("Build Page: Loaded");
-            return NeuigkeitenListView(
-                state.neuigkeit.toList(), isCacheEnabled);
+            return NeuigkeitenListView(state.neuigkeit.toList());
           } else
             return Center();
         },
@@ -49,25 +44,22 @@ class Neuigkeiten extends StatelessWidget {
 
 class NeuigkeitenListView extends StatelessWidget {
   final List<Neuigkeit> _neuigkeiten;
-  final bool isCacheEnabled;
 
-  NeuigkeitenListView(this._neuigkeiten, this.isCacheEnabled);
+  NeuigkeitenListView(this._neuigkeiten);
 
   @override
   Widget build(BuildContext context) {
     return new Column(
       children: <Widget>[
         new Expanded(
-          child: _buildNeuigkeitenList(
-              context, _neuigkeiten.reversed.toList(), isCacheEnabled),
+          child: _buildNeuigkeitenList(context, _neuigkeiten.reversed.toList()),
         ),
       ],
     );
   }
 }
 
-Widget _buildNeuigkeitenList(
-    BuildContext context, _neuigkeiten, bool isCacheEnabled) {
+Widget _buildNeuigkeitenList(BuildContext context, _neuigkeiten) {
   final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
       new GlobalKey<RefreshIndicatorState>();
   return RefreshIndicator(
@@ -83,7 +75,7 @@ Widget _buildNeuigkeitenList(
       itemCount: _neuigkeiten.length,
       itemBuilder: (context, index) {
         final neuigkeit = _neuigkeiten[index];
-        return NeuigkeitenCard(neuigkeit, isCacheEnabled);
+        return NeuigkeitenCard(neuigkeit);
       },
     ),
   );

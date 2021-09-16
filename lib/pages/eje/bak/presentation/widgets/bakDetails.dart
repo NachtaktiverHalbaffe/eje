@@ -12,20 +12,18 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 import 'package:url_launcher/url_launcher.dart';
 
 class BAKDetails extends StatefulWidget {
-  final bool isCacheEnabled;
   final BAKler bakler;
 
-  BAKDetails(this.isCacheEnabled, this.bakler);
+  BAKDetails(this.bakler);
 
   @override
-  _BAKDetailsState createState() => _BAKDetailsState(isCacheEnabled, bakler);
+  _BAKDetailsState createState() => _BAKDetailsState(bakler);
 }
 
 class _BAKDetailsState extends State<BAKDetails> {
-  final bool isCacheEnabled;
   final BAKler bakler;
 
-  _BAKDetailsState(this.isCacheEnabled, this.bakler);
+  _BAKDetailsState(this.bakler);
 
   @override
   Widget build(BuildContext context) {
@@ -44,8 +42,7 @@ class _BAKDetailsState extends State<BAKDetails> {
         if (state is Loading) {
           return LoadingIndicator();
         } else if (state is LoadedBAKler) {
-          return HauptamtlicheDetailsCard(
-              state.bakler, widget.isCacheEnabled, context);
+          return HauptamtlicheDetailsCard(bakler: state.bakler);
         }
       }),
     );
@@ -57,18 +54,24 @@ class _BAKDetailsState extends State<BAKDetails> {
   }
 }
 
-Widget HauptamtlicheDetailsCard(
-    BAKler bakler, bool isCacheEnabled, BuildContext context) {
-  List<String> bilder = List();
-  bilder.add(bakler.bild);
-  return DetailsPage(
-      titel: bakler.name,
-      untertitel: bakler.amt,
-      text: bakler.vorstellung,
-      bild_url: bilder,
-      hyperlinks: [Hyperlink(link: "", description: "")],
-      pixtureHeight: 400,
-      childWidget: _childBak(bakler, context));
+class HauptamtlicheDetailsCard extends StatelessWidget {
+  final BAKler bakler;
+
+  const HauptamtlicheDetailsCard({Key key, this.bakler}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    List<String> bilder = List.empty(growable: true);
+    bilder.add(bakler.bild);
+    return DetailsPage(
+        titel: bakler.name,
+        untertitel: bakler.amt,
+        text: bakler.vorstellung,
+        bild_url: bilder,
+        hyperlinks: [Hyperlink(link: "", description: "")],
+        pixtureHeight: 400,
+        childWidget: _childBak(bakler, context));
+  }
 }
 
 Widget _childBak(BAKler bakler, BuildContext context) {

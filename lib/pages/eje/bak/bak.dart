@@ -7,59 +7,62 @@ import 'package:eje/pages/eje/bak/presentation/widgets/bak_pageviewer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-Widget BAK(BuildContext context, bool isCacheEnabled) {
-  return Column(
-    children: <Widget>[
-      Row(
-        children: <Widget>[
-          SizedBox(
-            width: 24,
-          ),
-          Text(
-            "Vorstand \& BAK",
-            textAlign: TextAlign.left,
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 84 / MediaQuery.of(context).devicePixelRatio,
+class BAK extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: <Widget>[
+        Row(
+          children: <Widget>[
+            SizedBox(
+              width: 24,
             ),
-          ),
-        ],
-      ),
-      SizedBox(
-        height: 12,
-      ),
-      BlocProvider(
-        create: (_) => sl<BakBloc>(),
-        child: BlocConsumer<BakBloc, BakState>(
-          listener: (context, state) {
-            if (state is Error) {
-              Scaffold.of(context).showSnackBar(
-                SnackBar(
-                  content: Text(state.message),
-                ),
-              );
-            }
-          },
-          // ignore: missing_return
-          builder: (context, state) {
-            if (state is Empty) {
-              print("Build page: BAK Empty");
-              BlocProvider.of<BakBloc>(context).add(RefreshBAK());
-              return LoadingIndicator();
-            }
-            if (state is Loading) {
-              print("Build page: Bak Loading");
-              return LoadingIndicator();
-            } else if (state is LoadedBAK) {
-              print("Build page: LoadedBak");
-              return BAKPageViewer(state.bak, context, isCacheEnabled);
-            }
-          },
+            Text(
+              "Vorstand \& BAK",
+              textAlign: TextAlign.left,
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 84 / MediaQuery.of(context).devicePixelRatio,
+              ),
+            ),
+          ],
         ),
-      ),
-      SizedBox(
-        height: 12,
-      ),
-    ],
-  );
+        SizedBox(
+          height: 12,
+        ),
+        BlocProvider(
+          create: (_) => sl<BakBloc>(),
+          child: BlocConsumer<BakBloc, BakState>(
+            listener: (context, state) {
+              if (state is Error) {
+                Scaffold.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(state.message),
+                  ),
+                );
+              }
+            },
+            // ignore: missing_return
+            builder: (context, state) {
+              if (state is Empty) {
+                print("Build page: BAK Empty");
+                BlocProvider.of<BakBloc>(context).add(RefreshBAK());
+                return LoadingIndicator();
+              }
+              if (state is Loading) {
+                print("Build page: Bak Loading");
+                return LoadingIndicator();
+              } else if (state is LoadedBAK) {
+                print("Build page: LoadedBak");
+                return BAKPageViewer(bakler: state.bak);
+              }
+            },
+          ),
+        ),
+        SizedBox(
+          height: 12,
+        ),
+      ],
+    );
+  }
 }

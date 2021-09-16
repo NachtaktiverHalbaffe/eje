@@ -19,7 +19,7 @@ class Loading extends ArbeitsbereicheState {
 }
 
 class LoadedArbeitsbereiche extends ArbeitsbereicheState {
-  List<Arbeitsbereich> arbeitsbereiche;
+  List<FieldOfWork> arbeitsbereiche;
 
   LoadedArbeitsbereiche(this.arbeitsbereiche);
 
@@ -27,8 +27,8 @@ class LoadedArbeitsbereiche extends ArbeitsbereicheState {
   List<Object> get props => [arbeitsbereiche];
 }
 
-class LoadedArbeitsbereich extends ArbeitsbereicheState{
-  Arbeitsbereich arbeitsbereich;
+class LoadedArbeitsbereich extends ArbeitsbereicheState {
+  FieldOfWork arbeitsbereich;
 
   LoadedArbeitsbereich(this.arbeitsbereich);
 

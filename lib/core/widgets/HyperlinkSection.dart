@@ -56,7 +56,6 @@ Widget _column(Hyperlink hyperlink, BuildContext context, bool isCacheEnabled) {
             builder: (_) => BlocProvider.value(
               value: sl<ArticlesBloc>(),
               child: ArticlesPage(
-                isCacheEnabled: isCacheEnabled,
                 url: hyperlink.link,
               ),
             ),

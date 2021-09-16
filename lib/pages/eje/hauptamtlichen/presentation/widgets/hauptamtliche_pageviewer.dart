@@ -7,15 +7,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_swiper/flutter_swiper.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_swiper_plus/flutter_swiper_plus.dart';
 
-Widget HauptamtlichePageViewer(List<Hauptamtlicher> hauptamtliche,
-    BuildContext context, bool isCacheEnabled) {
+Widget HauptamtlichePageViewer(
+    List<Hauptamtlicher> hauptamtliche, BuildContext context) {
   return Swiper(
     itemBuilder: (BuildContext context, int index) {
       return Container(
-        child: KontaktCard(hauptamtliche[index], context, isCacheEnabled),
+        child: KontaktCard(hauptamtliche[index], context),
         padding: EdgeInsets.only(top: 15, bottom: 15),
       );
     },
@@ -27,8 +26,7 @@ Widget HauptamtlichePageViewer(List<Hauptamtlicher> hauptamtliche,
   );
 }
 
-Widget KontaktCard(
-    Hauptamtlicher hauptamtlicher, BuildContext context, bool isCacheEnabled) {
+Widget KontaktCard(Hauptamtlicher hauptamtlicher, BuildContext context) {
   return Container(
     decoration: new BoxDecoration(
       boxShadow: [
@@ -55,18 +53,11 @@ Widget KontaktCard(
               MaterialPageRoute(
                 builder: (_) => BlocProvider.value(
                   value: sl<HauptamtlicheBloc>(),
-                  child: HauptamtlicheDetails(isCacheEnabled, hauptamtlicher),
+                  child: HauptamtlicheDetails(hauptamtlicher),
                 ),
               ),
             ),
-            child: Container(
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  fit: BoxFit.cover,
-                  image: PrefImage(hauptamtlicher.bild, isCacheEnabled),
-                ),
-              ),
-            ),
+            child: CachedImage(url: hauptamtlicher.bild),
           ),
           Column(
             mainAxisSize: MainAxisSize.max,

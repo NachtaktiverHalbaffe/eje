@@ -537,8 +537,8 @@ class WebScraper {
     }
   }
 
-  Future<List<Arbeitsbereich>> scrapeArbeitsbereiche() async {
-    List<Arbeitsbereich> arbeitsbereiche = new List.empty(growable: true);
+  Future<List<FieldOfWork>> scrapeArbeitsbereiche() async {
+    List<FieldOfWork> arbeitsbereiche = new List.empty(growable: true);
     final AppConfig appConfig = await AppConfig.loadConfig();
     final String DOMAIN = appConfig.domain;
     final String URL = DOMAIN + appConfig.fieldOfWorkEndpoint;
@@ -593,7 +593,7 @@ class WebScraper {
 
               //add scraped Section to List of Articles
               if (arbeitsbereich != "" || bild.isNotEmpty || url != "") {
-                arbeitsbereiche.add(new Arbeitsbereich(
+                arbeitsbereiche.add(new FieldOfWork(
                   arbeitsfeld: arbeitsbereich,
                   bilder: bild,
                   inhalt: "",

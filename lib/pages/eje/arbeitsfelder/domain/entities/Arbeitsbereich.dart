@@ -5,7 +5,7 @@ import 'package:meta/meta.dart';
 part 'Arbeitsbereich.g.dart';
 
 @HiveType(typeId: 3)
-class Arbeitsbereich extends Equatable {
+class FieldOfWork extends Equatable {
   @HiveField(0)
   final String arbeitsfeld;
   @HiveField(1)
@@ -15,7 +15,7 @@ class Arbeitsbereich extends Equatable {
   @HiveField(3)
   final String url;
 
-  Arbeitsbereich({
+  FieldOfWork({
     @required this.arbeitsfeld,
     @required this.bilder,
     @required this.inhalt,

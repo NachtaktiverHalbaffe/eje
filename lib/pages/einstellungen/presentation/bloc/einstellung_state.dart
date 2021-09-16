@@ -15,7 +15,7 @@ class Empty extends EinstellungState {
   List<Object> get props => [];
 }
 
-class LoadedPreference extends EinstellungState{
+class LoadedPreference extends EinstellungState {
   final Einstellung einstellung;
 
   LoadedPreference(this.einstellung);
@@ -24,20 +24,14 @@ class LoadedPreference extends EinstellungState{
   List<Object> get props => [einstellung];
 }
 
-class ChangedPreferences extends EinstellungState{
-  final SharedPreferences prefs;
-  ChangedPreferences(this.prefs);
-
+class ChangedPreferences extends EinstellungState {
   @override
-  List<Object> get props => [prefs];
+  List<Object> get props => [];
 }
 
-class LoadedPreferences extends EinstellungState{
-  final SharedPreferences prefs;
-  LoadedPreferences(this.prefs);
-
+class LoadedPreferences extends EinstellungState {
   @override
-  List<Object> get props => [prefs];
+  List<Object> get props => [];
 }
 
 class Error extends EinstellungState {
@@ -48,5 +42,3 @@ class Error extends EinstellungState {
   @override
   List<Object> get props => [message];
 }
-
-

@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/services.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AppConfig {
   // * Remote data sources
@@ -96,5 +97,9 @@ class AppConfig {
         servicesBox: "Services",
         campsBox: "Freizeiten",
         eventsBox: "Termine");
+  }
+
+  static Future<SharedPreferences> getSharedPrefs() async {
+    return await SharedPreferences.getInstance();
   }
 }

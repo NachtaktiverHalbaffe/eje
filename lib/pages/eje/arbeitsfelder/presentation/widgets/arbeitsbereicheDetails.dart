@@ -12,7 +12,7 @@ import 'package:page_view_indicators/circle_page_indicator.dart';
 
 class ArbeitsbereicheDetails extends StatefulWidget {
   final bool isCacheEnabled;
-  final Arbeitsbereich arbeitsbereich;
+  final FieldOfWork arbeitsbereich;
 
   ArbeitsbereicheDetails(this.isCacheEnabled, this.arbeitsbereich);
 
@@ -23,7 +23,7 @@ class ArbeitsbereicheDetails extends StatefulWidget {
 
 class _ArbeitsbereicheDetailsState extends State<ArbeitsbereicheDetails> {
   final bool isCacheEnabled;
-  final Arbeitsbereich arbeitsbereich;
+  final FieldOfWork arbeitsbereich;
 
   _ArbeitsbereicheDetailsState(this.isCacheEnabled, this.arbeitsbereich);
 
@@ -60,7 +60,7 @@ class _ArbeitsbereicheDetailsState extends State<ArbeitsbereicheDetails> {
 }
 
 Widget HauptamtlicheDetailsCard(
-    Arbeitsbereich arbeitsbereich, bool isCacheEnabled, BuildContext context) {
+    FieldOfWork arbeitsbereich, bool isCacheEnabled, BuildContext context) {
   return DetailsPage(
     titel: arbeitsbereich.arbeitsfeld,
     text: arbeitsbereich.inhalt,
