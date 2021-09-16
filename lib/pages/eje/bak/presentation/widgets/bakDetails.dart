@@ -30,20 +30,19 @@ class _BAKDetailsState extends State<BAKDetails> {
     return Scaffold(
       body: BlocConsumer<BakBloc, BakState>(listener: (context, state) {
         if (state is Error) {
-          Scaffold.of(context).showSnackBar(
+          ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(state.message),
             ),
           );
         }
-      },
-          // ignore: missing_return
-          builder: (context, state) {
+      }, builder: (context, state) {
         if (state is Loading) {
           return LoadingIndicator();
         } else if (state is LoadedBAKler) {
           return HauptamtlicheDetailsCard(bakler: state.bakler);
-        }
+        } else
+          return Container();
       }),
     );
   }
@@ -69,7 +68,7 @@ class HauptamtlicheDetailsCard extends StatelessWidget {
         text: bakler.vorstellung,
         bild_url: bilder,
         hyperlinks: [Hyperlink(link: "", description: "")],
-        pixtureHeight: 400,
+        pictureHeight: 400,
         childWidget: _childBak(bakler, context));
   }
 }

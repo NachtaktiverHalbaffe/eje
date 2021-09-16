@@ -36,7 +36,7 @@ class _neuigkeitenCardDetail extends State<neuigkeitenCardDetail> {
       body: BlocConsumer<NeuigkeitenBlocBloc, NeuigkeitenBlocState>(
         listener: (context, state) {
           if (state is Error) {
-            Scaffold.of(context).showSnackBar(
+            ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text(state.message),
               ),

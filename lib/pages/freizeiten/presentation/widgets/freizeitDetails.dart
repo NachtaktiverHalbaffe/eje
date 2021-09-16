@@ -30,22 +30,21 @@ class _FreizeitDetailsState extends State<FreizeitDetails> {
       body: BlocConsumer<FreizeitenBloc, FreizeitenState>(
           listener: (context, state) {
         if (state is Error) {
-          Scaffold.of(context).showSnackBar(
+          ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(state.message),
             ),
           );
         }
-      },
-          // ignore: missing_return
-          builder: (context, state) {
+      }, builder: (context, state) {
         if (state is Loading) {
           BlocProvider.of<FreizeitenBloc>(context)
               .add(GettingFreizeit(freizeit));
           return LoadingIndicator();
         } else if (state is LoadedFreizeit) {
           return FreizeitDetailsCard(freizeit: state.freizeit);
-        }
+        } else
+          return Container();
       }),
     );
   }

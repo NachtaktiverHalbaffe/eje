@@ -89,14 +89,14 @@ class AppConfig {
         idHeader: json["idHeader"],
         idContact: json["idContact"],
         idAdress: json["idAdress"],
-        newsBox: "Neuigkeiten",
+        newsBox: "News",
         articlesBox: "Articles",
-        fieldOfWorkBox: "Arbeitsbereiche",
+        fieldOfWorkBox: "FieldsOfWork",
         bakBox: "BAK",
-        employeesBox: "Hauptamtliche",
+        employeesBox: "Employees",
         servicesBox: "Services",
-        campsBox: "Freizeiten",
-        eventsBox: "Termine");
+        campsBox: "Camps",
+        eventsBox: "Events");
   }
 
   static Future<SharedPreferences> getSharedPrefs() async {

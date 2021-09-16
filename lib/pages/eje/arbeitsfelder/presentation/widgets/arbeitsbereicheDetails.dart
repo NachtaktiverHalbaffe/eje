@@ -33,21 +33,20 @@ class _ArbeitsbereicheDetailsState extends State<ArbeitsbereicheDetails> {
       body: BlocConsumer<ArbeitsbereicheBloc, ArbeitsbereicheState>(
           listener: (context, state) {
         if (state is Error) {
-          Scaffold.of(context).showSnackBar(
+          ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(state.message),
             ),
           );
         }
-      },
-          // ignore: missing_return
-          builder: (context, state) {
+      }, builder: (context, state) {
         if (state is Loading) {
           return LoadingIndicator();
         } else if (state is LoadedArbeitsbereich) {
           return HauptamtlicheDetailsCard(
               state.arbeitsbereich, widget.isCacheEnabled, context);
-        }
+        } else
+          return Container();
       }),
     );
   }

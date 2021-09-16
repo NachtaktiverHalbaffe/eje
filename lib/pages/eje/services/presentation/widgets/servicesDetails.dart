@@ -27,20 +27,19 @@ class _ServiceDetailsState extends State<ServiceDetails> {
       body:
           BlocConsumer<ServicesBloc, ServicesState>(listener: (context, state) {
         if (state is Error) {
-          Scaffold.of(context).showSnackBar(
+          ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(state.message),
             ),
           );
         }
-      },
-              // ignore: missing_return
-              builder: (context, state) {
+      }, builder: (context, state) {
         if (state is Loading) {
           return LoadingIndicator();
         } else if (state is LoadedService) {
           return ServiceDetailsCard(service: state.service);
-        }
+        } else
+          return Container();
       }),
     );
   }

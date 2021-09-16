@@ -37,7 +37,7 @@ class _articleBloc extends State<ArticlesPage> {
         listener: (context, state) {
           if (state is Error) {
             print("Build Page: Error");
-            Scaffold.of(context).showSnackBar(
+            ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text(state.message),
               ),

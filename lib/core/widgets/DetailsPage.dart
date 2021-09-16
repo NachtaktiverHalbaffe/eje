@@ -13,7 +13,7 @@ class DetailsPage extends StatelessWidget {
   final String untertitel;
   final String text;
   final List<String> bild_url;
-  final double pixtureHeight;
+  final double pictureHeight;
   final List<Hyperlink> hyperlinks;
 
   final Widget childWidget;
@@ -24,14 +24,13 @@ class DetailsPage extends StatelessWidget {
       this.untertitel,
       this.text,
       this.bild_url,
-      this.pixtureHeight = 0,
+      this.pictureHeight = 0,
       this.hyperlinks,
       this.childWidget});
 
   @override
   Widget build(BuildContext context) {
     final _currentPageNotifier = ValueNotifier<int>(0);
-    // Load prefrence if image caching is enabled
 
     // Widget itself
     return Scaffold(
@@ -43,7 +42,7 @@ class DetailsPage extends StatelessWidget {
             children: <Widget>[
               Container(
                 width: MediaQuery.of(context).size.width,
-                height: pixtureHeight == 0 ? 300 : pixtureHeight,
+                height: pictureHeight == 0 ? 300 : pictureHeight,
                 child: PageView.builder(
                   physics: ScrollPhysics(
                     parent: BouncingScrollPhysics(),

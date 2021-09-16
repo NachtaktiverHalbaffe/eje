@@ -32,20 +32,19 @@ class _HauptamtlicheDetailsState extends State<HauptamtlicheDetails> {
       body: BlocConsumer<HauptamtlicheBloc, HauptamtlicheState>(
           listener: (context, state) {
         if (state is Error) {
-          Scaffold.of(context).showSnackBar(
+          ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(state.message),
             ),
           );
         }
-      },
-          // ignore: missing_return
-          builder: (context, state) {
+      }, builder: (context, state) {
         if (state is Loading) {
           return LoadingIndicator();
         } else if (state is LoadedHauptamtlicher) {
           return HauptamtlicheDetailsCard(hauptamtlicher: state.hauptamtlicher);
-        }
+        } else
+          return Container();
       }),
     );
   }
@@ -71,7 +70,7 @@ class HauptamtlicheDetailsCard extends StatelessWidget {
         titel: hauptamtlicher.name,
         untertitel: hauptamtlicher.bereich,
         bild_url: bilder,
-        pixtureHeight: 400,
+        pictureHeight: 400,
         text: hauptamtlicher.vorstellung,
         hyperlinks: [Hyperlink(link: "", description: "")],
         childWidget:
