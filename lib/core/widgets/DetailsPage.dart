@@ -1,9 +1,11 @@
 import 'package:eje/core/widgets/HyperlinkSection.dart';
 import 'package:eje/pages/articles/domain/entity/Hyperlink.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:icon_shadow/icon_shadow.dart';
 import 'package:page_view_indicators/circle_page_indicator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'PrefImage.dart';
 
@@ -176,16 +178,18 @@ class DetailsPage extends StatelessWidget {
                     top: 14,
                     right: 14,
                   ),
-                  child: Text(
-                    text,
-                    textAlign: TextAlign.justify,
-                    style: TextStyle(
-                      fontSize: 48 / MediaQuery.of(context).devicePixelRatio,
-                      color: Theme.of(context).dividerColor,
-                    ),
+                  child: Markdown(
+                    physics: BouncingScrollPhysics(),
+                    padding: EdgeInsets.all(0.0),
+                    shrinkWrap: true,
+                    data: text,
+                    onTapLink: (text, url, title) {
+                      launch(url);
+                    },
                   ),
                 )
               : SizedBox(height: 8),
+          SizedBox(height: 16),
           childWidget,
           hyperlinks[0].link != ""
               ? HyperlinkSection(hyperlinks: hyperlinks, context: context)

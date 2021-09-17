@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:eje/app_config.dart';
 import 'package:eje/core/error/exception.dart';
 import 'package:eje/core/utils/WebScraper.dart';
 import 'package:eje/pages/articles/domain/entity/Article.dart';
@@ -31,7 +32,8 @@ class NeuigkeitenRepositoryImpl implements NeuigkeitenRepository {
   Future<Either<Failure, List<Article>>> getNeuigkeit(String titel) async {
     List<Article> article = new List.empty(growable: true);
     //open database
-    Box _box = Hive.box('Articles');
+    AppConfig appConfig = await AppConfig.loadConfig();
+    Box _box = Hive.box(appConfig.articlesBox);
     try {
       bool isInCache = false;
       String url = "";

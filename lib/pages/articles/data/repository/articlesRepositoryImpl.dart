@@ -83,8 +83,8 @@ class ArticlesRepositoryImpl implements ArticlesRepository {
       if (url != "") {
         try {
           articles = await WebScraper().scrapeWebPage(url);
-          List<Hyperlink> hyperlink = List();
-          List<String> bilder = List();
+          List<Hyperlink> hyperlink = List.empty(growable: true);
+          List<String> bilder = List.empty(growable: true);
           String content = "";
           String titel = "";
           bool foundTitle = false;

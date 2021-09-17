@@ -53,6 +53,8 @@ dependencies:
   persistent_bottom_nav_bar: ^4.0.2
   # Cached Networkimage
   cached_network_image: ^3.1.0
+  # Markdown editor
+  flutter_markdown: ^0.6.6
   # Local Push-Notification
   flutter_local_notifications: ^8.2.0
   # Background services

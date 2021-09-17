@@ -21,7 +21,7 @@ class NeuigkeitenRemoteDatasource {
     // Parsing
     if (payload.length != 0) {
       for (int i = 0; i < payload.length; i++) {
-        String content = payload[i].description;
+        String content = payload[i].description.trim();
         if (content.contains("<img src=")) {
           content = payload[i]
               .description
@@ -30,8 +30,8 @@ class NeuigkeitenRemoteDatasource {
         data.add(
           new Neuigkeit(
             titel: payload[i].title,
-            text_preview: content,
-            text: content,
+            text_preview: content.trim(),
+            text: content.trim(),
             bilder: payload[i].enclosure == null
                 ? [
                     "http://www.sjr-es.de/media/zoo/images/eje_logo_9df3b8fbf18c2d3a99928fa9bfbe0da3.jpg"

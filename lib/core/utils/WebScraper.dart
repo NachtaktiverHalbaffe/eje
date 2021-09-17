@@ -36,215 +36,227 @@ class WebScraper {
         if (parent[i].id != ID_KONTAKT) {
           if (parent[i].id != ID_HEADER) {
             if (parent[i].id != ID_ANSCHRIFT) {
-              //Parse data to article
-              String content = "";
-              String title;
-              List<Hyperlink> hyperlinks = new List.empty(growable: true);
-              List<String> bilder = new List.empty(growable: true);
-              // ! Title parsen
-              if (parent[i].getElementsByClassName('icon-left').isNotEmpty) {
+              if (parent[i].id != "c1128404") {
+                //Parse data to article
+                String content = "";
+                String title;
+                List<Hyperlink> hyperlinks = new List.empty(growable: true);
+                List<String> bilder = new List.empty(growable: true);
+                // ! Title parsen
+                if (parent[i].getElementsByClassName('icon-left').isNotEmpty) {
+                  if (parent[i]
+                      .getElementsByClassName('icon-left')[0]
+                      .getElementsByTagName("a")
+                      .isEmpty) {
+                    // Checking if article has already title, otherwise integrating it into content
+                    if (!alreadyHasTitele) {
+                      title =
+                          parent[i].getElementsByClassName('icon-left')[0].text;
+                      alreadyHasTitele = true;
+                      title = title.substring(1);
+                    } else
+                      content = content +
+                          "## " +
+                          parent[i]
+                              .getElementsByClassName('icon-left')[0]
+                              .text +
+                          "\n";
+                  } else {
+                    // Checking if article has already title, otherwise integrating it into content
+                    if (!alreadyHasTitele) {
+                      title = parent[i]
+                          .getElementsByClassName('icon-left')[0]
+                          .getElementsByTagName("a")[0]
+                          .text;
+                      title = title.substring(1);
+                      alreadyHasTitele = true;
+                    } else
+                      content = "## " +
+                          content +
+                          parent[i]
+                              .getElementsByClassName('icon-left')[0]
+                              .getElementsByTagName("a")[0]
+                              .text +
+                          "\n";
+                  }
+                  // Delete first space in title
+
+                } else
+                  title = "";
+                // ! Content parsen
+                content = content + _parseContent(parent[i], DOMAIN);
+
+                // ! pictures parsen
+                //check if picture links are in "text-pic-right" or "width100 center marginBottom10" class
                 if (parent[i]
-                    .getElementsByClassName('icon-left')[0]
-                    .getElementsByTagName("a")
-                    .isEmpty) {
-                  // Checking if article has already title, otherwise integrating it into content
-                  if (!alreadyHasTitele) {
-                    title =
-                        parent[i].getElementsByClassName('icon-left')[0].text;
-                    alreadyHasTitele = true;
-                    title = title.substring(1);
-                  } else
-                    content = content +
-                        parent[i].getElementsByClassName('icon-left')[0].text +
-                        "\n\n";
-                } else {
-                  // Checking if article has already title, otherwise integrating it into content
-                  if (!alreadyHasTitele) {
-                    title = parent[i]
-                        .getElementsByClassName('icon-left')[0]
-                        .getElementsByTagName("a")[0]
-                        .text;
-                    title = title.substring(1);
-                    alreadyHasTitele = true;
-                  } else
-                    content = content +
-                        parent[i]
-                            .getElementsByClassName('icon-left')[0]
-                            .getElementsByTagName("a")[0]
-                            .text +
-                        "\n\n";
-                }
-                // Delete first space in title
-
-              } else
-                title = "";
-              // ! Content parsen
-              content = content + _parseContent(parent[i]);
-
-              // ! pictures parsen
-              //check if picture links are in "text-pic-right" or "width100 center marginBottom10" class
-              if (parent[i]
-                  .getElementsByClassName('text-pic-right')
-                  .isNotEmpty) {
-                //picture-link is in text-pic-right class
-                bilder = parent[i]
                     .getElementsByClassName('text-pic-right')
-                    .map((elements) =>
-                        DOMAIN +
-                        elements
-                            .getElementsByTagName('img')[0]
-                            .attributes['src'])
-                    .toList();
-              } else if (parent[i]
-                  .getElementsByClassName("width100 center marginBottom10")
-                  .isNotEmpty) {
-                //picture source is in "width100 center marginBottom10" class
-                bilder = parent[i]
+                    .isNotEmpty) {
+                  //picture-link is in text-pic-right class
+                  bilder = parent[i]
+                      .getElementsByClassName('text-pic-right')
+                      .map((elements) =>
+                          DOMAIN +
+                          elements
+                              .getElementsByTagName('img')[0]
+                              .attributes['src'])
+                      .toList();
+                } else if (parent[i]
                     .getElementsByClassName("width100 center marginBottom10")
-                    .map((elements) =>
-                        DOMAIN +
-                        elements
-                            .getElementsByTagName('img')[0]
-                            .attributes['src'])
-                    .toList();
-              } else if (parent[i].getElementsByTagName("img").isNotEmpty) {
-                //picture source is in "width100 center marginBottom10" class
-                bilder = parent[i]
-                    .getElementsByTagName("img")
-                    .map((elements) => DOMAIN + elements.attributes['src'])
-                    .toList();
-              } else
-                bilder.add("");
-              // ! Hyperlinks parsen
-              //check if hyperlinks is in parent or has another parent in document
-              if (parent[i]
-                  .getElementsByClassName("internal-link")
-                  .isNotEmpty) {
-                // hyperlinks are in existing parent class
-                List<String> links = parent[i]
-                    .getElementsByClassName('internal-link')
-                    .map((elements) => elements.attributes['href'] != null
-                        ? DOMAIN + elements.attributes['href']
-                        : "")
-                    .toList();
-                List<String> description = parent[i]
-                    .getElementsByClassName('internal-link')
-                    .map((elements) => elements.text)
-                    .toList();
-                //map webscraped links and descriptions to hyperlinks
-                for (int k = 0; k < links.length; k++) {
-                  hyperlinks.add(
-                      Hyperlink(link: links[k], description: description[k]));
+                    .isNotEmpty) {
+                  //picture source is in "width100 center marginBottom10" class
+                  bilder = parent[i]
+                      .getElementsByClassName("width100 center marginBottom10")
+                      .map((elements) =>
+                          DOMAIN +
+                          elements
+                              .getElementsByTagName('img')[0]
+                              .attributes['src'])
+                      .toList();
+                } else if (parent[i].getElementsByTagName("img").isNotEmpty) {
+                  //picture source is in "width100 center marginBottom10" class
+                  bilder = parent[i]
+                      .getElementsByTagName("img")
+                      .map((elements) => DOMAIN + elements.attributes['src'])
+                      .toList();
+                } else
+                  bilder.add("");
+                // ! Hyperlinks parsen
+                //check if hyperlinks is in parent or has another parent in document
+                if (parent[i]
+                    .getElementsByClassName("internal-link")
+                    .isNotEmpty) {
+                  // hyperlinks are in existing parent class
+                  List<String> links = parent[i]
+                      .getElementsByClassName('internal-link')
+                      .map((elements) => elements.attributes['href'] != null
+                          ? DOMAIN + elements.attributes['href']
+                          : "")
+                      .toList();
+                  List<String> description = parent[i]
+                      .getElementsByClassName('internal-link')
+                      .map((elements) => elements.text)
+                      .toList();
+                  //map webscraped links and descriptions to hyperlinks
+                  for (int k = 0; k < links.length; k++) {
+                    hyperlinks.add(
+                        Hyperlink(link: links[k], description: description[k]));
+                  }
                 }
-              }
-              // Hyperlinks are links to external websites
-              if (parent[i]
-                  .getElementsByClassName("external-link-new-window")
-                  .isNotEmpty) {
-                // hyperlinks are in existing parent class
-                List<String> links = parent[i]
+                // Hyperlinks are links to external websites
+                if (parent[i]
                     .getElementsByClassName("external-link-new-window")
-                    .map((elements) => elements.attributes['href'])
-                    .toList();
-                List<String> description = parent[i]
-                    .getElementsByClassName("external-link-new-window")
-                    .map((elements) => elements.text)
-                    .toList();
-                //map webscraped links and descriptions to hyperlinks
-                for (int k = 0; k < links.length; k++) {
-                  hyperlinks.add(
-                      Hyperlink(link: links[k], description: description[k]));
+                    .isNotEmpty) {
+                  // hyperlinks are in existing parent class
+                  List<String> links = parent[i]
+                      .getElementsByClassName("external-link-new-window")
+                      .map((elements) => elements.attributes['href'])
+                      .toList();
+                  List<String> description = parent[i]
+                      .getElementsByClassName("external-link-new-window")
+                      .map((elements) => elements.text)
+                      .toList();
+                  //map webscraped links and descriptions to hyperlinks
+                  for (int k = 0; k < links.length; k++) {
+                    hyperlinks.add(
+                        Hyperlink(link: links[k], description: description[k]));
+                  }
                 }
-              }
-              //check if hyperlinks are in a seperate special section
-              if (document.getElementById('row h-bulldozer default') != null) {
-                List<String> links = document
-                    .getElementsByClassName('row h-bulldozer default')[0]
-                    .getElementsByClassName(
-                        'row ctype-text listtype-none showmobdesk-0')
-                    .map((elements) =>
-                        DOMAIN +
-                        elements
-                            .getElementsByClassName('internal-link')[0]
-                            .innerHtml)
-                    .toList();
-                List<String> description = document
-                    .getElementsByClassName('row h-bulldozer default')[0]
-                    .getElementsByClassName(
-                        'row ctype-text listtype-none showmobdesk-0')
-                    .map((elements) => elements
-                        .getElementsByClassName('internal-link')[0]
-                        .attributes['href'])
-                    .toList();
-                //map webscraped links and descriptions to hyperlinks
-                for (int k = 0; k < links.length; k++) {
-                  hyperlinks.add(
-                      Hyperlink(link: links[k], description: description[k]));
+                //check if hyperlinks are in a seperate special section
+                if (document.getElementById('row h-bulldozer default') !=
+                    null) {
+                  List<String> links = document
+                      .getElementsByClassName('row h-bulldozer default')[0]
+                      .getElementsByClassName(
+                          'row ctype-text listtype-none showmobdesk-0')
+                      .map((elements) =>
+                          DOMAIN +
+                          elements
+                              .getElementsByClassName('internal-link')[0]
+                              .innerHtml)
+                      .toList();
+                  List<String> description = document
+                      .getElementsByClassName('row h-bulldozer default')[0]
+                      .getElementsByClassName(
+                          'row ctype-text listtype-none showmobdesk-0')
+                      .map((elements) => elements
+                          .getElementsByClassName('internal-link')[0]
+                          .attributes['href'])
+                      .toList();
+                  //map webscraped links and descriptions to hyperlinks
+                  for (int k = 0; k < links.length; k++) {
+                    hyperlinks.add(
+                        Hyperlink(link: links[k], description: description[k]));
+                  }
                 }
-              }
-              if (document
-                  .getElementsByClassName('collection-item row')
-                  .isNotEmpty) {
-                List<String> links;
-                List<String> description;
-                links.addAll(parent[i]
+                if (document
                     .getElementsByClassName('collection-item row')
-                    .map((element) =>
-                        DOMAIN +
-                        element.getElementsByTagName('a')[0].attributes['href'])
-                    .toList());
-                description.addAll(parent[i]
-                    .getElementsByClassName('collection-item row')
-                    .map((element) => element
-                        .getElementsByTagName('a')[0]
-                        .attributes['title'])
-                    .toList());
+                    .isNotEmpty) {
+                  List<String> links;
+                  List<String> description;
+                  links.addAll(parent[i]
+                      .getElementsByClassName('collection-item row')
+                      .map((element) =>
+                          DOMAIN +
+                          element
+                              .getElementsByTagName('a')[0]
+                              .attributes['href'])
+                      .toList());
+                  description.addAll(parent[i]
+                      .getElementsByClassName('collection-item row')
+                      .map((element) => element
+                          .getElementsByTagName('a')[0]
+                          .attributes['title'])
+                      .toList());
 
-                for (int k = 0; k < links.length; k++) {
-                  hyperlinks.add(
-                      Hyperlink(link: links[k], description: description[k]));
+                  for (int k = 0; k < links.length; k++) {
+                    hyperlinks.add(
+                        Hyperlink(link: links[k], description: description[k]));
+                  }
                 }
-              }
-              if (document.getElementsByClassName('download').isNotEmpty) {
-                List<String> links;
-                List<String> description;
-                links.addAll(parent[i]
-                    .getElementsByClassName('download')
-                    .map((element) => DOMAIN + element.attributes['href'])
-                    .toList());
-                description.addAll(parent[i]
-                    .getElementsByClassName('download')
-                    .map((element) => element.text)
-                    .toList());
+                if (document.getElementsByClassName('download').isNotEmpty) {
+                  List<String> links = List.empty(growable: true);
+                  List<String> description = List.empty(growable: true);
+                  links.addAll(parent[i]
+                      .getElementsByClassName('download')
+                      .map((element) => DOMAIN + element.attributes['href'])
+                      .toList());
+                  description.addAll(parent[i]
+                      .getElementsByClassName('download')
+                      .map((element) => element.text)
+                      .toList());
 
-                for (int k = 0; k < links.length; k++) {
-                  hyperlinks.add(
-                      Hyperlink(link: links[k], description: description[k]));
+                  for (int k = 0; k < links.length; k++) {
+                    hyperlinks.add(
+                        Hyperlink(link: links[k], description: description[k]));
+                  }
                 }
+                // ! Formatting if needed
+                //Einrückungen bei neuen Paragraph entfernen
+                if (content.contains("<br>")) {
+                  content = content.replaceAll("<br> ", "\n");
+                  content = content.replaceAll("<br>", "\n");
+                }
+                //HTML-Formatierungszeichen bei neuen Paragraph entfernen
+                //und neuen Abschnitt für content anfangen
+                if (content.contains("&nbsp;")) {
+                  if (content.contains("•&nbsp;&nbsp; &nbsp;")) {
+                    content = content.replaceAll("•&nbsp;&nbsp; &nbsp;", "- ");
+                  } else
+                    content = content.replaceAll("&nbsp;", " ");
+                }
+                content = content + "\n\n";
+                //Default values if no hyperlinks are scraped
+                if (hyperlinks.isEmpty) {
+                  hyperlinks.add(Hyperlink(link: "", description: ""));
+                }
+                //add scraped Section to List of Articles
+                article.add(Article(
+                    url: url,
+                    titel: title,
+                    hyperlinks: hyperlinks,
+                    bilder: bilder,
+                    content: content.toString()));
               }
-              // ! Formatting if needed
-              //Einrückungen bei neuen Paragraph entfernen
-              if (content.contains("<br>")) {
-                content = content.replaceAll("<br> ", "\n");
-                content = content.replaceAll("<br>", "\n");
-              }
-              //HTML-Formatierungszeichen bei neuen Paragraph entfernen
-              //und neuen Abschnitt für content anfangen
-              if (content.contains("&nbsp;")) {
-                content = content.replaceAll("&nbsp;", " ");
-              }
-              content = content + "\n\n";
-              //Default values if no hyperlinks are scraped
-              if (hyperlinks.isEmpty) {
-                hyperlinks.add(Hyperlink(link: "", description: ""));
-              }
-              //add scraped Section to List of Articles
-              article.add(Article(
-                  url: url,
-                  titel: title,
-                  hyperlinks: hyperlinks,
-                  bilder: bilder,
-                  content: content.toString()));
             }
           }
         }
@@ -631,10 +643,10 @@ class WebScraper {
           for (int i = 0; i < parent.length; i++) {
             bool isAlreadyInCache = false;
             for (int k = 0; k < hyperlinks.length; k++) {
-              if (DOMAIN +
+              if ((DOMAIN +
                       parent[i]
                           .getElementsByTagName('a')[0]
-                          .attributes['href'] ==
+                          .attributes['href']) ==
                   hyperlinks[k]) {
                 isAlreadyInCache = true;
               }
@@ -705,44 +717,87 @@ class WebScraper {
 }
 
 //Parses content in order of appearing in parent class
-String _parseContent(parent) {
+String _parseContent(parent, DOMAIN) {
   String content = "";
-  for (int r = 0; r < parent.children.length; r++) {
-    final child = parent.children[r];
-    print(child.className);
+  if (parent.className != "row h-bulldozer default") {
+    for (int r = 0; r < parent.children.length; r++) {
+      final child = parent.children[r];
 
-    // check if content is in "news-teaser" or "bodytext class"
-    if (child.className == 'news-teaser') {
-      content = child.innerHtml;
-    }
-    if (child.className == 'bodytext') {
-      if (!child.innerHtml.contains("<br>") ||
-          child.getElementsByTagName('span').isNotEmpty) {
-        content = content + child.text + "\n\n";
-      } else if (child.getElementsByTagName('a').isEmpty)
-        content = content + child.innerHtml + "\n\n";
-    }
-    // Content is in MSoNormal class, not often used
-    if (child.className == 'MsoNormal') {
-      for (int j = 0; j < child.getElementsByTagName('span').length; j++) {
-        if (child.getElementsByTagName('span')[j].text != "-") {
-          content = content + child.getElementsByTagName('span')[j].text + "\n";
-        } else
-          content = content + child.getElementsByTagName('span')[j].text + " ";
+      // check if content is in "news-teaser" or "bodytext class"
+      if (child.className == 'news-teaser') {
+        content = child.innerHtml.trim();
       }
-    }
-    //Auflistung mit speziellen Symbolen
-    if (child.className == 'cms') {
-      for (int j = 0; j < child.getElementsByTagName('li').length; j++) {
-        String _parsed = child.getElementsByTagName('li')[j].text;
-        if (!content.contains(_parsed)) {
-          content = content + "• " + _parsed + "\n";
+      if (child.className == 'bodytext') {
+        if (!child.innerHtml.contains("<br>") ||
+            child.getElementsByTagName('span').isNotEmpty) {
+          String parsed = child.text.trim() + "\n\n";
+          if (!child.getElementsByTagName('a').isEmpty) {
+            if (child
+                .getElementsByTagName('a')[0]
+                .attributes['href']
+                .contains("/")) {
+              for (int index = 0;
+                  index < child.getElementsByTagName('a').length;
+                  index++) {
+                (index);
+
+                parsed = parsed.replaceAll(
+                    child.getElementsByTagName('a')[index].text,
+                    "[" +
+                        child.getElementsByTagName('a')[index].text.trim() +
+                        "]" +
+                        "(" +
+                        DOMAIN +
+                        child
+                            .getElementsByTagName('a')[index]
+                            .attributes['href'] +
+                        (")"));
+              }
+            }
+          }
+          content = content + parsed + "\n\n";
+        } else if (child.getElementsByTagName('a').isEmpty) {
+          if (!child.getElementsByTagName('strong').isEmpty) {
+            content = content +
+                "### " +
+                child.getElementsByTagName('strong')[0].text.trim() +
+                "\n\n";
+          } else {
+            content = content + child.innerHtml.trim() + "\n\n";
+          }
         }
       }
-      content = content + "\n";
-    }
-    if (child.hasChildNodes()) {
-      content = content + _parseContent(child);
+      // Content is header
+      if (child.localName == "h3") {
+        content = content + "\n\n ## " + child.text.trim() + "\n\n";
+      }
+
+      // Content is in MSoNormal class, not often used
+      if (child.className == 'MsoNormal') {
+        for (int j = 0; j < child.getElementsByTagName('span').length; j++) {
+          if (child.getElementsByTagName('span')[j].text != "-") {
+            content = content +
+                child.getElementsByTagName('span')[j].text.trim() +
+                "\n";
+          } else
+            content = content +
+                child.getElementsByTagName('span')[j].text.trim() +
+                " ";
+        }
+      }
+      //Auflistung mit speziellen Symbolen
+      if (child.className == 'cms') {
+        for (int j = 0; j < child.getElementsByTagName('li').length; j++) {
+          String _parsed = child.getElementsByTagName('li')[j].text;
+          if (!content.contains(_parsed)) {
+            content = content + "\n\n- " + _parsed + "\n\n";
+          }
+        }
+        content = content + "\n";
+      }
+      if (child.hasChildNodes()) {
+        content = content + _parseContent(child, DOMAIN);
+      }
     }
   }
   //check if current child has more children which have to been checked
