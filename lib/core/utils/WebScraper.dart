@@ -121,6 +121,7 @@ class WebScraper {
                 } else
                   bilder.add("");
                 // ! Hyperlinks parsen
+                //TODO Hyperlink nur aus fußsektion für links nehmen
                 //check if hyperlinks is in parent or has another parent in document
                 if (parent[i]
                     .getElementsByClassName("internal-link")
@@ -719,87 +720,99 @@ class WebScraper {
 //Parses content in order of appearing in parent class
 String _parseContent(parent, DOMAIN) {
   String content = "";
-  if (parent.className != "row h-bulldozer default") {
-    for (int r = 0; r < parent.children.length; r++) {
-      final child = parent.children[r];
+  for (int r = 0; r < parent.children.length; r++) {
+    final child = parent.children[r];
 
-      // check if content is in "news-teaser" or "bodytext class"
-      if (child.className == 'news-teaser') {
-        content = child.innerHtml.trim();
-      }
-      if (child.className == 'bodytext') {
-        if (!child.innerHtml.contains("<br>") ||
-            child.getElementsByTagName('span').isNotEmpty) {
-          String parsed = child.text.trim() + "\n\n";
-          if (!child.getElementsByTagName('a').isEmpty) {
-            if (child
-                .getElementsByTagName('a')[0]
-                .attributes['href']
-                .contains("/")) {
-              for (int index = 0;
-                  index < child.getElementsByTagName('a').length;
-                  index++) {
-                (index);
-
-                parsed = parsed.replaceAll(
-                    child.getElementsByTagName('a')[index].text,
-                    "[" +
-                        child.getElementsByTagName('a')[index].text.trim() +
-                        "]" +
-                        "(" +
-                        DOMAIN +
-                        child
-                            .getElementsByTagName('a')[index]
-                            .attributes['href'] +
-                        (")"));
-              }
+    // check if content is in "news-teaser" or "bodytext class"
+    if (child.className == 'news-teaser') {
+      content = child.innerHtml.trim();
+    }
+    if (child.className == 'bodytext') {
+      if (!child.innerHtml.contains("<br>") ||
+          child.getElementsByTagName('span').isNotEmpty) {
+        String parsed = "";
+        parsed = child.text.trim() + "\n\n";
+        if (!child.getElementsByTagName('a').isEmpty) {
+          if (child
+              .getElementsByTagName('a')[0]
+              .attributes['href']
+              .contains("/")) {
+            for (int index = 0;
+                index < child.getElementsByTagName('a').length;
+                index++) {
+              parsed = parsed.replaceAll(
+                  child.getElementsByTagName('a')[index].text,
+                  !child
+                          .getElementsByTagName('a')[index]
+                          .attributes['href']
+                          .contains("http")
+                      ? "[" +
+                          child.getElementsByTagName('a')[index].text.trim() +
+                          "]" +
+                          "(" +
+                          DOMAIN +
+                          child
+                              .getElementsByTagName('a')[index]
+                              .attributes['href'] +
+                          ")"
+                      : "[" +
+                          child.getElementsByTagName('a')[index].text.trim() +
+                          "]" +
+                          "(" +
+                          child
+                              .getElementsByTagName('a')[index]
+                              .attributes['href'] +
+                          ")");
             }
           }
-          content = content + parsed + "\n\n";
-        } else if (child.getElementsByTagName('a').isEmpty) {
-          if (!child.getElementsByTagName('strong').isEmpty) {
-            content = content +
-                "### " +
-                child.getElementsByTagName('strong')[0].text.trim() +
-                "\n\n";
-          } else {
-            content = content + child.innerHtml.trim() + "\n\n";
-          }
         }
-      }
-      // Content is header
-      if (child.localName == "h3") {
-        content = content + "\n\n ## " + child.text.trim() + "\n\n";
-      }
-
-      // Content is in MSoNormal class, not often used
-      if (child.className == 'MsoNormal') {
-        for (int j = 0; j < child.getElementsByTagName('span').length; j++) {
-          if (child.getElementsByTagName('span')[j].text != "-") {
-            content = content +
-                child.getElementsByTagName('span')[j].text.trim() +
-                "\n";
-          } else
-            content = content +
-                child.getElementsByTagName('span')[j].text.trim() +
-                " ";
+        content = content + parsed + "\n\n";
+      } else if (child.getElementsByTagName('a').isEmpty) {
+        if (!child.getElementsByTagName('strong').isEmpty) {
+          content = content +
+              "### " +
+              child.getElementsByTagName('strong')[0].text.trim() +
+              "\n\n";
+        } else {
+          content = content + child.innerHtml.trim() + "\n\n";
         }
-      }
-      //Auflistung mit speziellen Symbolen
-      if (child.className == 'cms') {
-        for (int j = 0; j < child.getElementsByTagName('li').length; j++) {
-          String _parsed = child.getElementsByTagName('li')[j].text;
-          if (!content.contains(_parsed)) {
-            content = content + "\n\n- " + _parsed + "\n\n";
-          }
-        }
-        content = content + "\n";
-      }
-      if (child.hasChildNodes()) {
-        content = content + _parseContent(child, DOMAIN);
       }
     }
+    // Content is header
+
+    if ((child.localName == "h3" ||
+            child.className == "card-title icon-left ") &&
+        child.getElementsByTagName('a').isEmpty) {
+      content = content + "\n\n ## " + child.text.trim() + "\n\n";
+    }
+
+    // Content is in MSoNormal class, not often used
+    if (child.className == 'MsoNormal') {
+      for (int j = 0; j < child.getElementsByTagName('span').length; j++) {
+        if (child.getElementsByTagName('span')[j].text != "-") {
+          content = content +
+              child.getElementsByTagName('span')[j].text.trim() +
+              "\n";
+        } else
+          content =
+              content + child.getElementsByTagName('span')[j].text.trim() + " ";
+      }
+    }
+    //Auflistung mit speziellen Symbolen
+    if (child.className == 'cms') {
+      for (int j = 0; j < child.getElementsByTagName('li').length; j++) {
+        String _parsed = child.getElementsByTagName('li')[j].text;
+        if (!content.contains(_parsed)) {
+          content = content + "\n\n- " + _parsed + "\n\n";
+        }
+      }
+      content = content + "\n";
+    }
+    if (child.hasChildNodes()) {
+      content = content + _parseContent(child, DOMAIN);
+    }
   }
+
   //check if current child has more children which have to been checked
   return content;
 }
