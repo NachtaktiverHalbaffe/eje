@@ -19,7 +19,7 @@ Widget HyperlinkSection(
           Text(
             "Weiterführende Links",
             style: TextStyle(
-              color: Theme.of(context).accentColor,
+              color: Theme.of(context).colorScheme.secondary,
               fontSize: 72 / MediaQuery.of(context).devicePixelRatio,
               fontWeight: FontWeight.bold,
             ),

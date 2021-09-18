@@ -53,10 +53,14 @@ Widget TermineListView(List<Termin> termine, BuildContext context) {
       new Expanded(
         child: RefreshIndicator(
           key: _refreshIndicatorKey,
+          color: Theme.of(context).colorScheme.secondary,
           onRefresh: () async {
             await BlocProvider.of<TermineBloc>(context).add(RefreshTermine());
           },
           child: SingleChildScrollView(
+            physics: ScrollPhysics(
+              parent: AlwaysScrollableScrollPhysics(),
+            ),
             child: Container(
               constraints: BoxConstraints(
                   minHeight: MediaQuery.of(context).size.height - 45),

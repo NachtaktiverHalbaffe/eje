@@ -61,8 +61,7 @@ class FreizeitCard extends StatelessWidget {
                         freizeit.freizeit,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
-                          fontSize:
-                              92 / MediaQuery.of(context).devicePixelRatio,
+                          fontSize: 30,
                           fontWeight: FontWeight.bold,
                           color: Colors.white,
                           shadows: <Shadow>[
@@ -83,8 +82,7 @@ class FreizeitCard extends StatelessWidget {
                         freizeit.motto,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
-                          fontSize:
-                              50 / MediaQuery.of(context).devicePixelRatio,
+                          fontSize: 17,
                           color: Colors.white,
                           shadows: <Shadow>[
                             Shadow(

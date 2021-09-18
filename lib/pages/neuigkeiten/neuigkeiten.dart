@@ -63,6 +63,7 @@ Widget _buildNeuigkeitenList(BuildContext context, _neuigkeiten) {
   final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
       new GlobalKey<RefreshIndicatorState>();
   return RefreshIndicator(
+    color: Theme.of(context).colorScheme.secondary,
     key: _refreshIndicatorKey,
     onRefresh: () async {
       await BlocProvider.of<NeuigkeitenBlocBloc>(context)
@@ -70,7 +71,7 @@ Widget _buildNeuigkeitenList(BuildContext context, _neuigkeiten) {
     },
     child: ListView.builder(
       physics: ScrollPhysics(
-        parent: BouncingScrollPhysics(),
+        parent: RangeMaintainingScrollPhysics(),
       ),
       itemCount: _neuigkeiten.length,
       itemBuilder: (context, index) {

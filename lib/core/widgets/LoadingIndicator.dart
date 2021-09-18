@@ -7,10 +7,13 @@ class LoadingIndicator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Theme.of(context).backgroundColor,
+      color: Theme.of(context).colorScheme.surface,
       child: Center(
         child: Platform.isAndroid
-            ? CircularProgressIndicator()
+            ? CircularProgressIndicator(
+                color: Theme.of(context).colorScheme.secondary,
+                backgroundColor: Theme.of(context).colorScheme.background,
+              )
             : CupertinoActivityIndicator(),
       ),
     );

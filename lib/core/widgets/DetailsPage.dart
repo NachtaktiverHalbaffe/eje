@@ -76,7 +76,8 @@ class DetailsPage extends StatelessWidget {
                           size: 5,
                           selectedSize: 7.5,
                           dotColor: Colors.white,
-                          selectedDotColor: Theme.of(context).accentColor,
+                          selectedDotColor:
+                              Theme.of(context).colorScheme.secondary,
                           itemCount: bild_url.length,
                           currentPageNotifier: _currentPageNotifier,
                         ),
@@ -116,14 +117,13 @@ class DetailsPage extends StatelessWidget {
                           maxLines: 3,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
-                            fontSize:
-                                100 / MediaQuery.of(context).devicePixelRatio,
+                            fontSize: 30,
                             fontWeight: FontWeight.bold,
-                            color: Theme.of(context).accentColor,
+                            color: Theme.of(context).colorScheme.secondary,
                             shadows: <Shadow>[
                               Shadow(
                                 offset: Offset(2, 2),
-                                blurRadius: 16,
+                                blurRadius: 17,
                                 color: Colors.black,
                               ),
                               Shadow(
@@ -144,8 +144,7 @@ class DetailsPage extends StatelessWidget {
                             untertitel,
                             textAlign: TextAlign.justify,
                             style: TextStyle(
-                              fontSize:
-                                  60 / MediaQuery.of(context).devicePixelRatio,
+                              fontSize: 17,
                               color: Colors.white,
                               shadows: <Shadow>[
                                 Shadow(

@@ -80,41 +80,41 @@ class _MyHomePageState extends State<MyHomePage> {
         icon: Icon(MdiIcons.newspaper),
         iconSize: 26.0,
         title: ("Aktuelles"),
-        activeColorPrimary: Theme.of(context).accentColor,
+        activeColorPrimary: Theme.of(context).colorScheme.secondary,
         activeColorSecondary: Colors.white,
-        inactiveColorPrimary: Theme.of(context).accentColor,
+        inactiveColorPrimary: Theme.of(context).colorScheme.secondary,
       ),
       PersistentBottomNavBarItem(
         icon: Icon(CostumIcons.eje),
         iconSize: 26.0,
         title: ("Das eje"),
-        activeColorPrimary: Theme.of(context).accentColor,
+        activeColorPrimary: Theme.of(context).colorScheme.secondary,
         activeColorSecondary: Colors.white,
-        inactiveColorPrimary: Theme.of(context).accentColor,
+        inactiveColorPrimary: Theme.of(context).colorScheme.secondary,
       ),
       PersistentBottomNavBarItem(
         icon: Icon(Icons.today),
         iconSize: 26.0,
         title: ("Termine"),
-        activeColorPrimary: Theme.of(context).accentColor,
+        activeColorPrimary: Theme.of(context).colorScheme.secondary,
         activeColorSecondary: Colors.white,
-        inactiveColorPrimary: Theme.of(context).accentColor,
+        inactiveColorPrimary: Theme.of(context).colorScheme.secondary,
       ),
       PersistentBottomNavBarItem(
         icon: Icon(MdiIcons.terrain),
         iconSize: 26.0,
         title: ("Freizeiten"),
-        activeColorPrimary: Theme.of(context).accentColor,
+        activeColorPrimary: Theme.of(context).colorScheme.secondary,
         activeColorSecondary: Colors.white,
-        inactiveColorPrimary: Theme.of(context).accentColor,
+        inactiveColorPrimary: Theme.of(context).colorScheme.secondary,
       ),
       PersistentBottomNavBarItem(
         icon: Icon(Icons.settings),
         iconSize: 26.0,
         title: ("Einstellungen"),
-        activeColorPrimary: Theme.of(context).accentColor,
+        activeColorPrimary: Theme.of(context).colorScheme.secondary,
         activeColorSecondary: Colors.white,
-        inactiveColorPrimary: Theme.of(context).accentColor,
+        inactiveColorPrimary: Theme.of(context).colorScheme.secondary,
       ),
     ];
   }
@@ -133,7 +133,7 @@ class _MyHomePageState extends State<MyHomePage> {
       screens: _buildScreens(),
       handleAndroidBackButtonPress: true,
       stateManagement: true,
-      backgroundColor: Theme.of(context).backgroundColor,
+      backgroundColor: Theme.of(context).colorScheme.background,
       navBarStyle: NavBarStyle
           .style7, //!Good looking alternatives: sytle3, style6, style7, style 15
       itemAnimationProperties: ItemAnimationProperties(
@@ -147,13 +147,11 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       decoration: NavBarDecoration(
         borderRadius: BorderRadius.circular(10.0),
-        colorBehindNavBar: Theme.of(context).backgroundColor,
+        colorBehindNavBar: Theme.of(context).colorScheme.background,
       ),
       popAllScreensOnTapOfSelectedTab: true,
       // Choose the nav bar style with this property
-      onItemSelected: (index) {
-        print(index);
-      },
+      onItemSelected: (index) {},
     );
   }
 
@@ -166,6 +164,8 @@ class _MyHomePageState extends State<MyHomePage> {
 }
 
 Widget _MaterialApp(BuildContext context, int initialIndex) {
+  final ThemeData themeLight = ThemeData.light();
+  final ThemeData themeDark = ThemeData.dark();
   return FutureBuilder<SharedPreferences>(
     future: SharedPreferences.getInstance(),
     initialData: null,
@@ -177,30 +177,39 @@ Widget _MaterialApp(BuildContext context, int initialIndex) {
                 title: 'EJW Esslingen',
                 initialIndex: initialIndex,
               ),
-              theme: ThemeData.light().copyWith(
+              theme: themeLight.copyWith(
+                colorScheme: themeLight.colorScheme.copyWith(
                   // Firmenfarbe
-                  accentColor: Color(0xFFCD2E32),
-                  //Textcolors
-                  primaryTextTheme:
-                      Typography.material2018(platform: TargetPlatform.android)
-                          .black,
-                  textTheme:
-                      Typography.material2018(platform: TargetPlatform.android)
-                          .black,
-                  textSelectionColor: Theme.of(context).accentColor,
-                  //Iconcolors und Widgetcolors
-                  primaryIconTheme: IconThemeData(color: Colors.black),
-                  dividerColor: Colors.black,
-                  backgroundColor: Colors.white,
-                  cardColor: Colors.white),
-              darkTheme: ThemeData.dark().copyWith(
-                //Firmenfarbe
-                accentColor: Color(0xFFCD2E32),
-                //Textcolors
-                textSelectionColor: Theme.of(context).accentColor,
+                  secondary: Color(0xFFCD2E32),
+                  background: Colors.white,
+                  surface: Colors.white,
+                ),
+                // Text colors
+                textSelectionTheme: themeLight.textSelectionTheme.copyWith(
+                  selectionColor: Theme.of(context).colorScheme.secondary,
+                ),
+                primaryTextTheme:
+                    Typography.material2018(platform: TargetPlatform.android)
+                        .black,
+                textTheme:
+                    Typography.material2018(platform: TargetPlatform.android)
+                        .black,
+                //Iconcolors und Widgetcolors
+                primaryIconTheme: IconThemeData(color: Colors.black),
+                dividerColor: Colors.black,
+              ),
+              darkTheme: themeDark.copyWith(
+                colorScheme: themeDark.colorScheme.copyWith(
+                  // Firmenfarbe
+                  secondary: Color(0xFFCD2E32),
+                  background: Colors.black,
+                ),
+                // Text colors
+                textSelectionTheme: themeLight.textSelectionTheme.copyWith(
+                  selectionColor: Theme.of(context).colorScheme.secondary,
+                ),
                 //Iconcolors und Widgetcolors
                 dividerColor: Colors.white,
-                backgroundColor: Colors.black,
               ),
               themeMode: snapshot.data.getBool("nightmode_auto")
                   ? ThemeMode.system

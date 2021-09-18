@@ -110,7 +110,7 @@ class _childHauptamtlicheDetails extends StatelessWidget {
                 trailing: GestureDetector(
                   child: Icon(
                     MdiIcons.messageReplyText,
-                    color: Theme.of(context).accentColor,
+                    color: Theme.of(context).colorScheme.secondary,
                   ),
                   onTap: () async {
                     if (await canLaunch(
@@ -144,7 +144,7 @@ class _childHauptamtlicheDetails extends StatelessWidget {
                 trailing: GestureDetector(
                   child: Icon(
                     MdiIcons.emailEdit,
-                    color: Theme.of(context).accentColor,
+                    color: Theme.of(context).colorScheme.secondary,
                   ),
                   onTap: () async {
                     if (await canLaunch("mailto:" + hauptamtlicher.email)) {
@@ -176,7 +176,7 @@ class _childHauptamtlicheDetails extends StatelessWidget {
                 trailing: GestureDetector(
                   child: Icon(
                     MdiIcons.phoneOutgoing,
-                    color: Theme.of(context).accentColor,
+                    color: Theme.of(context).colorScheme.secondary,
                   ),
                   onTap: () async {
                     if (await canLaunch("tel:" + hauptamtlicher.telefon)) {
@@ -208,7 +208,7 @@ class _childHauptamtlicheDetails extends StatelessWidget {
                 trailing: GestureDetector(
                   child: Icon(
                     MdiIcons.phoneOutgoing,
-                    color: Theme.of(context).accentColor,
+                    color: Theme.of(context).colorScheme.secondary,
                   ),
                   onTap: () async {
                     if (await canLaunch("tel:" + hauptamtlicher.handy)) {

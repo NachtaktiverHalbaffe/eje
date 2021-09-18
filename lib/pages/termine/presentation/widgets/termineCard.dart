@@ -88,10 +88,10 @@ class TerminCard extends StatelessWidget {
                               termin.veranstaltung,
                               overflow: TextOverflow.ellipsis,
                               style: TextStyle(
-                                  fontSize: 84 /
-                                      MediaQuery.of(context).devicePixelRatio,
+                                  fontSize: 28,
                                   fontWeight: FontWeight.bold,
-                                  color: Theme.of(context).accentColor),
+                                  color:
+                                      Theme.of(context).colorScheme.secondary),
                             ),
                           ),
                         ],
@@ -107,8 +107,7 @@ class TerminCard extends StatelessWidget {
                               termin.motto,
                               overflow: TextOverflow.ellipsis,
                               style: TextStyle(
-                                fontSize: 54 /
-                                    MediaQuery.of(context).devicePixelRatio,
+                                fontSize: 18,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
@@ -131,8 +130,7 @@ class TerminCard extends StatelessWidget {
                           termin.datum,
                           style: TextStyle(
                               color: Theme.of(context).dividerColor,
-                              fontSize:
-                                  48 / MediaQuery.of(context).devicePixelRatio),
+                              fontSize: 16),
                         ),
                       ),
                       ListTile(
@@ -147,8 +145,7 @@ class TerminCard extends StatelessWidget {
                               "\n" +
                               termin.ort.PLZ,
                           style: TextStyle(
-                              fontSize:
-                                  45 / MediaQuery.of(context).devicePixelRatio,
+                              fontSize: 16,
                               color: Theme.of(context).dividerColor),
                         ),
                       ),

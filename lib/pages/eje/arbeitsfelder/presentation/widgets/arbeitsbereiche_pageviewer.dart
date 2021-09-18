@@ -36,7 +36,6 @@ class ArbeitsbereichePageViewer extends StatelessWidget {
 
 class ContactCard extends StatelessWidget {
   final FieldOfWork fieldOfWork;
-
   const ContactCard({Key key, this.fieldOfWork}) : super(key: key);
 
   @override
@@ -86,7 +85,7 @@ class ContactCard extends StatelessWidget {
                   overflow: TextOverflow.ellipsis,
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    fontSize: 72 / MediaQuery.of(context).devicePixelRatio,
+                    fontSize: 21,
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
                     shadows: <Shadow>[

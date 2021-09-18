@@ -81,7 +81,7 @@ class KontaktCard extends StatelessWidget {
                   overflow: TextOverflow.ellipsis,
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    fontSize: 62 / MediaQuery.of(context).devicePixelRatio,
+                    fontSize: 19,
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
                     shadows: <Shadow>[
@@ -104,7 +104,7 @@ class KontaktCard extends StatelessWidget {
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                     color: Colors.white,
-                    fontSize: 46 / MediaQuery.of(context).devicePixelRatio,
+                    fontSize: 15,
                     shadows: <Shadow>[
                       Shadow(
                         offset: Offset(2, 2),

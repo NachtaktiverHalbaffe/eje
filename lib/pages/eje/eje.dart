@@ -17,9 +17,10 @@ class eje extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RefreshIndicator(
+        color: Theme.of(context).colorScheme.secondary,
         child: ListView(
           physics: ScrollPhysics(
-            parent: BouncingScrollPhysics(),
+            parent: RangeMaintainingScrollPhysics(),
           ),
           children: <Widget>[
             SizedBox(height: 20),
@@ -34,6 +35,7 @@ class eje extends StatelessWidget {
           ],
         ),
         onRefresh: () async {
+          // TODO Fix Reloading
           BlocProvider.of<ArbeitsbereicheBloc>(context)
               .add(RefreshArbeitsbereiche());
           BlocProvider.of<HauptamtlicheBloc>(context)

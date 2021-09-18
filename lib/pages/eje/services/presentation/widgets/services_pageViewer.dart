@@ -32,7 +32,6 @@ class ServicesPageViewer extends StatelessWidget {
 
 class ServicesCard extends StatelessWidget {
   final Service service;
-
   const ServicesCard({Key key, this.service}) : super(key: key);
 
   @override
@@ -80,7 +79,7 @@ class ServicesCard extends StatelessWidget {
                   overflow: TextOverflow.ellipsis,
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    fontSize: 72 / MediaQuery.of(context).devicePixelRatio,
+                    fontSize: 22,
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
                     shadows: <Shadow>[

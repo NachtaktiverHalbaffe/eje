@@ -17,7 +17,7 @@ class Freizeiten extends StatelessWidget {
       child: BlocConsumer<FreizeitenBloc, FreizeitenState>(
         listener: (context, state) {
           if (state is Error) {
-            Scaffold.of(context).showSnackBar(
+            ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text(state.message),
               ),
@@ -48,6 +48,7 @@ class FreizeitenPageViewer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RefreshIndicator(
+        color: Theme.of(context).colorScheme.secondary,
         child: SingleChildScrollView(
           physics: AlwaysScrollableScrollPhysics(),
           child: ConstrainedBox(

@@ -97,7 +97,7 @@ Widget _childBak(BAKler bakler, BuildContext context) {
               trailing: GestureDetector(
                 child: Icon(
                   MdiIcons.messageReplyText,
-                  color: Theme.of(context).accentColor,
+                  color: Theme.of(context).colorScheme.secondary,
                 ),
                 onTap: () async {
                   if (await canLaunch("https://threema.id/" + bakler.threema)) {
@@ -127,7 +127,7 @@ Widget _childBak(BAKler bakler, BuildContext context) {
               trailing: GestureDetector(
                 child: Icon(
                   MdiIcons.emailEdit,
-                  color: Theme.of(context).accentColor,
+                  color: Theme.of(context).colorScheme.secondary,
                 ),
                 onTap: () async {
                   if (await canLaunch("mailto:" + bakler.email)) {

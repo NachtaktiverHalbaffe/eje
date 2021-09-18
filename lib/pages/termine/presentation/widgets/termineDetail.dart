@@ -122,7 +122,7 @@ class _terminChildWidget extends StatelessWidget {
           trailing: GestureDetector(
             child: Icon(
               MdiIcons.navigation,
-              color: Theme.of(context).accentColor,
+              color: Theme.of(context).colorScheme.secondary,
             ),
             onTap: () async {
               await MapLauncher.launchQuery(_termin.ort.Anschrift +

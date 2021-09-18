@@ -29,7 +29,7 @@ class EinstellungenPage extends StatelessWidget {
             children: <Widget>[
               SettingGroupTitle("Erscheinungsbild", context),
               RadioListTile(
-                activeColor: Theme.of(context).accentColor,
+                activeColor: Theme.of(context).colorScheme.secondary,
                 value: "nightmode_auto",
                 groupValue: _groupID,
                 onChanged: (val) async {
@@ -51,7 +51,7 @@ class EinstellungenPage extends StatelessWidget {
                 key: Key("nightmode_auto"),
               ),
               RadioListTile(
-                activeColor: Theme.of(context).accentColor,
+                activeColor: Theme.of(context).colorScheme.secondary,
                 value: "nightmode_off",
                 groupValue: _groupID,
                 onChanged: (val) async {
@@ -73,7 +73,7 @@ class EinstellungenPage extends StatelessWidget {
                 key: Key("nightmode_off"),
               ),
               RadioListTile(
-                activeColor: Theme.of(context).accentColor,
+                activeColor: Theme.of(context).colorScheme.secondary,
                 value: "nightmode_on",
                 groupValue: _groupID,
                 onChanged: (val) async {
@@ -96,7 +96,7 @@ class EinstellungenPage extends StatelessWidget {
               Divider(),
               SettingGroupTitle("Benachrichtigungen", context),
               CheckboxListTile(
-                activeColor: Theme.of(context).accentColor,
+                activeColor: Theme.of(context).colorScheme.secondary,
                 value: snapshot.data.getBool("notifications_on"),
                 onChanged: (val) async {
                   await BlocProvider.of<EinstellungBloc>(context)
@@ -111,7 +111,7 @@ class EinstellungenPage extends StatelessWidget {
                 key: Key("notifitcations_on"),
               ),
               SwitchListTile(
-                activeColor: Theme.of(context).accentColor,
+                activeColor: Theme.of(context).colorScheme.secondary,
                 value: snapshot.data.getBool("notifications_veranstaltungen"),
                 onChanged: (val) async {
                   await BlocProvider.of<EinstellungBloc>(context).add(
@@ -141,7 +141,7 @@ class EinstellungenPage extends StatelessWidget {
                 ),
               ),
               SwitchListTile(
-                activeColor: Theme.of(context).accentColor,
+                activeColor: Theme.of(context).colorScheme.secondary,
                 value: snapshot.data.getBool("notifications_freizeiten"),
                 onChanged: (val) async {
                   await BlocProvider.of<EinstellungBloc>(context)
@@ -156,7 +156,7 @@ class EinstellungenPage extends StatelessWidget {
                 key: Key("notification_freizeiten"),
               ),
               SwitchListTile(
-                activeColor: Theme.of(context).accentColor,
+                activeColor: Theme.of(context).colorScheme.secondary,
                 value: snapshot.data.getBool("notifications_neuigkeiten"),
                 onChanged: (val) async {
                   await BlocProvider.of<EinstellungBloc>(context).add(
@@ -173,7 +173,7 @@ class EinstellungenPage extends StatelessWidget {
               Divider(),
               SettingGroupTitle("Internet", context),
               CheckboxListTile(
-                activeColor: Theme.of(context).accentColor,
+                activeColor: Theme.of(context).colorScheme.secondary,
                 value: snapshot.data.getBool("only_wifi"),
                 onChanged: (val) async {
                   await BlocProvider.of<EinstellungBloc>(context)
@@ -188,7 +188,7 @@ class EinstellungenPage extends StatelessWidget {
                 key: Key("only_wifi"),
               ),
               CheckboxListTile(
-                activeColor: Theme.of(context).accentColor,
+                activeColor: Theme.of(context).colorScheme.secondary,
                 value: snapshot.data.getBool("cache_pictures"),
                 onChanged: (val) async {
                   await BlocProvider.of<EinstellungBloc>(context)
@@ -289,7 +289,7 @@ Widget SettingGroupTitle(String title, BuildContext context) {
       title,
       textAlign: TextAlign.left,
       style: TextStyle(
-        color: Theme.of(context).accentColor,
+        color: Theme.of(context).colorScheme.secondary,
         fontSize: 54 / MediaQuery.of(context).devicePixelRatio,
       ),
     ),

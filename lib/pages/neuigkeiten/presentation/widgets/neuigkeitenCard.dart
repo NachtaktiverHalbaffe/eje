@@ -65,7 +65,7 @@ class _NeuigkeitenCardState extends State<NeuigkeitenCard> {
                 child: Container(
                   width: MediaQuery.of(context).size.width,
                   height: 200,
-                  color: Theme.of(context).cardColor,
+                  color: Theme.of(context).colorScheme.surface,
                   child: PageView.builder(
                     physics: ScrollPhysics(
                       parent: BouncingScrollPhysics(),
@@ -97,7 +97,7 @@ class _NeuigkeitenCardState extends State<NeuigkeitenCard> {
                       size: 5,
                       selectedSize: 7.5,
                       dotColor: Colors.white,
-                      selectedDotColor: Theme.of(context).accentColor,
+                      selectedDotColor: Theme.of(context).colorScheme.secondary,
                       itemCount: widget._neuigkeit.bilder.length,
                       currentPageNotifier: _currentPageNotifier,
                     ),
@@ -133,6 +133,7 @@ class _NeuigkeitenCardState extends State<NeuigkeitenCard> {
                     filter: ImageFilter.blur(sigmaX: sigmax, sigmaY: sigmay),
                     child: ExpansionTile(
                       onExpansionChanged: (isExpanded) => _setBlur(isExpanded),
+                      iconColor: Theme.of(context).colorScheme.secondary,
                       title: Text(
                         widget._neuigkeit.titel.toString(),
                         overflow: TextOverflow.ellipsis,
