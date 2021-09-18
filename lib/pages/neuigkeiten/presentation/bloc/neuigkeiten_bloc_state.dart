@@ -47,7 +47,7 @@ class Loaded extends NeuigkeitenBlocState {
 }
 
 class LoadedDetail extends NeuigkeitenBlocState {
-  final List<Article> article;
+  final Article article;
 
   //Constructor
   LoadedDetail({@required this.article});

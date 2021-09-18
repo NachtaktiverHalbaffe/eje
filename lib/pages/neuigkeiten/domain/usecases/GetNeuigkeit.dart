@@ -8,13 +8,13 @@ import 'package:eje/pages/neuigkeiten/domain/repositories/neuigkeiten_repository
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 
-class GetNeuigkeit implements UseCase<List<Article>> {
+class GetNeuigkeit implements UseCase<Article> {
   final NeuigkeitenRepository repository;
 
   GetNeuigkeit(this.repository);
 
   @override
-  Future<Either<Failure, List<Article>>> call({
+  Future<Either<Failure, Article>> call({
     @required String titel,
   }) async {
     final AppConfig appConfig = await AppConfig.loadConfig();

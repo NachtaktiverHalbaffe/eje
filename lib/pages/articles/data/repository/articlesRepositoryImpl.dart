@@ -31,7 +31,7 @@ class ArticlesRepositoryImpl implements ArticlesRepository {
 
     try {
       bool isInCache = false;
-      List<Article> _article = await WebScraper().scrapeWebPage(url);
+      List<Article> _article = [await WebScraper().scrapeWebPage(url)];
       if (_article[0].url != "") {
         for (var value in _article) {
           if (value.url == url) {
@@ -47,8 +47,9 @@ class ArticlesRepositoryImpl implements ArticlesRepository {
           }
         }
         if (isInCache == false) {
-          List<Article> _webScrapingResult =
-              await WebScraper().scrapeWebPage(url);
+          List<Article> _webScrapingResult = [
+            await WebScraper().scrapeWebPage(url)
+          ];
           _box.addAll(_webScrapingResult);
           articles.addAll(_webScrapingResult);
         }
@@ -82,7 +83,7 @@ class ArticlesRepositoryImpl implements ArticlesRepository {
     if (await networkInfo.isConnected) {
       if (url != "") {
         try {
-          articles = await WebScraper().scrapeWebPage(url);
+          articles = [await WebScraper().scrapeWebPage(url)];
           List<Hyperlink> hyperlink = List.empty(growable: true);
           List<String> bilder = List.empty(growable: true);
           String content = "";

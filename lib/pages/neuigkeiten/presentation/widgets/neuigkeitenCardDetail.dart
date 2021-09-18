@@ -58,34 +58,20 @@ class _neuigkeitenCardDetail extends State<neuigkeitenCardDetail> {
 }
 
 class card extends StatelessWidget {
-  final List<Article> article;
+  final Article article;
   const card({Key key, this.article}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     // Merge all information from List<Article> to one data-entry
-    String content = "";
-    List<String> bilder = List.empty(growable: true);
-    List<Hyperlink> hyperlinks = List.empty(growable: true);
-    for (int i = 0; i < article.length; i++) {
-      if (article[i].bilder[0] != "") {
-        bilder.addAll(article[i].bilder);
-      }
-      if (article[i].content != "") {
-        content = content + article[i].content;
-      }
-      if (article[i].hyperlinks[0].link != "") {
-        hyperlinks.addAll(article[i].hyperlinks);
-      }
-    }
     return DetailsPage(
-      titel: article[0].titel,
+      titel: article.titel,
       untertitel: "",
-      text: content,
-      bild_url: bilder,
-      hyperlinks: hyperlinks.isEmpty
+      text: article.content,
+      bild_url: article.bilder,
+      hyperlinks: article.hyperlinks.isEmpty
           ? [Hyperlink(link: "", description: "")]
-          : hyperlinks,
+          : article.hyperlinks,
       childWidget: SizedBox(
         height: 36 / MediaQuery.of(context).devicePixelRatio,
       ),

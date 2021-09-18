@@ -29,13 +29,12 @@ class NeuigkeitenRepositoryImpl implements NeuigkeitenRepository {
 
   //Lade bestimmten Artikel aus Cache
   @override
-  Future<Either<Failure, List<Article>>> getNeuigkeit(String titel) async {
-    List<Article> article = new List.empty(growable: true);
+  Future<Either<Failure, Article>> getNeuigkeit(String titel) async {
+    Article article;
     //open database
     AppConfig appConfig = await AppConfig.loadConfig();
     Box _box = Hive.box(appConfig.articlesBox);
     try {
-      bool isInCache = false;
       String url = "";
       List<Neuigkeit> _neuigkeiten =
           await localDatasource.getCachedNeuigkeiten();
@@ -46,22 +45,23 @@ class NeuigkeitenRepositoryImpl implements NeuigkeitenRepository {
           for (int k = 0; k < _box.length; k++) {
             final Article _article = _box.getAt(k);
             if (_article.url == value.weiterfuehrender_link) {
-              article.add(_box.getAt(k));
-              isInCache = true;
+              Article _webScrapingResult =
+                  await WebScraper().scrapeWebPage(url);
+              article = _webScrapingResult;
+              _box.deleteAt(k);
+              _box.add(_webScrapingResult);
+              return Right(article);
             }
           }
         }
       }
-      if (isInCache == false) {
-        List<Article> _webScrapingResult =
-            await WebScraper().scrapeWebPage(url);
-        _box.addAll(_webScrapingResult);
-        print(_webScrapingResult[0].content);
-        article.addAll(_webScrapingResult);
-      }
+      // Only runs if article isn't in cache
+      Article _webScrapingResult = await WebScraper().scrapeWebPage(url);
+      _box.add(_webScrapingResult);
+      article = _webScrapingResult;
       return Right(article);
     } on CacheException {
-      return Right([getErrorArticle()]);
+      return Right(getErrorArticle());
     }
   }
 
