@@ -24,9 +24,8 @@ class WebScraper {
     final String ID_HEADER = appConfig.idHeader;
     final String ID_KONTAKT = appConfig.idContact;
     final String ID_ANSCHRIFT = appConfig.idAdress;
-    bool alreadyHasTitele = false;
-    // Get data from Internet
 
+    // Get data from Internet
     var response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {
       dom.Document document = parser.parse(response.body);
@@ -49,27 +48,26 @@ class WebScraper {
                       .getElementsByTagName("a")
                       .isEmpty) {
                     // Checking if article has already title, otherwise integrating it into content
-                    if (!alreadyHasTitele) {
+                    if (title == "") {
                       title =
                           parent[i].getElementsByClassName('icon-left')[0].text;
-                      alreadyHasTitele = true;
                       title = title.substring(1);
-                    } else
+                    } else {
                       content = content +
                           "## " +
                           parent[i]
                               .getElementsByClassName('icon-left')[0]
                               .text +
                           "\n";
+                    }
                   } else {
                     // Checking if article has already title, otherwise integrating it into content
-                    if (!alreadyHasTitele) {
+                    if (title == "") {
                       title = parent[i]
                           .getElementsByClassName('icon-left')[0]
                           .getElementsByTagName("a")[0]
                           .text;
                       title = title.substring(1);
-                      alreadyHasTitele = true;
                     } else
                       content = "## " +
                           content +
@@ -80,9 +78,7 @@ class WebScraper {
                           "\n";
                   }
                   // Delete first space in title
-
-                } else
-                  title = "";
+                }
                 // ! Content parsen
                 content = content + _parseContent(parent[i], DOMAIN);
                 // ! pictures parsen
@@ -634,9 +630,9 @@ String _parseContent(parent, DOMAIN) {
         }
         content = content + parsed + "\n\n";
       } else if (child.getElementsByTagName('a').isEmpty) {
-        if (!child.getElementsByTagName('strong').isEmpty) {
+        if (child.getElementsByTagName('strong').isNotEmpty) {
           content = content +
-              "### " +
+              "## " +
               child.getElementsByTagName('strong')[0].text.trim() +
               "\n\n";
         } else {
@@ -654,6 +650,7 @@ String _parseContent(parent, DOMAIN) {
         child.getElementsByTagName('a').isEmpty) {
       content = content + "\n\n ## " + child.text.trim() + "\n\n";
     }
+    if (child.localName == "")
 
     // Content is in MSoNormal class, not often used
     if (child.className == 'MsoNormal') {

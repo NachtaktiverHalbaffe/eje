@@ -35,7 +35,7 @@ class Arbeitsbereiche extends StatelessWidget {
           child: BlocConsumer<ArbeitsbereicheBloc, ArbeitsbereicheState>(
             listener: (context, state) {
               if (state is Error) {
-                Scaffold.of(context).showSnackBar(
+                ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
                     content: Text(state.message),
                   ),

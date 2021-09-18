@@ -58,7 +58,6 @@ class _HauptamtlicheDetailsState extends State<HauptamtlicheDetails> {
 
 class HauptamtlicheDetailsCard extends StatelessWidget {
   final Hauptamtlicher hauptamtlicher;
-
   const HauptamtlicheDetailsCard({Key key, this.hauptamtlicher})
       : super(key: key);
 
@@ -80,7 +79,6 @@ class HauptamtlicheDetailsCard extends StatelessWidget {
 
 class _childHauptamtlicheDetails extends StatelessWidget {
   final Hauptamtlicher hauptamtlicher;
-
   const _childHauptamtlicheDetails({Key key, this.hauptamtlicher})
       : super(key: key);
 

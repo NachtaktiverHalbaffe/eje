@@ -23,10 +23,10 @@ class DetailsPage extends StatelessWidget {
   DetailsPage(
       {Key key,
       this.titel,
-      this.untertitel,
+      this.untertitel = "",
       this.text,
       this.bild_url,
-      this.pictureHeight = 0,
+      this.pictureHeight = 300,
       this.hyperlinks,
       this.childWidget});
 
@@ -37,14 +37,14 @@ class DetailsPage extends StatelessWidget {
     // Widget itself
     return Scaffold(
       body: ListView(
-        physics: ScrollPhysics(parent: BouncingScrollPhysics()),
+        physics: ScrollPhysics(parent: RangeMaintainingScrollPhysics()),
         children: <Widget>[
           Stack(
             alignment: Alignment.bottomLeft,
             children: <Widget>[
               Container(
                 width: MediaQuery.of(context).size.width,
-                height: pictureHeight == 0 ? 300 : pictureHeight,
+                height: pictureHeight,
                 child: PageView.builder(
                   physics: ScrollPhysics(
                     parent: BouncingScrollPhysics(),
@@ -177,9 +177,7 @@ class DetailsPage extends StatelessWidget {
                     top: 14,
                     right: 14,
                   ),
-                  child: Markdown(
-                    physics: BouncingScrollPhysics(),
-                    padding: EdgeInsets.all(0.0),
+                  child: MarkdownBody(
                     shrinkWrap: true,
                     data: text,
                     onTapLink: (text, url, title) {

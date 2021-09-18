@@ -79,46 +79,19 @@ class ArticlesRepositoryImpl implements ArticlesRepository {
   Future<Either<Failure, Article>> getArticle(String url) async {
     final appConfig = await AppConfig.loadConfig();
     final Box _box = Hive.box(appConfig.articlesBox);
-    List<Article> articles = new List.empty(growable: true);
+    Article article;
     if (await networkInfo.isConnected) {
       if (url != "") {
         try {
-          articles = [await WebScraper().scrapeWebPage(url)];
-          List<Hyperlink> hyperlink = List.empty(growable: true);
-          List<String> bilder = List.empty(growable: true);
-          String content = "";
-          String titel = "";
-          bool foundTitle = false;
-          for (int i = 0; i < articles.length; i++) {
-            if (articles[i].bilder[0] != "") {
-              bilder.addAll(articles[i].bilder);
-            }
-            if (articles[i].hyperlinks[0].link != "") {
-              hyperlink.addAll(articles[i].hyperlinks);
-            }
-            if (articles[i].content != "" && articles[i].content.length != 2) {
-              content = content + articles[i].content;
-            }
-            if (articles[i].titel != "") {
-              if (!foundTitle) {
-                foundTitle = true;
-                titel = articles[i].titel;
-              }
-            }
-          }
-          if (hyperlink.isEmpty) {
-            hyperlink.add(Hyperlink(link: "", description: ""));
-          }
-          if (bilder.isEmpty) {
-            bilder.add("");
-          }
+          article = await WebScraper().scrapeWebPage(url);
           Article _article = Article(
-            bilder: bilder,
-            hyperlinks: hyperlink,
-            titel: titel,
-            content: content,
+            bilder: article.bilder,
+            hyperlinks: article.hyperlinks,
+            titel: article.titel,
+            content: article.content,
             url: url,
           );
+
           localDatasource.cacheArticle(_article);
           return Right(_article);
         } on ServerException {

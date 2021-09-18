@@ -71,6 +71,7 @@ class _articleBloc extends State<ArticlesPage> {
 
 Widget _articlePage(Article article, BuildContext context) {
   return RefreshIndicator(
+      color: Theme.of(context).colorScheme.secondary,
       child: DetailsPage(
         titel: article.titel,
         untertitel: "",
