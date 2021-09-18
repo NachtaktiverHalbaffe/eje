@@ -1,5 +1,5 @@
 import 'package:eje/core/utils/injection_container.dart';
-import 'package:eje/core/widgets/DetailsPage.dart';
+import 'package:eje/pages/articles/presentation/widgets/DetailsPage.dart';
 import 'package:eje/core/widgets/LoadingIndicator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

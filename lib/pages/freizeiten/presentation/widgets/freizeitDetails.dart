@@ -1,5 +1,5 @@
 import 'package:eje/core/utils/MapLauncher.dart';
-import 'package:eje/core/widgets/DetailsPage.dart';
+import 'package:eje/pages/articles/presentation/widgets/DetailsPage.dart';
 import 'package:eje/core/widgets/LoadingIndicator.dart';
 import 'package:eje/pages/articles/domain/entity/Hyperlink.dart';
 import 'package:eje/pages/freizeiten/domain/entities/Freizeit.dart';

@@ -1,4 +1,4 @@
-import 'package:eje/core/widgets/HyperlinkSection.dart';
+import 'package:eje/pages/articles/presentation/widgets/HyperlinkSection.dart';
 import 'package:eje/pages/articles/domain/entity/Hyperlink.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
@@ -7,7 +7,7 @@ import 'package:page_view_indicators/circle_page_indicator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import 'PrefImage.dart';
+import '../../../../core/widgets/PrefImage.dart';
 
 // ignore: non_constant_identifier_names
 class DetailsPage extends StatelessWidget {

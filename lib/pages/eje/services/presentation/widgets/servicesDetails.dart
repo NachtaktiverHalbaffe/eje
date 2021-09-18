@@ -1,6 +1,6 @@
 import 'dart:developer';
 
-import 'package:eje/core/widgets/DetailsPage.dart';
+import 'package:eje/pages/articles/presentation/widgets/DetailsPage.dart';
 import 'package:eje/core/widgets/LoadingIndicator.dart';
 import 'package:eje/pages/eje/services/domain/entities/Service.dart';
 import 'package:eje/pages/eje/services/presentation/bloc/services_bloc.dart';
