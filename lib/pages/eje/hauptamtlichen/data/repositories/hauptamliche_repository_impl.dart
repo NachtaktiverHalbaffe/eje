@@ -47,6 +47,7 @@ class HauptamtlicheRepositoryImpl implements HauptamtlicheRepository {
           return Right(value);
         }
       }
+      return Right(getErrorHauptamtlicher());
     } on CacheException {
       return Right(getErrorHauptamtlicher());
     }

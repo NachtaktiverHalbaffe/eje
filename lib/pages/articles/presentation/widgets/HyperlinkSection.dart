@@ -1,3 +1,5 @@
+// ignore_for_file: camel_case_types
+
 import 'package:eje/core/utils/injection_container.dart';
 import 'package:eje/pages/articles/articlesPage.dart';
 import 'package:eje/pages/articles/domain/entity/Hyperlink.dart';
@@ -7,95 +9,106 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-Widget HyperlinkSection(
-    {List<Hyperlink> hyperlinks, BuildContext context, bool isCacheEnabled}) {
-  return Column(
-    children: [
-      Row(
-        children: [
-          SizedBox(
-            width: 14,
-          ),
-          Text(
-            "Weiterführende Links",
-            style: TextStyle(
-              color: Theme.of(context).colorScheme.secondary,
-              fontSize: 72 / MediaQuery.of(context).devicePixelRatio,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ],
-      ),
-      SizedBox(
-        height: 12,
-      ),
-      ColumnBuilder(
-        itemBuilder: (context, index) {
-          return _column(hyperlinks[index], context, isCacheEnabled);
-        },
-        itemCount: hyperlinks.length,
-      ),
-    ],
-  );
-}
+class HyperlinkSection extends StatelessWidget {
+  final List<Hyperlink> hyperlinks;
+  const HyperlinkSection({Key key, this.hyperlinks}) : super(key: key);
 
-Widget _column(Hyperlink hyperlink, BuildContext context, bool isCacheEnabled) {
-  return GestureDetector(
-    onTap: () async {
-      if (hyperlink.link.contains("fileadmin") ||
-          !hyperlink.link.contains("https://www.eje-esslingen.de")) {
-        if (await canLaunch(hyperlink.link)) {
-          await launch(hyperlink.link);
-        } else {
-          throw 'Could not launch $hyperlink.link';
-        }
-      } else {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (_) => BlocProvider.value(
-              value: sl<ArticlesBloc>(),
-              child: ArticlesPage(
-                url: hyperlink.link,
-              ),
-            ),
-          ),
-        );
-      }
-    },
-    child: Column(
+  @override
+  Widget build(BuildContext context) {
+    return Column(
       children: [
         Row(
           children: [
             SizedBox(
               width: 14,
             ),
-            Icon(
-              MdiIcons.openInNew,
-              color: Theme.of(context).dividerColor,
-            ),
-            SizedBox(
-              width: 4,
-            ),
-            Flexible(
-              child: Text(
-                hyperlink.description,
-                overflow: TextOverflow.ellipsis,
-                style: TextStyle(
-                  fontSize: 48 / MediaQuery.of(context).devicePixelRatio,
-                  decoration: TextDecoration.underline,
-                  color: Theme.of(context).dividerColor,
-                ),
+            Text(
+              "Weiterführende Links",
+              style: TextStyle(
+                color: Theme.of(context).colorScheme.secondary,
+                fontSize: 72 / MediaQuery.of(context).devicePixelRatio,
+                fontWeight: FontWeight.bold,
               ),
             ),
           ],
         ),
         SizedBox(
-          height: 4,
+          height: 12,
+        ),
+        ColumnBuilder(
+          itemBuilder: (context, index) {
+            return _column(hyperlinks[index]);
+          },
+          itemCount: hyperlinks.length,
         ),
       ],
-    ),
-  );
+    );
+  }
+}
+
+class _column extends StatelessWidget {
+  final Hyperlink hyperlink;
+  const _column(this.hyperlink);
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () async {
+        if (hyperlink.link.contains("fileadmin") ||
+            !hyperlink.link.contains("https://www.eje-esslingen.de")) {
+          if (await canLaunch(hyperlink.link)) {
+            await launch(hyperlink.link);
+          } else {
+            throw 'Could not launch $hyperlink.link';
+          }
+        } else {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (_) => BlocProvider.value(
+                value: sl<ArticlesBloc>(),
+                child: ArticlesPage(
+                  url: hyperlink.link,
+                ),
+              ),
+            ),
+          );
+        }
+      },
+      child: Column(
+        children: [
+          Row(
+            children: [
+              SizedBox(
+                width: 14,
+              ),
+              Icon(
+                MdiIcons.openInNew,
+                color: Theme.of(context).dividerColor,
+              ),
+              SizedBox(
+                width: 4,
+              ),
+              Flexible(
+                child: Text(
+                  hyperlink.description,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                    fontSize: 48 / MediaQuery.of(context).devicePixelRatio,
+                    decoration: TextDecoration.underline,
+                    color: Theme.of(context).dividerColor,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          SizedBox(
+            height: 4,
+          ),
+        ],
+      ),
+    );
+  }
 }
 
 //ColumnBuilder for dynamically generation Columns

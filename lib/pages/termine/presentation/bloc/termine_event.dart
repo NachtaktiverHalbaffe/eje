@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:meta/meta.dart';
 
 abstract class TermineEvent extends Equatable {
   const TermineEvent();
@@ -14,11 +13,11 @@ class RefreshTermine extends TermineEvent {
 }
 
 class GettingTermin extends TermineEvent {
-  String veranstaltung;
-  String dateTime;
+  final String veranstaltung;
+  final String dateTime;
 
-  GettingTermin(@required this.veranstaltung, @required this.dateTime);
+  GettingTermin(this.veranstaltung, this.dateTime);
 
   @override
-  List<Object> get props => [veranstaltung,dateTime];
+  List<Object> get props => [veranstaltung, dateTime];
 }

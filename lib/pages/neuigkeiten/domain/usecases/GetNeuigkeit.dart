@@ -3,7 +3,6 @@ import 'package:eje/app_config.dart';
 import 'package:eje/core/error/failures.dart';
 import 'package:eje/core/usecases/usecase.dart';
 import 'package:eje/pages/articles/domain/entity/Article.dart';
-import 'package:eje/pages/neuigkeiten/domain/entitys/neuigkeit.dart';
 import 'package:eje/pages/neuigkeiten/domain/repositories/neuigkeiten_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';

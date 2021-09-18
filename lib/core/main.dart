@@ -1,4 +1,3 @@
-import 'package:eje/app_config.dart';
 import 'package:eje/core/utils/BackgroundServicesManager.dart';
 import 'package:eje/core/utils/notificationplugin.dart';
 import 'package:eje/core/widgets/LoadingIndicator.dart';
@@ -121,7 +120,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   // List of Widgetscreens for navigation bart
   List<Widget> _buildScreens() {
-    return [Neuigkeiten(), eje(), Termine(), Freizeiten(), Einstellungen()];
+    return [Neuigkeiten(), Eje(), Termine(), Freizeiten(), Einstellungen()];
   }
 
   @override
@@ -163,6 +162,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
+// ignore: non_constant_identifier_names
 Widget _MaterialApp(BuildContext context, int initialIndex) {
   final ThemeData themeLight = ThemeData.light();
   final ThemeData themeDark = ThemeData.dark();

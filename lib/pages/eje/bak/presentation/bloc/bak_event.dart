@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:meta/meta.dart';
 
 abstract class BakEvent extends Equatable {
   const BakEvent();
@@ -14,9 +13,9 @@ class RefreshBAK extends BakEvent {
 }
 
 class GettingBAKler extends BakEvent {
-  String name;
+  final String name;
 
-  GettingBAKler(@required this.name);
+  GettingBAKler(this.name);
 
   @override
   List<Object> get props => [name];

@@ -34,6 +34,7 @@ class HauptamtlicheLocalDatasource {
           return temp;
         }
       }
+      throw CacheException();
     } else {
       throw CacheException();
     }

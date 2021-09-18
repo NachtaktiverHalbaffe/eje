@@ -8,18 +8,18 @@ abstract class TermineState extends Equatable {
   List<Object> get props => [];
 }
 
-class Empty extends TermineState{
+class Empty extends TermineState {
   @override
   List<Object> get props => [];
 }
 
-class Loading extends TermineState{
+class Loading extends TermineState {
   @override
   List<Object> get props => [];
 }
 
-class LoadedTermine extends TermineState{
-  List<Termin> termine;
+class LoadedTermine extends TermineState {
+  final List<Termin> termine;
 
   LoadedTermine(this.termine);
 
@@ -27,8 +27,8 @@ class LoadedTermine extends TermineState{
   List<Object> get props => [termine];
 }
 
-class LoadedTermin extends TermineState{
-  Termin termin;
+class LoadedTermin extends TermineState {
+  final Termin termin;
 
   LoadedTermin(this.termin);
 
@@ -36,8 +36,8 @@ class LoadedTermin extends TermineState{
   List<Object> get props => [termin];
 }
 
-class Error extends TermineState{
-  String message;
+class Error extends TermineState {
+  final String message;
 
   Error({@required this.message});
 

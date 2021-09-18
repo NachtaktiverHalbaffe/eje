@@ -13,9 +13,9 @@ class RefreshServices extends ServicesEvent {
 }
 
 class GettingService extends ServicesEvent {
-  Service service;
+  final Service service;
 
-  GettingService(@required this.service);
+  GettingService(this.service);
 
   @override
   List<Object> get props => [service];

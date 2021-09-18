@@ -8,6 +8,7 @@ import 'package:eje/pages/einstellungen/domain/usecases/setPrefrences.dart';
 import './bloc.dart';
 
 class EinstellungBloc extends Bloc<EinstellungEvent, EinstellungState> {
+  // ignore: non_constant_identifier_names
   final String CACHE_FAILURE_MESSAGE =
       'Fehler beim Laden der Daten aus den Cache. Löschen Sie den Cache oder setzen sie die App zurück.';
   final SetPreferences storePrefrences;

@@ -3,7 +3,7 @@ import 'package:eje/core/widgets/LoadingIndicator.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-Future<ImageProvider> PrefImage(String url) async {
+Future<ImageProvider> prefImage(String url) async {
   // Load prefrence if image caching is enabled
 
   SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -26,7 +26,7 @@ class CachedImage extends StatelessWidget {
   Widget build(BuildContext context) {
     if (height != 0.0 && width == 0.0) {
       return FutureBuilder<ImageProvider>(
-        future: PrefImage(url),
+        future: prefImage(url),
         builder: (BuildContext context, AsyncSnapshot<ImageProvider> snapshot) {
           return snapshot.hasData
               ? Container(
@@ -43,7 +43,7 @@ class CachedImage extends StatelessWidget {
       );
     } else if (width != 0.0 && height == 0.0) {
       return FutureBuilder<ImageProvider>(
-        future: PrefImage(url),
+        future: prefImage(url),
         builder: (BuildContext context, AsyncSnapshot<ImageProvider> snapshot) {
           return snapshot.hasData
               ? Container(
@@ -60,7 +60,7 @@ class CachedImage extends StatelessWidget {
       );
     } else if (width != 0.0 && height != 0.0) {
       return FutureBuilder<ImageProvider>(
-        future: PrefImage(url),
+        future: prefImage(url),
         builder: (BuildContext context, AsyncSnapshot<ImageProvider> snapshot) {
           return snapshot.hasData
               ? Container(
@@ -81,7 +81,7 @@ class CachedImage extends StatelessWidget {
       );
     } else {
       return FutureBuilder<ImageProvider>(
-        future: PrefImage(url),
+        future: prefImage(url),
         builder: (BuildContext context, AsyncSnapshot<ImageProvider> snapshot) {
           return snapshot.hasData
               ? Container(
@@ -92,7 +92,7 @@ class CachedImage extends StatelessWidget {
                     ),
                   ),
                 )
-              : Container();
+              : LoadingIndicator();
         },
       );
     }

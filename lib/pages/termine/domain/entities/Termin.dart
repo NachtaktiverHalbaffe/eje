@@ -8,17 +8,17 @@ part 'Termin.g.dart';
 @HiveType(typeId: 4)
 class Termin extends Equatable {
   @HiveField(0)
-  String veranstaltung;
+  final String veranstaltung;
   @HiveField(1)
-  String motto;
+  final String motto;
   @HiveField(2)
-  String text;
+  final String text;
   @HiveField(3)
-  String bild;
+  final String bild;
   @HiveField(4)
-  String datum;
+  final String datum;
   @HiveField(5)
-  Ort ort;
+  final Ort ort;
 
   Termin(
       {@required this.veranstaltung,

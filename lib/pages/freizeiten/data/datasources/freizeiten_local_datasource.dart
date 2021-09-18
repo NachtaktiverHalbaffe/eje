@@ -8,7 +8,7 @@ class FreizeitenLocalDatasource {
   Future<List<Freizeit>> getCachedFreizeiten() async {
     final AppConfig appConfig = await AppConfig.loadConfig();
     final Box _box = Hive.box(appConfig.campsBox);
-    testdata_freizeiten(_box);
+    testdataFreizeiten(_box);
 
     // load data from cache
     if (_box.isNotEmpty) {
@@ -36,6 +36,7 @@ class FreizeitenLocalDatasource {
           return camp;
         }
       }
+      throw CacheException();
     } else {
       throw CacheException();
     }

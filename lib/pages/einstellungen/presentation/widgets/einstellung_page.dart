@@ -10,9 +10,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class EinstellungenPage extends StatelessWidget {
-  var _groupID;
   @override
   Widget build(BuildContext context) {
+    var _groupID;
     return FutureBuilder(
       future: SharedPreferences.getInstance(),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -27,7 +27,7 @@ class EinstellungenPage extends StatelessWidget {
 
           return ListView(
             children: <Widget>[
-              SettingGroupTitle("Erscheinungsbild", context),
+              SettingGroupTitle("Erscheinungsbild"),
               RadioListTile(
                 activeColor: Theme.of(context).colorScheme.secondary,
                 value: "nightmode_auto",
@@ -94,12 +94,12 @@ class EinstellungenPage extends StatelessWidget {
                 key: Key("nightmode_on"),
               ),
               Divider(),
-              SettingGroupTitle("Benachrichtigungen", context),
+              SettingGroupTitle("Benachrichtigungen"),
               CheckboxListTile(
                 activeColor: Theme.of(context).colorScheme.secondary,
                 value: snapshot.data.getBool("notifications_on"),
                 onChanged: (val) async {
-                  await BlocProvider.of<EinstellungBloc>(context)
+                  BlocProvider.of<EinstellungBloc>(context)
                       .add(StoringPreferences("notifications_on", val));
                 },
                 title: Text(
@@ -114,7 +114,7 @@ class EinstellungenPage extends StatelessWidget {
                 activeColor: Theme.of(context).colorScheme.secondary,
                 value: snapshot.data.getBool("notifications_veranstaltungen"),
                 onChanged: (val) async {
-                  await BlocProvider.of<EinstellungBloc>(context).add(
+                  BlocProvider.of<EinstellungBloc>(context).add(
                       StoringPreferences("notifications_veranstaltungen", val));
                 },
                 title: Text(
@@ -144,7 +144,7 @@ class EinstellungenPage extends StatelessWidget {
                 activeColor: Theme.of(context).colorScheme.secondary,
                 value: snapshot.data.getBool("notifications_freizeiten"),
                 onChanged: (val) async {
-                  await BlocProvider.of<EinstellungBloc>(context)
+                  BlocProvider.of<EinstellungBloc>(context)
                       .add(StoringPreferences("notifications_freizeiten", val));
                 },
                 title: Text(
@@ -159,7 +159,7 @@ class EinstellungenPage extends StatelessWidget {
                 activeColor: Theme.of(context).colorScheme.secondary,
                 value: snapshot.data.getBool("notifications_neuigkeiten"),
                 onChanged: (val) async {
-                  await BlocProvider.of<EinstellungBloc>(context).add(
+                  BlocProvider.of<EinstellungBloc>(context).add(
                       StoringPreferences("notifications_neuigkeiten", val));
                 },
                 title: Text(
@@ -171,12 +171,12 @@ class EinstellungenPage extends StatelessWidget {
                 key: Key("notification_neuigkeiten"),
               ),
               Divider(),
-              SettingGroupTitle("Internet", context),
+              SettingGroupTitle("Internet"),
               CheckboxListTile(
                 activeColor: Theme.of(context).colorScheme.secondary,
                 value: snapshot.data.getBool("only_wifi"),
                 onChanged: (val) async {
-                  await BlocProvider.of<EinstellungBloc>(context)
+                  BlocProvider.of<EinstellungBloc>(context)
                       .add(StoringPreferences("only_wifi", val));
                 },
                 title: Text(
@@ -191,7 +191,7 @@ class EinstellungenPage extends StatelessWidget {
                 activeColor: Theme.of(context).colorScheme.secondary,
                 value: snapshot.data.getBool("cache_pictures"),
                 onChanged: (val) async {
-                  await BlocProvider.of<EinstellungBloc>(context)
+                  BlocProvider.of<EinstellungBloc>(context)
                       .add(StoringPreferences("cache_pictures", val));
                 },
                 title: Text(
@@ -203,7 +203,7 @@ class EinstellungenPage extends StatelessWidget {
                 key: Key("cache_pictures"),
               ),
               Divider(),
-              SettingGroupTitle("Über", context),
+              SettingGroupTitle("Über"),
               Container(
                 margin: EdgeInsets.only(
                   left: 25,
@@ -277,21 +277,27 @@ class EinstellungenPage extends StatelessWidget {
   }
 }
 
-Widget SettingGroupTitle(String title, BuildContext context) {
+class SettingGroupTitle extends StatelessWidget {
+  final String title;
   final titleleft = 16.0;
   final titletop = 12.0;
   final titlebottom = 0.0;
-  return Container(
-    width: MediaQuery.of(context).size.width,
-    padding:
-        EdgeInsets.only(left: titleleft, top: titletop, bottom: titlebottom),
-    child: Text(
-      title,
-      textAlign: TextAlign.left,
-      style: TextStyle(
-        color: Theme.of(context).colorScheme.secondary,
-        fontSize: 54 / MediaQuery.of(context).devicePixelRatio,
+  SettingGroupTitle(this.title);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      padding:
+          EdgeInsets.only(left: titleleft, top: titletop, bottom: titlebottom),
+      child: Text(
+        title,
+        textAlign: TextAlign.left,
+        style: TextStyle(
+          color: Theme.of(context).colorScheme.secondary,
+          fontSize: 54 / MediaQuery.of(context).devicePixelRatio,
+        ),
       ),
-    ),
-  );
+    );
+  }
 }

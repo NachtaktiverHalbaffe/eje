@@ -36,7 +36,7 @@ class Hauptamtliche extends StatelessWidget {
           child: BlocConsumer<HauptamtlicheBloc, HauptamtlicheState>(
             listener: (context, state) {
               if (state is Error) {
-                Scaffold.of(context).showSnackBar(
+                ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
                     content: Text(state.message),
                   ),
@@ -56,7 +56,7 @@ class Hauptamtliche extends StatelessWidget {
                 return LoadingIndicator();
               } else if (state is LoadedHauptamtliche) {
                 print("Build page: LoadedHauptamtliche");
-                return HauptamtlichePageViewer(state.hauptamtliche, context);
+                return HauptamtlichePageViewer(state.hauptamtliche);
               }
             },
           ),

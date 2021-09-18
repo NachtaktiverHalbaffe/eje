@@ -7,25 +7,21 @@ import 'package:eje/pages/eje/arbeitsfelder/presentation/bloc/arbeitsbereiche_ev
 import 'package:eje/pages/eje/arbeitsfelder/presentation/bloc/arbeitsbereiche_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:icon_shadow/icon_shadow.dart';
-import 'package:page_view_indicators/circle_page_indicator.dart';
 
 class ArbeitsbereicheDetails extends StatefulWidget {
-  final bool isCacheEnabled;
   final FieldOfWork arbeitsbereich;
 
-  ArbeitsbereicheDetails(this.isCacheEnabled, this.arbeitsbereich);
+  ArbeitsbereicheDetails(this.arbeitsbereich);
 
   @override
   _ArbeitsbereicheDetailsState createState() =>
-      _ArbeitsbereicheDetailsState(isCacheEnabled, arbeitsbereich);
+      _ArbeitsbereicheDetailsState(arbeitsbereich);
 }
 
 class _ArbeitsbereicheDetailsState extends State<ArbeitsbereicheDetails> {
-  final bool isCacheEnabled;
   final FieldOfWork arbeitsbereich;
 
-  _ArbeitsbereicheDetailsState(this.isCacheEnabled, this.arbeitsbereich);
+  _ArbeitsbereicheDetailsState(this.arbeitsbereich);
 
   @override
   Widget build(BuildContext context) {
@@ -43,8 +39,7 @@ class _ArbeitsbereicheDetailsState extends State<ArbeitsbereicheDetails> {
         if (state is Loading) {
           return LoadingIndicator();
         } else if (state is LoadedArbeitsbereich) {
-          return HauptamtlicheDetailsCard(
-              state.arbeitsbereich, widget.isCacheEnabled, context);
+          return HauptamtlicheDetailsCard(state.arbeitsbereich);
         } else
           return Container();
       }),
@@ -55,17 +50,24 @@ class _ArbeitsbereicheDetailsState extends State<ArbeitsbereicheDetails> {
   void didChangeDependencies() {
     BlocProvider.of<ArbeitsbereicheBloc>(context)
         .add(GettingArbeitsbereich(arbeitsbereich.arbeitsfeld));
+    super.didChangeDependencies();
   }
 }
 
-Widget HauptamtlicheDetailsCard(
-    FieldOfWork arbeitsbereich, bool isCacheEnabled, BuildContext context) {
-  return DetailsPage(
-    titel: arbeitsbereich.arbeitsfeld,
-    text: arbeitsbereich.inhalt,
-    bild_url: arbeitsbereich.bilder,
-    untertitel: "",
-    hyperlinks: [Hyperlink(link: "", description: "")],
-    childWidget: SizedBox(height: 36 / MediaQuery.of(context).devicePixelRatio),
-  );
+class HauptamtlicheDetailsCard extends StatelessWidget {
+  final FieldOfWork arbeitsbereich;
+  HauptamtlicheDetailsCard(this.arbeitsbereich);
+
+  @override
+  Widget build(BuildContext context) {
+    return DetailsPage(
+      titel: arbeitsbereich.arbeitsfeld,
+      text: arbeitsbereich.inhalt,
+      bilder: arbeitsbereich.bilder,
+      untertitel: "",
+      hyperlinks: [Hyperlink(link: "", description: "")],
+      childWidget:
+          SizedBox(height: 36 / MediaQuery.of(context).devicePixelRatio),
+    );
+  }
 }

@@ -1,4 +1,3 @@
-import 'package:eje/pages/neuigkeiten/domain/usecases/GetNeuigkeit.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 

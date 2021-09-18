@@ -9,7 +9,6 @@ import 'package:eje/pages/freizeiten/presentation/bloc/freizeiten_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:page_view_indicators/circle_page_indicator.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class FreizeitDetails extends StatefulWidget {
@@ -52,6 +51,7 @@ class _FreizeitDetailsState extends State<FreizeitDetails> {
   @override
   void didChangeDependencies() {
     BlocProvider.of<FreizeitenBloc>(context).add(GettingFreizeit(freizeit));
+    super.didChangeDependencies();
   }
 }
 
@@ -65,13 +65,14 @@ class FreizeitDetailsCard extends StatelessWidget {
       titel: freizeit.freizeit,
       untertitel: freizeit.motto,
       text: freizeit.beschreibung,
-      bild_url: freizeit.bilder,
+      bilder: freizeit.bilder,
       hyperlinks: [Hyperlink(link: "", description: "")],
       childWidget: _freizeitChildWidget(freizeit: freizeit),
     );
   }
 }
 
+// ignore: camel_case_types
 class _freizeitChildWidget extends StatelessWidget {
   final Freizeit freizeit;
   const _freizeitChildWidget({Key key, this.freizeit}) : super(key: key);

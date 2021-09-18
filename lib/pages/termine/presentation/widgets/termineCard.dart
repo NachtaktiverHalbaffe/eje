@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:eje/core/platform/Reminder.dart';
 import 'package:eje/core/utils/injection_container.dart';
 import 'package:eje/core/utils/notificationplugin.dart';
@@ -155,7 +157,7 @@ class TerminCard extends StatelessWidget {
                       OutlineButton(
                         color: Theme.of(context).dividerColor,
                         onPressed: () async {
-                          await _setNotification();
+                          _setNotification();
                         },
                         child: Text(
                           "Veranstaltung merken",

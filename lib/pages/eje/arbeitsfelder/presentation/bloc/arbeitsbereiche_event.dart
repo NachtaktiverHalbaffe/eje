@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:meta/meta.dart';
 
 abstract class ArbeitsbereicheEvent extends Equatable {
   const ArbeitsbereicheEvent();
@@ -13,9 +12,9 @@ class RefreshArbeitsbereiche extends ArbeitsbereicheEvent {
 }
 
 class GettingArbeitsbereich extends ArbeitsbereicheEvent {
-  String arbeitsfeld;
+  final String arbeitsfeld;
 
-  GettingArbeitsbereich(@required this.arbeitsfeld);
+  GettingArbeitsbereich(this.arbeitsfeld);
 
   @override
   List<Object> get props => [arbeitsfeld];

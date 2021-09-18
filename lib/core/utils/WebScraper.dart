@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:eje/app_config.dart';
 import 'package:eje/core/error/exception.dart';
 import 'package:eje/pages/articles/domain/entity/Article.dart';
@@ -10,7 +12,6 @@ import 'package:eje/pages/eje/bak/domain/entitys/ErrorBAKler.dart';
 import 'package:eje/pages/eje/hauptamtlichen/domain/entitys/errorHauptamtlicher.dart';
 import 'package:eje/pages/eje/hauptamtlichen/domain/entitys/hauptamtlicher.dart';
 import 'package:eje/pages/eje/services/domain/entities/Service.dart';
-import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:html/dom.dart' as dom;
 import 'package:html/parser.dart' as parser;
@@ -495,7 +496,6 @@ class WebScraper {
     List<Hyperlink> hyperlinks = service.hyperlinks.sublist(0, 1);
     List<String> links = new List.empty(growable: true);
     List<String> description = new List.empty(growable: true);
-    List<String> bilder = service.bilder;
     final response = await http.get(Uri.parse(service.hyperlinks[0].link));
     if (response.statusCode == 200) {
       print("Services: Getting Data from Internet");
@@ -511,7 +511,7 @@ class WebScraper {
                       parent[i]
                           .getElementsByTagName('a')[0]
                           .attributes['href']) ==
-                  hyperlinks[k]) {
+                  hyperlinks[k].link) {
                 isAlreadyInCache = true;
               }
             }
@@ -686,7 +686,6 @@ String _parseContent(parent, DOMAIN) {
 List<Hyperlink> _parseHyperlinks(document, DOMAIN) {
   List<Hyperlink> hyperlinks = new List.empty(growable: true);
   // ! Hyperlinks parsen
-  //TODO Hyperlink nur aus fußsektion für links nehmen
   //check if hyperlinks are in a seperate special section
   print("Parsing Hyperlinks");
   if (document.getElementsByClassName('row h-bulldozer default').isNotEmpty) {

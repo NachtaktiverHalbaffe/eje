@@ -46,6 +46,7 @@ class BAKRepositoryImpl implements BAKRepository {
           return Right(value);
         }
       }
+      return Right(getErrorBAKler());
     } on CacheException {
       return Right(getErrorBAKler());
     }

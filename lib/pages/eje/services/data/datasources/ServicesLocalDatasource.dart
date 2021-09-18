@@ -8,7 +8,7 @@ class ServicesLocalDatasource {
   Future<List<Service>> getCachedServices() async {
     final AppConfig appConfig = await AppConfig.loadConfig();
     final Box _box = Hive.box(appConfig.servicesBox);
-    data_services(_box);
+    dataServices(_box);
 
     // load data from cache
     if (_box.isNotEmpty) {
@@ -36,6 +36,7 @@ class ServicesLocalDatasource {
           return data;
         }
       }
+      throw CacheException();
     } else {
       throw CacheException();
     }

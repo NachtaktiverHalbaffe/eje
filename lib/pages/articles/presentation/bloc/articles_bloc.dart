@@ -1,5 +1,6 @@
-import 'dart:async';
+// ignore_for_file: non_constant_identifier_names
 
+import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:eje/core/error/failures.dart';
 import 'package:eje/pages/articles/domain/entity/Article.dart';

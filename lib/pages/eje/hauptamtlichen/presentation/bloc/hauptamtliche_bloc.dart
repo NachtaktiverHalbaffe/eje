@@ -1,11 +1,11 @@
-import 'dart:async';
+// ignore_for_file: non_constant_identifier_names
 
+import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:eje/core/error/failures.dart';
 import 'package:eje/pages/eje/hauptamtlichen/domain/usecases/GetHauptamtliche.dart';
 import 'package:eje/pages/eje/hauptamtlichen/domain/usecases/GetHauptamtlicher.dart';
 import 'package:flutter/foundation.dart';
-
 import './bloc.dart';
 
 class HauptamtlicheBloc extends Bloc<HauptamtlicheEvent, HauptamtlicheState> {

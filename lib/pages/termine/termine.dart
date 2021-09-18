@@ -8,7 +8,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_swiper_plus/flutter_swiper_plus.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import 'domain/entities/Termin.dart';
 
@@ -21,7 +20,7 @@ class Termine extends StatelessWidget {
         listener: (context, state) {
           if (state is Error) {
             print("Build Page: Error");
-            Scaffold.of(context).showSnackBar(
+            ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text(state.message),
               ),
@@ -36,7 +35,7 @@ class Termine extends StatelessWidget {
           } else if (state is Loading) {
             return LoadingIndicator();
           } else if (state is LoadedTermine) {
-            return TermineListView(state.termine.reversed.toList(), context);
+            return TermineListView(state.termine.reversed.toList());
           }
         },
       ),
@@ -44,40 +43,45 @@ class Termine extends StatelessWidget {
   }
 }
 
-Widget TermineListView(List<Termin> termine, BuildContext context) {
+class TermineListView extends StatelessWidget {
   final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
       new GlobalKey<RefreshIndicatorState>();
+  final List<Termin> termine;
+  TermineListView(this.termine);
 
-  return new Column(
-    children: <Widget>[
-      new Expanded(
-        child: RefreshIndicator(
-          key: _refreshIndicatorKey,
-          color: Theme.of(context).colorScheme.secondary,
-          onRefresh: () async {
-            await BlocProvider.of<TermineBloc>(context).add(RefreshTermine());
-          },
-          child: SingleChildScrollView(
-            physics: ScrollPhysics(
-              parent: AlwaysScrollableScrollPhysics(),
-            ),
-            child: Container(
-              constraints: BoxConstraints(
-                  minHeight: MediaQuery.of(context).size.height - 45),
-              child: Swiper(
-                itemBuilder: (BuildContext context, int index) {
-                  return TerminCard(termine[index]);
-                },
-                itemCount: termine.length,
-                itemHeight: 550,
-                itemWidth: 300,
-                layout: SwiperLayout.STACK,
-                loop: true,
+  @override
+  Widget build(BuildContext context) {
+    return new Column(
+      children: <Widget>[
+        new Expanded(
+          child: RefreshIndicator(
+            key: _refreshIndicatorKey,
+            color: Theme.of(context).colorScheme.secondary,
+            onRefresh: () async {
+              BlocProvider.of<TermineBloc>(context).add(RefreshTermine());
+            },
+            child: SingleChildScrollView(
+              physics: ScrollPhysics(
+                parent: AlwaysScrollableScrollPhysics(),
+              ),
+              child: Container(
+                constraints: BoxConstraints(
+                    minHeight: MediaQuery.of(context).size.height - 45),
+                child: Swiper(
+                  itemBuilder: (BuildContext context, int index) {
+                    return TerminCard(termine[index]);
+                  },
+                  itemCount: termine.length,
+                  itemHeight: 550,
+                  itemWidth: 300,
+                  layout: SwiperLayout.STACK,
+                  loop: true,
+                ),
               ),
             ),
           ),
         ),
-      ),
-    ],
-  );
+      ],
+    );
+  }
 }

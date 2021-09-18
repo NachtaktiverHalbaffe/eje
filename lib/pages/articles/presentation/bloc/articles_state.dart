@@ -19,7 +19,7 @@ class Loading extends ArticlesState {
 }
 
 class ReloadedArticle extends ArticlesState {
-  Article article;
+  final Article article;
 
   ReloadedArticle(this.article);
 
@@ -28,7 +28,7 @@ class ReloadedArticle extends ArticlesState {
 }
 
 class LoadedArticle extends ArticlesState {
-  Article article;
+  final Article article;
 
   LoadedArticle(this.article);
 
@@ -37,7 +37,7 @@ class LoadedArticle extends ArticlesState {
 }
 
 class FollowedHyperlink extends ArticlesState {
-  Article article;
+  final Article article;
 
   FollowedHyperlink(this.article);
 

@@ -34,6 +34,7 @@ class BAKLocalDatasource {
           return temp;
         }
       }
+      throw CacheException();
     } else {
       throw CacheException();
     }

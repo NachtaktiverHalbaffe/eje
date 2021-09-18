@@ -13,7 +13,7 @@ import 'arbeitsfelder/arbeitsbereiche.dart';
 import 'bak/bak.dart';
 import 'services/presentation/bloc/services_bloc.dart';
 
-class eje extends StatelessWidget {
+class Eje extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RefreshIndicator(

@@ -40,7 +40,7 @@ class Loaded extends NeuigkeitenBlocState {
   final List<Neuigkeit> neuigkeit;
 
   //Constructor
-  Loaded({@required this.neuigkeit}) {}
+  Loaded({@required this.neuigkeit});
 
   @override
   List<Object> get props => [neuigkeit];

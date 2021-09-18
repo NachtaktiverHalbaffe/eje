@@ -8,26 +8,26 @@ abstract class ArticlesEvent extends Equatable {
 }
 
 class RefreshArticle extends ArticlesEvent {
-  String url;
+  final String url;
 
-  RefreshArticle(@required this.url);
+  RefreshArticle(this.url);
   @override
   List<Object> get props => [url];
 }
 
 class GettingArticle extends ArticlesEvent {
-  String url;
+  final String url;
 
-  GettingArticle(@required this.url);
+  GettingArticle(this.url);
 
   @override
   List<Object> get props => [url];
 }
 
 class FollowingHyperlink extends ArticlesEvent {
-  String url;
+  final String url;
 
-  FollowingHyperlink(@required this.url);
+  FollowingHyperlink(this.url);
 
   @override
   List<Object> get props => [url];

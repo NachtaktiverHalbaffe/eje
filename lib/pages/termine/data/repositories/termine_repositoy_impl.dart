@@ -47,6 +47,7 @@ class TermineRepositoryImpl implements TerminRepository {
           return Right(value);
         }
       }
+      return Right(getErrorTermin());
     } on CacheException {
       return Right(getErrorTermin());
     }

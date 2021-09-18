@@ -1,6 +1,5 @@
 import 'package:eje/pages/freizeiten/domain/entities/Freizeit.dart';
 import 'package:equatable/equatable.dart';
-import 'package:meta/meta.dart';
 
 abstract class FreizeitenEvent extends Equatable {
   const FreizeitenEvent();
@@ -14,9 +13,9 @@ class RefreshFreizeiten extends FreizeitenEvent {
 }
 
 class GettingFreizeit extends FreizeitenEvent {
-  Freizeit freizeit;
+  final Freizeit freizeit;
 
-  GettingFreizeit(@required this.freizeit);
+  GettingFreizeit(this.freizeit);
 
   @override
   List<Object> get props => [freizeit];

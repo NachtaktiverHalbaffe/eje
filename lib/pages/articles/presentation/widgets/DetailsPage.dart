@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:icon_shadow/icon_shadow.dart';
 import 'package:page_view_indicators/circle_page_indicator.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../core/widgets/PrefImage.dart';
@@ -14,7 +13,7 @@ class DetailsPage extends StatelessWidget {
   final String titel;
   final String untertitel;
   final String text;
-  final List<String> bild_url;
+  final List<String> bilder;
   final double pictureHeight;
   final List<Hyperlink> hyperlinks;
 
@@ -25,7 +24,7 @@ class DetailsPage extends StatelessWidget {
       this.titel,
       this.untertitel = "",
       this.text,
-      this.bild_url,
+      this.bilder,
       this.pictureHeight = 300,
       this.hyperlinks,
       this.childWidget});
@@ -54,9 +53,9 @@ class DetailsPage extends StatelessWidget {
                   },
                   pageSnapping: true,
                   controller: PageController(initialPage: 0),
-                  itemCount: bild_url.length,
+                  itemCount: bilder.length,
                   itemBuilder: (context, position) {
-                    final bild = bild_url[position];
+                    final bild = bilder[position];
                     return Stack(
                       alignment: Alignment.bottomCenter,
                       children: <Widget>[
@@ -69,7 +68,7 @@ class DetailsPage extends StatelessWidget {
               Container(
                   alignment: Alignment.center,
                   child: () {
-                    if (bild_url.length != 1) {
+                    if (bilder.length != 1) {
                       return Container(
                         padding: EdgeInsets.all(8),
                         child: CirclePageIndicator(
@@ -78,7 +77,7 @@ class DetailsPage extends StatelessWidget {
                           dotColor: Colors.white,
                           selectedDotColor:
                               Theme.of(context).colorScheme.secondary,
-                          itemCount: bild_url.length,
+                          itemCount: bilder.length,
                           currentPageNotifier: _currentPageNotifier,
                         ),
                       );
@@ -189,7 +188,7 @@ class DetailsPage extends StatelessWidget {
           SizedBox(height: 16),
           childWidget,
           hyperlinks[0].link != ""
-              ? HyperlinkSection(hyperlinks: hyperlinks, context: context)
+              ? HyperlinkSection(hyperlinks: hyperlinks)
               : SizedBox(height: 8),
           SizedBox(height: 16)
         ],

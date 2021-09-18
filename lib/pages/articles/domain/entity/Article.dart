@@ -7,15 +7,15 @@ part 'Article.g.dart';
 @HiveType(typeId: 6)
 class Article extends Equatable {
   @HiveField(0)
-  String url;
+  final String url;
   @HiveField(1)
-  String titel;
+  final String titel;
   @HiveField(2)
-  String content;
+  final String content;
   @HiveField(3)
-  List<String> bilder;
+  final List<String> bilder;
   @HiveField(4)
-  List<Hyperlink> hyperlinks;
+  final List<Hyperlink> hyperlinks;
 
   Article({
     this.url,

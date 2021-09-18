@@ -5,14 +5,15 @@ part 'Reminder.g.dart';
 
 @HiveType(typeId: 7)
 class Reminder extends Equatable {
+  //TODO Check if needed
   @HiveField(0)
-  String kategorie;
+  final String kategorie;
   @HiveField(1)
-  String identifier;
+  final String identifier;
   @HiveField(2)
-  DateTime date;
+  final DateTime date;
   @HiveField(3)
-  String notificationtext;
+  final String notificationtext;
 
   Reminder({this.kategorie, this.identifier, this.date, this.notificationtext});
 

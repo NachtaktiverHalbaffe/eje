@@ -22,6 +22,8 @@ class NetworkInfoImpl implements NetworkInfo {
         return false;
       } else if (result == ConnectivityResult.wifi) {
         return connectionChecker.hasConnection;
+      } else {
+        return false;
       }
     } else {
       ConnectivityResult result = await connectivity.checkConnectivity();
@@ -34,6 +36,8 @@ class NetworkInfoImpl implements NetworkInfo {
       } else if (result == ConnectivityResult.mobile) {
         return connectionChecker.hasConnection;
       } else if (result == ConnectivityResult.none) {
+        return false;
+      } else {
         return false;
       }
     }

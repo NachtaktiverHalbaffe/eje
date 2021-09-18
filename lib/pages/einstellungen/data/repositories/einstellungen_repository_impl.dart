@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_statements
+
 import 'package:dartz/dartz.dart';
 import 'package:eje/core/error/exception.dart';
 import 'package:eje/core/error/failures.dart';
@@ -40,7 +42,7 @@ class EinstellungenRepositoryImpl implements EinstellungenRepository {
   }
 
   @override
-  Future<Either<Failure, SharedPreferences>> getPrefrences() async{
+  Future<Either<Failure, SharedPreferences>> getPrefrences() async {
     final prefs = await SharedPreferences.getInstance();
     return Right(prefs);
   }

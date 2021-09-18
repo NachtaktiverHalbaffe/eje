@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
 
 abstract class HauptamtlicheEvent extends Equatable {
   const HauptamtlicheEvent();
@@ -14,9 +13,9 @@ class RefreshHauptamtliche extends HauptamtlicheEvent {
 }
 
 class GettingHauptamtlicher extends HauptamtlicheEvent {
-  String name;
+  final String name;
 
-  GettingHauptamtlicher(@required this.name);
+  GettingHauptamtlicher(this.name);
 
   @override
   List<Object> get props => [name];

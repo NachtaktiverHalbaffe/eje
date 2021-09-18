@@ -1,7 +1,5 @@
 import 'dart:ui';
-
 import 'package:eje/core/utils/injection_container.dart';
-import 'package:eje/core/widgets/LoadingIndicator.dart';
 import 'package:eje/core/widgets/PrefImage.dart';
 import 'package:eje/pages/neuigkeiten/domain/entitys/neuigkeit.dart';
 import 'package:eje/pages/neuigkeiten/presentation/bloc/bloc.dart';
@@ -58,7 +56,7 @@ class _NeuigkeitenCardState extends State<NeuigkeitenCard> {
                   MaterialPageRoute(
                     builder: (_) => BlocProvider.value(
                       value: sl<NeuigkeitenBlocBloc>(),
-                      child: neuigkeitenCardDetail(widget._neuigkeit.titel),
+                      child: NeuigkeitenCardDetail(widget._neuigkeit.titel),
                     ),
                   ),
                 ),
@@ -123,7 +121,7 @@ class _NeuigkeitenCardState extends State<NeuigkeitenCard> {
                   MaterialPageRoute(
                     builder: (_) => BlocProvider.value(
                       value: sl<NeuigkeitenBlocBloc>(),
-                      child: neuigkeitenCardDetail(widget._neuigkeit.titel),
+                      child: NeuigkeitenCardDetail(widget._neuigkeit.titel),
                     ),
                   ),
                 ),

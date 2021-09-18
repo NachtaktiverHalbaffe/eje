@@ -9,21 +9,26 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_swiper_plus/flutter_swiper_plus.dart';
 
-Widget HauptamtlichePageViewer(
-    List<Hauptamtlicher> hauptamtliche, BuildContext context) {
-  return Swiper(
-    itemBuilder: (BuildContext context, int index) {
-      return Container(
-        child: KontaktCard(hauptamtliche[index]),
-        padding: EdgeInsets.only(top: 15, bottom: 15),
-      );
-    },
-    itemCount: hauptamtliche.length,
-    itemHeight: 230,
-    itemWidth: 150,
-    layout: SwiperLayout.STACK,
-    loop: true,
-  );
+class HauptamtlichePageViewer extends StatelessWidget {
+  final List<Hauptamtlicher> hauptamtliche;
+  HauptamtlichePageViewer(this.hauptamtliche);
+
+  @override
+  Widget build(BuildContext context) {
+    return Swiper(
+      itemBuilder: (BuildContext context, int index) {
+        return Container(
+          child: KontaktCard(hauptamtliche[index]),
+          padding: EdgeInsets.only(top: 15, bottom: 15),
+        );
+      },
+      itemCount: hauptamtliche.length,
+      itemHeight: 230,
+      itemWidth: 150,
+      layout: SwiperLayout.STACK,
+      loop: true,
+    );
+  }
 }
 
 class KontaktCard extends StatelessWidget {

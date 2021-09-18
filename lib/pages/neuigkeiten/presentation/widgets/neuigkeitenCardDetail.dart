@@ -1,25 +1,22 @@
 import 'package:eje/pages/articles/presentation/widgets/DetailsPage.dart';
 import 'package:eje/core/widgets/LoadingIndicator.dart';
-import 'package:eje/core/widgets/PrefImage.dart';
 import 'package:eje/pages/articles/domain/entity/Article.dart';
 import 'package:eje/pages/articles/domain/entity/Hyperlink.dart';
-import 'package:eje/pages/neuigkeiten/domain/entitys/neuigkeit.dart';
 import 'package:eje/pages/neuigkeiten/presentation/bloc/bloc.dart';
 import 'package:eje/pages/neuigkeiten/presentation/bloc/neuigkeiten_bloc_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:icon_shadow/icon_shadow.dart';
-import 'package:page_view_indicators/circle_page_indicator.dart';
 
-class neuigkeitenCardDetail extends StatefulWidget {
-  String title;
-  neuigkeitenCardDetail(this.title);
+class NeuigkeitenCardDetail extends StatefulWidget {
+  final String title;
+  NeuigkeitenCardDetail(this.title);
 
   @override
   State<StatefulWidget> createState() => _neuigkeitenCardDetail(title);
 }
 
-class _neuigkeitenCardDetail extends State<neuigkeitenCardDetail> {
+// ignore: camel_case_types
+class _neuigkeitenCardDetail extends State<NeuigkeitenCardDetail> {
   String title;
   _neuigkeitenCardDetail(this.title);
 
@@ -46,7 +43,7 @@ class _neuigkeitenCardDetail extends State<neuigkeitenCardDetail> {
         builder: (context, state) {
           if (state is LoadedDetail) {
             print("Build Page: LoadedDetail");
-            return card(article: state.article);
+            return NewsCard(article: state.article);
           } else if (state is LoadingDetails) {
             return LoadingIndicator();
           } else
@@ -57,9 +54,9 @@ class _neuigkeitenCardDetail extends State<neuigkeitenCardDetail> {
   }
 }
 
-class card extends StatelessWidget {
+class NewsCard extends StatelessWidget {
   final Article article;
-  const card({Key key, this.article}) : super(key: key);
+  const NewsCard({Key key, this.article}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -68,7 +65,7 @@ class card extends StatelessWidget {
       titel: article.titel,
       untertitel: "",
       text: article.content,
-      bild_url: article.bilder,
+      bilder: article.bilder,
       hyperlinks: article.hyperlinks.isEmpty
           ? [Hyperlink(link: "", description: "")]
           : article.hyperlinks,

@@ -18,7 +18,7 @@ class Loading extends ServicesState {
 }
 
 class LoadedServices extends ServicesState {
-  List<Service> services;
+  final List<Service> services;
 
   LoadedServices(this.services);
 
@@ -27,7 +27,7 @@ class LoadedServices extends ServicesState {
 }
 
 class LoadedService extends ServicesState {
-  Service service;
+  final Service service;
 
   LoadedService(this.service);
 

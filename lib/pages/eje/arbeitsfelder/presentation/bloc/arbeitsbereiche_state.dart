@@ -19,7 +19,7 @@ class Loading extends ArbeitsbereicheState {
 }
 
 class LoadedArbeitsbereiche extends ArbeitsbereicheState {
-  List<FieldOfWork> arbeitsbereiche;
+  final List<FieldOfWork> arbeitsbereiche;
 
   LoadedArbeitsbereiche(this.arbeitsbereiche);
 
@@ -28,7 +28,7 @@ class LoadedArbeitsbereiche extends ArbeitsbereicheState {
 }
 
 class LoadedArbeitsbereich extends ArbeitsbereicheState {
-  FieldOfWork arbeitsbereich;
+  final FieldOfWork arbeitsbereich;
 
   LoadedArbeitsbereich(this.arbeitsbereich);
 
@@ -37,7 +37,7 @@ class LoadedArbeitsbereich extends ArbeitsbereicheState {
 }
 
 class Error extends ArbeitsbereicheState {
-  String message;
+  final String message;
 
   Error({@required this.message});
 

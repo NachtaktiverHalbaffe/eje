@@ -7,7 +7,6 @@ import 'package:eje/pages/eje/bak/presentation/bloc/bak_event.dart';
 import 'package:eje/pages/eje/bak/presentation/bloc/bak_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:icon_shadow/icon_shadow.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -50,6 +49,7 @@ class _BAKDetailsState extends State<BAKDetails> {
   @override
   void didChangeDependencies() {
     BlocProvider.of<BakBloc>(context).add(GettingBAKler(bakler.name));
+    super.didChangeDependencies();
   }
 }
 
@@ -66,7 +66,7 @@ class HauptamtlicheDetailsCard extends StatelessWidget {
         titel: bakler.name,
         untertitel: bakler.amt,
         text: bakler.vorstellung,
-        bild_url: bilder,
+        bilder: bilder,
         hyperlinks: [Hyperlink(link: "", description: "")],
         pictureHeight: 400,
         childWidget: _childBak(bakler, context));

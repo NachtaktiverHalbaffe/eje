@@ -3,8 +3,6 @@ import 'package:eje/core/widgets/LoadingIndicator.dart';
 import 'package:eje/pages/eje/services/presentation/widgets/services_pageViewer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import 'domain/entities/Service.dart';
 import 'presentation/bloc/services_bloc.dart';
 
 class Services extends StatelessWidget {
@@ -35,7 +33,7 @@ class Services extends StatelessWidget {
           child: BlocConsumer<ServicesBloc, ServicesState>(
             listener: (context, state) {
               if (state is Error) {
-                Scaffold.of(context).showSnackBar(
+                ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
                     content: Text(state.message),
                   ),

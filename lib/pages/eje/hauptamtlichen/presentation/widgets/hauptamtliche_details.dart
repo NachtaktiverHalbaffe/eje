@@ -1,3 +1,5 @@
+// ignore_for_file: camel_case_types
+
 import 'package:eje/pages/articles/presentation/widgets/DetailsPage.dart';
 import 'package:eje/core/widgets/LoadingIndicator.dart';
 import 'package:eje/pages/articles/domain/entity/Hyperlink.dart';
@@ -6,9 +8,7 @@ import 'package:eje/pages/eje/hauptamtlichen/presentation/bloc/bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:icon_shadow/icon_shadow.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class HauptamtlicheDetails extends StatefulWidget {
@@ -53,6 +53,7 @@ class _HauptamtlicheDetailsState extends State<HauptamtlicheDetails> {
   void didChangeDependencies() {
     BlocProvider.of<HauptamtlicheBloc>(context)
         .add(GettingHauptamtlicher(hauptamtlicher.name));
+    super.didChangeDependencies();
   }
 }
 
@@ -63,12 +64,12 @@ class HauptamtlicheDetailsCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<String> bilder = List();
+    List<String> bilder = List.empty(growable: true);
     bilder.add(hauptamtlicher.bild);
     return DetailsPage(
         titel: hauptamtlicher.name,
         untertitel: hauptamtlicher.bereich,
-        bild_url: bilder,
+        bilder: bilder,
         pictureHeight: 400,
         text: hauptamtlicher.vorstellung,
         hyperlinks: [Hyperlink(link: "", description: "")],

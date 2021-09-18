@@ -42,7 +42,7 @@ class BackgroundServicesManager {
     // Configure background task for Neuigkeiten
     BackgroundFetch.configure(
         config, (taskId) => _checkNeuigkeitenNotification(taskId));
-    //configure background service fpr Freizeiten
+    //configure background service for Freizeiten
     //BackgroundFetch.configure(
     //    config, (taskId) => _checkFreizeitenNotification(taskId));
   }

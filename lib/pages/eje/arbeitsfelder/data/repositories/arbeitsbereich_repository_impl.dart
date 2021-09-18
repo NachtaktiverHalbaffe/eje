@@ -49,6 +49,7 @@ class ArbeitsbereichRepositoryImpl implements ArbeitsbereichRepository {
           return Right(value);
         }
       }
+      return Right(getErrorArbeitsbereich());
     } on CacheException {
       return Right(getErrorArbeitsbereich());
     }

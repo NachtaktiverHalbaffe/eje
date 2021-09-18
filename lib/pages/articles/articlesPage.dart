@@ -4,9 +4,7 @@ import 'package:eje/core/widgets/LoadingIndicator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'domain/entity/Article.dart';
-import 'domain/usecases/getArticle.dart';
 import 'presentation/bloc/articles_bloc.dart';
 
 class ArticlesPage extends StatefulWidget {
@@ -18,6 +16,7 @@ class ArticlesPage extends StatefulWidget {
   State<StatefulWidget> createState() => _articleBloc(url: url);
 }
 
+// ignore: camel_case_types
 class _articleBloc extends State<ArticlesPage> {
   final String url;
 
@@ -76,7 +75,7 @@ Widget _articlePage(Article article, BuildContext context) {
         titel: article.titel,
         untertitel: "",
         text: article.content,
-        bild_url: article.bilder,
+        bilder: article.bilder,
         hyperlinks: article.hyperlinks,
         childWidget: SizedBox(
           height: 1 / MediaQuery.of(context).devicePixelRatio,

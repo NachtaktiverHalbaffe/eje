@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names, camel_case_types
+
 import 'package:eje/core/platform/Reminder.dart';
 import 'package:eje/core/utils/MapLauncher.dart';
 import 'package:eje/core/utils/notificationplugin.dart';
@@ -12,7 +14,6 @@ import 'package:eje/pages/termine/presentation/bloc/termine_state.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:icon_shadow/icon_shadow.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -33,7 +34,7 @@ class _TerminDetailsState extends State<TerminDetails> {
     return Scaffold(
       body: BlocConsumer<TermineBloc, TermineState>(listener: (context, state) {
         if (state is Error) {
-          Scaffold.of(context).showSnackBar(
+          ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(state.message),
             ),
@@ -55,6 +56,7 @@ class _TerminDetailsState extends State<TerminDetails> {
   void didChangeDependencies() {
     BlocProvider.of<TermineBloc>(context)
         .add(GettingTermin(termin.veranstaltung, termin.datum));
+    super.didChangeDependencies();
   }
 }
 
@@ -64,13 +66,13 @@ class TerminDetailsCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<String> bilder = List();
+    List<String> bilder = List.empty(growable: true);
     bilder.add(termin.bild);
     return DetailsPage(
       titel: termin.veranstaltung,
       untertitel: termin.motto,
       text: termin.text,
-      bild_url: bilder,
+      bilder: bilder,
       hyperlinks: [Hyperlink(link: "", description: "")],
       childWidget: _terminChildWidget(termin),
     );

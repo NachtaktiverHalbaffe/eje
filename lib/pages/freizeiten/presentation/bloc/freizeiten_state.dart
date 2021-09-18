@@ -8,18 +8,18 @@ abstract class FreizeitenState extends Equatable {
   List<Object> get props => [];
 }
 
-class Empty extends FreizeitenState{
+class Empty extends FreizeitenState {
   @override
   List<Object> get props => [];
 }
 
-class Loading extends FreizeitenState{
+class Loading extends FreizeitenState {
   @override
   List<Object> get props => [];
 }
 
-class LoadedFreizeiten extends FreizeitenState{
-  List<Freizeit> freizeiten;
+class LoadedFreizeiten extends FreizeitenState {
+  final List<Freizeit> freizeiten;
 
   LoadedFreizeiten(this.freizeiten);
 
@@ -27,8 +27,8 @@ class LoadedFreizeiten extends FreizeitenState{
   List<Object> get props => [freizeiten];
 }
 
-class LoadedFreizeit extends FreizeitenState{
-  Freizeit freizeit;
+class LoadedFreizeit extends FreizeitenState {
+  final Freizeit freizeit;
 
   LoadedFreizeit(this.freizeit);
 
@@ -36,8 +36,8 @@ class LoadedFreizeit extends FreizeitenState{
   List<Object> get props => [freizeit];
 }
 
-class Error extends FreizeitenState{
-  String message;
+class Error extends FreizeitenState {
+  final String message;
 
   Error({@required this.message});
 

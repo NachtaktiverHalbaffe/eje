@@ -2,7 +2,6 @@ import 'package:eje/app_config.dart';
 import 'package:eje/core/error/exception.dart';
 import 'package:eje/pages/articles/domain/entity/Article.dart';
 import 'package:eje/pages/articles/domain/entity/ErrorArticle.dart';
-import 'package:eje/pages/articles/domain/entity/Hyperlink.dart';
 import 'package:hive/hive.dart';
 
 class ArticlesLocalDatasource {
@@ -45,21 +44,17 @@ class ArticlesLocalDatasource {
   void cacheArticle(Article article) async {
     final AppConfig appConfig = await AppConfig.loadConfig();
     final Box _box = Hive.box(appConfig.articlesBox);
-    bool isAlreadyCached = false;
 
     // Cache an article if not already cached
     if (_box.isNotEmpty) {
+      // Delete article from cache if already cached
       for (int i = 0; i < _box.length; i++) {
         Article temp = _box.getAt(i);
         if (temp.url == article.url) {
-          isAlreadyCached == true;
           _box.deleteAt(i);
-          _box.add(article);
         }
       }
-      if (!isAlreadyCached) {
-        _box.add(article);
-      }
+      _box.add(article);
     } else if (_box.isEmpty) {
       _box.add(article);
     } else {

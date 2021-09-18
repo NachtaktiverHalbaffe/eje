@@ -4,7 +4,6 @@ import 'package:eje/core/usecases/usecase.dart';
 import 'package:eje/pages/einstellungen/domain/entitys/einstellung.dart';
 import 'package:eje/pages/einstellungen/domain/repositories/einstellungen_repository.dart';
 import 'package:meta/meta.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class GetPreference implements UseCase<Einstellung> {
   final EinstellungenRepository repository;

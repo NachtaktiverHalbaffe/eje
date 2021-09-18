@@ -2,7 +2,7 @@ import 'package:eje/pages/freizeiten/domain/entities/Freizeit.dart';
 import 'package:eje/pages/termine/domain/entities/Ort.dart';
 import 'package:hive/hive.dart';
 
-void testdata_freizeiten(Box _box) {
+void testdataFreizeiten(Box _box) {
   if (_box.length < 6) {
     _box.add(
       new Freizeit(

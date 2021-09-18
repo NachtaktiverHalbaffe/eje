@@ -36,6 +36,7 @@ class ArbeitsbereicheLocalDatasource {
           return temp;
         }
       }
+      throw CacheException();
     } else {
       throw CacheException();
     }

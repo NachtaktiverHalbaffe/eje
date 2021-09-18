@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:eje/pages/articles/presentation/widgets/DetailsPage.dart';
 import 'package:eje/core/widgets/LoadingIndicator.dart';
 import 'package:eje/pages/eje/services/domain/entities/Service.dart';
@@ -47,6 +45,7 @@ class _ServiceDetailsState extends State<ServiceDetails> {
   @override
   void didChangeDependencies() {
     BlocProvider.of<ServicesBloc>(context).add(GettingService(service));
+    super.didChangeDependencies();
   }
 }
 
@@ -60,7 +59,7 @@ class ServiceDetailsCard extends StatelessWidget {
     return DetailsPage(
       titel: service.service,
       text: service.inhalt,
-      bild_url: service.bilder,
+      bilder: service.bilder,
       untertitel: "",
       hyperlinks: service.service != "Verleih"
           ? service.hyperlinks.sublist(1)

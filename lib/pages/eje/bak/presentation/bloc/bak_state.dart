@@ -20,7 +20,7 @@ class Loading extends BakState {
 }
 
 class LoadedBAK extends BakState {
-  List<BAKler> bak;
+  final List<BAKler> bak;
 
   LoadedBAK(this.bak);
 
@@ -29,7 +29,7 @@ class LoadedBAK extends BakState {
 }
 
 class LoadedBAKler extends BakState {
-  BAKler bakler;
+  final BAKler bakler;
 
   LoadedBAKler(this.bakler);
 
@@ -38,7 +38,7 @@ class LoadedBAKler extends BakState {
 }
 
 class Error extends BakState {
-  String message;
+  final String message;
 
   Error({@required this.message});
 

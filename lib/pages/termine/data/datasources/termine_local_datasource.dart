@@ -8,7 +8,7 @@ class TermineLocalDatasource {
   Future<List<Termin>> getCachedTermine() async {
     final AppConfig appConfig = await AppConfig.loadConfig();
     final Box _box = Hive.box(appConfig.eventsBox);
-    testdata_termine(_box);
+    testdataTermine(_box);
 
     // load data from cache
     if (_box.isNotEmpty) {
@@ -36,6 +36,7 @@ class TermineLocalDatasource {
           return event;
         }
       }
+      throw CacheException();
     } else {
       throw CacheException();
     }

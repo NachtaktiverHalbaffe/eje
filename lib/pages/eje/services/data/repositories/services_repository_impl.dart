@@ -8,7 +8,6 @@ import 'package:eje/pages/eje/services/domain/entities/ErrorService.dart';
 import 'package:eje/pages/eje/services/domain/entities/Service.dart';
 import 'package:eje/pages/eje/services/domain/repositories/services_repository.dart';
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
 
 class ServicesRepositoryImpl implements ServicesRepository {
   final ServicesRemoteDatasource remoteDataSource;
@@ -50,6 +49,7 @@ class ServicesRepositoryImpl implements ServicesRepository {
             return Right(value);
           }
         }
+        return Right(getErrorService());
       } on CacheException {
         return Right(getErrorService());
       }

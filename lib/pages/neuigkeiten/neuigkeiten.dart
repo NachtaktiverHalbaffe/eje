@@ -15,7 +15,7 @@ class Neuigkeiten extends StatelessWidget {
         listener: (context, state) {
           if (state is Error) {
             print("Build Page: Error");
-            Scaffold.of(context).showSnackBar(
+            ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text(state.message),
               ),
@@ -66,8 +66,7 @@ Widget _buildNeuigkeitenList(BuildContext context, _neuigkeiten) {
     color: Theme.of(context).colorScheme.secondary,
     key: _refreshIndicatorKey,
     onRefresh: () async {
-      await BlocProvider.of<NeuigkeitenBlocBloc>(context)
-          .add(RefreshNeuigkeiten());
+      BlocProvider.of<NeuigkeitenBlocBloc>(context).add(RefreshNeuigkeiten());
     },
     child: ListView.builder(
       physics: ScrollPhysics(

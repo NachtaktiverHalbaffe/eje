@@ -7,37 +7,37 @@ part 'Freizeit.g.dart';
 @HiveType(typeId: 5)
 class Freizeit extends Equatable {
   @HiveField(0)
-  String freizeit;
+  final String freizeit;
   @HiveField(1)
-  String datum;
+  final String datum;
   @HiveField(2)
-  String alter;
+  final String alter;
   @HiveField(3)
-  String preis;
+  final String preis;
   @HiveField(4)
-  String platz_frei;
+  final String platz_frei;
   @HiveField(5)
-  Ort ort;
+  final Ort ort;
   @HiveField(6)
-  String link;
+  final String link;
   @HiveField(7)
-  List<String> bilder;
+  final List<String> bilder;
   @HiveField(8)
-  String beschreibung;
+  final String beschreibung;
   @HiveField(9)
-  String anmeldeschluss;
+  final String anmeldeschluss;
   @HiveField(10)
-  String verpflegung;
+  final String verpflegung;
   @HiveField(11)
-  String unterbringung;
+  final String unterbringung;
   @HiveField(12)
-  String anreise;
+  final String anreise;
   @HiveField(13)
-  String sonstige_leistungen;
+  final String sonstige_leistungen;
   @HiveField(14)
-  String motto;
+  final String motto;
   @HiveField(15)
-  List<String> begleiter;
+  final List<String> begleiter;
 
   Freizeit(
       {this.freizeit,

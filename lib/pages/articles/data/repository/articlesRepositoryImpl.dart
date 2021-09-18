@@ -6,13 +6,9 @@ import 'package:eje/core/utils/WebScraper.dart';
 import 'package:eje/pages/articles/data/datasources/articlesLocalDatasource.dart';
 import 'package:eje/pages/articles/domain/entity/Article.dart';
 import 'package:eje/pages/articles/domain/entity/ErrorArticle.dart';
-import 'package:eje/pages/articles/domain/entity/Hyperlink.dart';
 import 'package:eje/pages/articles/domain/repositories/ArticlesRepository.dart';
-import 'package:eje/pages/articles/domain/usecases/getArticles.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
-
-import '../../../../app_config.dart';
 
 class ArticlesRepositoryImpl implements ArticlesRepository {
   final ArticlesLocalDatasource localDatasource;
@@ -77,9 +73,8 @@ class ArticlesRepositoryImpl implements ArticlesRepository {
   //Lade bestimmten Artikel aus Cache
   @override
   Future<Either<Failure, Article>> getArticle(String url) async {
-    final appConfig = await AppConfig.loadConfig();
-    final Box _box = Hive.box(appConfig.articlesBox);
     Article article;
+
     if (await networkInfo.isConnected) {
       if (url != "") {
         try {
@@ -91,19 +86,20 @@ class ArticlesRepositoryImpl implements ArticlesRepository {
             content: article.content,
             url: url,
           );
-
           localDatasource.cacheArticle(_article);
           return Right(_article);
         } on ServerException {
           return Right(getErrorArticle());
         }
-      }
-    } else
+      } else
+        return Right(getErrorArticle());
+    } else {
       try {
         Article _article = await localDatasource.getArticle(url);
         return Right(_article);
       } on CacheException {
         return Right(getErrorArticle());
       }
+    }
   }
 }
