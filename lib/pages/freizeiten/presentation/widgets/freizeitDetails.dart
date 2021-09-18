@@ -202,8 +202,7 @@ class _freizeitChildWidget extends StatelessWidget {
             color: Theme.of(context).dividerColor,
             size: 72 / MediaQuery.of(context).devicePixelRatio,
           ),
-          title: OutlineButton(
-            color: Theme.of(context).dividerColor,
+          title: OutlinedButton(
             onPressed: () async {
               if (await canLaunch(freizeit.link)) {
                 await launch(freizeit.link);
@@ -212,14 +211,12 @@ class _freizeitChildWidget extends StatelessWidget {
               }
             },
             child: Text(
-              "Anmelden (Anmeldeschluss: " + freizeit.anmeldeschluss + ")",
+              "Anmelden \n(Anmeldeschluss:" + freizeit.anmeldeschluss + ")",
               style: TextStyle(
                 color: Theme.of(context).dividerColor,
               ),
+              textAlign: TextAlign.center,
             ),
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(
-                    30 / MediaQuery.of(context).devicePixelRatio)),
           ),
         ),
         SizedBox(

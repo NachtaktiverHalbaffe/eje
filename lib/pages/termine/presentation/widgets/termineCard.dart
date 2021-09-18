@@ -154,8 +154,7 @@ class TerminCard extends StatelessWidget {
                       SizedBox(
                         height: 6,
                       ),
-                      OutlineButton(
-                        color: Theme.of(context).dividerColor,
+                      OutlinedButton(
                         onPressed: () async {
                           _setNotification();
                         },
@@ -165,8 +164,6 @@ class TerminCard extends StatelessWidget {
                             color: Theme.of(context).dividerColor,
                           ),
                         ),
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12)),
                       ),
                     ],
                   )

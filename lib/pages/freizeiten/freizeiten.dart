@@ -47,27 +47,30 @@ class FreizeitenPageViewer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RefreshIndicator(
-        color: Theme.of(context).colorScheme.secondary,
-        child: SingleChildScrollView(
-          physics: AlwaysScrollableScrollPhysics(),
-          child: ConstrainedBox(
-            constraints: BoxConstraints(
-                minHeight: MediaQuery.of(context).size.height - 48),
-            child: Swiper(
-              itemBuilder: (BuildContext context, int index) {
-                return FreizeitCard(freizeit: freizeiten[index]);
-              },
-              itemCount: freizeiten.length,
-              itemHeight: 350,
-              itemWidth: 325,
-              layout: SwiperLayout.STACK,
-              loop: true,
+    return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.surface,
+      body: RefreshIndicator(
+          color: Theme.of(context).colorScheme.secondary,
+          child: SingleChildScrollView(
+            physics: AlwaysScrollableScrollPhysics(),
+            child: ConstrainedBox(
+              constraints: BoxConstraints(
+                  minHeight: MediaQuery.of(context).size.height - 48),
+              child: Swiper(
+                itemBuilder: (BuildContext context, int index) {
+                  return FreizeitCard(freizeit: freizeiten[index]);
+                },
+                itemCount: freizeiten.length,
+                itemHeight: 350,
+                itemWidth: 325,
+                layout: SwiperLayout.STACK,
+                loop: true,
+              ),
             ),
           ),
-        ),
-        onRefresh: () async {
-          BlocProvider.of<FreizeitenBloc>(context).add(RefreshFreizeiten());
-        });
+          onRefresh: () async {
+            BlocProvider.of<FreizeitenBloc>(context).add(RefreshFreizeiten());
+          }),
+    );
   }
 }

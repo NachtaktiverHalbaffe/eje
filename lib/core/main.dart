@@ -127,6 +127,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return PersistentTabView(
       context,
+      resizeToAvoidBottomInset: true,
       controller: PersistentTabController(initialIndex: initialIndex),
       items: _navBarsItems(),
       screens: _buildScreens(),
@@ -182,7 +183,7 @@ Widget _MaterialApp(BuildContext context, int initialIndex) {
                   // Firmenfarbe
                   secondary: Color(0xFFCD2E32),
                   background: Colors.white,
-                  surface: Colors.white,
+                  surface: Color(0xFFdedede),
                 ),
                 // Text colors
                 textSelectionTheme: themeLight.textSelectionTheme.copyWith(

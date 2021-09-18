@@ -24,8 +24,8 @@ class _articleBloc extends State<ArticlesPage> {
 
   @override
   void didChangeDependencies() {
-    super.didChangeDependencies();
     BlocProvider.of<ArticlesBloc>(context).add(RefreshArticle(url));
+    super.didChangeDependencies();
   }
 
   @override
@@ -69,7 +69,9 @@ class _articleBloc extends State<ArticlesPage> {
 }
 
 Widget _articlePage(Article article, BuildContext context) {
-  return RefreshIndicator(
+  return Scaffold(
+    backgroundColor: Theme.of(context).colorScheme.surface,
+    body: RefreshIndicator(
       color: Theme.of(context).colorScheme.secondary,
       child: DetailsPage(
         titel: article.titel,
@@ -83,5 +85,7 @@ Widget _articlePage(Article article, BuildContext context) {
       ),
       onRefresh: () async {
         BlocProvider.of<ArticlesBloc>(context).add(RefreshArticle(article.url));
-      });
+      },
+    ),
+  );
 }

@@ -51,37 +51,40 @@ class TermineListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return new Column(
-      children: <Widget>[
-        new Expanded(
-          child: RefreshIndicator(
-            key: _refreshIndicatorKey,
-            color: Theme.of(context).colorScheme.secondary,
-            onRefresh: () async {
-              BlocProvider.of<TermineBloc>(context).add(RefreshTermine());
-            },
-            child: SingleChildScrollView(
-              physics: ScrollPhysics(
-                parent: AlwaysScrollableScrollPhysics(),
-              ),
-              child: Container(
-                constraints: BoxConstraints(
-                    minHeight: MediaQuery.of(context).size.height - 45),
-                child: Swiper(
-                  itemBuilder: (BuildContext context, int index) {
-                    return TerminCard(termine[index]);
-                  },
-                  itemCount: termine.length,
-                  itemHeight: 550,
-                  itemWidth: 300,
-                  layout: SwiperLayout.STACK,
-                  loop: true,
+    return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.surface,
+      body: Column(
+        children: <Widget>[
+          new Expanded(
+            child: RefreshIndicator(
+              key: _refreshIndicatorKey,
+              color: Theme.of(context).colorScheme.secondary,
+              onRefresh: () async {
+                BlocProvider.of<TermineBloc>(context).add(RefreshTermine());
+              },
+              child: SingleChildScrollView(
+                physics: ScrollPhysics(
+                  parent: AlwaysScrollableScrollPhysics(),
+                ),
+                child: Container(
+                  constraints: BoxConstraints(
+                      minHeight: MediaQuery.of(context).size.height - 45),
+                  child: Swiper(
+                    itemBuilder: (BuildContext context, int index) {
+                      return TerminCard(termine[index]);
+                    },
+                    itemCount: termine.length,
+                    itemHeight: 550,
+                    itemWidth: 300,
+                    layout: SwiperLayout.STACK,
+                    loop: true,
+                  ),
                 ),
               ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

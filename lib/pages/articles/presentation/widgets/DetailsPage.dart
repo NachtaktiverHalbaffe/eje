@@ -35,6 +35,7 @@ class DetailsPage extends StatelessWidget {
 
     // Widget itself
     return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.surface,
       body: ListView(
         physics: ScrollPhysics(parent: RangeMaintainingScrollPhysics()),
         children: <Widget>[
