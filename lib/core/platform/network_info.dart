@@ -1,6 +1,6 @@
 import 'package:connectivity/connectivity.dart';
 import 'package:data_connection_checker/data_connection_checker.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:get_storage/get_storage.dart';
 
 abstract class NetworkInfo {
   Future<bool> get isConnected;
@@ -14,9 +14,7 @@ class NetworkInfoImpl implements NetworkInfo {
 
   @override
   Future<bool> get isConnected async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    bool wifirestriction = prefs.getBool("only_wifi");
-    if (wifirestriction) {
+    if (GetStorage().read("only_wifi")) {
       ConnectivityResult result = await connectivity.checkConnectivity();
       if (result != ConnectivityResult.wifi) {
         return false;

@@ -5,6 +5,7 @@ import 'package:eje/core/utils/WebScraper.dart';
 import 'package:eje/pages/articles/domain/entity/Article.dart';
 import 'package:eje/pages/articles/domain/entity/ErrorArticle.dart';
 import 'package:eje/pages/neuigkeiten/domain/entitys/errorNeuigkeit.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:hive/hive.dart';
 import 'package:meta/meta.dart';
 import 'package:eje/core/error/failures.dart';
@@ -13,7 +14,6 @@ import 'package:eje/pages/neuigkeiten/data/datasources/neuigkeiten_local_datasou
 import 'package:eje/pages/neuigkeiten/data/datasources/neuigkeiten_remote_datasource.dart';
 import 'package:eje/pages/neuigkeiten/domain/entitys/neuigkeit.dart';
 import 'package:eje/pages/neuigkeiten/domain/repositories/neuigkeiten_repository.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class NeuigkeitenRepositoryImpl implements NeuigkeitenRepository {
   final NeuigkeitenRemoteDatasource remoteDataSource;
@@ -68,7 +68,7 @@ class NeuigkeitenRepositoryImpl implements NeuigkeitenRepository {
   //Lade Artikel aus den Internet herunter
   @override
   Future<Either<Failure, List<Neuigkeit>>> getNeuigkeiten() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final prefs = GetStorage();
     //open database
     if (await networkInfo.isConnected) {
       try {
@@ -83,7 +83,7 @@ class NeuigkeitenRepositoryImpl implements NeuigkeitenRepository {
         _neuigkeiten.forEach((element) {
           neuigkeitenNamen.add(element.titel);
         });
-        prefs.setStringList("cached_neuigkeiten", neuigkeitenNamen);
+        prefs.write("cached_neuigkeiten", neuigkeitenNamen);
         return Right(await localDatasource.getCachedNeuigkeiten());
       } on ServerException {
         print("Neuigkeiten: Serverexception");

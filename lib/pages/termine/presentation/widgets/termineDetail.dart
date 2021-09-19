@@ -14,8 +14,8 @@ import 'package:eje/pages/termine/presentation/bloc/termine_state.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class TerminDetails extends StatelessWidget {
   final Termin termin;
@@ -160,7 +160,7 @@ class _terminChildWidget extends StatelessWidget {
 }
 
 void _setNotification(Termin termin) async {
-  SharedPreferences prefs = await SharedPreferences.getInstance();
+  final prefs = GetStorage();
   final String CHANNEL_NAME = "Erinnerungen an Veranstaltungen";
   final String CHANNEL_DESCRIPTION =
       "Erinnerung an eine Veranstaltung, die der Benutzer zum Merken ausgewählt hat";
@@ -174,8 +174,8 @@ void _setNotification(Termin termin) async {
             "Erinnerung: " + termin.veranstaltung + " findet morgen statt "),
   );
   // Notification schedulen
-  if (prefs.getBool("notifications_on")) {
-    if (prefs.getBool("notifications_veranstaltungen")) {
+  if (prefs.read("notifications_on")) {
+    if (prefs.read("notifications_veranstaltungen")) {
       List<Reminder> _reminder = await ReminderManager().getAllReminder();
       await notificationPlugin.scheduledNotification(
         id: _reminder.length,
@@ -187,7 +187,7 @@ void _setNotification(Termin termin) async {
             " statt",
         scheduleNotificationsDateTime:
             DateTime.now().add(Duration(days: 1, seconds: 5)),
-        scheduleoffest: Duration(days: prefs.getInt("schedule_offset")),
+        scheduleoffest: Duration(days: prefs.read("schedule_offset")),
         payload: "2",
         channelDescription: CHANNEL_DESCRIPTION,
         channelId: CHANNEL_ID,

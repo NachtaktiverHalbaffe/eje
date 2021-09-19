@@ -11,8 +11,8 @@ import 'package:eje/pages/termine/presentation/widgets/termineDetail.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class TerminCard extends StatelessWidget {
   final Termin termin;
@@ -177,7 +177,7 @@ class TerminCard extends StatelessWidget {
   }
 
   void _setNotification() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final prefs = GetStorage();
     await ReminderManager().setReminder(
       Reminder(
           kategorie: "Termin",
@@ -187,8 +187,8 @@ class TerminCard extends StatelessWidget {
               "Erinnerung: " + termin.veranstaltung + " findet morgen statt "),
     );
     // Notification schedulen
-    if (prefs.getBool("notifications_on")) {
-      if (prefs.getBool("notifications_veranstaltungen")) {
+    if (prefs.read("notifications_on")) {
+      if (prefs.read("notifications_veranstaltungen")) {
         List<Reminder> _reminder = await ReminderManager().getAllReminder();
         await notificationPlugin.scheduledNotification(
           id: _reminder.length,
@@ -200,7 +200,7 @@ class TerminCard extends StatelessWidget {
               " statt",
           scheduleNotificationsDateTime:
               DateTime.now().add(Duration(days: 1, seconds: 5)),
-          scheduleoffest: Duration(days: prefs.getInt("schedule_offset")),
+          scheduleoffest: Duration(days: prefs.read("schedule_offset")),
           payload: "2",
           channelDescription: CHANNEL_DESCRIPTION,
           channelId: CHANNEL_ID,

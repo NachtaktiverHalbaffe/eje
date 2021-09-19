@@ -339,9 +339,7 @@ class WebScraper {
                           .trimLeft()
                           .trimRight();
                     } else if (element.text != "") {
-                      vorstellung = vorstellung +
-                          element.text.trimLeft().trimRight() +
-                          "\n";
+                      vorstellung = vorstellung + element.text.trim() + "\n\n";
                     }
                   }
                 });

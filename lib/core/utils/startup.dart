@@ -12,29 +12,30 @@ import 'package:eje/pages/freizeiten/domain/entities/Freizeit.dart';
 import 'package:eje/pages/neuigkeiten/domain/entitys/neuigkeit.dart';
 import 'package:eje/pages/termine/domain/entities/Ort.dart';
 import 'package:eje/pages/termine/domain/entities/Termin.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart' as path_provider;
-import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:io' show Platform;
 import 'injection_container.dart' as di;
 
 Future<void> startup() async {
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  if (prefs.getBool("First_Startup") == null) {
+  await GetStorage.init();
+  final prefs = GetStorage();
+  if (prefs.read("First_Startup") == null) {
     print("First startup. Setting default Preferences");
-    prefs.setBool("First_Startup", true);
-    prefs.setBool("nightmode_auto", true);
-    prefs.setBool("nightmode_on", false);
-    prefs.setBool("nightmode_off", false);
-    prefs.setBool("notifications_on", true);
-    prefs.setBool("notifications_neuigkeiten", false);
-    prefs.setBool("notifications_freizeiten", true);
-    prefs.setBool("notifications_veranstaltungen", true);
-    prefs.setBool("only_wifi", false);
-    prefs.setBool("cache_pictures", true);
-    prefs.setStringList("cached_neuigkeiten", [""]);
-    prefs.setStringList("cached_freizeiten", [""]);
-    prefs.setInt("schedule_offset", 0);
+    prefs.write('First_Startup', true);
+    prefs.write('nightmode_auto', true);
+    prefs.write('nightmode_on', false);
+    prefs.write('nightmode_off', false);
+    prefs.write('notifications_on', true);
+    prefs.write('notifications_neuigkeiten', true);
+    prefs.write("notifications_veranstaltungen", true);
+    prefs.write('notifications_freizeiten', true);
+    prefs.write('only_wifi', false);
+    prefs.write('cache_pictures', true);
+    prefs.write('cached_neuigkeiten', [""]);
+    prefs.write('cached_freizeiten', [""]);
+    prefs.write('schedule_offset', 0);
   }
   //Setting Hive up
   final appDocumentDirectory =

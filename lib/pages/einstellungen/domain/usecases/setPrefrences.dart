@@ -3,16 +3,16 @@ import 'package:eje/core/error/failures.dart';
 import 'package:eje/core/usecases/usecase.dart';
 import 'package:eje/pages/einstellungen/domain/repositories/einstellungen_repository.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:meta/meta.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
-class SetPreferences implements UseCase<SharedPreferences> {
+class SetPreferences implements UseCase<GetStorage> {
   final EinstellungenRepository repository;
 
   SetPreferences(this.repository);
 
   @override
-  Future<Either<Failure, SharedPreferences>> call({
+  Future<Either<Failure, GetStorage>> call({
     @required String preference,
     @required bool state,
   }) async {

@@ -178,6 +178,12 @@ class DetailsPage extends StatelessWidget {
                     right: 14,
                   ),
                   child: MarkdownBody(
+                    styleSheet: MarkdownStyleSheet(
+                      textAlign: WrapAlignment.spaceEvenly,
+                      h1Align: WrapAlignment.start,
+                      h2Align: WrapAlignment.start,
+                      h3Align: WrapAlignment.start,
+                    ),
                     shrinkWrap: true,
                     data: text,
                     onTapLink: (text, url, title) {

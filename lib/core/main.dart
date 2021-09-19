@@ -1,6 +1,5 @@
 import 'package:eje/core/utils/BackgroundServicesManager.dart';
 import 'package:eje/core/utils/notificationplugin.dart';
-import 'package:eje/core/widgets/LoadingIndicator.dart';
 import 'package:eje/core/widgets/bloc/main_bloc.dart';
 import 'package:eje/core/widgets/bloc/main_state.dart';
 import 'package:eje/core/widgets/costum_icons_icons.dart';
@@ -12,10 +11,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:hive/hive.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import '../pages/neuigkeiten/neuigkeiten.dart';
 import 'utils/startup.dart';
 
@@ -167,58 +166,49 @@ class _MyHomePageState extends State<MyHomePage> {
 Widget _MaterialApp(BuildContext context, int initialIndex) {
   final ThemeData themeLight = ThemeData.light();
   final ThemeData themeDark = ThemeData.dark();
-  return FutureBuilder<SharedPreferences>(
-    future: SharedPreferences.getInstance(),
-    initialData: null,
-    builder: (BuildContext context, AsyncSnapshot<SharedPreferences> snapshot) {
-      return snapshot.hasData
-          ? MaterialApp(
-              title: 'EJW Esslingen',
-              home: MyHomePage(
-                title: 'EJW Esslingen',
-                initialIndex: initialIndex,
-              ),
-              theme: themeLight.copyWith(
-                colorScheme: themeLight.colorScheme.copyWith(
-                  // Firmenfarbe
-                  secondary: Color(0xFFCD2E32),
-                  background: Colors.white,
-                  surface: Color(0xFFdedede),
-                ),
-                // Text colors
-                textSelectionTheme: themeLight.textSelectionTheme.copyWith(
-                  selectionColor: Theme.of(context).colorScheme.secondary,
-                ),
-                primaryTextTheme:
-                    Typography.material2018(platform: TargetPlatform.android)
-                        .black,
-                textTheme:
-                    Typography.material2018(platform: TargetPlatform.android)
-                        .black,
-                //Iconcolors und Widgetcolors
-                primaryIconTheme: IconThemeData(color: Colors.black),
-                dividerColor: Colors.black,
-              ),
-              darkTheme: themeDark.copyWith(
-                colorScheme: themeDark.colorScheme.copyWith(
-                  // Firmenfarbe
-                  secondary: Color(0xFFCD2E32),
-                  background: Colors.black,
-                ),
-                // Text colors
-                textSelectionTheme: themeLight.textSelectionTheme.copyWith(
-                  selectionColor: Theme.of(context).colorScheme.secondary,
-                ),
-                //Iconcolors und Widgetcolors
-                dividerColor: Colors.white,
-              ),
-              themeMode: snapshot.data.getBool("nightmode_auto")
-                  ? ThemeMode.system
-                  : snapshot.data.getBool("nightmode_on")
-                      ? ThemeMode.dark
-                      : ThemeMode.light,
-            )
-          : LoadingIndicator();
-    },
+  final prefs = GetStorage();
+  return MaterialApp(
+    title: 'EJW Esslingen',
+    home: MyHomePage(
+      title: 'EJW Esslingen',
+      initialIndex: initialIndex,
+    ),
+    theme: themeLight.copyWith(
+      colorScheme: themeLight.colorScheme.copyWith(
+        // Firmenfarbe
+        secondary: Color(0xFFCD2E32),
+        background: Colors.white,
+        surface: Color(0xFFdedede),
+      ),
+      // Text colors
+      textSelectionTheme: themeLight.textSelectionTheme.copyWith(
+        selectionColor: Theme.of(context).colorScheme.secondary,
+      ),
+      primaryTextTheme:
+          Typography.material2018(platform: TargetPlatform.android).black,
+      textTheme:
+          Typography.material2018(platform: TargetPlatform.android).black,
+      //Iconcolors und Widgetcolors
+      primaryIconTheme: IconThemeData(color: Colors.black),
+      dividerColor: Colors.black,
+    ),
+    darkTheme: themeDark.copyWith(
+      colorScheme: themeDark.colorScheme.copyWith(
+        // Firmenfarbe
+        secondary: Color(0xFFCD2E32),
+        background: Colors.black,
+      ),
+      // Text colors
+      textSelectionTheme: themeLight.textSelectionTheme.copyWith(
+        selectionColor: Theme.of(context).colorScheme.secondary,
+      ),
+      //Iconcolors und Widgetcolors
+      dividerColor: Colors.white,
+    ),
+    themeMode: prefs.read("nightmode_auto")
+        ? ThemeMode.system
+        : prefs.read("nightmode_on")
+            ? ThemeMode.dark
+            : ThemeMode.light,
   );
 }
