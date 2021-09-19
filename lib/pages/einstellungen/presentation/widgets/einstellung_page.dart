@@ -31,12 +31,14 @@ class EinstellungenPage extends StatelessWidget {
             groupValue: _groupID,
             onChanged: (val) async {
               print("Setting Nightmode to auto");
-              val == "nightmode_auto"
-                  ? BlocProvider.of<EinstellungBloc>(context)
-                      .add(StoringPreferences("nightmode_auto", true))
-                  : BlocProvider.of<EinstellungBloc>(context)
-                      .add(StoringPreferences("nightmode_auto", false));
-              BlocProvider.of<MainBloc>(context).add(ChangingThemeToLight());
+              if (val == "nightmode_auto") {
+                BlocProvider.of<EinstellungBloc>(context)
+                    .add(StoringPreferences("nightmode_auto", true));
+                BlocProvider.of<MainBloc>(context).add(ChangingThemeToAuto());
+              } else {
+                BlocProvider.of<EinstellungBloc>(context)
+                    .add(StoringPreferences("nightmode_auto", false));
+              }
             },
             title: Text(
               "Erscheinungsbild automatisch wählen",
@@ -52,12 +54,14 @@ class EinstellungenPage extends StatelessWidget {
             groupValue: _groupID,
             onChanged: (val) async {
               print("Setting Nightmode to off");
-              val == "nightmode_off"
-                  ? BlocProvider.of<EinstellungBloc>(context)
-                      .add(StoringPreferences("nightmode_off", true))
-                  : BlocProvider.of<EinstellungBloc>(context)
-                      .add(StoringPreferences("nightmode_off", false));
-              BlocProvider.of<MainBloc>(context).add(ChangingThemeToLight());
+              if (val == "nightmode_off") {
+                BlocProvider.of<EinstellungBloc>(context)
+                    .add(StoringPreferences("nightmode_off", true));
+                BlocProvider.of<MainBloc>(context).add(ChangingThemeToLight());
+              } else {
+                BlocProvider.of<EinstellungBloc>(context)
+                    .add(StoringPreferences("nightmode_off", false));
+              }
             },
             title: Text(
               "Helles Erscheinungsbild",
@@ -73,12 +77,14 @@ class EinstellungenPage extends StatelessWidget {
             groupValue: _groupID,
             onChanged: (val) async {
               print("Setting Nightmode to on");
-              val == "nightmode_on"
-                  ? BlocProvider.of<EinstellungBloc>(context)
-                      .add(StoringPreferences("nightmode_on", true))
-                  : BlocProvider.of<EinstellungBloc>(context)
-                      .add(StoringPreferences("nightmode_on", false));
-              BlocProvider.of<MainBloc>(context).add(ChangingThemeToAuto());
+              if (val == "nightmode_on") {
+                BlocProvider.of<EinstellungBloc>(context)
+                    .add(StoringPreferences("nightmode_on", true));
+                BlocProvider.of<MainBloc>(context).add(ChangingThemeToDark());
+              } else {
+                BlocProvider.of<EinstellungBloc>(context)
+                    .add(StoringPreferences("nightmode_on", false));
+              }
             },
             title: Text(
               "Dunkles Erscheinungsbild",

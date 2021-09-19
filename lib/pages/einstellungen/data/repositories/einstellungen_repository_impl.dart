@@ -26,17 +26,23 @@ class EinstellungenRepositoryImpl implements EinstellungenRepository {
     final prefs = GetStorage();
     prefs.write(preference, state);
     if (preference == "nightmode_auto") {
-      prefs.write("nightmode_on", false);
-      prefs.write("nightmode_off", false);
-      ThemeMode.system;
+      if (state == true) {
+        prefs.write("nightmode_on", false);
+        prefs.write("nightmode_off", false);
+        ThemeMode.system;
+      }
     } else if (preference == "nightmode_off") {
-      prefs.write("nightmode_on", false);
-      prefs.write("nightmode_auto", false);
-      ThemeMode.light;
+      if (state == true) {
+        prefs.write("nightmode_on", false);
+        prefs.write("nightmode_auto", false);
+        ThemeMode.light;
+      }
     } else if (preference == "nightmode_on") {
-      prefs.write("nightmode_off", false);
-      prefs.write("nightmode_auto", false);
-      ThemeMode.dark;
+      if (state == true) {
+        prefs.write("nightmode_off", false);
+        prefs.write("nightmode_auto", false);
+        ThemeMode.dark;
+      }
     }
     return Right(prefs);
   }

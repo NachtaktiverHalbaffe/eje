@@ -145,6 +145,18 @@ class _MyHomePageState extends State<MyHomePage> {
         duration: Duration(milliseconds: 200),
       ),
       decoration: NavBarDecoration(
+        boxShadow: GetStorage().read("nightmode_off") == true ||
+                (GetStorage().read("nightmode_auto") == true &&
+                    MediaQuery.of(context).platformBrightness ==
+                        Brightness.light)
+            ? [
+                BoxShadow(
+                  color: Colors.black,
+                  blurRadius: 10,
+                  spreadRadius: 0,
+                ),
+              ]
+            : [],
         borderRadius: BorderRadius.circular(10.0),
         colorBehindNavBar: Theme.of(context).colorScheme.background,
       ),
@@ -178,7 +190,6 @@ Widget _MaterialApp(BuildContext context, int initialIndex) {
         // Firmenfarbe
         secondary: Color(0xFFCD2E32),
         background: Colors.white,
-        surface: Color(0xFFdedede),
       ),
       // Text colors
       textSelectionTheme: themeLight.textSelectionTheme.copyWith(
