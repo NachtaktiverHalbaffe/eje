@@ -11,17 +11,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class FreizeitDetails extends StatefulWidget {
+class FreizeitDetails extends StatelessWidget {
   final Freizeit freizeit;
   FreizeitDetails(this.freizeit);
-
-  @override
-  _FreizeitDetailsState createState() => _FreizeitDetailsState(freizeit);
-}
-
-class _FreizeitDetailsState extends State<FreizeitDetails> {
-  final Freizeit freizeit;
-  _FreizeitDetailsState(this.freizeit);
 
   @override
   Widget build(BuildContext context) {
@@ -36,22 +28,25 @@ class _FreizeitDetailsState extends State<FreizeitDetails> {
           );
         }
       }, builder: (context, state) {
-        if (state is Loading) {
+        if (state is Empty) {
+          print("Build page CampDetail: Empty");
           BlocProvider.of<FreizeitenBloc>(context)
               .add(GettingFreizeit(freizeit));
           return LoadingIndicator();
+        } else if (state is Loading) {
+          print("Build page CampDetail: Loading");
+          return LoadingIndicator();
         } else if (state is LoadedFreizeit) {
+          print("Build page CampDetail: LoadedCamp");
           return FreizeitDetailsCard(freizeit: state.freizeit);
-        } else
+        } else {
+          print("Build page CampDetail: Undefined");
+          BlocProvider.of<FreizeitenBloc>(context)
+              .add(GettingFreizeit(freizeit));
           return Container();
+        }
       }),
     );
-  }
-
-  @override
-  void didChangeDependencies() {
-    BlocProvider.of<FreizeitenBloc>(context).add(GettingFreizeit(freizeit));
-    super.didChangeDependencies();
   }
 }
 

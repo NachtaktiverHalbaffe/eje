@@ -19,8 +19,10 @@ class GetArbeitsbereich implements UseCase<FieldOfWork> {
     final AppConfig appConfig = await AppConfig.loadConfig();
     final Box _box = await Hive.openBox(appConfig.fieldOfWorkBox);
     final result = await repository.getArbeitsbereich(arbeitsbereich);
-    await _box.compact();
-    await _box.close();
+    if (_box.isOpen) {
+      await _box.compact();
+      // await _box.close();
+    }
     return result;
   }
 }

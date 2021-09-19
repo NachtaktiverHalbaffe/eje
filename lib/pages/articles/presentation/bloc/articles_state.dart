@@ -13,9 +13,8 @@ class Empty extends ArticlesState {
 }
 
 class Loading extends ArticlesState {
-  String url;
   @override
-  List<Object> get props => [url];
+  List<Object> get props => [];
 }
 
 class ReloadedArticle extends ArticlesState {

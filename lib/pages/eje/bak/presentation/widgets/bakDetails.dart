@@ -10,19 +10,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class BAKDetails extends StatefulWidget {
+class BAKDetails extends StatelessWidget {
   final BAKler bakler;
-
   BAKDetails(this.bakler);
-
-  @override
-  _BAKDetailsState createState() => _BAKDetailsState(bakler);
-}
-
-class _BAKDetailsState extends State<BAKDetails> {
-  final BAKler bakler;
-
-  _BAKDetailsState(this.bakler);
 
   @override
   Widget build(BuildContext context) {
@@ -36,20 +26,23 @@ class _BAKDetailsState extends State<BAKDetails> {
           );
         }
       }, builder: (context, state) {
-        if (state is Loading) {
+        if (state is Empty) {
+          BlocProvider.of<BakBloc>(context).add(GettingBAKler(bakler.name));
+          print("Build page bak: Empty");
+          return LoadingIndicator();
+        } else if (state is Loading) {
+          print("Build page bak: Loading");
           return LoadingIndicator();
         } else if (state is LoadedBAKler) {
+          print("Build page bak: LoadedBAKler");
           return HauptamtlicheDetailsCard(bakler: state.bakler);
-        } else
+        } else {
+          print("Build page bak: Undefined state");
+          BlocProvider.of<BakBloc>(context).add(GettingBAKler(bakler.name));
           return Container();
+        }
       }),
     );
-  }
-
-  @override
-  void didChangeDependencies() {
-    BlocProvider.of<BakBloc>(context).add(GettingBAKler(bakler.name));
-    super.didChangeDependencies();
   }
 }
 

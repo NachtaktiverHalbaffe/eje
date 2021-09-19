@@ -40,16 +40,23 @@ class ServicesBloc extends Bloc<ServicesEvent, ServicesState> {
           return Error(message: _mapFailureToMessage(failure));
         },
         (services) {
-          print("Succes. Returning LoadedServices");
+          print("Success. Returning LoadedServices");
           return LoadedServices(services);
         },
       );
     } else if (event is GettingService) {
+      print("Triggered Event: GettingService");
       yield Loading();
       final serviceOrFailure = await getService(service: event.service);
       yield serviceOrFailure.fold(
-        (failure) => Error(message: _mapFailureToMessage(failure)),
-        (service) => LoadedService(service),
+        (failure) {
+          print("Error while getting service");
+          return Error(message: _mapFailureToMessage(failure));
+        },
+        (service) {
+          print("Success. Returning LoadedService");
+          return LoadedService(service);
+        },
       );
     }
   }

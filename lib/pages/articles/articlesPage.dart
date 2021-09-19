@@ -7,26 +7,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'domain/entity/Article.dart';
 import 'presentation/bloc/articles_bloc.dart';
 
-class ArticlesPage extends StatefulWidget {
+class ArticlesPage extends StatelessWidget {
   final String url;
-
   const ArticlesPage({this.url});
-
-  @override
-  State<StatefulWidget> createState() => _articleBloc(url: url);
-}
-
-// ignore: camel_case_types
-class _articleBloc extends State<ArticlesPage> {
-  final String url;
-
-  _articleBloc({this.url});
-
-  @override
-  void didChangeDependencies() {
-    BlocProvider.of<ArticlesBloc>(context).add(RefreshArticle(url));
-    super.didChangeDependencies();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,45 +30,55 @@ class _articleBloc extends State<ArticlesPage> {
           if (state is Empty) {
             print("Build Page Articles: Empty");
             BlocProvider.of<ArticlesBloc>(context).add(GettingArticle(url));
-            return Center();
+            return LoadingIndicator();
           } else if (state is Loading) {
             print("Build Page Articles: Loading");
             return LoadingIndicator();
           } else if (state is LoadedArticle) {
             print("Build Page Articles: Loaded");
-            return _articlePage(state.article, context);
+            return ArticlePage(state.article);
           } else if (state is ReloadedArticle) {
             print("Build Page Articles: Reloaded");
-            return _articlePage(state.article, context);
+            return ArticlePage(state.article);
           } else if (state is FollowedHyperlink) {
             print("Build Page Articles: FollowedHyperlink");
-            return _articlePage(state.article, context);
-          } else
-            return Center();
+            return ArticlePage(state.article);
+          } else {
+            print("Build Page Articles: Undefined");
+            BlocProvider.of<ArticlesBloc>(context).add(RefreshArticle(url));
+            return LoadingIndicator();
+          }
         },
       ),
     );
   }
 }
 
-Widget _articlePage(Article article, BuildContext context) {
-  return Scaffold(
-    backgroundColor: Theme.of(context).colorScheme.surface,
-    body: RefreshIndicator(
-      color: Theme.of(context).colorScheme.secondary,
-      child: DetailsPage(
-        titel: article.titel,
-        untertitel: "",
-        text: article.content,
-        bilder: article.bilder,
-        hyperlinks: article.hyperlinks,
-        childWidget: SizedBox(
-          height: 1 / MediaQuery.of(context).devicePixelRatio,
+class ArticlePage extends StatelessWidget {
+  final Article article;
+  ArticlePage(this.article);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.surface,
+      body: RefreshIndicator(
+        color: Theme.of(context).colorScheme.secondary,
+        child: DetailsPage(
+          titel: article.titel,
+          untertitel: "",
+          text: article.content,
+          bilder: article.bilder,
+          hyperlinks: article.hyperlinks,
+          childWidget: SizedBox(
+            height: 1 / MediaQuery.of(context).devicePixelRatio,
+          ),
         ),
+        onRefresh: () async {
+          BlocProvider.of<ArticlesBloc>(context)
+              .add(RefreshArticle(article.url));
+        },
       ),
-      onRefresh: () async {
-        BlocProvider.of<ArticlesBloc>(context).add(RefreshArticle(article.url));
-      },
-    ),
-  );
+    );
+  }
 }

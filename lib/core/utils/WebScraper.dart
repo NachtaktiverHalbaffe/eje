@@ -687,7 +687,6 @@ List<Hyperlink> _parseHyperlinks(document, DOMAIN) {
   List<Hyperlink> hyperlinks = new List.empty(growable: true);
   // ! Hyperlinks parsen
   //check if hyperlinks are in a seperate special section
-  print("Parsing Hyperlinks");
   if (document.getElementsByClassName('row h-bulldozer default').isNotEmpty) {
     if (document
         .getElementsByClassName('row h-bulldozer default')[0]

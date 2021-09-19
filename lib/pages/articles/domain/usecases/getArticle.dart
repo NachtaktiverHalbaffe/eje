@@ -19,8 +19,10 @@ class GetArticle implements UseCase<Article> {
     final AppConfig appConfig = await AppConfig.loadConfig();
     final Box _box = await Hive.openBox(appConfig.articlesBox);
     final result = await repository.getArticle(url);
-    await _box.compact();
-    // await _box.close();
+    if (_box.isOpen) {
+      await _box.compact();
+      // await _box.close();
+    }
     return result;
   }
 }

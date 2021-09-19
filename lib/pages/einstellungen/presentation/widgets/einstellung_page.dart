@@ -215,7 +215,7 @@ class EinstellungenPage extends StatelessWidget {
                     bottom: 24,
                     top: 10,
                   ),
-                  child: OutlineButton(
+                  child: OutlinedButton(
                     onPressed: () {
                       showAboutDialog(
                         context: context,
@@ -264,9 +264,6 @@ class EinstellungenPage extends StatelessWidget {
                     child: Text(
                       "Über",
                     ),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(
-                            36 / MediaQuery.of(context).devicePixelRatio)),
                   ),
                 ),
               ],

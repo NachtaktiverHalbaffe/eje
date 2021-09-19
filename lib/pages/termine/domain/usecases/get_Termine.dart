@@ -17,8 +17,10 @@ class GetTermine implements UseCase<List<Termin>> {
     final AppConfig appConfig = await AppConfig.loadConfig();
     final Box _box = await Hive.openBox(appConfig.eventsBox);
     final result = await repository.getTermine();
-    await _box.compact();
-    await _box.close();
+    if (_box.isOpen) {
+      await _box.compact();
+      await _box.close();
+    }
     return result;
   }
 }

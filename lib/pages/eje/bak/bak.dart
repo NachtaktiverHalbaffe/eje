@@ -1,4 +1,3 @@
-import 'package:eje/core/utils/injection_container.dart';
 import 'package:eje/core/widgets/LoadingIndicator.dart';
 import 'package:eje/pages/eje/bak/presentation/bloc/bak_bloc.dart';
 import 'package:eje/pages/eje/bak/presentation/bloc/bak_event.dart';
@@ -30,34 +29,31 @@ class BAK extends StatelessWidget {
         SizedBox(
           height: 12,
         ),
-        BlocProvider(
-          create: (_) => sl<BakBloc>(),
-          child: BlocConsumer<BakBloc, BakState>(
-            listener: (context, state) {
-              if (state is Error) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text(state.message),
-                  ),
-                );
-              }
-            },
-            // ignore: missing_return
-            builder: (context, state) {
-              if (state is Empty) {
-                print("Build page: BAK Empty");
-                BlocProvider.of<BakBloc>(context).add(RefreshBAK());
-                return LoadingIndicator();
-              }
-              if (state is Loading) {
-                print("Build page: Bak Loading");
-                return LoadingIndicator();
-              } else if (state is LoadedBAK) {
-                print("Build page: LoadedBak");
-                return BAKPageViewer(bakler: state.bak);
-              }
-            },
-          ),
+        BlocConsumer<BakBloc, BakState>(
+          listener: (context, state) {
+            if (state is Error) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(state.message),
+                ),
+              );
+            }
+          },
+          builder: (context, state) {
+            if (state is Empty) {
+              print("Build page: BAK Empty");
+              BlocProvider.of<BakBloc>(context).add(RefreshBAK());
+              return LoadingIndicator();
+            }
+            if (state is Loading) {
+              print("Build page: Bak Loading");
+              return LoadingIndicator();
+            } else if (state is LoadedBAK) {
+              print("Build page: LoadedBak");
+              return BAKPageViewer(bakler: state.bak);
+            } else
+              return LoadingIndicator();
+          },
         ),
         SizedBox(
           height: 12,

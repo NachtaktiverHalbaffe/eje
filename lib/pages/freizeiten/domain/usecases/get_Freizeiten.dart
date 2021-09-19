@@ -18,8 +18,10 @@ class GetFreizeiten implements UseCase<List<Freizeit>> {
     final AppConfig appConfig = await AppConfig.loadConfig();
     final Box _box = await Hive.openBox(appConfig.campsBox);
     final result = await repository.getFreizeiten();
-    await _box.compact();
-    await _box.close();
+    if (_box.isOpen) {
+      await _box.compact();
+      // await _box.close();
+    }
     return result;
   }
 }

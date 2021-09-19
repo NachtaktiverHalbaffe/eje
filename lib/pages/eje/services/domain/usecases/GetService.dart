@@ -19,8 +19,10 @@ class GetService implements UseCase<Service> {
     final AppConfig appConfig = await AppConfig.loadConfig();
     final Box _box = await Hive.openBox(appConfig.servicesBox);
     final result = await repository.getService(service);
-    await _box.compact();
-    await _box.close();
+    if (_box.isOpen) {
+      await _box.compact();
+      // await _box.close();
+    }
     return result;
   }
 }

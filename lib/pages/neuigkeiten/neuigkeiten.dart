@@ -11,6 +11,7 @@ class Neuigkeiten extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (_) => sl<NeuigkeitenBlocBloc>(),
+      lazy: false,
       child: BlocConsumer<NeuigkeitenBlocBloc, NeuigkeitenBlocState>(
         listener: (context, state) {
           if (state is Error) {
@@ -24,7 +25,7 @@ class Neuigkeiten extends StatelessWidget {
         },
         builder: (context, state) {
           if (state is Empty) {
-            print("Build Page: Empty");
+            print("Build Page Neuigkeiten: Empty");
             BlocProvider.of<NeuigkeitenBlocBloc>(context)
                 .add(RefreshNeuigkeiten());
             return Center();
@@ -32,7 +33,7 @@ class Neuigkeiten extends StatelessWidget {
             print("Build Page Neuigkeiten: Loading");
             return LoadingIndicator();
           } else if (state is Loaded) {
-            print("Build Page: Loaded");
+            print("Build Page Neuigkeiten: Loaded");
             return NeuigkeitenListView(state.neuigkeit.toList());
           } else
             return Center();
@@ -73,6 +74,11 @@ Widget _buildNeuigkeitenList(BuildContext context, _neuigkeiten) {
       child: ListView.builder(
         physics: ScrollPhysics(
           parent: RangeMaintainingScrollPhysics(),
+        ),
+        // Padding to avoid cards being cut off
+        padding: EdgeInsets.only(
+          bottom: 20,
+          top: 40,
         ),
         itemCount: _neuigkeiten.length,
         itemBuilder: (context, index) {

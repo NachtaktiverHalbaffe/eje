@@ -20,8 +20,10 @@ class GetBAKler implements UseCase<BAKler> {
     final AppConfig appConfig = await AppConfig.loadConfig();
     final Box _box = await Hive.openBox(appConfig.bakBox);
     final result = await repository.getBAKler(name);
-    await _box.compact();
-    await _box.close();
+    if (_box.isOpen) {
+      await _box.compact();
+      // await _box.close();
+    }
     return result;
   }
 }

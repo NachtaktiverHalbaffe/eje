@@ -1,4 +1,3 @@
-import 'package:eje/core/utils/injection_container.dart';
 import 'package:eje/core/widgets/LoadingIndicator.dart';
 import 'package:eje/pages/eje/hauptamtlichen/presentation/bloc/bloc.dart';
 import 'package:eje/pages/eje/hauptamtlichen/presentation/bloc/hauptamtliche_bloc.dart';
@@ -31,35 +30,32 @@ class Hauptamtliche extends StatelessWidget {
         SizedBox(
           height: 12,
         ),
-        BlocProvider(
-          create: (_) => sl<HauptamtlicheBloc>(),
-          child: BlocConsumer<HauptamtlicheBloc, HauptamtlicheState>(
-            listener: (context, state) {
-              if (state is Error) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text(state.message),
-                  ),
-                );
-              }
-            },
-            // ignore: missing_return
-            builder: (context, state) {
-              if (state is Empty) {
-                print("Build page: Hauptamtliche Empty");
-                BlocProvider.of<HauptamtlicheBloc>(context)
-                    .add(RefreshHauptamtliche());
-                return LoadingIndicator();
-              }
-              if (state is Loading) {
-                print("Build page: Hauptamtliche Loading");
-                return LoadingIndicator();
-              } else if (state is LoadedHauptamtliche) {
-                print("Build page: LoadedHauptamtliche");
-                return HauptamtlichePageViewer(state.hauptamtliche);
-              }
-            },
-          ),
+        BlocConsumer<HauptamtlicheBloc, HauptamtlicheState>(
+          listener: (context, state) {
+            if (state is Error) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(state.message),
+                ),
+              );
+            }
+          },
+          builder: (context, state) {
+            if (state is Empty) {
+              print("Build page: Hauptamtliche Empty");
+              BlocProvider.of<HauptamtlicheBloc>(context)
+                  .add(RefreshHauptamtliche());
+              return LoadingIndicator();
+            }
+            if (state is Loading) {
+              print("Build page: Hauptamtliche Loading");
+              return LoadingIndicator();
+            } else if (state is LoadedHauptamtliche) {
+              print("Build page: LoadedHauptamtliche");
+              return HauptamtlichePageViewer(state.hauptamtliche);
+            } else
+              return LoadingIndicator();
+          },
         ),
         SizedBox(
           height: 12,

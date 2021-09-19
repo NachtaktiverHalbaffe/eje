@@ -20,10 +20,14 @@ class GetNeuigkeit implements UseCase<Article> {
     final Box _box = await Hive.openBox(appConfig.newsBox);
     final Box _box2 = await Hive.openBox(appConfig.articlesBox);
     final result = await repository.getNeuigkeit(titel);
-    await _box.compact();
-    await _box.close();
-    await _box2.compact();
-    await _box2.close();
+    if (_box.isOpen) {
+      await _box.compact();
+      // await _box.close();
+    }
+    if (_box2.isOpen) {
+      await _box2.compact();
+      // await _box2.close();
+    }
     return result;
   }
 }

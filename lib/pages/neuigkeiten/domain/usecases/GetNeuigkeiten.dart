@@ -17,8 +17,10 @@ class GetNeuigkeiten implements UseCase<List<Neuigkeit>> {
     final AppConfig appConfig = await AppConfig.loadConfig();
     final Box _box = await Hive.openBox(appConfig.newsBox);
     final result = await repository.getNeuigkeiten();
-    await _box.compact();
-    await _box.close();
+    if (_box.isOpen) {
+      await _box.compact();
+      await _box.close();
+    }
     return result;
   }
 }

@@ -17,46 +17,45 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class TerminDetails extends StatefulWidget {
+class TerminDetails extends StatelessWidget {
   final Termin termin;
   TerminDetails(this.termin);
 
   @override
-  _TerminDetailsState createState() => _TerminDetailsState(termin);
-}
-
-class _TerminDetailsState extends State<TerminDetails> {
-  final Termin termin;
-  _TerminDetailsState(this.termin);
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BlocConsumer<TermineBloc, TermineState>(listener: (context, state) {
-        if (state is Error) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(state.message),
-            ),
-          );
-        }
-      },
-          // ignore: missing_return
-          builder: (context, state) {
-        if (state is Loading) {
-          return LoadingIndicator();
-        } else if (state is LoadedTermin) {
-          return TerminDetailsCard(state.termin);
-        }
-      }),
+      body: BlocConsumer<TermineBloc, TermineState>(
+        listener: (context, state) {
+          if (state is Error) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(state.message),
+              ),
+            );
+          }
+        },
+        // ignore: missing_return
+        builder: (context, state) {
+          if (state is Empty) {
+            print("Build page EventDetail: Empty");
+            BlocProvider.of<TermineBloc>(context)
+                .add(GettingTermin(termin.veranstaltung, termin.datum));
+            return LoadingIndicator();
+          } else if (state is Loading) {
+            print("Build page EventDetail: Loading");
+            return LoadingIndicator();
+          } else if (state is LoadedTermin) {
+            print("Build page EventDetail: LoadedEvent");
+            return TerminDetailsCard(state.termin);
+          } else {
+            print("Build page EventDetail: Undefined");
+            BlocProvider.of<TermineBloc>(context)
+                .add(GettingTermin(termin.veranstaltung, termin.datum));
+            return LoadingIndicator();
+          }
+        },
+      ),
     );
-  }
-
-  @override
-  void didChangeDependencies() {
-    BlocProvider.of<TermineBloc>(context)
-        .add(GettingTermin(termin.veranstaltung, termin.datum));
-    super.didChangeDependencies();
   }
 }
 
@@ -140,8 +139,7 @@ class _terminChildWidget extends StatelessWidget {
         ),
         Container(
           margin: EdgeInsets.all(8),
-          child: OutlineButton(
-            color: Theme.of(context).dividerColor,
+          child: OutlinedButton(
             onPressed: () async {
               _setNotification(_termin);
             },
@@ -151,8 +149,6 @@ class _terminChildWidget extends StatelessWidget {
                 color: Theme.of(context).dividerColor,
               ),
             ),
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
           ),
         ),
         SizedBox(

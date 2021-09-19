@@ -1,4 +1,3 @@
-import 'package:eje/core/utils/injection_container.dart';
 import 'package:eje/core/widgets/LoadingIndicator.dart';
 import 'package:eje/pages/eje/arbeitsfelder/presentation/bloc/arbeitsbereiche_bloc.dart';
 import 'package:eje/pages/eje/arbeitsfelder/presentation/bloc/arbeitsbereiche_event.dart';
@@ -30,36 +29,33 @@ class Arbeitsbereiche extends StatelessWidget {
         SizedBox(
           height: 12,
         ),
-        BlocProvider(
-          create: (_) => sl<ArbeitsbereicheBloc>(),
-          child: BlocConsumer<ArbeitsbereicheBloc, ArbeitsbereicheState>(
-            listener: (context, state) {
-              if (state is Error) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text(state.message),
-                  ),
-                );
-              }
-            },
-            // ignore: missing_return
-            builder: (context, state) {
-              if (state is Empty) {
-                print("Build page: Arbeitsbereiche Empty");
-                BlocProvider.of<ArbeitsbereicheBloc>(context)
-                    .add(RefreshArbeitsbereiche());
-                return LoadingIndicator();
-              }
-              if (state is Loading) {
-                print("Build page: Arbeitsbereiche Loading");
-                return LoadingIndicator();
-              } else if (state is LoadedArbeitsbereiche) {
-                print("Build page: LoadedArbeitsbereiche");
-                return ArbeitsbereichePageViewer(
-                    fieldsOfWork: state.arbeitsbereiche);
-              }
-            },
-          ),
+        BlocConsumer<ArbeitsbereicheBloc, ArbeitsbereicheState>(
+          listener: (context, state) {
+            if (state is Error) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(state.message),
+                ),
+              );
+            }
+          },
+          builder: (context, state) {
+            if (state is Empty) {
+              print("Build page: Arbeitsbereiche Empty");
+              BlocProvider.of<ArbeitsbereicheBloc>(context)
+                  .add(RefreshArbeitsbereiche());
+              return LoadingIndicator();
+            }
+            if (state is Loading) {
+              print("Build page: Arbeitsbereiche Loading");
+              return LoadingIndicator();
+            } else if (state is LoadedArbeitsbereiche) {
+              print("Build page: LoadedArbeitsbereiche");
+              return ArbeitsbereichePageViewer(
+                  fieldsOfWork: state.arbeitsbereiche);
+            } else
+              return LoadingIndicator();
+          },
         ),
       ],
     );

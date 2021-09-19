@@ -20,7 +20,7 @@ class Loading extends HauptamtlicheState {
 }
 
 class LoadedHauptamtliche extends HauptamtlicheState {
-  List<Hauptamtlicher> hauptamtliche;
+  final List<Hauptamtlicher> hauptamtliche;
 
   LoadedHauptamtliche(this.hauptamtliche);
 
@@ -29,7 +29,7 @@ class LoadedHauptamtliche extends HauptamtlicheState {
 }
 
 class LoadedHauptamtlicher extends HauptamtlicheState {
-  Hauptamtlicher hauptamtlicher;
+  final Hauptamtlicher hauptamtlicher;
 
   LoadedHauptamtlicher(this.hauptamtlicher);
 
@@ -38,7 +38,7 @@ class LoadedHauptamtlicher extends HauptamtlicheState {
 }
 
 class Error extends HauptamtlicheState {
-  String message;
+  final String message;
 
   Error({@required this.message});
 

@@ -8,49 +8,44 @@ import 'package:eje/pages/eje/arbeitsfelder/presentation/bloc/arbeitsbereiche_st
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class ArbeitsbereicheDetails extends StatefulWidget {
+class ArbeitsbereicheDetails extends StatelessWidget {
   final FieldOfWork arbeitsbereich;
-
   ArbeitsbereicheDetails(this.arbeitsbereich);
-
-  @override
-  _ArbeitsbereicheDetailsState createState() =>
-      _ArbeitsbereicheDetailsState(arbeitsbereich);
-}
-
-class _ArbeitsbereicheDetailsState extends State<ArbeitsbereicheDetails> {
-  final FieldOfWork arbeitsbereich;
-
-  _ArbeitsbereicheDetailsState(this.arbeitsbereich);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: BlocConsumer<ArbeitsbereicheBloc, ArbeitsbereicheState>(
-          listener: (context, state) {
-        if (state is Error) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(state.message),
-            ),
-          );
-        }
-      }, builder: (context, state) {
-        if (state is Loading) {
-          return LoadingIndicator();
-        } else if (state is LoadedArbeitsbereich) {
-          return HauptamtlicheDetailsCard(state.arbeitsbereich);
-        } else
-          return Container();
-      }),
+        listener: (context, state) {
+          if (state is Error) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(state.message),
+              ),
+            );
+          }
+        },
+        builder: (context, state) {
+          if (state is Empty) {
+            print("Build page FieldOfWork: Empty");
+            BlocProvider.of<ArbeitsbereicheBloc>(context)
+                .add(GettingArbeitsbereich(arbeitsbereich.arbeitsfeld));
+            return LoadingIndicator();
+          } else if (state is Loading) {
+            print("Build page FieldOfWork: Loading");
+            return LoadingIndicator();
+          } else if (state is LoadedArbeitsbereich) {
+            print("Build page FieldOfWork: LoadedFieldOfWork");
+            return HauptamtlicheDetailsCard(state.arbeitsbereich);
+          } else {
+            print("Build page FieldOfWork: Undefined");
+            BlocProvider.of<ArbeitsbereicheBloc>(context)
+                .add(GettingArbeitsbereich(arbeitsbereich.arbeitsfeld));
+            return LoadingIndicator();
+          }
+        },
+      ),
     );
-  }
-
-  @override
-  void didChangeDependencies() {
-    BlocProvider.of<ArbeitsbereicheBloc>(context)
-        .add(GettingArbeitsbereich(arbeitsbereich.arbeitsfeld));
-    super.didChangeDependencies();
   }
 }
 

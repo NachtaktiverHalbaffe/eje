@@ -11,49 +11,44 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class HauptamtlicheDetails extends StatefulWidget {
+class HauptamtlicheDetails extends StatelessWidget {
   final Hauptamtlicher hauptamtlicher;
-
   HauptamtlicheDetails(this.hauptamtlicher);
-
-  @override
-  _HauptamtlicheDetailsState createState() =>
-      _HauptamtlicheDetailsState(hauptamtlicher);
-}
-
-class _HauptamtlicheDetailsState extends State<HauptamtlicheDetails> {
-  final Hauptamtlicher hauptamtlicher;
-
-  _HauptamtlicheDetailsState(this.hauptamtlicher);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: BlocConsumer<HauptamtlicheBloc, HauptamtlicheState>(
-          listener: (context, state) {
-        if (state is Error) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(state.message),
-            ),
-          );
-        }
-      }, builder: (context, state) {
-        if (state is Loading) {
-          return LoadingIndicator();
-        } else if (state is LoadedHauptamtlicher) {
-          return HauptamtlicheDetailsCard(hauptamtlicher: state.hauptamtlicher);
-        } else
-          return Container();
-      }),
+        listener: (context, state) {
+          if (state is Error) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(state.message),
+              ),
+            );
+          }
+        },
+        builder: (context, state) {
+          if (state is Empty) {
+            BlocProvider.of<HauptamtlicheBloc>(context)
+                .add(GettingHauptamtlicher(hauptamtlicher.name));
+            print("Build Page EmployeeDetail: Empty");
+            return LoadingIndicator();
+          }
+          if (state is Loading) {
+            print("Build Page EmployeeDetail: Loading");
+            return LoadingIndicator();
+          } else if (state is LoadedHauptamtlicher) {
+            print("Build Page EmployeeDetail: LoadedEmployee");
+            return HauptamtlicheDetailsCard(
+                hauptamtlicher: state.hauptamtlicher);
+          } else {
+            print("Build Page EmployeeDetail: Undefined");
+            return LoadingIndicator();
+          }
+        },
+      ),
     );
-  }
-
-  @override
-  void didChangeDependencies() {
-    BlocProvider.of<HauptamtlicheBloc>(context)
-        .add(GettingHauptamtlicher(hauptamtlicher.name));
-    super.didChangeDependencies();
   }
 }
 

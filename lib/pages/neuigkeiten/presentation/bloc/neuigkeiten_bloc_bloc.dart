@@ -30,26 +30,27 @@ class NeuigkeitenBlocBloc
   ) async* {
     if (event is RefreshNeuigkeiten) {
       yield Loading();
-      print("Refresh event triggered");
+      print("Neuigkeiten: Refresh event triggered");
       final neuigkeitOrFailure = await getNeuigkeiten();
       yield neuigkeitOrFailure.fold(
         (failure) {
-          print("Refresh Event: Error");
+          print("Refresh Event Neuigkeiten: Error");
           return Error(message: _mapFailureToMessage(failure));
         },
         (neuigkeit) {
-          print("Refresh Event: Success. Return Loaded state");
+          print("Refresh Event Neuigkeiten: Success. Return Loaded state");
           return Loaded(neuigkeit: neuigkeit);
         },
       );
     } else if (event is GetNeuigkeitDetails) {
       yield LoadingDetails();
-      print("get details event triggered");
+      print("Neuigkeiten: get details event triggered");
       final neuigkeitOrFailure = await getNeuigkeit(titel: event.titel);
       yield neuigkeitOrFailure.fold(
         (failure) => Error(message: _mapFailureToMessage(failure)),
         (neuigkeit) {
-          print("GetDetails Event: Success. Return LoadedDetail state");
+          print(
+              "GetDetails Event Neuigkeiten: Success. Return LoadedDetail state");
           return LoadedDetail(article: neuigkeit);
         },
       );

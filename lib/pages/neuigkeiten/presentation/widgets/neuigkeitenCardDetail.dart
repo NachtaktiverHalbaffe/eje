@@ -7,25 +7,9 @@ import 'package:eje/pages/neuigkeiten/presentation/bloc/neuigkeiten_bloc_bloc.da
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class NeuigkeitenCardDetail extends StatefulWidget {
+class NeuigkeitenCardDetail extends StatelessWidget {
   final String title;
   NeuigkeitenCardDetail(this.title);
-
-  @override
-  State<StatefulWidget> createState() => _neuigkeitenCardDetail(title);
-}
-
-// ignore: camel_case_types
-class _neuigkeitenCardDetail extends State<NeuigkeitenCardDetail> {
-  String title;
-  _neuigkeitenCardDetail(this.title);
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    BlocProvider.of<NeuigkeitenBlocBloc>(context)
-        .add(GetNeuigkeitDetails(title));
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,12 +26,19 @@ class _neuigkeitenCardDetail extends State<NeuigkeitenCardDetail> {
         },
         builder: (context, state) {
           if (state is LoadedDetail) {
-            print("Build Page: LoadedDetail");
+            print("Build Page Neuigkeiten: LoadedDetail");
             return NewsCard(article: state.article);
           } else if (state is LoadingDetails) {
             return LoadingIndicator();
-          } else
-            return Center();
+          } else if (state is Empty) {
+            BlocProvider.of<NeuigkeitenBlocBloc>(context)
+              ..add(GetNeuigkeitDetails(title));
+            return LoadingIndicator();
+          } else {
+            BlocProvider.of<NeuigkeitenBlocBloc>(context)
+              ..add(GetNeuigkeitDetails(title));
+            return LoadingIndicator();
+          }
         },
       ),
     );

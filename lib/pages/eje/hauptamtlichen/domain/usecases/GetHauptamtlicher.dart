@@ -20,8 +20,10 @@ class GetHauptamtlicher implements UseCase<Hauptamtlicher> {
     final AppConfig appConfig = await AppConfig.loadConfig();
     final Box _box = await Hive.openBox(appConfig.employeesBox);
     final result = await repository.getHauptamtlicher(name);
-    await _box.compact();
-    await _box.close();
+    if (_box.isOpen) {
+      await _box.compact();
+      // await _box.close();
+    }
     return result;
   }
 }
