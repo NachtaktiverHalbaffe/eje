@@ -32,36 +32,42 @@ class Eje extends StatelessWidget {
           create: (_) => sl<ServicesBloc>(),
         ),
       ],
-      child: Scaffold(
-        backgroundColor: Theme.of(context).colorScheme.surface,
-        body: RefreshIndicator(
-            color: Theme.of(context).colorScheme.secondary,
-            child: ListView(
-              physics: ScrollPhysics(
-                parent: RangeMaintainingScrollPhysics(),
-              ),
-              children: <Widget>[
-                SizedBox(height: 20),
-                Hauptamtliche(),
-                SizedBox(height: 20),
-                BAK(),
-                SizedBox(height: 20),
-                Arbeitsbereiche(),
-                SizedBox(height: 20),
-                Services(),
-                SizedBox(height: 20),
-              ],
+      child: EjeChildWidgets(),
+    );
+  }
+}
+
+class EjeChildWidgets extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.surface,
+      body: RefreshIndicator(
+          color: Theme.of(context).colorScheme.secondary,
+          child: ListView(
+            physics: ScrollPhysics(
+              parent: RangeMaintainingScrollPhysics(),
             ),
-            onRefresh: () async {
-              // TODO Fix Reloading
-              BlocProvider.of<ArbeitsbereicheBloc>(context)
-                  .add(RefreshArbeitsbereiche());
-              BlocProvider.of<HauptamtlicheBloc>(context)
-                  .add(RefreshHauptamtliche());
-              BlocProvider.of<BakBloc>(context).add(RefreshBAK());
-              BlocProvider.of<ServicesBloc>(context).add(RefreshServices());
-            }),
-      ),
+            children: <Widget>[
+              SizedBox(height: 20),
+              Hauptamtliche(),
+              SizedBox(height: 20),
+              BAK(),
+              SizedBox(height: 20),
+              Arbeitsbereiche(),
+              SizedBox(height: 20),
+              Services(),
+              SizedBox(height: 20),
+            ],
+          ),
+          onRefresh: () async {
+            BlocProvider.of<ArbeitsbereicheBloc>(context)
+                .add(RefreshArbeitsbereiche());
+            BlocProvider.of<HauptamtlicheBloc>(context)
+                .add(RefreshHauptamtliche());
+            BlocProvider.of<BakBloc>(context).add(RefreshBAK());
+            BlocProvider.of<ServicesBloc>(context).add(RefreshServices());
+          }),
     );
   }
 }
