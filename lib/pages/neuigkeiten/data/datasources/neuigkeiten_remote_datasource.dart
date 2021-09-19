@@ -31,9 +31,7 @@ class NeuigkeitenRemoteDatasource {
             text_preview: content.trim(),
             text: content.trim(),
             bilder: payload[i].enclosure == null
-                ? [
-                    "http://www.sjr-es.de/media/zoo/images/eje_logo_9df3b8fbf18c2d3a99928fa9bfbe0da3.jpg"
-                  ]
+                ? [""]
                 : [payload[i].enclosure.url],
             weiterfuehrender_link: payload[i].link,
             published: parseDateTimeFromRSS(payload[i].pubDate),

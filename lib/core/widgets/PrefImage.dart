@@ -5,6 +5,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 Future<ImageProvider> prefImage(String url) async {
   // Load prefrence if image caching is enabled
+  if (url == "" || url == null) {
+    // TODO implement placeholder image
+    return ExactAssetImage("assets/images/eje_transparent_header.gif");
+  }
 
   SharedPreferences prefs = await SharedPreferences.getInstance();
   if (prefs.getBool("cache_pictures")) {
