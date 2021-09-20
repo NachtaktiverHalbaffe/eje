@@ -20,10 +20,9 @@ dependencies:
   hive: ^2.0.4
   hive_flutter: ^1.1.0
   # For Storing Settings
-  # shared_preferences: ^2.0.7
   get_storage: ^2.0.3
   # For OS-Specific directories paths
-  path_provider: ^2.0.1
+  path_provider: ^2.0.5
   # Service locator
   #get_it: ^2.0.1
   get_it: ^7.2.0
@@ -43,7 +42,7 @@ dependencies:
   # RSS Feed
   dart_rss: ^2.0.1
   # Url opener
-  url_launcher: ^6.0.10
+  url_launcher: ^6.0.11
   # Pageviewer Indicator
   page_view_indicators: ^2.0.0
   # Carousel PageView
