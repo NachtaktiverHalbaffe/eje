@@ -180,6 +180,21 @@ class _MyHomePageState extends State<MyHomePage> {
 Widget _MaterialApp(BuildContext context, int initialIndex) {
   final ThemeData themeLight = ThemeData.light();
   final ThemeData themeDark = ThemeData.dark();
+  // Theme propertys that stay the same in darkmode and lightmode
+  final Color companyColor = Color(0xFFCD2E32);
+  final OutlinedButtonThemeData outlinedButtonThemeData =
+      OutlinedButtonThemeData(
+    style: OutlinedButton.styleFrom(
+      primary: companyColor,
+    ),
+  );
+  final TextButtonThemeData textButtonThemeData = TextButtonThemeData(
+    style: ButtonStyle(
+      foregroundColor:
+          MaterialStateProperty.resolveWith((states) => companyColor),
+    ),
+  );
+
   final prefs = GetStorage();
   return MaterialApp(
     title: 'EJW Esslingen',
@@ -190,31 +205,60 @@ Widget _MaterialApp(BuildContext context, int initialIndex) {
     theme: themeLight.copyWith(
       colorScheme: themeLight.colorScheme.copyWith(
         // Firmenfarbe
-        secondary: Color(0xFFCD2E32),
+        secondary: companyColor,
         background: Colors.white,
       ),
       // Text colors
       textSelectionTheme: themeLight.textSelectionTheme.copyWith(
-        selectionColor: Theme.of(context).colorScheme.secondary,
+        selectionColor: companyColor,
+        selectionHandleColor: companyColor,
+        cursorColor: companyColor,
       ),
       primaryTextTheme:
           Typography.material2018(platform: TargetPlatform.android).black,
       textTheme:
           Typography.material2018(platform: TargetPlatform.android).black,
-      //Iconcolors und Widgetcolors
+      // Only OutlinedButtons are used as buttons in this app
+      outlinedButtonTheme: outlinedButtonThemeData,
+      // Used in showAboutDialog
+      textButtonTheme: textButtonThemeData,
+      checkboxTheme: CheckboxThemeData(
+        side: BorderSide(color: themeLight.disabledColor, width: 2.0),
+        fillColor: MaterialStateProperty.resolveWith((states) => companyColor),
+      ),
+      // Used in LoadingIndicator and another loading animations
+      progressIndicatorTheme: ProgressIndicatorThemeData(color: companyColor),
       primaryIconTheme: IconThemeData(color: Colors.black),
       dividerColor: Colors.black,
     ),
     darkTheme: themeDark.copyWith(
       colorScheme: themeDark.colorScheme.copyWith(
         // Firmenfarbe
-        secondary: Color(0xFFCD2E32),
+        secondary: companyColor,
         background: Colors.black,
       ),
       // Text colors
-      textSelectionTheme: themeLight.textSelectionTheme.copyWith(
-        selectionColor: Theme.of(context).colorScheme.secondary,
+      textSelectionTheme: themeDark.textSelectionTheme.copyWith(
+        selectionColor: companyColor,
+        selectionHandleColor: companyColor,
+        cursorColor: companyColor,
       ),
+      checkboxTheme: CheckboxThemeData(
+        side: BorderSide(
+          color: themeDark.disabledColor,
+          width: 2.0,
+        ),
+        fillColor: MaterialStateProperty.resolveWith((states) => companyColor),
+      ),
+      // Only OutlinedButtons are used as buttons in this app
+      outlinedButtonTheme: outlinedButtonThemeData,
+      // Used in showAboutDialog
+      textButtonTheme: textButtonThemeData,
+      textTheme: TextTheme(
+        overline: TextStyle(color: companyColor),
+      ),
+      // Used in LoadingIndicator and another loading animations
+      progressIndicatorTheme: ProgressIndicatorThemeData(color: companyColor),
       //Iconcolors und Widgetcolors
       dividerColor: Colors.white,
     ),

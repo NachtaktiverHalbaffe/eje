@@ -10,10 +10,7 @@ class LoadingIndicator extends StatelessWidget {
       color: Theme.of(context).colorScheme.surface,
       child: Center(
         child: Platform.isAndroid
-            ? CircularProgressIndicator(
-                color: Theme.of(context).colorScheme.secondary,
-                backgroundColor: Theme.of(context).colorScheme.background,
-              )
+            ? CircularProgressIndicator()
             : CupertinoActivityIndicator(),
       ),
     );

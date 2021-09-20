@@ -97,7 +97,7 @@ class EinstellungenPage extends StatelessWidget {
           Divider(),
           SettingGroupTitle("Benachrichtigungen"),
           CheckboxListTile(
-            activeColor: Theme.of(context).colorScheme.secondary,
+            // activeColor: Theme.of(context).colorScheme.secondary,
             value: prefs.read("notifications_on"),
             onChanged: (val) async {
               BlocProvider.of<EinstellungBloc>(context)
@@ -129,12 +129,21 @@ class EinstellungenPage extends StatelessWidget {
           Container(
             padding: EdgeInsets.only(left: 14, right: 22, top: 8, bottom: 8),
             child: TextField(
-              controller: TextEditingController(text: '1'),
+              controller: TextEditingController(
+                  text: prefs.read("schedule_offset").toString()),
               keyboardType: TextInputType.number,
               onSubmitted: (value) =>
                   prefs.write("schedule_offset", int.parse(value)),
               decoration: InputDecoration(
+                  floatingLabelStyle:
+                      TextStyle(color: Theme.of(context).colorScheme.secondary),
                   border: OutlineInputBorder(),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Theme.of(context).colorScheme.secondary,
+                      width: 2.0,
+                    ),
+                  ),
                   labelText: 'Anzahl der Tage',
                   helperText:
                       "Tage vor der Veranstaltung, in der die Erinnerung kommen soll"),
@@ -173,7 +182,6 @@ class EinstellungenPage extends StatelessWidget {
           Divider(),
           SettingGroupTitle("Internet"),
           CheckboxListTile(
-            activeColor: Theme.of(context).colorScheme.secondary,
             value: prefs.read("only_wifi"),
             onChanged: (val) async {
               BlocProvider.of<EinstellungBloc>(context)
@@ -188,7 +196,6 @@ class EinstellungenPage extends StatelessWidget {
             key: Key("only_wifi"),
           ),
           CheckboxListTile(
-            activeColor: Theme.of(context).colorScheme.secondary,
             value: prefs.read("cache_pictures"),
             onChanged: (val) async {
               BlocProvider.of<EinstellungBloc>(context)
@@ -203,7 +210,6 @@ class EinstellungenPage extends StatelessWidget {
             key: Key("cache_pictures"),
           ),
           Divider(),
-          SettingGroupTitle("Über"),
           Container(
             margin: EdgeInsets.only(
               left: 25,
@@ -233,6 +239,9 @@ class EinstellungenPage extends StatelessWidget {
                           height: 60 / MediaQuery.of(context).devicePixelRatio,
                         ),
                         OutlinedButton(
+                          style: OutlinedButton.styleFrom(
+                            primary: Theme.of(context).colorScheme.secondary,
+                          ),
                           onPressed: () async {
                             if (await canLaunch(
                                 "https://www.eje-esslingen.de/meta/datenschutz/")) {
