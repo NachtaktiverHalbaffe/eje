@@ -35,7 +35,7 @@ Future<void> startup() async {
     prefs.write('cache_pictures', true);
     prefs.write('cached_neuigkeiten', [""]);
     prefs.write('cached_freizeiten', [""]);
-    prefs.write('schedule_offset', 0);
+    prefs.write('schedule_offset', 1);
   }
   //Setting Hive up
   final appDocumentDirectory =

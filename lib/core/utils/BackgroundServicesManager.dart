@@ -2,6 +2,7 @@ import 'package:android_alarm_manager/android_alarm_manager.dart';
 import 'package:background_fetch/background_fetch.dart';
 import 'package:eje/core/utils/notificationplugin.dart';
 import 'package:eje/pages/freizeiten/data/datasources/freizeiten_local_datasource.dart';
+import 'package:eje/pages/freizeiten/data/datasources/freizeiten_remote_datasource.dart';
 import 'package:eje/pages/freizeiten/domain/entities/Freizeit.dart';
 import 'package:eje/pages/neuigkeiten/data/datasources/neuigkeiten_remote_datasource.dart';
 import 'package:eje/pages/neuigkeiten/domain/entitys/neuigkeit.dart';
@@ -17,6 +18,7 @@ class BackgroundServicesManager {
   final Duration runServiceIntervall = Duration(hours: 1);
 
   Future<void> connectBackgroundServices() async {
+    print("Registering background services...");
     /*if (Platform.isAndroid) {
       await AndroidAlarmManager.periodic(
           runServiceIntervall, 0, await _checkNeuigkeitenNotification);
@@ -47,12 +49,18 @@ class BackgroundServicesManager {
     // Configure background task for Neuigkeiten
     if (GetStorage().read("notifications_neuigkeiten")) {
       BackgroundFetch.configure(
-          config, (taskId) => _checkNeuigkeitenNotification(taskId));
+          config, (String taskId) => _checkNeuigkeitenNotification(taskId),
+          (String taskId) async {
+        BackgroundFetch.finish(taskId);
+      });
     }
     //configure background service for Freizeiten
     if (GetStorage().read("notifications_freizeiten")) {
       //BackgroundFetch.configure(
-      //    config, (taskId) => _checkFreizeitenNotification(taskId));
+      //    config, (taskId) => _checkFreizeitenNotification(taskId),
+      //   (String taskId) async {
+      // BackgroundFetch.finish(taskId);
+      // });
     }
   }
 }
@@ -82,7 +90,7 @@ void _checkNeuigkeitenNotification(String taskId) async {
     return a.toLowerCase().compareTo(b.toLowerCase());
   });
   //checking if List is diffrent from data in cache
-  if (listEquals(cachedNeuigkeitenTitel, downloadedNeuigkeitenTitel)) {
+  if (!listEquals(cachedNeuigkeitenTitel, downloadedNeuigkeitenTitel)) {
     //storing new news
     prefs.write("cached_neuigkeiten", downloadedNeuigkeitenTitel);
     //Displaying notification
@@ -105,21 +113,32 @@ void _checkNeuigkeitenNotification(String taskId) async {
 //* and checks if there are more Freizeiten than lasttime and fires a notification if it has grown
 //* @params taskId: taskID for Background fetch
 void _checkFreizeitenNotification(String taskId) async {
-  List<Freizeit> _freizeiten;
-  List<String> _freizeiten_namen;
-  Function eq = const ListEquality().equals;
   // Initiliaze GetStorage for getting Prefrences
   await GetStorage.init();
   final prefs = GetStorage();
-  //Donwloading content from internet
-  //TODO connect to online API
-  _freizeiten.forEach((element) {
-    _freizeiten_namen.add(element.freizeit);
+  List<Freizeit> downloadedCamps;
+  List<String> downloadedCampsTitles;
+  List<String> cachedCamps = prefs.read("cached_freizeiten");
+
+  downloadedCamps = await FreizeitenRemoteDatasource().getFreizeiten();
+  downloadedCamps.forEach((element) {
+    downloadedCampsTitles.add(element.freizeit);
   });
-  //checking if List had groweds
-  if (!eq(prefs.read("cached_freizeiten"), _freizeiten_namen)) {
+  //Downloading content from internet
+  downloadedCamps.forEach((element) {
+    downloadedCampsTitles.add(element.freizeit);
+  });
+  // sort lists for comparison
+  downloadedCampsTitles.sort((a, b) {
+    return a.toLowerCase().compareTo(b.toLowerCase());
+  });
+  cachedCamps.sort((a, b) {
+    return a.toLowerCase().compareTo(b.toLowerCase());
+  });
+  // List of available camps are compared by their title
+  if (!listEquals(cachedCamps, downloadedCampsTitles)) {
     //storing actual length of Neuigkeiten in SharedPrefrences
-    prefs.write("cached_freizeiten", _freizeiten_namen);
+    prefs.write("cached_freizeiten", downloadedCampsTitles);
     //Displaying notification
     notificationPlugin.showNotification(
       id: 0,

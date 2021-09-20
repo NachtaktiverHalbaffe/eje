@@ -4,13 +4,10 @@ import 'package:http/http.dart' as http;
 import 'package:meta/meta.dart';
 
 class FreizeitenRemoteDatasource {
-  final http.Client client;
+  final http.Client client = http.Client();
   final String apiUrl = "";
 
-  FreizeitenRemoteDatasource({@required this.client});
-
   //TODO: Implementierung der Onlineanbindung
-
   Future<List<Freizeit>> getFreizeiten() async {
     final response = await client.get(Uri.parse(apiUrl));
     if (response.statusCode == 200) {

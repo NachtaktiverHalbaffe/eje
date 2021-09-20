@@ -220,7 +220,7 @@ Future<void> init() async {
       ));
   // * Datasources
   sl.registerLazySingleton(() => FreizeitenLocalDatasource());
-  sl.registerLazySingleton(() => FreizeitenRemoteDatasource(client: sl()));
+  sl.registerLazySingleton(() => FreizeitenRemoteDatasource());
 
   // ! Articles
   sl.registerFactory(() => ArticlesBloc(
