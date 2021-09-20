@@ -29,8 +29,10 @@ void main() async {
   if (notificationAppLaunchDetails.didNotificationLaunchApp) {
     initialIndex = int.parse(notificationAppLaunchDetails.payload);
   }
+
   runApp(MyApp(initialIndex));
-  // Connect background
+  // Register to receive BackgroundFetch events after app is terminated.
+  // Requires {stopOnTerminate: false, enableHeadless: true}
   await BackgroundServicesManager().connectBackgroundServices();
 }
 
