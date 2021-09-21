@@ -1,30 +1,17 @@
-import 'package:android_alarm_manager/android_alarm_manager.dart';
 import 'package:background_fetch/background_fetch.dart';
 import 'package:eje/core/utils/notificationplugin.dart';
-import 'package:eje/pages/freizeiten/data/datasources/freizeiten_local_datasource.dart';
 import 'package:eje/pages/freizeiten/data/datasources/freizeiten_remote_datasource.dart';
 import 'package:eje/pages/freizeiten/domain/entities/Freizeit.dart';
 import 'package:eje/pages/neuigkeiten/data/datasources/neuigkeiten_remote_datasource.dart';
 import 'package:eje/pages/neuigkeiten/domain/entitys/neuigkeit.dart';
-import 'package:eje/pages/termine/domain/entities/Ort.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:hive/hive.dart';
-import 'dart:io' show Platform;
-import 'package:path_provider/path_provider.dart' as path_provider;
-import 'package:collection/collection.dart';
 
 class BackgroundServicesManager {
   final Duration runServiceIntervall = Duration(hours: 1);
 
   Future<void> connectBackgroundServices() async {
     print("Registering background services...");
-    /*if (Platform.isAndroid) {
-      await AndroidAlarmManager.periodic(
-          runServiceIntervall, 0, await _checkNeuigkeitenNotification);
-      await AndroidAlarmManager.periodic(
-          runServiceIntervall, 1, await _checkFreizeitenNotification);
-    }*/
     if (GetStorage().read("notifications_neuigkeiten")) {
       BackgroundFetch.registerHeadlessTask(_checkNeuigkeitenNotification);
     }

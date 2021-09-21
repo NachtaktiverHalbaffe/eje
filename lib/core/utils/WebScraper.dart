@@ -55,11 +55,11 @@ class WebScraper {
                       title = title.substring(1);
                     } else {
                       content = content +
-                          "## " +
+                          "\n## " +
                           parent[i]
                               .getElementsByClassName('icon-left')[0]
                               .text +
-                          "\n";
+                          "\n\n";
                     }
                   } else {
                     // Checking if article has already title, otherwise integrating it into content
@@ -69,16 +69,15 @@ class WebScraper {
                           .getElementsByTagName("a")[0]
                           .text;
                       title = title.substring(1);
-                    } else
-                      content = "## " +
-                          content +
+                    } else {
+                      content += "\n## " +
                           parent[i]
                               .getElementsByClassName('icon-left')[0]
                               .getElementsByTagName("a")[0]
                               .text +
-                          "\n";
+                          "\n\n";
+                    }
                   }
-                  // Delete first space in title
                 }
                 // ! Content parsen
                 content = content + _parseContent(parent[i], DOMAIN);
@@ -560,12 +559,13 @@ String _parseContent(parent, DOMAIN) {
   for (int r = 0; r < parent.children.length; r++) {
     final child = parent.children[r];
     var parsed = child.text;
+
+    // Remove Hyperlinks from content
     if (child.localName == "blockquote") {
       continue;
     } else if (child.getElementsByTagName("blockquote").isNotEmpty) {
       continue;
     }
-
     // Remove Heading if heading is in text
     if (child.getElementsByClassName("card-title icon-left ").isNotEmpty) {
       for (int i = 0;
@@ -589,11 +589,20 @@ String _parseContent(parent, DOMAIN) {
         parsed = parsed.replaceAll(heading, "");
       }
     }
+
+    // Making Parapgraphs
     if (child.getElementsByClassName('card-action').isNotEmpty) {
       for (int i = 0;
           i < child.getElementsByClassName('card-action').length;
           i++) {
         final bodyText = child.getElementsByClassName('card-action')[i].text;
+        parsed = parsed.replaceAll(bodyText, bodyText + "\n\n");
+      }
+    } else if (child.getElementsByClassName('bodytext').isNotEmpty) {
+      for (int i = 0;
+          i < child.getElementsByClassName('bodytext').length;
+          i++) {
+        final bodyText = child.getElementsByClassName('bodytext')[i].text;
         parsed = parsed.replaceAll(bodyText, bodyText + "\n\n");
       }
     }
@@ -634,6 +643,7 @@ String _parseContent(parent, DOMAIN) {
         }
       }
     }
+
     // Listing Points
     if (child.getElementsByTagName('li').isNotEmpty) {
       for (int i = 0; i < child.getElementsByTagName('li').length; i++) {
@@ -646,27 +656,44 @@ String _parseContent(parent, DOMAIN) {
       parsed = parsed.replaceAll("•", "\n\n- ");
     }
 
-    // bold heading
-    if (child.localName == "p") {
-      if (child.getElementsByTagName('strong').isNotEmpty) {
-        parsed = parsed.replaceAll(parsed, "**" + parsed + "**");
-      }
-    } else if (child.localName == "h3") {
-      parsed = "## " + parsed;
-    }
-
     // bold text
     if (child.getElementsByTagName('strong').isNotEmpty) {
       for (int i = 0; i < child.getElementsByTagName('strong').length; i++) {
         final boldText = child.getElementsByTagName('strong')[i].text;
-        parsed = parsed.replaceAll(boldText, "**" + boldText + "**");
+        parsed = parsed.replaceAll(boldText, "**" + boldText.trim() + "**");
+      }
+    } // bold heading
+    else if (child.localName == "p") {
+      if (child.getElementsByTagName('strong').isNotEmpty) {
+        parsed = parsed.replaceFirst(parsed, "**" + parsed.trim() + "**");
       }
     }
+
     // Italic
-    else if (child.getElementsByTagName('em').isNotEmpty) {
+    if (child.getElementsByTagName('em').isNotEmpty) {
       for (int i = 0; i < child.getElementsByTagName('em').length; i++) {
         final italicText = child.getElementsByTagName('em')[i].text;
-        parsed = parsed.replaceAll(italicText, " *" + italicText.trim() + "* ");
+        parsed = parsed.replaceFirst(italicText, "*" + italicText.trim() + "*");
+      }
+    }
+
+    // Heading
+    if (child.localName == "h3" || child.localName == "h2") {
+      if (parsed.length != 1) {
+        parsed = "\n## " + parsed.trim() + "\n";
+      }
+    }
+    if (child.getElementsByTagName("h3").isNotEmpty) {
+      for (int i = 0; i < child.getElementsByTagName("h3").length; i++) {
+        final heading = child.getElementsByTagName("h3")[i].text;
+        // parsed = parsed.replaceFirst(heading, "\n## " + heading.trim() + "\n");
+      }
+    }
+    if (child.getElementsByTagName("h2").isNotEmpty) {
+      print("h2 by child");
+      for (int i = 0; i < child.getElementsByTagName("h2").length; i++) {
+        final heading = child.getElementsByTagName("h2")[i].text;
+        parsed = parsed.replaceFirst(heading, "\n## " + heading.trim() + "\n");
       }
     }
 
@@ -685,6 +712,13 @@ String _parseContent(parent, DOMAIN) {
         parsed = parsed.replaceAll(italicText, "");
       }
     }
+    if (child.getElementsByTagName("script").isNotEmpty) {
+      for (int i = 0; i < child.getElementsByTagName("script").length; i++) {
+        final javascripts = child.getElementsByTagName("script")[i].text;
+        parsed = parsed.replaceAll(javascripts, "");
+      }
+    }
+
     content += parsed.trim() + "\n\n";
   }
 

@@ -1,7 +1,7 @@
 // ignore_for_file: non_constant_identifier_names, camel_case_types
 
 import 'package:eje/core/platform/Reminder.dart';
-import 'package:eje/core/utils/MapLauncher.dart';
+import 'package:eje/core/platform/MapLauncher.dart';
 import 'package:eje/core/utils/notificationplugin.dart';
 import 'package:eje/core/utils/reminderManager.dart';
 import 'package:eje/pages/articles/presentation/widgets/DetailsPage.dart';
