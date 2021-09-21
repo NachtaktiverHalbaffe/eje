@@ -207,6 +207,7 @@ Widget _MaterialApp(BuildContext context, int initialIndex) {
         // Firmenfarbe
         secondary: companyColor,
         background: Colors.white,
+        primary: companyColor,
       ),
       // Text colors
       textSelectionTheme: themeLight.textSelectionTheme.copyWith(
@@ -236,6 +237,7 @@ Widget _MaterialApp(BuildContext context, int initialIndex) {
         // Firmenfarbe
         secondary: companyColor,
         background: Colors.black,
+        primary: companyColor,
       ),
       // Text colors
       textSelectionTheme: themeDark.textSelectionTheme.copyWith(

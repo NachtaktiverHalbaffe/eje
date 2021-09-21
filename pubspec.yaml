@@ -33,6 +33,8 @@ dependencies:
   equatable: ^2.0.3
   # Functional programming thingies
   dartz: ^0.10.0
+  # To deal with internationalized Datetime Formats
+  intl: ^0.17.0
   # Remote API
   data_connection_checker: ^0.3.4
   connectivity: ^3.0.6
@@ -58,7 +60,6 @@ dependencies:
   # Local Push-Notification
   flutter_local_notifications: ^8.2.0
   # Background services
-  android_alarm_manager: ^2.0.2
   background_fetch: ^1.0.1
 
 dev_dependencies:

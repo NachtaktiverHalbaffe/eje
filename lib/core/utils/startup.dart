@@ -1,4 +1,3 @@
-import 'package:android_alarm_manager/android_alarm_manager.dart';
 import 'package:eje/core/platform/Reminder.dart';
 import 'package:eje/core/utils/BackgroundServicesManager.dart';
 import 'package:eje/core/utils/notificationplugin.dart';
@@ -15,7 +14,6 @@ import 'package:eje/pages/termine/domain/entities/Termin.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart' as path_provider;
-import 'dart:io' show Platform;
 import 'injection_container.dart' as di;
 
 Future<void> startup() async {
@@ -57,10 +55,6 @@ Future<void> startup() async {
   notificationPlugin.setListenerForLowerVersions(onNotificationInLowerVersion);
   notificationPlugin.setOnNotificationClick(onNotificationClick);
 
-  // Background Services
-  if (Platform.isAndroid) {
-    await AndroidAlarmManager.initialize();
-  }
   BackgroundServicesManager().initPlatformState();
 }
 
