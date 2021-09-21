@@ -130,7 +130,7 @@ class NotificationPlugin {
       ),
       iOS: IOSNotificationDetails(),
     );
-    await FlutterLocalNotificationsPlugin().schedule(
+    await FlutterLocalNotificationsPlugin().zonedSchedule(
       id,
       title,
       body,
@@ -138,6 +138,8 @@ class NotificationPlugin {
       paltformChannelSpecifics,
       payload: payload,
       androidAllowWhileIdle: true,
+      uiLocalNotificationDateInterpretation:
+          UILocalNotificationDateInterpretation.wallClockTime,
     );
   }
 
