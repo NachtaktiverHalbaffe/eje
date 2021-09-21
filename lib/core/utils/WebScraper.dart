@@ -84,26 +84,7 @@ class WebScraper {
                 content = content + _parseContent(parent[i], DOMAIN);
                 // ! pictures parsen
                 bilder.addAll(_parsePictures(parent[i], DOMAIN));
-                // ! Formatting if needed
-                //Einrückungen bei neuen Paragraph entfernen
-                if (content.contains("<br>")) {
-                  content = content.replaceAll("<br> ", "\n");
-                  content = content.replaceAll("<br>", "\n");
-                }
-                //HTML-Formatierungszeichen bei neuen Paragraph entfernen
-                //und neuen Abschnitt für content anfangen
-                if (content.contains("&nbsp;")) {
-                  if (content.contains("•&nbsp;&nbsp; &nbsp;")) {
-                    content = content.replaceAll("•&nbsp;&nbsp; &nbsp;", "- ");
-                  }
-                  content = content.replaceAll("&nbsp;", "\n ");
-                }
-                if (content.contains("dontospamme")) {
-                  content = content.replaceAll("dontospamme", "");
-                }
-                if (content.contains("gowaway.")) {
-                  content = content.replaceAll("gowaway.", "");
-                }
+
                 content = content + "\n\n";
                 // ! Hyperlink parsing
                 if (i == 1) {
@@ -578,106 +559,135 @@ String _parseContent(parent, DOMAIN) {
   String content = "";
   for (int r = 0; r < parent.children.length; r++) {
     final child = parent.children[r];
-
-    // check if content is in "news-teaser" or "bodytext class"
-    if (child.className == 'news-teaser') {
-      content = child.innerHtml.trim();
+    var parsed = child.text;
+    if (child.localName == "blockquote") {
+      continue;
+    } else if (child.getElementsByTagName("blockquote").isNotEmpty) {
+      continue;
     }
-    if (child.className == 'bodytext') {
-      if (!child.innerHtml.contains("<br>") ||
-          child.getElementsByTagName('span').isNotEmpty) {
-        String parsed = "";
-        parsed = child.text.trim() + "\n\n";
-        if (!child.getElementsByTagName('a').isEmpty) {
-          if (child
-              .getElementsByTagName('a')[0]
-              .attributes['href']
-              .contains("/")) {
-            for (int index = 0;
-                index < child.getElementsByTagName('a').length;
-                index++) {
-              // Check if link was already parsed to avoid links nested inside links
-              if (!parsed.contains(
-                  "[" + child.getElementsByTagName('a')[index].text + "]")) {
-                parsed = parsed.replaceAll(
-                    child.getElementsByTagName('a')[index].text,
-                    !child
+
+    // Remove Heading if heading is in text
+    if (child.getElementsByClassName("card-title icon-left ").isNotEmpty) {
+      for (int i = 0;
+          i < child.getElementsByClassName("card-title icon-left ").length;
+          i++) {
+        final heading =
+            child.getElementsByClassName("card-title icon-left ")[i].text;
+        parsed = parsed.replaceFirst(heading, "\n## " + heading + "\n");
+      }
+    } else if (child.className == 'icon-left') {
+      parsed = "";
+      continue;
+    } else if (child.className == 'icon-left ') {
+      parsed = "";
+      continue;
+    } else if (child.getElementsByClassName('icon-left ').isNotEmpty) {
+      for (int i = 0;
+          i < child.getElementsByClassName('icon-left ').length;
+          i++) {
+        final heading = child.getElementsByClassName('icon-left ')[i].text;
+        parsed = parsed.replaceAll(heading, "");
+      }
+    }
+    if (child.getElementsByClassName('card-action').isNotEmpty) {
+      for (int i = 0;
+          i < child.getElementsByClassName('card-action').length;
+          i++) {
+        final bodyText = child.getElementsByClassName('card-action')[i].text;
+        parsed = parsed.replaceAll(bodyText, bodyText + "\n\n");
+      }
+    }
+
+    // Hyperlinks
+    if (child.getElementsByTagName('a').isNotEmpty) {
+      if (child.getElementsByTagName('a')[0].attributes['href'].contains("/")) {
+        for (int index = 0;
+            index < child.getElementsByTagName('a').length;
+            index++) {
+          // Check if link was already parsed to avoid links nested inside links
+          if (!parsed.contains(
+              "[" + child.getElementsByTagName('a')[index].text + "]")) {
+            parsed = parsed.replaceAll(
+                child.getElementsByTagName('a')[index].text,
+                !child
+                        .getElementsByTagName('a')[index]
+                        .attributes['href']
+                        .contains("http")
+                    ? "[" +
+                        child.getElementsByTagName('a')[index].text.trim() +
+                        "]" +
+                        "(" +
+                        DOMAIN +
+                        child
                             .getElementsByTagName('a')[index]
-                            .attributes['href']
-                            .contains("http")
-                        ? "[" +
-                            child.getElementsByTagName('a')[index].text.trim() +
-                            "]" +
-                            "(" +
-                            DOMAIN +
-                            child
-                                .getElementsByTagName('a')[index]
-                                .attributes['href'] +
-                            ")"
-                        : "[" +
-                            child.getElementsByTagName('a')[index].text.trim() +
-                            "]" +
-                            "(" +
-                            child
-                                .getElementsByTagName('a')[index]
-                                .attributes['href'] +
-                            ")");
-              }
-            }
+                            .attributes['href'] +
+                        ")"
+                    : "[" +
+                        child.getElementsByTagName('a')[index].text.trim() +
+                        "]" +
+                        "(" +
+                        child
+                            .getElementsByTagName('a')[index]
+                            .attributes['href'] +
+                        ")");
           }
         }
-        content = content + parsed + "\n\n";
-      } else if (child.getElementsByTagName('a').isEmpty) {
-        if (child.getElementsByTagName('strong').isNotEmpty) {
-          content = content +
-              "## " +
-              child.getElementsByTagName('strong')[0].text.trim() +
-              "\n\n";
-        } else {
-          content = content + child.innerHtml.trim() + "\n\n";
-        }
       }
     }
-    // Content is Manuskript
-    if (child.className == "Manuskript12Punkt") {
-      content = content + child.text.trim() + "\n\n";
+    // Listing Points
+    if (child.getElementsByTagName('li').isNotEmpty) {
+      for (int i = 0; i < child.getElementsByTagName('li').length; i++) {
+        final listingPoint = child.getElementsByTagName('li')[i].text;
+        parsed = parsed.replaceAll(listingPoint, "\n\n- " + listingPoint);
+      }
+    } else if (child.localName == "li") {
+      parsed = "\n\n- " + parsed;
+    } else if (parsed.contains("•")) {
+      parsed = parsed.replaceAll("•", "\n\n- ");
     }
-    // Content is header
-    if ((child.localName == "h3" ||
-            child.className == "card-title icon-left ") &&
-        child.getElementsByTagName('a').isEmpty) {
-      content = content + "\n\n ## " + child.text.trim() + "\n\n";
-    }
-    if (child.localName == "")
 
-    // Content is in MSoNormal class, not often used
-    if (child.className == 'MsoNormal') {
-      for (int j = 0; j < child.getElementsByTagName('span').length; j++) {
-        if (child.getElementsByTagName('span')[j].text != "-") {
-          content = content +
-              child.getElementsByTagName('span')[j].text.trim() +
-              "\n";
-        } else
-          content =
-              content + child.getElementsByTagName('span')[j].text.trim() + " ";
+    // bold heading
+    if (child.localName == "p") {
+      if (child.getElementsByTagName('strong').isNotEmpty) {
+        parsed = parsed.replaceAll(parsed, "**" + parsed + "**");
+      }
+    } else if (child.localName == "h3") {
+      parsed = "## " + parsed;
+    }
+
+    // bold text
+    if (child.getElementsByTagName('strong').isNotEmpty) {
+      for (int i = 0; i < child.getElementsByTagName('strong').length; i++) {
+        final boldText = child.getElementsByTagName('strong')[i].text;
+        parsed = parsed.replaceAll(boldText, "**" + boldText + "**");
       }
     }
-    //Auflistung mit speziellen Symbolen
-    if (child.className == 'cms') {
-      for (int j = 0; j < child.getElementsByTagName('li').length; j++) {
-        String _parsed = child.getElementsByTagName('li')[j].text;
-        if (!content.contains(_parsed)) {
-          content = content + "\n\n- " + _parsed + "\n\n";
-        }
+    // Italic
+    else if (child.getElementsByTagName('em').isNotEmpty) {
+      for (int i = 0; i < child.getElementsByTagName('em').length; i++) {
+        final italicText = child.getElementsByTagName('em')[i].text;
+        parsed = parsed.replaceAll(italicText, " *" + italicText.trim() + "* ");
       }
-      content = content + "\n";
     }
-    if (child.hasChildNodes()) {
-      content = content + _parseContent(child, DOMAIN);
+
+    // Do Formatting
+    if (parsed.contains("dontospamme")) {
+      parsed = parsed.replaceAll("dontospamme", "");
     }
+    if (parsed.contains("gowaway.")) {
+      parsed = parsed.replaceAll("gowaway.", "");
+    }
+    if (child.getElementsByClassName("description").isNotEmpty) {
+      for (int i = 0;
+          i < child.getElementsByClassName("description").length;
+          i++) {
+        final italicText = child.getElementsByClassName("description")[i].text;
+        parsed = parsed.replaceAll(italicText, "");
+      }
+    }
+    content += parsed.trim() + "\n\n";
   }
 
-  //check if current child has more children which have to been checked
   return content;
 }
 
