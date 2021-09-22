@@ -4,9 +4,10 @@ import 'package:eje/pages/termine/domain/entities/Ort.dart';
 Camp getErrorCamp() {
   return Camp(
     name: "Keine Internetverbindung oder keine Daten im Cache ",
-    datum: "",
-    age: "",
-    price: "",
+    startDate: DateTime.now(),
+    endDate: DateTime.now(),
+    age: 0,
+    price: 0,
     freePlaces: "",
     location: Ort("", "", ""),
     link: "",

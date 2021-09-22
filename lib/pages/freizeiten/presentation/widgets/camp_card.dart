@@ -6,6 +6,7 @@ import 'package:eje/pages/freizeiten/presentation/widgets/camp_details.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class CampCard extends StatelessWidget {
@@ -128,7 +129,11 @@ class CampCard extends StatelessWidget {
                                 SizedBox(width: 4),
                                 Flexible(
                                   child: Text(
-                                    camp.datum,
+                                    DateFormat('dd.MM.yyyy')
+                                            .format(camp.startDate) +
+                                        " - " +
+                                        DateFormat('dd.MM.yyyy')
+                                            .format(camp.endDate),
                                     overflow: TextOverflow.ellipsis,
                                     style: TextStyle(
                                       fontSize: 40 /
@@ -147,7 +152,7 @@ class CampCard extends StatelessWidget {
                                 SizedBox(width: 4),
                                 Flexible(
                                   child: Text(
-                                    camp.price,
+                                    camp.price.toString() + " Euro",
                                     overflow: TextOverflow.ellipsis,
                                     style: TextStyle(
                                       fontSize: 40 /
@@ -191,7 +196,7 @@ class CampCard extends StatelessWidget {
                                 SizedBox(width: 4),
                                 Flexible(
                                   child: Text(
-                                    camp.age,
+                                    camp.age.toString(),
                                     overflow: TextOverflow.ellipsis,
                                     style: TextStyle(
                                       fontSize: 40 /

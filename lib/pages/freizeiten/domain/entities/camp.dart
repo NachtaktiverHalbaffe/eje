@@ -9,39 +9,42 @@ class Camp extends Equatable {
   @HiveField(0)
   final String name;
   @HiveField(1)
-  final String datum;
+  final DateTime startDate;
   @HiveField(2)
-  final String age;
+  final DateTime endDate;
   @HiveField(3)
-  final String price;
+  final int age;
   @HiveField(4)
-  final String freePlaces;
+  final int price;
   @HiveField(5)
-  final Ort location;
+  final String freePlaces;
   @HiveField(6)
-  final String link;
+  final Ort location;
   @HiveField(7)
-  final List<String> pictures;
+  final String link;
   @HiveField(8)
-  final String description;
+  final List<String> pictures;
   @HiveField(9)
-  final String registrationDeadline;
+  final String description;
   @HiveField(10)
-  final String catering;
+  final String registrationDeadline;
   @HiveField(11)
-  final String lodging;
+  final String catering;
   @HiveField(12)
-  final String journey;
+  final String lodging;
   @HiveField(13)
-  final String otherServices;
+  final String journey;
   @HiveField(14)
-  final String subtitle;
+  final String otherServices;
   @HiveField(15)
+  final String subtitle;
+  @HiveField(16)
   final List<String> companion;
 
   Camp(
       {this.name,
-      this.datum,
+      this.startDate,
+      this.endDate,
       this.age,
       this.price,
       this.freePlaces,
@@ -60,7 +63,8 @@ class Camp extends Equatable {
   @override
   List<Object> get props => [
         name,
-        datum,
+        startDate,
+        endDate,
         age,
         price,
         freePlaces,

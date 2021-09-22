@@ -194,20 +194,24 @@ Future<Camp> createFilterDialog({BuildContext context}) {
             MaterialButton(
               onPressed: () {
                 Navigator.of(context).pop(new Camp(
-                  age: "0",
-                  price: "0",
-                  datum: DateTime.now().toString() + DateTime.now().toString(),
+                  age: 0,
+                  price: 0,
+                  startDate: DateTime.now(),
+                  endDate: DateTime.now(),
                 ));
               },
               child: Text("Abbrechen"),
             ),
             MaterialButton(
               onPressed: () {
-                Navigator.of(context).pop(new Camp(
-                  age: age.toString(),
-                  price: price.toString(),
-                  datum: date.start.toString() + date.end.toString(),
-                ));
+                Navigator.of(context).pop(
+                  new Camp(
+                    age: age,
+                    price: price,
+                    startDate: date.start,
+                    endDate: date.end,
+                  ),
+                );
               },
               child: Text("Bestätigen"),
             ),
