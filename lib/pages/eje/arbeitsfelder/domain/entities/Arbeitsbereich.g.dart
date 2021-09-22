@@ -6,7 +6,7 @@ part of 'Arbeitsbereich.dart';
 // TypeAdapterGenerator
 // **************************************************************************
 
-class ArbeitsbereichAdapter extends TypeAdapter<FieldOfWork> {
+class FieldOfWorkAdapter extends TypeAdapter<FieldOfWork> {
   @override
   final int typeId = 3;
 
@@ -44,7 +44,7 @@ class ArbeitsbereichAdapter extends TypeAdapter<FieldOfWork> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is ArbeitsbereichAdapter &&
+      other is FieldOfWorkAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

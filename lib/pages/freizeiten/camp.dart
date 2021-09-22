@@ -1,21 +1,21 @@
 import 'package:eje/core/utils/injection_container.dart';
 import 'package:eje/core/widgets/LoadingIndicator.dart';
 import 'package:eje/pages/freizeiten/presentation/bloc/bloc.dart';
-import 'package:eje/pages/freizeiten/presentation/widgets/freizeit_card.dart';
+import 'package:eje/pages/freizeiten/presentation/widgets/camp_card.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_swiper_plus/flutter_swiper_plus.dart';
 import 'package:intl/intl.dart';
 
-import 'domain/entities/Freizeit.dart';
+import 'domain/entities/camp.dart';
 
-class Freizeiten extends StatelessWidget {
+class Camps extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => sl<FreizeitenBloc>(),
-      child: BlocConsumer<FreizeitenBloc, FreizeitenState>(
+      create: (_) => sl<CampsBloc>(),
+      child: BlocConsumer<CampsBloc, CampState>(
         listener: (context, state) {
           if (state is Error) {
             ScaffoldMessenger.of(context).showSnackBar(
@@ -28,13 +28,13 @@ class Freizeiten extends StatelessWidget {
         // ignore: missing_return
         builder: (context, state) {
           if (state is Empty) {
-            BlocProvider.of<FreizeitenBloc>(context).add(RefreshFreizeiten());
+            BlocProvider.of<CampsBloc>(context).add(RefreshCamps());
             return Center();
           }
           if (state is Loading) {
             return LoadingIndicator();
-          } else if (state is LoadedFreizeiten) {
-            return FreizeitenPageViewer(state.freizeiten);
+          } else if (state is LoadedCamps) {
+            return CampsPageViewer(state.freizeiten);
           }
         },
       ),
@@ -42,14 +42,24 @@ class Freizeiten extends StatelessWidget {
   }
 }
 
-class FreizeitenPageViewer extends StatelessWidget {
-  final List<Freizeit> freizeiten;
-  FreizeitenPageViewer(this.freizeiten);
+class CampsPageViewer extends StatelessWidget {
+  final List<Camp> camps;
+  CampsPageViewer(this.camps);
 
   @override
   Widget build(BuildContext context) {
-    List<Freizeit> filteredFreizeiten = freizeiten;
+    List<Camp> filteredFreizeiten = camps;
     return Scaffold(
+      resizeToAvoidBottomInset: true,
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+      floatingActionButton: FloatingActionButton(
+        onPressed: () async {
+          Camp filterCampDummy = await createFilterDialog(context: context);
+        },
+        child: Icon(
+          Icons.search,
+        ),
+      ),
       backgroundColor: Theme.of(context).colorScheme.surface,
       body: RefreshIndicator(
           color: Theme.of(context).colorScheme.secondary,
@@ -63,7 +73,7 @@ class FreizeitenPageViewer extends StatelessWidget {
                   constraints: BoxConstraints(minHeight: 400),
                   child: Swiper(
                     itemBuilder: (BuildContext context, int index) {
-                      return FreizeitCard(freizeit: filteredFreizeiten[index]);
+                      return CampCard(camp: filteredFreizeiten[index]);
                     },
                     itemCount: filteredFreizeiten.length,
                     itemHeight: 350,
@@ -73,23 +83,16 @@ class FreizeitenPageViewer extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(height: 12),
-              OutlinedButton(
-                  onPressed: () async {
-                    Freizeit filterFreizeitDummy =
-                        await createFilterDialog(context: context);
-                  },
-                  child: Text("Filtern")),
             ],
           ),
           onRefresh: () async {
-            BlocProvider.of<FreizeitenBloc>(context).add(RefreshFreizeiten());
+            BlocProvider.of<CampsBloc>(context).add(RefreshCamps());
           }),
     );
   }
 }
 
-Future<Freizeit> createFilterDialog({BuildContext context}) {
+Future<Camp> createFilterDialog({BuildContext context}) {
   const String dialogTitle = "Freizeiten filtern";
   const String ageFilterLable = "Alter";
   const String ageFilterHelper = "Alter des anzumeldenden Teilnehmers";
@@ -190,9 +193,9 @@ Future<Freizeit> createFilterDialog({BuildContext context}) {
           actions: <Widget>[
             MaterialButton(
               onPressed: () {
-                Navigator.of(context).pop(new Freizeit(
-                  alter: "0",
-                  preis: "0",
+                Navigator.of(context).pop(new Camp(
+                  age: "0",
+                  price: "0",
                   datum: DateTime.now().toString() + DateTime.now().toString(),
                 ));
               },
@@ -200,9 +203,9 @@ Future<Freizeit> createFilterDialog({BuildContext context}) {
             ),
             MaterialButton(
               onPressed: () {
-                Navigator.of(context).pop(new Freizeit(
-                  alter: age.toString(),
-                  preis: price.toString(),
+                Navigator.of(context).pop(new Camp(
+                  age: age.toString(),
+                  price: price.toString(),
                   datum: date.start.toString() + date.end.toString(),
                 ));
               },

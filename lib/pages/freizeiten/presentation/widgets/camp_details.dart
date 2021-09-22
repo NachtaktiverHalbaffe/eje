@@ -2,24 +2,23 @@ import 'package:eje/core/platform/MapLauncher.dart';
 import 'package:eje/pages/articles/presentation/widgets/DetailsPage.dart';
 import 'package:eje/core/widgets/LoadingIndicator.dart';
 import 'package:eje/pages/articles/domain/entity/Hyperlink.dart';
-import 'package:eje/pages/freizeiten/domain/entities/Freizeit.dart';
+import 'package:eje/pages/freizeiten/domain/entities/camp.dart';
 import 'package:eje/pages/freizeiten/presentation/bloc/bloc.dart';
-import 'package:eje/pages/freizeiten/presentation/bloc/freizeiten_bloc.dart';
-import 'package:eje/pages/freizeiten/presentation/bloc/freizeiten_state.dart';
+import 'package:eje/pages/freizeiten/presentation/bloc/camps_bloc.dart';
+import 'package:eje/pages/freizeiten/presentation/bloc/camps_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class FreizeitDetails extends StatelessWidget {
-  final Freizeit freizeit;
-  FreizeitDetails(this.freizeit);
+class CampDetails extends StatelessWidget {
+  final Camp camp;
+  CampDetails(this.camp);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BlocConsumer<FreizeitenBloc, FreizeitenState>(
-          listener: (context, state) {
+      body: BlocConsumer<CampsBloc, CampState>(listener: (context, state) {
         if (state is Error) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
@@ -30,19 +29,17 @@ class FreizeitDetails extends StatelessWidget {
       }, builder: (context, state) {
         if (state is Empty) {
           print("Build page CampDetail: Empty");
-          BlocProvider.of<FreizeitenBloc>(context)
-              .add(GettingFreizeit(freizeit));
+          BlocProvider.of<CampsBloc>(context).add(GettingCamp(camp));
           return LoadingIndicator();
         } else if (state is Loading) {
           print("Build page CampDetail: Loading");
           return LoadingIndicator();
-        } else if (state is LoadedFreizeit) {
+        } else if (state is LoadedCamp) {
           print("Build page CampDetail: LoadedCamp");
           return FreizeitDetailsCard(freizeit: state.freizeit);
         } else {
           print("Build page CampDetail: Undefined");
-          BlocProvider.of<FreizeitenBloc>(context)
-              .add(GettingFreizeit(freizeit));
+          BlocProvider.of<CampsBloc>(context).add(GettingCamp(camp));
           return Container();
         }
       }),
@@ -51,16 +48,16 @@ class FreizeitDetails extends StatelessWidget {
 }
 
 class FreizeitDetailsCard extends StatelessWidget {
-  final Freizeit freizeit;
+  final Camp freizeit;
   const FreizeitDetailsCard({Key key, this.freizeit}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return DetailsPage(
-      titel: freizeit.freizeit,
-      untertitel: freizeit.motto,
-      text: freizeit.beschreibung,
-      bilder: freizeit.bilder,
+      titel: freizeit.name,
+      untertitel: freizeit.subtitle,
+      text: freizeit.description,
+      bilder: freizeit.pictures,
       hyperlinks: [Hyperlink(link: "", description: "")],
       childWidget: _freizeitChildWidget(freizeit: freizeit),
     );
@@ -69,7 +66,7 @@ class FreizeitDetailsCard extends StatelessWidget {
 
 // ignore: camel_case_types
 class _freizeitChildWidget extends StatelessWidget {
-  final Freizeit freizeit;
+  final Camp freizeit;
   const _freizeitChildWidget({Key key, this.freizeit}) : super(key: key);
 
   @override
@@ -98,7 +95,7 @@ class _freizeitChildWidget extends StatelessWidget {
             size: 72 / MediaQuery.of(context).devicePixelRatio,
           ),
           title: Text(
-            freizeit.preis,
+            freizeit.price,
             style: TextStyle(
               fontSize: 42 / MediaQuery.of(context).devicePixelRatio,
               color: Theme.of(context).dividerColor,
@@ -112,11 +109,11 @@ class _freizeitChildWidget extends StatelessWidget {
             size: 72 / MediaQuery.of(context).devicePixelRatio,
           ),
           title: Text(
-            freizeit.ort.Anschrift +
+            freizeit.location.Anschrift +
                 "\n" +
-                freizeit.ort.Strasse +
+                freizeit.location.Strasse +
                 "\n" +
-                freizeit.ort.PLZ,
+                freizeit.location.PLZ,
             style: TextStyle(
               fontSize: 42 / MediaQuery.of(context).devicePixelRatio,
             ),
@@ -127,11 +124,11 @@ class _freizeitChildWidget extends StatelessWidget {
               color: Theme.of(context).colorScheme.secondary,
             ),
             onTap: () async {
-              await MapLauncher.launchQuery(freizeit.ort.Anschrift +
+              await MapLauncher.launchQuery(freizeit.location.Anschrift +
                   "," +
-                  freizeit.ort.Strasse +
+                  freizeit.location.Strasse +
                   ", " +
-                  freizeit.ort.PLZ);
+                  freizeit.location.PLZ);
             },
           ),
         ),
@@ -142,7 +139,7 @@ class _freizeitChildWidget extends StatelessWidget {
             size: 72 / MediaQuery.of(context).devicePixelRatio,
           ),
           title: Text(
-            freizeit.alter,
+            freizeit.age,
             style: TextStyle(
               fontSize: 42 / MediaQuery.of(context).devicePixelRatio,
               color: Theme.of(context).dividerColor,
@@ -156,7 +153,7 @@ class _freizeitChildWidget extends StatelessWidget {
             size: 72 / MediaQuery.of(context).devicePixelRatio,
           ),
           title: Text(
-            freizeit.verpflegung,
+            freizeit.catering,
             style: TextStyle(
               fontSize: 42 / MediaQuery.of(context).devicePixelRatio,
               color: Theme.of(context).dividerColor,
@@ -170,7 +167,7 @@ class _freizeitChildWidget extends StatelessWidget {
             size: 72 / MediaQuery.of(context).devicePixelRatio,
           ),
           title: Text(
-            freizeit.unterbringung,
+            freizeit.lodging,
             style: TextStyle(
               fontSize: 42 / MediaQuery.of(context).devicePixelRatio,
               color: Theme.of(context).dividerColor,
@@ -184,7 +181,7 @@ class _freizeitChildWidget extends StatelessWidget {
             size: 72 / MediaQuery.of(context).devicePixelRatio,
           ),
           title: Text(
-            freizeit.anreise,
+            freizeit.journey,
             style: TextStyle(
               fontSize: 42 / MediaQuery.of(context).devicePixelRatio,
               color: Theme.of(context).dividerColor,
@@ -206,7 +203,9 @@ class _freizeitChildWidget extends StatelessWidget {
               }
             },
             child: Text(
-              "Anmelden \n(Anmeldeschluss:" + freizeit.anmeldeschluss + ")",
+              "Anmelden \n(Anmeldeschluss:" +
+                  freizeit.registrationDeadline +
+                  ")",
               style: TextStyle(
                 color: Theme.of(context).dividerColor,
               ),

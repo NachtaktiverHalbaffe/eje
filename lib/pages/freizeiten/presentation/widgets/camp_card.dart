@@ -1,16 +1,16 @@
 import 'package:eje/core/utils/injection_container.dart';
 import 'package:eje/core/widgets/PrefImage.dart';
-import 'package:eje/pages/freizeiten/domain/entities/Freizeit.dart';
-import 'package:eje/pages/freizeiten/presentation/bloc/freizeiten_bloc.dart';
-import 'package:eje/pages/freizeiten/presentation/widgets/freizeitDetails.dart';
+import 'package:eje/pages/freizeiten/domain/entities/camp.dart';
+import 'package:eje/pages/freizeiten/presentation/bloc/camps_bloc.dart';
+import 'package:eje/pages/freizeiten/presentation/widgets/camp_details.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
-class FreizeitCard extends StatelessWidget {
-  final Freizeit freizeit;
-  const FreizeitCard({Key key, this.freizeit}) : super(key: key);
+class CampCard extends StatelessWidget {
+  final Camp camp;
+  const CampCard({Key key, this.camp}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -37,8 +37,8 @@ class FreizeitCard extends StatelessWidget {
             context,
             MaterialPageRoute(
               builder: (_) => BlocProvider.value(
-                value: sl<FreizeitenBloc>(),
-                child: FreizeitDetails(freizeit),
+                value: sl<CampsBloc>(),
+                child: CampDetails(camp),
               ),
             ),
           ),
@@ -50,7 +50,7 @@ class FreizeitCard extends StatelessWidget {
                 alignment: Alignment.topCenter,
                 children: <Widget>[
                   CachedImage(
-                    url: freizeit.bilder[0],
+                    url: camp.pictures[0],
                     width: MediaQuery.of(context).size.width,
                     height: 275,
                   ),
@@ -58,7 +58,7 @@ class FreizeitCard extends StatelessWidget {
                     children: <Widget>[
                       SizedBox(height: 210),
                       Text(
-                        freizeit.freizeit,
+                        camp.name,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
                           fontSize: 30,
@@ -79,7 +79,7 @@ class FreizeitCard extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        freizeit.motto,
+                        camp.subtitle,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
                           fontSize: 17,
@@ -128,7 +128,7 @@ class FreizeitCard extends StatelessWidget {
                                 SizedBox(width: 4),
                                 Flexible(
                                   child: Text(
-                                    freizeit.datum,
+                                    camp.datum,
                                     overflow: TextOverflow.ellipsis,
                                     style: TextStyle(
                                       fontSize: 40 /
@@ -147,7 +147,7 @@ class FreizeitCard extends StatelessWidget {
                                 SizedBox(width: 4),
                                 Flexible(
                                   child: Text(
-                                    freizeit.preis,
+                                    camp.price,
                                     overflow: TextOverflow.ellipsis,
                                     style: TextStyle(
                                       fontSize: 40 /
@@ -172,7 +172,7 @@ class FreizeitCard extends StatelessWidget {
                                 SizedBox(width: 4),
                                 Flexible(
                                   child: Text(
-                                    freizeit.ort.Anschrift,
+                                    camp.location.Anschrift,
                                     overflow: TextOverflow.ellipsis,
                                     style: TextStyle(
                                       fontSize: 40 /
@@ -191,7 +191,7 @@ class FreizeitCard extends StatelessWidget {
                                 SizedBox(width: 4),
                                 Flexible(
                                   child: Text(
-                                    freizeit.alter,
+                                    camp.age,
                                     overflow: TextOverflow.ellipsis,
                                     style: TextStyle(
                                       fontSize: 40 /

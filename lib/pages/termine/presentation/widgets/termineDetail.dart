@@ -20,7 +20,6 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 class TerminDetails extends StatelessWidget {
   final Termin termin;
   TerminDetails(this.termin);
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -81,7 +80,7 @@ class TerminDetailsCard extends StatelessWidget {
 class _terminChildWidget extends StatelessWidget {
   final Termin _termin;
   _terminChildWidget(this._termin);
-
+  // TODO Ical implementierung
   @override
   Widget build(BuildContext context) {
     return Column(

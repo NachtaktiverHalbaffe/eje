@@ -7,7 +7,7 @@ import 'package:eje/pages/eje/arbeitsfelder/domain/entities/Arbeitsbereich.dart'
 import 'package:eje/pages/eje/bak/domain/entitys/BAKler.dart';
 import 'package:eje/pages/eje/hauptamtlichen/domain/entitys/hauptamtlicher.dart';
 import 'package:eje/pages/eje/services/domain/entities/Service.dart';
-import 'package:eje/pages/freizeiten/domain/entities/Freizeit.dart';
+import 'package:eje/pages/freizeiten/domain/entities/camp.dart';
 import 'package:eje/pages/neuigkeiten/domain/entitys/neuigkeit.dart';
 import 'package:eje/pages/termine/domain/entities/Ort.dart';
 import 'package:eje/pages/termine/domain/entities/Termin.dart';
@@ -42,9 +42,9 @@ Future<void> startup() async {
   Hive.registerAdapter(NeuigkeitAdapter());
   Hive.registerAdapter(HauptamtlicherAdapter());
   Hive.registerAdapter(BAKlerAdapter());
-  Hive.registerAdapter(ArbeitsbereichAdapter());
+  Hive.registerAdapter(FieldOfWorkAdapter());
   Hive.registerAdapter(TerminAdapter());
-  Hive.registerAdapter(FreizeitAdapter());
+  Hive.registerAdapter(CampAdapter());
   Hive.registerAdapter(ArticleAdapter());
   Hive.registerAdapter(ReminderAdapter());
   Hive.registerAdapter(ServiceAdapter());

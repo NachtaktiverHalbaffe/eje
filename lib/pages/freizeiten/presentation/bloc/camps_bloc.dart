@@ -1,49 +1,48 @@
 // ignore_for_file: non_constant_identifier_names
-
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:eje/core/error/failures.dart';
-import 'package:eje/pages/freizeiten/domain/usecases/get_Freizeit.dart';
-import 'package:eje/pages/freizeiten/domain/usecases/get_Freizeiten.dart';
+import 'package:eje/pages/freizeiten/domain/usecases/get_camp.dart';
+import 'package:eje/pages/freizeiten/domain/usecases/get_camps.dart';
 import 'package:meta/meta.dart';
 
 import './bloc.dart';
 
-class FreizeitenBloc extends Bloc<FreizeitenEvent, FreizeitenState> {
+class CampsBloc extends Bloc<CampEvent, CampState> {
   final String SERVER_FAILURE_MESSAGE =
       'Fehler beim Abrufen der Daten vom Server. Ist Ihr Gerät mit den Internet verbunden?';
   final String CACHE_FAILURE_MESSAGE =
       'Fehler beim Laden der Daten aus den Cache. Löschen Sie den Cache oder setzen sie die App zurück.';
-  final GetFreizeit getFreizeit;
-  final GetFreizeiten getFreizeiten;
+  final GetCamp getCamp;
+  final GetCamps getCamps;
 
-  FreizeitenBloc({
-    @required this.getFreizeit,
-    @required this.getFreizeiten,
+  CampsBloc({
+    @required this.getCamp,
+    @required this.getCamps,
   }) : super(Empty());
 
   @override
-  Stream<FreizeitenState> mapEventToState(
-    FreizeitenEvent event,
+  Stream<CampState> mapEventToState(
+    CampEvent event,
   ) async* {
-    if (event is RefreshFreizeiten) {
+    if (event is RefreshCamps) {
       yield Loading();
-      final freizeitenOrFailure = await getFreizeiten();
-      yield freizeitenOrFailure.fold(
+      final campOrFailure = await getCamps();
+      yield campOrFailure.fold(
         (failure) {
           return Error(message: _mapFailureToMessage(failure));
         },
         (freizeiten) {
-          return LoadedFreizeiten(freizeiten);
+          return LoadedCamps(freizeiten);
         },
       );
-    } else if (event is GettingFreizeit) {
+    } else if (event is GettingCamp) {
       yield Loading();
-      final freizeitenOrFailure = await getFreizeit(freizeit: event.freizeit);
-      yield freizeitenOrFailure.fold(
+      final campsOrFailure = await getCamp(freizeit: event.camp);
+      yield campsOrFailure.fold(
         (failure) => Error(message: _mapFailureToMessage(failure)),
-        (freizeit) => LoadedFreizeit(freizeit),
+        (freizeit) => LoadedCamp(freizeit),
       );
     }
   }

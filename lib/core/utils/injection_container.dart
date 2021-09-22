@@ -41,12 +41,12 @@ import 'package:eje/pages/eje/services/domain/repositories/services_repository.d
 import 'package:eje/pages/eje/services/domain/usecases/GetService.dart';
 import 'package:eje/pages/eje/services/domain/usecases/GetServices.dart';
 import 'package:eje/pages/eje/services/presentation/bloc/services_bloc.dart';
-import 'package:eje/pages/freizeiten/data/datasources/freizeiten_local_datasource.dart';
-import 'package:eje/pages/freizeiten/data/datasources/freizeiten_remote_datasource.dart';
-import 'package:eje/pages/freizeiten/data/repositories/freizeiten_repository_impl.dart';
-import 'package:eje/pages/freizeiten/domain/repositories/freizeit_repository.dart';
-import 'package:eje/pages/freizeiten/domain/usecases/get_Freizeit.dart';
-import 'package:eje/pages/freizeiten/domain/usecases/get_Freizeiten.dart';
+import 'package:eje/pages/freizeiten/data/datasources/camps_local_datasource.dart';
+import 'package:eje/pages/freizeiten/data/datasources/camps_remote_datasource.dart';
+import 'package:eje/pages/freizeiten/data/repositories/camps_repository_impl.dart';
+import 'package:eje/pages/freizeiten/domain/repositories/camp_repository.dart';
+import 'package:eje/pages/freizeiten/domain/usecases/get_camp.dart';
+import 'package:eje/pages/freizeiten/domain/usecases/get_camps.dart';
 import 'package:eje/pages/freizeiten/presentation/bloc/bloc.dart';
 import 'package:eje/pages/neuigkeiten/data/datasources/neuigkeiten_local_datasource.dart';
 import 'package:eje/pages/neuigkeiten/data/datasources/neuigkeiten_remote_datasource.dart';
@@ -205,22 +205,22 @@ Future<void> init() async {
   sl.registerLazySingleton(() => TermineRemoteDatasource(client: sl()));
 
   // ! Freizeiten
-  sl.registerFactory(() => FreizeitenBloc(
-        getFreizeit: sl(),
-        getFreizeiten: sl(),
+  sl.registerFactory(() => CampsBloc(
+        getCamp: sl(),
+        getCamps: sl(),
       ));
   // * Usecases
-  sl.registerLazySingleton(() => GetFreizeit(sl()));
-  sl.registerLazySingleton(() => GetFreizeiten(repository: sl()));
+  sl.registerLazySingleton(() => GetCamp(sl()));
+  sl.registerLazySingleton(() => GetCamps(repository: sl()));
   // * Repository
-  sl.registerLazySingleton<FreizeitRepository>(() => FreizeitenRepositoryImpl(
+  sl.registerLazySingleton<CampRepository>(() => CampRepositoryImpl(
         remoteDataSource: sl(),
         localDatasource: sl(),
         networkInfo: sl(),
       ));
   // * Datasources
-  sl.registerLazySingleton(() => FreizeitenLocalDatasource());
-  sl.registerLazySingleton(() => FreizeitenRemoteDatasource());
+  sl.registerLazySingleton(() => CampsLocalDatasource());
+  sl.registerLazySingleton(() => CampsRemoteDatasource());
 
   // ! Articles
   sl.registerFactory(() => ArticlesBloc(

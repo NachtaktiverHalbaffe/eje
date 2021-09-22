@@ -2,23 +2,23 @@ import 'package:dartz/dartz.dart';
 import 'package:eje/app_config.dart';
 import 'package:eje/core/error/failures.dart';
 import 'package:eje/core/usecases/usecase.dart';
-import 'package:eje/pages/freizeiten/domain/entities/Freizeit.dart';
-import 'package:eje/pages/freizeiten/domain/repositories/freizeit_repository.dart';
+import 'package:eje/pages/freizeiten/domain/entities/camp.dart';
+import 'package:eje/pages/freizeiten/domain/repositories/camp_repository.dart';
 import 'package:hive/hive.dart';
 import 'package:meta/meta.dart';
 
-class GetFreizeit implements UseCase<Freizeit> {
-  final FreizeitRepository repository;
+class GetCamp implements UseCase<Camp> {
+  final CampRepository repository;
 
-  GetFreizeit(this.repository);
+  GetCamp(this.repository);
 
   @override
-  Future<Either<Failure, Freizeit>> call({
-    @required Freizeit freizeit,
+  Future<Either<Failure, Camp>> call({
+    @required Camp freizeit,
   }) async {
     final AppConfig appConfig = await AppConfig.loadConfig();
     final Box _box = await Hive.openBox(appConfig.campsBox);
-    final result = await repository.getFreizeit(freizeit);
+    final result = await repository.getCamp(freizeit);
     if (_box.isOpen) {
       await _box.compact();
       // await _box.close();

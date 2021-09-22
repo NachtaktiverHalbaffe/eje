@@ -1,7 +1,7 @@
 import 'package:background_fetch/background_fetch.dart';
 import 'package:eje/core/utils/notificationplugin.dart';
-import 'package:eje/pages/freizeiten/data/datasources/freizeiten_remote_datasource.dart';
-import 'package:eje/pages/freizeiten/domain/entities/Freizeit.dart';
+import 'package:eje/pages/freizeiten/data/datasources/camps_remote_datasource.dart';
+import 'package:eje/pages/freizeiten/domain/entities/camp.dart';
 import 'package:eje/pages/neuigkeiten/data/datasources/neuigkeiten_remote_datasource.dart';
 import 'package:eje/pages/neuigkeiten/domain/entitys/neuigkeit.dart';
 import 'package:flutter/foundation.dart';
@@ -103,17 +103,17 @@ void _checkFreizeitenNotification(String taskId) async {
   // Initiliaze GetStorage for getting Prefrences
   await GetStorage.init();
   final prefs = GetStorage();
-  List<Freizeit> downloadedCamps;
+  List<Camp> downloadedCamps;
   List<String> downloadedCampsTitles;
   List<String> cachedCamps = prefs.read("cached_freizeiten");
 
-  downloadedCamps = await FreizeitenRemoteDatasource().getFreizeiten();
+  downloadedCamps = await CampsRemoteDatasource().getFreizeiten();
   downloadedCamps.forEach((element) {
-    downloadedCampsTitles.add(element.freizeit);
+    downloadedCampsTitles.add(element.name);
   });
   //Downloading content from internet
   downloadedCamps.forEach((element) {
-    downloadedCampsTitles.add(element.freizeit);
+    downloadedCampsTitles.add(element.name);
   });
   // sort lists for comparison
   downloadedCampsTitles.sort((a, b) {
