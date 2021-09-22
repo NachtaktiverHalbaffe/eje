@@ -20,3 +20,12 @@ class GettingCamp extends CampEvent {
   @override
   List<Object> get props => [camp];
 }
+
+class FilteringCamps extends CampEvent {
+  final List<Camp> camps;
+
+  FilteringCamps(this.camps);
+
+  @override
+  List<Object> get props => [camps];
+}

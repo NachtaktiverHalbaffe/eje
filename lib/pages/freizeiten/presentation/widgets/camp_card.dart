@@ -136,9 +136,7 @@ class CampCard extends StatelessWidget {
                                             .format(camp.endDate),
                                     overflow: TextOverflow.ellipsis,
                                     style: TextStyle(
-                                      fontSize: 40 /
-                                          MediaQuery.of(context)
-                                              .devicePixelRatio,
+                                      fontSize: 12.5,
                                     ),
                                   ),
                                 ),
@@ -155,9 +153,7 @@ class CampCard extends StatelessWidget {
                                     camp.price.toString() + " Euro",
                                     overflow: TextOverflow.ellipsis,
                                     style: TextStyle(
-                                      fontSize: 40 /
-                                          MediaQuery.of(context)
-                                              .devicePixelRatio,
+                                      fontSize: 12.5,
                                     ),
                                   ),
                                 ),
@@ -180,9 +176,7 @@ class CampCard extends StatelessWidget {
                                     camp.location.Anschrift,
                                     overflow: TextOverflow.ellipsis,
                                     style: TextStyle(
-                                      fontSize: 40 /
-                                          MediaQuery.of(context)
-                                              .devicePixelRatio,
+                                      fontSize: 12.5,
                                     ),
                                   ),
                                 ),
@@ -199,9 +193,7 @@ class CampCard extends StatelessWidget {
                                     camp.age.toString(),
                                     overflow: TextOverflow.ellipsis,
                                     style: TextStyle(
-                                      fontSize: 40 /
-                                          MediaQuery.of(context)
-                                              .devicePixelRatio,
+                                      fontSize: 12.5,
                                     ),
                                   ),
                                 ),

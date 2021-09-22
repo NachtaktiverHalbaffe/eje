@@ -44,6 +44,8 @@ class CampsBloc extends Bloc<CampEvent, CampState> {
         (failure) => Error(message: _mapFailureToMessage(failure)),
         (freizeit) => LoadedCamp(freizeit),
       );
+    } else if (event is FilteringCamps) {
+      yield LoadedCamps(event.camps);
     }
   }
 

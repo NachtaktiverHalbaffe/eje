@@ -1,5 +1,6 @@
 import 'package:eje/core/utils/injection_container.dart';
 import 'package:eje/core/widgets/LoadingIndicator.dart';
+import 'package:eje/pages/freizeiten/domain/usecases/get_camps.dart';
 import 'package:eje/pages/freizeiten/presentation/bloc/bloc.dart';
 import 'package:eje/pages/freizeiten/presentation/widgets/camp_card.dart';
 import 'package:flutter/cupertino.dart';
@@ -25,7 +26,6 @@ class Camps extends StatelessWidget {
             );
           }
         },
-        // ignore: missing_return
         builder: (context, state) {
           if (state is Empty) {
             BlocProvider.of<CampsBloc>(context).add(RefreshCamps());
@@ -35,6 +35,9 @@ class Camps extends StatelessWidget {
             return LoadingIndicator();
           } else if (state is LoadedCamps) {
             return CampsPageViewer(state.freizeiten);
+          } else {
+            BlocProvider.of<CampsBloc>(context).add(RefreshCamps());
+            return LoadingIndicator();
           }
         },
       ),
@@ -48,13 +51,40 @@ class CampsPageViewer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<Camp> filteredFreizeiten = camps;
     return Scaffold(
       resizeToAvoidBottomInset: true,
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
           Camp filterCampDummy = await createFilterDialog(context: context);
+          List<Camp> filteredCamps = camps;
+          // Filtering by start and end date
+          if (filterCampDummy.startDate != null &&
+              filterCampDummy.endDate != null) {
+            filteredCamps = filteredCamps
+                .where((element) =>
+                    element.startDate.isAfter(filterCampDummy.startDate))
+                .toList();
+            filteredCamps = filteredCamps
+                .where((element) =>
+                    element.endDate.isBefore(filterCampDummy.endDate))
+                .toList();
+          }
+          // Filtering by age
+          if (filterCampDummy.age != 0) {
+            filteredCamps = filteredCamps
+                .where((element) => element.age <= filterCampDummy.age)
+                .toList();
+          }
+          // Filtering by price
+          if (filterCampDummy.price != 0) {
+            filteredCamps = filteredCamps
+                .where((element) => element.price <= filterCampDummy.price)
+                .toList();
+          }
+
+          BlocProvider.of<CampsBloc>(context)
+              .add(FilteringCamps(filteredCamps));
         },
         child: Icon(
           Icons.search,
@@ -71,16 +101,20 @@ class CampsPageViewer extends StatelessWidget {
                 physics: AlwaysScrollableScrollPhysics(),
                 child: ConstrainedBox(
                   constraints: BoxConstraints(minHeight: 400),
-                  child: Swiper(
-                    itemBuilder: (BuildContext context, int index) {
-                      return CampCard(camp: filteredFreizeiten[index]);
-                    },
-                    itemCount: filteredFreizeiten.length,
-                    itemHeight: 350,
-                    itemWidth: 325,
-                    layout: SwiperLayout.STACK,
-                    loop: true,
-                  ),
+                  child: camps.length != 0
+                      ? Swiper(
+                          itemBuilder: (BuildContext context, int index) {
+                            return CampCard(camp: camps[index]);
+                          },
+                          itemCount: camps.length,
+                          itemHeight: 350,
+                          itemWidth: 325,
+                          layout: SwiperLayout.STACK,
+                          loop: true,
+                        )
+                      // Return placeholder if no camps are available to display
+                      : Container(),
+                  // TODO implement Card if no camps are available
                 ),
               ),
             ],
@@ -106,8 +140,7 @@ Future<Camp> createFilterDialog({BuildContext context}) {
   // Values that can be filtered
   int age = 0;
   int price = 0;
-  DateTimeRange date =
-      DateTimeRange(start: DateTime.now(), end: DateTime.now());
+  DateTimeRange date = null;
 
   return showDialog(
       context: context,
@@ -121,7 +154,9 @@ Future<Camp> createFilterDialog({BuildContext context}) {
               TextField(
                 controller: TextEditingController(),
                 keyboardType: TextInputType.number,
-                onSubmitted: (value) => age,
+                onChanged: (value) {
+                  age = int.parse(value);
+                },
                 decoration: InputDecoration(
                   floatingLabelStyle:
                       TextStyle(color: Theme.of(context).colorScheme.secondary),
@@ -141,7 +176,9 @@ Future<Camp> createFilterDialog({BuildContext context}) {
               TextField(
                 controller: TextEditingController(),
                 keyboardType: TextInputType.number,
-                onSubmitted: (value) => price,
+                onChanged: (value) {
+                  price = int.parse(value);
+                },
                 decoration: InputDecoration(
                   floatingLabelStyle:
                       TextStyle(color: Theme.of(context).colorScheme.secondary),
@@ -196,8 +233,8 @@ Future<Camp> createFilterDialog({BuildContext context}) {
                 Navigator.of(context).pop(new Camp(
                   age: 0,
                   price: 0,
-                  startDate: DateTime.now(),
-                  endDate: DateTime.now(),
+                  startDate: null,
+                  endDate: null,
                 ));
               },
               child: Text("Abbrechen"),
@@ -208,8 +245,8 @@ Future<Camp> createFilterDialog({BuildContext context}) {
                   new Camp(
                     age: age,
                     price: price,
-                    startDate: date.start,
-                    endDate: date.end,
+                    startDate: date != null ? date.start : null,
+                    endDate: date != null ? date.end : null,
                   ),
                 );
               },
