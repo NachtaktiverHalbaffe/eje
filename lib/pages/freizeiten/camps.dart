@@ -56,7 +56,7 @@ class CampsPageViewer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: true,
+      resizeToAvoidBottomInset: false,
       backgroundColor: Theme.of(context).colorScheme.surface,
       body: RefreshIndicator(
           color: Theme.of(context).colorScheme.secondary,
@@ -64,7 +64,7 @@ class CampsPageViewer extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              FilterCard(),
+              SizedBox(height: 65),
               SingleChildScrollView(
                 physics: AlwaysScrollableScrollPhysics(),
                 child: ConstrainedBox(
@@ -78,13 +78,14 @@ class CampsPageViewer extends StatelessWidget {
                           itemHeight: 350,
                           itemWidth: 325,
                           layout: SwiperLayout.STACK,
-                          loop: camps.length == 1 ? false : true,
+                          loop: true,
                         )
                       // Return placeholder if no camps are available to display
                       : Container(),
                   // TODO implement Card if no camps are available
                 ),
               ),
+              FilterCard(),
             ],
           ),
           onRefresh: () async {
@@ -219,7 +220,6 @@ Future<Camp> createFilterDialog({BuildContext context}) {
             MaterialButton(
               onPressed: () {
                 final prefs = GetStorage();
-                print("Age" + age.toString());
                 if (age != 0) {
                   prefs.write("campFilterAge", age);
                 }
@@ -242,31 +242,28 @@ Future<Camp> createFilterDialog({BuildContext context}) {
 class FilterCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 6.0,
-      child: Column(
-        children: [
-          ListTile(
-            leading: Text(
-              "Filter",
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 20,
-              ),
-            ),
-            trailing: IconButton(
-              onPressed: () async {
-                await createFilterDialog(context: context);
-                BlocProvider.of<CampsBloc>(context).add(FilteringCamps());
-              },
-              icon: Icon(
-                Icons.add,
-              ),
+    return Column(
+      children: [
+        ListTile(
+          leading: Text(
+            "Filter",
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 20,
             ),
           ),
-          ChipsRow(),
-        ],
-      ),
+          trailing: IconButton(
+            onPressed: () async {
+              await createFilterDialog(context: context);
+              BlocProvider.of<CampsBloc>(context).add(FilteringCamps());
+            },
+            icon: Icon(
+              Icons.add,
+            ),
+          ),
+        ),
+        ChipsWrap(),
+      ],
     );
   }
 }

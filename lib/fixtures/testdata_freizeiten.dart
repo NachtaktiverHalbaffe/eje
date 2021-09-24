@@ -13,8 +13,8 @@ void testdataFreizeiten(Box _box) {
         price: 260,
         startAge: 13,
         endAge: 17,
-        startDate: DateTime(2020, 7, 30),
-        endDate: DateTime(2020, 8, 8),
+        startDate: DateTime(2022, 7, 30),
+        endDate: DateTime(2022, 8, 8),
         location:
             Ort("Zeltplatz am Hopfensee", "Dornach 108", "87659 Hopferau"),
         registrationDeadline: "14. Juli 2020",
@@ -41,8 +41,8 @@ void testdataFreizeiten(Box _box) {
         price: 295,
         startAge: 8,
         endAge: 12,
-        startDate: DateTime(2020, 7, 30),
-        endDate: DateTime(2020, 8, 8),
+        startDate: DateTime(2022, 7, 30),
+        endDate: DateTime(2022, 8, 8),
         location:
             Ort("Freizeitheim Asch", "Dorfstraße 100", "12345 Blaubeuren"),
         registrationDeadline: "14. Juli 2020",

@@ -128,7 +128,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return PersistentTabView(
       context,
-      resizeToAvoidBottomInset: true,
+      resizeToAvoidBottomInset: false,
       controller: PersistentTabController(initialIndex: initialIndex),
       items: _navBarsItems(),
       screens: _buildScreens(),
