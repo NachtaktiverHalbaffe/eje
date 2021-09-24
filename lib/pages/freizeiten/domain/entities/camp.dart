@@ -13,39 +13,42 @@ class Camp extends Equatable {
   @HiveField(2)
   final DateTime endDate;
   @HiveField(3)
-  final int age;
+  final int startAge;
   @HiveField(4)
-  final int price;
+  final int endAge;
   @HiveField(5)
-  final String freePlaces;
+  final int price;
   @HiveField(6)
-  final Ort location;
+  final String freePlaces;
   @HiveField(7)
-  final String link;
+  final Ort location;
   @HiveField(8)
-  final List<String> pictures;
+  final String link;
   @HiveField(9)
-  final String description;
+  final List<String> pictures;
   @HiveField(10)
-  final String registrationDeadline;
+  final String description;
   @HiveField(11)
-  final String catering;
+  final String registrationDeadline;
   @HiveField(12)
-  final String lodging;
+  final String catering;
   @HiveField(13)
-  final String journey;
+  final String lodging;
   @HiveField(14)
-  final String otherServices;
+  final String journey;
   @HiveField(15)
-  final String subtitle;
+  final String otherServices;
   @HiveField(16)
+  final String subtitle;
+  @HiveField(17)
   final List<String> companion;
 
   Camp(
       {this.name,
       this.startDate,
       this.endDate,
-      this.age,
+      this.startAge,
+      this.endAge,
       this.price,
       this.freePlaces,
       this.location,
@@ -65,7 +68,8 @@ class Camp extends Equatable {
         name,
         startDate,
         endDate,
-        age,
+        startAge,
+        endAge,
         price,
         freePlaces,
         location,

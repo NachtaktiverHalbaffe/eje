@@ -1,6 +1,5 @@
 import 'package:eje/core/utils/injection_container.dart';
 import 'package:eje/core/widgets/LoadingIndicator.dart';
-import 'package:eje/pages/freizeiten/domain/usecases/get_camps.dart';
 import 'package:eje/pages/freizeiten/presentation/bloc/bloc.dart';
 import 'package:eje/pages/freizeiten/presentation/widgets/camp_card.dart';
 import 'package:flutter/cupertino.dart';
@@ -71,9 +70,11 @@ class CampsPageViewer extends StatelessWidget {
                 .toList();
           }
           // Filtering by age
-          if (filterCampDummy.age != 0) {
+          if (filterCampDummy.startAge != 0) {
             filteredCamps = filteredCamps
-                .where((element) => element.age <= filterCampDummy.age)
+                .where((element) =>
+                    element.startAge <= filterCampDummy.startAge &&
+                    element.endAge >= filterCampDummy.startAge)
                 .toList();
           }
           // Filtering by price
@@ -140,7 +141,7 @@ Future<Camp> createFilterDialog({BuildContext context}) {
   // Values that can be filtered
   int age = 0;
   int price = 0;
-  DateTimeRange date = null;
+  DateTimeRange date;
 
   return showDialog(
       context: context,
@@ -231,7 +232,7 @@ Future<Camp> createFilterDialog({BuildContext context}) {
             MaterialButton(
               onPressed: () {
                 Navigator.of(context).pop(new Camp(
-                  age: 0,
+                  startAge: 0,
                   price: 0,
                   startDate: null,
                   endDate: null,
@@ -243,7 +244,7 @@ Future<Camp> createFilterDialog({BuildContext context}) {
               onPressed: () {
                 Navigator.of(context).pop(
                   new Camp(
-                    age: age,
+                    startAge: age,
                     price: price,
                     startDate: date != null ? date.start : null,
                     endDate: date != null ? date.end : null,
