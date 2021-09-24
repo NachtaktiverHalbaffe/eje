@@ -3,7 +3,7 @@ import 'package:eje/pages/termine/domain/entities/Ort.dart';
 import 'package:hive/hive.dart';
 
 void testdataFreizeiten(Box _box) {
-  if (_box.length < 6) {
+  if (_box.length < 2) {
     _box.add(
       new Camp(
         name: "Teenie-Camp Hopfensee",

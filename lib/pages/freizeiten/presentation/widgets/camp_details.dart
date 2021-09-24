@@ -82,7 +82,9 @@ class _freizeitChildWidget extends StatelessWidget {
             size: 72 / MediaQuery.of(context).devicePixelRatio,
           ),
           title: Text(
-            DateFormat('dd.MM.yyyy').format(freizeit.startDate),
+            DateFormat('dd.MM.yyyy').format(freizeit.startDate) +
+                " - " +
+                DateFormat('dd.MM.yyyy').format(freizeit.endDate),
             style: TextStyle(
               fontSize: 42 / MediaQuery.of(context).devicePixelRatio,
               color: Theme.of(context).dividerColor,

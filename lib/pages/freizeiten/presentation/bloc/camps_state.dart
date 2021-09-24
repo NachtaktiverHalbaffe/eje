@@ -27,6 +27,15 @@ class LoadedCamps extends CampState {
   List<Object> get props => [freizeiten];
 }
 
+class FilteredCamps extends CampState {
+  final List<Camp> freizeiten;
+
+  FilteredCamps(this.freizeiten);
+
+  @override
+  List<Object> get props => [freizeiten];
+}
+
 class LoadedCamp extends CampState {
   final Camp freizeit;
 

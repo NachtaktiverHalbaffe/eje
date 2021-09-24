@@ -35,6 +35,11 @@ Future<void> startup() async {
     prefs.write('cached_freizeiten', [""]);
     prefs.write('schedule_offset', 1);
   }
+  // Reset filters
+  prefs.write("campFilterAge", 0);
+  prefs.write("campFilterPrice", 0);
+  prefs.write("campFilterStartDate", "");
+  prefs.write("campFilterEndDate", "");
   //Setting Hive up
   final appDocumentDirectory =
       await path_provider.getApplicationDocumentsDirectory();

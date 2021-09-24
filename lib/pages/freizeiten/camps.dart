@@ -4,8 +4,11 @@ import 'package:eje/pages/freizeiten/presentation/bloc/bloc.dart';
 import 'package:eje/pages/freizeiten/presentation/widgets/camp_card.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_swiper_plus/flutter_swiper_plus.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:intl/intl.dart';
 
 import 'domain/entities/camp.dart';
@@ -34,6 +37,8 @@ class Camps extends StatelessWidget {
             return LoadingIndicator();
           } else if (state is LoadedCamps) {
             return CampsPageViewer(state.freizeiten);
+          } else if (state is FilteredCamps) {
+            return CampsPageViewer(state.freizeiten);
           } else {
             BlocProvider.of<CampsBloc>(context).add(RefreshCamps());
             return LoadingIndicator();
@@ -52,45 +57,6 @@ class CampsPageViewer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: true,
-      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-      floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          Camp filterCampDummy = await createFilterDialog(context: context);
-          List<Camp> filteredCamps = camps;
-          // Filtering by start and end date
-          if (filterCampDummy.startDate != null &&
-              filterCampDummy.endDate != null) {
-            filteredCamps = filteredCamps
-                .where((element) =>
-                    element.startDate.isAfter(filterCampDummy.startDate))
-                .toList();
-            filteredCamps = filteredCamps
-                .where((element) =>
-                    element.endDate.isBefore(filterCampDummy.endDate))
-                .toList();
-          }
-          // Filtering by age
-          if (filterCampDummy.startAge != 0) {
-            filteredCamps = filteredCamps
-                .where((element) =>
-                    element.startAge <= filterCampDummy.startAge &&
-                    element.endAge >= filterCampDummy.startAge)
-                .toList();
-          }
-          // Filtering by price
-          if (filterCampDummy.price != 0) {
-            filteredCamps = filteredCamps
-                .where((element) => element.price <= filterCampDummy.price)
-                .toList();
-          }
-
-          BlocProvider.of<CampsBloc>(context)
-              .add(FilteringCamps(filteredCamps));
-        },
-        child: Icon(
-          Icons.search,
-        ),
-      ),
       backgroundColor: Theme.of(context).colorScheme.surface,
       body: RefreshIndicator(
           color: Theme.of(context).colorScheme.secondary,
@@ -98,6 +64,7 @@ class CampsPageViewer extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+              FilterCard(),
               SingleChildScrollView(
                 physics: AlwaysScrollableScrollPhysics(),
                 child: ConstrainedBox(
@@ -111,7 +78,7 @@ class CampsPageViewer extends StatelessWidget {
                           itemHeight: 350,
                           itemWidth: 325,
                           layout: SwiperLayout.STACK,
-                          loop: true,
+                          loop: camps.length == 1 ? false : true,
                         )
                       // Return placeholder if no camps are available to display
                       : Container(),
@@ -135,7 +102,15 @@ Future<Camp> createFilterDialog({BuildContext context}) {
   const String priceFilterHelper = "Maximal möglicher Preis";
   const String dateFilterLable = "Zeitraum auswählen";
 
-  TextEditingController datetimeRangeController = TextEditingController();
+  TextEditingController datetimeRangeController = TextEditingController(
+    text: GetStorage().read("campFilterStartDate") != ""
+        ? DateFormat('dd.MM.yyyy').format(
+                DateTime.tryParse(GetStorage().read("campFilterStartDate"))) +
+            " - " +
+            DateFormat('dd.MM.yyyy').format(
+                DateTime.tryParse(GetStorage().read("campFilterEndDate")))
+        : "",
+  );
   const double height = 20;
 
   // Values that can be filtered
@@ -153,7 +128,10 @@ Future<Camp> createFilterDialog({BuildContext context}) {
             children: [
               // Age
               TextField(
-                controller: TextEditingController(),
+                controller: TextEditingController(
+                    text: GetStorage().read("campFilterAge") != 0
+                        ? GetStorage().read("campFilterAge").toString()
+                        : ""),
                 keyboardType: TextInputType.number,
                 onChanged: (value) {
                   age = int.parse(value);
@@ -175,7 +153,10 @@ Future<Camp> createFilterDialog({BuildContext context}) {
               SizedBox(height: height),
               // Price
               TextField(
-                controller: TextEditingController(),
+                controller: TextEditingController(
+                    text: GetStorage().read("campFilterPrice") != 0
+                        ? GetStorage().read("campFilterPrice").toString()
+                        : ""),
                 keyboardType: TextInputType.number,
                 onChanged: (value) {
                   price = int.parse(value);
@@ -231,29 +212,214 @@ Future<Camp> createFilterDialog({BuildContext context}) {
           actions: <Widget>[
             MaterialButton(
               onPressed: () {
-                Navigator.of(context).pop(new Camp(
-                  startAge: 0,
-                  price: 0,
-                  startDate: null,
-                  endDate: null,
-                ));
+                Navigator.of(context).pop();
               },
               child: Text("Abbrechen"),
             ),
             MaterialButton(
               onPressed: () {
-                Navigator.of(context).pop(
-                  new Camp(
-                    startAge: age,
-                    price: price,
-                    startDate: date != null ? date.start : null,
-                    endDate: date != null ? date.end : null,
-                  ),
-                );
+                final prefs = GetStorage();
+                print("Age" + age.toString());
+                if (age != 0) {
+                  prefs.write("campFilterAge", age);
+                }
+                if (price != 0) {
+                  prefs.write("campFilterPrice", price);
+                }
+                if (date != null) {
+                  prefs.write("campFilterStartDate", date.start.toString());
+                  prefs.write("campFilterEndDate", date.end.toString());
+                }
+                Navigator.of(context).pop();
               },
               child: Text("Bestätigen"),
             ),
           ],
         );
       });
+}
+
+class FilterCard extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      elevation: 6.0,
+      child: Column(
+        children: [
+          ListTile(
+            leading: Text(
+              "Filter",
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 20,
+              ),
+            ),
+            trailing: IconButton(
+              onPressed: () async {
+                await createFilterDialog(context: context);
+                BlocProvider.of<CampsBloc>(context).add(FilteringCamps());
+              },
+              icon: Icon(
+                Icons.add,
+              ),
+            ),
+          ),
+          ChipsRow(),
+        ],
+      ),
+    );
+  }
+}
+
+class ChipsWrap extends StatelessWidget {
+  final prefs = GetStorage();
+  final double elevation = 4;
+
+  @override
+  Widget build(BuildContext context) {
+    List<Widget> chips = List.empty(growable: true);
+    // Read filters from storage and create chip if filter is active
+    if (prefs.read("campFilterAge") != 0) {
+      chips.add(
+        _filterChip(
+          dataLabel: prefs.read("campFilterAge").toString(),
+          icon: Icons.cake,
+          onDeleted: () {
+            prefs.write("campFilterAge", 0);
+            BlocProvider.of<CampsBloc>(context).add(FilteringCamps());
+          },
+        ),
+      );
+    }
+    if (prefs.read("campFilterPrice") != 0) {
+      chips.add(
+        _filterChip(
+          dataLabel: prefs.read("campFilterPrice").toString(),
+          icon: Icons.euro,
+          onDeleted: () {
+            prefs.write("campFilterPrice", 0);
+            BlocProvider.of<CampsBloc>(context).add(FilteringCamps());
+          },
+        ),
+      );
+    }
+    if (prefs.read("campFilterStartDate") != "" &&
+        prefs.read("campFilterEndDate") != "") {
+      chips.add(
+        _filterChip(
+          dataLabel: DateFormat('dd.MM.yyyy').format(
+                  DateTime.tryParse(prefs.read("campFilterStartDate"))) +
+              " - " +
+              DateFormat('dd.MM.yyyy')
+                  .format(DateTime.tryParse(prefs.read("campFilterEndDate"))),
+          icon: Icons.calendar_today,
+          onDeleted: () {
+            prefs.write("campFilterStartDate", "");
+            prefs.write("campFilterEndDate", "");
+            BlocProvider.of<CampsBloc>(context).add(FilteringCamps());
+          },
+        ),
+      );
+    }
+
+    return Wrap(
+      children: chips,
+    );
+  }
+}
+
+class ChipsRow extends StatelessWidget {
+  final prefs = GetStorage();
+  final double elevation = 4;
+
+  @override
+  Widget build(BuildContext context) {
+    List<Widget> chips = List.empty(growable: true);
+    // Read filters from storage and create chip if filter is active
+    if (prefs.read("campFilterAge") != 0) {
+      chips.add(
+        _filterChip(
+          dataLabel: prefs.read("campFilterAge").toString(),
+          icon: Icons.cake,
+          onDeleted: () {
+            prefs.write("campFilterAge", 0);
+            BlocProvider.of<CampsBloc>(context).add(FilteringCamps());
+          },
+        ),
+      );
+    }
+    if (prefs.read("campFilterPrice") != 0) {
+      chips.add(
+        _filterChip(
+          dataLabel: prefs.read("campFilterPrice").toString(),
+          icon: Icons.euro,
+          onDeleted: () {
+            prefs.write("campFilterPrice", 0);
+            BlocProvider.of<CampsBloc>(context).add(FilteringCamps());
+          },
+        ),
+      );
+    }
+    if (prefs.read("campFilterStartDate") != "" &&
+        prefs.read("campFilterEndDate") != "") {
+      chips.add(
+        _filterChip(
+          dataLabel: DateFormat('dd.MM.yyyy').format(
+                  DateTime.tryParse(prefs.read("campFilterStartDate"))) +
+              " - " +
+              DateFormat('dd.MM.yyyy')
+                  .format(DateTime.tryParse(prefs.read("campFilterEndDate"))),
+          icon: Icons.calendar_today,
+          onDeleted: () {
+            prefs.write("campFilterStartDate", "");
+            prefs.write("campFilterEndDate", "");
+            BlocProvider.of<CampsBloc>(context).add(FilteringCamps());
+          },
+        ),
+      );
+    }
+
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Row(
+        children: chips,
+      ),
+    );
+  }
+}
+
+class _filterChip extends StatelessWidget {
+  final onDeleted;
+  final dataLabel;
+  final icon;
+
+  const _filterChip({Key key, this.onDeleted, this.dataLabel, this.icon})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.symmetric(horizontal: 6.0),
+      child: Chip(
+        padding: EdgeInsets.symmetric(horizontal: 3.0),
+        backgroundColor: Theme.of(context).colorScheme.secondary,
+        elevation: 3,
+        avatar: Icon(
+          icon,
+          color: Colors.white,
+        ),
+        label: Text(
+          dataLabel,
+          style: TextStyle(
+            color: Colors.white,
+          ),
+        ),
+        onDeleted: onDeleted,
+        deleteIcon: Icon(
+          Icons.highlight_remove,
+          color: Colors.white,
+        ),
+      ),
+    );
+  }
 }

@@ -3,8 +3,10 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:eje/core/error/failures.dart';
+import 'package:eje/pages/freizeiten/domain/entities/camp.dart';
 import 'package:eje/pages/freizeiten/domain/usecases/get_camp.dart';
 import 'package:eje/pages/freizeiten/domain/usecases/get_camps.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:meta/meta.dart';
 
 import './bloc.dart';
@@ -34,6 +36,11 @@ class CampsBloc extends Bloc<CampEvent, CampState> {
           return Error(message: _mapFailureToMessage(failure));
         },
         (freizeiten) {
+          if (GetStorage().read("campFilterStartDate") != "" ||
+              GetStorage().read("campFilterAge") != 0 ||
+              GetStorage().read("campFilterPrice") != 0) {
+            return LoadedCamps(_filterCamps(freizeiten));
+          }
           return LoadedCamps(freizeiten);
         },
       );
@@ -45,8 +52,51 @@ class CampsBloc extends Bloc<CampEvent, CampState> {
         (freizeit) => LoadedCamp(freizeit),
       );
     } else if (event is FilteringCamps) {
-      yield LoadedCamps(event.camps);
+      yield Loading();
+      final campsOrFailure = await getCamps();
+      yield campsOrFailure.fold(
+        (failure) => Error(message: _mapFailureToMessage(failure)),
+        (freizeiten) {
+          List<Camp> filteredCamps = _filterCamps(freizeiten);
+          return FilteredCamps(filteredCamps);
+        },
+      );
     }
+  }
+
+  List<Camp> _filterCamps(List<Camp> filteredCamps) {
+    final prefs = GetStorage();
+
+    if (prefs.read("campFilterStartDate") != "" &&
+        prefs.read("campFilterEndDate") != "") {
+      print("Camps Bloc: Filtering by date");
+      filteredCamps = filteredCamps
+          .where((element) => element.startDate
+              .isAfter(DateTime.tryParse(prefs.read("campFilterStartDate"))))
+          .toList();
+      filteredCamps = filteredCamps
+          .where((element) => element.endDate
+              .isBefore(DateTime.tryParse(prefs.read("campFilterEndDate"))))
+          .toList();
+    }
+    // Filtering by age
+    if (prefs.read("campFilterAge") != 0) {
+      print("Camps Bloc: Filtering by age");
+      filteredCamps = filteredCamps
+          .where((element) =>
+              element.startAge <= prefs.read("campFilterAge") &&
+              element.endAge >= prefs.read("campFilterAge"))
+          .toList();
+    }
+    // Filtering by price
+    if (prefs.read("campFilterPrice") != 0) {
+      print("Camps Bloc: Filtering by price");
+      filteredCamps = filteredCamps
+          .where((element) => element.price <= prefs.read("campFilterPrice"))
+          .toList();
+    }
+
+    return filteredCamps;
   }
 
   String _mapFailureToMessage(Failure failure) {
