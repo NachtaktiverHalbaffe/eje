@@ -15,7 +15,7 @@ dependencies:
   cupertino_icons: ^1.0.3
   material_design_icons_flutter: ^4.0.5955
   provider:
-  json_serializable: ^5.0.1
+  json_serializable: ^5.0.2
   # Offline Database
   hive: ^2.0.4
   hive_flutter: ^1.1.0
@@ -27,8 +27,8 @@ dependencies:
   #get_it: ^2.0.1
   get_it: ^7.2.0
   # Bloc for state management
-  bloc: ^7.1.0
-  flutter_bloc: ^7.2.0
+  bloc: ^7.2.0
+  flutter_bloc: ^7.3.0
   # Value equality
   equatable: ^2.0.3
   # Functional programming thingies
@@ -44,7 +44,7 @@ dependencies:
   # RSS Feed
   dart_rss: ^2.0.1
   # Url opener
-  url_launcher: ^6.0.11
+  url_launcher: ^6.0.12
   # Pageviewer Indicator
   page_view_indicators: ^2.0.0
   # Carousel PageView
