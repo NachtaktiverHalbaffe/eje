@@ -1,47 +1,53 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'Termin.dart';
+part of 'Event.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class TerminAdapter extends TypeAdapter<Termin> {
+class EventAdapter extends TypeAdapter<Event> {
   @override
   final int typeId = 4;
 
   @override
-  Termin read(BinaryReader reader) {
+  Event read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return Termin(
-      veranstaltung: fields[0] as String,
+    return Event(
+      name: fields[0] as String,
       motto: fields[1] as String,
-      text: fields[2] as String,
-      bild: fields[3] as String,
-      datum: fields[4] as String,
-      ort: fields[5] as Ort,
+      description: fields[2] as String,
+      images: (fields[3] as List)?.cast<String>(),
+      startDate: fields[4] as DateTime,
+      endDate: fields[5] as DateTime,
+      location: fields[6] as Ort,
+      id: fields[7] as int,
     );
   }
 
   @override
-  void write(BinaryWriter writer, Termin obj) {
+  void write(BinaryWriter writer, Event obj) {
     writer
-      ..writeByte(6)
+      ..writeByte(8)
       ..writeByte(0)
-      ..write(obj.veranstaltung)
+      ..write(obj.name)
       ..writeByte(1)
       ..write(obj.motto)
       ..writeByte(2)
-      ..write(obj.text)
+      ..write(obj.description)
       ..writeByte(3)
-      ..write(obj.bild)
+      ..write(obj.images)
       ..writeByte(4)
-      ..write(obj.datum)
+      ..write(obj.startDate)
       ..writeByte(5)
-      ..write(obj.ort);
+      ..write(obj.endDate)
+      ..writeByte(6)
+      ..write(obj.location)
+      ..writeByte(7)
+      ..write(obj.id);
   }
 
   @override
@@ -50,7 +56,7 @@ class TerminAdapter extends TypeAdapter<Termin> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is TerminAdapter &&
+      other is EventAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

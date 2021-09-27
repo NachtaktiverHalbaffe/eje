@@ -10,7 +10,7 @@ import 'package:eje/pages/eje/services/domain/entities/Service.dart';
 import 'package:eje/pages/freizeiten/domain/entities/camp.dart';
 import 'package:eje/pages/neuigkeiten/domain/entitys/neuigkeit.dart';
 import 'package:eje/pages/termine/domain/entities/Ort.dart';
-import 'package:eje/pages/termine/domain/entities/Termin.dart';
+import 'package:eje/pages/termine/domain/entities/Event.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart' as path_provider;

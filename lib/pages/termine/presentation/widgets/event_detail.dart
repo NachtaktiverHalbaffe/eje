@@ -7,23 +7,24 @@ import 'package:eje/core/utils/reminderManager.dart';
 import 'package:eje/pages/articles/presentation/widgets/DetailsPage.dart';
 import 'package:eje/core/widgets/LoadingIndicator.dart';
 import 'package:eje/pages/articles/domain/entity/Hyperlink.dart';
-import 'package:eje/pages/termine/domain/entities/Termin.dart';
+import 'package:eje/pages/termine/domain/entities/Event.dart';
 import 'package:eje/pages/termine/presentation/bloc/bloc.dart';
-import 'package:eje/pages/termine/presentation/bloc/termine_bloc.dart';
-import 'package:eje/pages/termine/presentation/bloc/termine_state.dart';
+import 'package:eje/pages/termine/presentation/bloc/events_bloc.dart';
+import 'package:eje/pages/termine/presentation/bloc/events_state.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:intl/intl.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
-class TerminDetails extends StatelessWidget {
-  final Termin termin;
-  TerminDetails(this.termin);
+class EventDetails extends StatelessWidget {
+  final Event event;
+  EventDetails(this.event);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BlocConsumer<TermineBloc, TermineState>(
+      body: BlocConsumer<TermineBloc, EventsState>(
         listener: (context, state) {
           if (state is Error) {
             ScaffoldMessenger.of(context).showSnackBar(
@@ -37,19 +38,17 @@ class TerminDetails extends StatelessWidget {
         builder: (context, state) {
           if (state is Empty) {
             print("Build page EventDetail: Empty");
-            BlocProvider.of<TermineBloc>(context)
-                .add(GettingTermin(termin.veranstaltung, termin.datum));
+            BlocProvider.of<TermineBloc>(context).add(GettingEvent(event.id));
             return LoadingIndicator();
           } else if (state is Loading) {
             print("Build page EventDetail: Loading");
             return LoadingIndicator();
-          } else if (state is LoadedTermin) {
+          } else if (state is LoadedEvent) {
             print("Build page EventDetail: LoadedEvent");
-            return TerminDetailsCard(state.termin);
+            return EventDetailsCard(state.event);
           } else {
             print("Build page EventDetail: Undefined");
-            BlocProvider.of<TermineBloc>(context)
-                .add(GettingTermin(termin.veranstaltung, termin.datum));
+
             return LoadingIndicator();
           }
         },
@@ -58,27 +57,25 @@ class TerminDetails extends StatelessWidget {
   }
 }
 
-class TerminDetailsCard extends StatelessWidget {
-  final Termin termin;
-  TerminDetailsCard(this.termin);
+class EventDetailsCard extends StatelessWidget {
+  final Event event;
+  EventDetailsCard(this.event);
 
   @override
   Widget build(BuildContext context) {
-    List<String> bilder = List.empty(growable: true);
-    bilder.add(termin.bild);
     return DetailsPage(
-      titel: termin.veranstaltung,
-      untertitel: termin.motto,
-      text: termin.text,
-      bilder: bilder,
+      titel: event.name,
+      untertitel: event.motto,
+      text: event.description,
+      bilder: event.images,
       hyperlinks: [Hyperlink(link: "", description: "")],
-      childWidget: _terminChildWidget(termin),
+      childWidget: _terminChildWidget(event),
     );
   }
 }
 
 class _terminChildWidget extends StatelessWidget {
-  final Termin _termin;
+  final Event _termin;
   _terminChildWidget(this._termin);
   // TODO Ical implementierung
   @override
@@ -94,7 +91,7 @@ class _terminChildWidget extends StatelessWidget {
             color: Theme.of(context).dividerColor,
           ),
           title: Text(
-            _termin.datum,
+            DateFormat('dd.MM.yyyy').format(_termin.startDate),
             style: TextStyle(
               fontSize: 42 / MediaQuery.of(context).devicePixelRatio,
               color: Theme.of(context).dividerColor,
@@ -108,11 +105,11 @@ class _terminChildWidget extends StatelessWidget {
             color: Theme.of(context).dividerColor,
           ),
           title: Text(
-            _termin.ort.Anschrift +
+            _termin.location.Anschrift +
                 "\n" +
-                _termin.ort.Strasse +
+                _termin.location.Strasse +
                 "\n" +
-                _termin.ort.PLZ,
+                _termin.location.PLZ,
             style: TextStyle(
               fontSize: 42 / MediaQuery.of(context).devicePixelRatio,
               color: Theme.of(context).dividerColor,
@@ -125,11 +122,11 @@ class _terminChildWidget extends StatelessWidget {
               color: Theme.of(context).colorScheme.secondary,
             ),
             onTap: () async {
-              await MapLauncher.launchQuery(_termin.ort.Anschrift +
+              await MapLauncher.launchQuery(_termin.location.Anschrift +
                   "," +
-                  _termin.ort.Strasse +
+                  _termin.location.Strasse +
                   ", " +
-                  _termin.ort.PLZ);
+                  _termin.location.PLZ);
             },
           ),
         ),
@@ -158,7 +155,7 @@ class _terminChildWidget extends StatelessWidget {
   }
 }
 
-void _setNotification(Termin termin) async {
+void _setNotification(Event termin) async {
   final prefs = GetStorage();
   final String CHANNEL_NAME = "Erinnerungen an Veranstaltungen";
   final String CHANNEL_DESCRIPTION =
@@ -168,9 +165,9 @@ void _setNotification(Termin termin) async {
     Reminder(
         kategorie: "Termin",
         //date: termin.datum,
-        identifier: termin.veranstaltung,
+        identifier: termin.name,
         notificationtext:
-            "Erinnerung: " + termin.veranstaltung + " findet morgen statt "),
+            "Erinnerung: " + termin.name + " findet morgen statt "),
   );
   // Notification schedulen
   if (prefs.read("notifications_on")) {
@@ -180,9 +177,9 @@ void _setNotification(Termin termin) async {
         id: _reminder.length,
         title: "Erinnerung",
         body: "Erinnerung: Veranstaltung " +
-            termin.veranstaltung +
+            termin.name +
             " findet am " +
-            termin.datum +
+            DateFormat('dd.MM.yyyy').format(termin.startDate) +
             " statt",
         scheduleNotificationsDateTime:
             DateTime.now().add(Duration(days: 1, seconds: 5)),

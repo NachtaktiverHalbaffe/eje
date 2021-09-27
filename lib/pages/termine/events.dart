@@ -1,22 +1,22 @@
 import 'package:eje/core/utils/injection_container.dart';
 import 'package:eje/core/widgets/LoadingIndicator.dart';
-import 'package:eje/pages/termine/presentation/bloc/termine_bloc.dart';
-import 'package:eje/pages/termine/presentation/bloc/termine_event.dart';
-import 'package:eje/pages/termine/presentation/bloc/termine_state.dart';
-import 'package:eje/pages/termine/presentation/widgets/termineCard.dart';
+import 'package:eje/pages/termine/presentation/bloc/events_bloc.dart';
+import 'package:eje/pages/termine/presentation/bloc/events_event.dart';
+import 'package:eje/pages/termine/presentation/bloc/events_state.dart';
+import 'package:eje/pages/termine/presentation/widgets/event_card.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_swiper_plus/flutter_swiper_plus.dart';
 
-import 'domain/entities/Termin.dart';
+import 'domain/entities/Event.dart';
 
-class Termine extends StatelessWidget {
+class Events extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (_) => sl<TermineBloc>(),
-      child: BlocConsumer<TermineBloc, TermineState>(
+      child: BlocConsumer<TermineBloc, EventsState>(
         listener: (context, state) {
           if (state is Error) {
             print("Build Page: Error");
@@ -30,12 +30,12 @@ class Termine extends StatelessWidget {
         // ignore: missing_return
         builder: (context, state) {
           if (state is Empty) {
-            BlocProvider.of<TermineBloc>(context).add(RefreshTermine());
+            BlocProvider.of<TermineBloc>(context).add(RefreshEvents());
             return Center();
           } else if (state is Loading) {
             return LoadingIndicator();
-          } else if (state is LoadedTermine) {
-            return TermineListView(state.termine.reversed.toList());
+          } else if (state is LoadedEvents) {
+            return TermineListView(state.events.reversed.toList());
           }
         },
       ),
@@ -46,7 +46,7 @@ class Termine extends StatelessWidget {
 class TermineListView extends StatelessWidget {
   final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
       new GlobalKey<RefreshIndicatorState>();
-  final List<Termin> termine;
+  final List<Event> termine;
   TermineListView(this.termine);
 
   @override
@@ -60,7 +60,7 @@ class TermineListView extends StatelessWidget {
               key: _refreshIndicatorKey,
               color: Theme.of(context).colorScheme.secondary,
               onRefresh: () async {
-                BlocProvider.of<TermineBloc>(context).add(RefreshTermine());
+                BlocProvider.of<TermineBloc>(context).add(RefreshEvents());
               },
               child: SingleChildScrollView(
                 physics: ScrollPhysics(
@@ -71,7 +71,7 @@ class TermineListView extends StatelessWidget {
                       minHeight: MediaQuery.of(context).size.height - 45),
                   child: Swiper(
                     itemBuilder: (BuildContext context, int index) {
-                      return TerminCard(termine[index]);
+                      return EventCard(termine[index]);
                     },
                     itemCount: termine.length,
                     itemHeight: 550,

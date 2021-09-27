@@ -5,23 +5,24 @@ import 'package:eje/core/utils/injection_container.dart';
 import 'package:eje/core/utils/notificationplugin.dart';
 import 'package:eje/core/utils/reminderManager.dart';
 import 'package:eje/core/widgets/PrefImage.dart';
-import 'package:eje/pages/termine/domain/entities/Termin.dart';
-import 'package:eje/pages/termine/presentation/bloc/termine_bloc.dart';
-import 'package:eje/pages/termine/presentation/widgets/termineDetail.dart';
+import 'package:eje/pages/termine/domain/entities/Event.dart';
+import 'package:eje/pages/termine/presentation/bloc/events_bloc.dart';
+import 'package:eje/pages/termine/presentation/widgets/event_detail.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:intl/intl.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
-class TerminCard extends StatelessWidget {
-  final Termin termin;
+class EventCard extends StatelessWidget {
+  final Event event;
   final String CHANNEL_NAME = "Erinnerungen an Veranstaltungen";
   final String CHANNEL_DESCRIPTION =
       "Erinnerung an eine Veranstaltung, die der Benutzer zum Merken ausgewählt hat";
   final String CHANNEL_ID = "1";
 
-  TerminCard(this.termin);
+  EventCard(this.event);
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +51,7 @@ class TerminCard extends StatelessWidget {
             MaterialPageRoute(
               builder: (_) => BlocProvider.value(
                 value: sl<TermineBloc>(),
-                child: TerminDetails(termin),
+                child: EventDetails(event),
               ),
             ),
           ),
@@ -64,7 +65,7 @@ class TerminCard extends StatelessWidget {
                     color: Theme.of(context).cardColor,
                   ),
                   CachedImage(
-                    url: termin.bild,
+                    url: event.images[0],
                     width: MediaQuery.of(context).size.width,
                     height: 275,
                   ),
@@ -87,7 +88,7 @@ class TerminCard extends StatelessWidget {
                           SizedBox(width: 16),
                           Flexible(
                             child: Text(
-                              termin.veranstaltung,
+                              event.name,
                               overflow: TextOverflow.ellipsis,
                               style: TextStyle(
                                   fontSize: 28,
@@ -106,7 +107,7 @@ class TerminCard extends StatelessWidget {
                           SizedBox(width: 16),
                           Flexible(
                             child: Text(
-                              termin.motto,
+                              event.motto,
                               overflow: TextOverflow.ellipsis,
                               style: TextStyle(
                                 fontSize: 18,
@@ -129,7 +130,7 @@ class TerminCard extends StatelessWidget {
                           color: Theme.of(context).dividerColor,
                         ),
                         title: Text(
-                          termin.datum,
+                          DateFormat('dd.MM.yyyy').format(event.startDate),
                           style: TextStyle(
                               color: Theme.of(context).dividerColor,
                               fontSize: 16),
@@ -141,11 +142,11 @@ class TerminCard extends StatelessWidget {
                           color: Theme.of(context).dividerColor,
                         ),
                         title: Text(
-                          termin.ort.Anschrift +
+                          event.location.Anschrift +
                               "\n" +
-                              termin.ort.Strasse +
+                              event.location.Strasse +
                               "\n" +
-                              termin.ort.PLZ,
+                              event.location.PLZ,
                           style: TextStyle(
                               fontSize: 16,
                               color: Theme.of(context).dividerColor),
@@ -182,9 +183,9 @@ class TerminCard extends StatelessWidget {
       Reminder(
           kategorie: "Termin",
           //date: termin.datum,
-          identifier: termin.veranstaltung,
+          identifier: event.name,
           notificationtext:
-              "Erinnerung: " + termin.veranstaltung + " findet morgen statt "),
+              "Erinnerung: " + event.name + " findet morgen statt "),
     );
     // Notification schedulen
     if (prefs.read("notifications_on")) {
@@ -194,9 +195,9 @@ class TerminCard extends StatelessWidget {
           id: _reminder.length,
           title: "Erinnerung",
           body: "Erinnerung: Veranstaltung " +
-              termin.veranstaltung +
+              event.name +
               " findet am " +
-              termin.datum +
+              DateFormat('dd.MM.yyyy').format(event.startDate) +
               " statt",
           scheduleNotificationsDateTime:
               DateTime.now().add(Duration(days: 1, seconds: 5)),

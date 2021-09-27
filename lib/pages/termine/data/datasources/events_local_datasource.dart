@@ -1,18 +1,18 @@
 import 'package:eje/app_config.dart';
 import 'package:eje/core/error/exception.dart';
 import 'package:eje/fixtures/testdata_termine.dart';
-import 'package:eje/pages/termine/domain/entities/Termin.dart';
+import 'package:eje/pages/termine/domain/entities/Event.dart';
 import 'package:hive/hive.dart';
 
-class TermineLocalDatasource {
-  Future<List<Termin>> getCachedTermine() async {
+class EventLocalDatasource {
+  Future<List<Event>> getCachedEvents() async {
     final AppConfig appConfig = await AppConfig.loadConfig();
     final Box _box = Hive.box(appConfig.eventsBox);
     testdataTermine(_box);
 
     // load data from cache
     if (_box.isNotEmpty) {
-      List<Termin> data = new List.empty(growable: true);
+      List<Event> data = new List.empty(growable: true);
       for (int i = 0; i < _box.length; i++) {
         if (_box.getAt(i) != null) {
           data.add(_box.getAt(i));
@@ -24,15 +24,15 @@ class TermineLocalDatasource {
     }
   }
 
-  Future<Termin> getTermin(String veranstaltung, String dateTime) async {
+  Future<Event> getEvent(int id) async {
     final AppConfig appConfig = await AppConfig.loadConfig();
     final Box _box = Hive.box(appConfig.eventsBox);
 
     // load specific data entry from cache
     if (_box.isNotEmpty) {
       for (int i = 0; i < _box.length; i++) {
-        Termin event = _box.getAt(i);
-        if (event.veranstaltung == veranstaltung && event.datum == dateTime) {
+        Event event = _box.getAt(i);
+        if (event.id == id) {
           return event;
         }
       }
@@ -42,21 +42,21 @@ class TermineLocalDatasource {
     }
   }
 
-  void cacheTermine(List<Termin> termineToCache) async {
+  void cacheEvents(List<Event> eventsToCache) async {
     final AppConfig appConfig = await AppConfig.loadConfig();
     final Box _box = Hive.box(appConfig.eventsBox);
 
     // cache data if not already cached
-    for (int i = 0; i < termineToCache.length; i++) {
+    for (int i = 0; i < eventsToCache.length; i++) {
       bool alreadyexists = false;
       for (int k = 0; k < _box.length; k++) {
-        final Termin _termin = _box.getAt(k);
-        if (_termin == termineToCache[i]) {
+        final Event _termin = _box.getAt(k);
+        if (_termin == eventsToCache[i]) {
           alreadyexists = true;
         }
       }
       if (alreadyexists == false) {
-        _box.add(termineToCache[i]);
+        _box.add(eventsToCache[i]);
       }
     }
   }

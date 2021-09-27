@@ -55,12 +55,12 @@ import 'package:eje/pages/neuigkeiten/domain/repositories/neuigkeiten_repository
 import 'package:eje/pages/neuigkeiten/domain/usecases/GetNeuigkeit.dart';
 import 'package:eje/pages/neuigkeiten/domain/usecases/GetNeuigkeiten.dart';
 import 'package:eje/pages/neuigkeiten/presentation/bloc/bloc.dart';
-import 'package:eje/pages/termine/data/datasources/termine_local_datasource.dart';
-import 'package:eje/pages/termine/data/datasources/termine_remote_datasource.dart';
-import 'package:eje/pages/termine/data/repositories/termine_repositoy_impl.dart';
-import 'package:eje/pages/termine/domain/repsoitories/termin_repositoy.dart';
-import 'package:eje/pages/termine/domain/usecases/getTermin.dart';
-import 'package:eje/pages/termine/domain/usecases/get_Termine.dart';
+import 'package:eje/pages/termine/data/datasources/events_local_datasource.dart';
+import 'package:eje/pages/termine/data/datasources/events_remote_datasource.dart';
+import 'package:eje/pages/termine/data/repositories/events_repositoy_impl.dart';
+import 'package:eje/pages/termine/domain/repsoitories/events_repository.dart';
+import 'package:eje/pages/termine/domain/usecases/get_Event.dart';
+import 'package:eje/pages/termine/domain/usecases/get_Events.dart';
 import 'package:eje/pages/termine/presentation/bloc/bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;

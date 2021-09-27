@@ -4,33 +4,33 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:eje/core/error/failures.dart';
-import 'package:eje/pages/termine/domain/usecases/getTermin.dart';
-import 'package:eje/pages/termine/domain/usecases/get_Termine.dart';
+import 'package:eje/pages/termine/domain/usecases/get_Event.dart';
+import 'package:eje/pages/termine/domain/usecases/get_Events.dart';
 import 'package:meta/meta.dart';
 
 import './bloc.dart';
 
-class TermineBloc extends Bloc<TermineEvent, TermineState> {
+class TermineBloc extends Bloc<EventsEvent, EventsState> {
   final String SERVER_FAILURE_MESSAGE =
       'Fehler beim Abrufen der Daten vom Server. Ist Ihr Gerät mit den Internet verbunden?';
   final String CACHE_FAILURE_MESSAGE =
       'Fehler beim Laden der Daten aus den Cache. Löschen Sie den Cache oder setzen sie die App zurück.';
-  final GetTermine getTermine;
-  final GetTermin getTermin;
+  final GetEvents getEvents;
+  final GetEvent getEvent;
 
   TermineBloc({
-    @required this.getTermine,
-    @required this.getTermin,
+    @required this.getEvents,
+    @required this.getEvent,
   }) : super(Empty());
 
   @override
-  Stream<TermineState> mapEventToState(
-    TermineEvent event,
+  Stream<EventsState> mapEventToState(
+    EventsEvent event,
   ) async* {
-    if (event is RefreshTermine) {
+    if (event is RefreshEvents) {
       print("Triggered Event: RefreshTermine");
       yield Loading();
-      final termineOrFailure = await getTermine();
+      final termineOrFailure = await getEvents();
       yield termineOrFailure.fold(
         (failure) {
           print("Error");
@@ -38,16 +38,15 @@ class TermineBloc extends Bloc<TermineEvent, TermineState> {
         },
         (termine) {
           print("Succes. Returning LoadedTermine");
-          return LoadedTermine(termine);
+          return LoadedEvents(termine);
         },
       );
-    } else if (event is GettingTermin) {
+    } else if (event is GettingEvent) {
       yield Loading();
-      final arbeitsbereicheOrFailure = await getTermin(
-          veranstaltung: event.veranstaltung, dateTime: event.dateTime);
+      final arbeitsbereicheOrFailure = await getEvent(id: event.id);
       yield arbeitsbereicheOrFailure.fold(
         (failure) => Error(message: _mapFailureToMessage(failure)),
-        (termin) => LoadedTermin(termin),
+        (termin) => LoadedEvent(termin),
       );
     }
   }
