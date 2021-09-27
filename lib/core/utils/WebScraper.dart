@@ -684,12 +684,12 @@ String _parseContent(parent, DOMAIN) {
         parsed = "\n## " + parsed.trim() + "\n";
       }
     }
-    if (child.getElementsByTagName("h3").isNotEmpty) {
-      for (int i = 0; i < child.getElementsByTagName("h3").length; i++) {
-        final heading = child.getElementsByTagName("h3")[i].text;
-        // parsed = parsed.replaceFirst(heading, "\n## " + heading.trim() + "\n");
-      }
-    }
+    // if (child.getElementsByTagName("h3").isNotEmpty) {
+    //   for (int i = 0; i < child.getElementsByTagName("h3").length; i++) {
+    //     final heading = child.getElementsByTagName("h3")[i].text;
+    //     parsed = parsed.replaceFirst(heading, "\n## " + heading.trim() + "\n");
+    //   }
+    // }
     if (child.getElementsByTagName("h2").isNotEmpty) {
       for (int i = 0; i < child.getElementsByTagName("h2").length; i++) {
         final heading = child.getElementsByTagName("h2")[i].text;

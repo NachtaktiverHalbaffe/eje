@@ -43,7 +43,7 @@ class NeuigkeitenLocalDatasource {
     }
   }*/
 
-  void cacheNeuigkeiten(List<Neuigkeit> newsToCache) async {
+  Future<void> cacheNeuigkeiten(List<Neuigkeit> newsToCache) async {
     // Load appconfig
     final AppConfig appConfig = await AppConfig.loadConfig();
     final Box _box = Hive.box(appConfig.newsBox);

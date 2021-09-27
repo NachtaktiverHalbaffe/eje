@@ -40,7 +40,8 @@ class HauptamtlicheLocalDatasource {
     }
   }
 
-  void cacheHauptamtliche(List<Hauptamtlicher> hauptamtlicheToCache) async {
+  Future<void> cacheHauptamtliche(
+      List<Hauptamtlicher> hauptamtlicheToCache) async {
     final AppConfig appConfig = await AppConfig.loadConfig();
     final Box _box = Hive.box(appConfig.employeesBox);
 

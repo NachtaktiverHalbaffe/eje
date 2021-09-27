@@ -112,11 +112,11 @@ class _freizeitChildWidget extends StatelessWidget {
             size: 72 / MediaQuery.of(context).devicePixelRatio,
           ),
           title: Text(
-            freizeit.location.Anschrift +
+            freizeit.location.adress +
                 "\n" +
-                freizeit.location.Strasse +
+                freizeit.location.street +
                 "\n" +
-                freizeit.location.PLZ,
+                freizeit.location.postalCode,
             style: TextStyle(
               fontSize: 42 / MediaQuery.of(context).devicePixelRatio,
             ),
@@ -127,11 +127,11 @@ class _freizeitChildWidget extends StatelessWidget {
               color: Theme.of(context).colorScheme.secondary,
             ),
             onTap: () async {
-              await MapLauncher.launchQuery(freizeit.location.Anschrift +
+              await MapLauncher.launchQuery(freizeit.location.adress +
                   "," +
-                  freizeit.location.Strasse +
+                  freizeit.location.street +
                   ", " +
-                  freizeit.location.PLZ);
+                  freizeit.location.postalCode);
             },
           ),
         ),

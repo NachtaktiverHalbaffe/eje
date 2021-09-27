@@ -28,7 +28,7 @@ class CampAdapter extends TypeAdapter<Camp> {
       price: fields[5] as int,
       price2: fields[6] as int,
       occupancy: fields[7] as String,
-      location: fields[9] as Ort,
+      location: fields[9] as dynamic,
       registrationLink: fields[10] as String,
       pictures: (fields[11] as List)?.cast<String>(),
       description: fields[12] as String,

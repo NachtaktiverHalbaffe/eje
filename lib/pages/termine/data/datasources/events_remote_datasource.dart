@@ -1,9 +1,7 @@
 // ignore_for_file: non_constant_identifier_names
-
 import 'dart:convert';
-
 import 'package:eje/core/error/exception.dart';
-import 'package:eje/pages/termine/domain/entities/Ort.dart';
+import 'package:eje/core/platform/location.dart';
 import 'package:eje/pages/termine/domain/entities/Event.dart';
 import 'package:http/http.dart' as http;
 import 'package:meta/meta.dart';
@@ -48,9 +46,9 @@ class TermineRemoteDatasource {
                 ? DateTime.tryParse(responseData[i]['endDate'])
                 : DateTime.now(),
             location: responseData[i]['location'] != null
-                ? Ort(responseData[i]['location'], responseData[i]['location'],
-                    responseData[i]['location'])
-                : Ort("Musterort", "Musterstraße 1", "12345 Musterstadt"),
+                ? Location(responseData[i]['location'],
+                    responseData[i]['location'], responseData[i]['location'])
+                : Location("Musterort", "Musterstraße 1", "12345 Musterstadt"),
           ));
         }
       }

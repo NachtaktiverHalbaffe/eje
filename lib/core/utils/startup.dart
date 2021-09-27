@@ -1,4 +1,4 @@
-import 'package:eje/core/platform/Reminder.dart';
+import 'package:eje/core/platform/location.dart';
 import 'package:eje/core/utils/BackgroundServicesManager.dart';
 import 'package:eje/core/utils/notificationplugin.dart';
 import 'package:eje/pages/articles/domain/entity/Article.dart';
@@ -9,7 +9,6 @@ import 'package:eje/pages/eje/hauptamtlichen/domain/entitys/hauptamtlicher.dart'
 import 'package:eje/pages/eje/services/domain/entities/Service.dart';
 import 'package:eje/pages/freizeiten/domain/entities/camp.dart';
 import 'package:eje/pages/neuigkeiten/domain/entitys/neuigkeit.dart';
-import 'package:eje/pages/termine/domain/entities/Ort.dart';
 import 'package:eje/pages/termine/domain/entities/Event.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hive/hive.dart';
@@ -29,6 +28,7 @@ Future<void> startup() async {
     prefs.write('notifications_neuigkeiten', true);
     prefs.write("notifications_veranstaltungen", true);
     prefs.write('notifications_freizeiten', true);
+    prefs.write('notifications_scheduled', 0);
     prefs.write('only_wifi', false);
     prefs.write('cache_pictures', true);
     prefs.write('cached_neuigkeiten', [""]);
@@ -51,10 +51,9 @@ Future<void> startup() async {
   Hive.registerAdapter(EventAdapter());
   Hive.registerAdapter(CampAdapter());
   Hive.registerAdapter(ArticleAdapter());
-  Hive.registerAdapter(ReminderAdapter());
   Hive.registerAdapter(ServiceAdapter());
   Hive.registerAdapter(HyperlinkAdapter());
-  Hive.registerAdapter(OrtAdapter());
+  Hive.registerAdapter(LocationAdapter());
   await di.init();
   //Local notifications
   notificationPlugin.setListenerForLowerVersions(onNotificationInLowerVersion);

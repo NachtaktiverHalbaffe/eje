@@ -1,22 +1,22 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'Ort.dart';
+part of 'location.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class OrtAdapter extends TypeAdapter<Ort> {
+class LocationAdapter extends TypeAdapter<Location> {
   @override
   final int typeId = 10;
 
   @override
-  Ort read(BinaryReader reader) {
+  Location read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return Ort(
+    return Location(
       fields[0] as String,
       fields[1] as String,
       fields[2] as String,
@@ -24,15 +24,15 @@ class OrtAdapter extends TypeAdapter<Ort> {
   }
 
   @override
-  void write(BinaryWriter writer, Ort obj) {
+  void write(BinaryWriter writer, Location obj) {
     writer
       ..writeByte(3)
       ..writeByte(0)
-      ..write(obj.Anschrift)
+      ..write(obj.adress)
       ..writeByte(1)
-      ..write(obj.Strasse)
+      ..write(obj.street)
       ..writeByte(2)
-      ..write(obj.PLZ);
+      ..write(obj.postalCode);
   }
 
   @override
@@ -41,7 +41,7 @@ class OrtAdapter extends TypeAdapter<Ort> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is OrtAdapter &&
+      other is LocationAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

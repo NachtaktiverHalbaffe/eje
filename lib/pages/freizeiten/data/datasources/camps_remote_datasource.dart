@@ -3,8 +3,8 @@
 import 'dart:convert';
 import 'package:eje/app_config.dart';
 import 'package:eje/core/error/exception.dart';
+import 'package:eje/core/platform/location.dart';
 import 'package:eje/pages/freizeiten/domain/entities/camp.dart';
-import 'package:eje/pages/termine/domain/entities/Ort.dart';
 import 'package:http/http.dart' as http;
 
 class CampsRemoteDatasource {
@@ -61,9 +61,9 @@ class CampsRemoteDatasource {
                 ? responseData[i]['maxplaces']
                 : 0,
             location: responseData[i]['location'] != null
-                ? Ort(responseData[i]['location'], responseData[i]['location'],
-                    responseData[i]['location'])
-                : Ort("Musterort", "Musterstraße 1", "12345 Musterstadt"),
+                ? Location(responseData[i]['location'],
+                    responseData[i]['location'], responseData[i]['location'])
+                : Location("Musterort", "Musterstraße 1", "12345 Musterstadt"),
             registrationLink: responseData[i]['registrationLink'] != null
                 ? responseData[i]['registrationLink']
                 : "",

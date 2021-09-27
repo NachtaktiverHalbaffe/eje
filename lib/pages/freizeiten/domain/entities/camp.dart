@@ -1,4 +1,4 @@
-import 'package:eje/pages/termine/domain/entities/Ort.dart';
+import 'package:eje/core/platform/location.dart';
 import 'package:equatable/equatable.dart';
 import 'package:hive/hive.dart';
 
@@ -25,7 +25,7 @@ class Camp extends Equatable {
   @HiveField(8)
   final int maxPlaces;
   @HiveField(9)
-  final Ort location;
+  final Location location;
   @HiveField(10)
   final String registrationLink;
   @HiveField(11)

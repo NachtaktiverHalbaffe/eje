@@ -42,7 +42,7 @@ class ServicesLocalDatasource {
     }
   }
 
-  void cacheService(Service service) async {
+  Future<void> cacheService(Service service) async {
     final AppConfig appConfig = await AppConfig.loadConfig();
     final Box _box = Hive.box(appConfig.servicesBox);
 
@@ -62,7 +62,7 @@ class ServicesLocalDatasource {
     }
   }
 
-  void cacheServices(List<Service> servicesToCache) async {
+  Future<void> cacheServices(List<Service> servicesToCache) async {
     final AppConfig appConfig = await AppConfig.loadConfig();
     final Box _box = Hive.box(appConfig.servicesBox);
 

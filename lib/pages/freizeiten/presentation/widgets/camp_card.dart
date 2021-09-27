@@ -173,7 +173,7 @@ class CampCard extends StatelessWidget {
                                 SizedBox(width: 4),
                                 Flexible(
                                   child: Text(
-                                    camp.location.Anschrift,
+                                    camp.location.adress,
                                     overflow: TextOverflow.ellipsis,
                                     style: TextStyle(
                                       fontSize: 12.5,

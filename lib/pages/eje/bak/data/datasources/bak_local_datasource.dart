@@ -40,7 +40,7 @@ class BAKLocalDatasource {
     }
   }
 
-  void cacheBAK(List<BAKler> bakToCache) async {
+  Future<void> cacheBAK(List<BAKler> bakToCache) async {
     final AppConfig appConfig = await AppConfig.loadConfig();
     Box _box = Hive.box(appConfig.bakBox);
 

@@ -42,7 +42,7 @@ class EventLocalDatasource {
     }
   }
 
-  void cacheEvents(List<Event> eventsToCache) async {
+  Future<void> cacheEvents(List<Event> eventsToCache) async {
     final AppConfig appConfig = await AppConfig.loadConfig();
     final Box _box = Hive.box(appConfig.eventsBox);
 

@@ -40,7 +40,7 @@ class CampsLocalDatasource {
     }
   }
 
-  void cacheCamps(List<Camp> campsToCache) async {
+  Future<void> cacheCamps(List<Camp> campsToCache) async {
     final AppConfig appConfig = await AppConfig.loadConfig();
     final Box _box = Hive.box(appConfig.campsBox);
 

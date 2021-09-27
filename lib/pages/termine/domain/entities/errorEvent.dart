@@ -1,4 +1,4 @@
-import 'package:eje/pages/termine/domain/entities/Ort.dart';
+import 'package:eje/core/platform/location.dart';
 import 'package:eje/pages/termine/domain/entities/Event.dart';
 
 Event getErrorTermin() {
@@ -9,7 +9,7 @@ Event getErrorTermin() {
     motto: "",
     startDate: DateTime.now(),
     endDate: DateTime.now(),
-    location: Ort("", "", ""),
+    location: Location("", "", ""),
     description:
         "Stellen sie sicher, dass sie eine Internetverbindung haben. Falls Sie dies zum ersten mal aufgrufen haben, dann sind noch keine Daten für den offline-Betrieb gecachded. Ansonsten stellen sie sicher, dass keine Daten von dieser App gelöscht werden. Die App speichert ausschließlich Cache-Daten.",
   );

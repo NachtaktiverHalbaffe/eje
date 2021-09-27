@@ -1,9 +1,6 @@
 // ignore_for_file: non_constant_identifier_names, camel_case_types
-
-import 'package:eje/core/platform/Reminder.dart';
 import 'package:eje/core/platform/MapLauncher.dart';
 import 'package:eje/core/utils/notificationplugin.dart';
-import 'package:eje/core/utils/reminderManager.dart';
 import 'package:eje/pages/articles/presentation/widgets/DetailsPage.dart';
 import 'package:eje/core/widgets/LoadingIndicator.dart';
 import 'package:eje/pages/articles/domain/entity/Hyperlink.dart';
@@ -77,7 +74,7 @@ class EventDetailsCard extends StatelessWidget {
 class _terminChildWidget extends StatelessWidget {
   final Event _termin;
   _terminChildWidget(this._termin);
-  // TODO Ical implementierung
+  // TODO ICAL implementierung
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -105,11 +102,11 @@ class _terminChildWidget extends StatelessWidget {
             color: Theme.of(context).dividerColor,
           ),
           title: Text(
-            _termin.location.Anschrift +
+            _termin.location.adress +
                 "\n" +
-                _termin.location.Strasse +
+                _termin.location.street +
                 "\n" +
-                _termin.location.PLZ,
+                _termin.location.postalCode,
             style: TextStyle(
               fontSize: 42 / MediaQuery.of(context).devicePixelRatio,
               color: Theme.of(context).dividerColor,
@@ -122,11 +119,11 @@ class _terminChildWidget extends StatelessWidget {
               color: Theme.of(context).colorScheme.secondary,
             ),
             onTap: () async {
-              await MapLauncher.launchQuery(_termin.location.Anschrift +
+              await MapLauncher.launchQuery(_termin.location.adress +
                   "," +
-                  _termin.location.Strasse +
+                  _termin.location.street +
                   ", " +
-                  _termin.location.PLZ);
+                  _termin.location.postalCode);
             },
           ),
         ),
@@ -161,20 +158,14 @@ void _setNotification(Event termin) async {
   final String CHANNEL_DESCRIPTION =
       "Erinnerung an eine Veranstaltung, die der Benutzer zum Merken ausgewählt hat";
   final String CHANNEL_ID = "1";
-  await ReminderManager().setReminder(
-    Reminder(
-        kategorie: "Termin",
-        //date: termin.datum,
-        identifier: termin.name,
-        notificationtext:
-            "Erinnerung: " + termin.name + " findet morgen statt "),
-  );
+
+  var notfScheduled = prefs.read('notifications_scheduled');
+  prefs.write('notifications_scheduled', notfScheduled++);
   // Notification schedulen
   if (prefs.read("notifications_on")) {
     if (prefs.read("notifications_veranstaltungen")) {
-      List<Reminder> _reminder = await ReminderManager().getAllReminder();
       await notificationPlugin.scheduledNotification(
-        id: _reminder.length,
+        id: prefs.read('notifications_scheduled'),
         title: "Erinnerung",
         body: "Erinnerung: Veranstaltung " +
             termin.name +

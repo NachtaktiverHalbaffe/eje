@@ -42,7 +42,7 @@ class ArbeitsbereicheLocalDatasource {
     }
   }
 
-  void cacheBAK(List<FieldOfWork> arbeitsbereicheToCache) async {
+  Future<void> cacheBAK(List<FieldOfWork> arbeitsbereicheToCache) async {
     final AppConfig appConfig = await AppConfig.loadConfig();
     final Box _box = Hive.box(appConfig.fieldOfWorkBox);
 

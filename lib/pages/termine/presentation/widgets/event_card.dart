@@ -1,9 +1,6 @@
 // ignore_for_file: non_constant_identifier_names
-
-import 'package:eje/core/platform/Reminder.dart';
 import 'package:eje/core/utils/injection_container.dart';
 import 'package:eje/core/utils/notificationplugin.dart';
-import 'package:eje/core/utils/reminderManager.dart';
 import 'package:eje/core/widgets/PrefImage.dart';
 import 'package:eje/pages/termine/domain/entities/Event.dart';
 import 'package:eje/pages/termine/presentation/bloc/events_bloc.dart';
@@ -142,11 +139,11 @@ class EventCard extends StatelessWidget {
                           color: Theme.of(context).dividerColor,
                         ),
                         title: Text(
-                          event.location.Anschrift +
+                          event.location.adress +
                               "\n" +
-                              event.location.Strasse +
+                              event.location.street +
                               "\n" +
-                              event.location.PLZ,
+                              event.location.postalCode,
                           style: TextStyle(
                               fontSize: 16,
                               color: Theme.of(context).dividerColor),
@@ -179,20 +176,14 @@ class EventCard extends StatelessWidget {
 
   void _setNotification() async {
     final prefs = GetStorage();
-    await ReminderManager().setReminder(
-      Reminder(
-          kategorie: "Termin",
-          //date: termin.datum,
-          identifier: event.name,
-          notificationtext:
-              "Erinnerung: " + event.name + " findet morgen statt "),
-    );
+    var notfScheduled = prefs.read('notifications_scheduled');
+    prefs.write('notifications_scheduled', notfScheduled++);
+
     // Notification schedulen
     if (prefs.read("notifications_on")) {
       if (prefs.read("notifications_veranstaltungen")) {
-        List<Reminder> _reminder = await ReminderManager().getAllReminder();
         await notificationPlugin.scheduledNotification(
-          id: _reminder.length,
+          id: prefs.read('notifications_scheduled'),
           title: "Erinnerung",
           body: "Erinnerung: Veranstaltung " +
               event.name +

@@ -1,5 +1,5 @@
+import 'package:eje/core/platform/location.dart';
 import 'package:eje/pages/freizeiten/domain/entities/camp.dart';
-import 'package:eje/pages/termine/domain/entities/Ort.dart';
 
 Camp getErrorCamp() {
   return Camp(
@@ -10,7 +10,7 @@ Camp getErrorCamp() {
     ageTo: 0,
     price: 0,
     occupancy: "",
-    location: Ort("", "", ""),
+    location: Location("", "", ""),
     registrationLink: "",
     pictures: [""],
     description:
