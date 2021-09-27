@@ -28,7 +28,7 @@ class ArbeitsbereichRepositoryImpl implements ArbeitsbereichRepository {
       try {
         final remoteArbeitsbereich =
             await remoteDataSource.getArtbeitsbereiche();
-        localDatasource.cacheBAK(remoteArbeitsbereich);
+        await localDatasource.cacheBAK(remoteArbeitsbereich);
         return Right(await localDatasource.getCachedArbeitsbereiche());
       } on ServerException {
         return Right([getErrorArbeitsbereich()]);

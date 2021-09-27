@@ -46,18 +46,9 @@ class EventLocalDatasource {
     final AppConfig appConfig = await AppConfig.loadConfig();
     final Box _box = Hive.box(appConfig.eventsBox);
 
-    // cache data if not already cached
-    for (int i = 0; i < eventsToCache.length; i++) {
-      bool alreadyexists = false;
-      for (int k = 0; k < _box.length; k++) {
-        final Event _termin = _box.getAt(k);
-        if (_termin == eventsToCache[i]) {
-          alreadyexists = true;
-        }
-      }
-      if (alreadyexists == false) {
-        _box.add(eventsToCache[i]);
-      }
+    if (_box.isNotEmpty) {
+      await _box.clear();
     }
+    await _box.addAll(eventsToCache);
   }
 }

@@ -44,15 +44,9 @@ class BAKLocalDatasource {
     final AppConfig appConfig = await AppConfig.loadConfig();
     Box _box = Hive.box(appConfig.bakBox);
 
-    // cache data if not already cached
-    for (int i = 0; i < bakToCache.length; i++) {
-      for (int k = 0; k < _box.length; k++) {
-        final BAKler _bakler = _box.getAt(k);
-        if (_bakler.name == bakToCache[i].name) {
-          _box.deleteAt(k);
-        }
-      }
-      _box.add(bakToCache[i]);
+    if (_box.isNotEmpty) {
+      await _box.clear();
     }
+    await _box.addAll(bakToCache);
   }
 }

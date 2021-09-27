@@ -46,16 +46,9 @@ class ArbeitsbereicheLocalDatasource {
     final AppConfig appConfig = await AppConfig.loadConfig();
     final Box _box = Hive.box(appConfig.fieldOfWorkBox);
 
-    // cache field of work if not already cached
-    for (int i = 0; i < arbeitsbereicheToCache.length; i++) {
-      for (int k = 0; k < _box.length; k++) {
-        final FieldOfWork _arbeitsbereich = _box.getAt(k);
-        if (_arbeitsbereich.arbeitsfeld ==
-            arbeitsbereicheToCache[i].arbeitsfeld) {
-          _box.deleteAt(k);
-        }
-      }
-      _box.add(arbeitsbereicheToCache[i]);
+    if (_box.isNotEmpty) {
+      await _box.clear();
     }
+    await _box.addAll(arbeitsbereicheToCache);
   }
 }

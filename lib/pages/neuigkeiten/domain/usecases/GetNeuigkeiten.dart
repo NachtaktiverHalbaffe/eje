@@ -19,7 +19,7 @@ class GetNeuigkeiten implements UseCase<List<Neuigkeit>> {
     final result = await repository.getNeuigkeiten();
     if (_box.isOpen) {
       await _box.compact();
-      await _box.close();
+      // await _box.close();
     }
     return result;
   }

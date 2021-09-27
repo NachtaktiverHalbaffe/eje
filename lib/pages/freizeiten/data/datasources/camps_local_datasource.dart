@@ -44,18 +44,9 @@ class CampsLocalDatasource {
     final AppConfig appConfig = await AppConfig.loadConfig();
     final Box _box = Hive.box(appConfig.campsBox);
 
-    // cache data if not already cached
-    for (int i = 0; i < campsToCache.length; i++) {
-      bool alreadyexists = false;
-      for (int k = 0; k < _box.length; k++) {
-        final Camp _freizeit = _box.getAt(k);
-        if (_freizeit == campsToCache[i]) {
-          alreadyexists = true;
-        }
-      }
-      if (alreadyexists == false) {
-        _box.add(campsToCache[i]);
-      }
+    if (_box.isNotEmpty) {
+      await _box.clear();
     }
+    await _box.addAll(campsToCache);
   }
 }

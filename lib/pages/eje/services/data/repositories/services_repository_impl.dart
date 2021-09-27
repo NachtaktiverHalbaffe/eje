@@ -34,7 +34,7 @@ class ServicesRepositoryImpl implements ServicesRepository {
     if (await networkInfo.isConnected) {
       try {
         final remoteService = await remoteDataSource.getService(service);
-        localDatasource.cacheService(remoteService);
+        await localDatasource.cacheService(remoteService);
         Service _service =
             await localDatasource.getService(remoteService.service);
         return Right(_service);

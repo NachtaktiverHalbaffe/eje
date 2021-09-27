@@ -19,6 +19,7 @@ import 'package:html/parser.dart' as parser;
 class WebScraper {
   //Scraping a Webpage amd parsing to an List of article
   Future<Article> scrapeWebPage(String url) async {
+    print(url);
     Article article;
     final AppConfig appConfig = await AppConfig.loadConfig();
     final String DOMAIN = appConfig.domain;
@@ -558,7 +559,7 @@ String _parseContent(parent, DOMAIN) {
   String content = "";
   for (int r = 0; r < parent.children.length; r++) {
     final child = parent.children[r];
-    var parsed = child.description;
+    var parsed = child.text;
 
     // Remove Hyperlinks from content
     if (child.localName == "blockquote") {
@@ -571,9 +572,8 @@ String _parseContent(parent, DOMAIN) {
       for (int i = 0;
           i < child.getElementsByClassName("card-title icon-left ").length;
           i++) {
-        final heading = child
-            .getElementsByClassName("card-title icon-left ")[i]
-            .description;
+        final heading =
+            child.getElementsByClassName("card-title icon-left ")[i].text;
         parsed = parsed.replaceFirst(heading, "\n## " + heading + "\n");
       }
     } else if (child.className == 'icon-left') {
@@ -586,8 +586,7 @@ String _parseContent(parent, DOMAIN) {
       for (int i = 0;
           i < child.getElementsByClassName('icon-left ').length;
           i++) {
-        final heading =
-            child.getElementsByClassName('icon-left ')[i].description;
+        final heading = child.getElementsByClassName('icon-left ')[i].text;
         parsed = parsed.replaceAll(heading, "");
       }
     }
@@ -597,16 +596,14 @@ String _parseContent(parent, DOMAIN) {
       for (int i = 0;
           i < child.getElementsByClassName('card-action').length;
           i++) {
-        final bodyText =
-            child.getElementsByClassName('card-action')[i].description;
+        final bodyText = child.getElementsByClassName('card-action')[i].text;
         parsed = parsed.replaceAll(bodyText, bodyText + "\n\n");
       }
     } else if (child.getElementsByClassName('bodytext').isNotEmpty) {
       for (int i = 0;
           i < child.getElementsByClassName('bodytext').length;
           i++) {
-        final bodyText =
-            child.getElementsByClassName('bodytext')[i].description;
+        final bodyText = child.getElementsByClassName('bodytext')[i].text;
         parsed = parsed.replaceAll(bodyText, bodyText + "\n\n");
       }
     }
@@ -619,18 +616,15 @@ String _parseContent(parent, DOMAIN) {
             index++) {
           // Check if link was already parsed to avoid links nested inside links
           if (!parsed.contains(
-              "[" + child.getElementsByTagName('a')[index].description + "]")) {
+              "[" + child.getElementsByTagName('a')[index].text + "]")) {
             parsed = parsed.replaceAll(
-                child.getElementsByTagName('a')[index].description,
+                child.getElementsByTagName('a')[index].text,
                 !child
                         .getElementsByTagName('a')[index]
                         .attributes['href']
                         .contains("http")
                     ? "[" +
-                        child
-                            .getElementsByTagName('a')[index]
-                            .description
-                            .trim() +
+                        child.getElementsByTagName('a')[index].text.trim() +
                         "]" +
                         "(" +
                         DOMAIN +
@@ -639,10 +633,7 @@ String _parseContent(parent, DOMAIN) {
                             .attributes['href'] +
                         ")"
                     : "[" +
-                        child
-                            .getElementsByTagName('a')[index]
-                            .description
-                            .trim() +
+                        child.getElementsByTagName('a')[index].text.trim() +
                         "]" +
                         "(" +
                         child
@@ -657,7 +648,7 @@ String _parseContent(parent, DOMAIN) {
     // Listing Points
     if (child.getElementsByTagName('li').isNotEmpty) {
       for (int i = 0; i < child.getElementsByTagName('li').length; i++) {
-        final listingPoint = child.getElementsByTagName('li')[i].description;
+        final listingPoint = child.getElementsByTagName('li')[i].text;
         parsed = parsed.replaceAll(listingPoint, "\n\n- " + listingPoint);
       }
     } else if (child.localName == "li") {
@@ -669,7 +660,7 @@ String _parseContent(parent, DOMAIN) {
     // bold text
     if (child.getElementsByTagName('strong').isNotEmpty) {
       for (int i = 0; i < child.getElementsByTagName('strong').length; i++) {
-        final boldText = child.getElementsByTagName('strong')[i].description;
+        final boldText = child.getElementsByTagName('strong')[i].text;
         parsed = parsed.replaceAll(boldText, "**" + boldText.trim() + "**");
       }
     } // bold heading
@@ -682,7 +673,7 @@ String _parseContent(parent, DOMAIN) {
     // Italic
     if (child.getElementsByTagName('em').isNotEmpty) {
       for (int i = 0; i < child.getElementsByTagName('em').length; i++) {
-        final italicText = child.getElementsByTagName('em')[i].description;
+        final italicText = child.getElementsByTagName('em')[i].text;
         parsed = parsed.replaceFirst(italicText, "*" + italicText.trim() + "*");
       }
     }
@@ -695,14 +686,13 @@ String _parseContent(parent, DOMAIN) {
     }
     if (child.getElementsByTagName("h3").isNotEmpty) {
       for (int i = 0; i < child.getElementsByTagName("h3").length; i++) {
-        final heading = child.getElementsByTagName("h3")[i].description;
+        final heading = child.getElementsByTagName("h3")[i].text;
         // parsed = parsed.replaceFirst(heading, "\n## " + heading.trim() + "\n");
       }
     }
     if (child.getElementsByTagName("h2").isNotEmpty) {
-      print("h2 by child");
       for (int i = 0; i < child.getElementsByTagName("h2").length; i++) {
-        final heading = child.getElementsByTagName("h2")[i].description;
+        final heading = child.getElementsByTagName("h2")[i].text;
         parsed = parsed.replaceFirst(heading, "\n## " + heading.trim() + "\n");
       }
     }
@@ -718,14 +708,13 @@ String _parseContent(parent, DOMAIN) {
       for (int i = 0;
           i < child.getElementsByClassName("description").length;
           i++) {
-        final italicText =
-            child.getElementsByClassName("description")[i].description;
+        final italicText = child.getElementsByClassName("description")[i].text;
         parsed = parsed.replaceAll(italicText, "");
       }
     }
     if (child.getElementsByTagName("script").isNotEmpty) {
       for (int i = 0; i < child.getElementsByTagName("script").length; i++) {
-        final javascripts = child.getElementsByTagName("script")[i].description;
+        final javascripts = child.getElementsByTagName("script")[i].text;
         parsed = parsed.replaceAll(javascripts, "");
       }
     }
@@ -767,7 +756,7 @@ List<Hyperlink> _parseHyperlinks(document, DOMAIN) {
             .getElementsByClassName(
                 'row ctype-text listtype-none showmobdesk-0')
             .map((elements) =>
-                elements.getElementsByClassName('internal-link')[0].description)
+                elements.getElementsByClassName('internal-link')[0].text)
             .toList();
         //map webscraped links and descriptions to hyperlinks
         for (int k = 0; k < links.length; k++) {

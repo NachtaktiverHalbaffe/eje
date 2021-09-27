@@ -28,7 +28,7 @@ class CampRepositoryImpl implements CampRepository {
     if (await networkInfo.isConnected) {
       try {
         final remoteFreizeiten = await remoteDataSource.getFreizeiten();
-        localDatasource.cacheCamps(remoteFreizeiten);
+        await localDatasource.cacheCamps(remoteFreizeiten);
         final camps = await localDatasource.getCachedCamps();
         _setPrefrenceCachedFreizeiten(camps);
         return Right(camps);

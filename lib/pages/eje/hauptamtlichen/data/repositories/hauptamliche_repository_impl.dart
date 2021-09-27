@@ -27,7 +27,7 @@ class HauptamtlicheRepositoryImpl implements HauptamtlicheRepository {
     if (await networkInfo.isConnected) {
       try {
         final remoteHauptamtliche = await remoteDataSource.getHauptamliche();
-        localDatasource.cacheHauptamtliche(remoteHauptamtliche);
+        await localDatasource.cacheHauptamtliche(remoteHauptamtliche);
         return Right(await localDatasource.getCachedHauptamtliche());
       } on ServerException {
         return Right([getErrorHauptamtlicher()]);

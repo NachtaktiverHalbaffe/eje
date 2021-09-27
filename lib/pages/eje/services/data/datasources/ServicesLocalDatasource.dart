@@ -66,18 +66,9 @@ class ServicesLocalDatasource {
     final AppConfig appConfig = await AppConfig.loadConfig();
     final Box _box = Hive.box(appConfig.servicesBox);
 
-    // cache data if not already cached
-    for (int i = 0; i < servicesToCache.length; i++) {
-      bool alreadyexists = false;
-      for (int k = 0; k < _box.length; k++) {
-        final Service _service = _box.getAt(k);
-        if (_service.service == servicesToCache[i].service) {
-          alreadyexists = true;
-        }
-      }
-      if (alreadyexists == false) {
-        _box.add(servicesToCache[i]);
-      }
+    if (_box.isNotEmpty) {
+      await _box.clear();
     }
+    await _box.addAll(servicesToCache);
   }
 }

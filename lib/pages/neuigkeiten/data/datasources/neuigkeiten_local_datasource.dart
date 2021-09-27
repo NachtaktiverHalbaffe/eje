@@ -43,23 +43,14 @@ class NeuigkeitenLocalDatasource {
     }
   }*/
 
-  void cacheNeuigkeiten(List<Neuigkeit> neuigkeitenToCache) async {
+  void cacheNeuigkeiten(List<Neuigkeit> newsToCache) async {
     // Load appconfig
     final AppConfig appConfig = await AppConfig.loadConfig();
     final Box _box = Hive.box(appConfig.newsBox);
 
-    // Check for each news if it already exists, if not save it to cache
-    for (int i = 0; i < neuigkeitenToCache.length; i++) {
-      bool alreadyexists = false;
-      for (int k = 0; k < _box.length; k++) {
-        final Neuigkeit _neuigkeit = _box.getAt(k);
-        if (_neuigkeit.titel == neuigkeitenToCache[i].titel) {
-          alreadyexists = true;
-        }
-      }
-      if (alreadyexists == false) {
-        _box.add(neuigkeitenToCache[i]);
-      }
+    if (_box.isNotEmpty) {
+      await _box.clear();
     }
+    await _box.addAll(newsToCache);
   }
 }

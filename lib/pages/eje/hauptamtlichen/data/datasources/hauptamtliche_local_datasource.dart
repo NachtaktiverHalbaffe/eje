@@ -44,15 +44,9 @@ class HauptamtlicheLocalDatasource {
     final AppConfig appConfig = await AppConfig.loadConfig();
     final Box _box = Hive.box(appConfig.employeesBox);
 
-    // cache data if not already cached
-    for (int i = 0; i < hauptamtlicheToCache.length; i++) {
-      for (int k = 0; k < _box.length; k++) {
-        final Hauptamtlicher _hauptamtlicher = _box.getAt(k);
-        if (_hauptamtlicher.name == hauptamtlicheToCache[i].name) {
-          _box.deleteAt(k);
-        }
-      }
-      _box.add(hauptamtlicheToCache[i]);
+    if (_box.isNotEmpty) {
+      await _box.clear();
     }
+    await _box.addAll(hauptamtlicheToCache);
   }
 }

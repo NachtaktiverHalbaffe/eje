@@ -75,7 +75,7 @@ class NeuigkeitenRepositoryImpl implements NeuigkeitenRepository {
         final remoteNeuigkeiten = await remoteDataSource.getNeuigkeiten();
         print("Got Neuigkeiten from Internet");
         //cache articles from article into local storage
-        localDatasource.cacheNeuigkeiten(remoteNeuigkeiten);
+        await localDatasource.cacheNeuigkeiten(remoteNeuigkeiten);
         //Storing length of items for notification background service
         List<String> neuigkeitenNamen = List.empty(growable: true);
         List<Neuigkeit> _neuigkeiten =

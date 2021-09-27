@@ -27,7 +27,7 @@ class BAKRepositoryImpl implements BAKRepository {
     if (await networkInfo.isConnected) {
       try {
         final remoteBAK = await remoteDataSource.getBAK();
-        localDatasource.cacheBAK(remoteBAK);
+        await localDatasource.cacheBAK(remoteBAK);
         return Right(await localDatasource.getCachedBAK());
       } on ServerException {
         return Right([getErrorBAKler()]);
@@ -46,9 +46,9 @@ class BAKRepositoryImpl implements BAKRepository {
           return Right(value);
         }
       }
-      return Right(getErrorBAKler());
+      return Left(CacheFailure());
     } on CacheException {
-      return Right(getErrorBAKler());
+      return Left(CacheFailure());
     }
   }
 }

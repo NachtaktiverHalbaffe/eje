@@ -27,7 +27,7 @@ class EventsRepositoryImpl implements EventsRepository {
     /*if (await networkInfo.isConnected) {
       try {
         final remoteTermine= await remoteDataSource.getTermine();
-        localDatasource.cacheEvents(remoteTermine);
+        await localDatasource.cacheEvents(remoteTermine);
         return Right(await localDatasource.getCachedEvents());
       } on ServerException {
         return Right([getErrorTermin()]);
