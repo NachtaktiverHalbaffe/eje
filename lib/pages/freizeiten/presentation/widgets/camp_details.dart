@@ -142,7 +142,7 @@ class _freizeitChildWidget extends StatelessWidget {
             size: 72 / MediaQuery.of(context).devicePixelRatio,
           ),
           title: Text(
-            freizeit.startAge.toString() + " - " + freizeit.endAge.toString(),
+            freizeit.ageFrom.toString() + " - " + freizeit.ageTo.toString(),
             style: TextStyle(
               fontSize: 42 / MediaQuery.of(context).devicePixelRatio,
               color: Theme.of(context).dividerColor,
@@ -170,7 +170,7 @@ class _freizeitChildWidget extends StatelessWidget {
             size: 72 / MediaQuery.of(context).devicePixelRatio,
           ),
           title: Text(
-            freizeit.lodging,
+            freizeit.accommodation,
             style: TextStyle(
               fontSize: 42 / MediaQuery.of(context).devicePixelRatio,
               color: Theme.of(context).dividerColor,
@@ -199,15 +199,15 @@ class _freizeitChildWidget extends StatelessWidget {
           ),
           title: OutlinedButton(
             onPressed: () async {
-              if (await canLaunch(freizeit.link)) {
-                await launch(freizeit.link);
+              if (await canLaunch(freizeit.registrationLink)) {
+                await launch(freizeit.registrationLink);
               } else {
                 throw 'Could not launch $freizeit.link';
               }
             },
             child: Text(
               "Anmelden \n(Anmeldeschluss:" +
-                  freizeit.registrationDeadline +
+                  DateFormat('dd.MM.yyyy').format(freizeit.registrationEnd) +
                   ")",
               style: TextStyle(
                 color: Theme.of(context).dividerColor,

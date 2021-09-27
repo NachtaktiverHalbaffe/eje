@@ -190,18 +190,18 @@ Future<void> init() async {
 
   // ! Termine
   // * Bloc
-  sl.registerFactory(() => TermineBloc(getTermine: sl(), getTermin: sl()));
+  sl.registerFactory(() => TermineBloc(getEvents: sl(), getEvent: sl()));
   // * Usecases
-  sl.registerLazySingleton(() => GetTermin(sl()));
-  sl.registerLazySingleton(() => GetTermine(repository: sl()));
+  sl.registerLazySingleton(() => GetEvent(sl()));
+  sl.registerLazySingleton(() => GetEvents(repository: sl()));
   // * Repository
-  sl.registerLazySingleton<TerminRepository>(() => TermineRepositoryImpl(
+  sl.registerLazySingleton<EventsRepository>(() => EventsRepositoryImpl(
         remoteDataSource: sl(),
         localDatasource: sl(),
         networkInfo: sl(),
       ));
   // * Datasources
-  sl.registerLazySingleton(() => TermineLocalDatasource());
+  sl.registerLazySingleton(() => EventLocalDatasource());
   sl.registerLazySingleton(() => TermineRemoteDatasource(client: sl()));
 
   // ! Freizeiten

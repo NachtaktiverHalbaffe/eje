@@ -1,6 +1,5 @@
 import 'package:eje/app_config.dart';
 import 'package:eje/core/error/exception.dart';
-import 'package:eje/fixtures/testdata_freizeiten.dart';
 import 'package:eje/pages/freizeiten/domain/entities/camp.dart';
 import 'package:hive/hive.dart';
 
@@ -8,7 +7,6 @@ class CampsLocalDatasource {
   Future<List<Camp>> getCachedCamps() async {
     final AppConfig appConfig = await AppConfig.loadConfig();
     final Box _box = Hive.box(appConfig.campsBox);
-    testdataFreizeiten(_box);
 
     // load data from cache
     if (_box.isNotEmpty) {

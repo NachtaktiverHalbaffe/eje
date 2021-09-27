@@ -39,9 +39,16 @@ class Camps extends StatelessWidget {
             return CampsPageViewer(state.freizeiten);
           } else if (state is FilteredCamps) {
             return CampsPageViewer(state.freizeiten);
+          } else if (state is Error) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(state.message),
+              ),
+            );
+            return Center();
           } else {
-            BlocProvider.of<CampsBloc>(context).add(RefreshCamps());
-            return LoadingIndicator();
+            //  BlocProvider.of<CampsBloc>(context).add(RefreshCamps());
+            return Center();
           }
         },
       ),
@@ -385,6 +392,7 @@ class ChipsRow extends StatelessWidget {
   }
 }
 
+// ignore: camel_case_types
 class _filterChip extends StatelessWidget {
   final onDeleted;
   final dataLabel;

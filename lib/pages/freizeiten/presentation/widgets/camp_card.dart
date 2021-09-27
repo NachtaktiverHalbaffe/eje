@@ -190,9 +190,9 @@ class CampCard extends StatelessWidget {
                                 SizedBox(width: 4),
                                 Flexible(
                                   child: Text(
-                                    camp.startAge.toString() +
+                                    camp.ageFrom.toString() +
                                         " - " +
-                                        camp.endAge.toString(),
+                                        camp.ageTo.toString(),
                                     overflow: TextOverflow.ellipsis,
                                     style: TextStyle(
                                       fontSize: 12.5,

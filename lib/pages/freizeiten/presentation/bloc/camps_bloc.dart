@@ -84,8 +84,8 @@ class CampsBloc extends Bloc<CampEvent, CampState> {
       print("Camps Bloc: Filtering by age");
       filteredCamps = filteredCamps
           .where((element) =>
-              element.startAge <= prefs.read("campFilterAge") &&
-              element.endAge >= prefs.read("campFilterAge"))
+              element.ageFrom <= prefs.read("campFilterAge") &&
+              element.ageTo >= prefs.read("campFilterAge"))
           .toList();
     }
     // Filtering by price

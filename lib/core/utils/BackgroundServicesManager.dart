@@ -16,7 +16,7 @@ class BackgroundServicesManager {
       BackgroundFetch.registerHeadlessTask(_checkNeuigkeitenNotification);
     }
     if (GetStorage().read("notifications_freizeiten")) {
-      //BackgroundFetch.registerHeadlessTask(_checkFreizeitenNotification);
+      BackgroundFetch.registerHeadlessTask(_checkFreizeitenNotification);
     }
   }
 
@@ -43,11 +43,11 @@ class BackgroundServicesManager {
     }
     //configure background service for Freizeiten
     if (GetStorage().read("notifications_freizeiten")) {
-      //BackgroundFetch.configure(
-      //    config, (taskId) => _checkFreizeitenNotification(taskId),
-      //   (String taskId) async {
-      // BackgroundFetch.finish(taskId);
-      // });
+      BackgroundFetch.configure(
+          config, (taskId) => _checkFreizeitenNotification(taskId),
+          (String taskId) async {
+        BackgroundFetch.finish(taskId);
+      });
     }
   }
 }

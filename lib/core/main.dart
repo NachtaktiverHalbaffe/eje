@@ -121,7 +121,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   // List of Widgetscreens for navigation bart
   List<Widget> _buildScreens() {
-    return [Neuigkeiten(), Eje(), Termine(), Camps(), Einstellungen()];
+    return [Neuigkeiten(), Eje(), Events(), Camps(), Einstellungen()];
   }
 
   @override

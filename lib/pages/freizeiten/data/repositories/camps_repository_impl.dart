@@ -25,23 +25,21 @@ class CampRepositoryImpl implements CampRepository {
   //Lade Freizeiten aus den Internet herunter
   @override
   Future<Either<Failure, List<Camp>>> getCamps() async {
-    final prefs = GetStorage();
-    /*if (await networkInfo.isConnected) {
+    if (await networkInfo.isConnected) {
       try {
-        final remoteFreizeiten= await remoteDataSource.getFreizeiten();
-        localDatasource.cacheFreizeiten(remoteFreizeiten);
-        return Right(await localDatasource.getCachedFreizeiten());
+        final remoteFreizeiten = await remoteDataSource.getFreizeiten();
+        localDatasource.cacheCamps(remoteFreizeiten);
+        final camps = await localDatasource.getCachedCamps();
+        _setPrefrenceCachedFreizeiten(camps);
+        return Right(camps);
       } on ServerException {
-        return Right([getErrorFreizeit()]);;
+        return Left(ServerFailure());
       }
-    } else */
-    List<String> freizeitenNamen = List.empty(growable: true);
-    List<Camp> _freizeiten = await localDatasource.getCachedCamps();
-    _freizeiten.forEach((element) {
-      freizeitenNamen.add(element.name);
-    });
-    prefs.write("cached_freizeiten", freizeitenNamen);
-    return Right(await localDatasource.getCachedCamps());
+    } else {
+      List<Camp> camps = await localDatasource.getCachedCamps();
+      _setPrefrenceCachedFreizeiten(camps);
+      return Right(camps);
+    }
   }
 
   //Lade bestimmte Freizeit aus Cache
@@ -58,5 +56,13 @@ class CampRepositoryImpl implements CampRepository {
     } on CacheException {
       return Right(getErrorCamp());
     }
+  }
+
+  void _setPrefrenceCachedFreizeiten(List<Camp> camps) {
+    List<String> freizeitenNamen = List.empty(growable: true);
+    camps.forEach((element) {
+      freizeitenNamen.add(element.name);
+    });
+    GetStorage().write("cached_freizeiten", freizeitenNamen);
   }
 }

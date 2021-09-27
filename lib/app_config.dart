@@ -15,6 +15,8 @@ class AppConfig {
   final String fieldOfWorkEndpoint;
   // API Endpoint to feed "Freizeiten" and "Termine"
   final String ejwManager;
+  // Token for ejwManage
+  final String ejwManagerToken;
   // ID of html element "header" which should not be webscraped
   final String idHeader;
   // ID of html element "contacts" which should not be webscraped
@@ -47,6 +49,7 @@ class AppConfig {
     this.bakEndpoint,
     this.fieldOfWorkEndpoint,
     this.ejwManager,
+    this.ejwManagerToken,
     this.idHeader,
     this.idContact,
     this.idAdress,
@@ -85,6 +88,7 @@ class AppConfig {
         bakEndpoint: json['bakEndpoint'],
         fieldOfWorkEndpoint: json['fieldOfWorkEndpoint'],
         ejwManager: json['ejwManager'],
+        ejwManagerToken: json['ejwManagerToken'],
         idHeader: json["idHeader"],
         idContact: json["idContact"],
         idAdress: json["idAdress"],

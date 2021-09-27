@@ -17,31 +17,39 @@ class CampAdapter extends TypeAdapter<Camp> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return Camp(
+      maxPlaces: fields[8] as int,
+      faq: (fields[21] as List)?.cast<String>(),
+      categories: (fields[22] as List)?.cast<String>(),
       name: fields[0] as String,
       startDate: fields[1] as DateTime,
       endDate: fields[2] as DateTime,
-      startAge: fields[3] as int,
-      endAge: fields[4] as int,
+      ageFrom: fields[3] as int,
+      ageTo: fields[4] as int,
       price: fields[5] as int,
-      freePlaces: fields[6] as String,
-      location: fields[7] as Ort,
-      link: fields[8] as String,
-      pictures: (fields[9] as List)?.cast<String>(),
-      description: fields[10] as String,
-      registrationDeadline: fields[11] as String,
-      catering: fields[12] as String,
-      lodging: fields[13] as String,
-      journey: fields[14] as String,
-      otherServices: fields[15] as String,
-      subtitle: fields[16] as String,
-      companion: (fields[17] as List)?.cast<String>(),
+      price2: fields[6] as int,
+      occupancy: fields[7] as String,
+      location: fields[9] as Ort,
+      registrationLink: fields[10] as String,
+      pictures: (fields[11] as List)?.cast<String>(),
+      description: fields[12] as String,
+      teaser: fields[13] as String,
+      registrationEnd: fields[14] as DateTime,
+      catering: fields[15] as String,
+      accommodation: fields[16] as String,
+      journey: fields[17] as String,
+      otherServices: fields[18] as String,
+      subtitle: fields[19] as String,
+      companions: (fields[20] as List)?.cast<String>(),
+      termsDocument: fields[23] as String,
+      infosheetDocument: fields[24] as String,
+      privacyDocument: fields[25] as String,
     );
   }
 
   @override
   void write(BinaryWriter writer, Camp obj) {
     writer
-      ..writeByte(18)
+      ..writeByte(26)
       ..writeByte(0)
       ..write(obj.name)
       ..writeByte(1)
@@ -49,35 +57,51 @@ class CampAdapter extends TypeAdapter<Camp> {
       ..writeByte(2)
       ..write(obj.endDate)
       ..writeByte(3)
-      ..write(obj.startAge)
+      ..write(obj.ageFrom)
       ..writeByte(4)
-      ..write(obj.endAge)
+      ..write(obj.ageTo)
       ..writeByte(5)
       ..write(obj.price)
       ..writeByte(6)
-      ..write(obj.freePlaces)
+      ..write(obj.price2)
       ..writeByte(7)
-      ..write(obj.location)
+      ..write(obj.occupancy)
       ..writeByte(8)
-      ..write(obj.link)
+      ..write(obj.maxPlaces)
       ..writeByte(9)
-      ..write(obj.pictures)
+      ..write(obj.location)
       ..writeByte(10)
-      ..write(obj.description)
+      ..write(obj.registrationLink)
       ..writeByte(11)
-      ..write(obj.registrationDeadline)
+      ..write(obj.pictures)
       ..writeByte(12)
-      ..write(obj.catering)
+      ..write(obj.description)
       ..writeByte(13)
-      ..write(obj.lodging)
+      ..write(obj.teaser)
       ..writeByte(14)
-      ..write(obj.journey)
+      ..write(obj.registrationEnd)
       ..writeByte(15)
-      ..write(obj.otherServices)
+      ..write(obj.catering)
       ..writeByte(16)
-      ..write(obj.subtitle)
+      ..write(obj.accommodation)
       ..writeByte(17)
-      ..write(obj.companion);
+      ..write(obj.journey)
+      ..writeByte(18)
+      ..write(obj.otherServices)
+      ..writeByte(19)
+      ..write(obj.subtitle)
+      ..writeByte(20)
+      ..write(obj.companions)
+      ..writeByte(21)
+      ..write(obj.faq)
+      ..writeByte(22)
+      ..write(obj.categories)
+      ..writeByte(23)
+      ..write(obj.termsDocument)
+      ..writeByte(24)
+      ..write(obj.infosheetDocument)
+      ..writeByte(25)
+      ..write(obj.privacyDocument);
   }
 
   @override

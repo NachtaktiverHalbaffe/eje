@@ -48,7 +48,7 @@ Future<void> startup() async {
   Hive.registerAdapter(HauptamtlicherAdapter());
   Hive.registerAdapter(BAKlerAdapter());
   Hive.registerAdapter(FieldOfWorkAdapter());
-  Hive.registerAdapter(TerminAdapter());
+  Hive.registerAdapter(EventAdapter());
   Hive.registerAdapter(CampAdapter());
   Hive.registerAdapter(ArticleAdapter());
   Hive.registerAdapter(ReminderAdapter());

@@ -13,74 +13,106 @@ class Camp extends Equatable {
   @HiveField(2)
   final DateTime endDate;
   @HiveField(3)
-  final int startAge;
+  final int ageFrom;
   @HiveField(4)
-  final int endAge;
+  final int ageTo;
   @HiveField(5)
   final int price;
   @HiveField(6)
-  final String freePlaces;
+  final int price2;
   @HiveField(7)
-  final Ort location;
+  final String occupancy;
   @HiveField(8)
-  final String link;
+  final int maxPlaces;
   @HiveField(9)
-  final List<String> pictures;
+  final Ort location;
   @HiveField(10)
-  final String description;
+  final String registrationLink;
   @HiveField(11)
-  final String registrationDeadline;
+  final List<String> pictures;
   @HiveField(12)
-  final String catering;
+  final String description;
   @HiveField(13)
-  final String lodging;
+  final String teaser;
   @HiveField(14)
-  final String journey;
+  final DateTime registrationEnd;
   @HiveField(15)
-  final String otherServices;
+  final String catering;
   @HiveField(16)
-  final String subtitle;
+  final String accommodation;
   @HiveField(17)
-  final List<String> companion;
+  final String journey;
+  @HiveField(18)
+  final String otherServices;
+  @HiveField(19)
+  final String subtitle;
+  @HiveField(20)
+  final List<String> companions;
+  @HiveField(21)
+  final List<String> faq;
+  @HiveField(22)
+  final List<String> categories;
+  @HiveField(23)
+  final String termsDocument;
+  @HiveField(24)
+  final String infosheetDocument;
+  @HiveField(25)
+  final String privacyDocument;
 
   Camp(
-      {this.name,
+      {this.maxPlaces,
+      this.faq,
+      this.categories,
+      this.name,
       this.startDate,
       this.endDate,
-      this.startAge,
-      this.endAge,
+      this.ageFrom,
+      this.ageTo,
       this.price,
-      this.freePlaces,
+      this.price2,
+      this.occupancy,
       this.location,
-      this.link,
+      this.registrationLink,
       this.pictures,
       this.description,
-      this.registrationDeadline,
+      this.teaser,
+      this.registrationEnd,
       this.catering,
-      this.lodging,
+      this.accommodation,
       this.journey,
       this.otherServices,
       this.subtitle,
-      this.companion});
+      this.companions,
+      this.termsDocument,
+      this.infosheetDocument,
+      this.privacyDocument});
 
   @override
   List<Object> get props => [
         name,
         startDate,
         endDate,
-        startAge,
-        endAge,
+        ageFrom,
+        ageTo,
         price,
-        freePlaces,
+        price2,
+        occupancy,
+        maxPlaces,
         location,
-        link,
+        registrationLink,
         pictures,
         description,
-        registrationDeadline,
+        teaser,
+        registrationEnd,
         catering,
-        lodging,
+        accommodation,
         journey,
         otherServices,
-        companion
+        companions,
+        faq,
+        categories,
+        termsDocument,
+        infosheetDocument,
+        privacyDocument
       ];
 }
