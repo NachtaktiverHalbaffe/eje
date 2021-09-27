@@ -49,10 +49,13 @@ class CampsRemoteDatasource {
                 : 0,
             ageTo:
                 responseData[i]['ageTo'] != null ? responseData[i]['ageTo'] : 0,
-            price:
-                responseData[i]['price'] != null ? responseData[i]['price'] : 0,
+            price: responseData[i]['price'] != null
+                ? int.parse(
+                    responseData[i]['price'].replaceAll(RegExp('[^0-9]'), ''))
+                : 0,
             price2: responseData[i]['price2'] != null
-                ? responseData[i]['price2']
+                ? int.parse(
+                    responseData[i]['price2'].replaceAll(RegExp('[^0-9]'), ''))
                 : 0,
             occupancy: responseData[i]['occupancy'] != null
                 ? responseData[i]['occupancy']

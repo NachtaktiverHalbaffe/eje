@@ -19,9 +19,8 @@ class TermineRemoteDatasource {
     List<Event> events = List.empty(growable: true);
 
     // Get http Response
-    // TODO Find typeId for events
     final response =
-        await client.get(Uri.parse(API_URL + "/?typeId=2"), headers: {
+        await client.get(Uri.parse(API_URL + "/?typeId=3"), headers: {
       'Accept': 'application/json',
       'Authorization': 'Bearer $API_TOKEN ',
     });
@@ -49,6 +48,9 @@ class TermineRemoteDatasource {
                 ? Location(responseData[i]['location'],
                     responseData[i]['location'], responseData[i]['location'])
                 : Location("Musterort", "Musterstraße 1", "12345 Musterstadt"),
+            registrationLink: responseData[i]['registrationLink'] != null
+                ? responseData[i]['registrationLink']
+                : "",
           ));
         }
       }

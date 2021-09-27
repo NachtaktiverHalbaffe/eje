@@ -23,15 +23,16 @@ class EventAdapter extends TypeAdapter<Event> {
       images: (fields[3] as List)?.cast<String>(),
       startDate: fields[4] as DateTime,
       endDate: fields[5] as DateTime,
-      location: fields[6] as dynamic,
+      location: fields[6] as Location,
       id: fields[7] as int,
+      registrationLink: fields[8] as String,
     );
   }
 
   @override
   void write(BinaryWriter writer, Event obj) {
     writer
-      ..writeByte(8)
+      ..writeByte(9)
       ..writeByte(0)
       ..write(obj.name)
       ..writeByte(1)
@@ -47,7 +48,9 @@ class EventAdapter extends TypeAdapter<Event> {
       ..writeByte(6)
       ..write(obj.location)
       ..writeByte(7)
-      ..write(obj.id);
+      ..write(obj.id)
+      ..writeByte(8)
+      ..write(obj.registrationLink);
   }
 
   @override
