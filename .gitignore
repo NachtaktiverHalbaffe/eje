@@ -1,6 +1,7 @@
 # Secrets
 prod.json
-
+key.properties
+*.jks
 # Miscellaneous
 *.class
 *.log

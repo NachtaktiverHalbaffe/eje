@@ -6,6 +6,12 @@ version: 1.0.0+1
 environment:
   sdk: ">=2.3.0  <3.0.0"
 
+# For building for android, run "flutter build appbundle --target=lib/core/main.dart --release" in terminal
+# to get an Appbundle which includes three apks for each architecture ==> good for uploading to google play store
+# "flutter build apk --split-per-abi  --target=lib/core/main.dart" can be used to generate three seperate apk
+# for each architecture
+# "flutter build apk  --target=lib/core/main.dart" can be used to build to generate one big fat apk file which works on all architectures
+
 dependencies:
   flutter:
     sdk: flutter
@@ -63,6 +69,8 @@ dependencies:
   # Background services
   background_fetch: ^1.0.1
 
+# To run build runners und generators, run
+# "flutter packages pub run build_runner build --delete-conflicting-outputs" in terminal
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -81,7 +89,6 @@ flutter:
   uses-material-design: true
   assets:
     - assets/images/
-    - assets/testdata/
     - assets/config/
   fonts:
     - family: CostumIcons
