@@ -1,5 +1,6 @@
 import 'package:eje/core/utils/injection_container.dart';
 import 'package:eje/core/widgets/LoadingIndicator.dart';
+import 'package:eje/core/widgets/no_result_card.dart';
 import 'package:eje/pages/termine/presentation/bloc/events_bloc.dart';
 import 'package:eje/pages/termine/presentation/bloc/events_event.dart';
 import 'package:eje/pages/termine/presentation/bloc/events_state.dart';
@@ -69,16 +70,18 @@ class TermineListView extends StatelessWidget {
                 child: Container(
                   constraints: BoxConstraints(
                       minHeight: MediaQuery.of(context).size.height - 45),
-                  child: Swiper(
-                    itemBuilder: (BuildContext context, int index) {
-                      return EventCard(termine[index]);
-                    },
-                    itemCount: termine.length,
-                    itemHeight: 550,
-                    itemWidth: 300,
-                    layout: SwiperLayout.STACK,
-                    loop: true,
-                  ),
+                  child: termine.length != 0
+                      ? Swiper(
+                          itemBuilder: (BuildContext context, int index) {
+                            return EventCard(termine[index]);
+                          },
+                          itemCount: termine.length,
+                          itemHeight: 550,
+                          itemWidth: 300,
+                          layout: SwiperLayout.STACK,
+                          loop: true,
+                        )
+                      : NoResultCard(label: "Keine Events gefunden"),
                 ),
               ),
             ),

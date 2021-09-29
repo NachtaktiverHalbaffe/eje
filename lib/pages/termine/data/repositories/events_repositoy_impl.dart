@@ -24,16 +24,21 @@ class EventsRepositoryImpl implements EventsRepository {
   //Lade Artikel aus den Internet herunter
   @override
   Future<Either<Failure, List<Event>>> getEvents() async {
-    /*if (await networkInfo.isConnected) {
+    if (await networkInfo.isConnected) {
       try {
-        final remoteTermine= await remoteDataSource.getTermine();
+        final remoteTermine = await remoteDataSource.getTermine();
         await localDatasource.cacheEvents(remoteTermine);
         return Right(await localDatasource.getCachedEvents());
       } on ServerException {
         return Right([getErrorTermin()]);
-      } 
-    } else */
-    return Right(await localDatasource.getCachedEvents());
+      }
+    } else {
+      try {
+        return Right(await localDatasource.getCachedEvents());
+      } on CacheException {
+        return Left(CacheFailure());
+      }
+    }
   }
 
   //Lade bestimmten Artikel aus Cache

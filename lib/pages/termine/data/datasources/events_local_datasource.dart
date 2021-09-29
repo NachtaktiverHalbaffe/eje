@@ -1,6 +1,5 @@
 import 'package:eje/app_config.dart';
 import 'package:eje/core/error/exception.dart';
-import 'package:eje/fixtures/testdata_termine.dart';
 import 'package:eje/pages/termine/domain/entities/Event.dart';
 import 'package:hive/hive.dart';
 
@@ -8,7 +7,6 @@ class EventLocalDatasource {
   Future<List<Event>> getCachedEvents() async {
     final AppConfig appConfig = await AppConfig.loadConfig();
     final Box _box = Hive.box(appConfig.eventsBox);
-    testdataTermine(_box);
 
     // load data from cache
     if (_box.isNotEmpty) {
@@ -20,7 +18,7 @@ class EventLocalDatasource {
       }
       return data;
     } else {
-      throw CacheException();
+      return [];
     }
   }
 

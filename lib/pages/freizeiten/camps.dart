@@ -1,5 +1,6 @@
 import 'package:eje/core/utils/injection_container.dart';
 import 'package:eje/core/widgets/LoadingIndicator.dart';
+import 'package:eje/core/widgets/no_result_card.dart';
 import 'package:eje/pages/freizeiten/presentation/bloc/bloc.dart';
 import 'package:eje/pages/freizeiten/presentation/widgets/camp_card.dart';
 import 'package:flutter/cupertino.dart';
@@ -88,11 +89,10 @@ class CampsPageViewer extends StatelessWidget {
                           loop: true,
                         )
                       // Return placeholder if no camps are available to display
-                      : Container(),
-                  // TODO implement Card if no camps are available
+                      : NoResultCard(label: "Keine Freizeiten gefunden"),
                 ),
               ),
-              FilterCard(),
+              camps.length != 0 ? FilterCard() : Container(),
             ],
           ),
           onRefresh: () async {

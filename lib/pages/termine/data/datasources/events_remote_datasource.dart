@@ -20,7 +20,7 @@ class TermineRemoteDatasource {
 
     // Get http Response
     final response =
-        await client.get(Uri.parse(API_URL + "/?typeId=3"), headers: {
+        await client.get(Uri.parse(API_URL + "?typeId=3"), headers: {
       'Accept': 'application/json',
       'Authorization': 'Bearer $API_TOKEN ',
     });

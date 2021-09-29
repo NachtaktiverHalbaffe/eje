@@ -9,7 +9,6 @@ import 'package:http/http.dart' as http;
 
 class CampsRemoteDatasource {
   final http.Client client = http.Client();
-  //TODO: Params testing wiith non null test values
 
   Future<List<Camp>> getFreizeiten() async {
     final AppConfig appConfig = await AppConfig.loadConfig();
@@ -19,7 +18,7 @@ class CampsRemoteDatasource {
 
     // Get http Response
     final response =
-        await client.get(Uri.parse(API_URL + "/?typeId=1"), headers: {
+        await client.get(Uri.parse(API_URL + "?typeId=1"), headers: {
       'Accept': 'application/json',
       'Authorization': 'Bearer $API_TOKEN ',
     });
@@ -31,6 +30,16 @@ class CampsRemoteDatasource {
           List<String> pictures = List.empty(growable: true);
           responseData[i]["images"].forEach((value) {
             pictures.add(value["url"]);
+          });
+          // Parse companions
+          List<String> companions = List.empty(growable: true);
+          responseData[i]["persons"].forEach((value) {
+            companions.add(value["name"]);
+          });
+          // Parse faqs
+          List<String> faqs = List.empty(growable: true);
+          responseData[i]["faqs"].forEach((value) {
+            faqs.add(value["question"] + ": " + value["answer"]);
           });
 
           // Check values against null to avoid null fields
@@ -92,12 +101,8 @@ class CampsRemoteDatasource {
             otherServices: responseData[i]['services'] != null
                 ? responseData[i]['services']
                 : "",
-            companions: responseData[i]['persons'].length != 0
-                ? responseData[i]['persons']
-                : [""],
-            faq: responseData[i]['faqs'].length != 0
-                ? responseData[i]['faqs']
-                : [""],
+            companions: companions.length != 0 ? companions : [""],
+            faq: faqs.length != 0 ? faqs : [""],
             categories: responseData[i]['categories'].length != 0
                 ? responseData[i]['categories']
                 : [""],

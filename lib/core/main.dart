@@ -95,7 +95,7 @@ class _MyHomePageState extends State<MyHomePage> {
       PersistentBottomNavBarItem(
         icon: Icon(Icons.today),
         iconSize: 26.0,
-        title: ("Termine"),
+        title: ("Events"),
         activeColorPrimary: Theme.of(context).colorScheme.secondary,
         activeColorSecondary: Colors.white,
         inactiveColorPrimary: Theme.of(context).colorScheme.secondary,
