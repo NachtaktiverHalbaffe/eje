@@ -11,7 +11,7 @@
 ///      fonts:
 ///       - asset: fonts/CostumIcons.ttf
 ///
-/// 
+///
 /// * Material Design Icons, Copyright (C) Google, Inc
 ///         Author:    Google
 ///         License:   Apache 2.0 (https://www.apache.org/licenses/LICENSE-2.0)
@@ -25,7 +25,10 @@ class CostumIcons {
   static const _kFontFam = 'CostumIcons';
   static const _kFontPkg = null;
 
-  static const IconData threema = const IconData(0xe800, fontFamily: _kFontFam, fontPackage: _kFontPkg);
-  static const IconData threedee_rotation = const IconData(0xe801, fontFamily: _kFontFam, fontPackage: _kFontPkg);
-  static const IconData eje = const IconData(0xe802, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData threema =
+      IconData(0xe800, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData threedeeRotation =
+      IconData(0xe801, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData eje =
+      IconData(0xe802, fontFamily: _kFontFam, fontPackage: _kFontPkg);
 }

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'BAKler.dart';
+part of 'bakler.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
@@ -17,10 +17,10 @@ class BAKlerAdapter extends TypeAdapter<BAKler> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return BAKler(
-      bild: fields[0] as String,
+      image: fields[0] as String,
       name: fields[1] as String,
-      amt: fields[2] as String,
-      vorstellung: fields[3] as String,
+      function: fields[2] as String,
+      introduction: fields[3] as String,
       email: fields[4] as String,
       threema: fields[5] as String,
     );
@@ -31,13 +31,13 @@ class BAKlerAdapter extends TypeAdapter<BAKler> {
     writer
       ..writeByte(6)
       ..writeByte(0)
-      ..write(obj.bild)
+      ..write(obj.image)
       ..writeByte(1)
       ..write(obj.name)
       ..writeByte(2)
-      ..write(obj.amt)
+      ..write(obj.function)
       ..writeByte(3)
-      ..write(obj.vorstellung)
+      ..write(obj.introduction)
       ..writeByte(4)
       ..write(obj.email)
       ..writeByte(5)

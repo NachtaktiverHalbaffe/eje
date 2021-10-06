@@ -2,10 +2,9 @@ import 'package:dartz/dartz.dart';
 import 'package:eje/core/error/exception.dart';
 import 'package:eje/core/error/failures.dart';
 import 'package:eje/core/platform/network_info.dart';
-import 'package:eje/pages/eje/services/data/datasources/ServicesLocalDatasource.dart';
-import 'package:eje/pages/eje/services/data/datasources/ServicesRemoteDatasource.dart';
-import 'package:eje/pages/eje/services/domain/entities/ErrorService.dart';
-import 'package:eje/pages/eje/services/domain/entities/Service.dart';
+import 'package:eje/pages/eje/services/data/datasources/services_local_datasource.dart';
+import 'package:eje/pages/eje/services/data/datasources/services_remote_datasource.dart';
+import 'package:eje/pages/eje/services/domain/entities/service.dart';
 import 'package:eje/pages/eje/services/domain/repositories/services_repository.dart';
 import 'package:flutter/material.dart';
 
@@ -47,7 +46,7 @@ class ServicesRepositoryImpl implements ServicesRepository {
       } on ConnectionException {
         return Left(ConnectionFailure());
       }
-    } else
+    } else {
       try {
         List<Service> _services = await localDatasource.getCachedServices();
         for (var value in _services) {
@@ -59,5 +58,6 @@ class ServicesRepositoryImpl implements ServicesRepository {
       } on CacheException {
         return Left(CacheFailure());
       }
+    }
   }
 }

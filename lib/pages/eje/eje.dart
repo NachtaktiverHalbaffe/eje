@@ -1,16 +1,16 @@
 import 'package:eje/core/utils/injection_container.dart';
-import 'package:eje/pages/eje/arbeitsfelder/presentation/bloc/arbeitsbereiche_bloc.dart';
-import 'package:eje/pages/eje/arbeitsfelder/presentation/bloc/arbeitsbereiche_event.dart';
+import 'package:eje/pages/eje/arbeitsfelder/presentation/bloc/fields_of_work_bloc.dart';
+import 'package:eje/pages/eje/arbeitsfelder/presentation/bloc/fields_of_work_event.dart';
 import 'package:eje/pages/eje/bak/presentation/bloc/bak_bloc.dart';
 import 'package:eje/pages/eje/bak/presentation/bloc/bak_event.dart';
-import 'package:eje/pages/eje/hauptamtlichen/hauptamtliche.dart';
+import 'package:eje/pages/eje/hauptamtlichen/employees.dart';
 import 'package:eje/pages/eje/hauptamtlichen/presentation/bloc/bloc.dart';
 import 'package:eje/pages/eje/services/services.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'arbeitsfelder/arbeitsbereiche.dart';
+import 'arbeitsfelder/fields_of_work.dart';
 import 'bak/bak.dart';
 import 'services/presentation/bloc/services_bloc.dart';
 
@@ -19,14 +19,14 @@ class Eje extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider<HauptamtlicheBloc>(
-          create: (_) => sl<HauptamtlicheBloc>(),
+        BlocProvider<EmployeesBloc>(
+          create: (_) => sl<EmployeesBloc>(),
         ),
         BlocProvider<BakBloc>(
           create: (_) => sl<BakBloc>(),
         ),
-        BlocProvider<ArbeitsbereicheBloc>(
-          create: (_) => sl<ArbeitsbereicheBloc>(),
+        BlocProvider<FieldsOfWorkBloc>(
+          create: (_) => sl<FieldsOfWorkBloc>(),
         ),
         BlocProvider<ServicesBloc>(
           create: (_) => sl<ServicesBloc>(),
@@ -50,21 +50,20 @@ class EjeChildWidgets extends StatelessWidget {
             ),
             children: <Widget>[
               SizedBox(height: 20),
-              Hauptamtliche(),
+              Employees(),
               SizedBox(height: 20),
               BAK(),
               SizedBox(height: 20),
-              Arbeitsbereiche(),
+              FieldsOfWork(),
               SizedBox(height: 20),
               Services(),
               SizedBox(height: 20),
             ],
           ),
           onRefresh: () async {
-            BlocProvider.of<ArbeitsbereicheBloc>(context)
-                .add(RefreshArbeitsbereiche());
-            BlocProvider.of<HauptamtlicheBloc>(context)
-                .add(RefreshHauptamtliche());
+            BlocProvider.of<FieldsOfWorkBloc>(context)
+                .add(RefreshFieldsOfWork());
+            BlocProvider.of<EmployeesBloc>(context).add(RefreshEmployees());
             BlocProvider.of<BakBloc>(context).add(RefreshBAK());
             BlocProvider.of<ServicesBloc>(context).add(RefreshServices());
           }),

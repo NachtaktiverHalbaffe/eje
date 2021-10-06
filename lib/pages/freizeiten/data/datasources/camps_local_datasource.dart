@@ -10,7 +10,7 @@ class CampsLocalDatasource {
 
     // load data from cache
     if (_box.isNotEmpty) {
-      List<Camp> data = new List.empty(growable: true);
+      List<Camp> data = List.empty(growable: true);
       for (int i = 0; i < _box.length; i++) {
         if (_box.getAt(i) != null) {
           data.add(_box.getAt(i));

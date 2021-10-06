@@ -2,10 +2,9 @@
 
 import 'dart:async';
 import 'package:bloc/bloc.dart';
-import 'package:eje/core/error/failures.dart';
-import 'package:eje/pages/articles/domain/entity/Article.dart';
-import 'package:eje/pages/articles/domain/usecases/getArticle.dart';
-import 'package:eje/pages/articles/domain/usecases/getArticles.dart';
+import 'package:eje/pages/articles/domain/entity/article.dart';
+import 'package:eje/pages/articles/domain/usecases/get_article.dart';
+import 'package:eje/pages/articles/domain/usecases/get_articles.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 

@@ -1,6 +1,6 @@
 import 'package:hive/hive.dart';
 
-part 'Hyperlink.g.dart';
+part 'hyperlink.g.dart';
 
 @HiveType(typeId: 9)
 class Hyperlink {

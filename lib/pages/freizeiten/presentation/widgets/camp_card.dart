@@ -1,5 +1,5 @@
 import 'package:eje/core/utils/injection_container.dart';
-import 'package:eje/core/widgets/PrefImage.dart';
+import 'package:eje/core/widgets/cached_image.dart';
 import 'package:eje/pages/freizeiten/domain/entities/camp.dart';
 import 'package:eje/pages/freizeiten/presentation/bloc/camps_bloc.dart';
 import 'package:eje/pages/freizeiten/presentation/widgets/camp_details.dart';
@@ -17,7 +17,7 @@ class CampCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: MediaQuery.of(context).size.height,
-      decoration: new BoxDecoration(
+      decoration: BoxDecoration(
         boxShadow: [
           //background color of box
           BoxShadow(
@@ -32,7 +32,7 @@ class CampCard extends StatelessWidget {
         ],
       ),
       child: ClipRRect(
-        borderRadius: new BorderRadius.all(Radius.circular(12)),
+        borderRadius: BorderRadius.all(Radius.circular(12)),
         child: GestureDetector(
           onTap: () => Navigator.push(
             context,

@@ -5,7 +5,6 @@ import 'package:eje/core/platform/network_info.dart';
 import 'package:eje/pages/freizeiten/data/datasources/camps_local_datasource.dart';
 import 'package:eje/pages/freizeiten/data/datasources/camps_remote_datasource.dart';
 import 'package:eje/pages/freizeiten/domain/entities/camp.dart';
-import 'package:eje/pages/freizeiten/domain/entities/errorCamp.dart';
 import 'package:eje/pages/freizeiten/domain/repositories/camp_repository.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:meta/meta.dart';
@@ -65,10 +64,10 @@ class CampRepositoryImpl implements CampRepository {
   }
 
   void _setPrefrenceCachedFreizeiten(List<Camp> camps) {
-    List<String> freizeitenNamen = List.empty(growable: true);
-    camps.forEach((element) {
-      freizeitenNamen.add(element.name);
-    });
-    GetStorage().write("cached_freizeiten", freizeitenNamen);
+    List<String> campsNamen = List.empty(growable: true);
+    for (var i = 0; i < camps.length; i++) {
+      campsNamen.add(camps[i].name);
+    }
+    GetStorage().write("cached_freizeiten", campsNamen);
   }
 }

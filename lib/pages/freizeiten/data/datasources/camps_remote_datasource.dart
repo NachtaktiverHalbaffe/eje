@@ -3,10 +3,10 @@
 import 'dart:convert';
 import 'package:eje/app_config.dart';
 import 'package:eje/core/error/exception.dart';
-import 'package:eje/core/error/failures.dart';
 import 'package:eje/core/platform/location.dart';
 import 'package:eje/pages/freizeiten/domain/entities/camp.dart';
 import 'package:http/http.dart' as http;
+import 'package:http/http.dart';
 
 class CampsRemoteDatasource {
   final http.Client client = http.Client();
@@ -18,7 +18,7 @@ class CampsRemoteDatasource {
     List<Camp> camps = List.empty(growable: true);
 
     // Get http Response
-    var response;
+    Response response;
     try {
       response = await client.get(Uri.parse(API_URL + "?typeId=1"), headers: {
         'Accept': 'application/json',
@@ -51,8 +51,7 @@ class CampsRemoteDatasource {
 
           // Check values against null to avoid null fields
           camps.add(Camp(
-            name:
-                responseData[i]['name'] != null ? responseData[i]['name'] : "",
+            name: responseData[i]['name'] ?? "",
             subtitle: "",
             startDate: responseData[i]['startDate'] != null
                 ? DateTime.tryParse(responseData[i]['startDate'])
@@ -60,11 +59,8 @@ class CampsRemoteDatasource {
             endDate: responseData[i]['endDate'] != null
                 ? DateTime.tryParse(responseData[i]['endDate'])
                 : DateTime.now(),
-            ageFrom: responseData[i]['ageFrom'] != null
-                ? responseData[i]['ageFrom']
-                : 0,
-            ageTo:
-                responseData[i]['ageTo'] != null ? responseData[i]['ageTo'] : 0,
+            ageFrom: responseData[i]['ageFrom'] ?? 0,
+            ageTo: responseData[i]['ageTo'] ?? 0,
             price: responseData[i]['price'] != null
                 ? int.parse(
                     responseData[i]['price'].replaceAll(RegExp('[^0-9]'), ''))
@@ -73,55 +69,31 @@ class CampsRemoteDatasource {
                 ? int.parse(
                     responseData[i]['price2'].replaceAll(RegExp('[^0-9]'), ''))
                 : 0,
-            occupancy: responseData[i]['occupancy'] != null
-                ? responseData[i]['occupancy']
-                : "",
-            maxPlaces: responseData[i]['maxplaces'] != null
-                ? responseData[i]['maxplaces']
-                : 0,
+            occupancy: responseData[i]['occupancy'] ?? "",
+            maxPlaces: responseData[i]['maxplaces'] ?? 0,
             location: responseData[i]['location'] != null
                 ? Location(responseData[i]['location'],
                     responseData[i]['location'], responseData[i]['location'])
                 : Location("Musterort", "Musterstraße 1", "12345 Musterstadt"),
-            registrationLink: responseData[i]['registrationLink'] != null
-                ? responseData[i]['registrationLink']
-                : "",
-            pictures: pictures.length != 0 ? pictures : [""],
-            description: responseData[i]['description'] != null
-                ? responseData[i]['description']
-                : "",
-            teaser: responseData[i]['teaser'] != null
-                ? responseData[i]['teaser']
-                : "",
+            registrationLink: responseData[i]['registrationLink'] ?? "",
+            pictures: pictures.isNotEmpty ? pictures : [""],
+            description: responseData[i]['description'] ?? "",
+            teaser: responseData[i]['teaser'] ?? "",
             registrationEnd: responseData[i]['registrationEnd'] != null
                 ? DateTime.tryParse(responseData[i]['registrationEnd'])
                 : DateTime.now(),
-            catering: responseData[i]['catering'] != null
-                ? responseData[i]['catering']
-                : "",
-            accommodation: responseData[i]['accommodation'] != null
-                ? responseData[i]['accommodation']
-                : "",
-            journey: responseData[i]['arrivalDirections'] != null
-                ? responseData[i]['arrivalDirections']
-                : "",
-            otherServices: responseData[i]['services'] != null
-                ? responseData[i]['services']
-                : "",
-            companions: companions.length != 0 ? companions : [""],
-            faq: faqs.length != 0 ? faqs : [""],
+            catering: responseData[i]['catering'] ?? "",
+            accommodation: responseData[i]['accommodation'] ?? "",
+            journey: responseData[i]['arrivalDirections'] ?? "",
+            otherServices: responseData[i]['services'] ?? "",
+            companions: companions.isNotEmpty ? companions : [""],
+            faq: faqs.isNotEmpty ? faqs : [""],
             categories: responseData[i]['categories'].length != 0
                 ? responseData[i]['categories']
                 : [""],
-            termsDocument: responseData[i]['termsDocument'] != null
-                ? responseData[i]['termsDocument']
-                : "",
-            infosheetDocument: responseData[i]['infosheetDocument'] != null
-                ? responseData[i]['infosheetDocument']
-                : "",
-            privacyDocument: responseData[i]['privacyDocument'] != null
-                ? responseData[i]['privacyDocument']
-                : "",
+            termsDocument: responseData[i]['termsDocument'] ?? "",
+            infosheetDocument: responseData[i]['infosheetDocument'] ?? "",
+            privacyDocument: responseData[i]['privacyDocument'] ?? "",
           ));
         }
       }

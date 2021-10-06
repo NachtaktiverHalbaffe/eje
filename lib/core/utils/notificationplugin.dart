@@ -8,6 +8,7 @@ class NotificationPlugin {
   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
   final BehaviorSubject<ReceivedNotification> didReveivedLovalNotifications =
       BehaviorSubject<ReceivedNotification>();
+  // ignore: prefer_typing_uninitialized_variables
   var initializationSettings;
 
   //Constructor

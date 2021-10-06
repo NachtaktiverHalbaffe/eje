@@ -1,9 +1,9 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:eje/pages/einstellungen/domain/usecases/getPreference.dart';
-import 'package:eje/pages/einstellungen/domain/usecases/getPreferences.dart';
-import 'package:eje/pages/einstellungen/domain/usecases/setPrefrences.dart';
+import 'package:eje/pages/einstellungen/domain/usecases/get_preference.dart';
+import 'package:eje/pages/einstellungen/domain/usecases/get_preferences.dart';
+import 'package:eje/pages/einstellungen/domain/usecases/set_prefrences.dart';
 
 import './bloc.dart';
 

@@ -1,5 +1,5 @@
 import 'package:eje/core/utils/injection_container.dart';
-import 'package:eje/core/widgets/LoadingIndicator.dart';
+import 'package:eje/core/widgets/loading_indicator.dart';
 import 'package:eje/pages/einstellungen/presentation/bloc/bloc.dart';
 import 'package:eje/pages/einstellungen/presentation/bloc/einstellung_bloc.dart';
 import 'package:eje/pages/einstellungen/presentation/widgets/einstellung_page.dart';

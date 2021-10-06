@@ -1,6 +1,6 @@
 import 'package:eje/app_config.dart';
 import 'package:eje/core/error/exception.dart';
-import 'package:eje/pages/eje/bak/domain/entitys/BAKler.dart';
+import 'package:eje/pages/eje/bak/domain/entitys/bakler.dart';
 import 'package:hive/hive.dart';
 
 class BAKLocalDatasource {
@@ -10,7 +10,7 @@ class BAKLocalDatasource {
 
     // load data from cache
     if (_box.isNotEmpty) {
-      List<BAKler> data = new List.empty(growable: true);
+      List<BAKler> data = List.empty(growable: true);
       for (int i = 0; i < _box.length; i++) {
         if (_box.getAt(i) != null) {
           data.add(_box.getAt(i));

@@ -1,8 +1,8 @@
 // ignore_for_file: non_constant_identifier_names
 import 'package:eje/core/utils/injection_container.dart';
 import 'package:eje/core/utils/notificationplugin.dart';
-import 'package:eje/core/widgets/PrefImage.dart';
-import 'package:eje/pages/termine/domain/entities/Event.dart';
+import 'package:eje/core/widgets/cached_image.dart';
+import 'package:eje/pages/termine/domain/entities/event.dart';
 import 'package:eje/pages/termine/presentation/bloc/events_bloc.dart';
 import 'package:eje/pages/termine/presentation/widgets/event_detail.dart';
 import 'package:flutter/cupertino.dart';
@@ -25,7 +25,7 @@ class EventCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: MediaQuery.of(context).size.height,
-      decoration: new BoxDecoration(
+      decoration: BoxDecoration(
         boxShadow: [
           //background color of box
           BoxShadow(
@@ -40,7 +40,7 @@ class EventCard extends StatelessWidget {
         ],
       ),
       child: ClipRRect(
-        borderRadius: new BorderRadius.all(
+        borderRadius: BorderRadius.all(
             Radius.circular(54 / MediaQuery.of(context).devicePixelRatio)),
         child: GestureDetector(
           onTap: () => Navigator.push(
@@ -198,7 +198,7 @@ class EventCard extends StatelessWidget {
           channelId: CHANNEL_ID,
           channelName: CHANNEL_NAME,
         );
-      } else
+      } else {
         notificationPlugin.showNotification(
             id: 0,
             payload: "4",
@@ -208,7 +208,9 @@ class EventCard extends StatelessWidget {
             channelName: "App-Benachrichtigungen",
             channelDescription:
                 "Grundlegende Benachrichtigungen von der App über Appfunktionen");
-    } else
+      }
+    } else {
       notificationPlugin.showNotificationsDisabled();
+    }
   }
 }

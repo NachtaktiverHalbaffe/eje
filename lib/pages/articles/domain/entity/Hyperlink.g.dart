@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'Hyperlink.dart';
+part of 'hyperlink.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator

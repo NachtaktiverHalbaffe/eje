@@ -1,5 +1,5 @@
-import 'package:eje/core/widgets/LoadingIndicator.dart';
-import 'package:eje/pages/eje/services/presentation/widgets/services_pageViewer.dart';
+import 'package:eje/core/widgets/loading_indicator.dart';
+import 'package:eje/pages/eje/services/presentation/widgets/services_pageviewer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'presentation/bloc/services_bloc.dart';
@@ -51,8 +51,9 @@ class Services extends StatelessWidget {
               return ServicesPageViewer(services: state.services);
             } else if (state is Error) {
               return Center();
-            } else
+            } else {
               return Center();
+            }
           },
         ),
       ],

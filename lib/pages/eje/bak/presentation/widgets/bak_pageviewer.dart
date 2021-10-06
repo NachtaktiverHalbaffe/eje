@@ -1,8 +1,8 @@
 import 'package:eje/core/utils/injection_container.dart';
-import 'package:eje/core/widgets/PrefImage.dart';
-import 'package:eje/pages/eje/bak/domain/entitys/BAKler.dart';
+import 'package:eje/core/widgets/cached_image.dart';
+import 'package:eje/pages/eje/bak/domain/entitys/bakler.dart';
 import 'package:eje/pages/eje/bak/presentation/bloc/bak_bloc.dart';
-import 'package:eje/pages/eje/bak/presentation/widgets/bakDetails.dart';
+import 'package:eje/pages/eje/bak/presentation/widgets/bak_details.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_swiper_plus/flutter_swiper_plus.dart';
@@ -38,7 +38,7 @@ class KontaktCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: new BoxDecoration(
+      decoration: BoxDecoration(
         boxShadow: [
           //background color of box
           BoxShadow(
@@ -53,7 +53,7 @@ class KontaktCard extends StatelessWidget {
         ],
       ),
       child: ClipRRect(
-        borderRadius: new BorderRadius.all(Radius.circular(12)),
+        borderRadius: BorderRadius.all(Radius.circular(12)),
         child: Stack(
           alignment: Alignment.bottomCenter,
           children: <Widget>[
@@ -67,7 +67,7 @@ class KontaktCard extends StatelessWidget {
                   ),
                 ),
               ),
-              child: CachedImage(url: bakler.bild),
+              child: CachedImage(url: bakler.image),
             ),
             Column(
               mainAxisSize: MainAxisSize.max,
@@ -98,7 +98,7 @@ class KontaktCard extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  bakler.amt,
+                  bakler.function,
                   textAlign: TextAlign.center,
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(

@@ -1,3 +1,3 @@
-export 'neuigkeiten_bloc_bloc.dart';
-export 'neuigkeiten_bloc_event.dart';
-export 'neuigkeiten_bloc_state.dart';
+export 'news_bloc.dart';
+export 'news_event.dart';
+export 'news_state.dart';

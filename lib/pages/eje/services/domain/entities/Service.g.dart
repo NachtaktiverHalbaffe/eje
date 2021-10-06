@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'Service.dart';
+part of 'service.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
@@ -18,8 +18,8 @@ class ServiceAdapter extends TypeAdapter<Service> {
     };
     return Service(
       service: fields[0] as String,
-      bilder: (fields[1] as List)?.cast<String>(),
-      inhalt: fields[2] as String,
+      images: (fields[1] as List)?.cast<String>(),
+      description: fields[2] as String,
       hyperlinks: (fields[3] as List)?.cast<Hyperlink>(),
     );
   }
@@ -31,9 +31,9 @@ class ServiceAdapter extends TypeAdapter<Service> {
       ..writeByte(0)
       ..write(obj.service)
       ..writeByte(1)
-      ..write(obj.bilder)
+      ..write(obj.images)
       ..writeByte(2)
-      ..write(obj.inhalt)
+      ..write(obj.description)
       ..writeByte(3)
       ..write(obj.hyperlinks);
   }

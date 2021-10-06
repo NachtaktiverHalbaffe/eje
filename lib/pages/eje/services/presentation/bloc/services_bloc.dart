@@ -1,12 +1,10 @@
 // ignore_for_file: non_constant_identifier_names
 
 import 'dart:async';
-
 import 'package:bloc/bloc.dart';
-import 'package:eje/core/error/failures.dart';
-import 'package:eje/pages/eje/services/domain/entities/Service.dart';
-import 'package:eje/pages/eje/services/domain/usecases/GetService.dart';
-import 'package:eje/pages/eje/services/domain/usecases/GetServices.dart';
+import 'package:eje/pages/eje/services/domain/entities/service.dart';
+import 'package:eje/pages/eje/services/domain/usecases/get_service.dart';
+import 'package:eje/pages/eje/services/domain/usecases/get_services.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 

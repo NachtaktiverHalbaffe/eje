@@ -1,8 +1,8 @@
 import 'package:eje/core/utils/injection_container.dart';
-import 'package:eje/core/widgets/PrefImage.dart';
-import 'package:eje/pages/eje/services/domain/entities/Service.dart';
+import 'package:eje/core/widgets/cached_image.dart';
+import 'package:eje/pages/eje/services/domain/entities/service.dart';
 import 'package:eje/pages/eje/services/presentation/bloc/services_bloc.dart';
-import 'package:eje/pages/eje/services/presentation/widgets/servicesDetails.dart';
+import 'package:eje/pages/eje/services/presentation/widgets/services_details.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_swiper_plus/flutter_swiper_plus.dart';
@@ -37,7 +37,7 @@ class ServicesCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: new BoxDecoration(
+      decoration: BoxDecoration(
         boxShadow: [
           //background color of box
           BoxShadow(
@@ -52,7 +52,7 @@ class ServicesCard extends StatelessWidget {
         ],
       ),
       child: ClipRRect(
-        borderRadius: new BorderRadius.all(Radius.circular(12)),
+        borderRadius: BorderRadius.all(Radius.circular(12)),
         child: Stack(
           alignment: Alignment.bottomCenter,
           children: <Widget>[
@@ -66,7 +66,7 @@ class ServicesCard extends StatelessWidget {
                   ),
                 ),
               ),
-              child: CachedImage(url: service.bilder[0]),
+              child: CachedImage(url: service.images[0]),
             ),
             Column(
               mainAxisSize: MainAxisSize.max,

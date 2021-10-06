@@ -1,4 +1,4 @@
-import 'package:eje/core/widgets/LoadingIndicator.dart';
+import 'package:eje/core/widgets/loading_indicator.dart';
 import 'package:eje/pages/eje/bak/presentation/bloc/bak_bloc.dart';
 import 'package:eje/pages/eje/bak/presentation/bloc/bak_event.dart';
 import 'package:eje/pages/eje/bak/presentation/bloc/bak_state.dart';
@@ -17,7 +17,7 @@ class BAK extends StatelessWidget {
               width: 24,
             ),
             Text(
-              "Vorstand \& BAK",
+              "Vorstand & BAK",
               textAlign: TextAlign.left,
               style: TextStyle(
                 fontWeight: FontWeight.bold,
@@ -53,8 +53,9 @@ class BAK extends StatelessWidget {
               return BAKPageViewer(bakler: state.bak);
             } else if (state is Error) {
               return Center();
-            } else
+            } else {
               return Center();
+            }
           },
         ),
         SizedBox(

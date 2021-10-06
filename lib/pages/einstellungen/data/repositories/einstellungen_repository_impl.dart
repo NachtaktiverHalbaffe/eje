@@ -13,8 +13,8 @@ class EinstellungenRepositoryImpl implements EinstellungenRepository {
   Future<Either<Failure, Einstellung>> getPrefrence(String preference) async {
     try {
       final prefs = GetStorage();
-      return Right(new Einstellung(
-          preference: preference, state: prefs.read(preference)));
+      return Right(
+          Einstellung(preference: preference, state: prefs.read(preference)));
     } on CacheException {
       return Left(CacheFailure());
     }

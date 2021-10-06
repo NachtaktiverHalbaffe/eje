@@ -1,45 +1,45 @@
 import 'package:connectivity/connectivity.dart';
 import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:eje/core/platform/network_info.dart';
-import 'package:eje/pages/articles/data/datasources/articlesLocalDatasource.dart';
-import 'package:eje/pages/articles/data/repository/articlesRepositoryImpl.dart';
-import 'package:eje/pages/articles/domain/repositories/ArticlesRepository.dart';
-import 'package:eje/pages/articles/domain/usecases/getArticle.dart';
-import 'package:eje/pages/articles/domain/usecases/getArticles.dart';
+import 'package:eje/pages/articles/data/datasources/articles_local_datasource.dart';
+import 'package:eje/pages/articles/data/repository/articles_repository_impl.dart';
+import 'package:eje/pages/articles/domain/repositories/articles_repository.dart';
+import 'package:eje/pages/articles/domain/usecases/get_article.dart';
+import 'package:eje/pages/articles/domain/usecases/get_articles.dart';
 import 'package:eje/pages/articles/presentation/bloc/articles_bloc.dart';
 import 'package:eje/pages/einstellungen/data/repositories/einstellungen_repository_impl.dart';
 import 'package:eje/pages/einstellungen/domain/repositories/einstellungen_repository.dart';
-import 'package:eje/pages/einstellungen/domain/usecases/getPreference.dart';
-import 'package:eje/pages/einstellungen/domain/usecases/getPreferences.dart';
-import 'package:eje/pages/einstellungen/domain/usecases/setPrefrences.dart';
+import 'package:eje/pages/einstellungen/domain/usecases/get_preference.dart';
+import 'package:eje/pages/einstellungen/domain/usecases/get_preferences.dart';
+import 'package:eje/pages/einstellungen/domain/usecases/set_prefrences.dart';
 import 'package:eje/pages/einstellungen/presentation/bloc/einstellung_bloc.dart';
 import 'package:eje/pages/eje/arbeitsfelder/data/datasources/arbeitsbereich_local_datasource.dart';
 import 'package:eje/pages/eje/arbeitsfelder/data/datasources/arbeitsbereich_remote_datasource.dart';
 import 'package:eje/pages/eje/arbeitsfelder/data/repositories/arbeitsbereich_repository_impl.dart';
-import 'package:eje/pages/eje/arbeitsfelder/domain/repositories/arbeitsbereich_repository.dart';
-import 'package:eje/pages/eje/arbeitsfelder/domain/usecases/GetArbeitsbereich.dart';
-import 'package:eje/pages/eje/arbeitsfelder/domain/usecases/GetArbeitsbereiche.dart';
-import 'package:eje/pages/eje/arbeitsfelder/presentation/bloc/arbeitsbereiche_bloc.dart';
+import 'package:eje/pages/eje/arbeitsfelder/domain/repositories/field_of_work_repository.dart';
+import 'package:eje/pages/eje/arbeitsfelder/domain/usecases/get_field_of_work.dart';
+import 'package:eje/pages/eje/arbeitsfelder/domain/usecases/get_fields_of_work.dart';
+import 'package:eje/pages/eje/arbeitsfelder/presentation/bloc/fields_of_work_bloc.dart';
 import 'package:eje/pages/eje/bak/data/datasources/bak_local_datasource.dart';
 import 'package:eje/pages/eje/bak/data/datasources/bak_remote_datasource.dart';
 import 'package:eje/pages/eje/bak/data/repositories/bak_repository_impl.dart';
 import 'package:eje/pages/eje/bak/domain/repositories/bak_repository.dart';
-import 'package:eje/pages/eje/bak/domain/usecases/GetBAK.dart';
-import 'package:eje/pages/eje/bak/domain/usecases/GetBAKler.dart';
+import 'package:eje/pages/eje/bak/domain/usecases/get_bak.dart';
+import 'package:eje/pages/eje/bak/domain/usecases/get_bakler.dart';
 import 'package:eje/pages/eje/bak/presentation/bloc/bak_bloc.dart';
-import 'package:eje/pages/eje/hauptamtlichen/data/datasources/hauptamtliche_local_datasource.dart';
-import 'package:eje/pages/eje/hauptamtlichen/data/datasources/hauptamtliche_remote_datasource.dart';
-import 'package:eje/pages/eje/hauptamtlichen/data/repositories/hauptamliche_repository_impl.dart';
-import 'package:eje/pages/eje/hauptamtlichen/domain/repositories/hauptamtliche_repository.dart';
-import 'package:eje/pages/eje/hauptamtlichen/domain/usecases/GetHauptamtliche.dart';
-import 'package:eje/pages/eje/hauptamtlichen/domain/usecases/GetHauptamtlicher.dart';
+import 'package:eje/pages/eje/hauptamtlichen/data/datasources/employees_local_datasource.dart';
+import 'package:eje/pages/eje/hauptamtlichen/data/datasources/employees_remote_datasource.dart';
+import 'package:eje/pages/eje/hauptamtlichen/data/repositories/employees_repository_impl.dart';
+import 'package:eje/pages/eje/hauptamtlichen/domain/repositories/employees_repository.dart';
+import 'package:eje/pages/eje/hauptamtlichen/domain/usecases/get_employees.dart';
+import 'package:eje/pages/eje/hauptamtlichen/domain/usecases/get_employee.dart';
 import 'package:eje/pages/eje/hauptamtlichen/presentation/bloc/bloc.dart';
-import 'package:eje/pages/eje/services/data/datasources/ServicesLocalDatasource.dart';
-import 'package:eje/pages/eje/services/data/datasources/ServicesRemoteDatasource.dart';
+import 'package:eje/pages/eje/services/data/datasources/services_local_datasource.dart';
+import 'package:eje/pages/eje/services/data/datasources/services_remote_datasource.dart';
 import 'package:eje/pages/eje/services/data/repositories/services_repository_impl.dart';
 import 'package:eje/pages/eje/services/domain/repositories/services_repository.dart';
-import 'package:eje/pages/eje/services/domain/usecases/GetService.dart';
-import 'package:eje/pages/eje/services/domain/usecases/GetServices.dart';
+import 'package:eje/pages/eje/services/domain/usecases/get_service.dart';
+import 'package:eje/pages/eje/services/domain/usecases/get_services.dart';
 import 'package:eje/pages/eje/services/presentation/bloc/services_bloc.dart';
 import 'package:eje/pages/freizeiten/data/datasources/camps_local_datasource.dart';
 import 'package:eje/pages/freizeiten/data/datasources/camps_remote_datasource.dart';
@@ -48,19 +48,19 @@ import 'package:eje/pages/freizeiten/domain/repositories/camp_repository.dart';
 import 'package:eje/pages/freizeiten/domain/usecases/get_camp.dart';
 import 'package:eje/pages/freizeiten/domain/usecases/get_camps.dart';
 import 'package:eje/pages/freizeiten/presentation/bloc/bloc.dart';
-import 'package:eje/pages/neuigkeiten/data/datasources/neuigkeiten_local_datasource.dart';
-import 'package:eje/pages/neuigkeiten/data/datasources/neuigkeiten_remote_datasource.dart';
-import 'package:eje/pages/neuigkeiten/data/repositories/neuigkeiten_repository_impl.dart';
-import 'package:eje/pages/neuigkeiten/domain/repositories/neuigkeiten_repository.dart';
-import 'package:eje/pages/neuigkeiten/domain/usecases/GetNeuigkeit.dart';
-import 'package:eje/pages/neuigkeiten/domain/usecases/GetNeuigkeiten.dart';
+import 'package:eje/pages/neuigkeiten/data/datasources/news_local_datasource.dart';
+import 'package:eje/pages/neuigkeiten/data/datasources/news_remote_datasource.dart';
+import 'package:eje/pages/neuigkeiten/data/repositories/news_repository_impl.dart';
+import 'package:eje/pages/neuigkeiten/domain/repositories/news_repository.dart';
+import 'package:eje/pages/neuigkeiten/domain/usecases/get_single_news.dart';
+import 'package:eje/pages/neuigkeiten/domain/usecases/get_news.dart';
 import 'package:eje/pages/neuigkeiten/presentation/bloc/bloc.dart';
 import 'package:eje/pages/termine/data/datasources/events_local_datasource.dart';
 import 'package:eje/pages/termine/data/datasources/events_remote_datasource.dart';
 import 'package:eje/pages/termine/data/repositories/events_repositoy_impl.dart';
 import 'package:eje/pages/termine/domain/repsoitories/events_repository.dart';
-import 'package:eje/pages/termine/domain/usecases/get_Event.dart';
-import 'package:eje/pages/termine/domain/usecases/get_Events.dart';
+import 'package:eje/pages/termine/domain/usecases/get_event.dart';
+import 'package:eje/pages/termine/domain/usecases/get_events.dart';
 import 'package:eje/pages/termine/presentation/bloc/bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;
@@ -73,17 +73,17 @@ Future<void> init() async {
   // ! Neuigkeiten
   // * Bloc
   sl.registerFactory(
-    () => NeuigkeitenBlocBloc(
-      getNeuigkeit: sl(),
-      getNeuigkeiten: sl(),
+    () => NewsBloc(
+      getSingleNews: sl(),
+      getNews: sl(),
     ),
   );
   // * Use cases
-  sl.registerLazySingleton(() => GetNeuigkeit(sl()));
-  sl.registerLazySingleton(() => GetNeuigkeiten(sl()));
+  sl.registerLazySingleton(() => GetSingleNews(sl()));
+  sl.registerLazySingleton(() => GetNews(sl()));
   // * Repository
-  sl.registerLazySingleton<NeuigkeitenRepository>(
-    () => NeuigkeitenRepositoryImpl(
+  sl.registerLazySingleton<NewsRepository>(
+    () => NewsRepositoryImpl(
       remoteDataSource: sl(),
       localDatasource: sl(),
       networkInfo: sl(),
@@ -91,9 +91,9 @@ Future<void> init() async {
   );
   // * Datasources
   sl.registerLazySingleton(
-    () => NeuigkeitenRemoteDatasource(),
+    () => NewsRemoteDatasource(),
   );
-  sl.registerLazySingleton(() => NeuigkeitenLocalDatasource());
+  sl.registerLazySingleton(() => NewsLocalDatasource());
 
   // ! Einstellungen
   // * Bloc
@@ -109,25 +109,25 @@ Future<void> init() async {
   // ! Hauptamtliche
   // * Bloc
   sl.registerFactory(
-    () => HauptamtlicheBloc(
-      getHauptamtliche: sl(),
-      getHauptamtlicher: sl(),
+    () => EmployeesBloc(
+      getEmployees: sl(),
+      getEmployee: sl(),
     ),
   );
   // * Use cases
-  sl.registerLazySingleton(() => GetHauptamtliche(repository: sl()));
-  sl.registerLazySingleton(() => GetHauptamtlicher(sl()));
+  sl.registerLazySingleton(() => GetEmployees(repository: sl()));
+  sl.registerLazySingleton(() => GetEmployee(sl()));
   // * Repository
-  sl.registerLazySingleton<HauptamtlicheRepository>(
-    () => HauptamtlicheRepositoryImpl(
+  sl.registerLazySingleton<EmployeesRepository>(
+    () => EmployeesRepositoryImpl(
       remoteDataSource: sl(),
       localDatasource: sl(),
       networkInfo: sl(),
     ),
   );
   // * Datasources
-  sl.registerLazySingleton(() => HauptamtlicheLocalDatasource());
-  sl.registerLazySingleton(() => HauptamtlicheRemoteDatasource(client: sl()));
+  sl.registerLazySingleton(() => EmployeesLocalDatasource());
+  sl.registerLazySingleton(() => EmployeesRemoteDatasource(client: sl()));
 
   // ! BAK
   // * Bloc
@@ -151,16 +151,16 @@ Future<void> init() async {
   // ! Arbeitsbereiche
   // * Bloc
   sl.registerFactory(
-    () => ArbeitsbereicheBloc(
-      getArbeitsbereich: sl(),
-      getArbeitsbereiche: sl(),
+    () => FieldsOfWorkBloc(
+      getFieldOfWork: sl(),
+      getFieldsOfWork: sl(),
     ),
   );
   // * Usecases
-  sl.registerLazySingleton(() => GetArbeitsbereich(sl()));
-  sl.registerLazySingleton(() => GetArbeitsbereiche(repository: sl()));
+  sl.registerLazySingleton(() => GetFieldOfWork(sl()));
+  sl.registerLazySingleton(() => GetFieldsOfWork(repository: sl()));
   // * Repsoitory
-  sl.registerLazySingleton<ArbeitsbereichRepository>(
+  sl.registerLazySingleton<FieldOfWorkRepository>(
       () => ArbeitsbereichRepositoryImpl(
             remoteDataSource: sl(),
             localDatasource: sl(),

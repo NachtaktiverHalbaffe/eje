@@ -2,7 +2,6 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:eje/core/error/failures.dart';
 import 'package:eje/pages/freizeiten/domain/entities/camp.dart';
 import 'package:eje/pages/freizeiten/domain/usecases/get_camp.dart';
 import 'package:eje/pages/freizeiten/domain/usecases/get_camps.dart';

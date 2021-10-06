@@ -5,14 +5,14 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 class NoResultCard extends StatelessWidget {
   final String label;
   final bool isError;
-  final onRefresh;
+  final Function onRefresh;
   const NoResultCard({Key key, this.label, this.isError, this.onRefresh})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return RefreshIndicator(
-      key: new GlobalKey<RefreshIndicatorState>(),
+      key: GlobalKey<RefreshIndicatorState>(),
       child: SingleChildScrollView(
         physics: AlwaysScrollableScrollPhysics(),
         child: Container(

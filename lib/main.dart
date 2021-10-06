@@ -1,4 +1,4 @@
-import 'package:eje/core/utils/BackgroundServicesManager.dart';
+import 'package:eje/core/utils/background_services_manager.dart';
 import 'package:eje/core/utils/notificationplugin.dart';
 import 'package:eje/core/widgets/bloc/main_bloc.dart';
 import 'package:eje/core/widgets/bloc/main_state.dart';
@@ -15,7 +15,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:hive/hive.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
-import 'pages/neuigkeiten/neuigkeiten.dart';
+import 'pages/neuigkeiten/news_page.dart';
 import 'core/utils/startup.dart';
 
 void main() async {
@@ -121,7 +121,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   // List of Widgetscreens for navigation bart
   List<Widget> _buildScreens() {
-    return [Neuigkeiten(), Eje(), Events(), Camps(), Einstellungen()];
+    return [NewsPage(), Eje(), Events(), Camps(), Einstellungen()];
   }
 
   @override

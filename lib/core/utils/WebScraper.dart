@@ -1,12 +1,12 @@
 // ignore_for_file: non_constant_identifier_names, prefer_typing_uninitialized_variables
 import 'package:eje/app_config.dart';
 import 'package:eje/core/error/exception.dart';
-import 'package:eje/pages/articles/domain/entity/Article.dart';
-import 'package:eje/pages/articles/domain/entity/Hyperlink.dart';
-import 'package:eje/pages/eje/arbeitsfelder/domain/entities/Arbeitsbereich.dart';
-import 'package:eje/pages/eje/bak/domain/entitys/BAKler.dart';
-import 'package:eje/pages/eje/hauptamtlichen/domain/entitys/hauptamtlicher.dart';
-import 'package:eje/pages/eje/services/domain/entities/Service.dart';
+import 'package:eje/pages/articles/domain/entity/article.dart';
+import 'package:eje/pages/articles/domain/entity/hyperlink.dart';
+import 'package:eje/pages/eje/arbeitsfelder/domain/entities/field_of_work.dart';
+import 'package:eje/pages/eje/bak/domain/entitys/bakler.dart';
+import 'package:eje/pages/eje/hauptamtlichen/domain/entitys/employee.dart';
+import 'package:eje/pages/eje/services/domain/entities/service.dart';
 import 'package:http/http.dart' as http;
 import 'package:html/dom.dart' as dom;
 import 'package:html/parser.dart' as parser;
@@ -115,8 +115,8 @@ class WebScraper {
     }
   }
 
-  Future<List<Hauptamtlicher>> scrapeHauptamliche() async {
-    List<Hauptamtlicher> hauptamtliche = List.empty(growable: true);
+  Future<List<Employee>> scrapeHauptamliche() async {
+    List<Employee> hauptamtliche = List.empty(growable: true);
     final AppConfig appConfig = await AppConfig.loadConfig();
     final String DOMAIN = appConfig.domain;
     final String URL = DOMAIN + appConfig.employeesEndpoint;
@@ -244,11 +244,11 @@ class WebScraper {
                   telefon != "" ||
                   handy != "" ||
                   threema != "") {
-                hauptamtliche.add(Hauptamtlicher(
-                    bild: bild,
+                hauptamtliche.add(Employee(
+                    image: bild,
                     name: name,
-                    bereich: bereich,
-                    vorstellung: vorstellung,
+                    function: bereich,
+                    introduction: vorstellung,
                     email: email,
                     telefon: telefon,
                     handy: handy,
@@ -386,10 +386,10 @@ class WebScraper {
                   email != "" ||
                   threema != "") {
                 bakler.add(BAKler(
-                    bild: bild,
+                    image: bild,
                     name: name,
-                    amt: amt,
-                    vorstellung: vorstellung,
+                    function: amt,
+                    introduction: vorstellung,
                     email: email,
                     threema: threema));
               }
@@ -468,10 +468,10 @@ class WebScraper {
               //add scraped Section to List of Articles
               if (arbeitsbereich != "" || bild.isNotEmpty || url != "") {
                 arbeitsbereiche.add(FieldOfWork(
-                  arbeitsfeld: arbeitsbereich,
-                  bilder: bild,
-                  inhalt: "",
-                  url: url,
+                  name: arbeitsbereich,
+                  images: bild,
+                  description: "",
+                  link: url,
                 ));
               }
             }
@@ -541,18 +541,18 @@ class WebScraper {
         }
         return Service(
             service: service.service,
-            bilder: service.bilder,
-            inhalt: service.inhalt,
+            images: service.images,
+            description: service.description,
             hyperlinks: hyperlinks);
       } //Service is a webpage which to webscrape
       else {
         Article _article =
             await WebScraper().scrapeWebPage(service.hyperlinks[0].link);
-        List<String> bilder = service.bilder.sublist(0, 1);
+        List<String> bilder = service.images.sublist(0, 1);
         bilder.addAll(_article.bilder);
         List<Hyperlink> hyperlinks = service.hyperlinks.sublist(0, 1);
         hyperlinks.addAll(_article.hyperlinks);
-        String content = service.inhalt;
+        String content = service.description;
         if (_article.content.isNotEmpty) {
           if (!content.contains(_article.content)) {
             content = _article.content;
@@ -567,8 +567,8 @@ class WebScraper {
         }
         return Service(
           service: service.service,
-          bilder: bilder,
-          inhalt: content,
+          images: bilder,
+          description: content,
           hyperlinks: hyperlinks,
         );
       }

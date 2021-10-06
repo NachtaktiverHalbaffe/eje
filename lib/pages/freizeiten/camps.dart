@@ -1,5 +1,5 @@
 import 'package:eje/core/utils/injection_container.dart';
-import 'package:eje/core/widgets/LoadingIndicator.dart';
+import 'package:eje/core/widgets/loading_indicator.dart';
 import 'package:eje/core/widgets/no_result_card.dart';
 import 'package:eje/pages/freizeiten/presentation/bloc/bloc.dart';
 import 'package:eje/pages/freizeiten/presentation/widgets/camp_card.dart';
@@ -77,7 +77,7 @@ class CampsPageViewer extends StatelessWidget {
                 physics: AlwaysScrollableScrollPhysics(),
                 child: ConstrainedBox(
                   constraints: BoxConstraints(minHeight: 400),
-                  child: camps.length != 0
+                  child: camps.isNotEmpty
                       ? Swiper(
                           itemBuilder: (BuildContext context, int index) {
                             return CampCard(camp: camps[index]);
@@ -99,7 +99,7 @@ class CampsPageViewer extends StatelessWidget {
                         ),
                 ),
               ),
-              camps.length != 0 ? FilterCard() : Container(),
+              camps.isNotEmpty ? FilterCard() : Container(),
             ],
           ),
           onRefresh: () async {
@@ -401,9 +401,9 @@ class ChipsRow extends StatelessWidget {
 
 // ignore: camel_case_types
 class _filterChip extends StatelessWidget {
-  final onDeleted;
-  final dataLabel;
-  final icon;
+  final Function onDeleted;
+  final String dataLabel;
+  final IconData icon;
 
   const _filterChip({Key key, this.onDeleted, this.dataLabel, this.icon})
       : super(key: key);

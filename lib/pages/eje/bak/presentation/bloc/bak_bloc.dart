@@ -1,11 +1,9 @@
 // ignore_for_file: non_constant_identifier_names
 
 import 'dart:async';
-
 import 'package:bloc/bloc.dart';
-import 'package:eje/core/error/failures.dart';
-import 'package:eje/pages/eje/bak/domain/usecases/GetBAK.dart';
-import 'package:eje/pages/eje/bak/domain/usecases/GetBAKler.dart';
+import 'package:eje/pages/eje/bak/domain/usecases/get_bak.dart';
+import 'package:eje/pages/eje/bak/domain/usecases/get_bakler.dart';
 import 'package:meta/meta.dart';
 
 import './bloc.dart';

@@ -1,6 +1,6 @@
 import 'package:eje/app_config.dart';
 import 'package:eje/core/error/exception.dart';
-import 'package:eje/pages/termine/domain/entities/Event.dart';
+import 'package:eje/pages/termine/domain/entities/event.dart';
 import 'package:hive/hive.dart';
 
 class EventLocalDatasource {
@@ -10,7 +10,7 @@ class EventLocalDatasource {
 
     // load data from cache
     if (_box.isNotEmpty) {
-      List<Event> data = new List.empty(growable: true);
+      List<Event> data = List.empty(growable: true);
       for (int i = 0; i < _box.length; i++) {
         if (_box.getAt(i) != null) {
           data.add(_box.getAt(i));

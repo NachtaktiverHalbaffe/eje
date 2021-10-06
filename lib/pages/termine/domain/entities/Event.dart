@@ -3,7 +3,7 @@ import 'package:equatable/equatable.dart';
 import 'package:hive/hive.dart';
 import 'package:meta/meta.dart';
 
-part 'Event.g.dart';
+part 'event.g.dart';
 
 @HiveType(typeId: 4)
 class Event extends Equatable {

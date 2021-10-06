@@ -1,10 +1,10 @@
 // ignore_for_file: non_constant_identifier_names, camel_case_types
-import 'package:eje/core/platform/MapLauncher.dart';
+import 'package:eje/core/platform/map_launcher.dart';
 import 'package:eje/core/utils/notificationplugin.dart';
-import 'package:eje/pages/articles/presentation/widgets/DetailsPage.dart';
-import 'package:eje/core/widgets/LoadingIndicator.dart';
-import 'package:eje/pages/articles/domain/entity/Hyperlink.dart';
-import 'package:eje/pages/termine/domain/entities/Event.dart';
+import 'package:eje/pages/articles/presentation/widgets/details_page.dart';
+import 'package:eje/core/widgets/loading_indicator.dart';
+import 'package:eje/pages/articles/domain/entity/hyperlink.dart';
+import 'package:eje/pages/termine/domain/entities/event.dart';
 import 'package:eje/pages/termine/presentation/bloc/bloc.dart';
 import 'package:eje/pages/termine/presentation/bloc/events_bloc.dart';
 import 'package:eje/pages/termine/presentation/bloc/events_state.dart';
@@ -180,7 +180,7 @@ void _setNotification(Event termin) async {
         channelId: CHANNEL_ID,
         channelName: CHANNEL_NAME,
       );
-    } else
+    } else {
       notificationPlugin.showNotification(
           id: 0,
           payload: "4",
@@ -190,6 +190,8 @@ void _setNotification(Event termin) async {
           channelName: "App-Benachrichtigungen",
           channelDescription:
               "Grundlegende Benachrichtigungen von der App über Appfunktionen");
-  } else
+    }
+  } else {
     notificationPlugin.showNotificationsDisabled();
+  }
 }

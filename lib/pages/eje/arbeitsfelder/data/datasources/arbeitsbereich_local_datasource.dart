@@ -1,7 +1,6 @@
 import 'package:eje/app_config.dart';
 import 'package:eje/core/error/exception.dart';
-
-import 'package:eje/pages/eje/arbeitsfelder/domain/entities/Arbeitsbereich.dart';
+import 'package:eje/pages/eje/arbeitsfelder/domain/entities/field_of_work.dart';
 import 'package:hive/hive.dart';
 
 class ArbeitsbereicheLocalDatasource {
@@ -11,7 +10,7 @@ class ArbeitsbereicheLocalDatasource {
 
     //Load all field of works from cache
     if (_box.isNotEmpty) {
-      List<FieldOfWork> data = new List.empty(growable: true);
+      List<FieldOfWork> data = List.empty(growable: true);
       for (int i = 0; i < _box.length; i++) {
         if (_box.getAt(i) != null) {
           data.add(_box.getAt(i));
@@ -32,7 +31,7 @@ class ArbeitsbereicheLocalDatasource {
     if (_box.isNotEmpty) {
       for (int i = 0; i < _box.length; i++) {
         FieldOfWork temp = _box.getAt(i);
-        if (temp.arbeitsfeld == arbeitsfeld) {
+        if (temp.name == arbeitsfeld) {
           return temp;
         }
       }

@@ -2,8 +2,9 @@
 import 'dart:convert';
 import 'package:eje/core/error/exception.dart';
 import 'package:eje/core/platform/location.dart';
-import 'package:eje/pages/termine/domain/entities/Event.dart';
+import 'package:eje/pages/termine/domain/entities/event.dart';
 import 'package:http/http.dart' as http;
+import 'package:http/http.dart';
 import 'package:meta/meta.dart';
 
 import '../../../../app_config.dart';
@@ -19,7 +20,7 @@ class TermineRemoteDatasource {
     List<Event> events = List.empty(growable: true);
 
     // Get http Response
-    var response;
+    Response response;
     try {
       response = await client.get(
         Uri.parse(API_URL + "?typeId=3"),
@@ -43,9 +44,8 @@ class TermineRemoteDatasource {
           });
           events.add(Event(
             id: responseData[i]['id'] != null ? responseData[i]['name'] : 0,
-            name:
-                responseData[i]['name'] != null ? responseData[i]['name'] : "",
-            images: pictures.length != 0 ? pictures : [""],
+            name: responseData[i]['name'] ?? "",
+            images: pictures.isNotEmpty ? pictures : [""],
             startDate: responseData[i]['startDate'] != null
                 ? DateTime.tryParse(responseData[i]['startDate'])
                 : DateTime.now(),
@@ -56,9 +56,7 @@ class TermineRemoteDatasource {
                 ? Location(responseData[i]['location'],
                     responseData[i]['location'], responseData[i]['location'])
                 : Location("Musterort", "Musterstraße 1", "12345 Musterstadt"),
-            registrationLink: responseData[i]['registrationLink'] != null
-                ? responseData[i]['registrationLink']
-                : "",
+            registrationLink: responseData[i]['registrationLink'] ?? "",
           ));
         }
       }

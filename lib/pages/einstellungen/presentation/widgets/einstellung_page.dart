@@ -11,7 +11,7 @@ import 'package:url_launcher/url_launcher.dart';
 class EinstellungenPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    var _groupID;
+    String _groupID;
     final prefs = GetStorage();
     if (prefs.read("nightmode_auto")) {
       _groupID = "nightmode_auto";

@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:eje/core/error/failures.dart';
 import 'package:eje/core/usecases/usecase.dart';
-import 'package:eje/pages/termine/domain/entities/Event.dart';
+import 'package:eje/pages/termine/domain/entities/event.dart';
 import 'package:eje/pages/termine/domain/repsoitories/events_repository.dart';
 import 'package:hive/hive.dart';
 import 'package:meta/meta.dart';

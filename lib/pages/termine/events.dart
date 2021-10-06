@@ -1,5 +1,5 @@
 import 'package:eje/core/utils/injection_container.dart';
-import 'package:eje/core/widgets/LoadingIndicator.dart';
+import 'package:eje/core/widgets/loading_indicator.dart';
 import 'package:eje/core/widgets/no_result_card.dart';
 import 'package:eje/pages/termine/presentation/bloc/events_bloc.dart';
 import 'package:eje/pages/termine/presentation/bloc/events_event.dart';
@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_swiper_plus/flutter_swiper_plus.dart';
 
-import 'domain/entities/Event.dart';
+import 'domain/entities/event.dart';
 
 class Events extends StatelessWidget {
   @override
@@ -54,7 +54,7 @@ class Events extends StatelessWidget {
 
 class TermineListView extends StatelessWidget {
   final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
-      new GlobalKey<RefreshIndicatorState>();
+      GlobalKey<RefreshIndicatorState>();
   final List<Event> termine;
   TermineListView(this.termine);
 
@@ -64,7 +64,7 @@ class TermineListView extends StatelessWidget {
       backgroundColor: Theme.of(context).colorScheme.surface,
       body: Column(
         children: <Widget>[
-          new Expanded(
+          Expanded(
             child: RefreshIndicator(
               key: _refreshIndicatorKey,
               color: Theme.of(context).colorScheme.secondary,
@@ -78,7 +78,7 @@ class TermineListView extends StatelessWidget {
                 child: Container(
                   constraints: BoxConstraints(
                       minHeight: MediaQuery.of(context).size.height - 45),
-                  child: termine.length != 0
+                  child: termine.isNotEmpty
                       ? Swiper(
                           itemBuilder: (BuildContext context, int index) {
                             return EventCard(termine[index]);
