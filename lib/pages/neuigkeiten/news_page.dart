@@ -1,4 +1,5 @@
 import 'package:eje/core/utils/injection_container.dart';
+import 'package:eje/core/widgets/alert_snackbar.dart';
 import 'package:eje/core/widgets/loading_indicator.dart';
 import 'package:eje/core/widgets/no_result_card.dart';
 import 'package:eje/pages/neuigkeiten/domain/entitys/news.dart';
@@ -17,11 +18,7 @@ class NewsPage extends StatelessWidget {
         listener: (context, state) {
           if (state is Error) {
             print("Build Page: Error");
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text(state.message),
-              ),
-            );
+            AlertSnackbar(context).showErrorSnackBar(label: state.message);
           }
         },
         builder: (context, state) {

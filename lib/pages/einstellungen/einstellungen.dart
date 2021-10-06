@@ -1,4 +1,5 @@
 import 'package:eje/core/utils/injection_container.dart';
+import 'package:eje/core/widgets/alert_snackbar.dart';
 import 'package:eje/core/widgets/loading_indicator.dart';
 import 'package:eje/pages/einstellungen/presentation/bloc/bloc.dart';
 import 'package:eje/pages/einstellungen/presentation/bloc/einstellung_bloc.dart';
@@ -16,11 +17,7 @@ class Einstellungen extends StatelessWidget {
         listener: (context, state) {
           if (state is Error) {
             print("Build Page: Error");
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text(state.toString()),
-              ),
-            );
+            AlertSnackbar(context).showErrorSnackBar(label: state.message);
           } else if (state is ChangedPreferences) {
             BlocProvider.of<EinstellungBloc>(context).add(GettingPreferences());
           }

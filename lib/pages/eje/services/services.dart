@@ -1,3 +1,4 @@
+import 'package:eje/core/widgets/alert_snackbar.dart';
 import 'package:eje/core/widgets/loading_indicator.dart';
 import 'package:eje/pages/eje/services/presentation/widgets/services_pageviewer.dart';
 import 'package:flutter/material.dart';
@@ -30,11 +31,7 @@ class Services extends StatelessWidget {
         BlocConsumer<ServicesBloc, ServicesState>(
           listener: (context, state) {
             if (state is Error) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text(state.message),
-                ),
-              );
+              AlertSnackbar(context).showErrorSnackBar(label: state.message);
             }
           },
           builder: (context, state) {

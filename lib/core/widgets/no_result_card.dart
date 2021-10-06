@@ -5,8 +5,9 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 class NoResultCard extends StatelessWidget {
   final String label;
   final bool isError;
-  final Function onRefresh;
-  const NoResultCard({Key key, this.label, this.isError, this.onRefresh})
+  final VoidCallback onRefresh;
+  const NoResultCard(
+      {Key key, @required this.label, this.isError = false, this.onRefresh})
       : super(key: key);
 
   @override
@@ -23,7 +24,7 @@ class NoResultCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Icon(
-                  isError ? Icons.error_outline : MdiIcons.alertDecagram,
+                  isError ? MdiIcons.alertCircle : MdiIcons.alertDecagram,
                   size: 256,
                 ),
                 SizedBox(height: 12),

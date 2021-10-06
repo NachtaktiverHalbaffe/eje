@@ -1,3 +1,4 @@
+import 'package:eje/core/widgets/alert_snackbar.dart';
 import 'package:eje/core/widgets/loading_indicator.dart';
 import 'package:eje/pages/eje/arbeitsfelder/presentation/bloc/fields_of_work_bloc.dart';
 import 'package:eje/pages/eje/arbeitsfelder/presentation/bloc/fields_of_work_event.dart';
@@ -32,11 +33,7 @@ class FieldsOfWork extends StatelessWidget {
         BlocConsumer<FieldsOfWorkBloc, FieldOfWorkState>(
           listener: (context, state) {
             if (state is Error) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text(state.message),
-                ),
-              );
+              AlertSnackbar(context).showErrorSnackBar(label: state.message);
             }
           },
           builder: (context, state) {
