@@ -30,7 +30,9 @@ class EventsRepositoryImpl implements EventsRepository {
         await localDatasource.cacheEvents(remoteTermine);
         return Right(await localDatasource.getCachedEvents());
       } on ServerException {
-        return Right([getErrorTermin()]);
+        return Left(ServerFailure());
+      } on ConnectionException {
+        return Left(ConnectionFailure());
       }
     } else {
       try {
@@ -51,9 +53,9 @@ class EventsRepositoryImpl implements EventsRepository {
           return Right(value);
         }
       }
-      return Right(getErrorTermin());
+      return Left(CacheFailure());
     } on CacheException {
-      return Right(getErrorTermin());
+      return Left(CacheFailure());
     }
   }
 }

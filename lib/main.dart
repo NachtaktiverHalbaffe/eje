@@ -15,8 +15,8 @@ import 'package:get_storage/get_storage.dart';
 import 'package:hive/hive.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
-import '../pages/neuigkeiten/neuigkeiten.dart';
-import 'utils/startup.dart';
+import 'pages/neuigkeiten/neuigkeiten.dart';
+import 'core/utils/startup.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -126,45 +126,47 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return PersistentTabView(
-      context,
-      resizeToAvoidBottomInset: false,
-      controller: PersistentTabController(initialIndex: initialIndex),
-      items: _navBarsItems(),
-      screens: _buildScreens(),
-      handleAndroidBackButtonPress: true,
-      stateManagement: true,
-      backgroundColor: Theme.of(context).colorScheme.background,
-      navBarStyle: NavBarStyle
-          .style7, //!Good looking alternatives: sytle3, style6, style7, style 15
-      itemAnimationProperties: ItemAnimationProperties(
-        duration: Duration(milliseconds: 400),
-        curve: Curves.ease,
+    return Scaffold(
+      body: PersistentTabView(
+        context,
+        resizeToAvoidBottomInset: false,
+        controller: PersistentTabController(initialIndex: initialIndex),
+        items: _navBarsItems(),
+        screens: _buildScreens(),
+        handleAndroidBackButtonPress: true,
+        stateManagement: true,
+        backgroundColor: Theme.of(context).colorScheme.background,
+        navBarStyle: NavBarStyle
+            .style7, //!Good looking alternatives: sytle3, style6, style7, style 15
+        itemAnimationProperties: ItemAnimationProperties(
+          duration: Duration(milliseconds: 400),
+          curve: Curves.ease,
+        ),
+        screenTransitionAnimation: ScreenTransitionAnimation(
+          animateTabTransition: true,
+          curve: Curves.ease,
+          duration: Duration(milliseconds: 200),
+        ),
+        decoration: NavBarDecoration(
+          boxShadow: GetStorage().read("nightmode_off") == true ||
+                  (GetStorage().read("nightmode_auto") == true &&
+                      MediaQuery.of(context).platformBrightness ==
+                          Brightness.light)
+              ? [
+                  BoxShadow(
+                    color: Colors.black,
+                    blurRadius: 10,
+                    spreadRadius: 0,
+                  ),
+                ]
+              : [],
+          borderRadius: BorderRadius.circular(10.0),
+          colorBehindNavBar: Theme.of(context).colorScheme.background,
+        ),
+        popAllScreensOnTapOfSelectedTab: true,
+        // Choose the nav bar style with this property
+        onItemSelected: (index) {},
       ),
-      screenTransitionAnimation: ScreenTransitionAnimation(
-        animateTabTransition: true,
-        curve: Curves.ease,
-        duration: Duration(milliseconds: 200),
-      ),
-      decoration: NavBarDecoration(
-        boxShadow: GetStorage().read("nightmode_off") == true ||
-                (GetStorage().read("nightmode_auto") == true &&
-                    MediaQuery.of(context).platformBrightness ==
-                        Brightness.light)
-            ? [
-                BoxShadow(
-                  color: Colors.black,
-                  blurRadius: 10,
-                  spreadRadius: 0,
-                ),
-              ]
-            : [],
-        borderRadius: BorderRadius.circular(10.0),
-        colorBehindNavBar: Theme.of(context).colorScheme.background,
-      ),
-      popAllScreensOnTapOfSelectedTab: true,
-      // Choose the nav bar style with this property
-      onItemSelected: (index) {},
     );
   }
 

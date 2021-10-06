@@ -10,10 +10,6 @@ import 'package:meta/meta.dart';
 
 class ArbeitsbereicheBloc
     extends Bloc<ArbeitsbereicheEvent, ArbeitsbereicheState> {
-  final String SERVER_FAILURE_MESSAGE =
-      'Fehler beim Abrufen der Daten vom Server. Ist Ihr Gerät mit den Internet verbunden?';
-  final String CACHE_FAILURE_MESSAGE =
-      'Fehler beim Laden der Daten aus den Cache. Löschen Sie den Cache oder setzen sie die App zurück.';
   final GetArbeitsbereiche getArbeitsbereiche;
   final GetArbeitsbereich getArbeitsbereich;
 
@@ -33,7 +29,7 @@ class ArbeitsbereicheBloc
       yield arbeitsbereicheOrFailure.fold(
         (failure) {
           print("Error");
-          return Error(message: _mapFailureToMessage(failure));
+          return Error(message: failure.getErrorMsg());
         },
         (arbeitsbereiche) {
           print("Succes. Returning LoadedArbeitsbereiche");
@@ -45,20 +41,9 @@ class ArbeitsbereicheBloc
       final arbeitsbereicheOrFailure =
           await getArbeitsbereich(arbeitsbereich: event.arbeitsfeld);
       yield arbeitsbereicheOrFailure.fold(
-        (failure) => Error(message: _mapFailureToMessage(failure)),
+        (failure) => Error(message: failure.getErrorMsg()),
         (arbeitsfeld) => LoadedArbeitsbereich(arbeitsfeld),
       );
-    }
-  }
-
-  String _mapFailureToMessage(Failure failure) {
-    switch (failure.runtimeType) {
-      case ServerFailure:
-        return SERVER_FAILURE_MESSAGE;
-      case CacheFailure:
-        return CACHE_FAILURE_MESSAGE;
-      default:
-        return 'Unbekannter Fehler';
     }
   }
 }

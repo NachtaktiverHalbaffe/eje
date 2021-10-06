@@ -45,7 +45,7 @@ class ArticlesPage extends StatelessWidget {
             return ArticlePage(state.article);
           } else {
             print("Build Page Articles: Undefined");
-            BlocProvider.of<ArticlesBloc>(context).add(RefreshArticle(url));
+            // BlocProvider.of<ArticlesBloc>(context).add(RefreshArticle(url));
             return LoadingIndicator();
           }
         },

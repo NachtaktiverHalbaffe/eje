@@ -37,6 +37,14 @@ class Events extends StatelessWidget {
             return LoadingIndicator();
           } else if (state is LoadedEvents) {
             return TermineListView(state.events.reversed.toList());
+          } else if (state is Error) {
+            return NoResultCard(
+              label: "Fehler beim Laden der Events",
+              isError: true,
+              onRefresh: () async {
+                BlocProvider.of<TermineBloc>(context).add(RefreshEvents());
+              },
+            );
           }
         },
       ),
@@ -81,7 +89,14 @@ class TermineListView extends StatelessWidget {
                           layout: SwiperLayout.STACK,
                           loop: true,
                         )
-                      : NoResultCard(label: "Keine Events gefunden"),
+                      : NoResultCard(
+                          label: "Keine Events gefunden",
+                          isError: false,
+                          onRefresh: () async {
+                            BlocProvider.of<TermineBloc>(context)
+                                .add(RefreshEvents());
+                          },
+                        ),
                 ),
               ),
             ),

@@ -2,7 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:eje/core/error/exception.dart';
 import 'package:eje/core/error/failures.dart';
 import 'package:eje/core/platform/network_info.dart';
-import 'package:eje/core/utils/WebScraper.dart';
+import 'package:eje/core/utils/webscraper.dart';
 import 'package:eje/pages/articles/data/datasources/articlesLocalDatasource.dart';
 import 'package:eje/pages/articles/domain/entity/Article.dart';
 import 'package:eje/pages/articles/domain/entity/ErrorArticle.dart';
@@ -89,16 +89,18 @@ class ArticlesRepositoryImpl implements ArticlesRepository {
           localDatasource.cacheArticle(_article);
           return Right(_article);
         } on ServerException {
-          return Right(getErrorArticle());
+          return Left(ServerFailure());
+        } on ConnectionException {
+          return Left(ConnectionFailure());
         }
       } else
-        return Right(getErrorArticle());
+        return Left(ServerFailure());
     } else {
       try {
         Article _article = await localDatasource.getArticle(url);
         return Right(_article);
       } on CacheException {
-        return Right(getErrorArticle());
+        return Left(CacheFailure());
       }
     }
   }

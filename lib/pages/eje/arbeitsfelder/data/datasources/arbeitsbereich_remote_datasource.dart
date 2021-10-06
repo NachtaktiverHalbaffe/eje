@@ -1,4 +1,5 @@
-import 'package:eje/core/utils/WebScraper.dart';
+import 'package:eje/core/error/exception.dart';
+import 'package:eje/core/utils/webscraper.dart';
 import 'package:eje/pages/eje/arbeitsfelder/domain/entities/Arbeitsbereich.dart';
 import 'package:http/http.dart' as http;
 import 'package:meta/meta.dart';
@@ -8,6 +9,12 @@ class ArbeitsbereichRemoteDatasource {
   ArbeitsbereichRemoteDatasource({@required this.client});
 
   Future<List<FieldOfWork>> getArtbeitsbereiche() async {
-    return await WebScraper().scrapeArbeitsbereiche();
+    try {
+      return await WebScraper().scrapeArbeitsbereiche();
+    } on ServerException {
+      throw ServerException();
+    } on ConnectionException {
+      throw ConnectionException();
+    }
   }
 }

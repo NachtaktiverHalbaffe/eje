@@ -11,10 +11,6 @@ import 'package:meta/meta.dart';
 import './bloc.dart';
 
 class TermineBloc extends Bloc<EventsEvent, EventsState> {
-  final String SERVER_FAILURE_MESSAGE =
-      'Fehler beim Abrufen der Daten vom Server. Ist Ihr Gerät mit den Internet verbunden?';
-  final String CACHE_FAILURE_MESSAGE =
-      'Fehler beim Laden der Daten aus den Cache. Löschen Sie den Cache oder setzen sie die App zurück.';
   final GetEvents getEvents;
   final GetEvent getEvent;
 
@@ -34,7 +30,7 @@ class TermineBloc extends Bloc<EventsEvent, EventsState> {
       yield termineOrFailure.fold(
         (failure) {
           print("Error");
-          return Error(message: _mapFailureToMessage(failure));
+          return Error(message: failure.getErrorMsg());
         },
         (termine) {
           print("Succes. Returning LoadedTermine");
@@ -45,20 +41,9 @@ class TermineBloc extends Bloc<EventsEvent, EventsState> {
       yield Loading();
       final arbeitsbereicheOrFailure = await getEvent(id: event.id);
       yield arbeitsbereicheOrFailure.fold(
-        (failure) => Error(message: _mapFailureToMessage(failure)),
+        (failure) => Error(message: failure.getErrorMsg()),
         (termin) => LoadedEvent(termin),
       );
-    }
-  }
-
-  String _mapFailureToMessage(Failure failure) {
-    switch (failure.runtimeType) {
-      case ServerFailure:
-        return SERVER_FAILURE_MESSAGE;
-      case CacheFailure:
-        return CACHE_FAILURE_MESSAGE;
-      default:
-        return 'Unbekannter Fehler';
     }
   }
 }

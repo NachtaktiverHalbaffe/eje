@@ -1,5 +1,6 @@
 import 'package:eje/core/utils/injection_container.dart';
 import 'package:eje/core/widgets/LoadingIndicator.dart';
+import 'package:eje/core/widgets/no_result_card.dart';
 import 'package:eje/pages/neuigkeiten/domain/entitys/neuigkeit.dart';
 import 'package:eje/pages/neuigkeiten/presentation/bloc/bloc.dart';
 import 'package:eje/pages/neuigkeiten/presentation/widgets/neuigkeitenCard.dart';
@@ -35,8 +36,18 @@ class Neuigkeiten extends StatelessWidget {
           } else if (state is Loaded) {
             print("Build Page Neuigkeiten: Loaded");
             return NeuigkeitenListView(state.neuigkeit.toList());
-          } else
+          } else if (state is Error) {
+            return NoResultCard(
+              label: "Fehler beim Laden der Neuigkeiten",
+              isError: true,
+              onRefresh: () async {
+                BlocProvider.of<NeuigkeitenBlocBloc>(context)
+                    .add(RefreshNeuigkeiten());
+              },
+            );
+          } else {
             return Center();
+          }
         },
       ),
     );
@@ -71,21 +82,30 @@ Widget _buildNeuigkeitenList(BuildContext context, _neuigkeiten) {
       onRefresh: () async {
         BlocProvider.of<NeuigkeitenBlocBloc>(context).add(RefreshNeuigkeiten());
       },
-      child: ListView.builder(
-        physics: ScrollPhysics(
-          parent: RangeMaintainingScrollPhysics(),
-        ),
-        // Padding to avoid cards being cut off
-        padding: EdgeInsets.only(
-          bottom: 20,
-          top: 40,
-        ),
-        itemCount: _neuigkeiten.length,
-        itemBuilder: (context, index) {
-          final neuigkeit = _neuigkeiten[index];
-          return NeuigkeitenCard(neuigkeit);
-        },
-      ),
+      child: _neuigkeiten.length != 0
+          ? ListView.builder(
+              physics: ScrollPhysics(
+                parent: AlwaysScrollableScrollPhysics(),
+              ),
+              // Padding to avoid cards being cut off
+              padding: EdgeInsets.only(
+                bottom: 20,
+                top: 40,
+              ),
+              itemCount: _neuigkeiten.length,
+              itemBuilder: (context, index) {
+                final neuigkeit = _neuigkeiten[index];
+                return NeuigkeitenCard(neuigkeit);
+              },
+            )
+          : NoResultCard(
+              label: "Keine Neuigkeiten gefunden",
+              isError: false,
+              onRefresh: () async {
+                BlocProvider.of<NeuigkeitenBlocBloc>(context)
+                    .add(RefreshNeuigkeiten());
+              },
+            ),
     ),
   );
 }

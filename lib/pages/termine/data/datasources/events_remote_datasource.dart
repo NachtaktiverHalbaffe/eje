@@ -19,11 +19,19 @@ class TermineRemoteDatasource {
     List<Event> events = List.empty(growable: true);
 
     // Get http Response
-    final response =
-        await client.get(Uri.parse(API_URL + "?typeId=3"), headers: {
-      'Accept': 'application/json',
-      'Authorization': 'Bearer $API_TOKEN ',
-    });
+    var response;
+    try {
+      response = await client.get(
+        Uri.parse(API_URL + "?typeId=3"),
+        headers: {
+          'Accept': 'application/json',
+          'Authorization': 'Bearer $API_TOKEN ',
+        },
+      );
+    } catch (e) {
+      print("EventsAPI error: " + e.toString());
+      throw ConnectionException();
+    }
     if (response.statusCode == 200) {
       var responseData = json.decode(response.body)["data"];
       for (int i = 0; i < responseData.length; i++) {

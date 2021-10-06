@@ -53,8 +53,10 @@ class Hauptamtliche extends StatelessWidget {
             } else if (state is LoadedHauptamtliche) {
               print("Build page: LoadedHauptamtliche");
               return HauptamtlichePageViewer(state.hauptamtliche);
+            } else if (state is Error) {
+              return Center();
             } else
-              return LoadingIndicator();
+              return Center();
           },
         ),
         SizedBox(

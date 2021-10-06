@@ -12,10 +12,6 @@ import 'package:meta/meta.dart';
 import './bloc.dart';
 
 class CampsBloc extends Bloc<CampEvent, CampState> {
-  final String SERVER_FAILURE_MESSAGE =
-      'Fehler beim Abrufen der Daten vom Server. Ist Ihr Gerät mit den Internet verbunden?';
-  final String CACHE_FAILURE_MESSAGE =
-      'Fehler beim Laden der Daten aus den Cache. Löschen Sie den Cache oder setzen sie die App zurück.';
   final GetCamp getCamp;
   final GetCamps getCamps;
 
@@ -33,7 +29,7 @@ class CampsBloc extends Bloc<CampEvent, CampState> {
       final campOrFailure = await getCamps();
       yield campOrFailure.fold(
         (failure) {
-          return Error(message: _mapFailureToMessage(failure));
+          return Error(message: failure.getErrorMsg());
         },
         (freizeiten) {
           if (GetStorage().read("campFilterStartDate") != "" ||
@@ -48,14 +44,14 @@ class CampsBloc extends Bloc<CampEvent, CampState> {
       yield Loading();
       final campsOrFailure = await getCamp(freizeit: event.camp);
       yield campsOrFailure.fold(
-        (failure) => Error(message: _mapFailureToMessage(failure)),
+        (failure) => Error(message: failure.getErrorMsg()),
         (freizeit) => LoadedCamp(freizeit),
       );
     } else if (event is FilteringCamps) {
       yield Loading();
       final campsOrFailure = await getCamps();
       yield campsOrFailure.fold(
-        (failure) => Error(message: _mapFailureToMessage(failure)),
+        (failure) => Error(message: failure.getErrorMsg()),
         (freizeiten) {
           List<Camp> filteredCamps = _filterCamps(freizeiten);
           return FilteredCamps(filteredCamps);
@@ -97,16 +93,5 @@ class CampsBloc extends Bloc<CampEvent, CampState> {
     }
 
     return filteredCamps;
-  }
-
-  String _mapFailureToMessage(Failure failure) {
-    switch (failure.runtimeType) {
-      case ServerFailure:
-        return SERVER_FAILURE_MESSAGE;
-      case CacheFailure:
-        return CACHE_FAILURE_MESSAGE;
-      default:
-        return 'Unbekannter Fehler';
-    }
   }
 }

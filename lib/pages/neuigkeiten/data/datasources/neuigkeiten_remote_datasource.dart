@@ -13,7 +13,13 @@ class NeuigkeitenRemoteDatasource {
     final apiUrl = Uri.parse(appConfig.domain + appConfig.newsEndpoint);
     // Init vars
     List<Neuigkeit> data = List.empty(growable: true);
-    final response = await client.get(apiUrl);
+    var response;
+    try {
+      response = await client.get(apiUrl);
+    } catch (e) {
+      print("NewsAPI error: " + e.toString());
+      throw ConnectionException();
+    }
     var payload = new RssFeed.parse(response.body).items.toList();
 
     // Parsing

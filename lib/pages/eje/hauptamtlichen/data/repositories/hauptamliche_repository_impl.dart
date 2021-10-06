@@ -30,10 +30,16 @@ class HauptamtlicheRepositoryImpl implements HauptamtlicheRepository {
         await localDatasource.cacheHauptamtliche(remoteHauptamtliche);
         return Right(await localDatasource.getCachedHauptamtliche());
       } on ServerException {
-        return Right([getErrorHauptamtlicher()]);
+        return Left(ServerFailure());
+      } on ConnectionException {
+        return Left(ConnectionFailure());
       }
     } else
-      return Right(await localDatasource.getCachedHauptamtliche());
+      try {
+        return Right(await localDatasource.getCachedHauptamtliche());
+      } on CacheException {
+        return Left(CacheFailure());
+      }
   }
 
   //Lade bestimmten Artikel aus Cache
@@ -47,9 +53,9 @@ class HauptamtlicheRepositoryImpl implements HauptamtlicheRepository {
           return Right(value);
         }
       }
-      return Right(getErrorHauptamtlicher());
+      return Left(CacheFailure());
     } on CacheException {
-      return Right(getErrorHauptamtlicher());
+      return Left(CacheFailure());
     }
   }
 }

@@ -31,10 +31,17 @@ class ArbeitsbereichRepositoryImpl implements ArbeitsbereichRepository {
         await localDatasource.cacheBAK(remoteArbeitsbereich);
         return Right(await localDatasource.getCachedArbeitsbereiche());
       } on ServerException {
-        return Right([getErrorArbeitsbereich()]);
+        return Left(ServerFailure());
+      } on ConnectionException {
+        return Left(ConnectionFailure());
       }
-    } else
-      return Right(await localDatasource.getCachedArbeitsbereiche());
+    } else {
+      try {
+        return Right(await localDatasource.getCachedArbeitsbereiche());
+      } on CacheException {
+        return Left(CacheFailure());
+      }
+    }
   }
 
   //Lade bestimmten Artikel aus Cache, inaktiv da durch getArticle ersetzt
@@ -49,9 +56,9 @@ class ArbeitsbereichRepositoryImpl implements ArbeitsbereichRepository {
           return Right(value);
         }
       }
-      return Right(getErrorArbeitsbereich());
+      return Left(CacheFailure());
     } on CacheException {
-      return Right(getErrorArbeitsbereich());
+      return Left(CacheFailure());
     }
   }
 }

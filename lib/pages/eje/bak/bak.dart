@@ -51,8 +51,10 @@ class BAK extends StatelessWidget {
             } else if (state is LoadedBAK) {
               print("Build page: LoadedBak");
               return BAKPageViewer(bakler: state.bak);
+            } else if (state is Error) {
+              return Center();
             } else
-              return LoadingIndicator();
+              return Center();
           },
         ),
         SizedBox(

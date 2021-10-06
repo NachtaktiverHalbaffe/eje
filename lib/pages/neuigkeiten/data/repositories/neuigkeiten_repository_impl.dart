@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:eje/app_config.dart';
 import 'package:eje/core/error/exception.dart';
-import 'package:eje/core/utils/WebScraper.dart';
+import 'package:eje/core/utils/webscraper.dart';
 import 'package:eje/pages/articles/domain/entity/Article.dart';
 import 'package:eje/pages/articles/domain/entity/ErrorArticle.dart';
 import 'package:eje/pages/neuigkeiten/domain/entitys/errorNeuigkeit.dart';
@@ -61,7 +61,7 @@ class NeuigkeitenRepositoryImpl implements NeuigkeitenRepository {
       article = _webScrapingResult;
       return Right(article);
     } on CacheException {
-      return Right(getErrorArticle());
+      return Left(CacheFailure());
     }
   }
 
@@ -86,8 +86,11 @@ class NeuigkeitenRepositoryImpl implements NeuigkeitenRepository {
         prefs.write("cached_neuigkeiten", neuigkeitenNamen);
         return Right(await localDatasource.getCachedNeuigkeiten());
       } on ServerException {
-        print("Neuigkeiten: Serverexception");
-        return Right([getErrorNeuigkeit()]);
+        print("News: Serverexception");
+        return Left(ServerFailure());
+      } on ConnectionException {
+        print("News: Connectionexception");
+        return Left(ConnectionFailure());
       }
     } else
       return Right(await localDatasource.getCachedNeuigkeiten());

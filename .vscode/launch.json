@@ -9,7 +9,7 @@
             "name": "eje",
             "request": "launch",
             "type": "dart",
-            "program": "lib/core/main.dart"
+            // "program": "/main.dart"
         }
     ]
 }

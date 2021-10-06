@@ -49,8 +49,10 @@ class Services extends StatelessWidget {
             } else if (state is LoadedServices) {
               print("Build page: LoadedServices");
               return ServicesPageViewer(services: state.services);
+            } else if (state is Error) {
+              return Center();
             } else
-              return LoadingIndicator();
+              return Center();
           },
         ),
       ],

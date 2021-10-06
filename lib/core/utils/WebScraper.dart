@@ -1,15 +1,10 @@
-// ignore_for_file: non_constant_identifier_names
-
+// ignore_for_file: non_constant_identifier_names, prefer_typing_uninitialized_variables
 import 'package:eje/app_config.dart';
 import 'package:eje/core/error/exception.dart';
 import 'package:eje/pages/articles/domain/entity/Article.dart';
-import 'package:eje/pages/articles/domain/entity/ErrorArticle.dart';
 import 'package:eje/pages/articles/domain/entity/Hyperlink.dart';
 import 'package:eje/pages/eje/arbeitsfelder/domain/entities/Arbeitsbereich.dart';
-import 'package:eje/pages/eje/arbeitsfelder/domain/entities/errorArbeitsbereich.dart';
 import 'package:eje/pages/eje/bak/domain/entitys/BAKler.dart';
-import 'package:eje/pages/eje/bak/domain/entitys/ErrorBAKler.dart';
-import 'package:eje/pages/eje/hauptamtlichen/domain/entitys/errorHauptamtlicher.dart';
 import 'package:eje/pages/eje/hauptamtlichen/domain/entitys/hauptamtlicher.dart';
 import 'package:eje/pages/eje/services/domain/entities/Service.dart';
 import 'package:http/http.dart' as http;
@@ -28,15 +23,20 @@ class WebScraper {
     final String ID_ANSCHRIFT = appConfig.idAdress;
 
     // Get data from Internet
-    var response = await http.get(Uri.parse(url));
+    var response;
+    try {
+      response = await http.get(Uri.parse(url));
+    } catch (e) {
+      throw ConnectionException();
+    }
     if (response.statusCode == 200) {
       dom.Document document = parser.parse(response.body);
       final parent = document.getElementsByClassName('col s12 default');
       // Content that needs to be scraped
       String content = "";
       String title = "";
-      List<Hyperlink> hyperlinks = new List.empty(growable: true);
-      List<String> bilder = new List.empty(growable: true);
+      List<Hyperlink> hyperlinks = List.empty(growable: true);
+      List<String> bilder = List.empty(growable: true);
       for (int i = 0; i < parent.length; i++) {
         //checking if element is not header or footer of website
         if (parent[i].id != ID_KONTAKT) {
@@ -111,20 +111,26 @@ class WebScraper {
     } else {
       // No Internet connection, returning empty Article
       print("Error: No internet Connection");
-      return getErrorArticle();
+      throw ConnectionException();
     }
   }
 
   Future<List<Hauptamtlicher>> scrapeHauptamliche() async {
-    List<Hauptamtlicher> hauptamtliche = new List.empty(growable: true);
+    List<Hauptamtlicher> hauptamtliche = List.empty(growable: true);
     final AppConfig appConfig = await AppConfig.loadConfig();
     final String DOMAIN = appConfig.domain;
     final String URL = DOMAIN + appConfig.employeesEndpoint;
     final String ID_HEADER = appConfig.idHeader;
     final String ID_KONTAKT = appConfig.idContact;
     final String ID_ANSCHRIFT = appConfig.idAdress;
+
     // Get data from Internet
-    var response = await http.get(Uri.parse(URL));
+    var response;
+    try {
+      response = await http.get(Uri.parse(URL));
+    } catch (e) {
+      throw ConnectionException();
+    }
     if (response.statusCode == 200) {
       dom.Document document = parser.parse(response.body);
       final parent = document.getElementsByClassName('col s12 default');
@@ -238,7 +244,7 @@ class WebScraper {
                   telefon != "" ||
                   handy != "" ||
                   threema != "") {
-                hauptamtliche.add(new Hauptamtlicher(
+                hauptamtliche.add(Hauptamtlicher(
                     bild: bild,
                     name: name,
                     bereich: bereich,
@@ -256,20 +262,26 @@ class WebScraper {
     } else {
       // No Internet connection, returning empty Article
       print("Error: No internet Connection");
-      return [getErrorHauptamtlicher()];
+      throw ConnectionException();
     }
   }
 
   Future<List<BAKler>> scrapeBAKler() async {
-    List<BAKler> bakler = new List.empty(growable: true);
+    List<BAKler> bakler = List.empty(growable: true);
     final AppConfig appConfig = await AppConfig.loadConfig();
     final String DOMAIN = appConfig.domain;
     final String URL = DOMAIN + appConfig.bakEndpoint;
     final String ID_HEADER = appConfig.idHeader;
     final String ID_KONTAKT = appConfig.idContact;
     final String ID_ANSCHRIFT = appConfig.idAdress;
+
     // Get data from Internet
-    var response = await http.get(Uri.parse(URL));
+    var response;
+    try {
+      response = await http.get(Uri.parse(URL));
+    } catch (e) {
+      throw ConnectionException();
+    }
     if (response.statusCode == 200) {
       dom.Document document = parser.parse(response.body);
       final parent = document.getElementsByClassName('col s12 default');
@@ -373,7 +385,7 @@ class WebScraper {
                   vorstellung != "" ||
                   email != "" ||
                   threema != "") {
-                bakler.add(new BAKler(
+                bakler.add(BAKler(
                     bild: bild,
                     name: name,
                     amt: amt,
@@ -389,20 +401,26 @@ class WebScraper {
     } else {
       // No Internet connection, returning empty Article
       print("Error: No internet Connection");
-      return [getErrorBAKler()];
+      throw ConnectionException();
     }
   }
 
   Future<List<FieldOfWork>> scrapeArbeitsbereiche() async {
-    List<FieldOfWork> arbeitsbereiche = new List.empty(growable: true);
+    List<FieldOfWork> arbeitsbereiche = List.empty(growable: true);
     final AppConfig appConfig = await AppConfig.loadConfig();
     final String DOMAIN = appConfig.domain;
     final String URL = DOMAIN + appConfig.fieldOfWorkEndpoint;
     final String ID_HEADER = appConfig.idHeader;
     final String ID_KONTAKT = appConfig.idContact;
     final String ID_ANSCHRIFT = appConfig.idAdress;
+
     // Get data from Internet
-    var response = await http.get(Uri.parse(URL));
+    var response;
+    try {
+      response = await http.get(Uri.parse(URL));
+    } catch (e) {
+      throw ConnectionException();
+    }
     if (response.statusCode == 200) {
       dom.Document document = parser.parse(response.body);
       final parent = document.getElementsByClassName('card link-area');
@@ -413,7 +431,7 @@ class WebScraper {
             if (parent[i].id != ID_ANSCHRIFT) {
               //Parse data to article
               String arbeitsbereich = "";
-              List<String> bild = new List.empty(growable: true);
+              List<String> bild = List.empty(growable: true);
               String url = "";
               // ! arbeitsfeld parsen
               if (parent[i]
@@ -449,7 +467,7 @@ class WebScraper {
 
               //add scraped Section to List of Articles
               if (arbeitsbereich != "" || bild.isNotEmpty || url != "") {
-                arbeitsbereiche.add(new FieldOfWork(
+                arbeitsbereiche.add(FieldOfWork(
                   arbeitsfeld: arbeitsbereich,
                   bilder: bild,
                   inhalt: "",
@@ -464,7 +482,7 @@ class WebScraper {
     } else {
       // No Internet connection, returning empty Article
       print("Error: No internet Connection");
-      return [getErrorArbeitsbereich()];
+      throw ConnectionException();
     }
   }
 
@@ -473,9 +491,15 @@ class WebScraper {
     final String DOMAIN = appConfig.domain;
 
     List<Hyperlink> hyperlinks = service.hyperlinks.sublist(0, 1);
-    List<String> links = new List.empty(growable: true);
-    List<String> description = new List.empty(growable: true);
-    final response = await http.get(Uri.parse(service.hyperlinks[0].link));
+    List<String> links = List.empty(growable: true);
+    List<String> description = List.empty(growable: true);
+
+    var response;
+    try {
+      response = await http.get(Uri.parse(service.hyperlinks[0].link));
+    } catch (e) {
+      throw ConnectionException();
+    }
     if (response.statusCode == 200) {
       print("Services: Getting Data from Internet");
       dom.Document document = parser.parse(response.body);
@@ -549,7 +573,7 @@ class WebScraper {
         );
       }
     } else {
-      throw ServerException();
+      throw ConnectionException();
     }
   }
 }
@@ -726,7 +750,7 @@ String _parseContent(parent, DOMAIN) {
 }
 
 List<Hyperlink> _parseHyperlinks(document, DOMAIN) {
-  List<Hyperlink> hyperlinks = new List.empty(growable: true);
+  List<Hyperlink> hyperlinks = List.empty(growable: true);
   // ! Hyperlinks parsen
   //check if hyperlinks are in a seperate special section
   if (document.getElementsByClassName('row h-bulldozer default').isNotEmpty) {
@@ -790,7 +814,7 @@ List<Hyperlink> _parseHyperlinks(document, DOMAIN) {
 }
 
 List<String> _parsePictures(parent, DOMAIN) {
-  List bilder = new List.empty(growable: true);
+  List bilder = List.empty(growable: true);
   //check if picture links are in "text-pic-right" or "width100 center marginBottom10" class
   if (parent.getElementsByClassName('text-pic-right').isNotEmpty) {
     //picture-link is in text-pic-right class

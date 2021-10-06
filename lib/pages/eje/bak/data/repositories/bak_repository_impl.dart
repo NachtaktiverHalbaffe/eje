@@ -30,10 +30,16 @@ class BAKRepositoryImpl implements BAKRepository {
         await localDatasource.cacheBAK(remoteBAK);
         return Right(await localDatasource.getCachedBAK());
       } on ServerException {
-        return Right([getErrorBAKler()]);
+        return Left(ServerFailure());
+      } on ConnectionException {
+        return Left(ConnectionFailure());
       }
     } else
-      return Right(await localDatasource.getCachedBAK());
+      try {
+        return Right(await localDatasource.getCachedBAK());
+      } on CacheException {
+        return Left(CacheFailure());
+      }
   }
 
   //Lade bestimmten Artikel aus Cache

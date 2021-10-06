@@ -24,8 +24,12 @@ class ServicesRepositoryImpl implements ServicesRepository {
   //Lade Artikel aus den Internet herunter
   @override
   Future<Either<Failure, List<Service>>> getServices() async {
-    List<Service> _service = await localDatasource.getCachedServices();
-    return Right(_service);
+    try {
+      List<Service> _service = await localDatasource.getCachedServices();
+      return Right(_service);
+    } on CacheException {
+      return Left(CacheFailure());
+    }
   }
 
   //Lade bestimmten Artikel aus Cache
@@ -39,7 +43,9 @@ class ServicesRepositoryImpl implements ServicesRepository {
             await localDatasource.getService(remoteService.service);
         return Right(_service);
       } on ServerException {
-        return Right(getErrorService());
+        return Left(ServerFailure());
+      } on ConnectionException {
+        return Left(ConnectionFailure());
       }
     } else
       try {
@@ -49,9 +55,9 @@ class ServicesRepositoryImpl implements ServicesRepository {
             return Right(value);
           }
         }
-        return Right(getErrorService());
+        return Left(CacheFailure());
       } on CacheException {
-        return Right(getErrorService());
+        return Left(CacheFailure());
       }
   }
 }

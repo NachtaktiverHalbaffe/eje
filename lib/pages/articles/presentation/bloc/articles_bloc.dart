@@ -13,10 +13,6 @@ part 'articles_event.dart';
 part 'articles_state.dart';
 
 class ArticlesBloc extends Bloc<ArticlesEvent, ArticlesState> {
-  final String SERVER_FAILURE_MESSAGE =
-      'Fehler beim Abrufen der Daten vom Server. Ist Ihr Gerät mit den Internet verbunden?';
-  final String CACHE_FAILURE_MESSAGE =
-      'Fehler beim Laden der Daten aus den Cache. Löschen Sie den Cache oder setzen sie die App zurück.';
   final GetArticles getArticles;
   final GetArticle getArticle;
 
@@ -36,7 +32,7 @@ class ArticlesBloc extends Bloc<ArticlesEvent, ArticlesState> {
       yield servicesOrFailure.fold(
         (failure) {
           print("Error");
-          return Error(message: _mapFailureToMessage(failure));
+          return Error(message: failure.getErrorMsg());
         },
         (article) {
           print("Succes. Returning ReloadedArticles");
@@ -47,27 +43,16 @@ class ArticlesBloc extends Bloc<ArticlesEvent, ArticlesState> {
       yield Loading();
       final serviceOrFailure = await getArticle(url: event.url);
       yield serviceOrFailure.fold(
-        (failure) => Error(message: _mapFailureToMessage(failure)),
+        (failure) => Error(message: failure.getErrorMsg()),
         (article) => LoadedArticle(article),
       );
     } else if (event is FollowingHyperlink) {
       yield Loading();
       final serviceOrFailure = await getArticle(url: event.url);
       yield serviceOrFailure.fold(
-        (failure) => Error(message: _mapFailureToMessage(failure)),
+        (failure) => Error(message: failure.getErrorMsg()),
         (article) => FollowedHyperlink(article),
       );
-    }
-  }
-
-  String _mapFailureToMessage(Failure failure) {
-    switch (failure.runtimeType) {
-      case ServerFailure:
-        return SERVER_FAILURE_MESSAGE;
-      case CacheFailure:
-        return CACHE_FAILURE_MESSAGE;
-      default:
-        return 'Unbekannter Fehler';
     }
   }
 }

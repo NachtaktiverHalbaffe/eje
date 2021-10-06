@@ -46,7 +46,7 @@ class EjeChildWidgets extends StatelessWidget {
           color: Theme.of(context).colorScheme.secondary,
           child: ListView(
             physics: ScrollPhysics(
-              parent: RangeMaintainingScrollPhysics(),
+              parent: AlwaysScrollableScrollPhysics(),
             ),
             children: <Widget>[
               SizedBox(height: 20),

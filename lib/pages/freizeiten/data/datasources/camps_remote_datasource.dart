@@ -3,6 +3,7 @@
 import 'dart:convert';
 import 'package:eje/app_config.dart';
 import 'package:eje/core/error/exception.dart';
+import 'package:eje/core/error/failures.dart';
 import 'package:eje/core/platform/location.dart';
 import 'package:eje/pages/freizeiten/domain/entities/camp.dart';
 import 'package:http/http.dart' as http;
@@ -17,11 +18,17 @@ class CampsRemoteDatasource {
     List<Camp> camps = List.empty(growable: true);
 
     // Get http Response
-    final response =
-        await client.get(Uri.parse(API_URL + "?typeId=1"), headers: {
-      'Accept': 'application/json',
-      'Authorization': 'Bearer $API_TOKEN ',
-    });
+    var response;
+    try {
+      response = await client.get(Uri.parse(API_URL + "?typeId=1"), headers: {
+        'Accept': 'application/json',
+        'Authorization': 'Bearer $API_TOKEN ',
+      });
+    } catch (e) {
+      print("CampsAPI error: " + e.toString());
+      throw ConnectionException();
+    }
+
     if (response.statusCode == 200) {
       var responseData = json.decode(response.body)["data"];
       for (int i = 0; i < responseData.length; i++) {

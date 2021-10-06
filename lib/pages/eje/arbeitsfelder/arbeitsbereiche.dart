@@ -53,8 +53,10 @@ class Arbeitsbereiche extends StatelessWidget {
               print("Build page: LoadedArbeitsbereiche");
               return ArbeitsbereichePageViewer(
                   fieldsOfWork: state.arbeitsbereiche);
+            } else if (state is Error) {
+              return Center();
             } else
-              return LoadingIndicator();
+              return Center();
           },
         ),
       ],

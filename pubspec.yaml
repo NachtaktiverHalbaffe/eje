@@ -6,11 +6,11 @@ version: 1.0.0+1
 environment:
   sdk: ">=2.3.0  <3.0.0"
 
-# For building for android, run "flutter build appbundle --target=lib/core/main.dart --release" in terminal
+# For building for android, run "flutter build appbundle --release" in terminal
 # to get an Appbundle which includes three apks for each architecture ==> good for uploading to google play store
-# "flutter build apk --split-per-abi  --target=lib/core/main.dart" can be used to generate three seperate apk
+# "flutter build apk --split-per-abi  " can be used to generate three seperate apk
 # for each architecture
-# "flutter build apk  --target=lib/core/main.dart" can be used to build to generate one big fat apk file which works on all architectures
+# "flutter build apk  " can be used to build to generate one big fat apk file which works on all architectures
 
 dependencies:
   flutter:
@@ -77,6 +77,8 @@ dev_dependencies:
     # For Hive to create offline database
   hive_generator: ^1.1.0
   build_runner: ^2.0.0
+  #  linting
+  lints: ^1.0.1
 
 # App icon
 # To generate App-Icon run "flutter pub run flutter_launcher_icons:main" in the terminal

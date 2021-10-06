@@ -34,11 +34,17 @@ class CampRepositoryImpl implements CampRepository {
         return Right(camps);
       } on ServerException {
         return Left(ServerFailure());
+      } on ConnectionException {
+        return Left(ConnectionFailure());
       }
     } else {
-      List<Camp> camps = await localDatasource.getCachedCamps();
-      _setPrefrenceCachedFreizeiten(camps);
-      return Right(camps);
+      try {
+        List<Camp> camps = await localDatasource.getCachedCamps();
+        _setPrefrenceCachedFreizeiten(camps);
+        return Right(camps);
+      } on CacheException {
+        return Left(CacheFailure());
+      }
     }
   }
 
@@ -52,9 +58,9 @@ class CampRepositoryImpl implements CampRepository {
           return Right(value);
         }
       }
-      return Right(getErrorCamp());
+      return Left(CacheFailure());
     } on CacheException {
-      return Right(getErrorCamp());
+      return Left(CacheFailure());
     }
   }
 

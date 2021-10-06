@@ -14,10 +14,6 @@ part 'services_event.dart';
 part 'services_state.dart';
 
 class ServicesBloc extends Bloc<ServicesEvent, ServicesState> {
-  final String SERVER_FAILURE_MESSAGE =
-      'Fehler beim Abrufen der Daten vom Server. Ist Ihr Gerät mit den Internet verbunden?';
-  final String CACHE_FAILURE_MESSAGE =
-      'Fehler beim Laden der Daten aus den Cache. Löschen Sie den Cache oder setzen sie die App zurück.';
   final GetServices getServices;
   final GetService getService;
 
@@ -37,7 +33,7 @@ class ServicesBloc extends Bloc<ServicesEvent, ServicesState> {
       yield servicesOrFailure.fold(
         (failure) {
           print("Error");
-          return Error(message: _mapFailureToMessage(failure));
+          return Error(message: failure.getErrorMsg());
         },
         (services) {
           print("Success. Returning LoadedServices");
@@ -51,24 +47,13 @@ class ServicesBloc extends Bloc<ServicesEvent, ServicesState> {
       yield serviceOrFailure.fold(
         (failure) {
           print("Error while getting service");
-          return Error(message: _mapFailureToMessage(failure));
+          return Error(message: failure.getErrorMsg());
         },
         (service) {
           print("Success. Returning LoadedService");
           return LoadedService(service);
         },
       );
-    }
-  }
-
-  String _mapFailureToMessage(Failure failure) {
-    switch (failure.runtimeType) {
-      case ServerFailure:
-        return SERVER_FAILURE_MESSAGE;
-      case CacheFailure:
-        return CACHE_FAILURE_MESSAGE;
-      default:
-        return 'Unbekannter Fehler';
     }
   }
 }

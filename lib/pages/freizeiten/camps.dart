@@ -41,14 +41,14 @@ class Camps extends StatelessWidget {
           } else if (state is FilteredCamps) {
             return CampsPageViewer(state.freizeiten);
           } else if (state is Error) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text(state.message),
-              ),
+            return NoResultCard(
+              label: "Fehler beim Laden der Freizeiten",
+              isError: true,
+              onRefresh: () async {
+                BlocProvider.of<CampsBloc>(context).add(RefreshCamps());
+              },
             );
-            return Center();
           } else {
-            //  BlocProvider.of<CampsBloc>(context).add(RefreshCamps());
             return Center();
           }
         },
@@ -89,7 +89,14 @@ class CampsPageViewer extends StatelessWidget {
                           loop: true,
                         )
                       // Return placeholder if no camps are available to display
-                      : NoResultCard(label: "Keine Freizeiten gefunden"),
+                      : NoResultCard(
+                          label: "Keine Freizeiten gefunden",
+                          isError: false,
+                          onRefresh: () async {
+                            BlocProvider.of<CampsBloc>(context)
+                                .add(RefreshCamps());
+                          },
+                        ),
                 ),
               ),
               camps.length != 0 ? FilterCard() : Container(),

@@ -10,10 +10,6 @@ import 'package:meta/meta.dart';
 
 class NeuigkeitenBlocBloc
     extends Bloc<NeuigkeitenBlocEvent, NeuigkeitenBlocState> {
-  final String SERVER_FAILURE_MESSAGE =
-      'Fehler beim Abrufen der Daten vom Server. Ist Ihr Gerät mit den Internet verbunden?';
-  final String CACHE_FAILURE_MESSAGE =
-      'Fehler beim Laden der Daten aus den Cache. Löschen Sie den Cache oder setzen sie die App zurück.';
   final GetNeuigkeit getNeuigkeit;
   final GetNeuigkeiten getNeuigkeiten;
 
@@ -35,7 +31,7 @@ class NeuigkeitenBlocBloc
       yield neuigkeitOrFailure.fold(
         (failure) {
           print("Refresh Event Neuigkeiten: Error");
-          return Error(message: _mapFailureToMessage(failure));
+          return Error(message: failure.getErrorMsg());
         },
         (neuigkeit) {
           print("Refresh Event Neuigkeiten: Success. Return Loaded state");
@@ -47,7 +43,7 @@ class NeuigkeitenBlocBloc
       print("Neuigkeiten: get details event triggered");
       final neuigkeitOrFailure = await getNeuigkeit(titel: event.titel);
       yield neuigkeitOrFailure.fold(
-        (failure) => Error(message: _mapFailureToMessage(failure)),
+        (failure) => Error(message: failure.getErrorMsg()),
         (neuigkeit) {
           print(
               "GetDetails Event Neuigkeiten: Success. Return LoadedDetail state");
@@ -57,14 +53,14 @@ class NeuigkeitenBlocBloc
     }
   }
 
-  String _mapFailureToMessage(Failure failure) {
-    switch (failure.runtimeType) {
-      case ServerFailure:
-        return SERVER_FAILURE_MESSAGE;
-      case CacheFailure:
-        return CACHE_FAILURE_MESSAGE;
-      default:
-        return 'Unbekannter Fehler';
-    }
-  }
+  // String _mapFailureToMessage(Failure failure) {
+  //   switch (failure.runtimeType) {
+  //     case ServerFailure:
+  //       return SERVER_FAILURE_MESSAGE;
+  //     case CacheFailure:
+  //       return CACHE_FAILURE_MESSAGE;
+  //     default:
+  //       return 'Unbekannter Fehler';
+  //   }
+  // }
 }
