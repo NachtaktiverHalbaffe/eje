@@ -6,7 +6,7 @@ part of 'news.dart';
 // TypeAdapterGenerator
 // **************************************************************************
 
-class NeuigkeitAdapter extends TypeAdapter<News> {
+class NewsAdapter extends TypeAdapter<News> {
   @override
   final int typeId = 0;
 
@@ -50,7 +50,7 @@ class NeuigkeitAdapter extends TypeAdapter<News> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is NeuigkeitAdapter &&
+      other is NewsAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

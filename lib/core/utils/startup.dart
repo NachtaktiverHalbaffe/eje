@@ -44,7 +44,7 @@ Future<void> startup() async {
   final appDocumentDirectory =
       await path_provider.getApplicationDocumentsDirectory();
   Hive.init(appDocumentDirectory.path);
-  Hive.registerAdapter(NeuigkeitAdapter());
+  Hive.registerAdapter(NewsAdapter());
   Hive.registerAdapter(EmployeeAdapter());
   Hive.registerAdapter(BAKlerAdapter());
   Hive.registerAdapter(FieldOfWorkAdapter());

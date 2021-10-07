@@ -85,6 +85,7 @@ dev_dependencies:
 flutter_icons:
   android: true
   ios: true
+  remove_alpha_ios: true
   image_path: "assets/images/app_icon.png"
 
 flutter:

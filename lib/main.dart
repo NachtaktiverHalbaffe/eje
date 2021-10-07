@@ -44,15 +44,13 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => MainBloc(),
-      // ignore: missing_return
       child: BlocBuilder<MainBloc, MainState>(builder: (context, state) {
-        if (state is InitialMainState) {
+        if (state is InitialMainState ||
+            state is ChangedThemeToLight ||
+            state is ChangedThemeToDark ||
+            state is ChangedThemeToAuto) {
           return _MaterialApp(context, initialIndex);
-        } else if (state is ChangedThemeToLight) {
-          return _MaterialApp(context, initialIndex);
-        } else if (state is ChangedThemeToDark) {
-          return _MaterialApp(context, initialIndex);
-        } else if (state is ChangedThemeToAuto) {
+        } else {
           return _MaterialApp(context, initialIndex);
         }
       }),
