@@ -33,7 +33,7 @@ Future<void> startup() async {
     prefs.write('cache_pictures', true);
     prefs.write('cached_neuigkeiten', [""]);
     prefs.write('cached_freizeiten', [""]);
-    prefs.write('schedule_offset', 1);
+    prefs.write('schedule_offset', 2);
   }
   // Reset filters
   prefs.write("campFilterAge", 0);

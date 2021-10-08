@@ -2,6 +2,7 @@ import 'package:eje/core/utils/injection_container.dart';
 import 'package:eje/pages/articles/presentation/bloc/articles_bloc.dart';
 import 'package:eje/pages/articles/presentation/widgets/hyperlink_section.dart';
 import 'package:eje/pages/articles/domain/entity/hyperlink.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
@@ -58,9 +59,12 @@ class DetailsPage extends StatelessWidget {
                   },
                   pageSnapping: true,
                   controller: PageController(initialPage: 0),
-                  itemCount: bilder.length,
+                  itemCount: bilder.isNotEmpty ? bilder.length : 1,
                   itemBuilder: (context, position) {
-                    final bild = bilder[position];
+                    String bild = "";
+                    if (bilder.isNotEmpty) {
+                      bild = bilder[position];
+                    }
                     return Stack(
                       alignment: Alignment.bottomCenter,
                       children: <Widget>[
@@ -187,6 +191,13 @@ class DetailsPage extends StatelessWidget {
                       h1Align: WrapAlignment.start,
                       h2Align: WrapAlignment.start,
                       h3Align: WrapAlignment.start,
+                      tableCellsPadding: EdgeInsets.symmetric(horizontal: 8),
+                      tableColumnWidth: IntrinsicColumnWidth(),
+                      tableHead: TextStyle(fontWeight: FontWeight.normal),
+                      tableBorder: TableBorder.all(
+                        width: 0,
+                        color: Colors.transparent,
+                      ),
                     ),
                     shrinkWrap: true,
                     data: text,

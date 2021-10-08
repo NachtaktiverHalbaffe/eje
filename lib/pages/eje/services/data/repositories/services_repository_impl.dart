@@ -38,9 +38,7 @@ class ServicesRepositoryImpl implements ServicesRepository {
       try {
         final remoteService = await remoteDataSource.getService(service);
         await localDatasource.cacheService(remoteService);
-        Service _service =
-            await localDatasource.getService(remoteService.service);
-        return Right(_service);
+        return Right(remoteService);
       } on ServerException {
         return Left(ServerFailure());
       } on ConnectionException {
