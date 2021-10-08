@@ -3,7 +3,7 @@ import 'package:eje/pages/eje/services/domain/entities/service.dart';
 import 'package:hive/hive.dart';
 
 void dataServices(Box _box) {
-  if (_box.length < 5) {
+  if (_box.length < 6) {
     List<String> bilder = List.empty(growable: true);
     bilder.add("assets/images/info.jpg");
     List<Hyperlink> hyperlinks = List.empty(growable: true);
@@ -76,6 +76,22 @@ void dataServices(Box _box) {
         images: bilder,
         hyperlinks: hyperlinks,
         service: "Vernetzung",
+        description: "",
+      ),
+    );
+
+    bilder = List.empty(growable: true);
+    bilder.add(
+        "https://www.eje-esslingen.de/fileadmin/_processed_/6/4/csm_Schulungswoche201805_2536da718b.jpg");
+    hyperlinks = List.empty(growable: true);
+    hyperlinks.add(Hyperlink(
+        link: "https://www.eje-esslingen.de/?id=330343",
+        description: "Konzepte"));
+    _box.add(
+      Service(
+        images: bilder,
+        hyperlinks: hyperlinks,
+        service: "Konzepte",
         description: "",
       ),
     );
