@@ -14,7 +14,6 @@ import 'package:html/parser.dart' as parser;
 class WebScraper {
   //Scraping a Webpage amd parsing to an List of article
   Future<Article> scrapeWebPage(String url) async {
-    print(url);
     Article article;
     final AppConfig appConfig = await AppConfig.loadConfig();
     final String DOMAIN = appConfig.domain;
@@ -31,13 +30,19 @@ class WebScraper {
     }
     if (response.statusCode == 200) {
       dom.Document document = parser.parse(response.body);
-      final parent = document.getElementsByClassName('col s12 default');
+      final parent =
+          document.getElementsByClassName('container standard default ');
+
       // Content that needs to be scraped
       String content = "";
       String title = "";
       List<Hyperlink> hyperlinks = List.empty(growable: true);
       List<String> bilder = List.empty(growable: true);
       for (int i = 0; i < parent.length; i++) {
+        // if html class "col s12 default" is present, then set this element as parent
+        if (parent[i].getElementsByClassName("col s12 default").isNotEmpty) {
+          parent[i] = parent[i].getElementsByClassName("col s12 default")[0];
+        }
         //checking if element is not header or footer of website
         if (parent[i].id != ID_KONTAKT) {
           if (parent[i].id != ID_HEADER) {
@@ -83,12 +88,25 @@ class WebScraper {
                 // ! Content parsen
                 content = content + _parseContent(parent[i], DOMAIN);
                 // ! pictures parsen
-                bilder.addAll(_parsePictures(parent[i], DOMAIN));
-
+                try {
+                  List<String> parsedPictures =
+                      _parsePictures(parent[i], DOMAIN);
+                  bilder.addAll(parsedPictures);
+                } catch (e) {
+                  print("Webscaper error: " + e.toString());
+                  throw ServerException();
+                }
                 content = content + "\n\n";
                 // ! Hyperlink parsing
                 if (i == 1) {
-                  hyperlinks.addAll(_parseHyperlinks(document, DOMAIN));
+                  try {
+                    List<Hyperlink> parsedHyperlinks =
+                        _parseHyperlinks(document, DOMAIN);
+                    hyperlinks.addAll(parsedHyperlinks);
+                  } catch (e) {
+                    print("Webscaper error: " + e.toString());
+                    // throw ServerException();
+                  }
                 }
                 //Default values if no hyperlinks are scraped
                 if (hyperlinks.isEmpty) {
@@ -111,7 +129,7 @@ class WebScraper {
     } else {
       // No Internet connection, returning empty Article
       print("Error: No internet Connection");
-      throw ConnectionException();
+      throw ServerException();
     }
   }
 
@@ -504,7 +522,7 @@ class WebScraper {
       print("Services: Getting Data from Internet");
       dom.Document document = parser.parse(response.body);
       //Check if service is eje-info
-      if (document.getElementsByClassName('collection-item row').isNotEmpty) {
+      if (service.service == "eje-Info") {
         final parent = document.getElementsByClassName('collection-item row');
         if (hyperlinks.length > 1) {
           for (int i = 0; i < parent.length; i++) {
@@ -539,12 +557,14 @@ class WebScraper {
           hyperlinks
               .add(Hyperlink(link: links[k], description: description[k]));
         }
+
         return Service(
             service: service.service,
             images: service.images,
             description: service.description,
             hyperlinks: hyperlinks);
-      } //Service is a webpage which to webscrape
+      }
+      //Service is a webpage which to webscrape
       else {
         Article _article =
             await WebScraper().scrapeWebPage(service.hyperlinks[0].link);
@@ -553,18 +573,19 @@ class WebScraper {
         List<Hyperlink> hyperlinks = service.hyperlinks.sublist(0, 1);
         hyperlinks.addAll(_article.hyperlinks);
         String content = service.description;
+
         if (_article.content.isNotEmpty) {
           if (!content.contains(_article.content)) {
             content = _article.content;
           }
         }
-
         if (bilder.length > 1) {
           bilder = bilder.sublist(1);
         }
         if (hyperlinks.length == 1) {
           hyperlinks.add(Hyperlink(link: "", description: ""));
         }
+
         return Service(
           service: service.service,
           images: bilder,
@@ -583,7 +604,7 @@ String _parseContent(parent, DOMAIN) {
   String content = "";
   for (int r = 0; r < parent.children.length; r++) {
     final child = parent.children[r];
-    var parsed = child.text;
+    String parsed = child.text;
 
     // Remove Hyperlinks from content
     if (child.localName == "blockquote") {
@@ -634,37 +655,42 @@ String _parseContent(parent, DOMAIN) {
 
     // Hyperlinks
     if (child.getElementsByTagName('a').isNotEmpty) {
+      // make shure that it is an actual hyperlink
       if (child.getElementsByTagName('a')[0].attributes['href'].contains("/")) {
         for (int index = 0;
             index < child.getElementsByTagName('a').length;
             index++) {
-          // Check if link was already parsed to avoid links nested inside links
-          if (!parsed.contains(
-              "[" + child.getElementsByTagName('a')[index].text + "]")) {
-            parsed = parsed.replaceAll(
-                child.getElementsByTagName('a')[index].text,
-                !child
-                        .getElementsByTagName('a')[index]
-                        .attributes['href']
-                        .contains("http")
-                    ? "[" +
-                        child.getElementsByTagName('a')[index].text.trim() +
-                        "]" +
-                        "(" +
-                        DOMAIN +
-                        child
-                            .getElementsByTagName('a')[index]
-                            .attributes['href'] +
-                        ")"
-                    : "[" +
-                        child.getElementsByTagName('a')[index].text.trim() +
-                        "]" +
-                        "(" +
-                        child
-                            .getElementsByTagName('a')[index]
-                            .attributes['href'] +
-                        ")");
+          List links = List.empty(growable: true);
+          int currentIndex = 0;
+          // make a List "links" which contains all links so if multiple hyperlinks
+          // have an identical label then these label get the right link in the right order => avoid duplicates
+          for (int x = 0; x < child.getElementsByTagName('a').length; x++) {
+            if (child.getElementsByTagName('a')[x].text ==
+                child.getElementsByTagName('a')[index].text) {
+              links.add(child.getElementsByTagName('a')[x].attributes['href']);
+            }
           }
+          // replace all labels with markdown links, if there are multiple links
+          // with same label then it iterates through the List "links" so that each
+          // label gets the right link from that list
+          parsed = parsed.replaceAllMapped(
+              child.getElementsByTagName('a')[index].text, (match) {
+            String hyperlink = "";
+            // determine if link is  an already fully working, external link or if it is
+            //a folder which needs the top level domain to be added to the link
+            if (!links[currentIndex].contains("http")) {
+              hyperlink = DOMAIN + links[currentIndex];
+            } else {
+              hyperlink = links[currentIndex];
+            }
+            currentIndex++;
+            return "[" +
+                child.getElementsByTagName('a')[index].text.trim() +
+                "]" +
+                "(" +
+                hyperlink +
+                ")";
+          });
         }
       }
     }
@@ -673,12 +699,76 @@ String _parseContent(parent, DOMAIN) {
     if (child.getElementsByTagName('li').isNotEmpty) {
       for (int i = 0; i < child.getElementsByTagName('li').length; i++) {
         final listingPoint = child.getElementsByTagName('li')[i].text;
-        parsed = parsed.replaceAll(listingPoint, "\n\n- " + listingPoint);
+        parsed = parsed.replaceAll(listingPoint, "\n- " + listingPoint.trim());
       }
-    } else if (child.localName == "li") {
-      parsed = "\n\n- " + parsed;
-    } else if (parsed.contains("•")) {
-      parsed = parsed.replaceAll("•", "\n\n- ");
+    }
+    if (child.localName == "li") {
+      parsed = "\n- " + parsed.trim();
+    }
+    if (parsed.contains("•")) {
+      parsed = parsed.replaceAll("•", "\n- ");
+    }
+
+    // Table
+    if (child.getElementsByTagName('tbody').isNotEmpty) {
+      // remove table content from text
+      // for (int i = 0; i < child.getElementsByTagName('tbody').length; i++) {
+      //   final tableText = child.getElementsByTagName('tbody')[i].text;
+      //   parsed = parsed.replaceAll(tableText, "");
+      // }
+      // create table
+      for (var i = 0; i < child.getElementsByTagName('tr').length; i++) {
+        for (var l = 0;
+            l <
+                child
+                    .getElementsByTagName('tr')[i]
+                    .getElementsByTagName('td')
+                    .length;
+            l++) {
+          final tableItem = child
+              .getElementsByTagName('tr')[i]
+              .getElementsByTagName('td')[l]
+              .text;
+
+          // item is last item in column => Add linebreak
+          if (l ==
+              child
+                      .getElementsByTagName('tr')[i]
+                      .getElementsByTagName('td')
+                      .length -
+                  1) {
+            String secondRow = "";
+            if (i == 0) {
+              for (int r = 0;
+                  r <
+                      child
+                          .getElementsByTagName('tr')[i]
+                          .getElementsByTagName('td')
+                          .length;
+                  r++) {
+                if (r ==
+                    child
+                            .getElementsByTagName('tr')[i]
+                            .getElementsByTagName('td')
+                            .length -
+                        1) {
+                  secondRow += "- |\n";
+                } else if (r == 0) {
+                  secondRow += "| - |";
+                } else {
+                  secondRow += " - |";
+                }
+              }
+            }
+            parsed =
+                parsed.replaceAll(tableItem, tableItem + "|\n" + secondRow);
+          } else if (l == 0) {
+            parsed = parsed.replaceAll(tableItem, "| " + tableItem + " | ");
+          } else {
+            parsed = parsed.replaceAll(tableItem, tableItem + " |");
+          }
+        }
+      }
     }
 
     // bold text
@@ -690,7 +780,7 @@ String _parseContent(parent, DOMAIN) {
     } // bold heading
     else if (child.localName == "p") {
       if (child.getElementsByTagName('strong').isNotEmpty) {
-        parsed = parsed.replaceFirst(parsed, "**" + parsed.trim() + "**");
+        parsed = parsed.replaceFirst(parsed, "**" + parsed.trim() + "**\n");
       }
     }
 
@@ -722,6 +812,7 @@ String _parseContent(parent, DOMAIN) {
     }
 
     // Do Formatting
+    // fix emails
     if (parsed.contains("dontospamme")) {
       parsed = parsed.replaceAll("dontospamme", "");
     }
@@ -736,6 +827,7 @@ String _parseContent(parent, DOMAIN) {
         parsed = parsed.replaceAll(italicText, "");
       }
     }
+    // fix if javascript got into text
     if (child.getElementsByTagName("script").isNotEmpty) {
       for (int i = 0; i < child.getElementsByTagName("script").length; i++) {
         final javascripts = child.getElementsByTagName("script")[i].text;
@@ -751,8 +843,6 @@ String _parseContent(parent, DOMAIN) {
 
 List<Hyperlink> _parseHyperlinks(document, DOMAIN) {
   List<Hyperlink> hyperlinks = List.empty(growable: true);
-  // ! Hyperlinks parsen
-  //check if hyperlinks are in a seperate special section
   if (document.getElementsByClassName('row h-bulldozer default').isNotEmpty) {
     if (document
         .getElementsByClassName('row h-bulldozer default')[0]
@@ -764,24 +854,32 @@ List<Hyperlink> _parseHyperlinks(document, DOMAIN) {
               'row ctype-text listtype-none showmobdesk-0')[0]
           .getElementsByClassName('internal-link')
           .isNotEmpty) {
-        List links = document
-            .getElementsByClassName('row h-bulldozer default')[0]
-            .getElementsByClassName(
-                'row ctype-text listtype-none showmobdesk-0')
-            .map((elements) =>
-                DOMAIN +
-                elements
-                    .getElementsByClassName('internal-link')[0]
-                    .attributes['href']
-                    .toString())
-            .toList();
-        List description = document
-            .getElementsByClassName('row h-bulldozer default')[0]
-            .getElementsByClassName(
-                'row ctype-text listtype-none showmobdesk-0')
-            .map((elements) =>
-                elements.getElementsByClassName('internal-link')[0].text)
-            .toList();
+        List<String> links = List.empty(growable: true);
+        List<String> description = List.empty(growable: true);
+        for (var i = 0;
+            i <
+                document
+                    .getElementsByClassName('row h-bulldozer default')[0]
+                    .getElementsByClassName(
+                        'row ctype-text listtype-none showmobdesk-0')[0]
+                    .getElementsByClassName('internal-link')
+                    .length;
+            i++) {
+          links.add(document
+              .getElementsByClassName('row h-bulldozer default')[0]
+              .getElementsByClassName(
+                  'row ctype-text listtype-none showmobdesk-0')[0]
+              .getElementsByClassName('internal-link')[i]
+              .attributes['href']
+              .toString());
+          description.add(document
+              .getElementsByClassName('row h-bulldozer default')[0]
+              .getElementsByClassName(
+                  'row ctype-text listtype-none showmobdesk-0')
+              .getElementsByClassName('internal-link')[i]
+              .text);
+        }
+
         //map webscraped links and descriptions to hyperlinks
         for (int k = 0; k < links.length; k++) {
           hyperlinks
