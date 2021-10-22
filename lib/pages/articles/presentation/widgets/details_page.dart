@@ -147,10 +147,10 @@ class DetailsPage extends StatelessWidget {
                   ),
                   untertitel != ""
                       ? Container(
-                          padding: EdgeInsets.only(left: 12, top: 8),
+                          padding: EdgeInsets.only(left: 12, top: 8, right: 12),
                           child: Text(
                             untertitel,
-                            textAlign: TextAlign.justify,
+                            textAlign: TextAlign.start,
                             style: TextStyle(
                               fontSize: 17,
                               color: Colors.white,

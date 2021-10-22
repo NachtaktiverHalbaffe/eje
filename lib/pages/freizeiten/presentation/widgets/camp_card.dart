@@ -79,29 +79,32 @@ class CampCard extends StatelessWidget {
                           ],
                         ),
                       ),
-                      Text(
-                        camp.subtitle,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          fontSize: 17,
-                          color: Colors.white,
-                          shadows: <Shadow>[
-                            Shadow(
-                              offset: Offset(
-                                2,
-                                2,
+                      Container(
+                        padding: EdgeInsets.symmetric(horizontal: 12),
+                        child: Text(
+                          camp.subtitle,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            fontSize: 17,
+                            color: Colors.white,
+                            shadows: <Shadow>[
+                              Shadow(
+                                offset: Offset(
+                                  2,
+                                  2,
+                                ),
+                                blurRadius: 6,
+                                color: Colors.black,
                               ),
-                              blurRadius: 6,
-                              color: Colors.black,
-                            ),
-                            Shadow(
-                              offset: Offset(2, 2),
-                              blurRadius: 6,
-                              color: Colors.black,
-                            ),
-                          ],
+                              Shadow(
+                                offset: Offset(2, 2),
+                                blurRadius: 6,
+                                color: Colors.black,
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
+                      )
                     ],
                   ),
                 ],
