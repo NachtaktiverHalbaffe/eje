@@ -60,12 +60,12 @@ class WebScraper {
                           parent[i].getElementsByClassName('icon-left')[0].text;
                       title = title.substring(1);
                     } else {
-                      content = content +
-                          "\n## " +
-                          parent[i]
-                              .getElementsByClassName('icon-left')[0]
-                              .text +
-                          "\n\n";
+                      // content = content +
+                      //     "\n## " +
+                      //     parent[i]
+                      //         .getElementsByClassName('icon-left')[0]
+                      //         .text +
+                      //     "\n\n";
                     }
                   } else {
                     // Checking if article has already title, otherwise integrating it into content
@@ -76,12 +76,12 @@ class WebScraper {
                           .text;
                       title = title.substring(1);
                     } else {
-                      content += "\n## " +
-                          parent[i]
-                              .getElementsByClassName('icon-left')[0]
-                              .getElementsByTagName("a")[0]
-                              .text +
-                          "\n\n";
+                      // content += "\n## " +
+                      //     parent[i]
+                      //         .getElementsByClassName('icon-left')[0]
+                      //         .getElementsByTagName("a")[0]
+                      //         .text +
+                      //     "\n\n";
                     }
                   }
                 }
