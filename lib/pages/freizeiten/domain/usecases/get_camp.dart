@@ -14,11 +14,11 @@ class GetCamp implements UseCase<Camp> {
 
   @override
   Future<Either<Failure, Camp>> call({
-    @required Camp freizeit,
+    @required int id,
   }) async {
     final AppConfig appConfig = await AppConfig.loadConfig();
     final Box _box = await Hive.openBox(appConfig.campsBox);
-    final result = await repository.getCamp(freizeit);
+    final result = await repository.getCamp(id);
     if (_box.isOpen) {
       await _box.compact();
       // await _box.close();

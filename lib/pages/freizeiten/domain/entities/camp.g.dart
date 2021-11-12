@@ -43,13 +43,14 @@ class CampAdapter extends TypeAdapter<Camp> {
       termsDocument: fields[23] as String,
       infosheetDocument: fields[24] as String,
       privacyDocument: fields[25] as String,
+      id: fields[26] as int,
     );
   }
 
   @override
   void write(BinaryWriter writer, Camp obj) {
     writer
-      ..writeByte(26)
+      ..writeByte(27)
       ..writeByte(0)
       ..write(obj.name)
       ..writeByte(1)
@@ -101,7 +102,9 @@ class CampAdapter extends TypeAdapter<Camp> {
       ..writeByte(24)
       ..write(obj.infosheetDocument)
       ..writeByte(25)
-      ..write(obj.privacyDocument);
+      ..write(obj.privacyDocument)
+      ..writeByte(26)
+      ..write(obj.id);
   }
 
   @override

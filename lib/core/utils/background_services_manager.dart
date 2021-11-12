@@ -104,24 +104,20 @@ void _checkFreizeitenNotification(String taskId) async {
   await GetStorage.init();
   final prefs = GetStorage();
   List<Camp> downloadedCamps;
-  List<String> downloadedCampsTitles;
-  List<String> cachedCamps = prefs.read("cached_freizeiten");
+  List<int> downloadedCampsTitles;
+  List<int> cachedCamps = prefs.read("cached_freizeiten");
 
   downloadedCamps = await CampsRemoteDatasource().getFreizeiten();
   for (var i = 0; i < downloadedCamps.length; i++) {
-    downloadedCampsTitles.add(downloadedCamps[i].name);
+    downloadedCampsTitles.add(downloadedCamps[i].id);
   }
   //Downloading content from internet
   for (var i = 0; i < downloadedCamps.length; i++) {
-    downloadedCampsTitles.add(downloadedCamps[i].name);
+    downloadedCampsTitles.add(downloadedCamps[i].id);
   }
   // sort lists for comparison
-  downloadedCampsTitles.sort((a, b) {
-    return a.toLowerCase().compareTo(b.toLowerCase());
-  });
-  cachedCamps.sort((a, b) {
-    return a.toLowerCase().compareTo(b.toLowerCase());
-  });
+  downloadedCampsTitles.sort();
+  cachedCamps.sort();
   // List of available camps are compared by their title
   if (!listEquals(cachedCamps, downloadedCampsTitles)) {
     //storing actual length of Neuigkeiten in SharedPrefrences

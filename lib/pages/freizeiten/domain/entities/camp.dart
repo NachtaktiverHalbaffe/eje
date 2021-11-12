@@ -58,6 +58,8 @@ class Camp extends Equatable {
   final String infosheetDocument;
   @HiveField(25)
   final String privacyDocument;
+  @HiveField(26)
+  final int id;
 
   Camp(
       {this.maxPlaces,
@@ -85,7 +87,8 @@ class Camp extends Equatable {
       this.companions,
       this.termsDocument,
       this.infosheetDocument,
-      this.privacyDocument});
+      this.privacyDocument,
+      this.id});
 
   @override
   List<Object> get props => [
@@ -113,6 +116,7 @@ class Camp extends Equatable {
         categories,
         termsDocument,
         infosheetDocument,
-        privacyDocument
+        privacyDocument,
+        id
       ];
 }

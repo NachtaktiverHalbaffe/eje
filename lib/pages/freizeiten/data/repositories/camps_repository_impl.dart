@@ -49,11 +49,11 @@ class CampRepositoryImpl implements CampRepository {
 
   //Lade bestimmte Freizeit aus Cache
   @override
-  Future<Either<Failure, Camp>> getCamp(Camp camp) async {
+  Future<Either<Failure, Camp>> getCamp(int id) async {
     try {
       List<Camp> cachedCamps = await localDatasource.getCachedCamps();
       for (var value in cachedCamps) {
-        if (value.name == camp.name) {
+        if (value.id == id) {
           return Right(value);
         }
       }
@@ -64,10 +64,10 @@ class CampRepositoryImpl implements CampRepository {
   }
 
   void _setPrefrenceCachedFreizeiten(List<Camp> camps) {
-    List<String> campsNamen = List.empty(growable: true);
+    List<int> campsIds = List.empty(growable: true);
     for (var i = 0; i < camps.length; i++) {
-      campsNamen.add(camps[i].name);
+      campsIds.add(camps[i].id);
     }
-    GetStorage().write("cached_freizeiten", campsNamen);
+    GetStorage().write("cached_freizeiten", campsIds);
   }
 }

@@ -80,8 +80,14 @@ class CampsRemoteDatasource {
             occupancy: responseData[i]['occupancy'] ?? "",
             maxPlaces: responseData[i]['maxplaces'] ?? 0,
             location: responseData[i]['location'] != null
-                ? Location(responseData[i]['location'],
-                    responseData[i]['location'], responseData[i]['location'])
+                ? Location(
+                    responseData[i]['location']['name'],
+                    responseData[i]['location']['address']['street'] +
+                        " " +
+                        responseData[i]['location']['address']['houseNumber'],
+                    responseData[i]['location']['address']['zip'] +
+                        " " +
+                        responseData[i]['location']['address']['city'])
                 : Location("Musterort", "Musterstraße 1", "12345 Musterstadt"),
             registrationLink: responseData[i]['registrationLink'] ?? "",
             pictures: pictures.isNotEmpty ? pictures : [""],
@@ -104,6 +110,7 @@ class CampsRemoteDatasource {
             termsDocument: responseData[i]['termsDocument'] ?? "",
             infosheetDocument: responseData[i]['infosheetDocument'] ?? "",
             privacyDocument: responseData[i]['privacyDocument'] ?? "",
+            id: responseData[i]['id'] ?? 0,
           ));
         }
       }

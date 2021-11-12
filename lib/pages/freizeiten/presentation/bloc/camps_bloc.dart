@@ -41,7 +41,7 @@ class CampsBloc extends Bloc<CampEvent, CampState> {
       );
     } else if (event is GettingCamp) {
       yield Loading();
-      final campsOrFailure = await getCamp(freizeit: event.camp);
+      final campsOrFailure = await getCamp(id: event.camp.id);
       yield campsOrFailure.fold(
         (failure) => Error(message: failure.getErrorMsg()),
         (freizeit) => LoadedCamp(freizeit),

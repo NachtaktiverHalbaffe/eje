@@ -10,7 +10,7 @@ environment:
 # to get an Appbundle which includes three apks for each architecture ==> good for uploading to google play store
 # "flutter build apk --split-per-abi  " can be used to generate three seperate apk
 # for each architecture
-# "flutter build apk  " can be used to build to generate one big fat apk file which works on all architectures
+# "flutter build apk" can be used to build to generate one big fat apk file which works on all architectures
 
 dependencies:
   flutter:
