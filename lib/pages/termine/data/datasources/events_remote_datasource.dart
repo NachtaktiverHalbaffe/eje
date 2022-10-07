@@ -2,7 +2,7 @@
 import 'dart:convert';
 import 'package:eje/core/error/exception.dart';
 import 'package:eje/core/platform/location.dart';
-import 'package:eje/pages/termine/domain/entities/event.dart';
+import 'package:eje/pages/termine/domain/entities/Event.dart';
 import 'package:http/http.dart' as http;
 import 'package:html2md/html2md.dart' as html2md;
 import 'package:http/http.dart';

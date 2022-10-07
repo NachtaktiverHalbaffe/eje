@@ -1,4 +1,4 @@
-import 'package:eje/pages/termine/domain/entities/event.dart';
+import 'package:eje/pages/termine/domain/entities/Event.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 

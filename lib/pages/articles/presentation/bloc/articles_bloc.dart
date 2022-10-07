@@ -2,7 +2,7 @@
 
 import 'dart:async';
 import 'package:bloc/bloc.dart';
-import 'package:eje/pages/articles/domain/entity/article.dart';
+import 'package:eje/pages/articles/domain/entity/Article.dart';
 import 'package:eje/pages/articles/domain/usecases/get_article.dart';
 import 'package:eje/pages/articles/domain/usecases/get_articles.dart';
 import 'package:equatable/equatable.dart';

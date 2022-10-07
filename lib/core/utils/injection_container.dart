@@ -59,8 +59,8 @@ import 'package:eje/pages/termine/data/datasources/events_local_datasource.dart'
 import 'package:eje/pages/termine/data/datasources/events_remote_datasource.dart';
 import 'package:eje/pages/termine/data/repositories/events_repositoy_impl.dart';
 import 'package:eje/pages/termine/domain/repsoitories/events_repository.dart';
-import 'package:eje/pages/termine/domain/usecases/get_event.dart';
-import 'package:eje/pages/termine/domain/usecases/get_events.dart';
+import 'package:eje/pages/termine/domain/usecases/get_Event.dart';
+import 'package:eje/pages/termine/domain/usecases/get_Events.dart';
 import 'package:eje/pages/termine/presentation/bloc/bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;

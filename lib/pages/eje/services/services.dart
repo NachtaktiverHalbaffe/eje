@@ -1,6 +1,6 @@
 import 'package:eje/core/widgets/alert_snackbar.dart';
 import 'package:eje/core/widgets/loading_indicator.dart';
-import 'package:eje/pages/eje/services/presentation/widgets/services_pageviewer.dart';
+import 'package:eje/pages/eje/services/presentation/widgets/services_pageViewer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'presentation/bloc/services_bloc.dart';

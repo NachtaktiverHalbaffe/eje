@@ -2,7 +2,7 @@ import 'package:equatable/equatable.dart';
 import 'package:hive/hive.dart';
 import 'package:meta/meta.dart';
 
-part 'bakler.g.dart';
+part 'BAKler.g.dart';
 
 @HiveType(typeId: 2)
 class BAKler extends Equatable {

@@ -1,8 +1,8 @@
 import 'package:dartz/dartz.dart';
 import 'package:eje/app_config.dart';
 import 'package:eje/core/error/exception.dart';
-import 'package:eje/core/utils/webscraper.dart';
-import 'package:eje/pages/articles/domain/entity/article.dart';
+import 'package:eje/core/utils/WebScraper.dart';
+import 'package:eje/pages/articles/domain/entity/Article.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hive/hive.dart';
 import 'package:meta/meta.dart';

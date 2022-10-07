@@ -1,12 +1,12 @@
 // ignore_for_file: non_constant_identifier_names, prefer_typing_uninitialized_variables
 import 'package:eje/app_config.dart';
 import 'package:eje/core/error/exception.dart';
-import 'package:eje/pages/articles/domain/entity/article.dart';
-import 'package:eje/pages/articles/domain/entity/hyperlink.dart';
+import 'package:eje/pages/articles/domain/entity/Article.dart';
+import 'package:eje/pages/articles/domain/entity/Hyperlink.dart';
 import 'package:eje/pages/eje/arbeitsfelder/domain/entities/field_of_work.dart';
-import 'package:eje/pages/eje/bak/domain/entitys/bakler.dart';
+import 'package:eje/pages/eje/bak/domain/entitys/BAKler.dart';
 import 'package:eje/pages/eje/hauptamtlichen/domain/entitys/employee.dart';
-import 'package:eje/pages/eje/services/domain/entities/service.dart';
+import 'package:eje/pages/eje/services/domain/entities/Service.dart';
 import 'package:http/http.dart' as http;
 import 'package:html/dom.dart' as dom;
 import 'package:html/parser.dart' as parser;
@@ -570,7 +570,7 @@ class WebScraper {
             await WebScraper().scrapeWebPage(service.hyperlinks[0].link);
         List<String> bilder = service.images.sublist(0, 1);
         bilder.addAll(_article.bilder);
-        List<Hyperlink> hyperlinks = service.hyperlinks.sublist(0, 1);
+        List hyperlinks = service.hyperlinks.sublist(0, 1);
         hyperlinks.addAll(_article.hyperlinks);
         String content = service.description;
 

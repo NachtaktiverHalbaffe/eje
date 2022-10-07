@@ -1,8 +1,8 @@
-import 'package:eje/pages/articles/domain/entity/hyperlink.dart';
+import 'package:eje/pages/articles/domain/entity/Hyperlink.dart';
 import 'package:equatable/equatable.dart';
 import 'package:hive/hive.dart';
 
-part 'article.g.dart';
+part 'Article.g.dart';
 
 @HiveType(typeId: 6)
 class Article extends Equatable {

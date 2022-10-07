@@ -2,7 +2,7 @@
 
 import 'package:eje/pages/articles/presentation/widgets/details_page.dart';
 import 'package:eje/core/widgets/loading_indicator.dart';
-import 'package:eje/pages/articles/domain/entity/hyperlink.dart';
+import 'package:eje/pages/articles/domain/entity/Hyperlink.dart';
 import 'package:eje/pages/eje/hauptamtlichen/domain/entitys/employee.dart';
 import 'package:eje/pages/eje/hauptamtlichen/presentation/bloc/bloc.dart';
 import 'package:flutter/cupertino.dart';

@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:eje/core/error/failures.dart';
-import 'package:eje/pages/eje/services/domain/entities/service.dart';
+import 'package:eje/pages/eje/services/domain/entities/Service.dart';
 
 abstract class ServicesRepository {
   Future<Either<Failure, Service>> getService(

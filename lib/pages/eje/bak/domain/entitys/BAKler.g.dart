@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'bakler.dart';
+part of 'BAKler.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator

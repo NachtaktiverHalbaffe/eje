@@ -2,7 +2,7 @@
 import 'package:eje/core/utils/injection_container.dart';
 import 'package:eje/core/utils/notificationplugin.dart';
 import 'package:eje/core/widgets/cached_image.dart';
-import 'package:eje/pages/termine/domain/entities/event.dart';
+import 'package:eje/pages/termine/domain/entities/Event.dart';
 import 'package:eje/pages/termine/presentation/bloc/events_bloc.dart';
 import 'package:eje/pages/termine/presentation/widgets/event_detail.dart';
 import 'package:flutter/cupertino.dart';

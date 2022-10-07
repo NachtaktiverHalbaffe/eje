@@ -1,6 +1,6 @@
 import 'package:eje/core/utils/injection_container.dart';
 import 'package:eje/core/widgets/cached_image.dart';
-import 'package:eje/pages/eje/services/domain/entities/service.dart';
+import 'package:eje/pages/eje/services/domain/entities/Service.dart';
 import 'package:eje/pages/eje/services/presentation/bloc/services_bloc.dart';
 import 'package:eje/pages/eje/services/presentation/widgets/services_details.dart';
 import 'package:flutter/material.dart';

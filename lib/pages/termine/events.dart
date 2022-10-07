@@ -11,7 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_swiper_plus/flutter_swiper_plus.dart';
 
-import 'domain/entities/event.dart';
+import 'domain/entities/Event.dart';
 
 class Events extends StatelessWidget {
   @override

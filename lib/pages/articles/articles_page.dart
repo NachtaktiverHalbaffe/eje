@@ -5,7 +5,7 @@ import 'package:eje/core/widgets/loading_indicator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'domain/entity/article.dart';
+import 'domain/entity/Article.dart';
 import 'presentation/bloc/articles_bloc.dart';
 
 class ArticlesPage extends StatelessWidget {

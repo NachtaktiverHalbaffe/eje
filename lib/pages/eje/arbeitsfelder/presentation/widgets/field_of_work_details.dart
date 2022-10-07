@@ -1,6 +1,6 @@
 import 'package:eje/pages/articles/presentation/widgets/details_page.dart';
 import 'package:eje/core/widgets/loading_indicator.dart';
-import 'package:eje/pages/articles/domain/entity/hyperlink.dart';
+import 'package:eje/pages/articles/domain/entity/Hyperlink.dart';
 import 'package:eje/pages/eje/arbeitsfelder/domain/entities/field_of_work.dart';
 import 'package:eje/pages/eje/arbeitsfelder/presentation/bloc/fields_of_work_bloc.dart';
 import 'package:eje/pages/eje/arbeitsfelder/presentation/bloc/fields_of_work_event.dart';

@@ -1,9 +1,9 @@
-import 'package:eje/pages/articles/domain/entity/hyperlink.dart';
+import 'package:eje/pages/articles/domain/entity/Hyperlink.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 
-part 'service.g.dart';
+part 'Service.g.dart';
 
 @HiveType(typeId: 8)
 class Service extends Equatable {

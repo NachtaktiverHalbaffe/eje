@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:eje/core/error/failures.dart';
-import 'package:eje/pages/articles/domain/entity/article.dart';
+import 'package:eje/pages/articles/domain/entity/Article.dart';
 
 abstract class ArticlesRepository {
   Future<Either<Failure, Article>> getArticle(

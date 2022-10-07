@@ -1,6 +1,6 @@
 import 'package:eje/app_config.dart';
 import 'package:eje/core/error/exception.dart';
-import 'package:eje/pages/articles/domain/entity/article.dart';
+import 'package:eje/pages/articles/domain/entity/Article.dart';
 import 'package:hive/hive.dart';
 
 class ArticlesLocalDatasource {

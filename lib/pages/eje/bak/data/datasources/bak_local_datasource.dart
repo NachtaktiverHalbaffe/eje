@@ -1,6 +1,6 @@
 import 'package:eje/app_config.dart';
 import 'package:eje/core/error/exception.dart';
-import 'package:eje/pages/eje/bak/domain/entitys/bakler.dart';
+import 'package:eje/pages/eje/bak/domain/entitys/BAKler.dart';
 import 'package:hive/hive.dart';
 
 class BAKLocalDatasource {

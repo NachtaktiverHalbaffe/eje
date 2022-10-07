@@ -1,7 +1,7 @@
 import 'package:eje/core/utils/injection_container.dart';
 import 'package:eje/pages/articles/presentation/bloc/articles_bloc.dart';
 import 'package:eje/pages/articles/presentation/widgets/hyperlink_section.dart';
-import 'package:eje/pages/articles/domain/entity/hyperlink.dart';
+import 'package:eje/pages/articles/domain/entity/Hyperlink.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

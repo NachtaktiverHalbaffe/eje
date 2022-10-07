@@ -1,6 +1,6 @@
 import 'package:eje/app_config.dart';
 import 'package:eje/core/error/exception.dart';
-import 'package:eje/pages/termine/domain/entities/event.dart';
+import 'package:eje/pages/termine/domain/entities/Event.dart';
 import 'package:hive/hive.dart';
 
 class EventLocalDatasource {

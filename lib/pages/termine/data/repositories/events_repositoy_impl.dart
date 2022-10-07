@@ -4,7 +4,7 @@ import 'package:eje/core/error/failures.dart';
 import 'package:eje/core/platform/network_info.dart';
 import 'package:eje/pages/termine/data/datasources/events_local_datasource.dart';
 import 'package:eje/pages/termine/data/datasources/events_remote_datasource.dart';
-import 'package:eje/pages/termine/domain/entities/event.dart';
+import 'package:eje/pages/termine/domain/entities/Event.dart';
 import 'package:eje/pages/termine/domain/repsoitories/events_repository.dart';
 import 'package:meta/meta.dart';
 

@@ -1,7 +1,7 @@
 import 'package:eje/pages/articles/presentation/widgets/details_page.dart';
 import 'package:eje/core/widgets/loading_indicator.dart';
-import 'package:eje/pages/articles/domain/entity/article.dart';
-import 'package:eje/pages/articles/domain/entity/hyperlink.dart';
+import 'package:eje/pages/articles/domain/entity/Article.dart';
+import 'package:eje/pages/articles/domain/entity/Hyperlink.dart';
 import 'package:eje/pages/neuigkeiten/presentation/bloc/bloc.dart';
 import 'package:eje/pages/neuigkeiten/presentation/bloc/news_bloc.dart';
 import 'package:flutter/material.dart';

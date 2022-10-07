@@ -1,6 +1,6 @@
 import 'package:eje/core/utils/injection_container.dart';
 import 'package:eje/core/widgets/cached_image.dart';
-import 'package:eje/pages/eje/bak/domain/entitys/bakler.dart';
+import 'package:eje/pages/eje/bak/domain/entitys/BAKler.dart';
 import 'package:eje/pages/eje/bak/presentation/bloc/bak_bloc.dart';
 import 'package:eje/pages/eje/bak/presentation/widgets/bak_details.dart';
 import 'package:flutter/material.dart';

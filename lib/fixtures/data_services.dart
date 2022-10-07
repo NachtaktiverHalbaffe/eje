@@ -1,5 +1,5 @@
-import 'package:eje/pages/articles/domain/entity/hyperlink.dart';
-import 'package:eje/pages/eje/services/domain/entities/service.dart';
+import 'package:eje/pages/articles/domain/entity/Hyperlink.dart';
+import 'package:eje/pages/eje/services/domain/entities/Service.dart';
 import 'package:hive/hive.dart';
 
 void dataServices(Box _box) {

@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:eje/core/error/failures.dart';
-import 'package:eje/pages/articles/domain/entity/article.dart';
+import 'package:eje/pages/articles/domain/entity/Article.dart';
 import 'package:eje/pages/neuigkeiten/domain/entitys/news.dart';
 
 abstract class NewsRepository {
