@@ -59,8 +59,7 @@ class TermineRemoteDatasource {
                 ? DateTime.tryParse(responseData[i]['endDate'])
                 : DateTime.now(),
             location: responseData[i]['location'] != null
-                ? Location(responseData[i]['location'],
-                    responseData[i]['location'], responseData[i]['location'])
+                ? _parseLocation(responseData[i]['location'])
                 : Location("Musterort", "Musterstraße 1", "12345 Musterstadt"),
             registrationLink: responseData[i]['registrationLink'] ?? "",
           ));
@@ -70,5 +69,19 @@ class TermineRemoteDatasource {
     } else {
       throw ServerException();
     }
+  }
+
+  Location _parseLocation(responsedata) {
+    var locationData = responsedata['address'];
+    String adress = responsedata['name'] ?? "";
+
+    String streetName = locationData['street'] ?? "";
+    String houseNumber = locationData['houseNumber'] ?? "";
+    String street = streetName + " " + houseNumber;
+
+    String zip = locationData['zip'] ?? "";
+    String city = locationData['city'] ?? "";
+    String postalCode = zip + " " + city;
+    return Location(adress, street, postalCode);
   }
 }

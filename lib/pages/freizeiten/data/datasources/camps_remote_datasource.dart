@@ -69,7 +69,9 @@ class CampsRemoteDatasource {
                 : DateTime.now(),
             ageFrom: responseData[i]['ageFrom'] ?? 0,
             ageTo: responseData[i]['ageTo'] ?? 0,
-            price: responseData[i]['price'] != null
+            price: int.tryParse(responseData[i]['price']
+                        .replaceAll(RegExp('[^0-9]'), '')) !=
+                    null
                 ? int.parse(
                     responseData[i]['price'].replaceAll(RegExp('[^0-9]'), ''))
                 : 0,
