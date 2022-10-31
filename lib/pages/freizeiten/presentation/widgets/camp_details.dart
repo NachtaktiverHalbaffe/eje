@@ -98,7 +98,9 @@ class _freizeitChildWidget extends StatelessWidget {
             size: 72 / MediaQuery.of(context).devicePixelRatio,
           ),
           title: Text(
-            freizeit.price.toString(),
+            freizeit.price != 0
+                ? freizeit.price.toString()
+                : freizeit.price2.toString(),
             style: TextStyle(
               fontSize: 42 / MediaQuery.of(context).devicePixelRatio,
               color: Theme.of(context).dividerColor,
@@ -199,10 +201,10 @@ class _freizeitChildWidget extends StatelessWidget {
           ),
           title: OutlinedButton(
             onPressed: () async {
-              if (await canLaunch(freizeit.registrationLink)) {
-                await launch(freizeit.registrationLink);
+              if (await canLaunchUrl(Uri.parse(freizeit.registrationLink))) {
+                await launchUrl(Uri.parse(freizeit.registrationLink));
               } else {
-                throw 'Could not launch $freizeit.link';
+                throw 'Could not launch $freizeit.registrationLink';
               }
             },
             child: Text(

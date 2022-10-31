@@ -153,7 +153,9 @@ class CampCard extends StatelessWidget {
                                 SizedBox(width: 4),
                                 Flexible(
                                   child: Text(
-                                    camp.price.toString() + " Euro",
+                                    camp.price != 0
+                                        ? camp.price.toString() + " Euro"
+                                        : camp.price2.toString(),
                                     overflow: TextOverflow.ellipsis,
                                     style: TextStyle(
                                       fontSize: 12.5,

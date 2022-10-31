@@ -35,8 +35,7 @@ class CampsRemoteDatasource {
       var responseData = json.decode(response.body)["data"];
       for (int i = 0; i < responseData.length; i++) {
         // TODO Remove seminar from prod version!!!
-        if (responseData[i]['type'] == "Freizeit" ||
-            responseData[i]['type'] == "Seminar") {
+        if (responseData[i]['type'] == "Freizeit") {
           // Parse image entry from response to list of links
           List<String> pictures = List.empty(growable: true);
           responseData[i]["images"].forEach((value) {
@@ -68,28 +67,13 @@ class CampsRemoteDatasource {
                 ? DateTime.tryParse(responseData[i]['endDate'])
                 : DateTime.now(),
             ageFrom: responseData[i]['ageFrom'] ?? 0,
-            ageTo: responseData[i]['ageTo'] ?? 0,
-            price: int.tryParse(responseData[i]['price']
-                        .replaceAll(RegExp('[^0-9]'), '')) !=
-                    null
-                ? int.parse(
-                    responseData[i]['price'].replaceAll(RegExp('[^0-9]'), ''))
-                : 0,
-            price2: responseData[i]['price2'] != null
-                ? int.parse(
-                    responseData[i]['price2'].replaceAll(RegExp('[^0-9]'), ''))
-                : 0,
+            ageTo: responseData[i]['ageTo'] ?? 99,
+            price: _parsePrice(responseData[i]['price']),
+            price2: _parsePrice(responseData[i]['price2']),
             occupancy: responseData[i]['occupancy'] ?? "",
             maxPlaces: responseData[i]['maxplaces'] ?? 0,
             location: responseData[i]['location'] != null
-                ? Location(
-                    responseData[i]['location']['name'],
-                    responseData[i]['location']['address']['street'] +
-                        " " +
-                        responseData[i]['location']['address']['houseNumber'],
-                    responseData[i]['location']['address']['zip'] +
-                        " " +
-                        responseData[i]['location']['address']['city'])
+                ? _parseLocation(responseData[i]['location'])
                 : Location("Musterort", "Musterstraße 1", "12345 Musterstadt"),
             registrationLink: responseData[i]['registrationLink'] ?? "",
             pictures: pictures.isNotEmpty ? pictures : [""],
@@ -107,10 +91,12 @@ class CampsRemoteDatasource {
             companions: persons.isNotEmpty ? persons : [""],
             faq: faqs.isNotEmpty ? faqs : [""],
             categories: responseData[i]['categories'].length != 0
-                ? responseData[i]['categories']
+                ? _parseCategories(responseData[i]['categories'])
                 : [""],
             termsDocument: responseData[i]['termsDocument'] ?? "",
-            infosheetDocument: responseData[i]['infosheetDocument'] ?? "",
+            infosheetDocument: responseData[i]['infosheetDocument'] != null
+                ? responseData[i]['infosheetDocument']['url']
+                : "",
             privacyDocument: responseData[i]['privacyDocument'] ?? "",
             id: responseData[i]['id'] ?? 0,
           ));
@@ -120,6 +106,43 @@ class CampsRemoteDatasource {
     } else {
       throw ServerException();
     }
+  }
+
+  Location _parseLocation(responsedata) {
+    var locationData = responsedata['address'];
+    String adress = responsedata['name'] ?? "";
+
+    String streetName = locationData['street'] ?? "";
+    String houseNumber = locationData['houseNumber'] ?? "";
+    String street = streetName + " " + houseNumber;
+
+    String zip = locationData['zip'] ?? "";
+    String city = locationData['city'] ?? "";
+    String postalCode = zip + " " + city;
+    return Location(adress, street, postalCode);
+  }
+
+  List<String> _parseCategories(responseData) {
+    List<String> categories = new List.empty(growable: true);
+    for (int i = 0; i < responseData.length; i++) {
+      if (responseData[i]['Bezeichnung'] != null) {
+        categories.add(responseData[i]['Bezeichnung']);
+      }
+    }
+    return categories;
+  }
+
+  int _parsePrice(responseData) {
+    if (responseData != null) {
+      if (int.tryParse(responseData.replaceAll(RegExp('[^0-9.,]'), '')) !=
+          null) {
+        return int.tryParse(responseData
+            .replaceAll(RegExp('[^0-9.,]'), '')
+            .replaceAll(',', '.'));
+      } else
+        return 0;
+    } else
+      return 0;
   }
 
   // String html2markdown(String htmlString) {
