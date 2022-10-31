@@ -2,7 +2,6 @@ import 'package:eje/core/utils/injection_container.dart';
 import 'package:eje/core/widgets/alert_snackbar.dart';
 import 'package:eje/pages/articles/presentation/widgets/details_page.dart';
 import 'package:eje/core/widgets/loading_indicator.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'domain/entity/Article.dart';

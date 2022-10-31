@@ -1,7 +1,7 @@
 import 'dart:io' show Platform;
 
 import 'package:flutter/foundation.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class MapLauncher {
   static String createURIString(String query) {
@@ -23,8 +23,8 @@ class MapLauncher {
   }
 
   static Future<bool> launchQuery(String uri) async {
-    if (await canLaunch(createURIString(uri))) {
-      return launch(createURIString(uri));
+    if (await canLaunchUrlString(createURIString(uri))) {
+      return launchUrlString(createURIString(uri));
     } else {
       return false;
     }

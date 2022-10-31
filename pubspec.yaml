@@ -51,7 +51,7 @@ dependencies:
   # RSS Feed
   dart_rss: ^2.0.1
   # Url opener
-  url_launcher: ^6.0.12
+  url_launcher: ^6.1.6
   # Pageviewer Indicator
   page_view_indicators: ^2.0.0
   # Carousel PageView

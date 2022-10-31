@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class BAKDetails extends StatelessWidget {
   final BAKler bakler;
@@ -93,8 +94,10 @@ Widget _childBak(BAKler bakler, BuildContext context) {
                   color: Theme.of(context).colorScheme.secondary,
                 ),
                 onTap: () async {
-                  if (await canLaunch("https://threema.id/" + bakler.threema)) {
-                    await launch("https://threema.id/" + bakler.threema);
+                  if (await canLaunchUrlString(
+                      "https://threema.id/" + bakler.threema)) {
+                    await launchUrlString(
+                        "https://threema.id/" + bakler.threema);
                   } else {
                     throw 'Could not open Threema';
                   }
@@ -123,8 +126,8 @@ Widget _childBak(BAKler bakler, BuildContext context) {
                   color: Theme.of(context).colorScheme.secondary,
                 ),
                 onTap: () async {
-                  if (await canLaunch("mailto:" + bakler.email)) {
-                    await launch("mailto:" + bakler.email);
+                  if (await canLaunchUrlString("mailto:" + bakler.email)) {
+                    await launchUrlString("mailto:" + bakler.email);
                   } else {
                     throw 'Could not open Email';
                   }

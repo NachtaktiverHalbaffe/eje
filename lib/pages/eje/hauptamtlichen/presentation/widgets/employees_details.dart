@@ -5,11 +5,11 @@ import 'package:eje/core/widgets/loading_indicator.dart';
 import 'package:eje/pages/articles/domain/entity/Hyperlink.dart';
 import 'package:eje/pages/eje/hauptamtlichen/domain/entitys/employee.dart';
 import 'package:eje/pages/eje/hauptamtlichen/presentation/bloc/bloc.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class EmployeeDetails extends StatelessWidget {
   final Employee employee;
@@ -103,9 +103,9 @@ class _childEmployeeDetails extends StatelessWidget {
                     color: Theme.of(context).colorScheme.secondary,
                   ),
                   onTap: () async {
-                    if (await canLaunch(
+                    if (await canLaunchUrlString(
                         "https://threema.id/" + hauptamtlicher.threema)) {
-                      await launch(
+                      await launchUrlString(
                           "https://threema.id/" + hauptamtlicher.threema);
                     } else {
                       throw 'Could not open Threema';
@@ -137,8 +137,9 @@ class _childEmployeeDetails extends StatelessWidget {
                     color: Theme.of(context).colorScheme.secondary,
                   ),
                   onTap: () async {
-                    if (await canLaunch("mailto:" + hauptamtlicher.email)) {
-                      await launch("mailto:" + hauptamtlicher.email);
+                    if (await canLaunchUrlString(
+                        "mailto:" + hauptamtlicher.email)) {
+                      await launchUrlString("mailto:" + hauptamtlicher.email);
                     } else {
                       throw 'Could not open Email';
                     }
@@ -169,8 +170,9 @@ class _childEmployeeDetails extends StatelessWidget {
                     color: Theme.of(context).colorScheme.secondary,
                   ),
                   onTap: () async {
-                    if (await canLaunch("tel:" + hauptamtlicher.telefon)) {
-                      await launch("tel:" + hauptamtlicher.telefon);
+                    if (await canLaunchUrlString(
+                        "tel:" + hauptamtlicher.telefon)) {
+                      await launchUrlString("tel:" + hauptamtlicher.telefon);
                     } else {
                       throw 'Could not open telephone';
                     }
@@ -201,8 +203,9 @@ class _childEmployeeDetails extends StatelessWidget {
                     color: Theme.of(context).colorScheme.secondary,
                   ),
                   onTap: () async {
-                    if (await canLaunch("tel:" + hauptamtlicher.handy)) {
-                      await launch("tel:" + hauptamtlicher.handy);
+                    if (await canLaunchUrlString(
+                        "tel:" + hauptamtlicher.handy)) {
+                      await launchUrlString("tel:" + hauptamtlicher.handy);
                     } else {
                       throw 'Could not open telephone';
                     }

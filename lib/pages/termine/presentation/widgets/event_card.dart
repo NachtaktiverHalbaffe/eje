@@ -5,7 +5,6 @@ import 'package:eje/core/widgets/cached_image.dart';
 import 'package:eje/pages/termine/domain/entities/Event.dart';
 import 'package:eje/pages/termine/presentation/bloc/events_bloc.dart';
 import 'package:eje/pages/termine/presentation/widgets/event_detail.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_storage/get_storage.dart';

@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class EinstellungenPage extends StatelessWidget {
   @override
@@ -243,9 +244,9 @@ class EinstellungenPage extends StatelessWidget {
                             primary: Theme.of(context).colorScheme.secondary,
                           ),
                           onPressed: () async {
-                            if (await canLaunch(
+                            if (await canLaunchUrlString(
                                 "https://www.eje-esslingen.de/meta/datenschutz/")) {
-                              await launch(
+                              await launchUrlString(
                                   "https://www.eje-esslingen.de/meta/datenschutz/");
                             } else {
                               throw 'Could not launch https://www.eje-esslingen.de/meta/datenschutz/';

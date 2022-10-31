@@ -7,7 +7,7 @@ import 'package:eje/pages/articles/presentation/bloc/articles_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class HyperlinkSection extends StatelessWidget {
   final List<Hyperlink> hyperlinks;
@@ -56,8 +56,8 @@ class _column extends StatelessWidget {
       onTap: () async {
         if (hyperlink.link.contains("fileadmin") ||
             !hyperlink.link.contains("https://www.eje-esslingen.de")) {
-          if (await canLaunch(hyperlink.link)) {
-            await launch(hyperlink.link);
+          if (await canLaunchUrlString(hyperlink.link)) {
+            await launchUrlString(hyperlink.link);
           } else {
             throw 'Could not launch $hyperlink.link';
           }

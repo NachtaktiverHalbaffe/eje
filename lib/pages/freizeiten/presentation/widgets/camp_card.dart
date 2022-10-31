@@ -3,7 +3,6 @@ import 'package:eje/core/widgets/cached_image.dart';
 import 'package:eje/pages/freizeiten/domain/entities/camp.dart';
 import 'package:eje/pages/freizeiten/presentation/bloc/camps_bloc.dart';
 import 'package:eje/pages/freizeiten/presentation/widgets/camp_details.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';

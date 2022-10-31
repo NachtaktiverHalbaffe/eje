@@ -2,13 +2,12 @@ import 'package:eje/core/utils/injection_container.dart';
 import 'package:eje/pages/articles/presentation/bloc/articles_bloc.dart';
 import 'package:eje/pages/articles/presentation/widgets/hyperlink_section.dart';
 import 'package:eje/pages/articles/domain/entity/Hyperlink.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:icon_shadow/icon_shadow.dart';
 import 'package:page_view_indicators/circle_page_indicator.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../../../core/widgets/cached_image.dart';
 import '../../articles_page.dart';
@@ -216,7 +215,7 @@ class DetailsPage extends StatelessWidget {
                           ),
                         );
                       } else {
-                        launch(url);
+                        launchUrlString(url);
                       }
                     },
                   ),

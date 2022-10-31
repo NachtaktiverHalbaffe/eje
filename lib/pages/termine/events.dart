@@ -6,7 +6,6 @@ import 'package:eje/pages/termine/presentation/bloc/events_bloc.dart';
 import 'package:eje/pages/termine/presentation/bloc/events_event.dart';
 import 'package:eje/pages/termine/presentation/bloc/events_state.dart';
 import 'package:eje/pages/termine/presentation/widgets/event_card.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_swiper_plus/flutter_swiper_plus.dart';

@@ -7,7 +7,6 @@ import 'package:eje/pages/einstellungen/einstellungen.dart';
 import 'package:eje/pages/eje/eje.dart';
 import 'package:eje/pages/freizeiten/camps.dart';
 import 'package:eje/pages/termine/events.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';

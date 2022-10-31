@@ -3,9 +3,7 @@ import 'package:eje/core/widgets/cached_image.dart';
 import 'package:eje/pages/eje/hauptamtlichen/domain/entitys/employee.dart';
 import 'package:eje/pages/eje/hauptamtlichen/presentation/bloc/employees_bloc.dart';
 import 'package:eje/pages/eje/hauptamtlichen/presentation/widgets/employees_details.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_swiper_plus/flutter_swiper_plus.dart';
 

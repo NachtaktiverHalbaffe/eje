@@ -11,6 +11,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class CampDetails extends StatelessWidget {
   final Camp camp;
@@ -201,8 +202,8 @@ class _freizeitChildWidget extends StatelessWidget {
           ),
           title: OutlinedButton(
             onPressed: () async {
-              if (await canLaunchUrl(Uri.parse(freizeit.registrationLink))) {
-                await launchUrl(Uri.parse(freizeit.registrationLink));
+              if (await canLaunchUrlString(freizeit.registrationLink)) {
+                await launchUrlString(freizeit.registrationLink);
               } else {
                 throw 'Could not launch $freizeit.registrationLink';
               }
