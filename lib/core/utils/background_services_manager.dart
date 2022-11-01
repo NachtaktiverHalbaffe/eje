@@ -103,8 +103,8 @@ void _checkFreizeitenNotification(String taskId) async {
   // Initiliaze GetStorage for getting Prefrences
   await GetStorage.init();
   final prefs = GetStorage();
-  List<Camp> downloadedCamps;
-  List<int> downloadedCampsTitles;
+  List<Camp> downloadedCamps = List.empty(growable: true);
+  List<int> downloadedCampsTitles = List.empty(growable: true);
   List<int> cachedCamps = prefs.read("cached_freizeiten");
 
   downloadedCamps = await CampsRemoteDatasource().getFreizeiten();

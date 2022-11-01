@@ -1,8 +1,6 @@
 import 'package:eje/core/widgets/alert_snackbar.dart';
 import 'package:eje/core/widgets/loading_indicator.dart';
 import 'package:eje/pages/eje/hauptamtlichen/presentation/bloc/bloc.dart';
-import 'package:eje/pages/eje/hauptamtlichen/presentation/bloc/employees_bloc.dart';
-import 'package:eje/pages/eje/hauptamtlichen/presentation/bloc/employees_state.dart';
 import 'package:eje/pages/eje/hauptamtlichen/presentation/widgets/employees_pageviewer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

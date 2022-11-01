@@ -103,7 +103,7 @@ class CampsPageViewer extends StatelessWidget {
   }
 }
 
-Future<Camp> createFilterDialog({BuildContext context}) {
+Future<dynamic> createFilterDialog({required BuildContext context}) {
   const String dialogTitle = "Freizeiten filtern";
   const String ageFilterLable = "Alter";
   const String ageFilterHelper = "Alter des anzumeldenden Teilnehmers";
@@ -113,11 +113,7 @@ Future<Camp> createFilterDialog({BuildContext context}) {
 
   TextEditingController datetimeRangeController = TextEditingController(
     text: GetStorage().read("campFilterStartDate") != ""
-        ? DateFormat('dd.MM.yyyy').format(
-                DateTime.tryParse(GetStorage().read("campFilterStartDate"))) +
-            " - " +
-            DateFormat('dd.MM.yyyy').format(
-                DateTime.tryParse(GetStorage().read("campFilterEndDate")))
+        ? "${DateFormat('dd.MM.yyyy').format(DateTime.tryParse(GetStorage().read("campFilterStartDate")) ?? DateTime.now())} - ${DateFormat('dd.MM.yyyy').format(DateTime.tryParse(GetStorage().read("campFilterEndDate")) ?? DateTime.now())}"
         : "",
   );
   const double height = 20;
@@ -125,7 +121,7 @@ Future<Camp> createFilterDialog({BuildContext context}) {
   // Values that can be filtered
   int age = 0;
   int price = 0;
-  DateTimeRange date;
+  DateTimeRange? date;
 
   return showDialog(
       context: context,
@@ -202,18 +198,16 @@ Future<Camp> createFilterDialog({BuildContext context}) {
                 ),
                 readOnly: true,
                 onTap: () async {
-                  date = await showDateRangePicker(
+                  date = (await showDateRangePicker(
                     context: context,
                     firstDate: DateTime.now(),
                     lastDate: DateTime.now().add(Duration(days: 365)),
                     helpText: dateFilterLable,
                     cancelText: "Abbrechen",
                     saveText: "Bestätigen",
-                  );
+                  ));
                   datetimeRangeController.text =
-                      DateFormat('dd.MM.yyyy').format(date.start) +
-                          " - " +
-                          DateFormat('dd.MM.yyyy').format(date.end);
+                      "${DateFormat('dd.MM.yyyy').format(date!.start)} - ${DateFormat('dd.MM.yyyy').format(date!.end)}";
                 },
               ),
             ],
@@ -235,8 +229,8 @@ Future<Camp> createFilterDialog({BuildContext context}) {
                   prefs.write("campFilterPrice", price);
                 }
                 if (date != null) {
-                  prefs.write("campFilterStartDate", date.start.toString());
-                  prefs.write("campFilterEndDate", date.end.toString());
+                  prefs.write("campFilterStartDate", date!.start.toString());
+                  prefs.write("campFilterEndDate", date!.end.toString());
                 }
                 Navigator.of(context).pop();
               },
@@ -312,11 +306,8 @@ class ChipsWrap extends StatelessWidget {
         prefs.read("campFilterEndDate") != "") {
       chips.add(
         _filterChip(
-          dataLabel: DateFormat('dd.MM.yyyy').format(
-                  DateTime.tryParse(prefs.read("campFilterStartDate"))) +
-              " - " +
-              DateFormat('dd.MM.yyyy')
-                  .format(DateTime.tryParse(prefs.read("campFilterEndDate"))),
+          dataLabel:
+              "${DateFormat('dd.MM.yyyy').format(DateTime.tryParse(prefs.read("campFilterStartDate")) ?? DateTime.now())} - ${DateFormat('dd.MM.yyyy').format(DateTime.tryParse(prefs.read("campFilterEndDate")) ?? DateTime.now())}",
           icon: Icons.calendar_today,
           onDeleted: () {
             prefs.write("campFilterStartDate", "");
@@ -369,11 +360,8 @@ class ChipsRow extends StatelessWidget {
         prefs.read("campFilterEndDate") != "") {
       chips.add(
         _filterChip(
-          dataLabel: DateFormat('dd.MM.yyyy').format(
-                  DateTime.tryParse(prefs.read("campFilterStartDate"))) +
-              " - " +
-              DateFormat('dd.MM.yyyy')
-                  .format(DateTime.tryParse(prefs.read("campFilterEndDate"))),
+          dataLabel:
+              "${DateFormat('dd.MM.yyyy').format(DateTime.tryParse(prefs.read("campFilterStartDate")) ?? DateTime.now())} - ${DateFormat('dd.MM.yyyy').format(DateTime.tryParse(prefs.read("campFilterEndDate")) ?? DateTime.now())}",
           icon: Icons.calendar_today,
           onDeleted: () {
             prefs.write("campFilterStartDate", "");
@@ -399,8 +387,9 @@ class _filterChip extends StatelessWidget {
   final String dataLabel;
   final IconData icon;
 
-  const _filterChip({Key key, this.onDeleted, this.dataLabel, this.icon})
-      : super(key: key);
+  const _filterChip(
+      {required this.onDeleted, required this.dataLabel, required this.icon})
+      : super();
 
   @override
   Widget build(BuildContext context) {
@@ -420,7 +409,7 @@ class _filterChip extends StatelessWidget {
             color: Colors.white,
           ),
         ),
-        onDeleted: onDeleted,
+        onDeleted: () => onDeleted,
         deleteIcon: Icon(
           Icons.highlight_remove,
           color: Colors.white,

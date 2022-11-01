@@ -66,18 +66,18 @@ class NeuigkeitenListView extends StatelessWidget {
   }
 }
 
-Widget _buildNeuigkeitenList(BuildContext context, _neuigkeiten) {
-  final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
+Widget _buildNeuigkeitenList(BuildContext context, neuigkeiten) {
+  final GlobalKey<RefreshIndicatorState> refreshIndicatorKey =
       GlobalKey<RefreshIndicatorState>();
   return Scaffold(
     backgroundColor: Theme.of(context).colorScheme.surface,
     body: RefreshIndicator(
       color: Theme.of(context).colorScheme.secondary,
-      key: _refreshIndicatorKey,
+      key: refreshIndicatorKey,
       onRefresh: () async {
         BlocProvider.of<NewsBloc>(context).add(RefreshNews());
       },
-      child: _neuigkeiten.length != 0
+      child: neuigkeiten.length != 0
           ? ListView.builder(
               physics: ScrollPhysics(
                 parent: AlwaysScrollableScrollPhysics(),
@@ -87,9 +87,9 @@ Widget _buildNeuigkeitenList(BuildContext context, _neuigkeiten) {
                 bottom: 20,
                 top: 40,
               ),
-              itemCount: _neuigkeiten.length,
+              itemCount: neuigkeiten.length,
               itemBuilder: (context, index) {
-                final neuigkeit = _neuigkeiten[index];
+                final neuigkeit = neuigkeiten[index];
                 return NewsCard(neuigkeit);
               },
             )

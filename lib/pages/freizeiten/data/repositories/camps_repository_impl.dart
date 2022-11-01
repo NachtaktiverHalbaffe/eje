@@ -7,7 +7,6 @@ import 'package:eje/pages/freizeiten/data/datasources/camps_remote_datasource.da
 import 'package:eje/pages/freizeiten/domain/entities/camp.dart';
 import 'package:eje/pages/freizeiten/domain/repositories/camp_repository.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:meta/meta.dart';
 
 class CampRepositoryImpl implements CampRepository {
   final CampsRemoteDatasource remoteDataSource;
@@ -16,9 +15,9 @@ class CampRepositoryImpl implements CampRepository {
 
   //Constructor
   CampRepositoryImpl({
-    @required this.remoteDataSource,
-    @required this.localDatasource,
-    @required this.networkInfo,
+    required this.remoteDataSource,
+    required this.localDatasource,
+    required this.networkInfo,
   });
 
   //Lade Freizeiten aus den Internet herunter
@@ -26,6 +25,7 @@ class CampRepositoryImpl implements CampRepository {
   Future<Either<Failure, List<Camp>>> getCamps() async {
     if (await networkInfo.isConnected) {
       try {
+        print("Online part");
         final remoteFreizeiten = await remoteDataSource.getFreizeiten();
         await localDatasource.cacheCamps(remoteFreizeiten);
         final camps = await localDatasource.getCachedCamps();

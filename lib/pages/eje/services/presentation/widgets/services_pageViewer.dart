@@ -10,7 +10,7 @@ import 'package:flutter_swiper_plus/flutter_swiper_plus.dart';
 class ServicesPageViewer extends StatelessWidget {
   final List<Service> services;
 
-  const ServicesPageViewer({Key key, this.services}) : super(key: key);
+  const ServicesPageViewer({required this.services}) : super();
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +32,7 @@ class ServicesPageViewer extends StatelessWidget {
 
 class ServicesCard extends StatelessWidget {
   final Service service;
-  const ServicesCard({Key key, this.service}) : super(key: key);
+  const ServicesCard({required this.service}) : super();
 
   @override
   Widget build(BuildContext context) {

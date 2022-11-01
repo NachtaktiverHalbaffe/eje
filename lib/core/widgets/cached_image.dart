@@ -4,17 +4,23 @@ import 'package:get_storage/get_storage.dart';
 
 ImageProvider prefImage(String url) {
   // Load prefrence if image caching is enabled
-  if (url == "" || url == null) {
+  if (url == "") {
     // TODO implement placeholder image
     return ExactAssetImage("assets/images/eje_transparent_header.gif");
   }
 
   if (GetStorage().read('cache_pictures')) {
-    return url.contains("http")
-        ? CachedNetworkImageProvider(url)
-        : ExactAssetImage(url);
+    if (url.contains("http")) {
+      return CachedNetworkImageProvider(url);
+    } else {
+      return ExactAssetImage(url);
+    }
   } else {
-    return url.contains("http") ? NetworkImage(url) : ExactAssetImage(url);
+    if (url.contains("http")) {
+      return NetworkImage(url);
+    } else {
+      return ExactAssetImage(url);
+    }
   }
 }
 
@@ -22,7 +28,12 @@ class CachedImage extends StatelessWidget {
   final String url;
   final double height;
   final double width;
-  const CachedImage({Key key, this.url, this.height = 0.0, this.width = 0.0})
+  static const Key defaultkey = Key("");
+  const CachedImage(
+      {Key key = defaultkey,
+      required this.url,
+      this.height = 0.0,
+      this.width = 0.0})
       : super(key: key);
 
   @override

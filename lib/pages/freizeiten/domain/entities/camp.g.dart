@@ -18,8 +18,8 @@ class CampAdapter extends TypeAdapter<Camp> {
     };
     return Camp(
       maxPlaces: fields[8] as int,
-      faq: (fields[21] as List)?.cast<String>(),
-      categories: (fields[22] as List)?.cast<String>(),
+      faq: (fields[21] as List).cast<String>(),
+      categories: (fields[22] as List).cast<String>(),
       name: fields[0] as String,
       startDate: fields[1] as DateTime,
       endDate: fields[2] as DateTime,
@@ -30,7 +30,7 @@ class CampAdapter extends TypeAdapter<Camp> {
       occupancy: fields[7] as String,
       location: fields[9] as Location,
       registrationLink: fields[10] as String,
-      pictures: (fields[11] as List)?.cast<String>(),
+      pictures: (fields[11] as List).cast<String>(),
       description: fields[12] as String,
       teaser: fields[13] as String,
       registrationEnd: fields[14] as DateTime,
@@ -39,7 +39,7 @@ class CampAdapter extends TypeAdapter<Camp> {
       journey: fields[17] as String,
       otherServices: fields[18] as String,
       subtitle: fields[19] as String,
-      companions: (fields[20] as List)?.cast<String>(),
+      companions: (fields[20] as List).cast<String>(),
       termsDocument: fields[23] as String,
       infosheetDocument: fields[24] as String,
       privacyDocument: fields[25] as String,

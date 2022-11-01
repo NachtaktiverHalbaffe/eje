@@ -8,14 +8,14 @@ class NewsLocalDatasource {
   Future<List<News>> getCachedNews() async {
     // Load appconfig
     final AppConfig appConfig = await AppConfig.loadConfig();
-    final Box _box = Hive.box(appConfig.newsBox);
+    final Box box = Hive.box(appConfig.newsBox);
 
     // Load local data
-    if (_box.isNotEmpty) {
+    if (box.isNotEmpty) {
       List<News> data = List.empty(growable: true);
-      for (int i = 0; i < _box.length; i++) {
-        if (_box.getAt(i) != null) {
-          data.add(_box.getAt(i));
+      for (int i = 0; i < box.length; i++) {
+        if (box.getAt(i) != null) {
+          data.add(box.getAt(i));
         }
       }
       if (data.isNotEmpty) {
@@ -30,11 +30,11 @@ class NewsLocalDatasource {
   Future<void> cacheNews(List<News> newsToCache) async {
     // Load appconfig
     final AppConfig appConfig = await AppConfig.loadConfig();
-    final Box _box = Hive.box(appConfig.newsBox);
+    final Box box = Hive.box(appConfig.newsBox);
 
-    if (_box.isNotEmpty) {
-      await _box.clear();
+    if (box.isNotEmpty) {
+      await box.clear();
     }
-    await _box.addAll(newsToCache);
+    await box.addAll(newsToCache);
   }
 }

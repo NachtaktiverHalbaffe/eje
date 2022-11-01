@@ -6,7 +6,6 @@ import 'package:eje/pages/eje/arbeitsfelder/data/datasources/arbeitsbereich_loca
 import 'package:eje/pages/eje/arbeitsfelder/data/datasources/arbeitsbereich_remote_datasource.dart';
 import 'package:eje/pages/eje/arbeitsfelder/domain/entities/field_of_work.dart';
 import 'package:eje/pages/eje/arbeitsfelder/domain/repositories/field_of_work_repository.dart';
-import 'package:meta/meta.dart';
 
 class ArbeitsbereichRepositoryImpl implements FieldOfWorkRepository {
   final ArbeitsbereichRemoteDatasource remoteDataSource;
@@ -15,9 +14,9 @@ class ArbeitsbereichRepositoryImpl implements FieldOfWorkRepository {
 
   //Constructor
   ArbeitsbereichRepositoryImpl({
-    @required this.remoteDataSource,
-    @required this.localDatasource,
-    @required this.networkInfo,
+    required this.remoteDataSource,
+    required this.localDatasource,
+    required this.networkInfo,
   });
 
   //Lade Artikel aus den Internet herunter

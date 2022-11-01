@@ -24,18 +24,17 @@ class DetailsPage extends StatelessWidget {
   final Widget childWidget;
 
   DetailsPage(
-      {Key key,
-      this.titel,
+      {required this.titel,
       this.untertitel = "",
-      this.text,
-      this.bilder,
+      this.text = "",
+      required this.bilder,
       this.pictureHeight = 300,
-      this.hyperlinks,
-      this.childWidget});
+      required this.hyperlinks,
+      required this.childWidget});
 
   @override
   Widget build(BuildContext context) {
-    final _currentPageNotifier = ValueNotifier<int>(0);
+    final currentPageNotifier = ValueNotifier<int>(0);
 
     // Widget itself
     return Scaffold(
@@ -54,7 +53,7 @@ class DetailsPage extends StatelessWidget {
                     parent: BouncingScrollPhysics(),
                   ),
                   onPageChanged: (int index) {
-                    _currentPageNotifier.value = index;
+                    currentPageNotifier.value = index;
                   },
                   pageSnapping: true,
                   controller: PageController(initialPage: 0),
@@ -86,7 +85,7 @@ class DetailsPage extends StatelessWidget {
                           selectedDotColor:
                               Theme.of(context).colorScheme.secondary,
                           itemCount: bilder.length,
-                          currentPageNotifier: _currentPageNotifier,
+                          currentPageNotifier: currentPageNotifier,
                         ),
                       );
                     }
@@ -177,50 +176,48 @@ class DetailsPage extends StatelessWidget {
             ],
           ),
           SizedBox(height: 8),
-          text != null
-              ? Container(
-                  padding: EdgeInsets.only(
-                    left: 14,
-                    top: 14,
-                    right: 14,
-                  ),
-                  child: MarkdownBody(
-                    styleSheet: MarkdownStyleSheet(
-                      textAlign: WrapAlignment.spaceEvenly,
-                      h1Align: WrapAlignment.start,
-                      h2Align: WrapAlignment.start,
-                      h3Align: WrapAlignment.start,
-                      tableCellsPadding: EdgeInsets.symmetric(horizontal: 8),
-                      tableColumnWidth: IntrinsicColumnWidth(),
-                      tableHead: TextStyle(fontWeight: FontWeight.normal),
-                      tableBorder: TableBorder.all(
-                        width: 0,
-                        color: Colors.transparent,
+          Container(
+            padding: EdgeInsets.only(
+              left: 14,
+              top: 14,
+              right: 14,
+            ),
+            child: MarkdownBody(
+              styleSheet: MarkdownStyleSheet(
+                textAlign: WrapAlignment.spaceEvenly,
+                h1Align: WrapAlignment.start,
+                h2Align: WrapAlignment.start,
+                h3Align: WrapAlignment.start,
+                tableCellsPadding: EdgeInsets.symmetric(horizontal: 8),
+                tableColumnWidth: IntrinsicColumnWidth(),
+                tableHead: TextStyle(fontWeight: FontWeight.normal),
+                tableBorder: TableBorder.all(
+                  width: 0,
+                  color: Colors.transparent,
+                ),
+              ),
+              shrinkWrap: true,
+              data: text,
+              onTapLink: (text, url, title) {
+                if (url!.contains("eje-esslingen.de") &&
+                    !url.contains("fileadmin/")) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => BlocProvider.value(
+                        value: sl<ArticlesBloc>(),
+                        child: ArticlesPage(
+                          url: url,
+                        ),
                       ),
                     ),
-                    shrinkWrap: true,
-                    data: text,
-                    onTapLink: (text, url, title) {
-                      if (url.contains("eje-esslingen.de") &&
-                          !url.contains("fileadmin/")) {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (_) => BlocProvider.value(
-                              value: sl<ArticlesBloc>(),
-                              child: ArticlesPage(
-                                url: url,
-                              ),
-                            ),
-                          ),
-                        );
-                      } else {
-                        launchUrlString(url);
-                      }
-                    },
-                  ),
-                )
-              : SizedBox(height: 8),
+                  );
+                } else {
+                  launchUrlString(url);
+                }
+              },
+            ),
+          ),
           SizedBox(height: 16),
           childWidget,
           hyperlinks[0].link != ""

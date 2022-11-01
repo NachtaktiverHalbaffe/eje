@@ -6,8 +6,6 @@ import 'package:eje/core/widgets/loading_indicator.dart';
 import 'package:eje/pages/articles/domain/entity/Hyperlink.dart';
 import 'package:eje/pages/termine/domain/entities/Event.dart';
 import 'package:eje/pages/termine/presentation/bloc/bloc.dart';
-import 'package:eje/pages/termine/presentation/bloc/events_bloc.dart';
-import 'package:eje/pages/termine/presentation/bloc/events_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_storage/get_storage.dart';
@@ -101,11 +99,7 @@ class _terminChildWidget extends StatelessWidget {
             color: Theme.of(context).dividerColor,
           ),
           title: Text(
-            _termin.location.adress +
-                "\n" +
-                _termin.location.street +
-                "\n" +
-                _termin.location.postalCode,
+            "${_termin.location.adress}\n${_termin.location.street}\n${_termin.location.postalCode}",
             style: TextStyle(
               fontSize: 42 / MediaQuery.of(context).devicePixelRatio,
               color: Theme.of(context).dividerColor,
@@ -118,11 +112,8 @@ class _terminChildWidget extends StatelessWidget {
               color: Theme.of(context).colorScheme.secondary,
             ),
             onTap: () async {
-              await MapLauncher.launchQuery(_termin.location.adress +
-                  "," +
-                  _termin.location.street +
-                  ", " +
-                  _termin.location.postalCode);
+              await MapLauncher.launchQuery(
+                  "${_termin.location.adress},${_termin.location.street}, ${_termin.location.postalCode}");
             },
           ),
         ),
@@ -166,11 +157,8 @@ void _setNotification(Event termin) async {
       await notificationPlugin.scheduledNotification(
         id: prefs.read('notifications_scheduled'),
         title: "Erinnerung",
-        body: "Erinnerung: Veranstaltung " +
-            termin.name +
-            " findet am " +
-            DateFormat('dd.MM.yyyy').format(termin.startDate) +
-            " statt",
+        body:
+            "Erinnerung: Veranstaltung ${termin.name} findet am ${DateFormat('dd.MM.yyyy').format(termin.startDate)} statt",
         scheduleNotificationsDateTime:
             DateTime.now().add(Duration(days: 1, seconds: 5)),
         scheduleoffest: Duration(days: prefs.read("schedule_offset")),

@@ -138,11 +138,7 @@ class EventCard extends StatelessWidget {
                           color: Theme.of(context).dividerColor,
                         ),
                         title: Text(
-                          event.location.adress +
-                              "\n" +
-                              event.location.street +
-                              "\n" +
-                              event.location.postalCode,
+                          "${event.location.adress}\n${event.location.street}\n${event.location.postalCode}",
                           style: TextStyle(
                               fontSize: 16,
                               color: Theme.of(context).dividerColor),
@@ -184,11 +180,8 @@ class EventCard extends StatelessWidget {
         await notificationPlugin.scheduledNotification(
           id: prefs.read('notifications_scheduled'),
           title: "Erinnerung",
-          body: "Erinnerung: Veranstaltung " +
-              event.name +
-              " findet am " +
-              DateFormat('dd.MM.yyyy').format(event.startDate) +
-              " statt",
+          body:
+              "Erinnerung: Veranstaltung ${event.name} findet am ${DateFormat('dd.MM.yyyy').format(event.startDate)} statt",
           scheduleNotificationsDateTime:
               DateTime.now().add(Duration(days: 1, seconds: 5)),
           scheduleoffest: Duration(days: prefs.read("schedule_offset")),

@@ -18,9 +18,9 @@ class ServiceAdapter extends TypeAdapter<Service> {
     };
     return Service(
       service: fields[0] as String,
-      images: (fields[1] as List)?.cast<String>(),
+      images: (fields[1] as List).cast<String>(),
       description: fields[2] as String,
-      hyperlinks: (fields[3] as List)?.cast<Hyperlink>(),
+      hyperlinks: (fields[3] as List).cast<Hyperlink>(),
     );
   }
 

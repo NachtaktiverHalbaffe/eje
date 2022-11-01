@@ -6,7 +6,6 @@ import 'package:eje/pages/termine/data/datasources/events_local_datasource.dart'
 import 'package:eje/pages/termine/data/datasources/events_remote_datasource.dart';
 import 'package:eje/pages/termine/domain/entities/Event.dart';
 import 'package:eje/pages/termine/domain/repsoitories/events_repository.dart';
-import 'package:meta/meta.dart';
 
 class EventsRepositoryImpl implements EventsRepository {
   final TermineRemoteDatasource remoteDataSource;
@@ -15,9 +14,9 @@ class EventsRepositoryImpl implements EventsRepository {
 
   //Constructor
   EventsRepositoryImpl({
-    @required this.remoteDataSource,
-    @required this.localDatasource,
-    @required this.networkInfo,
+    required this.remoteDataSource,
+    required this.localDatasource,
+    required this.networkInfo,
   });
 
   //Lade Artikel aus den Internet herunter
@@ -46,8 +45,8 @@ class EventsRepositoryImpl implements EventsRepository {
   @override
   Future<Either<Failure, Event>> getEvent(int id) async {
     try {
-      List<Event> _termin = await localDatasource.getCachedEvents();
-      for (var value in _termin) {
+      List<Event> termin = await localDatasource.getCachedEvents();
+      for (var value in termin) {
         if (value.id == id) {
           return Right(value);
         }

@@ -11,7 +11,7 @@ class AlertSnackbar {
 
   AlertSnackbar(this.context);
 
-  void showErrorSnackBar({String label}) {
+  void showErrorSnackBar({required String label}) {
     ScaffoldMessenger.of(context)
       ..hideCurrentSnackBar()
       ..showSnackBar(
@@ -39,7 +39,7 @@ class AlertSnackbar {
       );
   }
 
-  void showWarningSnackBar({String label}) {
+  void showWarningSnackBar({required String label}) {
     ScaffoldMessenger.of(context)
       ..hideCurrentSnackBar()
       ..showSnackBar(

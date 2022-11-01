@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:meta/meta.dart';
 import 'package:hive/hive.dart';
 
 part 'news.g.dart';
@@ -21,12 +20,13 @@ class News extends Equatable {
 
   //Constructor
   News(
-      {@required this.title,
-      @required this.textPreview,
-      @required this.text,
-      @required this.images,
-      this.link,
-      this.published});
+      {required this.title,
+      required this.textPreview,
+      required this.text,
+      required this.images,
+      this.link = "",
+      DateTime? published})
+      : published = published ?? DateTime.now();
 
   factory News.fromJson(Map<String, dynamic> json) {
     return News(

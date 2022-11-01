@@ -4,10 +4,10 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 class NoResultCard extends StatelessWidget {
   final String label;
   final bool isError;
-  final VoidCallback onRefresh;
+  final Future<void> Function() onRefresh;
   const NoResultCard(
-      {Key key, @required this.label, this.isError = false, this.onRefresh})
-      : super(key: key);
+      {required this.label, this.isError = false, required this.onRefresh})
+      : super();
 
   @override
   Widget build(BuildContext context) {

@@ -4,13 +4,10 @@ import 'package:eje/core/widgets/loading_indicator.dart';
 import 'package:eje/pages/articles/domain/entity/Hyperlink.dart';
 import 'package:eje/pages/freizeiten/domain/entities/camp.dart';
 import 'package:eje/pages/freizeiten/presentation/bloc/bloc.dart';
-import 'package:eje/pages/freizeiten/presentation/bloc/camps_bloc.dart';
-import 'package:eje/pages/freizeiten/presentation/bloc/camps_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 class CampDetails extends StatelessWidget {
@@ -51,7 +48,7 @@ class CampDetails extends StatelessWidget {
 
 class FreizeitDetailsCard extends StatelessWidget {
   final Camp freizeit;
-  const FreizeitDetailsCard({Key key, this.freizeit}) : super(key: key);
+  const FreizeitDetailsCard({required this.freizeit}) : super();
 
   @override
   Widget build(BuildContext context) {
@@ -69,7 +66,7 @@ class FreizeitDetailsCard extends StatelessWidget {
 // ignore: camel_case_types
 class _freizeitChildWidget extends StatelessWidget {
   final Camp freizeit;
-  const _freizeitChildWidget({Key key, this.freizeit}) : super(key: key);
+  const _freizeitChildWidget({required this.freizeit}) : super();
 
   @override
   Widget build(BuildContext context) {
@@ -83,9 +80,7 @@ class _freizeitChildWidget extends StatelessWidget {
             size: 72 / MediaQuery.of(context).devicePixelRatio,
           ),
           title: Text(
-            DateFormat('dd.MM.yyyy').format(freizeit.startDate) +
-                " - " +
-                DateFormat('dd.MM.yyyy').format(freizeit.endDate),
+            "${DateFormat('dd.MM.yyyy').format(freizeit.startDate)} - ${DateFormat('dd.MM.yyyy').format(freizeit.endDate)}",
             style: TextStyle(
               fontSize: 42 / MediaQuery.of(context).devicePixelRatio,
               color: Theme.of(context).dividerColor,
@@ -115,11 +110,7 @@ class _freizeitChildWidget extends StatelessWidget {
             size: 72 / MediaQuery.of(context).devicePixelRatio,
           ),
           title: Text(
-            freizeit.location.adress +
-                "\n" +
-                freizeit.location.street +
-                "\n" +
-                freizeit.location.postalCode,
+            "${freizeit.location.adress}\n${freizeit.location.street}\n${freizeit.location.postalCode}",
             style: TextStyle(
               fontSize: 42 / MediaQuery.of(context).devicePixelRatio,
             ),
@@ -130,11 +121,8 @@ class _freizeitChildWidget extends StatelessWidget {
               color: Theme.of(context).colorScheme.secondary,
             ),
             onTap: () async {
-              await MapLauncher.launchQuery(freizeit.location.adress +
-                  "," +
-                  freizeit.location.street +
-                  ", " +
-                  freizeit.location.postalCode);
+              await MapLauncher.launchQuery(
+                  "${freizeit.location.adress},${freizeit.location.street}, ${freizeit.location.postalCode}");
             },
           ),
         ),
@@ -145,7 +133,7 @@ class _freizeitChildWidget extends StatelessWidget {
             size: 72 / MediaQuery.of(context).devicePixelRatio,
           ),
           title: Text(
-            freizeit.ageFrom.toString() + " - " + freizeit.ageTo.toString(),
+            "${freizeit.ageFrom} - ${freizeit.ageTo}",
             style: TextStyle(
               fontSize: 42 / MediaQuery.of(context).devicePixelRatio,
               color: Theme.of(context).dividerColor,
@@ -209,9 +197,7 @@ class _freizeitChildWidget extends StatelessWidget {
               }
             },
             child: Text(
-              "Anmelden \n(Anmeldeschluss:" +
-                  DateFormat('dd.MM.yyyy').format(freizeit.registrationEnd) +
-                  ")",
+              "Anmelden \n(Anmeldeschluss:${DateFormat('dd.MM.yyyy').format(freizeit.registrationEnd)})",
               style: TextStyle(
                 color: Theme.of(context).dividerColor,
               ),

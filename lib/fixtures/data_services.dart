@@ -1,3 +1,5 @@
+// ignore_for_file: no_leading_underscores_for_local_identifiers
+
 import 'package:eje/pages/articles/domain/entity/Hyperlink.dart';
 import 'package:eje/pages/eje/services/domain/entities/Service.dart';
 import 'package:hive/hive.dart';

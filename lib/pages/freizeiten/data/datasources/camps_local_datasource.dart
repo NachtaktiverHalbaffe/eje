@@ -6,14 +6,14 @@ import 'package:hive/hive.dart';
 class CampsLocalDatasource {
   Future<List<Camp>> getCachedCamps() async {
     final AppConfig appConfig = await AppConfig.loadConfig();
-    final Box _box = Hive.box(appConfig.campsBox);
+    final Box box = Hive.box(appConfig.campsBox);
 
     // load data from cache
-    if (_box.isNotEmpty) {
+    if (box.isNotEmpty) {
       List<Camp> data = List.empty(growable: true);
-      for (int i = 0; i < _box.length; i++) {
-        if (_box.getAt(i) != null) {
-          data.add(_box.getAt(i));
+      for (int i = 0; i < box.length; i++) {
+        if (box.getAt(i) != null) {
+          data.add(box.getAt(i));
         }
       }
       return data;
@@ -24,12 +24,12 @@ class CampsLocalDatasource {
 
   Future<Camp> getCamp(Camp freizeit) async {
     final AppConfig appConfig = await AppConfig.loadConfig();
-    final Box _box = Hive.box(appConfig.campsBox);
+    final Box box = Hive.box(appConfig.campsBox);
 
     // get specific data entry from cache
-    if (_box.isNotEmpty) {
-      for (int i = 0; i < _box.length; i++) {
-        Camp camp = _box.getAt(i);
+    if (box.isNotEmpty) {
+      for (int i = 0; i < box.length; i++) {
+        Camp camp = box.getAt(i);
         if (camp == freizeit) {
           return camp;
         }
@@ -42,11 +42,11 @@ class CampsLocalDatasource {
 
   Future<void> cacheCamps(List<Camp> campsToCache) async {
     final AppConfig appConfig = await AppConfig.loadConfig();
-    final Box _box = Hive.box(appConfig.campsBox);
+    final Box box = Hive.box(appConfig.campsBox);
 
-    if (_box.isNotEmpty) {
-      await _box.clear();
+    if (box.isNotEmpty) {
+      await box.clear();
     }
-    await _box.addAll(campsToCache);
+    await box.addAll(campsToCache);
   }
 }

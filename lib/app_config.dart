@@ -13,10 +13,6 @@ class AppConfig {
   final String bakEndpoint;
   // Endpoint for WebScraper to feed "Arbeitsbereiche"
   final String fieldOfWorkEndpoint;
-  // API Endpoint to feed "Freizeiten" and "Termine"
-  final String ejwManager;
-  // Token for ejwManage
-  final String ejwManagerToken;
   // ID of html element "header" which should not be webscraped
   final String idHeader;
   // ID of html element "contacts" which should not be webscraped
@@ -43,24 +39,22 @@ class AppConfig {
   final String eventsBox;
 
   AppConfig({
-    this.domain,
-    this.newsEndpoint,
-    this.employeesEndpoint,
-    this.bakEndpoint,
-    this.fieldOfWorkEndpoint,
-    this.ejwManager,
-    this.ejwManagerToken,
-    this.idHeader,
-    this.idContact,
-    this.idAdress,
-    this.newsBox,
-    this.articlesBox,
-    this.fieldOfWorkBox,
-    this.bakBox,
-    this.employeesBox,
-    this.servicesBox,
-    this.campsBox,
-    this.eventsBox,
+    this.domain = "",
+    this.newsEndpoint = "",
+    this.employeesEndpoint = "",
+    this.bakEndpoint = "",
+    this.fieldOfWorkEndpoint = "",
+    this.idHeader = "",
+    this.idContact = "",
+    this.idAdress = "",
+    this.newsBox = "",
+    this.articlesBox = "",
+    this.fieldOfWorkBox = "",
+    this.bakBox = "",
+    this.employeesBox = "",
+    this.servicesBox = "",
+    this.campsBox = "",
+    this.eventsBox = "",
   });
 
   // Loads config either from dev configuration or from production configuration
@@ -87,8 +81,6 @@ class AppConfig {
         employeesEndpoint: json['employeesEndpoint'],
         bakEndpoint: json['bakEndpoint'],
         fieldOfWorkEndpoint: json['fieldOfWorkEndpoint'],
-        ejwManager: json['ejwManager'],
-        ejwManagerToken: json['ejwManagerToken'],
         idHeader: json["idHeader"],
         idContact: json["idContact"],
         idAdress: json["idAdress"],

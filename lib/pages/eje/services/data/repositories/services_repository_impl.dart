@@ -6,7 +6,6 @@ import 'package:eje/pages/eje/services/data/datasources/services_local_datasourc
 import 'package:eje/pages/eje/services/data/datasources/services_remote_datasource.dart';
 import 'package:eje/pages/eje/services/domain/entities/Service.dart';
 import 'package:eje/pages/eje/services/domain/repositories/services_repository.dart';
-import 'package:flutter/material.dart';
 
 class ServicesRepositoryImpl implements ServicesRepository {
   final ServicesRemoteDatasource remoteDataSource;
@@ -15,17 +14,17 @@ class ServicesRepositoryImpl implements ServicesRepository {
 
   //Constructor
   ServicesRepositoryImpl({
-    @required this.remoteDataSource,
-    @required this.localDatasource,
-    @required this.networkInfo,
+    required this.remoteDataSource,
+    required this.localDatasource,
+    required this.networkInfo,
   });
 
   //Lade Artikel aus den Internet herunter
   @override
   Future<Either<Failure, List<Service>>> getServices() async {
     try {
-      List<Service> _service = await localDatasource.getCachedServices();
-      return Right(_service);
+      List<Service> service = await localDatasource.getCachedServices();
+      return Right(service);
     } on CacheException {
       return Left(CacheFailure());
     }
@@ -46,8 +45,8 @@ class ServicesRepositoryImpl implements ServicesRepository {
       }
     } else {
       try {
-        List<Service> _services = await localDatasource.getCachedServices();
-        for (var value in _services) {
+        List<Service> services = await localDatasource.getCachedServices();
+        for (var value in services) {
           if (value.service == service.service) {
             return Right(value);
           }

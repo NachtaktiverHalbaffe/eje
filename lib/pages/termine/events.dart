@@ -41,6 +41,8 @@ class Events extends StatelessWidget {
                 BlocProvider.of<TermineBloc>(context).add(RefreshEvents());
               },
             );
+          } else {
+            return Center();
           }
         },
       ),

@@ -2,22 +2,19 @@
 import 'dart:convert';
 import 'package:eje/core/error/exception.dart';
 import 'package:eje/core/platform/location.dart';
+import 'package:eje/core/utils/env.dart';
 import 'package:eje/pages/termine/domain/entities/Event.dart';
 import 'package:http/http.dart' as http;
 import 'package:html2md/html2md.dart' as html2md;
 import 'package:http/http.dart';
-import 'package:meta/meta.dart';
-
-import '../../../../app_config.dart';
 
 class TermineRemoteDatasource {
   final http.Client client;
-  TermineRemoteDatasource({@required this.client});
+  TermineRemoteDatasource({required this.client});
 
   Future<List<Event>> getTermine() async {
-    final AppConfig appConfig = await AppConfig.loadConfig();
-    final API_URL = appConfig.ejwManager;
-    final API_TOKEN = appConfig.ejwManagerToken;
+    final API_URL = Env.amosURL;
+    final API_TOKEN = Env.amosToken;
     List<Event> events = List.empty(growable: true);
 
     // Get http Response
@@ -31,7 +28,7 @@ class TermineRemoteDatasource {
         },
       );
     } catch (e) {
-      print("EventsAPI error: " + e.toString());
+      print("EventsAPI error: $e");
       throw ConnectionException();
     }
     if (response.statusCode == 200) {
@@ -45,19 +42,17 @@ class TermineRemoteDatasource {
             pictures.add(value["url"]);
           });
           events.add(Event(
-            id: responseData[i]['id'] != null ? responseData[i]['id'] : 0,
+            id: responseData[i]['id'] ?? 0,
             name: responseData[i]['name'] ?? "",
             motto: responseData[i]['teaser'] ?? "",
             images: pictures.isNotEmpty ? pictures : [""],
             description: responseData[i]['description'] != null
                 ? html2md.convert(responseData[i]['description'])
                 : "",
-            startDate: responseData[i]['startDate'] != null
-                ? DateTime.tryParse(responseData[i]['startDate'])
-                : DateTime.now(),
-            endDate: responseData[i]['endDate'] != null
-                ? DateTime.tryParse(responseData[i]['endDate'])
-                : DateTime.now(),
+            startDate: DateTime.tryParse(responseData[i]['startDate']) ??
+                DateTime.now(),
+            endDate:
+                DateTime.tryParse(responseData[i]['endDate']) ?? DateTime.now(),
             location: responseData[i]['location'] != null
                 ? _parseLocation(responseData[i]['location'])
                 : Location("Musterort", "Musterstraße 1", "12345 Musterstadt"),
@@ -77,11 +72,11 @@ class TermineRemoteDatasource {
 
     String streetName = locationData['street'] ?? "";
     String houseNumber = locationData['houseNumber'] ?? "";
-    String street = streetName + " " + houseNumber;
+    String street = "$streetName $houseNumber";
 
     String zip = locationData['zip'] ?? "";
     String city = locationData['city'] ?? "";
-    String postalCode = zip + " " + city;
+    String postalCode = "$zip $city";
     return Location(adress, street, postalCode);
   }
 }

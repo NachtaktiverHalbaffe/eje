@@ -1,6 +1,5 @@
 import 'package:eje/pages/eje/bak/domain/entitys/BAKler.dart';
 import 'package:equatable/equatable.dart';
-import 'package:meta/meta.dart';
 
 abstract class BakState extends Equatable {
   const BakState();
@@ -40,7 +39,7 @@ class LoadedBAKler extends BakState {
 class Error extends BakState {
   final String message;
 
-  Error({@required this.message});
+  Error({required this.message});
 
   @override
   List<Object> get props => [message];

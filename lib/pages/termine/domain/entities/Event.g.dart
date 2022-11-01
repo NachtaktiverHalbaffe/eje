@@ -20,7 +20,7 @@ class EventAdapter extends TypeAdapter<Event> {
       name: fields[0] as String,
       motto: fields[1] as String,
       description: fields[2] as String,
-      images: (fields[3] as List)?.cast<String>(),
+      images: (fields[3] as List).cast<String>(),
       startDate: fields[4] as DateTime,
       endDate: fields[5] as DateTime,
       location: fields[6] as Location,

@@ -45,7 +45,7 @@ class NewsDetails extends StatelessWidget {
 
 class NewsCard extends StatelessWidget {
   final Article article;
-  const NewsCard({Key key, this.article}) : super(key: key);
+  const NewsCard({required this.article}) : super();
 
   @override
   Widget build(BuildContext context) {

@@ -6,7 +6,6 @@ import 'package:eje/pages/eje/hauptamtlichen/data/datasources/employees_local_da
 import 'package:eje/pages/eje/hauptamtlichen/data/datasources/employees_remote_datasource.dart';
 import 'package:eje/pages/eje/hauptamtlichen/domain/entitys/employee.dart';
 import 'package:eje/pages/eje/hauptamtlichen/domain/repositories/employees_repository.dart';
-import 'package:meta/meta.dart';
 
 class EmployeesRepositoryImpl implements EmployeesRepository {
   final EmployeesRemoteDatasource remoteDataSource;
@@ -15,9 +14,9 @@ class EmployeesRepositoryImpl implements EmployeesRepository {
 
   //Constructor
   EmployeesRepositoryImpl({
-    @required this.remoteDataSource,
-    @required this.localDatasource,
-    @required this.networkInfo,
+    required this.remoteDataSource,
+    required this.localDatasource,
+    required this.networkInfo,
   });
 
   //Lade Artikel aus den Internet herunter
@@ -46,9 +45,8 @@ class EmployeesRepositoryImpl implements EmployeesRepository {
   @override
   Future<Either<Failure, Employee>> getEmployee(String name) async {
     try {
-      List<Employee> _hauptamtliche =
-          await localDatasource.getCachedEmployees();
-      for (var value in _hauptamtliche) {
+      List<Employee> hauptamtliche = await localDatasource.getCachedEmployees();
+      for (var value in hauptamtliche) {
         if (value.name == name) {
           return Right(value);
         }

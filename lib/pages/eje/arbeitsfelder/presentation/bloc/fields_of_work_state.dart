@@ -1,6 +1,5 @@
 import 'package:eje/pages/eje/arbeitsfelder/domain/entities/field_of_work.dart';
 import 'package:equatable/equatable.dart';
-import 'package:meta/meta.dart';
 
 abstract class FieldOfWorkState extends Equatable {
   const FieldOfWorkState();
@@ -39,7 +38,7 @@ class LoadedFieldOfWork extends FieldOfWorkState {
 class Error extends FieldOfWorkState {
   final String message;
 
-  Error({@required this.message});
+  Error({required this.message});
 
   @override
   List<Object> get props => [message];

@@ -1,6 +1,5 @@
 import 'package:eje/pages/eje/hauptamtlichen/domain/entitys/employee.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/foundation.dart';
 
 abstract class EmployeesState extends Equatable {
   const EmployeesState();
@@ -40,7 +39,7 @@ class LoadedEmployee extends EmployeesState {
 class Error extends EmployeesState {
   final String message;
 
-  Error({@required this.message});
+  Error({required this.message});
 
   @override
   List<Object> get props => [message];

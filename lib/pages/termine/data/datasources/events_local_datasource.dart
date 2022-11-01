@@ -6,14 +6,14 @@ import 'package:hive/hive.dart';
 class EventLocalDatasource {
   Future<List<Event>> getCachedEvents() async {
     final AppConfig appConfig = await AppConfig.loadConfig();
-    final Box _box = Hive.box(appConfig.eventsBox);
+    final Box box = Hive.box(appConfig.eventsBox);
 
     // load data from cache
-    if (_box.isNotEmpty) {
+    if (box.isNotEmpty) {
       List<Event> data = List.empty(growable: true);
-      for (int i = 0; i < _box.length; i++) {
-        if (_box.getAt(i) != null) {
-          data.add(_box.getAt(i));
+      for (int i = 0; i < box.length; i++) {
+        if (box.getAt(i) != null) {
+          data.add(box.getAt(i));
         }
       }
       return data;
@@ -24,12 +24,12 @@ class EventLocalDatasource {
 
   Future<Event> getEvent(int id) async {
     final AppConfig appConfig = await AppConfig.loadConfig();
-    final Box _box = Hive.box(appConfig.eventsBox);
+    final Box box = Hive.box(appConfig.eventsBox);
 
     // load specific data entry from cache
-    if (_box.isNotEmpty) {
-      for (int i = 0; i < _box.length; i++) {
-        Event event = _box.getAt(i);
+    if (box.isNotEmpty) {
+      for (int i = 0; i < box.length; i++) {
+        Event event = box.getAt(i);
         if (event.id == id) {
           return event;
         }
@@ -42,11 +42,11 @@ class EventLocalDatasource {
 
   Future<void> cacheEvents(List<Event> eventsToCache) async {
     final AppConfig appConfig = await AppConfig.loadConfig();
-    final Box _box = Hive.box(appConfig.eventsBox);
+    final Box box = Hive.box(appConfig.eventsBox);
 
-    if (_box.isNotEmpty) {
-      await _box.clear();
+    if (box.isNotEmpty) {
+      await box.clear();
     }
-    await _box.addAll(eventsToCache);
+    await box.addAll(eventsToCache);
   }
 }

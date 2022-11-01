@@ -29,7 +29,8 @@ class Einstellungen extends StatelessWidget {
             return LoadingIndicator();
           } else if (state is LoadedPreferences) {
             return EinstellungenPage();
-          }
+          } else
+            return Center();
         },
       ),
     );

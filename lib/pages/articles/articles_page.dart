@@ -9,7 +9,7 @@ import 'presentation/bloc/articles_bloc.dart';
 
 class ArticlesPage extends StatelessWidget {
   final String url;
-  const ArticlesPage({this.url});
+  const ArticlesPage({required this.url});
 
   @override
   Widget build(BuildContext context) {

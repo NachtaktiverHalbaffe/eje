@@ -6,14 +6,14 @@ import 'package:hive/hive.dart';
 class ArbeitsbereicheLocalDatasource {
   Future<List<FieldOfWork>> getCachedArbeitsbereiche() async {
     final AppConfig appConfig = await AppConfig.loadConfig();
-    final Box _box = Hive.box(appConfig.fieldOfWorkBox);
+    final Box box = Hive.box(appConfig.fieldOfWorkBox);
 
     //Load all field of works from cache
-    if (_box.isNotEmpty) {
+    if (box.isNotEmpty) {
       List<FieldOfWork> data = List.empty(growable: true);
-      for (int i = 0; i < _box.length; i++) {
-        if (_box.getAt(i) != null) {
-          data.add(_box.getAt(i));
+      for (int i = 0; i < box.length; i++) {
+        if (box.getAt(i) != null) {
+          data.add(box.getAt(i));
         }
       }
 
@@ -25,12 +25,12 @@ class ArbeitsbereicheLocalDatasource {
 
   Future<FieldOfWork> getArbeitsbereich(String arbeitsfeld) async {
     final AppConfig appConfig = await AppConfig.loadConfig();
-    final Box _box = Hive.box(appConfig.fieldOfWorkBox);
+    final Box box = Hive.box(appConfig.fieldOfWorkBox);
 
     // Load specific field of work
-    if (_box.isNotEmpty) {
-      for (int i = 0; i < _box.length; i++) {
-        FieldOfWork temp = _box.getAt(i);
+    if (box.isNotEmpty) {
+      for (int i = 0; i < box.length; i++) {
+        FieldOfWork temp = box.getAt(i);
         if (temp.name == arbeitsfeld) {
           return temp;
         }
@@ -43,11 +43,11 @@ class ArbeitsbereicheLocalDatasource {
 
   Future<void> cacheBAK(List<FieldOfWork> arbeitsbereicheToCache) async {
     final AppConfig appConfig = await AppConfig.loadConfig();
-    final Box _box = Hive.box(appConfig.fieldOfWorkBox);
+    final Box box = Hive.box(appConfig.fieldOfWorkBox);
 
-    if (_box.isNotEmpty) {
-      await _box.clear();
+    if (box.isNotEmpty) {
+      await box.clear();
     }
-    await _box.addAll(arbeitsbereicheToCache);
+    await box.addAll(arbeitsbereicheToCache);
   }
 }

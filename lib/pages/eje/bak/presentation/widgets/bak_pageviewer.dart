@@ -10,7 +10,7 @@ import 'package:flutter_swiper_plus/flutter_swiper_plus.dart';
 class BAKPageViewer extends StatelessWidget {
   final List<BAKler> bakler;
 
-  const BAKPageViewer({Key key, this.bakler}) : super(key: key);
+  const BAKPageViewer({required this.bakler}) : super();
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +33,7 @@ class BAKPageViewer extends StatelessWidget {
 class KontaktCard extends StatelessWidget {
   final BAKler bakler;
 
-  const KontaktCard({Key key, this.bakler}) : super(key: key);
+  const KontaktCard({required this.bakler}) : super();
 
   @override
   Widget build(BuildContext context) {

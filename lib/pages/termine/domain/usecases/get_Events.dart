@@ -5,20 +5,19 @@ import 'package:eje/core/usecases/usecase.dart';
 import 'package:eje/pages/termine/domain/entities/Event.dart';
 import 'package:eje/pages/termine/domain/repsoitories/events_repository.dart';
 import 'package:hive/hive.dart';
-import 'package:meta/meta.dart';
 
 class GetEvents implements UseCase<List<Event>> {
   final EventsRepository repository;
-  GetEvents({@required this.repository});
+  GetEvents({required this.repository});
 
   @override
   Future<Either<Failure, List<Event>>> call() async {
     final AppConfig appConfig = await AppConfig.loadConfig();
-    final Box _box = await Hive.openBox(appConfig.eventsBox);
+    final Box box = await Hive.openBox(appConfig.eventsBox);
     final result = await repository.getEvents();
-    if (_box.isOpen) {
-      await _box.compact();
-      await _box.close();
+    if (box.isOpen) {
+      await box.compact();
+      await box.close();
     }
     return result;
   }

@@ -13,7 +13,7 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hive/hive.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
+import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'pages/neuigkeiten/news_page.dart';
 import 'core/utils/startup.dart';
 
@@ -21,12 +21,13 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await startup();
   //Getting data if app was launched from application
-  int initialIndex = 0;
-  final NotificationAppLaunchDetails notificationAppLaunchDetails =
+  int? initialIndex = 0;
+  final NotificationAppLaunchDetails? notificationAppLaunchDetails =
       await notificationPlugin.flutterLocalNotificationsPlugin
           .getNotificationAppLaunchDetails();
-  if (notificationAppLaunchDetails.didNotificationLaunchApp) {
-    initialIndex = int.parse(notificationAppLaunchDetails.payload);
+  if (notificationAppLaunchDetails!.didNotificationLaunchApp) {
+    initialIndex = int.parse(
+        notificationAppLaunchDetails.notificationResponse?.payload ?? "0");
   }
 
   runApp(MyApp(initialIndex));
@@ -58,7 +59,8 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title, this.initialIndex}) : super(key: key);
+  MyHomePage({Key? key, required this.title, required this.initialIndex})
+      : super(key: key);
   final String title;
 
   final int initialIndex;

@@ -18,11 +18,11 @@ class Article extends Equatable {
   final List<Hyperlink> hyperlinks;
 
   Article({
-    this.url,
-    this.titel,
-    this.content,
-    this.bilder,
-    this.hyperlinks,
+    required this.url,
+    required this.titel,
+    required this.content,
+    required this.bilder,
+    required this.hyperlinks,
   });
 
   @override

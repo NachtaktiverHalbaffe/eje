@@ -1,4 +1,4 @@
-// ignore_for_file: non_constant_identifier_names, prefer_typing_uninitialized_variables
+// ignore_for_file: non_constant_identifier_names, prefer_typing_uninitialized_variables, no_leading_underscores_for_local_identifiers
 import 'package:eje/app_config.dart';
 import 'package:eje/core/error/exception.dart';
 import 'package:eje/pages/articles/domain/entity/Article.dart';
@@ -93,10 +93,10 @@ class WebScraper {
                       _parsePictures(parent[i], DOMAIN);
                   bilder.addAll(parsedPictures);
                 } catch (e) {
-                  print("Webscaper error: " + e.toString());
+                  print("Webscaper error: $e");
                   throw ServerException();
                 }
-                content = content + "\n\n";
+                content = "$content\n\n";
                 // ! Hyperlink parsing
                 if (i == 1) {
                   try {
@@ -104,7 +104,7 @@ class WebScraper {
                         _parseHyperlinks(document, DOMAIN);
                     hyperlinks.addAll(parsedHyperlinks);
                   } catch (e) {
-                    print("Webscaper error: " + e.toString());
+                    print("Webscaper error: $e");
                     // throw ServerException();
                   }
                 }
@@ -113,7 +113,6 @@ class WebScraper {
                   hyperlinks.add(Hyperlink(link: "", description: ""));
                 }
                 //add scraped Section to List of Articles
-
               }
             }
           }
@@ -205,9 +204,8 @@ class WebScraper {
                           .trimLeft()
                           .trimRight();
                     } else if (element.text != "") {
-                      vorstellung = vorstellung +
-                          element.text.trimLeft().trimRight() +
-                          "\n";
+                      vorstellung =
+                          "$vorstellung${element.text.trimLeft().trimRight()}\n";
                     }
                   }
                 });
@@ -222,7 +220,7 @@ class WebScraper {
                     parent[i]
                         .getElementsByClassName('copy-hover width100 ')[0]
                         .getElementsByTagName('img')[0]
-                        .attributes['src']
+                        .attributes['src']!
                         .trimLeft()
                         .trimRight();
               } else if (parent[i]
@@ -234,7 +232,7 @@ class WebScraper {
                         .getElementsByClassName(
                             'col s12 m4 l4 width100 bildtextteaser-image halfpic')[0]
                         .getElementsByTagName('img')[0]
-                        .attributes['src']
+                        .attributes['src']!
                         .trimLeft()
                         .trimRight();
               }
@@ -250,7 +248,7 @@ class WebScraper {
               if (content.contains("&nbsp;")) {
                 content = content.replaceAll("&nbsp;", " ");
               }
-              content = content + "\n\n";
+              content = "$content\n\n";
               //Default values if no hyperlinks are scraped
 
               //add scraped Section to List of Articles
@@ -350,7 +348,7 @@ class WebScraper {
                           .trimLeft()
                           .trimRight();
                     } else if (element.text != "") {
-                      vorstellung = vorstellung + element.text.trim() + "\n\n";
+                      vorstellung = "$vorstellung${element.text.trim()}\n\n";
                     }
                   }
                 });
@@ -365,7 +363,7 @@ class WebScraper {
                     parent[i]
                         .getElementsByClassName('copy-hover width100 ')[0]
                         .getElementsByTagName('img')[0]
-                        .attributes['src']
+                        .attributes['src']!
                         .trimLeft()
                         .trimRight();
               } else if (parent[i]
@@ -377,7 +375,7 @@ class WebScraper {
                         .getElementsByClassName(
                             'col s12 m4 l4 width100 bildtextteaser-image halfpic')[0]
                         .getElementsByTagName('img')[0]
-                        .attributes['src']
+                        .attributes['src']!
                         .trimLeft()
                         .trimRight();
               }
@@ -393,7 +391,7 @@ class WebScraper {
               if (content.contains("&nbsp;")) {
                 content = content.replaceAll("&nbsp;", " ");
               }
-              content = content + "\n\n";
+              content = "$content\n\n";
               //Default values if no hyperlinks are scraped
 
               //add scraped Section to List of Articles
@@ -470,7 +468,7 @@ class WebScraper {
                     parent[i]
                         .getElementsByClassName('card-image')[0]
                         .getElementsByTagName('img')[0]
-                        .attributes['src']
+                        .attributes['src']!
                         .trimLeft()
                         .trimRight());
               }
@@ -480,7 +478,7 @@ class WebScraper {
                     parent[i]
                         .getElementsByClassName('card-action')[0]
                         .getElementsByTagName('a')[0]
-                        .attributes['href'];
+                        .attributes['href']!;
               }
 
               //add scraped Section to List of Articles
@@ -531,23 +529,23 @@ class WebScraper {
               if ((DOMAIN +
                       parent[i]
                           .getElementsByTagName('a')[0]
-                          .attributes['href']) ==
+                          .attributes['href']!) ==
                   hyperlinks[k].link) {
                 isAlreadyInCache = true;
               }
             }
             if (!isAlreadyInCache) {
               links.add(DOMAIN +
-                  parent[i].getElementsByTagName('a')[0].attributes['href']);
+                  parent[i].getElementsByTagName('a')[0].attributes['href']!);
               description.add(
-                  parent[i].getElementsByTagName('a')[0].attributes['title']);
+                  parent[i].getElementsByTagName('a')[0].attributes['title']!);
             }
           }
         } else {
           links.addAll(parent
               .map((element) =>
                   DOMAIN +
-                  element.getElementsByTagName('a')[0].attributes['href'])
+                  element.getElementsByTagName('a')[0].attributes['href']!)
               .toList());
           description.addAll(parent
               .map((element) => element.getElementsByTagName('a')[0].innerHtml)
@@ -570,7 +568,7 @@ class WebScraper {
             await WebScraper().scrapeWebPage(service.hyperlinks[0].link);
         List<String> bilder = service.images.sublist(0, 1);
         bilder.addAll(_article.bilder);
-        List hyperlinks = service.hyperlinks.sublist(0, 1);
+        List<Hyperlink> hyperlinks = service.hyperlinks.sublist(0, 1);
         hyperlinks.addAll(_article.hyperlinks);
         String content = service.description;
 
@@ -703,7 +701,7 @@ String _parseContent(parent, DOMAIN) {
       }
     }
     if (child.localName == "li") {
-      parsed = "\n- " + parsed.trim();
+      parsed = "\n- ${parsed.trim()}";
     }
     if (parsed.contains("•")) {
       parsed = parsed.replaceAll("•", "\n- ");
@@ -835,7 +833,7 @@ String _parseContent(parent, DOMAIN) {
       }
     }
 
-    content += parsed.trim() + "\n\n";
+    content += "${parsed.trim()}\n\n";
   }
 
   return content;
@@ -890,8 +888,8 @@ List<Hyperlink> _parseHyperlinks(document, DOMAIN) {
   }
   // Check if there is a table with links
   if (document.getElementsByClassName('collection-item row').isNotEmpty) {
-    List<String> links;
-    List<String> description;
+    List<String> links = List.empty(growable: true);
+    List<String> description = List.empty(growable: true);
     links.addAll(document
         .getElementsByClassName('collection-item row')
         .map((element) =>

@@ -6,14 +6,14 @@ import 'package:hive/hive.dart';
 class ArticlesLocalDatasource {
   Future<List<Article>> getCachedArticles() async {
     final AppConfig appConfig = await AppConfig.loadConfig();
-    final Box _box = Hive.box(appConfig.articlesBox);
+    final Box box = Hive.box(appConfig.articlesBox);
 
     // Load data from cache
-    if (_box.isNotEmpty) {
+    if (box.isNotEmpty) {
       List<Article> data = List.empty(growable: true);
-      for (int i = 0; i < _box.length; i++) {
-        if (_box.getAt(i) != null) {
-          data.add(_box.getAt(i));
+      for (int i = 0; i < box.length; i++) {
+        if (box.getAt(i) != null) {
+          data.add(box.getAt(i));
         }
       }
       return data;
@@ -24,12 +24,12 @@ class ArticlesLocalDatasource {
 
   Future<Article> getArticle(String url) async {
     final AppConfig appConfig = await AppConfig.loadConfig();
-    final Box _box = Hive.box(appConfig.articlesBox);
+    final Box box = Hive.box(appConfig.articlesBox);
 
     // Load specific article from cache
-    if (_box.isNotEmpty) {
-      for (int i = 0; i < _box.length; i++) {
-        Article article = _box.getAt(i);
+    if (box.isNotEmpty) {
+      for (int i = 0; i < box.length; i++) {
+        Article article = box.getAt(i);
         if (article.url == url) {
           return article;
         }
@@ -42,20 +42,20 @@ class ArticlesLocalDatasource {
 
   void cacheArticle(Article article) async {
     final AppConfig appConfig = await AppConfig.loadConfig();
-    final Box _box = Hive.box(appConfig.articlesBox);
+    final Box box = Hive.box(appConfig.articlesBox);
 
     // Cache an article if not already cached
-    if (_box.isNotEmpty) {
+    if (box.isNotEmpty) {
       // Delete article from cache if already cached
-      for (int i = 0; i < _box.length; i++) {
-        Article temp = _box.getAt(i);
+      for (int i = 0; i < box.length; i++) {
+        Article temp = box.getAt(i);
         if (temp.url == article.url) {
-          _box.deleteAt(i);
+          box.deleteAt(i);
         }
       }
-      _box.add(article);
-    } else if (_box.isEmpty) {
-      _box.add(article);
+      box.add(article);
+    } else if (box.isEmpty) {
+      box.add(article);
     } else {
       throw CacheException();
     }
@@ -63,19 +63,19 @@ class ArticlesLocalDatasource {
 
   void cacheArticles(List<Article> articlesToCache) async {
     final AppConfig appConfig = await AppConfig.loadConfig();
-    final Box _box = Hive.box(appConfig.articlesBox);
+    final Box box = Hive.box(appConfig.articlesBox);
 
     // Cache multiple articles if not already cached
     for (int i = 0; i < articlesToCache.length; i++) {
       bool alreadyexists = false;
-      for (int k = 0; k < _box.length; k++) {
-        final Article _article = _box.getAt(k);
-        if (_article.url == articlesToCache[i].url) {
+      for (int k = 0; k < box.length; k++) {
+        final Article article = box.getAt(k);
+        if (article.url == articlesToCache[i].url) {
           alreadyexists = true;
         }
       }
       if (alreadyexists == false) {
-        _box.add(articlesToCache[i]);
+        box.add(articlesToCache[i]);
       }
     }
   }

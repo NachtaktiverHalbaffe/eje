@@ -1,6 +1,5 @@
 import 'package:eje/pages/termine/domain/entities/Event.dart';
 import 'package:equatable/equatable.dart';
-import 'package:meta/meta.dart';
 
 abstract class EventsState extends Equatable {
   const EventsState();
@@ -36,7 +35,7 @@ class LoadedEvent extends EventsState {
 
 class Error extends EventsState {
   final String message;
-  Error({@required this.message});
+  Error({required this.message});
 
   @override
   List<Object> get props => [message];

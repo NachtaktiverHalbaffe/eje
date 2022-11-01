@@ -8,7 +8,6 @@ import 'package:eje/pages/eje/bak/presentation/bloc/bak_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 class BAKDetails extends StatelessWidget {
@@ -50,7 +49,7 @@ class BAKDetails extends StatelessWidget {
 class HauptamtlicheDetailsCard extends StatelessWidget {
   final BAKler bakler;
 
-  const HauptamtlicheDetailsCard({Key key, this.bakler}) : super(key: key);
+  const HauptamtlicheDetailsCard({required this.bakler}) : super();
 
   @override
   Widget build(BuildContext context) {
@@ -95,9 +94,9 @@ Widget _childBak(BAKler bakler, BuildContext context) {
                 ),
                 onTap: () async {
                   if (await canLaunchUrlString(
-                      "https://threema.id/" + bakler.threema)) {
+                      "https://threema.id/${bakler.threema}")) {
                     await launchUrlString(
-                        "https://threema.id/" + bakler.threema);
+                        "https://threema.id/${bakler.threema}");
                   } else {
                     throw 'Could not open Threema';
                   }
@@ -126,8 +125,8 @@ Widget _childBak(BAKler bakler, BuildContext context) {
                   color: Theme.of(context).colorScheme.secondary,
                 ),
                 onTap: () async {
-                  if (await canLaunchUrlString("mailto:" + bakler.email)) {
-                    await launchUrlString("mailto:" + bakler.email);
+                  if (await canLaunchUrlString("mailto:${bakler.email}")) {
+                    await launchUrlString("mailto:${bakler.email}");
                   } else {
                     throw 'Could not open Email';
                   }

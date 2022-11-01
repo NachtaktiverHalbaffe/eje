@@ -1,6 +1,5 @@
 import 'package:eje/pages/freizeiten/domain/entities/camp.dart';
 import 'package:equatable/equatable.dart';
-import 'package:meta/meta.dart';
 
 abstract class CampState extends Equatable {
   const CampState();
@@ -48,7 +47,7 @@ class LoadedCamp extends CampState {
 class Error extends CampState {
   final String message;
 
-  Error({@required this.message});
+  Error({required this.message});
 
   @override
   List<Object> get props => [message];

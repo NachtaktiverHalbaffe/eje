@@ -47,7 +47,7 @@ class ServiceDetails extends StatelessWidget {
 class ServiceDetailsCard extends StatelessWidget {
   final Service service;
 
-  const ServiceDetailsCard({Key key, this.service}) : super(key: key);
+  const ServiceDetailsCard({required this.service}) : super();
 
   @override
   Widget build(BuildContext context) {

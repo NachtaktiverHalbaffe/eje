@@ -4,7 +4,6 @@ import 'package:eje/core/usecases/usecase.dart';
 import 'package:eje/pages/eje/bak/domain/entitys/BAKler.dart';
 import 'package:eje/pages/eje/bak/domain/repositories/bak_repository.dart';
 import 'package:hive/hive.dart';
-import 'package:meta/meta.dart';
 
 import '../../../../../app_config.dart';
 
@@ -15,13 +14,13 @@ class GetBAKler implements UseCase<BAKler> {
 
   @override
   Future<Either<Failure, BAKler>> call({
-    @required String name,
+    String? name,
   }) async {
     final AppConfig appConfig = await AppConfig.loadConfig();
-    final Box _box = await Hive.openBox(appConfig.bakBox);
-    final result = await repository.getBAKler(name);
-    if (_box.isOpen) {
-      await _box.compact();
+    final Box box = await Hive.openBox(appConfig.bakBox);
+    final result = await repository.getBAKler(name!);
+    if (box.isOpen) {
+      await box.compact();
       // await _box.close();
     }
     return result;

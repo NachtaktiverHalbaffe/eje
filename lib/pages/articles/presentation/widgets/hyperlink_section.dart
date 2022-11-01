@@ -11,7 +11,8 @@ import 'package:url_launcher/url_launcher_string.dart';
 
 class HyperlinkSection extends StatelessWidget {
   final List<Hyperlink> hyperlinks;
-  const HyperlinkSection({Key key, this.hyperlinks}) : super(key: key);
+
+  const HyperlinkSection({required this.hyperlinks}) : super();
 
   @override
   Widget build(BuildContext context) {
@@ -122,15 +123,14 @@ class ColumnBuilder extends StatelessWidget {
   final int itemCount;
 
   const ColumnBuilder({
-    Key key,
-    @required this.itemBuilder,
-    @required this.itemCount,
+    required this.itemBuilder,
+    required this.itemCount,
     this.mainAxisAlignment = MainAxisAlignment.start,
     this.mainAxisSize = MainAxisSize.max,
     this.crossAxisAlignment = CrossAxisAlignment.center,
-    this.textDirection,
+    this.textDirection = TextDirection.ltr,
     this.verticalDirection = VerticalDirection.down,
-  }) : super(key: key);
+  }) : super();
 
   @override
   Widget build(BuildContext context) {

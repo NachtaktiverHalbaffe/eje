@@ -6,14 +6,14 @@ import 'package:hive/hive.dart';
 class BAKLocalDatasource {
   Future<List<BAKler>> getCachedBAK() async {
     final AppConfig appConfig = await AppConfig.loadConfig();
-    Box _box = Hive.box(appConfig.bakBox);
+    Box box = Hive.box(appConfig.bakBox);
 
     // load data from cache
-    if (_box.isNotEmpty) {
+    if (box.isNotEmpty) {
       List<BAKler> data = List.empty(growable: true);
-      for (int i = 0; i < _box.length; i++) {
-        if (_box.getAt(i) != null) {
-          data.add(_box.getAt(i));
+      for (int i = 0; i < box.length; i++) {
+        if (box.getAt(i) != null) {
+          data.add(box.getAt(i));
         }
       }
       return data;
@@ -24,12 +24,12 @@ class BAKLocalDatasource {
 
   Future<BAKler> getBAKler(String name) async {
     final appConfig = await AppConfig.loadConfig();
-    Box _box = Hive.box(appConfig.bakBox);
+    Box box = Hive.box(appConfig.bakBox);
 
     // load specific data entry from cache
-    if (_box.isNotEmpty) {
-      for (int i = 0; i < _box.length; i++) {
-        BAKler temp = _box.getAt(i);
+    if (box.isNotEmpty) {
+      for (int i = 0; i < box.length; i++) {
+        BAKler temp = box.getAt(i);
         if (temp.name == name) {
           return temp;
         }
@@ -42,11 +42,11 @@ class BAKLocalDatasource {
 
   Future<void> cacheBAK(List<BAKler> bakToCache) async {
     final AppConfig appConfig = await AppConfig.loadConfig();
-    Box _box = Hive.box(appConfig.bakBox);
+    Box box = Hive.box(appConfig.bakBox);
 
-    if (_box.isNotEmpty) {
-      await _box.clear();
+    if (box.isNotEmpty) {
+      await box.clear();
     }
-    await _box.addAll(bakToCache);
+    await box.addAll(bakToCache);
   }
 }

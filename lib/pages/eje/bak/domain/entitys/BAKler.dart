@@ -1,6 +1,5 @@
 import 'package:equatable/equatable.dart';
 import 'package:hive/hive.dart';
-import 'package:meta/meta.dart';
 
 part 'BAKler.g.dart';
 
@@ -21,12 +20,12 @@ class BAKler extends Equatable {
   final String threema;
 
   BAKler({
-    @required this.image,
-    @required this.name,
-    @required this.function,
-    @required this.introduction,
-    @required this.email,
-    @required this.threema,
+    required this.image,
+    required this.name,
+    required this.function,
+    required this.introduction,
+    required this.email,
+    required this.threema,
   });
 
   @override

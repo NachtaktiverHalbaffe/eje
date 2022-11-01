@@ -9,5 +9,5 @@ class Hyperlink {
   @HiveField(1)
   String description;
 
-  Hyperlink({this.link, this.description});
+  Hyperlink({required this.link, required this.description});
 }

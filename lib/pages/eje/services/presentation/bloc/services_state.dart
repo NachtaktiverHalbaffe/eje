@@ -39,7 +39,7 @@ class Error extends ServicesState {
   final String message;
 
   //Constructor
-  Error({@required this.message});
+  Error({required this.message});
 
   @override
   List<Object> get props => [message];

@@ -4,7 +4,6 @@ import 'package:eje/core/error/failures.dart';
 import 'package:eje/core/usecases/usecase.dart';
 import 'package:eje/pages/eje/services/domain/entities/Service.dart';
 import 'package:eje/pages/eje/services/domain/repositories/services_repository.dart';
-import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 
 class GetService implements UseCase<Service> {
@@ -14,13 +13,13 @@ class GetService implements UseCase<Service> {
 
   @override
   Future<Either<Failure, Service>> call({
-    @required Service service,
+    Service? service,
   }) async {
     final AppConfig appConfig = await AppConfig.loadConfig();
-    final Box _box = await Hive.openBox(appConfig.servicesBox);
-    final result = await repository.getService(service);
-    if (_box.isOpen) {
-      await _box.compact();
+    final Box box = await Hive.openBox(appConfig.servicesBox);
+    final result = await repository.getService(service!);
+    if (box.isOpen) {
+      await box.compact();
       // await _box.close();
     }
     return result;

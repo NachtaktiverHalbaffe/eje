@@ -1,6 +1,5 @@
 import 'package:equatable/equatable.dart';
 import 'package:hive/hive.dart';
-import 'package:meta/meta.dart';
 
 part 'employee.g.dart';
 
@@ -25,14 +24,14 @@ class Employee extends Equatable {
   final String threema;
 
   Employee({
-    @required this.image,
-    @required this.name,
-    @required this.function,
-    @required this.introduction,
-    @required this.email,
-    @required this.telefon,
-    @required this.handy,
-    @required this.threema,
+    required this.image,
+    required this.name,
+    required this.function,
+    required this.introduction,
+    required this.email,
+    required this.telefon,
+    required this.handy,
+    required this.threema,
   });
 
   @override

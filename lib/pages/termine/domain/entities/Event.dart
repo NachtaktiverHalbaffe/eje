@@ -1,7 +1,6 @@
 import 'package:eje/core/platform/location.dart';
 import 'package:equatable/equatable.dart';
 import 'package:hive/hive.dart';
-import 'package:meta/meta.dart';
 
 part 'Event.g.dart';
 
@@ -27,15 +26,15 @@ class Event extends Equatable {
   final String registrationLink;
 
   Event(
-      {@required this.name,
-      this.motto,
-      this.description,
-      @required this.images,
-      @required this.startDate,
-      @required this.endDate,
-      @required this.location,
-      @required this.id,
-      this.registrationLink});
+      {required this.name,
+      this.motto = "",
+      this.description = "",
+      required this.images,
+      required this.startDate,
+      required this.endDate,
+      required this.location,
+      required this.id,
+      this.registrationLink = ""});
 
   @override
   List<Object> get props => [

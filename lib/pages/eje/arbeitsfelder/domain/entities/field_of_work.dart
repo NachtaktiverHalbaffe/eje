@@ -1,6 +1,5 @@
 import 'package:equatable/equatable.dart';
 import 'package:hive/hive.dart';
-import 'package:meta/meta.dart';
 
 part 'field_of_work.g.dart';
 
@@ -16,10 +15,10 @@ class FieldOfWork extends Equatable {
   final String link;
 
   FieldOfWork({
-    @required this.name,
-    @required this.images,
-    @required this.description,
-    this.link,
+    required this.name,
+    required this.images,
+    required this.description,
+    this.link = "",
   });
 
   @override

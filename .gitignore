@@ -2,6 +2,8 @@
 prod.json
 key.properties
 *.jks
+env.g.dart
+.env 
 
 # Miscellaneous
 *.class

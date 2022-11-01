@@ -1,11 +1,8 @@
 // ignore_for_file: non_constant_identifier_names
-
 import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:eje/pages/eje/bak/domain/usecases/get_bak.dart';
 import 'package:eje/pages/eje/bak/domain/usecases/get_bakler.dart';
-import 'package:meta/meta.dart';
-
 import './bloc.dart';
 
 class BakBloc extends Bloc<BakEvent, BakState> {
@@ -13,35 +10,33 @@ class BakBloc extends Bloc<BakEvent, BakState> {
   final GetBAKler getBAKler;
 
   BakBloc({
-    @required this.getBAK,
-    @required this.getBAKler,
-  }) : super(Empty());
+    required this.getBAK,
+    required this.getBAKler,
+  }) : super(Empty()) {
+    on<RefreshBAK>(_loadBAKler);
+    on<GettingBAKler>(_loadSpecificBAKler);
+  }
 
-  @override
-  Stream<BakState> mapEventToState(
-    BakEvent event,
-  ) async* {
-    if (event is RefreshBAK) {
-      print("Triggered Event: RefreshBak");
-      yield Loading();
-      final bakOrFailure = await getBAK();
-      yield bakOrFailure.fold(
-        (failure) {
-          print("Error");
-          return Error(message: failure.getErrorMsg());
-        },
-        (bak) {
-          print("Succes. Returning LoadedHauptamtliche");
-          return LoadedBAK(bak);
-        },
-      );
-    } else if (event is GettingBAKler) {
-      yield Loading();
-      final bakOrFailure = await getBAKler(name: event.name);
-      yield bakOrFailure.fold(
-        (failure) => Error(message: failure.getErrorMsg()),
-        (bakler) => LoadedBAKler(bakler),
-      );
-    }
+  void _loadBAKler(event, Emitter<BakState> emit) async {
+    print("Triggered Event: RefreshBak");
+    final bakOrFailure = await getBAK();
+    emit(bakOrFailure.fold(
+      (failure) {
+        print("Error");
+        return Error(message: failure.getErrorMsg());
+      },
+      (bak) {
+        print("Succes. Returning LoadedHauptamtliche");
+        return LoadedBAK(bak);
+      },
+    ));
+  }
+
+  void _loadSpecificBAKler(event, Emitter<BakState> emit) async {
+    final bakOrFailure = await getBAKler(name: event.name);
+    emit(bakOrFailure.fold(
+      (failure) => Error(message: failure.getErrorMsg()),
+      (bakler) => LoadedBAKler(bakler),
+    ));
   }
 }

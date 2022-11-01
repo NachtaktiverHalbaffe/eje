@@ -18,7 +18,7 @@ class NewsRemoteDatasource {
     try {
       response = await client.get(apiUrl);
     } catch (e) {
-      print("NewsAPI error: " + e.toString());
+      print("NewsAPI error: $e");
       throw ConnectionException();
     }
     var payload = RssFeed.parse(response.body).items.toList();
@@ -26,22 +26,22 @@ class NewsRemoteDatasource {
     // Parsing
     if (payload.isNotEmpty) {
       for (int i = 0; i < payload.length; i++) {
-        String content = payload[i].description.trim();
+        String content = payload[i].description!.trim();
         if (content.contains("<img src=")) {
           content = payload[i]
-              .description
-              .substring(0, payload[i].description.indexOf("<img src="));
+              .description!
+              .substring(0, payload[i].description!.indexOf("<img src="));
         }
         data.add(
           News(
-            title: payload[i].title,
+            title: payload[i].title ?? "",
             textPreview: content.trim(),
             text: content.trim(),
             images: payload[i].enclosure == null
                 ? [""]
-                : [payload[i].enclosure.url],
-            link: payload[i].link,
-            published: parseDateTimeFromRSS(payload[i].pubDate),
+                : [payload[i].enclosure!.url ?? ""],
+            link: payload[i].link ?? "",
+            published: parseDateTimeFromRSS(payload[i].pubDate ?? ""),
           ),
         );
       }
@@ -82,7 +82,7 @@ class NewsRemoteDatasource {
     } else if (monthString.toLowerCase() == "dec") {
       month = 12;
     }
-    int year = int.parse("20" + dateFromSource.substring(12, 14));
+    int year = int.parse("20${dateFromSource.substring(12, 14)}");
     int hour = int.parse(dateFromSource.substring(15, 17));
     int minutes = int.parse(dateFromSource.substring(18, 20));
     int seconds = int.parse(dateFromSource.substring(21, 23));

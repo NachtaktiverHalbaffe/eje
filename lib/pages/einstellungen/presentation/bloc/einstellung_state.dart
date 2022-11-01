@@ -1,6 +1,5 @@
 import 'package:eje/pages/einstellungen/domain/entitys/einstellung.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
 
 abstract class EinstellungState extends Equatable {
   const EinstellungState();
@@ -36,7 +35,7 @@ class LoadedPreferences extends EinstellungState {
 class Error extends EinstellungState {
   final String message;
   //Constructor
-  Error({@required this.message});
+  Error({required this.message});
 
   @override
   List<Object> get props => [message];

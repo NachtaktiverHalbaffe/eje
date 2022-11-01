@@ -16,29 +16,32 @@ class EinstellungBloc extends Bloc<EinstellungEvent, EinstellungState> {
   final GetPreference getPreference;
 
   EinstellungBloc(this.storePrefrences, this.getPrefrences, this.getPreference)
-      : super(Empty());
+      : super(Empty()) {
+    on<StoringPreferences>(_storePrefrences);
+    on<GettingPreferences>(_loadPrefrences);
+    on<GettingPreference>(_loadSpecificPrefrence);
+  }
 
-  @override
-  Stream<EinstellungState> mapEventToState(
-    EinstellungEvent event,
-  ) async* {
-    if (event is StoringPreferences) {
-      final einstellungOrFailure = await storePrefrences(
-          preference: event.preference, state: event.state);
-      yield einstellungOrFailure.fold(
-          (failure) => Error(message: CACHE_FAILURE_MESSAGE),
-          (prefs) => ChangedPreferences());
-    } else if (event is GettingPreferences) {
-      final einstellungOrFailure = await getPrefrences();
-      yield einstellungOrFailure.fold(
-          (failure) => Error(message: CACHE_FAILURE_MESSAGE),
-          (prefs) => LoadedPreferences());
-    } else if (event is GettingPreference) {
-      final einstellungOrFailure =
-          await getPreference(preference: event.preference);
-      yield einstellungOrFailure.fold(
-          (failure) => Error(message: CACHE_FAILURE_MESSAGE),
-          (einstellung) => LoadedPreference(einstellung));
-    }
+  void _storePrefrences(event, Emitter<EinstellungState> emit) async {
+    final einstellungOrFailure =
+        await storePrefrences(preference: event.preference, state: event.state);
+    emit(einstellungOrFailure.fold(
+        (failure) => Error(message: CACHE_FAILURE_MESSAGE),
+        (prefs) => ChangedPreferences()));
+  }
+
+  void _loadPrefrences(event, Emitter<EinstellungState> emit) async {
+    final einstellungOrFailure = await getPrefrences();
+    emit(einstellungOrFailure.fold(
+        (failure) => Error(message: CACHE_FAILURE_MESSAGE),
+        (prefs) => LoadedPreferences()));
+  }
+
+  void _loadSpecificPrefrence(event, Emitter<EinstellungState> emit) async {
+    final einstellungOrFailure =
+        await getPreference(preference: event.preference);
+    emit(einstellungOrFailure.fold(
+        (failure) => Error(message: CACHE_FAILURE_MESSAGE),
+        (einstellung) => LoadedPreference(einstellung)));
   }
 }

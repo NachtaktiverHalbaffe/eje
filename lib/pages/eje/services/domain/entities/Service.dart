@@ -1,6 +1,5 @@
 import 'package:eje/pages/articles/domain/entity/Hyperlink.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 
 part 'Service.g.dart';
@@ -16,11 +15,13 @@ class Service extends Equatable {
   @HiveField(3)
   final List<Hyperlink> hyperlinks;
 
+  static const List<Hyperlink> defaultHyperlink = [];
+
   Service({
-    @required this.service,
-    @required this.images,
-    @required this.description,
-    this.hyperlinks,
+    required this.service,
+    required this.images,
+    required this.description,
+    this.hyperlinks = defaultHyperlink,
   });
 
   @override

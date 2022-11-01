@@ -1,25 +1,22 @@
 import 'package:eje/core/widgets/bloc/bloc.dart';
-import 'package:eje/core/widgets/bloc/main_bloc.dart';
 import 'package:eje/core/widgets/costum_icons_icons.dart';
 import 'package:eje/pages/einstellungen/presentation/bloc/bloc.dart';
-import 'package:eje/pages/einstellungen/presentation/bloc/einstellung_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 class EinstellungenPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    String _groupID;
+    String groupID;
     final prefs = GetStorage();
     if (prefs.read("nightmode_auto")) {
-      _groupID = "nightmode_auto";
+      groupID = "nightmode_auto";
     } else if (prefs.read("nightmode_off")) {
-      _groupID = "nightmode_off";
+      groupID = "nightmode_off";
     } else {
-      _groupID = "nightmode_on";
+      groupID = "nightmode_on";
     }
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surface,
@@ -29,7 +26,7 @@ class EinstellungenPage extends StatelessWidget {
           RadioListTile(
             activeColor: Theme.of(context).colorScheme.secondary,
             value: "nightmode_auto",
-            groupValue: _groupID,
+            groupValue: groupID,
             onChanged: (val) async {
               print("Setting Nightmode to auto");
               if (val == "nightmode_auto") {
@@ -52,7 +49,7 @@ class EinstellungenPage extends StatelessWidget {
           RadioListTile(
             activeColor: Theme.of(context).colorScheme.secondary,
             value: "nightmode_off",
-            groupValue: _groupID,
+            groupValue: groupID,
             onChanged: (val) async {
               print("Setting Nightmode to off");
               if (val == "nightmode_off") {
@@ -75,7 +72,7 @@ class EinstellungenPage extends StatelessWidget {
           RadioListTile(
             activeColor: Theme.of(context).colorScheme.secondary,
             value: "nightmode_on",
-            groupValue: _groupID,
+            groupValue: groupID,
             onChanged: (val) async {
               print("Setting Nightmode to on");
               if (val == "nightmode_on") {
@@ -102,7 +99,7 @@ class EinstellungenPage extends StatelessWidget {
             value: prefs.read("notifications_on"),
             onChanged: (val) async {
               BlocProvider.of<EinstellungBloc>(context)
-                  .add(StoringPreferences("notifications_on", val));
+                  .add(StoringPreferences("notifications_on", val!));
             },
             title: Text(
               "Benachrichtigungen aktivieren",
@@ -186,7 +183,7 @@ class EinstellungenPage extends StatelessWidget {
             value: prefs.read("only_wifi"),
             onChanged: (val) async {
               BlocProvider.of<EinstellungBloc>(context)
-                  .add(StoringPreferences("only_wifi", val));
+                  .add(StoringPreferences("only_wifi", val!));
             },
             title: Text(
               "Inhalte nur über Wifi aktualisieren",
@@ -200,7 +197,7 @@ class EinstellungenPage extends StatelessWidget {
             value: prefs.read("cache_pictures"),
             onChanged: (val) async {
               BlocProvider.of<EinstellungBloc>(context)
-                  .add(StoringPreferences("cache_pictures", val));
+                  .add(StoringPreferences("cache_pictures", val!));
             },
             title: Text(
               "Heruntergeladene Bilder auf Gerät zwischenspeichern (reduziert Datenvolumen)",

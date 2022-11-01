@@ -5,21 +5,20 @@ import 'package:eje/core/usecases/usecase.dart';
 import 'package:eje/pages/eje/bak/domain/entitys/BAKler.dart';
 import 'package:eje/pages/eje/bak/domain/repositories/bak_repository.dart';
 import 'package:hive/hive.dart';
-import 'package:meta/meta.dart';
 
 class GetBAK implements UseCase<List<BAKler>> {
   final BAKRepository repository;
 
-  GetBAK({@required this.repository});
+  GetBAK({required this.repository});
 
   @override
   Future<Either<Failure, List<BAKler>>> call() async {
     final AppConfig appConfig = await AppConfig.loadConfig();
-    final Box _box = await Hive.openBox(appConfig.bakBox);
+    final Box box = await Hive.openBox(appConfig.bakBox);
     final result = await repository.getBAK();
-    if (_box.isOpen) {
-      await _box.compact();
-      await _box.close();
+    if (box.isOpen) {
+      await box.compact();
+      await box.close();
     }
     return result;
   }

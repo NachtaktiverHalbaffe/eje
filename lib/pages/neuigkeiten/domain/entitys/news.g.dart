@@ -20,9 +20,9 @@ class NewsAdapter extends TypeAdapter<News> {
       title: fields[0] as String,
       textPreview: fields[1] as String,
       text: fields[2] as String,
-      images: (fields[3] as List)?.cast<String>(),
+      images: (fields[3] as List).cast<String>(),
       link: fields[4] as String,
-      published: fields[5] as DateTime,
+      published: fields[5] as DateTime?,
     );
   }
 

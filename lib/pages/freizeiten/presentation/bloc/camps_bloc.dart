@@ -1,12 +1,10 @@
 // ignore_for_file: non_constant_identifier_names
 import 'dart:async';
-
 import 'package:bloc/bloc.dart';
 import 'package:eje/pages/freizeiten/domain/entities/camp.dart';
 import 'package:eje/pages/freizeiten/domain/usecases/get_camp.dart';
 import 'package:eje/pages/freizeiten/domain/usecases/get_camps.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:meta/meta.dart';
 
 import './bloc.dart';
 
@@ -15,63 +13,64 @@ class CampsBloc extends Bloc<CampEvent, CampState> {
   final GetCamps getCamps;
 
   CampsBloc({
-    @required this.getCamp,
-    @required this.getCamps,
-  }) : super(Empty());
-
-  @override
-  Stream<CampState> mapEventToState(
-    CampEvent event,
-  ) async* {
-    if (event is RefreshCamps) {
-      yield Loading();
-      final campOrFailure = await getCamps();
-      yield campOrFailure.fold(
-        (failure) {
-          return Error(message: failure.getErrorMsg());
-        },
-        (freizeiten) {
-          if (GetStorage().read("campFilterStartDate") != "" ||
-              GetStorage().read("campFilterAge") != 0 ||
-              GetStorage().read("campFilterPrice") != 0) {
-            return LoadedCamps(_filterCamps(freizeiten));
-          }
-          return LoadedCamps(freizeiten);
-        },
-      );
-    } else if (event is GettingCamp) {
-      yield Loading();
-      final campsOrFailure = await getCamp(id: event.camp.id);
-      yield campsOrFailure.fold(
-        (failure) => Error(message: failure.getErrorMsg()),
-        (freizeit) => LoadedCamp(freizeit),
-      );
-    } else if (event is FilteringCamps) {
-      yield Loading();
-      final campsOrFailure = await getCamps();
-      yield campsOrFailure.fold(
-        (failure) => Error(message: failure.getErrorMsg()),
-        (freizeiten) {
-          List<Camp> filteredCamps = _filterCamps(freizeiten);
-          return FilteredCamps(filteredCamps);
-        },
-      );
-    }
+    required this.getCamp,
+    required this.getCamps,
+  }) : super(Empty()) {
+    on<RefreshCamps>(_loadCamps);
+    on<GettingCamp>(_loadSpecificCamp);
+    on<FilteringCamps>(_filterCamps);
   }
 
-  List<Camp> _filterCamps(List<Camp> filteredCamps) {
-    final prefs = GetStorage();
+  void _loadCamps(event, Emitter<CampState> emit) async {
+    final campOrFailure = await getCamps();
+    emit(campOrFailure.fold(
+      (failure) {
+        return Error(message: failure.getErrorMsg());
+      },
+      (freizeiten) {
+        if (GetStorage().read("campFilterStartDate") != "" ||
+            GetStorage().read("campFilterAge") != 0 ||
+            GetStorage().read("campFilterPrice") != 0) {
+          return LoadedCamps(_getFilteredCamps(freizeiten));
+        }
+        return LoadedCamps(freizeiten);
+      },
+    ));
+  }
 
+  void _loadSpecificCamp(event, Emitter<CampState> emit) async {
+    final campsOrFailure = await getCamp(id: event.camp.id);
+    emit(campsOrFailure.fold(
+      (failure) => Error(message: failure.getErrorMsg()),
+      (freizeit) => LoadedCamp(freizeit),
+    ));
+  }
+
+  void _filterCamps(event, Emitter<CampState> emit) async {
+    final campsOrFailure = await getCamps();
+    emit(campsOrFailure.fold(
+      (failure) => Error(message: failure.getErrorMsg()),
+      (freizeiten) {
+        List<Camp> filteredCamps = _getFilteredCamps(freizeiten);
+        return FilteredCamps(filteredCamps);
+      },
+    ));
+  }
+
+  List<Camp> _getFilteredCamps(List<Camp> filteredCamps) {
+    final prefs = GetStorage();
     if (prefs.read("campFilterStartDate") != "" &&
         prefs.read("campFilterEndDate") != "") {
       print("Camps Bloc: Filtering by date");
       filteredCamps = filteredCamps
-          .where((element) => element.startDate
-              .isAfter(DateTime.tryParse(prefs.read("campFilterStartDate"))))
+          .where((element) => element.startDate.isAfter(
+              DateTime.tryParse(prefs.read("campFilterStartDate")) ??
+                  DateTime.now()))
           .toList();
       filteredCamps = filteredCamps
-          .where((element) => element.endDate
-              .isBefore(DateTime.tryParse(prefs.read("campFilterEndDate"))))
+          .where((element) => element.endDate.isBefore(
+              DateTime.tryParse(prefs.read("campFilterEndDate")) ??
+                  DateTime.now()))
           .toList();
     }
     // Filtering by age

@@ -18,7 +18,7 @@ class FieldOfWorkAdapter extends TypeAdapter<FieldOfWork> {
     };
     return FieldOfWork(
       name: fields[0] as String,
-      images: (fields[1] as List)?.cast<String>(),
+      images: (fields[1] as List).cast<String>(),
       description: fields[2] as String,
       link: fields[3] as String,
     );

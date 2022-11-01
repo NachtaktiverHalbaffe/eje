@@ -10,7 +10,7 @@ import 'package:flutter_swiper_plus/flutter_swiper_plus.dart';
 class FieldsOfWorkPageViewer extends StatelessWidget {
   final List<FieldOfWork> fieldsOfWork;
 
-  const FieldsOfWorkPageViewer({Key key, this.fieldsOfWork}) : super(key: key);
+  const FieldsOfWorkPageViewer({required this.fieldsOfWork}) : super();
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +32,7 @@ class FieldsOfWorkPageViewer extends StatelessWidget {
 
 class ContactCard extends StatelessWidget {
   final FieldOfWork fieldOfWork;
-  const ContactCard({Key key, this.fieldOfWork}) : super(key: key);
+  const ContactCard({required this.fieldOfWork}) : super();
 
   @override
   Widget build(BuildContext context) {

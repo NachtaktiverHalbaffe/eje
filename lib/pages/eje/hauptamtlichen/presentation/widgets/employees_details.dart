@@ -1,5 +1,4 @@
 // ignore_for_file: camel_case_types
-
 import 'package:eje/pages/articles/presentation/widgets/details_page.dart';
 import 'package:eje/core/widgets/loading_indicator.dart';
 import 'package:eje/pages/articles/domain/entity/Hyperlink.dart';
@@ -8,7 +7,6 @@ import 'package:eje/pages/eje/hauptamtlichen/presentation/bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 class EmployeeDetails extends StatelessWidget {
@@ -53,7 +51,7 @@ class EmployeeDetails extends StatelessWidget {
 
 class EmployeeDetailsCard extends StatelessWidget {
   final Employee employee;
-  const EmployeeDetailsCard({Key key, this.employee}) : super(key: key);
+  const EmployeeDetailsCard({required this.employee}) : super();
 
   @override
   Widget build(BuildContext context) {
@@ -72,7 +70,7 @@ class EmployeeDetailsCard extends StatelessWidget {
 
 class _childEmployeeDetails extends StatelessWidget {
   final Employee hauptamtlicher;
-  const _childEmployeeDetails({Key key, this.hauptamtlicher}) : super(key: key);
+  const _childEmployeeDetails({required this.hauptamtlicher}) : super();
 
   @override
   Widget build(BuildContext context) {
@@ -104,9 +102,9 @@ class _childEmployeeDetails extends StatelessWidget {
                   ),
                   onTap: () async {
                     if (await canLaunchUrlString(
-                        "https://threema.id/" + hauptamtlicher.threema)) {
+                        "https://threema.id/${hauptamtlicher.threema}")) {
                       await launchUrlString(
-                          "https://threema.id/" + hauptamtlicher.threema);
+                          "https://threema.id/${hauptamtlicher.threema}");
                     } else {
                       throw 'Could not open Threema';
                     }
@@ -138,8 +136,8 @@ class _childEmployeeDetails extends StatelessWidget {
                   ),
                   onTap: () async {
                     if (await canLaunchUrlString(
-                        "mailto:" + hauptamtlicher.email)) {
-                      await launchUrlString("mailto:" + hauptamtlicher.email);
+                        "mailto:${hauptamtlicher.email}")) {
+                      await launchUrlString("mailto:${hauptamtlicher.email}");
                     } else {
                       throw 'Could not open Email';
                     }
@@ -171,8 +169,8 @@ class _childEmployeeDetails extends StatelessWidget {
                   ),
                   onTap: () async {
                     if (await canLaunchUrlString(
-                        "tel:" + hauptamtlicher.telefon)) {
-                      await launchUrlString("tel:" + hauptamtlicher.telefon);
+                        "tel:${hauptamtlicher.telefon}")) {
+                      await launchUrlString("tel:${hauptamtlicher.telefon}");
                     } else {
                       throw 'Could not open telephone';
                     }
@@ -204,8 +202,8 @@ class _childEmployeeDetails extends StatelessWidget {
                   ),
                   onTap: () async {
                     if (await canLaunchUrlString(
-                        "tel:" + hauptamtlicher.handy)) {
-                      await launchUrlString("tel:" + hauptamtlicher.handy);
+                        "tel:${hauptamtlicher.handy}")) {
+                      await launchUrlString("tel:${hauptamtlicher.handy}");
                     } else {
                       throw 'Could not open telephone';
                     }

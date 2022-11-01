@@ -7,7 +7,7 @@ import 'package:meta/meta.dart';
 class EmployeesRemoteDatasource {
   final http.Client client;
 
-  EmployeesRemoteDatasource({@required this.client});
+  EmployeesRemoteDatasource({required this.client});
 
   Future<List<Employee>> getEmployees() async {
     try {

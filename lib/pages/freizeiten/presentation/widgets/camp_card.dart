@@ -10,7 +10,7 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 
 class CampCard extends StatelessWidget {
   final Camp camp;
-  const CampCard({Key key, this.camp}) : super(key: key);
+  const CampCard({required this.camp}) : super();
 
   @override
   Widget build(BuildContext context) {
@@ -131,11 +131,7 @@ class CampCard extends StatelessWidget {
                                 SizedBox(width: 4),
                                 Flexible(
                                   child: Text(
-                                    DateFormat('dd.MM.yyyy')
-                                            .format(camp.startDate) +
-                                        " - " +
-                                        DateFormat('dd.MM.yyyy')
-                                            .format(camp.endDate),
+                                    "${DateFormat('dd.MM.yyyy').format(camp.startDate)} - ${DateFormat('dd.MM.yyyy').format(camp.endDate)}",
                                     overflow: TextOverflow.ellipsis,
                                     style: TextStyle(
                                       fontSize: 12.5,
@@ -153,8 +149,8 @@ class CampCard extends StatelessWidget {
                                 Flexible(
                                   child: Text(
                                     camp.price != 0
-                                        ? camp.price.toString() + " Euro"
-                                        : camp.price2.toString(),
+                                        ? "${camp.price} Euro"
+                                        : "${camp.price2} Euro",
                                     overflow: TextOverflow.ellipsis,
                                     style: TextStyle(
                                       fontSize: 12.5,
@@ -194,9 +190,7 @@ class CampCard extends StatelessWidget {
                                 SizedBox(width: 4),
                                 Flexible(
                                   child: Text(
-                                    camp.ageFrom.toString() +
-                                        " - " +
-                                        camp.ageTo.toString(),
+                                    "${camp.ageFrom} - ${camp.ageTo}",
                                     overflow: TextOverflow.ellipsis,
                                     style: TextStyle(
                                       fontSize: 12.5,
