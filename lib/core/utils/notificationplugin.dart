@@ -1,11 +1,12 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:timezone/timezone.dart' as tz;
 import 'dart:io' show Platform;
 
 import 'package:rxdart/rxdart.dart';
 
 class NotificationPlugin {
-  FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
+  FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+      FlutterLocalNotificationsPlugin();
   final BehaviorSubject<ReceivedNotification> didReveivedLovalNotifications =
       BehaviorSubject<ReceivedNotification>();
   // ignore: prefer_typing_uninitialized_variables
@@ -18,24 +19,26 @@ class NotificationPlugin {
 
 //initialize Notificationsplugin
   init() async {
-    flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
     //Request IOS permissions
     if (Platform.isIOS) {
       flutterLocalNotificationsPlugin
           .resolvePlatformSpecificImplementation<
-              IOSFlutterLocalNotificationsPlugin>()
+              IOSFlutterLocalNotificationsPlugin>()!
           .requestPermissions(alert: false, badge: true, sound: true);
     }
     //TODO Add notification icon
     var initializationSettingAndroid =
         AndroidInitializationSettings('app_notf_icon');
-    var initializationSettingIOS = IOSInitializationSettings(
+    var initializationSettingIOS = DarwinInitializationSettings(
       requestAlertPermission: true,
       requestBadgePermission: true,
       requestSoundPermission: true,
       onDidReceiveLocalNotification: (id, title, body, payload) async {
         ReceivedNotification receivedNotification = ReceivedNotification(
-            id: id, title: title, body: body, payload: payload);
+            id: id,
+            title: title ?? "",
+            body: body ?? "",
+            payload: payload ?? "0");
         didReveivedLovalNotifications.add(receivedNotification);
       },
     );
@@ -53,7 +56,7 @@ class NotificationPlugin {
 //initialization and set function which to execute when Notification is clicked
   setOnNotificationClick(Function onNotificationClick) async {
     await flutterLocalNotificationsPlugin.initialize(initializationSettings,
-        onSelectNotification: (String payload) async {
+        onDidReceiveBackgroundNotificationResponse: (payload) async {
       onNotificationClick(payload);
     });
   }
@@ -68,24 +71,24 @@ class NotificationPlugin {
 //* @param channelName: name of the channel for Android Notifications managment
 //* @param channelDescription: decription of the channel for Android Notifications managment
   Future<void> showNotification(
-      {@required int id,
-      @required String title,
-      String body,
-      String payload,
-      @required String channelId,
-      @required String channelName,
-      @required String channelDescription}) async {
+      {required int id,
+      required String title,
+      String? body,
+      String? payload,
+      required String channelId,
+      required String channelName,
+      required String channelDescription}) async {
     var paltformChannelSpecifics = NotificationDetails(
       android: AndroidNotificationDetails(
         channelId,
         channelName,
-        channelDescription,
+        channelDescription: channelDescription,
         importance: Importance.max,
         priority: Priority.high,
         playSound: true,
         styleInformation: DefaultStyleInformation(true, true),
       ),
-      iOS: IOSNotificationDetails(),
+      iOS: DarwinNotificationDetails(),
     );
     await FlutterLocalNotificationsPlugin().show(
       id,
@@ -109,33 +112,34 @@ class NotificationPlugin {
 //* @param scheduleoffset: Offset of scheduledNotificationDateTime if notification should be pushed earlier or later;
 //*                        offset<0: pushed earlier, offset>0 scheduled later
   Future<void> scheduledNotification(
-      {@required int id,
-      @required String title,
-      String body,
-      String payload,
-      @required DateTime scheduleNotificationsDateTime,
-      @required Duration scheduleoffest,
-      @required String channelId,
-      @required String channelName,
-      @required String channelDescription}) async {
+      {required int id,
+      required String title,
+      String? body,
+      String? payload,
+      required DateTime scheduleNotificationsDateTime,
+      required Duration scheduleoffest,
+      required String channelId,
+      required String channelName,
+      required String channelDescription}) async {
     //Platformspecific settings for Notifications
     var paltformChannelSpecifics = NotificationDetails(
       android: AndroidNotificationDetails(
         channelId,
         channelName,
-        channelDescription,
+        channelDescription: channelDescription,
         importance: Importance.max,
         priority: Priority.high,
         playSound: true,
         styleInformation: DefaultStyleInformation(true, true),
       ),
-      iOS: IOSNotificationDetails(),
+      iOS: DarwinNotificationDetails(),
     );
     await FlutterLocalNotificationsPlugin().zonedSchedule(
       id,
       title,
       body,
-      scheduleNotificationsDateTime.subtract(scheduleoffest),
+      tz.TZDateTime.from(
+          scheduleNotificationsDateTime.subtract(scheduleoffest), tz.local),
       paltformChannelSpecifics,
       payload: payload,
       androidAllowWhileIdle: true,
@@ -151,14 +155,15 @@ class NotificationPlugin {
       android: AndroidNotificationDetails(
         "0",
         "App-Benachrichtigungen",
-        "Grundlegende Benachrichtigungen von der App über Appfunktionen",
+        channelDescription:
+            "Grundlegende Benachrichtigungen von der App über Appfunktionen",
         importance: Importance.max,
         priority: Priority.high,
         playSound: true,
         timeoutAfter: 5000,
         styleInformation: DefaultStyleInformation(true, true),
       ),
-      iOS: IOSNotificationDetails(),
+      iOS: DarwinNotificationDetails(),
     );
     await FlutterLocalNotificationsPlugin().show(
       0,
@@ -187,9 +192,9 @@ class ReceivedNotification {
   final String payload;
 
   ReceivedNotification({
-    @required this.id,
-    @required this.title,
-    @required this.body,
-    @required this.payload,
+    required this.id,
+    required this.title,
+    required this.body,
+    required this.payload,
   });
 }
