@@ -1,5 +1,4 @@
 import 'package:connectivity/connectivity.dart';
-import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:eje/core/platform/network_info.dart';
 import 'package:eje/pages/articles/data/datasources/articles_local_datasource.dart';
 import 'package:eje/pages/articles/data/repository/articles_repository_impl.dart';
@@ -64,6 +63,7 @@ import 'package:eje/pages/termine/domain/usecases/get_Events.dart';
 import 'package:eje/pages/termine/presentation/bloc/bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 final sl = GetIt.instance;
 
@@ -246,5 +246,5 @@ Future<void> init() async {
   // * Remote Access
   sl.registerLazySingleton(() => Connectivity());
   sl.registerLazySingleton(() => http.Client());
-  sl.registerLazySingleton(() => DataConnectionChecker());
+  sl.registerLazySingleton(() => InternetConnectionChecker());
 }

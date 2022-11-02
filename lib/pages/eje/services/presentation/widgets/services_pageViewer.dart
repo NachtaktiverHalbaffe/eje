@@ -1,3 +1,4 @@
+// ignore_for_file: file_names
 import 'package:eje/core/utils/injection_container.dart';
 import 'package:eje/core/widgets/cached_image.dart';
 import 'package:eje/pages/eje/services/domain/entities/Service.dart';

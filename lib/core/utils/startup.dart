@@ -10,6 +10,7 @@ import 'package:eje/pages/eje/services/domain/entities/Service.dart';
 import 'package:eje/pages/freizeiten/domain/entities/camp.dart';
 import 'package:eje/pages/neuigkeiten/domain/entitys/news.dart';
 import 'package:eje/pages/termine/domain/entities/Event.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart' as path_provider;
@@ -34,6 +35,11 @@ Future<void> startup() async {
     prefs.write('cached_neuigkeiten', [""]);
     prefs.write('cached_freizeiten', [0]);
     prefs.write('schedule_offset', 2);
+
+    notificationPlugin.flutterLocalNotificationsPlugin
+        .resolvePlatformSpecificImplementation<
+            AndroidFlutterLocalNotificationsPlugin>()!
+        .requestPermission();
   }
   // Reset filters
   prefs.write("campFilterAge", 0);
@@ -55,13 +61,11 @@ Future<void> startup() async {
   Hive.registerAdapter(HyperlinkAdapter());
   Hive.registerAdapter(LocationAdapter());
   await di.init();
+
   //Local notifications
   notificationPlugin.setListenerForLowerVersions(onNotificationInLowerVersion);
-  notificationPlugin.setOnNotificationClick(onNotificationClick);
 
   BackgroundServicesManager().initPlatformState();
 }
-
-onNotificationClick(String payload) {}
 
 onNotificationInLowerVersion(ReceivedNotification receivedNotification) {}

@@ -1,3 +1,4 @@
+// ignore_for_file: file_names
 import 'package:dartz/dartz.dart';
 import 'package:eje/app_config.dart';
 import 'package:eje/core/error/failures.dart';

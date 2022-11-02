@@ -39,6 +39,7 @@ class NewsRepositoryImpl implements NewsRepository {
           //sing url of article if article isnt in cache
           url = value.link;
           for (int k = 0; k < box.length; k++) {
+            // ignore: no_leading_underscores_for_local_identifiers
             final Article _article = box.getAt(k);
             if (_article.url == value.link) {
               Article webScrapingResult0 =

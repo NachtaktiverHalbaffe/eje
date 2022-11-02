@@ -49,6 +49,7 @@ class ServicesLocalDatasource {
     // cache specific data entry if not already cached
     if (box.isNotEmpty) {
       for (int i = 0; i < box.length; i++) {
+        // ignore: no_leading_underscores_for_local_identifiers
         Service _service = box.getAt(i);
         if (_service.service == service.service) {
           box.deleteAt(i);

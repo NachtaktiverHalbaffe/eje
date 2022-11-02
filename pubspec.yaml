@@ -43,7 +43,7 @@ dependencies:
   # To deal with internationalized Datetime Formats
   intl: ^0.17.0
   # Remote API
-  data_connection_checker: ^0.3.4
+  internet_connection_checker: ^1.0.0+1
   connectivity: ^3.0.6
   http: ^0.13.3
   # Webscraping
@@ -57,7 +57,7 @@ dependencies:
   # Carousel PageView
   flutter_swiper_plus: ^2.0.4
   # Icon Shadows
-  icon_shadow: ^1.0.1
+  decorated_icon: ^1.2.1
   # Bottom Nav bar
   persistent_bottom_nav_bar: ^5.0.2
   # Cached Networkimage
@@ -71,6 +71,7 @@ dependencies:
   background_fetch: ^1.0.1
   # For secrets
   envied: ^0.2.3
+  flutter_native_timezone: ^2.0.0
 
 # To run build runners und generators, run
 # "flutter packages pub run build_runner build --delete-conflicting-outputs" in terminal

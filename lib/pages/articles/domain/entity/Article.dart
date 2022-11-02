@@ -1,3 +1,4 @@
+// ignore_for_file: file_names
 import 'package:eje/pages/articles/domain/entity/Hyperlink.dart';
 import 'package:equatable/equatable.dart';
 import 'package:hive/hive.dart';

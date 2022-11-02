@@ -1,5 +1,4 @@
 // ignore_for_file: non_constant_identifier_names
-import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:eje/pages/articles/domain/entity/Article.dart';
 import 'package:eje/pages/articles/domain/usecases/get_article.dart';

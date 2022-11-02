@@ -77,7 +77,7 @@ void _checkNeuigkeitenNotification(String taskId) async {
     return a.toLowerCase().compareTo(b.toLowerCase());
   });
   //checking if List is diffrent from data in cache
-  if (!listEquals(cachedNeuigkeitenTitel, downloadedNeuigkeitenTitel)) {
+  if (listEquals(cachedNeuigkeitenTitel, downloadedNeuigkeitenTitel)) {
     //storing new news
     prefs.write("cached_neuigkeiten", downloadedNeuigkeitenTitel);
     //Displaying notification

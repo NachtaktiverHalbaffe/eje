@@ -1,5 +1,4 @@
 // ignore_for_file: non_constant_identifier_names
-import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:eje/pages/neuigkeiten/domain/usecases/get_single_news.dart';
 import 'package:eje/pages/neuigkeiten/domain/usecases/get_news.dart';
