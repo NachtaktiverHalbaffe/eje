@@ -104,6 +104,7 @@ class CampsRemoteDatasource {
           ));
         }
       }
+      camps.sort((item1, item2) => item1.startDate.compareTo(item2.startDate));
       return camps;
     } else {
       throw ServerException();

@@ -60,7 +60,8 @@ class TermineRemoteDatasource {
           ));
         }
       }
-      return events;
+      events.sort((item1, item2) => item1.startDate.compareTo(item2.startDate));
+      return List.of(events.reversed);
     } else {
       throw ServerException();
     }
