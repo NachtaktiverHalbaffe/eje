@@ -87,45 +87,49 @@ class _freizeitChildWidget extends StatelessWidget {
             ),
           ),
         ),
-        ListTile(
-          leading: Icon(
-            MdiIcons.currencyEur,
-            color: Theme.of(context).dividerColor,
-            size: 72 / MediaQuery.of(context).devicePixelRatio,
-          ),
-          title: Text(
-            freizeit.price != 0
-                ? freizeit.price.toString()
-                : freizeit.price2.toString(),
-            style: TextStyle(
-              fontSize: 42 / MediaQuery.of(context).devicePixelRatio,
-              color: Theme.of(context).dividerColor,
-            ),
-          ),
-        ),
-        ListTile(
-          leading: Icon(
-            MdiIcons.mapMarker,
-            color: Theme.of(context).dividerColor,
-            size: 72 / MediaQuery.of(context).devicePixelRatio,
-          ),
-          title: Text(
-            "${freizeit.location.adress}\n${freizeit.location.street}\n${freizeit.location.postalCode}",
-            style: TextStyle(
-              fontSize: 42 / MediaQuery.of(context).devicePixelRatio,
-            ),
-          ),
-          trailing: GestureDetector(
-            child: Icon(
-              MdiIcons.navigation,
-              color: Theme.of(context).colorScheme.secondary,
-            ),
-            onTap: () async {
-              await MapLauncher.launchQuery(
-                  "${freizeit.location.adress},${freizeit.location.street}, ${freizeit.location.postalCode}");
-            },
-          ),
-        ),
+        freizeit.price != 0 || freizeit.price != 0
+            ? ListTile(
+                leading: Icon(
+                  MdiIcons.currencyEur,
+                  color: Theme.of(context).dividerColor,
+                  size: 72 / MediaQuery.of(context).devicePixelRatio,
+                ),
+                title: Text(
+                  freizeit.price != 0
+                      ? freizeit.price.toString()
+                      : freizeit.price2.toString(),
+                  style: TextStyle(
+                    fontSize: 42 / MediaQuery.of(context).devicePixelRatio,
+                    color: Theme.of(context).dividerColor,
+                  ),
+                ),
+              )
+            : Center(),
+        freizeit.location.adress != ""
+            ? ListTile(
+                leading: Icon(
+                  MdiIcons.mapMarker,
+                  color: Theme.of(context).dividerColor,
+                  size: 72 / MediaQuery.of(context).devicePixelRatio,
+                ),
+                title: Text(
+                  "${freizeit.location.adress}\n${freizeit.location.street}\n${freizeit.location.postalCode}",
+                  style: TextStyle(
+                    fontSize: 42 / MediaQuery.of(context).devicePixelRatio,
+                  ),
+                ),
+                trailing: GestureDetector(
+                  child: Icon(
+                    MdiIcons.navigation,
+                    color: Theme.of(context).colorScheme.secondary,
+                  ),
+                  onTap: () async {
+                    await MapLauncher.launchQuery(
+                        "${freizeit.location.adress},${freizeit.location.street}, ${freizeit.location.postalCode}");
+                  },
+                ),
+              )
+            : Center(),
         ListTile(
           leading: Icon(
             MdiIcons.cakeVariant,
@@ -140,48 +144,54 @@ class _freizeitChildWidget extends StatelessWidget {
             ),
           ),
         ),
-        ListTile(
-          leading: Icon(
-            MdiIcons.silverwareForkKnife,
-            color: Theme.of(context).dividerColor,
-            size: 72 / MediaQuery.of(context).devicePixelRatio,
-          ),
-          title: Text(
-            freizeit.catering,
-            style: TextStyle(
-              fontSize: 42 / MediaQuery.of(context).devicePixelRatio,
-              color: Theme.of(context).dividerColor,
-            ),
-          ),
-        ),
-        ListTile(
-          leading: Icon(
-            MdiIcons.home,
-            color: Theme.of(context).dividerColor,
-            size: 72 / MediaQuery.of(context).devicePixelRatio,
-          ),
-          title: Text(
-            freizeit.accommodation,
-            style: TextStyle(
-              fontSize: 42 / MediaQuery.of(context).devicePixelRatio,
-              color: Theme.of(context).dividerColor,
-            ),
-          ),
-        ),
-        ListTile(
-          leading: Icon(
-            MdiIcons.carSide,
-            color: Theme.of(context).dividerColor,
-            size: 72 / MediaQuery.of(context).devicePixelRatio,
-          ),
-          title: Text(
-            freizeit.journey,
-            style: TextStyle(
-              fontSize: 42 / MediaQuery.of(context).devicePixelRatio,
-              color: Theme.of(context).dividerColor,
-            ),
-          ),
-        ),
+        freizeit.catering != ""
+            ? ListTile(
+                leading: Icon(
+                  MdiIcons.silverwareForkKnife,
+                  color: Theme.of(context).dividerColor,
+                  size: 72 / MediaQuery.of(context).devicePixelRatio,
+                ),
+                title: Text(
+                  freizeit.catering,
+                  style: TextStyle(
+                    fontSize: 42 / MediaQuery.of(context).devicePixelRatio,
+                    color: Theme.of(context).dividerColor,
+                  ),
+                ),
+              )
+            : Center(),
+        freizeit.accommodation != ""
+            ? ListTile(
+                leading: Icon(
+                  MdiIcons.home,
+                  color: Theme.of(context).dividerColor,
+                  size: 72 / MediaQuery.of(context).devicePixelRatio,
+                ),
+                title: Text(
+                  freizeit.accommodation,
+                  style: TextStyle(
+                    fontSize: 42 / MediaQuery.of(context).devicePixelRatio,
+                    color: Theme.of(context).dividerColor,
+                  ),
+                ),
+              )
+            : Center(),
+        freizeit.journey != ""
+            ? ListTile(
+                leading: Icon(
+                  MdiIcons.carSide,
+                  color: Theme.of(context).dividerColor,
+                  size: 72 / MediaQuery.of(context).devicePixelRatio,
+                ),
+                title: Text(
+                  freizeit.journey,
+                  style: TextStyle(
+                    fontSize: 42 / MediaQuery.of(context).devicePixelRatio,
+                    color: Theme.of(context).dividerColor,
+                  ),
+                ),
+              )
+            : Center(),
         ListTile(
           leading: Icon(
             MdiIcons.fileDocumentEditOutline,
