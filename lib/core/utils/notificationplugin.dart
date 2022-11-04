@@ -34,8 +34,8 @@ class NotificationPlugin {
 //initialize Notificationsplugin
   init() async {
     tz.initializeTimeZones();
-    final String? timeZoneName = await FlutterNativeTimezone.getLocalTimezone();
-    tz.setLocalLocation(tz.getLocation(timeZoneName!));
+    final String timeZoneName = await FlutterNativeTimezone.getLocalTimezone();
+    tz.setLocalLocation(tz.getLocation(timeZoneName));
 
     //Request IOS permissions
     if (Platform.isIOS) {
@@ -262,8 +262,7 @@ class NotificationPlugin {
       final AndroidFlutterLocalNotificationsPlugin? androidImplementation =
           flutterLocalNotificationsPlugin.resolvePlatformSpecificImplementation<
               AndroidFlutterLocalNotificationsPlugin>();
-
-      final bool? granted = await androidImplementation?.requestPermission();
+      await androidImplementation?.requestPermission();
     }
   }
 }

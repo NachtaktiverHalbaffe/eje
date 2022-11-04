@@ -1,5 +1,4 @@
 import 'dart:math';
-
 import 'package:eje/core/utils/notificationplugin.dart';
 import 'package:eje/pages/freizeiten/data/datasources/camps_remote_datasource.dart';
 import 'package:eje/pages/freizeiten/domain/entities/camp.dart';
@@ -7,7 +6,6 @@ import 'package:eje/pages/neuigkeiten/data/datasources/news_remote_datasource.da
 import 'package:eje/pages/neuigkeiten/domain/entitys/news.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:workmanager/workmanager.dart';
 
 class BackgroundServicesManager {
   /// * Backgroundtask for push-notifications for new News

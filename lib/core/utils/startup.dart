@@ -1,5 +1,4 @@
 import 'package:eje/core/platform/location.dart';
-import 'package:eje/core/utils/background_services_manager.dart';
 import 'package:eje/core/utils/notificationplugin.dart';
 import 'package:eje/pages/articles/domain/entity/Article.dart';
 import 'package:eje/pages/articles/domain/entity/Hyperlink.dart';
@@ -10,7 +9,6 @@ import 'package:eje/pages/eje/services/domain/entities/Service.dart';
 import 'package:eje/pages/freizeiten/domain/entities/camp.dart';
 import 'package:eje/pages/neuigkeiten/domain/entitys/news.dart';
 import 'package:eje/pages/termine/domain/entities/Event.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart' as path_provider;

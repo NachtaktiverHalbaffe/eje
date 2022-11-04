@@ -1,6 +1,5 @@
 import 'package:eje/pages/articles/presentation/widgets/details_page.dart';
 import 'package:eje/core/widgets/loading_indicator.dart';
-import 'package:eje/pages/articles/domain/entity/Hyperlink.dart';
 import 'package:eje/pages/eje/bak/domain/entitys/BAKler.dart';
 import 'package:eje/pages/eje/bak/presentation/bloc/bak_bloc.dart';
 import 'package:eje/pages/eje/bak/presentation/bloc/bak_event.dart';

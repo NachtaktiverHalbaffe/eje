@@ -1,5 +1,4 @@
-// ignore_for_file: non_constant_identifier_names, prefer_typing_uninitialized_variables, no_leading_underscores_for_local_identifiers
-import 'package:dartz/dartz_unsafe.dart';
+// ignore_for_file: non_constant_identifier_names, prefer_typing_uninitialized_variables, no_leading_underscores_for_local_identifiers, file_names
 import 'package:eje/app_config.dart';
 import 'package:eje/core/error/exception.dart';
 import 'package:eje/pages/articles/domain/entity/Article.dart';
@@ -172,8 +171,9 @@ class WebScraper {
                         filterFn: (node) {
                           if (node.nodeName == 'iframe') {
                             return true;
-                          } else
+                          } else {
                             return false;
+                          }
                         },
                         replacement: (content, node) {
                           return "";
