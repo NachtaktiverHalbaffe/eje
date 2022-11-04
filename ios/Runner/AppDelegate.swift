@@ -1,5 +1,6 @@
 import UIKit
 import Flutter
+import workmanager
 
 @UIApplicationMain
 @objc class AppDelegate: FlutterAppDelegate {
@@ -12,6 +13,7 @@ import Flutter
       UNUserNotificationCenter.current().delegate = self as? UNUserNotificationCenterDelegate
   }
     UIApplication.shared.setMinimumBackgroundFetchInterval(TimeInterval(60*15))
+    WorkmanagerPlugin.registerTask(withIdentifier: "task-identifier")
     return super.application(application, didFinishLaunchingWithOptions: launchOptions)
   }
 }

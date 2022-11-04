@@ -35,11 +35,6 @@ Future<void> startup() async {
     prefs.write('cached_neuigkeiten', [""]);
     prefs.write('cached_freizeiten', [0]);
     prefs.write('schedule_offset', 2);
-
-    notificationPlugin.flutterLocalNotificationsPlugin
-        .resolvePlatformSpecificImplementation<
-            AndroidFlutterLocalNotificationsPlugin>()!
-        .requestPermission();
   }
   // Reset filters
   prefs.write("campFilterAge", 0);
@@ -64,8 +59,6 @@ Future<void> startup() async {
 
   //Local notifications
   notificationPlugin.setListenerForLowerVersions(onNotificationInLowerVersion);
-
-  BackgroundServicesManager().initPlatformState();
 }
 
 onNotificationInLowerVersion(ReceivedNotification receivedNotification) {}

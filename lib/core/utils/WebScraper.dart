@@ -692,7 +692,6 @@ List<Hyperlink> _parseHyperlinks(document, DOMAIN) {
       hyperlinks.add((Hyperlink(link: link, description: text)));
     }
   }
-  print(hyperlinks.length);
   return hyperlinks;
 }
 

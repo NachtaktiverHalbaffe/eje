@@ -54,9 +54,8 @@ class NewsCard extends StatelessWidget {
       untertitel: "",
       text: article.content,
       bilder: article.bilder,
-      hyperlinks: article.hyperlinks.isEmpty
-          ? [Hyperlink(link: "", description: "")]
-          : article.hyperlinks,
+      hyperlinks:
+          article.hyperlinks.isEmpty ? List.empty() : article.hyperlinks,
       childWidget: SizedBox(
         height: 36 / MediaQuery.of(context).devicePixelRatio,
       ),

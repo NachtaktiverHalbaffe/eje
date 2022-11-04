@@ -35,7 +35,7 @@ package="de.eje_esslingen.eje">
         <!-- TODO Appname-->
         <application 
         tools:replace="android:label"  
-        android:name=".Application" 
+        android:name="${applicationName}"
         android:label="eje" 
         android:icon="@mipmap/ic_launcher"> 
         <activity
@@ -62,6 +62,7 @@ package="de.eje_esslingen.eje">
             </intent-filter>
         </activity>
 
+
         <!-- <receiver android:name="com.dexterous.flutterlocalnotifications.ScheduledNotificationBootReceiver" android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED"/>
@@ -75,8 +76,11 @@ package="de.eje_esslingen.eje">
                 <action android:name="android.intent.action.BOOT_COMPLETED"></action>
             </intent-filter>
         </receiver>
+        <meta-data
+            android:name="flutterEmbedding"
+            android:value="2" />
+
     </application>
 
-    <meta-data android:name="flutterEmbedding" android:value="2"/>
 
 </manifest>

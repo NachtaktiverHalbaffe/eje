@@ -14,8 +14,29 @@ import 'package:get_storage/get_storage.dart';
 import 'package:hive/hive.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
+import 'package:workmanager/workmanager.dart';
 import 'pages/neuigkeiten/news_page.dart';
 import 'core/utils/startup.dart';
+
+@pragma('vm:entry-point')
+void callbackDispatcher() {
+  Workmanager().executeTask((task, inputData) async {
+    try {
+      await BackgroundServicesManager.checkFreizeitenNotification();
+    } catch (e) {
+      print("CheckCampsTask failed. Reason: $e");
+    }
+
+    try {
+      await BackgroundServicesManager.checkNeuigkeitenNotification();
+    } catch (e) {
+      print("CheckNeuigkeitenTask failed. Reason: $e");
+    }
+
+    print("Background Task has successfully run");
+    return Future.value(true);
+  });
+}
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -29,11 +50,12 @@ void main() async {
     initialIndex = int.parse(
         notificationAppLaunchDetails.notificationResponse?.payload ?? "0");
   }
+  Workmanager().initialize(callbackDispatcher, isInDebugMode: true);
 
   runApp(MyApp(initialIndex));
   // Register to receive BackgroundFetch events after app is terminated.
   // Requires {stopOnTerminate: false, enableHeadless: true}
-  await BackgroundServicesManager().connectBackgroundServices();
+  // await BackgroundServicesManager().connectBackgroundServices();
 }
 
 class MyApp extends StatelessWidget {
@@ -174,6 +196,15 @@ class _MyHomePageState extends State<MyHomePage> {
     // Alle Offline Datenbanken schließen
     Hive.close();
     super.dispose();
+  }
+
+  @override
+  void initState() {
+    // Register background task which will fetch new news and camp data from the apis and send notification if theres new content
+    Workmanager().registerPeriodicTask("1", "NotificationChecker",
+        constraints: Constraints(networkType: NetworkType.connected),
+        frequency: Duration(hours: 1));
+    super.initState();
   }
 }
 

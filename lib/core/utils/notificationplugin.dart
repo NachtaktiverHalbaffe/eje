@@ -1,8 +1,22 @@
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:timezone/timezone.dart' as tz;
+import 'package:timezone/data/latest_all.dart' as tz;
+import 'package:flutter_native_timezone/flutter_native_timezone.dart';
 import 'dart:io' show Platform;
-
 import 'package:rxdart/rxdart.dart';
+
+@pragma('vm:entry-point')
+void notificationTapBackground(NotificationResponse notificationResponse) {
+  // ignore: avoid_print
+  print('notification(${notificationResponse.id}) action tapped: '
+      '${notificationResponse.actionId} with'
+      ' payload: ${notificationResponse.payload}');
+  if (notificationResponse.input?.isNotEmpty ?? false) {
+    // ignore: avoid_print
+    print(
+        'notification action tapped with input: ${notificationResponse.input}');
+  }
+}
 
 class NotificationPlugin {
   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
@@ -19,6 +33,10 @@ class NotificationPlugin {
 
 //initialize Notificationsplugin
   init() async {
+    tz.initializeTimeZones();
+    final String? timeZoneName = await FlutterNativeTimezone.getLocalTimezone();
+    tz.setLocalLocation(tz.getLocation(timeZoneName!));
+
     //Request IOS permissions
     if (Platform.isIOS) {
       flutterLocalNotificationsPlugin
@@ -45,19 +63,15 @@ class NotificationPlugin {
     //Settings for initialization
     initializationSettings = InitializationSettings(
         android: initializationSettingAndroid, iOS: initializationSettingIOS);
+
+    //initialization and set function which to execute when Notification is clicked
+    await flutterLocalNotificationsPlugin.initialize(initializationSettings,
+        onDidReceiveBackgroundNotificationResponse: notificationTapBackground);
   }
 
   setListenerForLowerVersions(Function onNotificationInLowerVersion) {
     didReveivedLovalNotifications.listen((receivedNotification) {
       onNotificationInLowerVersion(receivedNotification);
-    });
-  }
-
-//initialization and set function which to execute when Notification is clicked
-  setOnNotificationClick(Function onNotificationClick) async {
-    await flutterLocalNotificationsPlugin.initialize(initializationSettings,
-        onDidReceiveBackgroundNotificationResponse: (payload) async {
-      onNotificationClick(payload);
     });
   }
 
@@ -90,13 +104,23 @@ class NotificationPlugin {
       ),
       iOS: DarwinNotificationDetails(),
     );
-    await FlutterLocalNotificationsPlugin().show(
-      id,
-      title,
-      body,
-      paltformChannelSpecifics,
-      payload: payload,
-    );
+    if (await _isAndroidPermissionGranted()) {
+      await FlutterLocalNotificationsPlugin().show(
+        id,
+        title,
+        body,
+        paltformChannelSpecifics,
+        payload: payload,
+      );
+    } else {
+      await _requestPermissions();
+      showNotification(
+          id: id,
+          title: title,
+          channelId: channelId,
+          channelName: channelName,
+          channelDescription: channelDescription);
+    }
   }
 
   /// Function to show Notification at a given DateTime
@@ -134,18 +158,37 @@ class NotificationPlugin {
       ),
       iOS: DarwinNotificationDetails(),
     );
-    await FlutterLocalNotificationsPlugin().zonedSchedule(
-      id,
-      title,
-      body,
-      tz.TZDateTime.from(
-          scheduleNotificationsDateTime.subtract(scheduleoffest), tz.local),
-      paltformChannelSpecifics,
-      payload: payload,
-      androidAllowWhileIdle: true,
-      uiLocalNotificationDateInterpretation:
-          UILocalNotificationDateInterpretation.wallClockTime,
-    );
+    if (await _isAndroidPermissionGranted()) {
+      await FlutterLocalNotificationsPlugin().zonedSchedule(
+        id,
+        title,
+        body,
+        tz.TZDateTime.from(
+                    scheduleNotificationsDateTime.subtract(scheduleoffest),
+                    tz.local)
+                .isAfter(tz.TZDateTime.from(DateTime.now(), tz.local))
+            ? tz.TZDateTime.from(
+                scheduleNotificationsDateTime.subtract(scheduleoffest),
+                tz.local)
+            : tz.TZDateTime.from(
+                DateTime.now().add(Duration(minutes: 1)), tz.local),
+        paltformChannelSpecifics,
+        payload: payload,
+        androidAllowWhileIdle: true,
+        uiLocalNotificationDateInterpretation:
+            UILocalNotificationDateInterpretation.wallClockTime,
+      );
+    } else {
+      await _requestPermissions();
+      scheduledNotification(
+          id: id,
+          title: title,
+          scheduleNotificationsDateTime: scheduleNotificationsDateTime,
+          scheduleoffest: scheduleoffest,
+          channelId: channelId,
+          channelName: channelName,
+          channelDescription: channelDescription);
+    }
   }
 
 //Default Notification which is pushed if push-notifications are disabled in settings an a notifications
@@ -180,6 +223,48 @@ class NotificationPlugin {
 
   Future<void> cancelAllNotification() async {
     await flutterLocalNotificationsPlugin.cancelAll();
+  }
+
+  Future<bool> _isAndroidPermissionGranted() async {
+    if (Platform.isAndroid) {
+      final bool granted = await flutterLocalNotificationsPlugin
+              .resolvePlatformSpecificImplementation<
+                  AndroidFlutterLocalNotificationsPlugin>()
+              ?.areNotificationsEnabled() ??
+          false;
+
+      return granted;
+    }
+    return true;
+  }
+
+  Future<void> _requestPermissions() async {
+    if (Platform.isIOS || Platform.isMacOS) {
+      await flutterLocalNotificationsPlugin
+          .resolvePlatformSpecificImplementation<
+              IOSFlutterLocalNotificationsPlugin>()
+          ?.requestPermissions(
+            alert: true,
+            badge: true,
+            sound: true,
+            critical: true,
+          );
+      await flutterLocalNotificationsPlugin
+          .resolvePlatformSpecificImplementation<
+              MacOSFlutterLocalNotificationsPlugin>()
+          ?.requestPermissions(
+            alert: true,
+            badge: true,
+            sound: true,
+            critical: true,
+          );
+    } else if (Platform.isAndroid) {
+      final AndroidFlutterLocalNotificationsPlugin? androidImplementation =
+          flutterLocalNotificationsPlugin.resolvePlatformSpecificImplementation<
+              AndroidFlutterLocalNotificationsPlugin>();
+
+      final bool? granted = await androidImplementation?.requestPermission();
+    }
   }
 }
 

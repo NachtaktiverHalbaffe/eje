@@ -136,7 +136,6 @@ class CampsRemoteDatasource {
   }
 
   int _parsePrice(responseData) {
-    print("parse price");
     if (responseData != null) {
       if (int.tryParse(responseData.replaceAll(RegExp('[^0-9.,]'), '')) !=
           null) {

@@ -69,6 +69,7 @@ dependencies:
   flutter_local_notifications: ^12.0.3
   # Background services
   background_fetch: ^1.0.1
+  workmanager: ^0.5.1
   # For secrets
   envied: ^0.2.3
   flutter_native_timezone: ^2.0.0
