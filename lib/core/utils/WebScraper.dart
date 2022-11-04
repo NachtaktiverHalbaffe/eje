@@ -1,4 +1,5 @@
 // ignore_for_file: non_constant_identifier_names, prefer_typing_uninitialized_variables, no_leading_underscores_for_local_identifiers
+
 import 'package:eje/app_config.dart';
 import 'package:eje/core/error/exception.dart';
 import 'package:eje/pages/articles/domain/entity/Article.dart';
@@ -7,9 +8,11 @@ import 'package:eje/pages/eje/arbeitsfelder/domain/entities/field_of_work.dart';
 import 'package:eje/pages/eje/bak/domain/entitys/BAKler.dart';
 import 'package:eje/pages/eje/hauptamtlichen/domain/entitys/employee.dart';
 import 'package:eje/pages/eje/services/domain/entities/Service.dart';
+import 'package:html2md/html2md.dart';
 import 'package:http/http.dart' as http;
 import 'package:html/dom.dart' as dom;
 import 'package:html/parser.dart' as parser;
+import 'package:html2md/html2md.dart' as html2md;
 
 class WebScraper {
   //Scraping a Webpage amd parsing to an List of article
@@ -86,7 +89,86 @@ class WebScraper {
                   }
                 }
                 // ! Content parsen
-                content = content + _parseContent(parent[i], DOMAIN);
+                // content = content + _parseContent(parent[i], DOMAIN);
+                content = content +
+                    html2md.convert(parent[i].innerHtml, rules: [
+                      Rule(
+                        'remove picture',
+                        filterFn: (node) {
+                          if (node.nodeName == 'img') {
+                            return true;
+                          }
+                          return false;
+                        },
+                        replacement: (content, node) {
+                          return ''; // remove picture
+                        },
+                      ),
+                      Rule(
+                        'fix links',
+                        filterFn: (node) {
+                          if (node.nodeName == 'a') {
+                            return true;
+                          } else {
+                            return false;
+                          }
+                        },
+                        replacement: (content, node) {
+                          var href = node.getAttribute('href');
+                          var text = node.textContent;
+                          if (href != null && href.isNotEmpty) {
+                            if (!href.contains('http')) {
+                              return '[$text](https://www.eje-esslingen.de$href)'; // build the link
+                            }
+                          }
+                          return '';
+                        },
+                      ),
+                      Rule(
+                        'remove video',
+                        filterFn: (node) {
+                          if (node.className ==
+                              'ce-media video clickslider-triggered') {
+                            return true;
+                          } else {
+                            return false;
+                          }
+                        },
+                        replacement: (content, node) {
+                          return "";
+                        },
+                      ),
+                      Rule(
+                        'remove internal links',
+                        filterFn: (node) {
+                          if (node.nodeName == "blockquote") {
+                            return true;
+                          } else {
+                            return false;
+                          }
+                        },
+                        replacement: (content, node) {
+                          return "";
+                        },
+                      ),
+                      Rule(
+                        'remove divider',
+                        filterFn: (node) {
+                          if (node.className == "divider") {
+                            return true;
+                          } else {
+                            return false;
+                          }
+                        },
+                        replacement: (content, node) {
+                          return "";
+                        },
+                      ),
+                    ]);
+                content = content.replaceAll("dontospamme", "");
+                content = content.replaceAll("gowaway.", "");
+                content = content.substring(content.indexOf('\n') + 1);
+
                 // ! pictures parsen
                 try {
                   List<String> parsedPictures =
@@ -103,15 +185,15 @@ class WebScraper {
                     List<Hyperlink> parsedHyperlinks =
                         _parseHyperlinks(document, DOMAIN);
                     hyperlinks.addAll(parsedHyperlinks);
+                    if (hyperlinks.isEmpty) {
+                      hyperlinks.add(Hyperlink(link: "", description: ""));
+                    }
                   } catch (e) {
                     print("Webscaper error: $e");
                     // throw ServerException();
                   }
                 }
-                //Default values if no hyperlinks are scraped
-                if (hyperlinks.isEmpty) {
-                  hyperlinks.add(Hyperlink(link: "", description: ""));
-                }
+
                 //add scraped Section to List of Articles
               }
             }
@@ -597,315 +679,29 @@ class WebScraper {
   }
 }
 
-//Parses content in order of appearing in parent class
-String _parseContent(parent, DOMAIN) {
-  String content = "";
-  for (int r = 0; r < parent.children.length; r++) {
-    final child = parent.children[r];
-    String parsed = child.text;
-
-    // Remove Hyperlinks from content
-    if (child.localName == "blockquote") {
-      continue;
-    } else if (child.getElementsByTagName("blockquote").isNotEmpty) {
-      continue;
-    }
-    // Remove Heading if heading is in text
-    if (child.getElementsByClassName("card-title icon-left ").isNotEmpty) {
-      for (int i = 0;
-          i < child.getElementsByClassName("card-title icon-left ").length;
-          i++) {
-        final heading =
-            child.getElementsByClassName("card-title icon-left ")[i].text;
-        parsed = parsed.replaceFirst(heading, "\n## " + heading + "\n");
-      }
-    } else if (child.className == 'icon-left') {
-      parsed = "";
-      continue;
-    } else if (child.className == 'icon-left ') {
-      parsed = "";
-      continue;
-    } else if (child.getElementsByClassName('icon-left ').isNotEmpty) {
-      for (int i = 0;
-          i < child.getElementsByClassName('icon-left ').length;
-          i++) {
-        final heading = child.getElementsByClassName('icon-left ')[i].text;
-        parsed = parsed.replaceAll(heading, "");
-      }
-    }
-
-    // Making Parapgraphs
-    if (child.getElementsByClassName('card-action').isNotEmpty) {
-      for (int i = 0;
-          i < child.getElementsByClassName('card-action').length;
-          i++) {
-        final bodyText = child.getElementsByClassName('card-action')[i].text;
-        parsed = parsed.replaceAll(bodyText, bodyText + "\n\n");
-      }
-    } else if (child.getElementsByClassName('bodytext').isNotEmpty) {
-      for (int i = 0;
-          i < child.getElementsByClassName('bodytext').length;
-          i++) {
-        final bodyText = child.getElementsByClassName('bodytext')[i].text;
-        parsed = parsed.replaceAll(bodyText, bodyText + "\n\n");
-      }
-    }
-
-    // Hyperlinks
-    if (child.getElementsByTagName('a').isNotEmpty) {
-      // make shure that it is an actual hyperlink
-      if (child.getElementsByTagName('a')[0].attributes['href'].contains("/")) {
-        for (int index = 0;
-            index < child.getElementsByTagName('a').length;
-            index++) {
-          List links = List.empty(growable: true);
-          int currentIndex = 0;
-          // make a List "links" which contains all links so if multiple hyperlinks
-          // have an identical label then these label get the right link in the right order => avoid duplicates
-          for (int x = 0; x < child.getElementsByTagName('a').length; x++) {
-            if (child.getElementsByTagName('a')[x].text ==
-                child.getElementsByTagName('a')[index].text) {
-              links.add(child.getElementsByTagName('a')[x].attributes['href']);
-            }
-          }
-          // replace all labels with markdown links, if there are multiple links
-          // with same label then it iterates through the List "links" so that each
-          // label gets the right link from that list
-          parsed = parsed.replaceAllMapped(
-              child.getElementsByTagName('a')[index].text, (match) {
-            String hyperlink = "";
-            // determine if link is  an already fully working, external link or if it is
-            //a folder which needs the top level domain to be added to the link
-            if (!links[currentIndex].contains("http")) {
-              hyperlink = DOMAIN + links[currentIndex];
-            } else {
-              hyperlink = links[currentIndex];
-            }
-            currentIndex++;
-            return "[" +
-                child.getElementsByTagName('a')[index].text.trim() +
-                "]" +
-                "(" +
-                hyperlink +
-                ")";
-          });
-        }
-      }
-    }
-
-    // Listing Points
-    if (child.getElementsByTagName('li').isNotEmpty) {
-      for (int i = 0; i < child.getElementsByTagName('li').length; i++) {
-        final listingPoint = child.getElementsByTagName('li')[i].text;
-        parsed = parsed.replaceAll(listingPoint, "\n- " + listingPoint.trim());
-      }
-    }
-    if (child.localName == "li") {
-      parsed = "\n- ${parsed.trim()}";
-    }
-    if (parsed.contains("•")) {
-      parsed = parsed.replaceAll("•", "\n- ");
-    }
-
-    // Table
-    if (child.getElementsByTagName('tbody').isNotEmpty) {
-      // remove table content from text
-      // for (int i = 0; i < child.getElementsByTagName('tbody').length; i++) {
-      //   final tableText = child.getElementsByTagName('tbody')[i].text;
-      //   parsed = parsed.replaceAll(tableText, "");
-      // }
-      // create table
-      for (var i = 0; i < child.getElementsByTagName('tr').length; i++) {
-        for (var l = 0;
-            l <
-                child
-                    .getElementsByTagName('tr')[i]
-                    .getElementsByTagName('td')
-                    .length;
-            l++) {
-          final tableItem = child
-              .getElementsByTagName('tr')[i]
-              .getElementsByTagName('td')[l]
-              .text;
-
-          // item is last item in column => Add linebreak
-          if (l ==
-              child
-                      .getElementsByTagName('tr')[i]
-                      .getElementsByTagName('td')
-                      .length -
-                  1) {
-            String secondRow = "";
-            if (i == 0) {
-              for (int r = 0;
-                  r <
-                      child
-                          .getElementsByTagName('tr')[i]
-                          .getElementsByTagName('td')
-                          .length;
-                  r++) {
-                if (r ==
-                    child
-                            .getElementsByTagName('tr')[i]
-                            .getElementsByTagName('td')
-                            .length -
-                        1) {
-                  secondRow += "- |\n";
-                } else if (r == 0) {
-                  secondRow += "| - |";
-                } else {
-                  secondRow += " - |";
-                }
-              }
-            }
-            parsed =
-                parsed.replaceAll(tableItem, tableItem + "|\n" + secondRow);
-          } else if (l == 0) {
-            parsed = parsed.replaceAll(tableItem, "| " + tableItem + " | ");
-          } else {
-            parsed = parsed.replaceAll(tableItem, tableItem + " |");
-          }
-        }
-      }
-    }
-
-    // bold text
-    if (child.getElementsByTagName('strong').isNotEmpty) {
-      for (int i = 0; i < child.getElementsByTagName('strong').length; i++) {
-        final boldText = child.getElementsByTagName('strong')[i].text;
-        parsed = parsed.replaceAll(boldText, "**" + boldText.trim() + "**");
-      }
-    } // bold heading
-    else if (child.localName == "p") {
-      if (child.getElementsByTagName('strong').isNotEmpty) {
-        parsed = parsed.replaceFirst(parsed, "**" + parsed.trim() + "**\n");
-      }
-    }
-
-    // Italic
-    if (child.getElementsByTagName('em').isNotEmpty) {
-      for (int i = 0; i < child.getElementsByTagName('em').length; i++) {
-        final italicText = child.getElementsByTagName('em')[i].text;
-        parsed = parsed.replaceFirst(italicText, "*" + italicText.trim() + "*");
-      }
-    }
-
-    // Heading
-    if (child.localName == "h3" || child.localName == "h2") {
-      if (parsed.length != 1) {
-        parsed = "\n## " + parsed.trim() + "\n";
-      }
-    }
-    // if (child.getElementsByTagName("h3").isNotEmpty) {
-    //   for (int i = 0; i < child.getElementsByTagName("h3").length; i++) {
-    //     final heading = child.getElementsByTagName("h3")[i].text;
-    //     parsed = parsed.replaceFirst(heading, "\n## " + heading.trim() + "\n");
-    //   }
-    // }
-    if (child.getElementsByTagName("h2").isNotEmpty) {
-      for (int i = 0; i < child.getElementsByTagName("h2").length; i++) {
-        final heading = child.getElementsByTagName("h2")[i].text;
-        parsed = parsed.replaceFirst(heading, "\n## " + heading.trim() + "\n");
-      }
-    }
-
-    // Do Formatting
-    // fix emails
-    if (parsed.contains("dontospamme")) {
-      parsed = parsed.replaceAll("dontospamme", "");
-    }
-    if (parsed.contains("gowaway.")) {
-      parsed = parsed.replaceAll("gowaway.", "");
-    }
-    if (child.getElementsByClassName("description").isNotEmpty) {
-      for (int i = 0;
-          i < child.getElementsByClassName("description").length;
-          i++) {
-        final italicText = child.getElementsByClassName("description")[i].text;
-        parsed = parsed.replaceAll(italicText, "");
-      }
-    }
-    // fix if javascript got into text
-    if (child.getElementsByTagName("script").isNotEmpty) {
-      for (int i = 0; i < child.getElementsByTagName("script").length; i++) {
-        final javascripts = child.getElementsByTagName("script")[i].text;
-        parsed = parsed.replaceAll(javascripts, "");
-      }
-    }
-
-    content += "${parsed.trim()}\n\n";
-  }
-
-  return content;
-}
-
 List<Hyperlink> _parseHyperlinks(document, DOMAIN) {
   List<Hyperlink> hyperlinks = List.empty(growable: true);
-  if (document.getElementsByClassName('row h-bulldozer default').isNotEmpty) {
-    if (document
-        .getElementsByClassName('row h-bulldozer default')[0]
-        .getElementsByClassName('row ctype-text listtype-none showmobdesk-0')
-        .isNotEmpty) {
-      if (document
-          .getElementsByClassName('row h-bulldozer default')[0]
-          .getElementsByClassName(
-              'row ctype-text listtype-none showmobdesk-0')[0]
-          .getElementsByClassName('internal-link')
-          .isNotEmpty) {
-        List<String> links = List.empty(growable: true);
-        List<String> description = List.empty(growable: true);
-        for (var i = 0;
-            i <
-                document
-                    .getElementsByClassName('row h-bulldozer default')[0]
-                    .getElementsByClassName(
-                        'row ctype-text listtype-none showmobdesk-0')[0]
-                    .getElementsByClassName('internal-link')
-                    .length;
-            i++) {
-          links.add(document
-              .getElementsByClassName('row h-bulldozer default')[0]
-              .getElementsByClassName(
-                  'row ctype-text listtype-none showmobdesk-0')[0]
-              .getElementsByClassName('internal-link')[i]
-              .attributes['href']
-              .toString());
-          description.add(document
-              .getElementsByClassName('row h-bulldozer default')[0]
-              .getElementsByClassName(
-                  'row ctype-text listtype-none showmobdesk-0')
-              .getElementsByClassName('internal-link')[i]
-              .text);
-        }
+  if (document
+      .getElementsByClassName('row ctype-text listtype-none showmobdesk-0')
+      .isNotEmpty) {
+    var rootNodes = document
+        .getElementsByClassName('row ctype-text listtype-none showmobdesk-0');
+    var links = rootNodes
+        .map((elements) =>
+            DOMAIN +
+            elements.getElementsByTagName('a')[0].attributes['href'].toString())
+        .toList();
+    var text = rootNodes
+        .map(
+            (elements) => elements.getElementsByTagName('a')[0].text.toString())
+        .toList();
 
-        //map webscraped links and descriptions to hyperlinks
-        for (int k = 0; k < links.length; k++) {
-          hyperlinks
-              .add(Hyperlink(link: links[k], description: description[k]));
-        }
-      }
+    for (int i = 0; i < links.length; i++) {
+      hyperlinks.add((Hyperlink(link: links[i], description: text[i])));
     }
   }
   // Check if there is a table with links
-  if (document.getElementsByClassName('collection-item row').isNotEmpty) {
-    List<String> links = List.empty(growable: true);
-    List<String> description = List.empty(growable: true);
-    links.addAll(document
-        .getElementsByClassName('collection-item row')
-        .map((element) =>
-            DOMAIN + element.getElementsByTagName('a')[0].attributes['href'])
-        .toList());
-    description.addAll(document
-        .getElementsByClassName('collection-item row')
-        .map((element) =>
-            element.getElementsByTagName('a')[0].attributes['title'])
-        .toList());
-
-    for (int k = 0; k < links.length; k++) {
-      hyperlinks.add(Hyperlink(link: links[k], description: description[k]));
-    }
-  }
-
+  if (document.getElementsByClassName('collection-item row').isNotEmpty) {}
   return hyperlinks;
 }
 

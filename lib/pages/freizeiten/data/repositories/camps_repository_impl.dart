@@ -25,7 +25,6 @@ class CampRepositoryImpl implements CampRepository {
   Future<Either<Failure, List<Camp>>> getCamps() async {
     if (await networkInfo.isConnected) {
       try {
-        print("Online part");
         final remoteFreizeiten = await remoteDataSource.getFreizeiten();
         await localDatasource.cacheCamps(remoteFreizeiten);
         final camps = await localDatasource.getCachedCamps();
