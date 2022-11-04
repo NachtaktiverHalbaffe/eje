@@ -19,6 +19,10 @@ class AppConfig {
   final String idContact;
   // ID of html element "adress" which should not be webscraped
   final String idAdress;
+  // Source uri for banner picture which is displayed at top of homepage
+  final String bannerPicture;
+// Source uri for picture displayed in contacts section of website
+  final String contactPicture;
 
   // * Local data sources. Local data is stored in boxes which are identified by keys (box names)
   // Box name for "Neuigkeiten"
@@ -47,6 +51,8 @@ class AppConfig {
     this.idHeader = "",
     this.idContact = "",
     this.idAdress = "",
+    this.bannerPicture = "",
+    this.contactPicture = "",
     this.newsBox = "",
     this.articlesBox = "",
     this.fieldOfWorkBox = "",
@@ -84,6 +90,8 @@ class AppConfig {
         idHeader: json["idHeader"],
         idContact: json["idContact"],
         idAdress: json["idAdress"],
+        bannerPicture: json["bannerPicture"],
+        contactPicture: json["contactPicture"],
         newsBox: "News",
         articlesBox: "Articles",
         fieldOfWorkBox: "FieldsOfWork",

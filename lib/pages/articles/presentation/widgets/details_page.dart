@@ -209,7 +209,7 @@ class DetailsPage extends StatelessWidget {
               ),
               shrinkWrap: true,
               data: text,
-              onTapLink: (text, url, title) {
+              onTapLink: (text, url, title) async {
                 if (url!.contains("eje-esslingen.de") &&
                     !url.contains("fileadmin/")) {
                   Navigator.push(
@@ -224,14 +224,21 @@ class DetailsPage extends StatelessWidget {
                     ),
                   );
                 } else {
-                  launch(url);
+                  if (await canLaunchUrlString(url)) {
+                    if (url.contains(".pdf") || url.contains(".doc")) {
+                      launchUrlString(url,
+                          mode: LaunchMode.externalApplication);
+                    } else {
+                      launchUrlString(url);
+                    }
+                  }
                 }
               },
             ),
           ),
           SizedBox(height: 16),
           childWidget,
-          hyperlinks[0].link != ""
+          hyperlinks.isNotEmpty
               ? HyperlinkSection(hyperlinks: hyperlinks)
               : SizedBox(height: 8),
           SizedBox(height: 16)

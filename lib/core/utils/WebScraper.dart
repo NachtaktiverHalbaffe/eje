@@ -1,5 +1,5 @@
 // ignore_for_file: non_constant_identifier_names, prefer_typing_uninitialized_variables, no_leading_underscores_for_local_identifiers
-
+import 'package:dartz/dartz_unsafe.dart';
 import 'package:eje/app_config.dart';
 import 'package:eje/core/error/exception.dart';
 import 'package:eje/pages/articles/domain/entity/Article.dart';
@@ -41,6 +41,24 @@ class WebScraper {
       String title = "";
       List<Hyperlink> hyperlinks = List.empty(growable: true);
       List<String> bilder = List.empty(growable: true);
+
+      // ! Hyperlink parsing
+      try {
+        List<Hyperlink> parsedHyperlinks = _parseHyperlinks(document, DOMAIN);
+        hyperlinks.addAll(parsedHyperlinks);
+      } catch (e) {
+        print("Webscaper error: $e");
+        // throw ServerException();
+      }
+      // ! pictures parsen
+      try {
+        List<String> parsedPictures = await _parsePictures(document, DOMAIN);
+        bilder.addAll(parsedPictures);
+      } catch (e) {
+        print("Webscaper error: $e");
+        throw ServerException();
+      }
+
       for (int i = 0; i < parent.length; i++) {
         // if html class "col s12 default" is present, then set this element as parent
         if (parent[i].getElementsByClassName("col s12 default").isNotEmpty) {
@@ -62,13 +80,6 @@ class WebScraper {
                       title =
                           parent[i].getElementsByClassName('icon-left')[0].text;
                       title = title.substring(1);
-                    } else {
-                      // content = content +
-                      //     "\n## " +
-                      //     parent[i]
-                      //         .getElementsByClassName('icon-left')[0]
-                      //         .text +
-                      //     "\n\n";
                     }
                   } else {
                     // Checking if article has already title, otherwise integrating it into content
@@ -78,18 +89,10 @@ class WebScraper {
                           .getElementsByTagName("a")[0]
                           .text;
                       title = title.substring(1);
-                    } else {
-                      // content += "\n## " +
-                      //     parent[i]
-                      //         .getElementsByClassName('icon-left')[0]
-                      //         .getElementsByTagName("a")[0]
-                      //         .text +
-                      //     "\n\n";
                     }
                   }
                 }
                 // ! Content parsen
-                // content = content + _parseContent(parent[i], DOMAIN);
                 content = content +
                     html2md.convert(parent[i].innerHtml, rules: [
                       Rule(
@@ -164,37 +167,23 @@ class WebScraper {
                           return "";
                         },
                       ),
+                      Rule(
+                        'remove iframe',
+                        filterFn: (node) {
+                          if (node.nodeName == 'iframe') {
+                            return true;
+                          } else
+                            return false;
+                        },
+                        replacement: (content, node) {
+                          return "";
+                        },
+                      )
                     ]);
                 content = content.replaceAll("dontospamme", "");
                 content = content.replaceAll("gowaway.", "");
                 content = content.substring(content.indexOf('\n') + 1);
-
-                // ! pictures parsen
-                try {
-                  List<String> parsedPictures =
-                      _parsePictures(parent[i], DOMAIN);
-                  bilder.addAll(parsedPictures);
-                } catch (e) {
-                  print("Webscaper error: $e");
-                  throw ServerException();
-                }
                 content = "$content\n\n";
-                // ! Hyperlink parsing
-                if (i == 1) {
-                  try {
-                    List<Hyperlink> parsedHyperlinks =
-                        _parseHyperlinks(document, DOMAIN);
-                    hyperlinks.addAll(parsedHyperlinks);
-                    if (hyperlinks.isEmpty) {
-                      hyperlinks.add(Hyperlink(link: "", description: ""));
-                    }
-                  } catch (e) {
-                    print("Webscaper error: $e");
-                    // throw ServerException();
-                  }
-                }
-
-                //add scraped Section to List of Articles
               }
             }
           }
@@ -662,9 +651,6 @@ class WebScraper {
         if (bilder.length > 1) {
           bilder = bilder.sublist(1);
         }
-        if (hyperlinks.length == 1) {
-          hyperlinks.add(Hyperlink(link: "", description: ""));
-        }
 
         return Service(
           service: service.service,
@@ -681,64 +667,49 @@ class WebScraper {
 
 List<Hyperlink> _parseHyperlinks(document, DOMAIN) {
   List<Hyperlink> hyperlinks = List.empty(growable: true);
-  if (document
-      .getElementsByClassName('row ctype-text listtype-none showmobdesk-0')
-      .isNotEmpty) {
-    var rootNodes = document
-        .getElementsByClassName('row ctype-text listtype-none showmobdesk-0');
-    var links = rootNodes
-        .map((elements) =>
-            DOMAIN +
-            elements.getElementsByTagName('a')[0].attributes['href'].toString())
-        .toList();
-    var text = rootNodes
-        .map(
-            (elements) => elements.getElementsByTagName('a')[0].text.toString())
-        .toList();
 
-    for (int i = 0; i < links.length; i++) {
-      hyperlinks.add((Hyperlink(link: links[i], description: text[i])));
+  // Check if there is a table with links
+  if (document.getElementsByClassName('internal-link').isNotEmpty) {
+    var rootNodes = document.getElementsByClassName('internal-link');
+    for (int i = 0; i < rootNodes.length; i++) {
+      String link = rootNodes[i].attributes['href'].toString();
+      if (!link.contains("http")) {
+        link = DOMAIN + link;
+      }
+      String text = rootNodes[i].text.toString();
+      hyperlinks.add((Hyperlink(link: link, description: text)));
     }
   }
-  // Check if there is a table with links
-  if (document.getElementsByClassName('collection-item row').isNotEmpty) {}
+
+  if (document.getElementsByClassName('external-link-new-window').isNotEmpty) {
+    var rootNodes = document.getElementsByClassName('external-link-new-window');
+    for (int i = 0; i < rootNodes.length; i++) {
+      String link = rootNodes[i].attributes['href'].toString();
+      if (!link.contains("http")) {
+        link = DOMAIN + link;
+      }
+      String text = rootNodes[i].text.toString();
+      hyperlinks.add((Hyperlink(link: link, description: text)));
+    }
+  }
+  print(hyperlinks.length);
   return hyperlinks;
 }
 
-List<String> _parsePictures(parent, DOMAIN) {
+Future<List<String>> _parsePictures(document, DOMAIN) async {
+  final AppConfig appConfig = await AppConfig.loadConfig();
+  final String BANNER_PICTURE = appConfig.bannerPicture;
+  final String CONTACT_PICTURE = appConfig.contactPicture;
   List bilder = List.empty(growable: true);
-  //check if picture links are in "text-pic-right" or "width100 center marginBottom10" class
-  if (parent.getElementsByClassName('text-pic-right').isNotEmpty) {
-    //picture-link is in text-pic-right class
-    bilder = parent
-        .getElementsByClassName('text-pic-right')
-        .map((elements) =>
-            DOMAIN +
-            elements
-                .getElementsByTagName('img')[0]
-                .attributes['src']
-                .toString())
-        .toList();
-  } else if (parent
-      .getElementsByClassName("width100 center marginBottom10")
-      .isNotEmpty) {
-    //picture source is in "width100 center marginBottom10" class
-    bilder = parent
-        .getElementsByClassName("width100 center marginBottom10")
-        .map((elements) =>
-            DOMAIN +
-            elements
-                .getElementsByTagName('img')[0]
-                .attributes['src']
-                .toString())
-        .toList();
-  } else if (parent.getElementsByTagName("img").isNotEmpty) {
-    //picture source is in "width100 center marginBottom10" class
-    bilder = parent
-        .getElementsByTagName("img")
+
+  if (document.getElementsByTagName('img').isNotEmpty) {
+    bilder = document
+        .getElementsByTagName('img')
         .map((elements) => DOMAIN + elements.attributes['src'].toString())
         .toList();
+    // Remove static pictures which is globally on page
+    bilder.removeWhere((element) => element == "$DOMAIN$BANNER_PICTURE");
+    bilder.removeWhere((element) => element == "$DOMAIN$CONTACT_PICTURE");
   }
-
   return bilder.cast<String>();
 }

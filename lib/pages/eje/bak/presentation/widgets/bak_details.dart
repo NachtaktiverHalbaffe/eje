@@ -60,7 +60,7 @@ class HauptamtlicheDetailsCard extends StatelessWidget {
         untertitel: bakler.function,
         text: bakler.introduction,
         bilder: bilder,
-        hyperlinks: [Hyperlink(link: "", description: "")],
+        hyperlinks: List.empty(),
         pictureHeight: 400,
         childWidget: _childBak(bakler, context));
   }

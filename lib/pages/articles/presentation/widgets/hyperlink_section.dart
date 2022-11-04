@@ -58,7 +58,13 @@ class _column extends StatelessWidget {
         if (hyperlink.link.contains("fileadmin") ||
             !hyperlink.link.contains("https://www.eje-esslingen.de")) {
           if (await canLaunchUrlString(hyperlink.link)) {
-            await launchUrlString(hyperlink.link);
+            if (hyperlink.link.contains(".pdf") ||
+                hyperlink.link.contains(".doc")) {
+              await launchUrlString(hyperlink.link,
+                  mode: LaunchMode.externalApplication);
+            } else {
+              await launchUrlString(hyperlink.link);
+            }
           } else {
             throw 'Could not launch $hyperlink.link';
           }

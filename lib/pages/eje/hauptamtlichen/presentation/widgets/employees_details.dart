@@ -63,7 +63,7 @@ class EmployeeDetailsCard extends StatelessWidget {
         bilder: bilder,
         pictureHeight: 400,
         text: employee.introduction,
-        hyperlinks: [Hyperlink(link: "", description: "")],
+        hyperlinks: List.empty(),
         childWidget: _childEmployeeDetails(hauptamtlicher: employee));
   }
 }
