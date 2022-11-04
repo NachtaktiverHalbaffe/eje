@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:page_view_indicators/circle_page_indicator.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../../../core/widgets/cached_image.dart';
@@ -223,7 +224,7 @@ class DetailsPage extends StatelessWidget {
                     ),
                   );
                 } else {
-                  launchUrlString(url);
+                  launch(url);
                 }
               },
             ),

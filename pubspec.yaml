@@ -64,7 +64,7 @@ dependencies:
   cached_network_image: ^3.1.0
   # Markdown editor
   flutter_markdown: ^0.6.6
-  html2md: ^1.2.5
+  html2md: ^1.2.6
   # Local Push-Notification
   flutter_local_notifications: ^12.0.3
   # Background services
