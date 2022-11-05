@@ -2,7 +2,7 @@
 import 'package:eje/core/utils/notificationplugin.dart';
 import 'package:eje/pages/articles/presentation/widgets/details_page.dart';
 import 'package:eje/core/widgets/loading_indicator.dart';
-import 'package:eje/pages/articles/domain/entity/Hyperlink.dart';
+import 'package:add_2_calendar/add_2_calendar.dart' as Ev;
 import 'package:eje/pages/termine/domain/entities/Event.dart';
 import 'package:eje/pages/termine/presentation/bloc/bloc.dart';
 import 'package:flutter/material.dart';
@@ -71,7 +71,6 @@ class EventDetailsCard extends StatelessWidget {
 class _terminChildWidget extends StatelessWidget {
   final Event _termin;
   _terminChildWidget(this._termin);
-  // TODO ICAL implementierung
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -90,6 +89,24 @@ class _terminChildWidget extends StatelessWidget {
               fontSize: 42 / MediaQuery.of(context).devicePixelRatio,
               color: Theme.of(context).dividerColor,
             ),
+          ),
+          trailing: GestureDetector(
+            child: Icon(
+              MdiIcons.calendar,
+              color: Theme.of(context).colorScheme.secondary,
+            ),
+            onTap: () async {
+              var event = Ev.Event(
+                title: _termin.name,
+                description: _termin.description,
+                location:
+                    '${_termin.location.adress}, ${_termin.location.street}, ${_termin.location.postalCode}',
+                startDate: _termin.startDate,
+                endDate: _termin.endDate,
+              );
+
+              Ev.Add2Calendar.addEvent2Cal(event);
+            },
           ),
         ),
         ListTile(

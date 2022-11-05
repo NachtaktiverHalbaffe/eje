@@ -53,6 +53,8 @@ dependencies:
   # Url opener
   url_launcher: ^6.1.6
   maps_launcher: ^2.0.1
+  # to save events to calendar
+  add_2_calendar: ^2.1.2
   # Pageviewer Indicator
   page_view_indicators: ^2.0.0
   # Carousel PageView

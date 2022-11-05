@@ -1,3 +1,4 @@
+import 'package:add_2_calendar/add_2_calendar.dart';
 import 'package:eje/pages/articles/presentation/widgets/details_page.dart';
 import 'package:eje/core/widgets/loading_indicator.dart';
 import 'package:eje/pages/articles/domain/entity/Hyperlink.dart';
@@ -85,6 +86,24 @@ class _freizeitChildWidget extends StatelessWidget {
               fontSize: 42 / MediaQuery.of(context).devicePixelRatio,
               color: Theme.of(context).dividerColor,
             ),
+          ),
+          trailing: GestureDetector(
+            child: Icon(
+              MdiIcons.calendar,
+              color: Theme.of(context).colorScheme.secondary,
+            ),
+            onTap: () async {
+              var event = Event(
+                title: freizeit.name,
+                description: freizeit.description,
+                location:
+                    '${freizeit.location.adress}, ${freizeit.location.street}, ${freizeit.location.postalCode}',
+                startDate: freizeit.startDate,
+                endDate: freizeit.endDate,
+              );
+
+              Add2Calendar.addEvent2Cal(event);
+            },
           ),
         ),
         freizeit.price != 0 || freizeit.price != 0
