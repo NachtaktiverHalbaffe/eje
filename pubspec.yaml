@@ -52,6 +52,7 @@ dependencies:
   dart_rss: ^2.0.1
   # Url opener
   url_launcher: ^6.1.6
+  maps_launcher: ^2.0.1
   # Pageviewer Indicator
   page_view_indicators: ^2.0.0
   # Carousel PageView
@@ -68,7 +69,6 @@ dependencies:
   # Local Push-Notification
   flutter_local_notifications: ^12.0.3
   # Background services
-  background_fetch: ^1.0.1
   workmanager: ^0.5.1
   # For secrets
   envied: ^0.2.3

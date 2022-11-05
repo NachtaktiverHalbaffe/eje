@@ -1,3 +1,4 @@
+import 'package:eje/core/widgets/alert_snackbar.dart';
 import 'package:eje/core/widgets/bloc/bloc.dart';
 import 'package:eje/core/widgets/costum_icons_icons.dart';
 import 'package:eje/pages/einstellungen/presentation/bloc/bloc.dart';
@@ -130,8 +131,13 @@ class EinstellungenPage extends StatelessWidget {
               controller: TextEditingController(
                   text: prefs.read("schedule_offset").toString()),
               keyboardType: TextInputType.number,
-              onSubmitted: (value) =>
-                  prefs.write("schedule_offset", int.parse(value)),
+              onSubmitted: (value) {
+                if (int.parse(value) > 0 && int.parse(value) < 365) {
+                  prefs.write("schedule_offset", int.parse(value));
+                } else
+                  AlertSnackbar(context)
+                      .showWarningSnackBar(label: "Ungültiger Zeitraum");
+              },
               decoration: InputDecoration(
                   floatingLabelStyle:
                       TextStyle(color: Theme.of(context).colorScheme.secondary),

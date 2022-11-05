@@ -41,14 +41,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.10.0"
-  background_fetch:
-    dependency: "direct main"
-    description:
-      name: background_fetch
-      sha256: "20ad7bd0b7437c21bc78ded9a83f746be6eac678f02571b732ac014db6e294ea"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.1.2"
   bloc:
     dependency: "direct main"
     description:
@@ -648,6 +640,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.1.0"
+  maps_launcher:
+    dependency: "direct main"
+    description:
+      name: maps_launcher
+      sha256: "2fd2e8704c7cb74455d14c652f8a6b505a7f9d369cb41bf67384712cea0eb585"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.1"
   markdown:
     dependency: transitive
     description:

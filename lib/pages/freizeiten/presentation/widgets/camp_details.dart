@@ -1,4 +1,3 @@
-import 'package:eje/core/platform/map_launcher.dart';
 import 'package:eje/pages/articles/presentation/widgets/details_page.dart';
 import 'package:eje/core/widgets/loading_indicator.dart';
 import 'package:eje/pages/articles/domain/entity/Hyperlink.dart';
@@ -7,6 +6,7 @@ import 'package:eje/pages/freizeiten/presentation/bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:maps_launcher/maps_launcher.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
@@ -57,7 +57,7 @@ class FreizeitDetailsCard extends StatelessWidget {
       untertitel: freizeit.subtitle,
       text: freizeit.description,
       bilder: freizeit.pictures,
-      hyperlinks: [Hyperlink(link: "", description: "")],
+      hyperlinks: List.empty(),
       childWidget: _freizeitChildWidget(freizeit: freizeit),
     );
   }
@@ -124,7 +124,7 @@ class _freizeitChildWidget extends StatelessWidget {
                     color: Theme.of(context).colorScheme.secondary,
                   ),
                   onTap: () async {
-                    await MapLauncher.launchQuery(
+                    await MapsLauncher.launchQuery(
                         "${freizeit.location.adress},${freizeit.location.street}, ${freizeit.location.postalCode}");
                   },
                 ),

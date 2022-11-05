@@ -1,5 +1,4 @@
 // ignore_for_file: non_constant_identifier_names, camel_case_types
-import 'package:eje/core/platform/map_launcher.dart';
 import 'package:eje/core/utils/notificationplugin.dart';
 import 'package:eje/pages/articles/presentation/widgets/details_page.dart';
 import 'package:eje/core/widgets/loading_indicator.dart';
@@ -10,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:intl/intl.dart';
+import 'package:maps_launcher/maps_launcher.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class EventDetails extends StatelessWidget {
@@ -62,7 +62,7 @@ class EventDetailsCard extends StatelessWidget {
       untertitel: event.motto,
       text: event.description,
       bilder: event.images,
-      hyperlinks: [Hyperlink(link: "", description: "")],
+      hyperlinks: List.empty(),
       childWidget: _terminChildWidget(event),
     );
   }
@@ -112,7 +112,7 @@ class _terminChildWidget extends StatelessWidget {
               color: Theme.of(context).colorScheme.secondary,
             ),
             onTap: () async {
-              await MapLauncher.launchQuery(
+              await MapsLauncher.launchQuery(
                   "${_termin.location.adress},${_termin.location.street}, ${_termin.location.postalCode}");
             },
           ),
