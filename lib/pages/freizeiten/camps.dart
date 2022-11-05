@@ -63,18 +63,24 @@ class CampsPageViewer extends StatelessWidget {
       resizeToAvoidBottomInset: false,
       backgroundColor: Theme.of(context).colorScheme.surface,
       body: RefreshIndicator(
-          color: Theme.of(context).colorScheme.secondary,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              camps.isNotEmpty ? SizedBox(height: 65) : Center(),
-              SingleChildScrollView(
-                physics: AlwaysScrollableScrollPhysics(),
-                child: ConstrainedBox(
-                  constraints: BoxConstraints(minHeight: 400),
-                  child: camps.isNotEmpty
-                      ? Swiper(
+        color: Theme.of(context).colorScheme.secondary,
+        onRefresh: () async {
+          BlocProvider.of<CampsBloc>(context).add(RefreshCamps());
+        },
+        child: SingleChildScrollView(
+          physics: AlwaysScrollableScrollPhysics(),
+          child: ConstrainedBox(
+            constraints: BoxConstraints(
+                minHeight: MediaQuery.of(context).size.height - 50),
+            child: camps.isNotEmpty
+                ? Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      SizedBox(height: 65),
+                      Container(
+                        height: 400,
+                        child: Swiper(
                           itemBuilder: (BuildContext context, int index) {
                             return CampCard(camp: camps[index]);
                           },
@@ -83,37 +89,36 @@ class CampsPageViewer extends StatelessWidget {
                           itemWidth: 325,
                           layout: SwiperLayout.STACK,
                           loop: true,
-                        )
-                      // Return placeholder if no camps are available to display
-                      : Stack(
-                          alignment: AlignmentDirectional.bottomCenter,
-                          children: [
-                            NoResultCard(
-                              label: "Keine Freizeiten gefunden",
-                              isError: false,
-                              onRefresh: () async {
-                                BlocProvider.of<CampsBloc>(context)
-                                    .add(RefreshCamps());
-                              },
-                            ),
-                            Column(
-                              children: [
-                                FilterCard(),
-                                SizedBox(
-                                  height: 40,
-                                )
-                              ],
-                            ),
-                          ],
                         ),
-                ),
-              ),
-              camps.isNotEmpty ? FilterCard() : Container(),
-            ],
+                      ),
+                      FilterCard(),
+                    ],
+                  )
+                // Return placeholder if no camps are available to display
+                : Stack(
+                    alignment: AlignmentDirectional.bottomCenter,
+                    children: [
+                      NoResultCard(
+                        label: "Keine Freizeiten gefunden",
+                        isError: false,
+                        onRefresh: () async {
+                          BlocProvider.of<CampsBloc>(context)
+                              .add(RefreshCamps());
+                        },
+                      ),
+                      Column(
+                        children: [
+                          FilterCard(),
+                          SizedBox(
+                            height: 40,
+                          )
+                        ],
+                      ),
+                    ],
+                  ),
           ),
-          onRefresh: () async {
-            BlocProvider.of<CampsBloc>(context).add(RefreshCamps());
-          }),
+        ),
+      ),
     );
   }
 }

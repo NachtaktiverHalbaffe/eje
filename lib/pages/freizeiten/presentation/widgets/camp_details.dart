@@ -106,7 +106,7 @@ class _freizeitChildWidget extends StatelessWidget {
             },
           ),
         ),
-        freizeit.price != 0 || freizeit.price != 0
+        freizeit.price != 0 || freizeit.price2 != 0
             ? ListTile(
                 leading: Icon(
                   MdiIcons.currencyEur,
