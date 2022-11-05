@@ -35,6 +35,15 @@ class FilteredCamps extends CampState {
   List<Object> get props => [freizeiten];
 }
 
+class DeletedFilter extends CampState {
+  final List<Camp> freizeiten;
+
+  DeletedFilter(this.freizeiten);
+
+  @override
+  List<Object> get props => [freizeiten];
+}
+
 class LoadedCamp extends CampState {
   final Camp freizeit;
 

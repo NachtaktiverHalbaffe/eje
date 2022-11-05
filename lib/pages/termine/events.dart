@@ -82,7 +82,7 @@ class TermineListView extends StatelessWidget {
                             return EventCard(termine[index]);
                           },
                           itemCount: termine.length,
-                          itemHeight: 550,
+                          itemHeight: 575,
                           itemWidth: 300,
                           layout: SwiperLayout.STACK,
                           loop: true,

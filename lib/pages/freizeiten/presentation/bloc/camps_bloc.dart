@@ -18,6 +18,7 @@ class CampsBloc extends Bloc<CampEvent, CampState> {
     on<RefreshCamps>(_loadCamps);
     on<GettingCamp>(_loadSpecificCamp);
     on<FilteringCamps>(_filterCamps);
+    on<DeletingCampsFilter>(_deleteChip);
   }
 
   void _loadCamps(event, Emitter<CampState> emit) async {
@@ -52,6 +53,17 @@ class CampsBloc extends Bloc<CampEvent, CampState> {
       (freizeiten) {
         List<Camp> filteredCamps = _getFilteredCamps(freizeiten);
         return FilteredCamps(filteredCamps);
+      },
+    ));
+  }
+
+  void _deleteChip(event, Emitter<CampState> emit) async {
+    final campsOrFailure = await getCamps();
+    emit(campsOrFailure.fold(
+      (failure) => Error(message: failure.getErrorMsg()),
+      (freizeiten) {
+        List<Camp> filteredCamps = _getFilteredCamps(freizeiten);
+        return DeletedFilter(filteredCamps);
       },
     ));
   }

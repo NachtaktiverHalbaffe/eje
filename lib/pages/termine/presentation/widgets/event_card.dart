@@ -71,7 +71,7 @@ class EventCard extends StatelessWidget {
                 children: [
                   Container(
                     width: MediaQuery.of(context).size.width,
-                    height: 275,
+                    height: 300,
                     color: Theme.of(context).cardColor,
                   ),
                   Column(

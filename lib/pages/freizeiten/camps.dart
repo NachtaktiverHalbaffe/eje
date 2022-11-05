@@ -34,6 +34,8 @@ class Camps extends StatelessWidget {
             return CampsPageViewer(state.freizeiten);
           } else if (state is FilteredCamps) {
             return CampsPageViewer(state.freizeiten);
+          } else if (state is DeletedFilter) {
+            return CampsPageViewer(state.freizeiten);
           } else if (state is Error) {
             return NoResultCard(
               label: "Fehler beim Laden der Freizeiten",
@@ -66,7 +68,7 @@ class CampsPageViewer extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              SizedBox(height: 65),
+              camps.isNotEmpty ? SizedBox(height: 65) : Center(),
               SingleChildScrollView(
                 physics: AlwaysScrollableScrollPhysics(),
                 child: ConstrainedBox(
@@ -83,13 +85,26 @@ class CampsPageViewer extends StatelessWidget {
                           loop: true,
                         )
                       // Return placeholder if no camps are available to display
-                      : NoResultCard(
-                          label: "Keine Freizeiten gefunden",
-                          isError: false,
-                          onRefresh: () async {
-                            BlocProvider.of<CampsBloc>(context)
-                                .add(RefreshCamps());
-                          },
+                      : Stack(
+                          alignment: AlignmentDirectional.bottomCenter,
+                          children: [
+                            NoResultCard(
+                              label: "Keine Freizeiten gefunden",
+                              isError: false,
+                              onRefresh: () async {
+                                BlocProvider.of<CampsBloc>(context)
+                                    .add(RefreshCamps());
+                              },
+                            ),
+                            Column(
+                              children: [
+                                FilterCard(),
+                                SizedBox(
+                                  height: 40,
+                                )
+                              ],
+                            ),
+                          ],
                         ),
                 ),
               ),
@@ -128,89 +143,90 @@ Future<dynamic> createFilterDialog({required BuildContext context}) {
       builder: (context) {
         return AlertDialog(
           title: Text(dialogTitle),
-          content: ListView(
-            shrinkWrap: true,
-            children: [
-              // Age
-              TextField(
-                controller: TextEditingController(
-                    text: GetStorage().read("campFilterAge") != 0
-                        ? GetStorage().read("campFilterAge").toString()
-                        : ""),
-                keyboardType: TextInputType.number,
-                onChanged: (value) {
-                  age = int.parse(value);
-                },
-                decoration: InputDecoration(
-                  floatingLabelStyle:
-                      TextStyle(color: Theme.of(context).colorScheme.secondary),
-                  border: OutlineInputBorder(),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: Theme.of(context).colorScheme.secondary,
-                      width: 2.0,
+          content: SingleChildScrollView(
+            child: Column(
+              children: [
+                // Age
+                TextField(
+                  controller: TextEditingController(
+                      text: GetStorage().read("campFilterAge") != 0
+                          ? GetStorage().read("campFilterAge").toString()
+                          : ""),
+                  keyboardType: TextInputType.number,
+                  onChanged: (value) {
+                    age = int.parse(value);
+                  },
+                  decoration: InputDecoration(
+                    floatingLabelStyle: TextStyle(
+                        color: Theme.of(context).colorScheme.secondary),
+                    border: OutlineInputBorder(),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Theme.of(context).colorScheme.secondary,
+                        width: 2.0,
+                      ),
                     ),
-                  ),
-                  labelText: ageFilterLable,
-                  helperText: ageFilterHelper,
-                ),
-              ),
-              SizedBox(height: height),
-              // Price
-              TextField(
-                controller: TextEditingController(
-                    text: GetStorage().read("campFilterPrice") != 0
-                        ? GetStorage().read("campFilterPrice").toString()
-                        : ""),
-                keyboardType: TextInputType.number,
-                onChanged: (value) {
-                  price = int.parse(value);
-                },
-                decoration: InputDecoration(
-                  floatingLabelStyle:
-                      TextStyle(color: Theme.of(context).colorScheme.secondary),
-                  border: OutlineInputBorder(),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: Theme.of(context).colorScheme.secondary,
-                      width: 2.0,
-                    ),
-                  ),
-                  labelText: priceFilterLable,
-                  helperText: priceFilterHelper,
-                ),
-              ),
-              SizedBox(height: height),
-              TextField(
-                controller: datetimeRangeController,
-                decoration: InputDecoration(
-                  icon: Icon(Icons.calendar_today_outlined),
-                  labelText: dateFilterLable,
-                  floatingLabelStyle:
-                      TextStyle(color: Theme.of(context).colorScheme.secondary),
-                  border: OutlineInputBorder(),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: Theme.of(context).colorScheme.secondary,
-                      width: 2.0,
-                    ),
+                    labelText: ageFilterLable,
+                    helperText: ageFilterHelper,
                   ),
                 ),
-                readOnly: true,
-                onTap: () async {
-                  date = (await showDateRangePicker(
-                    context: context,
-                    firstDate: DateTime.now(),
-                    lastDate: DateTime.now().add(Duration(days: 365)),
-                    helpText: dateFilterLable,
-                    cancelText: "Abbrechen",
-                    saveText: "Bestätigen",
-                  ));
-                  datetimeRangeController.text =
-                      "${DateFormat('dd.MM.yyyy').format(date!.start)} - ${DateFormat('dd.MM.yyyy').format(date!.end)}";
-                },
-              ),
-            ],
+                SizedBox(height: height),
+                // Price
+                TextField(
+                  controller: TextEditingController(
+                      text: GetStorage().read("campFilterPrice") != 0
+                          ? GetStorage().read("campFilterPrice").toString()
+                          : ""),
+                  keyboardType: TextInputType.number,
+                  onChanged: (value) {
+                    price = int.parse(value);
+                  },
+                  decoration: InputDecoration(
+                    floatingLabelStyle: TextStyle(
+                        color: Theme.of(context).colorScheme.secondary),
+                    border: OutlineInputBorder(),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Theme.of(context).colorScheme.secondary,
+                        width: 2.0,
+                      ),
+                    ),
+                    labelText: priceFilterLable,
+                    helperText: priceFilterHelper,
+                  ),
+                ),
+                SizedBox(height: height),
+                TextField(
+                  controller: datetimeRangeController,
+                  decoration: InputDecoration(
+                    icon: Icon(Icons.calendar_today_outlined),
+                    labelText: dateFilterLable,
+                    floatingLabelStyle: TextStyle(
+                        color: Theme.of(context).colorScheme.secondary),
+                    border: OutlineInputBorder(),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Theme.of(context).colorScheme.secondary,
+                        width: 2.0,
+                      ),
+                    ),
+                  ),
+                  readOnly: true,
+                  onTap: () async {
+                    date = (await showDateRangePicker(
+                      context: context,
+                      firstDate: DateTime.now(),
+                      lastDate: DateTime.now().add(Duration(days: 365)),
+                      helpText: dateFilterLable,
+                      cancelText: "Abbrechen",
+                      saveText: "Bestätigen",
+                    ));
+                    datetimeRangeController.text =
+                        "${DateFormat('dd.MM.yyyy').format(date!.start)} - ${DateFormat('dd.MM.yyyy').format(date!.end)}";
+                  },
+                ),
+              ],
+            ),
           ),
           actions: <Widget>[
             MaterialButton(
@@ -223,10 +239,20 @@ Future<dynamic> createFilterDialog({required BuildContext context}) {
               onPressed: () {
                 final prefs = GetStorage();
                 if (age != 0) {
-                  prefs.write("campFilterAge", age);
+                  if (age > 0 && age < 130) {
+                    prefs.write("campFilterAge", age);
+                  } else {
+                    AlertSnackbar(context).showWarningSnackBar(
+                        label: "Ein Mensch kann nicht so Jung/Alt sein");
+                  }
                 }
                 if (price != 0) {
-                  prefs.write("campFilterPrice", price);
+                  if (price > 0) {
+                    prefs.write("campFilterPrice", price);
+                  } else {
+                    AlertSnackbar(context).showWarningSnackBar(
+                        label: "Preis kann nicht negativ sein");
+                  }
                 }
                 if (date != null) {
                   prefs.write("campFilterStartDate", date!.start.toString());
@@ -283,9 +309,9 @@ class ChipsWrap extends StatelessWidget {
         _filterChip(
           dataLabel: prefs.read("campFilterAge").toString(),
           icon: Icons.cake,
-          onDeleted: () {
-            prefs.write("campFilterAge", 0);
-            BlocProvider.of<CampsBloc>(context).add(FilteringCamps());
+          onDeleted: () async {
+            await prefs.write("campFilterAge", 0);
+            BlocProvider.of<CampsBloc>(context).add(DeletingCampsFilter());
           },
         ),
       );
@@ -295,9 +321,9 @@ class ChipsWrap extends StatelessWidget {
         _filterChip(
           dataLabel: prefs.read("campFilterPrice").toString(),
           icon: Icons.euro,
-          onDeleted: () {
-            prefs.write("campFilterPrice", 0);
-            BlocProvider.of<CampsBloc>(context).add(FilteringCamps());
+          onDeleted: () async {
+            await prefs.write("campFilterPrice", 0);
+            BlocProvider.of<CampsBloc>(context).add(DeletingCampsFilter());
           },
         ),
       );
@@ -309,10 +335,10 @@ class ChipsWrap extends StatelessWidget {
           dataLabel:
               "${DateFormat('dd.MM.yyyy').format(DateTime.tryParse(prefs.read("campFilterStartDate")) ?? DateTime.now())} - ${DateFormat('dd.MM.yyyy').format(DateTime.tryParse(prefs.read("campFilterEndDate")) ?? DateTime.now())}",
           icon: Icons.calendar_today,
-          onDeleted: () {
-            prefs.write("campFilterStartDate", "");
-            prefs.write("campFilterEndDate", "");
-            BlocProvider.of<CampsBloc>(context).add(FilteringCamps());
+          onDeleted: () async {
+            await prefs.write("campFilterStartDate", "");
+            await prefs.write("campFilterEndDate", "");
+            BlocProvider.of<CampsBloc>(context).add(DeletingCampsFilter());
           },
         ),
       );
@@ -337,9 +363,10 @@ class ChipsRow extends StatelessWidget {
         _filterChip(
           dataLabel: prefs.read("campFilterAge").toString(),
           icon: Icons.cake,
-          onDeleted: () {
-            prefs.write("campFilterAge", 0);
-            BlocProvider.of<CampsBloc>(context).add(FilteringCamps());
+          onDeleted: () async {
+            await prefs.write("campFilterAge", 0);
+            print(prefs.read("campFilterAge"));
+            BlocProvider.of<CampsBloc>(context).add(DeletingCampsFilter());
           },
         ),
       );
@@ -349,9 +376,9 @@ class ChipsRow extends StatelessWidget {
         _filterChip(
           dataLabel: prefs.read("campFilterPrice").toString(),
           icon: Icons.euro,
-          onDeleted: () {
-            prefs.write("campFilterPrice", 0);
-            BlocProvider.of<CampsBloc>(context).add(FilteringCamps());
+          onDeleted: () async {
+            await prefs.write("campFilterPrice", 0);
+            BlocProvider.of<CampsBloc>(context).add(DeletingCampsFilter());
           },
         ),
       );
@@ -363,10 +390,10 @@ class ChipsRow extends StatelessWidget {
           dataLabel:
               "${DateFormat('dd.MM.yyyy').format(DateTime.tryParse(prefs.read("campFilterStartDate")) ?? DateTime.now())} - ${DateFormat('dd.MM.yyyy').format(DateTime.tryParse(prefs.read("campFilterEndDate")) ?? DateTime.now())}",
           icon: Icons.calendar_today,
-          onDeleted: () {
-            prefs.write("campFilterStartDate", "");
-            prefs.write("campFilterEndDate", "");
-            BlocProvider.of<CampsBloc>(context).add(FilteringCamps());
+          onDeleted: () async {
+            await prefs.write("campFilterStartDate", "");
+            await prefs.write("campFilterEndDate", "");
+            BlocProvider.of<CampsBloc>(context).add(DeletingCampsFilter());
           },
         ),
       );
@@ -383,7 +410,7 @@ class ChipsRow extends StatelessWidget {
 
 // ignore: camel_case_types
 class _filterChip extends StatelessWidget {
-  final Function onDeleted;
+  final VoidCallback onDeleted;
   final String dataLabel;
   final IconData icon;
 
@@ -409,7 +436,7 @@ class _filterChip extends StatelessWidget {
             color: Colors.white,
           ),
         ),
-        onDeleted: () => onDeleted,
+        onDeleted: onDeleted,
         deleteIcon: Icon(
           Icons.highlight_remove,
           color: Colors.white,

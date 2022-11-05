@@ -25,3 +25,8 @@ class FilteringCamps extends CampEvent {
   @override
   List<Object> get props => [];
 }
+
+class DeletingCampsFilter extends CampEvent {
+  @override
+  List<Object> get props => [];
+}
