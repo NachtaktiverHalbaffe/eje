@@ -50,12 +50,9 @@ void main() async {
     initialIndex = int.parse(
         notificationAppLaunchDetails.notificationResponse?.payload ?? "0");
   }
-  Workmanager().initialize(callbackDispatcher, isInDebugMode: true);
+  Workmanager().initialize(callbackDispatcher, isInDebugMode: false);
 
   runApp(MyApp(initialIndex));
-  // Register to receive BackgroundFetch events after app is terminated.
-  // Requires {stopOnTerminate: false, enableHeadless: true}
-  // await BackgroundServicesManager().connectBackgroundServices();
 }
 
 class MyApp extends StatelessWidget {

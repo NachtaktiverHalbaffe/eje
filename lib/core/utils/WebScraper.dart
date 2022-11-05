@@ -391,7 +391,7 @@ class WebScraper {
                     parent[i].getElementsByClassName('icon-left')[0].text;
                 // Split title into name and amt
                 List<String> splitTitle;
-                splitTitle = _title.split('-');
+                splitTitle = _title.split(' - ');
                 name = splitTitle[0].trimLeft().trimRight();
                 if (splitTitle.length == 2) {
                   amt = splitTitle[1].trimLeft().trimRight();
