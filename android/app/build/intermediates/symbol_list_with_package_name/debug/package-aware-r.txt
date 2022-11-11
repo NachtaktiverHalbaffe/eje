@@ -68,6 +68,7 @@ dimen subtitle_shadow_offset
 dimen subtitle_shadow_radius
 drawable app_notf_icon
 drawable ejelogo
+drawable ic_launcher
 drawable launch_background
 drawable notification_action_background
 drawable notification_bg

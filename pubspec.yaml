@@ -53,7 +53,7 @@ dependencies:
   url_launcher: ^6.1.6
   maps_launcher: ^2.0.1
   # to save events to calendar
-  add_2_calendar: ^2.1.2
+  add_2_calendar: ^2.2.1
   # Pageviewer Indicator
   page_view_indicators: ^2.0.0
   # Carousel PageView
@@ -74,6 +74,8 @@ dependencies:
   # For secrets
   envied: ^0.2.3
   flutter_native_timezone: ^2.0.0
+  # For managing permissions
+  permission_handler: ^10.2.0
 
 # To run build runners und generators, run
 # "flutter packages pub run build_runner build --delete-conflicting-outputs" in terminal

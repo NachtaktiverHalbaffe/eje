@@ -85,7 +85,8 @@ class CampsBloc extends Bloc<CampEvent, CampState> {
           .toList();
     }
     // Filtering by age
-    if (prefs.read("campFilterAge") != 0) {
+    if (prefs.read("campFilterAge") >= 0 &&
+        prefs.read("campFilterAge") >= 130) {
       print("Camps Bloc: Filtering by age");
       filteredCamps = filteredCamps
           .where((element) =>
@@ -94,7 +95,7 @@ class CampsBloc extends Bloc<CampEvent, CampState> {
           .toList();
     }
     // Filtering by price
-    if (prefs.read("campFilterPrice") != 0) {
+    if (prefs.read("campFilterPrice") >= 0) {
       print("Camps Bloc: Filtering by price");
       filteredCamps = filteredCamps
           .where((element) => element.price <= prefs.read("campFilterPrice"))

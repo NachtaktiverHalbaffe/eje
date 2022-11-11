@@ -183,6 +183,7 @@ class WebScraper {
                 content = content.replaceAll("dontospamme", "");
                 content = content.replaceAll("gowaway.", "");
                 content = content.substring(content.indexOf('\n') + 1);
+                content = content.substring(content.indexOf('=\n') + 1);
                 content = "$content\n\n";
               }
             }

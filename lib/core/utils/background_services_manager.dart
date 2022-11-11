@@ -6,6 +6,7 @@ import 'package:eje/pages/neuigkeiten/data/datasources/news_remote_datasource.da
 import 'package:eje/pages/neuigkeiten/domain/entitys/news.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class BackgroundServicesManager {
   /// * Backgroundtask for push-notifications for new News
@@ -37,16 +38,18 @@ class BackgroundServicesManager {
       //storing new news
       prefs.write("cached_neuigkeiten", downloadedNeuigkeitenTitel);
       //Displaying notification
-      await notificationPlugin.showNotification(
-        id: Random().nextInt(100),
-        title: "Neuigkeiten aus dem Jugendwerk",
-        channelId: "Neuigkeiten",
-        channelName: "Neuigkeiten",
-        channelDescription:
-            "Benachrichtigungen, wenn es neue Neuigkeiten aus dem Jugendwerk gibt.",
-        body: "Schaue dir in der App die neuen Neuigkeiten an.",
-        payload: "0",
-      );
+      if (await Permission.notification.isGranted) {
+        await notificationPlugin.showNotification(
+          id: Random().nextInt(100),
+          title: "Neuigkeiten aus dem Jugendwerk",
+          channelId: "Neuigkeiten",
+          channelName: "Neuigkeiten",
+          channelDescription:
+              "Benachrichtigungen, wenn es neue Neuigkeiten aus dem Jugendwerk gibt.",
+          body: "Schaue dir in der App die neuen Neuigkeiten an.",
+          payload: "0",
+        );
+      }
     }
   }
 
@@ -78,16 +81,18 @@ class BackgroundServicesManager {
       //storing actual length of Neuigkeiten in SharedPrefrences
       prefs.write("cached_freizeiten", downloadedCampsTitles);
       //Displaying notification
-      await notificationPlugin.showNotification(
-        id: Random().nextInt(100),
-        title: "Neue Freizeitanmeldungen online",
-        channelId: "Freizeiten",
-        channelName: "Freizeiten",
-        channelDescription:
-            "Benachrichtigungen, wenn neue Anmeldungen für Freizeiten online gehen",
-        body: "Es gibt neue Freizeiten, für die die Anmeldung online ist",
-        payload: "3",
-      );
+      if (await Permission.notification.isGranted) {
+        await notificationPlugin.showNotification(
+          id: Random().nextInt(100),
+          title: "Neue Freizeitanmeldungen online",
+          channelId: "Freizeiten",
+          channelName: "Freizeiten",
+          channelDescription:
+              "Benachrichtigungen, wenn neue Anmeldungen für Freizeiten online gehen",
+          body: "Es gibt neue Freizeiten, für die die Anmeldung online ist",
+          payload: "3",
+        );
+      }
     }
   }
 }

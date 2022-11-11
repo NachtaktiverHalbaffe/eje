@@ -9,9 +9,11 @@ import 'package:eje/pages/eje/services/domain/entities/Service.dart';
 import 'package:eje/pages/freizeiten/domain/entities/camp.dart';
 import 'package:eje/pages/neuigkeiten/domain/entitys/news.dart';
 import 'package:eje/pages/termine/domain/entities/Event.dart';
+import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart' as path_provider;
+import 'package:permission_handler/permission_handler.dart';
 import 'injection_container.dart' as di;
 
 Future<void> startup() async {
@@ -33,6 +35,9 @@ Future<void> startup() async {
     prefs.write('cached_neuigkeiten', [""]);
     prefs.write('cached_freizeiten', [0]);
     prefs.write('schedule_offset', 2);
+
+    // notificationPlugin.requestPermissions();
+    await Permission.ignoreBatteryOptimizations.request();
   }
   // Reset filters
   prefs.write("campFilterAge", 0);

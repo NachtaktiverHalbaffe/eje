@@ -11,6 +11,9 @@ import 'package:get_storage/get_storage.dart';
 import 'package:intl/intl.dart';
 import 'package:maps_launcher/maps_launcher.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:permission_handler/permission_handler.dart';
+
+import '../../../../core/widgets/alert_snackbar.dart';
 
 class EventDetails extends StatelessWidget {
   final Event event;
@@ -99,13 +102,27 @@ class _terminChildWidget extends StatelessWidget {
               var event = Ev.Event(
                 title: _termin.name,
                 description: _termin.description,
-                location:
-                    '${_termin.location.adress}, ${_termin.location.street}, ${_termin.location.postalCode}',
+                // location:
+                // '${_termin.location.adress}, ${_termin.location.street}, ${_termin.location.postalCode}',
                 startDate: _termin.startDate,
                 endDate: _termin.endDate,
               );
 
-              Ev.Add2Calendar.addEvent2Cal(event);
+              if (await Permission.calendar.isGranted) {
+                print("Adding event to calendar");
+                Ev.Add2Calendar.addEvent2Cal(event);
+              } else {
+                print(
+                    "Calendar permissions not granted. Requesting permission");
+                var status = await Permission.calendar.request();
+                if (status == PermissionStatus.granted) {
+                  Ev.Add2Calendar.addEvent2Cal(event);
+                } else {
+                  AlertSnackbar(context).showErrorSnackBar(
+                      label:
+                          "Termine können ohne Berechtigung nicht den Kalender hinzugefügt werden");
+                }
+              }
             },
           ),
         ),

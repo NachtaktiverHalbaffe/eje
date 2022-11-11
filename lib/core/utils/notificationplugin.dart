@@ -1,4 +1,5 @@
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:timezone/timezone.dart' as tz;
 import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:flutter_native_timezone/flutter_native_timezone.dart';
@@ -46,7 +47,7 @@ class NotificationPlugin {
     }
     //TODO Add notification icon
     var initializationSettingAndroid =
-        AndroidInitializationSettings('app_notf_icon');
+        AndroidInitializationSettings('ic_launcher');
     var initializationSettingIOS = DarwinInitializationSettings(
       requestAlertPermission: true,
       requestBadgePermission: true,
@@ -104,7 +105,7 @@ class NotificationPlugin {
       ),
       iOS: DarwinNotificationDetails(),
     );
-    if (await _isAndroidPermissionGranted()) {
+    if (await Permission.notification.isGranted) {
       await FlutterLocalNotificationsPlugin().show(
         id,
         title,
@@ -113,13 +114,21 @@ class NotificationPlugin {
         payload: payload,
       );
     } else {
-      await _requestPermissions();
-      showNotification(
-          id: id,
-          title: title,
-          channelId: channelId,
-          channelName: channelName,
-          channelDescription: channelDescription);
+      print("Notification permission not granted. Requesting permission");
+      print("Permission: ${await Permission.notification.status}");
+      // await requestPermissions();
+
+      PermissionStatus status = await Permission.notification.request();
+
+      if (status == PermissionStatus.granted) {
+        print("Permission granted. Launching notification");
+        showNotification(
+            id: id,
+            title: title,
+            channelId: channelId,
+            channelName: channelName,
+            channelDescription: channelDescription);
+      }
     }
   }
 
@@ -158,7 +167,7 @@ class NotificationPlugin {
       ),
       iOS: DarwinNotificationDetails(),
     );
-    if (await _isAndroidPermissionGranted()) {
+    if (await Permission.notification.isGranted) {
       await FlutterLocalNotificationsPlugin().zonedSchedule(
         id,
         title,
@@ -179,15 +188,22 @@ class NotificationPlugin {
             UILocalNotificationDateInterpretation.wallClockTime,
       );
     } else {
-      await _requestPermissions();
-      scheduledNotification(
-          id: id,
-          title: title,
-          scheduleNotificationsDateTime: scheduleNotificationsDateTime,
-          scheduleoffest: scheduleoffest,
-          channelId: channelId,
-          channelName: channelName,
-          channelDescription: channelDescription);
+      print("Notification permission not granted. Requesting permission");
+      print("Permission: ${await Permission.notification.status}");
+      // await requestPermissions();
+      PermissionStatus status = await Permission.notification.request();
+
+      if (status == PermissionStatus.granted) {
+        print("Permission granted. Launching notification");
+        scheduledNotification(
+            id: id,
+            title: title,
+            scheduleNotificationsDateTime: scheduleNotificationsDateTime,
+            scheduleoffest: scheduleoffest,
+            channelId: channelId,
+            channelName: channelName,
+            channelDescription: channelDescription);
+      }
     }
   }
 
@@ -225,20 +241,7 @@ class NotificationPlugin {
     await flutterLocalNotificationsPlugin.cancelAll();
   }
 
-  Future<bool> _isAndroidPermissionGranted() async {
-    if (Platform.isAndroid) {
-      final bool granted = await flutterLocalNotificationsPlugin
-              .resolvePlatformSpecificImplementation<
-                  AndroidFlutterLocalNotificationsPlugin>()
-              ?.areNotificationsEnabled() ??
-          false;
-
-      return granted;
-    }
-    return true;
-  }
-
-  Future<void> _requestPermissions() async {
+  Future<void> requestPermissions() async {
     if (Platform.isIOS || Platform.isMacOS) {
       await flutterLocalNotificationsPlugin
           .resolvePlatformSpecificImplementation<

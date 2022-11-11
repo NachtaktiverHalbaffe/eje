@@ -244,21 +244,21 @@ Future<dynamic> createFilterDialog({required BuildContext context}) {
               onPressed: () {
                 final prefs = GetStorage();
                 if (age != 0) {
-                  if (age > 0 && age < 130) {
+                  if (age >= 0 && age < 130) {
                     prefs.write("campFilterAge", age);
                   } else {
                     AlertSnackbar(context).showWarningSnackBar(
                         label: "Ein Mensch kann nicht so Jung/Alt sein");
                   }
                 }
-                if (price != 0) {
-                  if (price > 0) {
-                    prefs.write("campFilterPrice", price);
-                  } else {
-                    AlertSnackbar(context).showWarningSnackBar(
-                        label: "Preis kann nicht negativ sein");
-                  }
+
+                if (price >= 0) {
+                  prefs.write("campFilterPrice", price);
+                } else {
+                  AlertSnackbar(context).showWarningSnackBar(
+                      label: "Preis kann nicht negativ sein");
                 }
+
                 if (date != null) {
                   prefs.write("campFilterStartDate", date!.start.toString());
                   prefs.write("campFilterEndDate", date!.end.toString());

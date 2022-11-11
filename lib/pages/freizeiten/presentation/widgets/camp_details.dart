@@ -1,4 +1,5 @@
 import 'package:add_2_calendar/add_2_calendar.dart';
+import 'package:eje/core/widgets/alert_snackbar.dart';
 import 'package:eje/pages/articles/presentation/widgets/details_page.dart';
 import 'package:eje/core/widgets/loading_indicator.dart';
 import 'package:eje/pages/articles/domain/entity/Hyperlink.dart';
@@ -9,6 +10,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:maps_launcher/maps_launcher.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 class CampDetails extends StatelessWidget {
@@ -97,12 +99,26 @@ class _freizeitChildWidget extends StatelessWidget {
                 title: freizeit.name,
                 description: freizeit.description,
                 location:
-                    '${freizeit.location.adress}, ${freizeit.location.street}, ${freizeit.location.postalCode}',
+                    "${freizeit.location.adress}, ${freizeit.location.street}, ${freizeit.location.postalCode}",
                 startDate: freizeit.startDate,
                 endDate: freizeit.endDate,
               );
 
-              Add2Calendar.addEvent2Cal(event);
+              if (await Permission.calendar.isGranted) {
+                print("Adding camp to calendar");
+                Add2Calendar.addEvent2Cal(event);
+              } else {
+                print(
+                    "Calendar permissions not granted. Requesting permission");
+                var status = await Permission.calendar.request();
+                if (status == PermissionStatus.granted) {
+                  Add2Calendar.addEvent2Cal(event);
+                } else {
+                  AlertSnackbar(context).showErrorSnackBar(
+                      label:
+                          "Termine können ohne Berechtigung nicht den Kalender hinzugefügt werden");
+                }
+              }
             },
           ),
         ),
