@@ -1,0 +1,12 @@
+{
+        "domain": "https://www.eje-esslingen.de",
+        "newsEndpoint": "/meta/rss",
+        "employeesEndpoint": "/ueber-uns/hauptamtliche-mitarbeiter",
+        "bakEndpoint": "/ueber-uns/vorstand-bak",
+        "fieldOfWorkEndpoint": "/arbeitsfelder",
+        "idHeader": "c845041",
+        "idContact": "c762175",
+        "idAdress":"c762177",
+        "bannerPicture":"/fileadmin/mediapool/gemeinden/ejw_esslingen/header_musterbezirk_ejw_cvjm_gemeindebaukasten_01.jpg",
+        "contactPicture":"/fileadmin/mediapool/ejw/ejw_logo.png"
+}

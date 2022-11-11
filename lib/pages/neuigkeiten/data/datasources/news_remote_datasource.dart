@@ -21,31 +21,35 @@ class NewsRemoteDatasource {
       print("NewsAPI error: $e");
       throw ConnectionException();
     }
-    var payload = RssFeed.parse(response.body).items.toList();
+    if (response.statusCode == 200) {
+      var payload = RssFeed.parse(response.body).items.toList();
 
-    // Parsing
-    if (payload.isNotEmpty) {
-      for (int i = 0; i < payload.length; i++) {
-        String content = payload[i].description!.trim();
-        if (content.contains("<img src=")) {
-          content = payload[i]
-              .description!
-              .substring(0, payload[i].description!.indexOf("<img src="));
+      // Parsing
+      if (payload.isNotEmpty) {
+        for (int i = 0; i < payload.length; i++) {
+          String content = payload[i].description!.trim();
+          if (content.contains("<img src=")) {
+            content = payload[i]
+                .description!
+                .substring(0, payload[i].description!.indexOf("<img src="));
+          }
+          data.add(
+            News(
+              title: payload[i].title ?? "",
+              textPreview: content.trim(),
+              text: content.trim(),
+              images: payload[i].enclosure == null
+                  ? [""]
+                  : [payload[i].enclosure!.url ?? ""],
+              link: payload[i].link ?? "",
+              published: parseDateTimeFromRSS(payload[i].pubDate ?? ""),
+            ),
+          );
         }
-        data.add(
-          News(
-            title: payload[i].title ?? "",
-            textPreview: content.trim(),
-            text: content.trim(),
-            images: payload[i].enclosure == null
-                ? [""]
-                : [payload[i].enclosure!.url ?? ""],
-            link: payload[i].link ?? "",
-            published: parseDateTimeFromRSS(payload[i].pubDate ?? ""),
-          ),
-        );
+        return data;
+      } else {
+        throw ServerException();
       }
-      return data;
     } else {
       throw ServerException();
     }

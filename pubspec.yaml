@@ -8,9 +8,11 @@ environment:
 
 # For building for android, run "flutter build appbundle --release" in terminal
 # to get an Appbundle which includes three apks for each architecture ==> good for uploading to google play store
-# "flutter build apk --obfuscate --split-per-abi  " can be used to generate three seperate apk
+# "flutter build apk --split-per-abi" can be used to generate three seperate apk
 # for each architecture
-# "flutter build apk --obfuscate" can be used to build to generate one big fat apk file which works on all architectures
+# "flutter build apk" can be used to build to generate one big fat apk file which works on all architectures
+
+# --obfuscate --split-debug-info=/home/nachtaktiverhalbaffe/dev/eje/logs     obfuscates the apk so its harder to read for humans. Works on all building types
 
 dependencies:
   flutter:
@@ -20,18 +22,15 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.3
   material_design_icons_flutter: ^5.0.6996
-  provider:
   json_serializable: ^6.5.4
   flutter_launcher_icons: ^0.10.0
   # Offline Database
   hive: ^2.0.4
-  hive_flutter: ^1.1.0
   # For Storing Settings
   get_storage: ^2.0.3
   # For OS-Specific directories paths
   path_provider: ^2.0.5
   # Service locator
-  #get_it: ^2.0.1
   get_it: ^7.2.0
   # Bloc for state management
   bloc: ^8.1.0
@@ -64,7 +63,7 @@ dependencies:
   # Bottom Nav bar
   persistent_bottom_nav_bar: ^5.0.2
   # Cached Networkimage
-  cached_network_image: ^3.1.0
+  cached_network_image: ^3.2.2
   # Markdown editor
   flutter_markdown: ^0.6.13
   html2md: ^1.2.6
@@ -82,7 +81,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
     # For Hive to create offline database
-  hive_generator: ^1.1.0
+  hive_generator: ^1.1.3
   # generating secrets
   envied_generator: ^0.2.3
   build_runner: ^2.3.2
