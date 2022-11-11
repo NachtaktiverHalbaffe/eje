@@ -18,6 +18,7 @@ class FieldsOfWorkBloc extends Bloc<FieldsOfWorkEvent, FieldOfWorkState> {
 
   void _loadFOW(event, Emitter<FieldOfWorkState> emit) async {
     print("Triggered Event: RefreshArbeitsbereiche");
+    emit(Loading());
     final fieldsOfWorkOrFailure = await getFieldsOfWork();
     emit(fieldsOfWorkOrFailure.fold(
       (failure) {
@@ -32,6 +33,7 @@ class FieldsOfWorkBloc extends Bloc<FieldsOfWorkEvent, FieldOfWorkState> {
   }
 
   void _loadSpecificFOW(event, Emitter<FieldOfWorkState> emit) async {
+    emit(Loading());
     final fieldOfWorkOrFailure = await getFieldOfWork(name: event.name);
     emit(fieldOfWorkOrFailure.fold(
       (failure) => Error(message: failure.getErrorMsg()),

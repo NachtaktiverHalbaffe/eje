@@ -18,6 +18,7 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
 
   void _loadNews(event, Emitter<NewsState> emit) async {
     print("Neuigkeiten: Refresh event triggered");
+    emit(Loading());
     final neuigkeitOrFailure = await getNews();
     emit(neuigkeitOrFailure.fold(
       (failure) {
@@ -33,6 +34,7 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
 
   void _loadNewsArticle(event, Emitter<NewsState> emit) async {
     print("Neuigkeiten: get details event triggered");
+    emit(Loading());
     final neuigkeitOrFailure = await getSingleNews(titel: event.title);
     emit(neuigkeitOrFailure.fold(
       (failure) => Error(message: failure.getErrorMsg()),

@@ -23,6 +23,7 @@ class ArticlesBloc extends Bloc<ArticlesEvent, ArticlesState> {
 
   void _refreshArticle(event, Emitter<ArticlesState> emit) async {
     print("Triggered Event: RefreshArticles");
+    emit(Loading());
     final servicesOrFailure = await getArticle(url: event.url);
     emit(servicesOrFailure.fold(
       (failure) {
@@ -37,6 +38,7 @@ class ArticlesBloc extends Bloc<ArticlesEvent, ArticlesState> {
   }
 
   void _getArticle(event, Emitter<ArticlesState> emit) async {
+    emit(Loading());
     final serviceOrFailure = await getArticle(url: event.url);
     emit(serviceOrFailure.fold(
       (failure) => Error(message: failure.getErrorMsg()),
@@ -45,6 +47,7 @@ class ArticlesBloc extends Bloc<ArticlesEvent, ArticlesState> {
   }
 
   void _followHyperlink(event, Emitter<ArticlesState> emit) async {
+    emit(Loading());
     final serviceOrFailure = await getArticle(url: event.url);
     emit(serviceOrFailure.fold(
       (failure) => Error(message: failure.getErrorMsg()),

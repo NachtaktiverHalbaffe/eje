@@ -22,6 +22,7 @@ class CampsBloc extends Bloc<CampEvent, CampState> {
   }
 
   void _loadCamps(event, Emitter<CampState> emit) async {
+    emit(Loading());
     final campOrFailure = await getCamps();
     emit(campOrFailure.fold(
       (failure) {
@@ -39,6 +40,7 @@ class CampsBloc extends Bloc<CampEvent, CampState> {
   }
 
   void _loadSpecificCamp(event, Emitter<CampState> emit) async {
+    emit(Loading());
     final campsOrFailure = await getCamp(id: event.camp.id);
     emit(campsOrFailure.fold(
       (failure) => Error(message: failure.getErrorMsg()),

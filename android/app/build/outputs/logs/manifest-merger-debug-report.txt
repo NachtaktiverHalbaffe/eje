@@ -32,6 +32,7 @@ MERGED from [:permission_handler_android] /home/nachtaktiverhalbaffe/dev/eje/bui
 MERGED from [:connectivity] /home/nachtaktiverhalbaffe/dev/eje/build/connectivity/intermediates/merged_manifest/debug/AndroidManifest.xml:2:1-11:12
 MERGED from [:sqflite] /home/nachtaktiverhalbaffe/dev/eje/build/sqflite/intermediates/merged_manifest/debug/AndroidManifest.xml:2:1-9:12
 MERGED from [:flutter_native_timezone] /home/nachtaktiverhalbaffe/dev/eje/build/flutter_native_timezone/intermediates/merged_manifest/debug/AndroidManifest.xml:2:1-9:12
+MERGED from [:package_info_plus] /home/nachtaktiverhalbaffe/dev/eje/build/package_info_plus/intermediates/merged_manifest/debug/AndroidManifest.xml:2:1-9:12
 MERGED from [:flutter_local_notifications] /home/nachtaktiverhalbaffe/dev/eje/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:2:1-34:12
 MERGED from [:url_launcher_android] /home/nachtaktiverhalbaffe/dev/eje/build/url_launcher_android/intermediates/merged_manifest/debug/AndroidManifest.xml:2:1-16:12
 MERGED from [:path_provider_android] /home/nachtaktiverhalbaffe/dev/eje/build/path_provider_android/intermediates/merged_manifest/debug/AndroidManifest.xml:2:1-9:12
@@ -157,6 +158,8 @@ MERGED from [:sqflite] /home/nachtaktiverhalbaffe/dev/eje/build/sqflite/intermed
 MERGED from [:sqflite] /home/nachtaktiverhalbaffe/dev/eje/build/sqflite/intermediates/merged_manifest/debug/AndroidManifest.xml:5:5-7:41
 MERGED from [:flutter_native_timezone] /home/nachtaktiverhalbaffe/dev/eje/build/flutter_native_timezone/intermediates/merged_manifest/debug/AndroidManifest.xml:5:5-7:41
 MERGED from [:flutter_native_timezone] /home/nachtaktiverhalbaffe/dev/eje/build/flutter_native_timezone/intermediates/merged_manifest/debug/AndroidManifest.xml:5:5-7:41
+MERGED from [:package_info_plus] /home/nachtaktiverhalbaffe/dev/eje/build/package_info_plus/intermediates/merged_manifest/debug/AndroidManifest.xml:5:5-7:41
+MERGED from [:package_info_plus] /home/nachtaktiverhalbaffe/dev/eje/build/package_info_plus/intermediates/merged_manifest/debug/AndroidManifest.xml:5:5-7:41
 MERGED from [:flutter_local_notifications] /home/nachtaktiverhalbaffe/dev/eje/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:5:5-7:41
 MERGED from [:flutter_local_notifications] /home/nachtaktiverhalbaffe/dev/eje/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:5:5-7:41
 MERGED from [:url_launcher_android] /home/nachtaktiverhalbaffe/dev/eje/build/url_launcher_android/intermediates/merged_manifest/debug/AndroidManifest.xml:5:5-7:41

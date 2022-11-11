@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:url_launcher/url_launcher_string.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
 class EinstellungenPage extends StatelessWidget {
   @override
@@ -222,13 +223,14 @@ class EinstellungenPage extends StatelessWidget {
               top: 10,
             ),
             child: OutlinedButton(
-              onPressed: () {
+              onPressed: () async {
                 showAboutDialog(
                   context: context,
                   //TODO Update Appicon
                   applicationIcon: Icon(CostumIcons.eje),
                   applicationName: 'Über die App',
-                  applicationVersion: 'Pre-Release',
+                  applicationVersion: await PackageInfo.fromPlatform()
+                      .then((value) => value.version.toString()),
                   applicationLegalese: 'Entwickelt vom LeMonkay VT&IT',
                   children: <Widget>[
                     Column(

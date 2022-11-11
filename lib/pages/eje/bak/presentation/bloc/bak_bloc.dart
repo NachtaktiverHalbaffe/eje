@@ -18,6 +18,7 @@ class BakBloc extends Bloc<BakEvent, BakState> {
 
   void _loadBAKler(event, Emitter<BakState> emit) async {
     print("Triggered Event: RefreshBak");
+    emit(Loading());
     final bakOrFailure = await getBAK();
     emit(bakOrFailure.fold(
       (failure) {
@@ -32,6 +33,7 @@ class BakBloc extends Bloc<BakEvent, BakState> {
   }
 
   void _loadSpecificBAKler(event, Emitter<BakState> emit) async {
+    emit(Loading());
     final bakOrFailure = await getBAKler(name: event.name);
     emit(bakOrFailure.fold(
       (failure) => Error(message: failure.getErrorMsg()),

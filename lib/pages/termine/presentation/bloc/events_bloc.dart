@@ -19,6 +19,7 @@ class TermineBloc extends Bloc<EventsEvent, EventsState> {
 
   void _loadEvents(event, Emitter<EventsState> emit) async {
     print("Triggered Event: RefreshTermine");
+    emit(Loading());
     final termineOrFailure = await getEvents();
     emit(termineOrFailure.fold(
       (failure) {
@@ -33,6 +34,7 @@ class TermineBloc extends Bloc<EventsEvent, EventsState> {
   }
 
   void _loadSpecificEvent(event, Emitter<EventsState> emit) async {
+    emit(Loading());
     final arbeitsbereicheOrFailure = await getEvent(id: event.id);
     emit(arbeitsbereicheOrFailure.fold(
       (failure) => Error(message: failure.getErrorMsg()),

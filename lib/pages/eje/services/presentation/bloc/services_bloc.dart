@@ -22,6 +22,7 @@ class ServicesBloc extends Bloc<ServicesEvent, ServicesState> {
 
   void _loadServices(event, Emitter<ServicesState> emit) async {
     print("Triggered Event: RefreshServices");
+    emit(Loading());
     final servicesOrFailure = await getServices();
     emit(servicesOrFailure.fold(
       (failure) {
@@ -37,7 +38,7 @@ class ServicesBloc extends Bloc<ServicesEvent, ServicesState> {
 
   void _loadSpecificService(event, Emitter<ServicesState> emit) async {
     print("Triggered Event: GettingService");
-
+    emit(Loading());
     final serviceOrFailure = await getService(service: event.service);
     emit(serviceOrFailure.fold(
       (failure) {

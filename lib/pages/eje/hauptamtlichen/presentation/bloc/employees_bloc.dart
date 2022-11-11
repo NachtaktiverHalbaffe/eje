@@ -18,6 +18,7 @@ class EmployeesBloc extends Bloc<EmployeesEvent, EmployeesState> {
 
   void _loadEmployees(event, Emitter<EmployeesState> emit) async {
     print("Triggered Event: RefreshHauptamtliche");
+    emit(Loading());
     final hauptamtlicheOrFailure = await getEmployees();
     emit(hauptamtlicheOrFailure.fold(
       (failure) {
@@ -32,6 +33,7 @@ class EmployeesBloc extends Bloc<EmployeesEvent, EmployeesState> {
   }
 
   void_loadSpecificEmployee(event, Emitter<EmployeesState> emit) async {
+    emit(Loading());
     final hauptamtlicheOrFailure = await getEmployee(name: event.name);
     emit(hauptamtlicheOrFailure.fold(
       (failure) => Error(message: failure.getErrorMsg()),
