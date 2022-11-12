@@ -36,8 +36,8 @@ Future<void> startup() async {
     prefs.write('cached_freizeiten', [0]);
     prefs.write('schedule_offset', 2);
 
-    // notificationPlugin.requestPermissions();
-    await Permission.ignoreBatteryOptimizations.request();
+    // await Permission.notification.request();
+    // await Permission.ignoreBatteryOptimizations.request();
   }
   // Reset filters
   prefs.write("campFilterAge", 0);

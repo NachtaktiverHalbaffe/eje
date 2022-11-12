@@ -13,6 +13,7 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hive/hive.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:workmanager/workmanager.dart';
 import 'pages/neuigkeiten/news_page.dart';
@@ -142,8 +143,36 @@ class _MyHomePageState extends State<MyHomePage> {
     return [NewsPage(), Eje(), Events(), Camps(), Einstellungen()];
   }
 
+  late final PermissionStatus status;
+  void _firstStartDialog(BuildContext context) async {
+    status = await Permission.ignoreBatteryOptimizations.status;
+    if (status != PermissionStatus.permanentlyDenied &&
+        status != PermissionStatus.granted) {
+      await showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+              title: Text('Berechtigungen gewähren'),
+              content: Text(
+                  "Die App benötigt Berechtigungen, um ausgeführt werden zu können. Diese können jederzeit in den Systemeinstellungen wiederrufen und in den Appeinsteillungen angepasst  werden."),
+              actions: [
+                MaterialButton(
+                  onPressed: () async {
+                    await Permission.notification.request();
+                    await Permission.ignoreBatteryOptimizations.request();
+                    Navigator.of(context).pop();
+                  },
+                  child: Text("Ok"),
+                ),
+              ]);
+        },
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    _firstStartDialog(context);
     return Scaffold(
       body: PersistentTabView(
         context,

@@ -5,6 +5,7 @@ import 'package:eje/pages/einstellungen/presentation/bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
@@ -100,6 +101,9 @@ class EinstellungenPage extends StatelessWidget {
             // activeColor: Theme.of(context).colorScheme.secondary,
             value: prefs.read("notifications_on"),
             onChanged: (val) async {
+              if (!await Permission.notification.isGranted) {
+                await Permission.notification.request();
+              }
               BlocProvider.of<EinstellungBloc>(context)
                   .add(StoringPreferences("notifications_on", val!));
             },
