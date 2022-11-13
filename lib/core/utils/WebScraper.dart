@@ -656,7 +656,8 @@ class WebScraper {
         return Service(
           service: service.service,
           images: bilder,
-          description: content,
+          description:
+              service.service == 'Verleih' ? service.description : content,
           hyperlinks: hyperlinks,
         );
       }
@@ -690,6 +691,22 @@ List<Hyperlink> _parseHyperlinks(document, DOMAIN) {
         link = DOMAIN + link;
       }
       String text = rootNodes[i].text.toString();
+      hyperlinks.add((Hyperlink(link: link, description: text)));
+    }
+  }
+
+  if (document.getElementsByClassName('col s9').isNotEmpty) {
+    var rootNodes = document.getElementsByClassName('col s9');
+    for (int i = 0; i < rootNodes.length; i++) {
+      String link = rootNodes[i]
+          .getElementsByTagName('a')[0]
+          .attributes['href']
+          .toString();
+      if (!link.contains("http")) {
+        link = DOMAIN + link;
+      }
+      String text =
+          rootNodes[i].getElementsByTagName('a')[0].innerHtml.toString();
       hyperlinks.add((Hyperlink(link: link, description: text)));
     }
   }

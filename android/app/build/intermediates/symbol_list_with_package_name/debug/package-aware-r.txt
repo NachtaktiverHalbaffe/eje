@@ -182,6 +182,7 @@ layout notification_template_media_custom
 layout notification_template_part_chronometer
 layout notification_template_part_time
 mipmap ic_launcher
+raw keep
 string androidx_startup
 string status_bar_notification_info_overflow
 style LaunchTheme

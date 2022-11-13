@@ -69,6 +69,7 @@ class _column extends StatelessWidget {
             throw 'Could not launch $hyperlink.link';
           }
         } else {
+          print(hyperlink.link);
           Navigator.push(
             context,
             MaterialPageRoute(

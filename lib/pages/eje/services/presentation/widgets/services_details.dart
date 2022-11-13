@@ -56,9 +56,7 @@ class ServiceDetailsCard extends StatelessWidget {
       text: service.description,
       bilder: service.images,
       untertitel: "",
-      hyperlinks: service.service != "Verleih"
-          ? service.hyperlinks.sublist(1)
-          : service.hyperlinks.sublist(0, 1),
+      hyperlinks: service.hyperlinks.sublist(1),
       childWidget:
           SizedBox(height: 36 / MediaQuery.of(context).devicePixelRatio),
     );
