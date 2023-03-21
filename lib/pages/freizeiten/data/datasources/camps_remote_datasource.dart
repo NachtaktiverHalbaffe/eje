@@ -137,12 +137,8 @@ class CampsRemoteDatasource {
 
   int _parsePrice(responseData) {
     if (responseData != null) {
-      if (int.tryParse(responseData.replaceAll(RegExp('[^0-9.,]'), '')) !=
-          null) {
-        return int.tryParse(responseData
-                .replaceAll(RegExp('[^0-9.,]'), '')
-                .replaceAll(',', '.')) ??
-            0;
+      if (int.tryParse(responseData.replaceAll(',- €', '')) != null) {
+        return int.tryParse(responseData.replaceAll(',- €', '')) ?? 0;
       } else {
         return 0;
       }

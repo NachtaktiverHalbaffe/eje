@@ -2,7 +2,7 @@ import 'package:envied/envied.dart';
 
 part 'env.g.dart';
 
-@Envied(path: 'assets/config/.env.dev')
+@Envied(path: 'assets/config/.env')
 abstract class Env {
   // * Remote data sources
   // API Endpoint to feed "Freizeiten" and "Termine"

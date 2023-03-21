@@ -53,33 +53,30 @@ class BackgroundServicesManager {
     }
   }
 
-  ///Backgroundtask for push-notifications in Freizeiten-Channel
-//* _checkFreizeitenNotificationHeadless loads the newest Freizeiten from the FreizeitenRemoteDatasource
-//* and checks if there are more Freizeiten than lasttime and fires a notification if it has grown
-//* @params taskId: taskID for Background fetch
+  ///Backgroundtask for push-notifications in Freizeiten-Channel\
+  /// _checkFreizeitenNotificationHeadless loads the newest Freizeiten from the FreizeitenRemoteDatasource
+  /// and checks if there are more Freizeiten than lasttime and fires a notification if it has grown
+  /// @params taskId: taskID for Background fetch
   static Future<void> checkFreizeitenNotification() async {
     // Initiliaze GetStorage for getting Prefrences
     await GetStorage.init();
     final prefs = GetStorage();
     List<Camp> downloadedCamps = List.empty(growable: true);
-    List<int> downloadedCampsTitles = List.empty(growable: true);
+    List<int> downloadedCampsIDs = List.empty(growable: true);
     List<dynamic> cachedCamps = prefs.read("cached_freizeiten");
 
     downloadedCamps = await CampsRemoteDatasource().getFreizeiten();
-    for (var i = 0; i < downloadedCamps.length; i++) {
-      downloadedCampsTitles.add(downloadedCamps[i].id);
-    }
     //Downloading content from internet
     for (var i = 0; i < downloadedCamps.length; i++) {
-      downloadedCampsTitles.add(downloadedCamps[i].id);
+      downloadedCampsIDs.add(downloadedCamps[i].id);
     }
     // sort lists for comparison
-    downloadedCampsTitles.sort();
+    downloadedCampsIDs.sort();
     cachedCamps.sort();
     // List of available camps are compared by their title
-    if (!listEquals(cachedCamps, downloadedCampsTitles)) {
+    if (!listEquals(cachedCamps, downloadedCampsIDs)) {
       //storing actual length of Neuigkeiten in SharedPrefrences
-      prefs.write("cached_freizeiten", downloadedCampsTitles);
+      prefs.write("cached_freizeiten", downloadedCampsIDs);
       //Displaying notification
       if (await Permission.notification.isGranted) {
         await notificationPlugin.showNotification(

@@ -22,8 +22,8 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.3
   material_design_icons_flutter: ^5.0.6996
-  json_serializable: ^6.5.4
-  flutter_launcher_icons: ^0.10.0
+  json_serializable: ^6.6.1
+  flutter_launcher_icons: ^0.12.0
   flutter_native_splash: ^2.2.14
   # Offline Database
   hive: ^2.0.4
@@ -34,8 +34,8 @@ dependencies:
   # Service locator
   get_it: ^7.2.0
   # Bloc for state management
-  bloc: ^8.1.0
-  flutter_bloc: ^8.1.1
+  bloc: ^8.1.1
+  flutter_bloc: ^8.1.2
   # Value equality
   equatable: ^2.0.3
   # Functional programming thingies
@@ -58,7 +58,7 @@ dependencies:
   url_launcher: ^6.1.6
   maps_launcher: ^2.0.1
   # to save events to calendar
-  add_2_calendar: ^2.2.1
+  add_2_calendar: ^2.2.3
   # Pageviewer Indicator
   page_view_indicators: ^2.0.0
   # Carousel PageView
@@ -68,16 +68,16 @@ dependencies:
   # Bottom Nav bar
   persistent_bottom_nav_bar: ^5.0.2
   # Cached Networkimage
-  cached_network_image: ^3.2.2
+  cached_network_image: ^3.2.3
   # Markdown editor
   flutter_markdown: ^0.6.13
   html2md: ^1.2.6
   # Local Push-Notification
-  flutter_local_notifications: ^12.0.3
+  flutter_local_notifications: ^13.0.0
   # Background services
   workmanager: ^0.5.1
   # For secrets
-  envied: ^0.2.3
+  envied: ^0.3.0
   flutter_native_timezone: ^2.0.0
   # For managing permissions
   permission_handler: ^10.2.0
@@ -88,14 +88,14 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
     # For Hive to create offline database
-  hive_generator: ^1.1.3
+  hive_generator: ^2.0.0
   # generating secrets
-  envied_generator: ^0.2.3
+  envied_generator: ^0.3.0
   build_runner: ^2.3.2
   #  linting
   lints: ^2.0.1
   # To get app version as string
-  package_info_plus: ^1.0.2
+  package_info_plus: ^3.0.3
 
 # App icon
 # To generate App-Icon run "flutter pub run flutter_launcher_icons:main" in the terminal
