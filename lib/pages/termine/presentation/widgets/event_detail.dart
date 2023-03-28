@@ -102,8 +102,8 @@ class _terminChildWidget extends StatelessWidget {
               var event = Ev.Event(
                 title: _termin.name,
                 description: _termin.description,
-                // location:
-                // '${_termin.location.adress}, ${_termin.location.street}, ${_termin.location.postalCode}',
+                location:
+                    '${_termin.location.adress}, ${_termin.location.street}, ${_termin.location.postalCode}',
                 startDate: _termin.startDate,
                 endDate: _termin.endDate,
               );
@@ -190,11 +190,10 @@ void _setNotification(Event termin) async {
     if (prefs.read("notifications_veranstaltungen")) {
       await notificationPlugin.scheduledNotification(
         id: prefs.read('notifications_scheduled'),
-        title: "Erinnerung",
+        title: "Veranstaltungserinnerung",
         body:
-            "Erinnerung: Veranstaltung ${termin.name} findet am ${DateFormat('dd.MM.yyyy').format(termin.startDate)} statt",
-        scheduleNotificationsDateTime:
-            DateTime.now().add(Duration(days: 1, seconds: 5)),
+            "Veranstaltung ${termin.name} findet am ${DateFormat('dd.MM.yyyy').format(termin.startDate)} statt",
+        scheduleNotificationsDateTime: termin.startDate,
         scheduleoffest: Duration(days: prefs.read("schedule_offset")),
         payload: "2",
         channelDescription: CHANNEL_DESCRIPTION,

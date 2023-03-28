@@ -21,10 +21,10 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.3
-  material_design_icons_flutter: ^5.0.6996
+  material_design_icons_flutter: ^6.0.7096
   json_serializable: ^6.6.1
   flutter_launcher_icons: ^0.12.0
-  flutter_native_splash: ^2.2.14
+  flutter_native_splash: ^2.2.19
   # Offline Database
   hive: ^2.0.4
   # For Storing Settings
@@ -50,6 +50,7 @@ dependencies:
   html: ^0.15.0
   # RSS Feed
   # dart_rss: ^2.0.1
+  # webfeed_plus: ^1.0.0
   webfeed:
     # FIXME use stable dependecy
     git:

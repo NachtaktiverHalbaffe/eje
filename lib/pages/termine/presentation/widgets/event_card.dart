@@ -182,8 +182,7 @@ class EventCard extends StatelessWidget {
           title: "Erinnerung",
           body:
               "Erinnerung: Veranstaltung ${event.name} findet am ${DateFormat('dd.MM.yyyy').format(event.startDate)} statt",
-          scheduleNotificationsDateTime:
-              DateTime.now().add(Duration(days: 1, seconds: 5)),
+          scheduleNotificationsDateTime: event.startDate,
           scheduleoffest: Duration(days: prefs.read("schedule_offset")),
           payload: "2",
           channelDescription: CHANNEL_DESCRIPTION,

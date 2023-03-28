@@ -44,7 +44,6 @@ package="de.eje_esslingen.eje">
         In most cases you can leave this as-is, but you if you want to provide
         additional functionality it is fine to subclass or reimplement
         FlutterApplication and put your custom class here. -->
-        <!-- TODO Appname-->
         <application 
         tools:replace="android:label"  
         android:name="${applicationName}"
