@@ -1,5 +1,7 @@
 # eje
-App vom Evangelischen Jugendwerk Esslingen. Entwickelt mit Flutter als ehrenamtliches Nebenprojekt. Die README dient primär der eigenen Dokumentation.
+App vom Evangelischen Jugendwerk Esslingen. Entwickelt mit Flutter als ehrenamtliches Nebenprojekt. Diese app startete parallel zu meiner [Kartenspiele App](https://github.com/NachtaktiverHalbaffe/Kartenspiele_App) und wurde Anfangs in Android geschrieben. Da die App aber auch für IOS veröffentlicht werden soll, wurde die App komplett in Flutter neu geschrieben. Diese App ruft Daten von einer REST-API ab,  und benutzt einen Webscraper, um relevatnen Daten von der [Website](https://www.eje-esslingen.de/) zu holen, für welche es keine saubere API gibt. Die App wurde über mehrere Jahre schubweise entwickelt, daher ist die Code-base nicht an allen Stellen konsistent.
+
+Die README dient primär der eigenen Dokumentation.
 
 ## Architektur
 Die Architektur ist in 3 primäre Ebenen aufgeteilt: Data, Domain und Presentation. 
