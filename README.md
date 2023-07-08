@@ -1,5 +1,5 @@
 # eje
-App vom Evangelischen Jugendwerk Esslingen. Entwickelt mit Flutter.
+App vom Evangelischen Jugendwerk Esslingen. Entwickelt mit Flutter als ehrenamtliches Nebenprojekt. Die README dient primär der eigenen Dokumentation.
 
 ## Architektur
 Die Architektur ist in 3 primäre Ebenen aufgeteilt: Data, Domain und Presentation. 
