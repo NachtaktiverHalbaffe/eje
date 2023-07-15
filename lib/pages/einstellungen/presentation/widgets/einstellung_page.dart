@@ -197,7 +197,7 @@ class EinstellungenPage extends StatelessWidget {
                   .add(StoringPreferences("only_wifi", val!));
             },
             title: Text(
-              "Inhalte nur über Wifi aktualisieren",
+              "Inhalte nur über WLAN aktualisieren",
               style: TextStyle(
                 fontSize: 48 / MediaQuery.of(context).devicePixelRatio,
               ),
@@ -211,7 +211,7 @@ class EinstellungenPage extends StatelessWidget {
                   .add(StoringPreferences("cache_pictures", val!));
             },
             title: Text(
-              "Heruntergeladene Bilder auf Gerät zwischenspeichern (reduziert Datenvolumen)",
+              "Heruntergeladene Bilder auf Gerät zwischenspeichern (reduziert Datenvolumen-Verbrauch)",
               style: TextStyle(
                 fontSize: 48 / MediaQuery.of(context).devicePixelRatio,
               ),
