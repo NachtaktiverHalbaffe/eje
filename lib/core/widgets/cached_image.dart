@@ -6,7 +6,7 @@ ImageProvider prefImage(String url) {
   // Load prefrence if image caching is enabled
   if (url == "") {
     // TODO implement placeholder image
-    return ExactAssetImage("assets/images/eje_transparent_header.gif");
+    return ExactAssetImage("assets/images/placeholder.jpeg");
   }
 
   if (GetStorage().read('cache_pictures')) {

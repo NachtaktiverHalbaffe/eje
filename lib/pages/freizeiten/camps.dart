@@ -273,6 +273,7 @@ Future<dynamic> createFilterDialog({required BuildContext context}) {
 }
 
 class FilterCard extends StatelessWidget {
+  // FIXME visual glitches when filter returns no items
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -288,6 +289,7 @@ class FilterCard extends StatelessWidget {
           trailing: IconButton(
             onPressed: () async {
               await createFilterDialog(context: context);
+              // FIXME only fire filtering event if ok was clicked as button
               BlocProvider.of<CampsBloc>(context).add(FilteringCamps());
             },
             icon: Icon(
