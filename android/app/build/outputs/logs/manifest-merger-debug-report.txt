@@ -1,635 +1,658 @@
 -- Merging decision tree log ---
 application
-INJECTED from /home/nachtaktiverhalbaffe/dev/eje/android/app/src/main/AndroidManifest.xml:47:9-80:19
-MERGED from [:flutter_local_notifications] /home/nachtaktiverhalbaffe/dev/eje/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:15:5-32:19
-MERGED from [:flutter_local_notifications] /home/nachtaktiverhalbaffe/dev/eje/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:15:5-32:19
-MERGED from [:url_launcher_android] /home/nachtaktiverhalbaffe/dev/eje/build/url_launcher_android/intermediates/merged_manifest/debug/AndroidManifest.xml:9:5-14:19
-MERGED from [:url_launcher_android] /home/nachtaktiverhalbaffe/dev/eje/build/url_launcher_android/intermediates/merged_manifest/debug/AndroidManifest.xml:9:5-14:19
-MERGED from [androidx.window:window:1.0.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/32d94faeb1cc28c78603d821b12eda68/transformed/jetified-window-1.0.0/AndroidManifest.xml:24:5-31:19
-MERGED from [androidx.window:window:1.0.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/32d94faeb1cc28c78603d821b12eda68/transformed/jetified-window-1.0.0/AndroidManifest.xml:24:5-31:19
-MERGED from [com.google.android.material:material:1.8.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e46243123c985af6da31ad81b135710c/transformed/material-1.8.0/AndroidManifest.xml:24:5-20
-MERGED from [com.google.android.material:material:1.8.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e46243123c985af6da31ad81b135710c/transformed/material-1.8.0/AndroidManifest.xml:24:5-20
-MERGED from [androidx.constraintlayout:constraintlayout:2.0.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/ea7b20761be539eb0f6bbcbf9bfa08df/transformed/constraintlayout-2.0.1/AndroidManifest.xml:9:5-20
-MERGED from [androidx.constraintlayout:constraintlayout:2.0.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/ea7b20761be539eb0f6bbcbf9bfa08df/transformed/constraintlayout-2.0.1/AndroidManifest.xml:9:5-20
-MERGED from [androidx.work:work-runtime:2.7.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:30:5-143:19
-MERGED from [androidx.work:work-runtime:2.7.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:30:5-143:19
-MERGED from [androidx.emoji2:emoji2:1.2.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/ea940fae13a31ae5b99e62169d8de848/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:23:5-33:19
-MERGED from [androidx.emoji2:emoji2:1.2.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/ea940fae13a31ae5b99e62169d8de848/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:23:5-33:19
-MERGED from [androidx.core:core:1.8.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/90af0859ad3a4f46a6e0107f356a7c1e/transformed/core-1.8.0/AndroidManifest.xml:24:5-89
-MERGED from [androidx.core:core:1.8.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/90af0859ad3a4f46a6e0107f356a7c1e/transformed/core-1.8.0/AndroidManifest.xml:24:5-89
-MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/528e24c50ba9ebb4288efd1b419a9bee/transformed/versionedparcelable-1.1.1/AndroidManifest.xml:24:5-25:19
-MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/528e24c50ba9ebb4288efd1b419a9bee/transformed/versionedparcelable-1.1.1/AndroidManifest.xml:24:5-25:19
-MERGED from [androidx.lifecycle:lifecycle-process:2.4.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/ec17b1ef71b2f1f372fc249e61940309/transformed/jetified-lifecycle-process-2.4.1/AndroidManifest.xml:25:5-35:19
-MERGED from [androidx.lifecycle:lifecycle-process:2.4.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/ec17b1ef71b2f1f372fc249e61940309/transformed/jetified-lifecycle-process-2.4.1/AndroidManifest.xml:25:5-35:19
-MERGED from [androidx.startup:startup-runtime:1.1.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/26afe2df185e04aa5056bb371a6c06db/transformed/jetified-startup-runtime-1.1.1/AndroidManifest.xml:25:5-31:19
-MERGED from [androidx.startup:startup-runtime:1.1.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/26afe2df185e04aa5056bb371a6c06db/transformed/jetified-startup-runtime-1.1.1/AndroidManifest.xml:25:5-31:19
-MERGED from [androidx.room:room-runtime:2.2.5] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/9a689aa0418fd9bdc82334d7b32a1e10/transformed/room-runtime-2.2.5/AndroidManifest.xml:24:5-29:19
-MERGED from [androidx.room:room-runtime:2.2.5] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/9a689aa0418fd9bdc82334d7b32a1e10/transformed/room-runtime-2.2.5/AndroidManifest.xml:24:5-29:19
+INJECTED from /workspaces/eje/android/app/src/main/AndroidManifest.xml:47:9-80:19
+MERGED from [:flutter_local_notifications] /workspaces/eje/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:15:5-32:19
+MERGED from [:flutter_local_notifications] /workspaces/eje/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:15:5-32:19
+MERGED from [:url_launcher_android] /workspaces/eje/build/url_launcher_android/intermediates/merged_manifest/debug/AndroidManifest.xml:9:5-14:19
+MERGED from [:url_launcher_android] /workspaces/eje/build/url_launcher_android/intermediates/merged_manifest/debug/AndroidManifest.xml:9:5-14:19
+MERGED from [androidx.window:window:1.0.0] /root/.gradle/caches/transforms-3/32d94faeb1cc28c78603d821b12eda68/transformed/jetified-window-1.0.0/AndroidManifest.xml:24:5-31:19
+MERGED from [androidx.window:window:1.0.0] /root/.gradle/caches/transforms-3/32d94faeb1cc28c78603d821b12eda68/transformed/jetified-window-1.0.0/AndroidManifest.xml:24:5-31:19
+MERGED from [com.google.android.material:material:1.8.0] /root/.gradle/caches/transforms-3/e46243123c985af6da31ad81b135710c/transformed/material-1.8.0/AndroidManifest.xml:24:5-20
+MERGED from [com.google.android.material:material:1.8.0] /root/.gradle/caches/transforms-3/e46243123c985af6da31ad81b135710c/transformed/material-1.8.0/AndroidManifest.xml:24:5-20
+MERGED from [androidx.constraintlayout:constraintlayout:2.0.1] /root/.gradle/caches/transforms-3/ea7b20761be539eb0f6bbcbf9bfa08df/transformed/constraintlayout-2.0.1/AndroidManifest.xml:9:5-20
+MERGED from [androidx.constraintlayout:constraintlayout:2.0.1] /root/.gradle/caches/transforms-3/ea7b20761be539eb0f6bbcbf9bfa08df/transformed/constraintlayout-2.0.1/AndroidManifest.xml:9:5-20
+MERGED from [androidx.work:work-runtime:2.7.1] /root/.gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:30:5-143:19
+MERGED from [androidx.work:work-runtime:2.7.1] /root/.gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:30:5-143:19
+MERGED from [androidx.emoji2:emoji2:1.2.0] /root/.gradle/caches/transforms-3/ea940fae13a31ae5b99e62169d8de848/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:23:5-33:19
+MERGED from [androidx.emoji2:emoji2:1.2.0] /root/.gradle/caches/transforms-3/ea940fae13a31ae5b99e62169d8de848/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:23:5-33:19
+MERGED from [androidx.core:core:1.10.1] /root/.gradle/caches/transforms-3/1761aec51c0be3677ce571b28ab184cd/transformed/core-1.10.1/AndroidManifest.xml:28:5-89
+MERGED from [androidx.core:core:1.10.1] /root/.gradle/caches/transforms-3/1761aec51c0be3677ce571b28ab184cd/transformed/core-1.10.1/AndroidManifest.xml:28:5-89
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] /root/.gradle/caches/transforms-3/528e24c50ba9ebb4288efd1b419a9bee/transformed/versionedparcelable-1.1.1/AndroidManifest.xml:24:5-25:19
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] /root/.gradle/caches/transforms-3/528e24c50ba9ebb4288efd1b419a9bee/transformed/versionedparcelable-1.1.1/AndroidManifest.xml:24:5-25:19
+MERGED from [androidx.lifecycle:lifecycle-process:2.4.1] /root/.gradle/caches/transforms-3/ec17b1ef71b2f1f372fc249e61940309/transformed/jetified-lifecycle-process-2.4.1/AndroidManifest.xml:25:5-35:19
+MERGED from [androidx.lifecycle:lifecycle-process:2.4.1] /root/.gradle/caches/transforms-3/ec17b1ef71b2f1f372fc249e61940309/transformed/jetified-lifecycle-process-2.4.1/AndroidManifest.xml:25:5-35:19
+MERGED from [androidx.startup:startup-runtime:1.1.1] /root/.gradle/caches/transforms-3/26afe2df185e04aa5056bb371a6c06db/transformed/jetified-startup-runtime-1.1.1/AndroidManifest.xml:25:5-31:19
+MERGED from [androidx.startup:startup-runtime:1.1.1] /root/.gradle/caches/transforms-3/26afe2df185e04aa5056bb371a6c06db/transformed/jetified-startup-runtime-1.1.1/AndroidManifest.xml:25:5-31:19
+MERGED from [androidx.room:room-runtime:2.2.5] /root/.gradle/caches/transforms-3/9a689aa0418fd9bdc82334d7b32a1e10/transformed/room-runtime-2.2.5/AndroidManifest.xml:24:5-29:19
+MERGED from [androidx.room:room-runtime:2.2.5] /root/.gradle/caches/transforms-3/9a689aa0418fd9bdc82334d7b32a1e10/transformed/room-runtime-2.2.5/AndroidManifest.xml:24:5-29:19
 	android:appComponentFactory
-		ADDED from [androidx.core:core:1.8.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/90af0859ad3a4f46a6e0107f356a7c1e/transformed/core-1.8.0/AndroidManifest.xml:24:18-86
+		ADDED from [androidx.core:core:1.10.1] /root/.gradle/caches/transforms-3/1761aec51c0be3677ce571b28ab184cd/transformed/core-1.10.1/AndroidManifest.xml:28:18-86
 	android:name
-		INJECTED from /home/nachtaktiverhalbaffe/dev/eje/android/app/src/main/AndroidManifest.xml
+		INJECTED from /workspaces/eje/android/app/src/main/AndroidManifest.xml
 manifest
-ADDED from /home/nachtaktiverhalbaffe/dev/eje/android/app/src/main/AndroidManifest.xml:1:1-83:12
-INJECTED from /home/nachtaktiverhalbaffe/dev/eje/android/app/src/main/AndroidManifest.xml:1:1-83:12
-INJECTED from /home/nachtaktiverhalbaffe/dev/eje/android/app/src/main/AndroidManifest.xml:1:1-83:12
-INJECTED from /home/nachtaktiverhalbaffe/dev/eje/android/app/src/main/AndroidManifest.xml:1:1-83:12
-MERGED from /home/nachtaktiverhalbaffe/dev/eje/android/app/src/main/AndroidManifest.xml:1:1-83:12
-MERGED from [:maps_launcher] /home/nachtaktiverhalbaffe/dev/eje/build/maps_launcher/intermediates/merged_manifest/debug/AndroidManifest.xml:2:1-9:12
-MERGED from [:sqflite] /home/nachtaktiverhalbaffe/dev/eje/build/sqflite/intermediates/merged_manifest/debug/AndroidManifest.xml:2:1-9:12
-MERGED from [:flutter_local_notifications] /home/nachtaktiverhalbaffe/dev/eje/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:2:1-34:12
-MERGED from [:url_launcher_android] /home/nachtaktiverhalbaffe/dev/eje/build/url_launcher_android/intermediates/merged_manifest/debug/AndroidManifest.xml:2:1-16:12
-MERGED from [:path_provider_android] /home/nachtaktiverhalbaffe/dev/eje/build/path_provider_android/intermediates/merged_manifest/debug/AndroidManifest.xml:2:1-9:12
-MERGED from [:flutter_native_splash] /home/nachtaktiverhalbaffe/dev/eje/build/flutter_native_splash/intermediates/merged_manifest/debug/AndroidManifest.xml:2:1-9:12
-MERGED from [:permission_handler_android] /home/nachtaktiverhalbaffe/dev/eje/build/permission_handler_android/intermediates/merged_manifest/debug/AndroidManifest.xml:2:1-9:12
-MERGED from [:connectivity] /home/nachtaktiverhalbaffe/dev/eje/build/connectivity/intermediates/merged_manifest/debug/AndroidManifest.xml:2:1-11:12
-MERGED from [:flutter_native_timezone] /home/nachtaktiverhalbaffe/dev/eje/build/flutter_native_timezone/intermediates/merged_manifest/debug/AndroidManifest.xml:2:1-9:12
-MERGED from [:package_info_plus] /home/nachtaktiverhalbaffe/dev/eje/build/package_info_plus/intermediates/merged_manifest/debug/AndroidManifest.xml:2:1-9:12
-MERGED from [:workmanager] /home/nachtaktiverhalbaffe/dev/eje/build/workmanager/intermediates/merged_manifest/debug/AndroidManifest.xml:2:1-9:12
-MERGED from [:add_2_calendar] /home/nachtaktiverhalbaffe/dev/eje/build/add_2_calendar/intermediates/merged_manifest/debug/AndroidManifest.xml:2:1-9:12
-MERGED from [androidx.multidex:multidex:2.0.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/9e17382d978cca078fee6652fc7a5583/transformed/multidex-2.0.0/AndroidManifest.xml:17:1-22:12
-MERGED from [androidx.work:work-runtime-ktx:2.7.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/36eccf79c650a4f9f78dfc7175f2e125/transformed/work-runtime-ktx-2.7.0/AndroidManifest.xml:17:1-24:12
-MERGED from [androidx.window:window-java:1.0.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/58a0f533de0f28e14f5311b85ffb2639/transformed/jetified-window-java-1.0.0/AndroidManifest.xml:17:1-23:12
-MERGED from [androidx.window:window:1.0.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/32d94faeb1cc28c78603d821b12eda68/transformed/jetified-window-1.0.0/AndroidManifest.xml:17:1-33:12
-MERGED from [com.google.android.material:material:1.8.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e46243123c985af6da31ad81b135710c/transformed/material-1.8.0/AndroidManifest.xml:17:1-26:12
-MERGED from [androidx.constraintlayout:constraintlayout:2.0.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/ea7b20761be539eb0f6bbcbf9bfa08df/transformed/constraintlayout-2.0.1/AndroidManifest.xml:2:1-11:12
-MERGED from [androidx.appcompat:appcompat-resources:1.5.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/2e0b49621fd9111c6cf640b50f850212/transformed/jetified-appcompat-resources-1.5.0/AndroidManifest.xml:17:1-22:12
-MERGED from [androidx.appcompat:appcompat:1.5.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/ac620e918fd53599e0fa300e5e1f8979/transformed/appcompat-1.5.0/AndroidManifest.xml:17:1-22:12
-MERGED from [androidx.viewpager2:viewpager2:1.0.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e075e78a21cab4c31dced498e334d00a/transformed/jetified-viewpager2-1.0.0/AndroidManifest.xml:17:1-24:12
-MERGED from [androidx.fragment:fragment:1.3.6] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/c98de816edcd8e6a7b484e877de68e8d/transformed/fragment-1.3.6/AndroidManifest.xml:17:1-24:12
-MERGED from [androidx.activity:activity:1.5.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/93ed2cd0b49ef5f2d3d793877003bc3d/transformed/jetified-activity-1.5.0/AndroidManifest.xml:17:1-24:12
-MERGED from [androidx.dynamicanimation:dynamicanimation:1.0.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/95f069e0291292ca3fd76dbde945eee6/transformed/dynamicanimation-1.0.0/AndroidManifest.xml:17:1-22:12
-MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/b7b4ec1aad0152c09e02438047928388/transformed/legacy-support-core-utils-1.0.0/AndroidManifest.xml:17:1-22:12
-MERGED from [androidx.loader:loader:1.0.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/4aa93506116e4e02e7796c2c7832f4e4/transformed/loader-1.0.0/AndroidManifest.xml:17:1-22:12
-MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.5.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/892aa9769ba2e613bcc2ccd15b412ceb/transformed/lifecycle-viewmodel-2.5.0/AndroidManifest.xml:17:1-24:12
-MERGED from [androidx.lifecycle:lifecycle-viewmodel-savedstate:2.5.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/6e4da1033b86e29146540360fe836e3a/transformed/jetified-lifecycle-viewmodel-savedstate-2.5.0/AndroidManifest.xml:17:1-24:12
-MERGED from [androidx.media:media:1.1.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/dc9908c06c3a5e946819bd35f4fbba74/transformed/media-1.1.0/AndroidManifest.xml:17:1-24:12
-MERGED from [androidx.work:work-runtime:2.7.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:17:1-145:12
-MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.1.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/40f60b5f7f2001832315a5b795ae6f05/transformed/coordinatorlayout-1.1.0/AndroidManifest.xml:17:1-24:12
-MERGED from [androidx.drawerlayout:drawerlayout:1.1.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/cd207cbc297bed17dec20e6b57edd50d/transformed/drawerlayout-1.1.1/AndroidManifest.xml:17:1-24:12
-MERGED from [androidx.transition:transition:1.2.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/ea7ca60c9665ad7e05ad3b96ab511d44/transformed/transition-1.2.0/AndroidManifest.xml:17:1-24:12
-MERGED from [androidx.vectordrawable:vectordrawable-animated:1.1.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/7c012499bba70cb5599c3c9e2d85ccad/transformed/vectordrawable-animated-1.1.0/AndroidManifest.xml:17:1-24:12
-MERGED from [androidx.vectordrawable:vectordrawable:1.1.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/af0cdbdf416841f3669ecd1dc3da97aa/transformed/vectordrawable-1.1.0/AndroidManifest.xml:17:1-24:12
-MERGED from [androidx.core:core-ktx:1.8.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/0a95ad0bad133796b17f1c7d928c2bbb/transformed/jetified-core-ktx-1.8.0/AndroidManifest.xml:2:1-9:12
-MERGED from [androidx.emoji2:emoji2-views-helper:1.2.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/95ed444b2bd75620b1d2020d3256c960/transformed/jetified-emoji2-views-helper-1.2.0/AndroidManifest.xml:2:1-7:12
-MERGED from [androidx.emoji2:emoji2:1.2.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/ea940fae13a31ae5b99e62169d8de848/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:17:1-35:12
-MERGED from [androidx.recyclerview:recyclerview:1.1.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/b0791521214744a0c7d7d98eed99c111/transformed/recyclerview-1.1.0/AndroidManifest.xml:17:1-24:12
-MERGED from [androidx.viewpager:viewpager:1.0.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/a5f8fe82b535c5dc3ddc238f0a4fa6d4/transformed/viewpager-1.0.0/AndroidManifest.xml:17:1-22:12
-MERGED from [androidx.customview:customview:1.1.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/03b17923da151cf57edc31b9b39badfd/transformed/customview-1.1.0/AndroidManifest.xml:17:1-24:12
-MERGED from [androidx.core:core:1.8.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/90af0859ad3a4f46a6e0107f356a7c1e/transformed/core-1.8.0/AndroidManifest.xml:17:1-26:12
-MERGED from [androidx.cardview:cardview:1.0.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/8c745f8b8a1f66d4f8cddb7f13c9a7a2/transformed/cardview-1.0.0/AndroidManifest.xml:17:1-22:12
-MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/528e24c50ba9ebb4288efd1b419a9bee/transformed/versionedparcelable-1.1.1/AndroidManifest.xml:17:1-27:12
-MERGED from [androidx.lifecycle:lifecycle-process:2.4.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/ec17b1ef71b2f1f372fc249e61940309/transformed/jetified-lifecycle-process-2.4.1/AndroidManifest.xml:17:1-37:12
-MERGED from [androidx.startup:startup-runtime:1.1.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/26afe2df185e04aa5056bb371a6c06db/transformed/jetified-startup-runtime-1.1.1/AndroidManifest.xml:17:1-33:12
-MERGED from [androidx.tracing:tracing:1.0.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/8819a1e7f32e1f14cab0da0f562ab6c1/transformed/jetified-tracing-1.0.0/AndroidManifest.xml:17:1-24:12
-MERGED from [androidx.room:room-runtime:2.2.5] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/9a689aa0418fd9bdc82334d7b32a1e10/transformed/room-runtime-2.2.5/AndroidManifest.xml:17:1-31:12
-MERGED from [androidx.sqlite:sqlite-framework:2.1.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/912f17a9cc536afd633cb2fc306ea8d1/transformed/sqlite-framework-2.1.0/AndroidManifest.xml:17:1-24:12
-MERGED from [androidx.sqlite:sqlite:2.1.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/07de4922d754e8516dd5eb3d08d9890b/transformed/sqlite-2.1.0/AndroidManifest.xml:17:1-24:12
-MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/3f560dcd1680a2c4fb1b1f9fb7f0fc7e/transformed/cursoradapter-1.0.0/AndroidManifest.xml:17:1-22:12
-MERGED from [androidx.lifecycle:lifecycle-livedata:2.1.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/78865e9a4acc681aed7a6daf231660fb/transformed/lifecycle-livedata-2.1.0/AndroidManifest.xml:17:1-22:12
-MERGED from [androidx.lifecycle:lifecycle-service:2.1.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/df9beaf107abc60b4d1374da71871d08/transformed/jetified-lifecycle-service-2.1.0/AndroidManifest.xml:17:1-22:12
-MERGED from [androidx.lifecycle:lifecycle-runtime:2.5.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/fa74e5d2225d1dfc257f8ba11532c32c/transformed/lifecycle-runtime-2.5.0/AndroidManifest.xml:17:1-24:12
-MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.5.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/5ab6ffa3406957a240d80c20c9210c4f/transformed/lifecycle-livedata-core-2.5.0/AndroidManifest.xml:17:1-24:12
-MERGED from [androidx.arch.core:core-runtime:2.1.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/263cf708f4883c00df43c0cab0eb291d/transformed/core-runtime-2.1.0/AndroidManifest.xml:17:1-24:12
-MERGED from [androidx.savedstate:savedstate:1.2.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e2cb8000c116915ec30f02f56778b551/transformed/jetified-savedstate-1.2.0/AndroidManifest.xml:17:1-24:12
-MERGED from [androidx.documentfile:documentfile:1.0.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/cd3a61ce3982aa5df533d003e1596948/transformed/documentfile-1.0.0/AndroidManifest.xml:17:1-22:12
-MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/5e68ba0452f026154cd8af8093ae8962/transformed/localbroadcastmanager-1.0.0/AndroidManifest.xml:17:1-22:12
-MERGED from [androidx.print:print:1.0.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/709f8db0a50ce73057cae8fce98df353/transformed/print-1.0.0/AndroidManifest.xml:17:1-22:12
-MERGED from [androidx.interpolator:interpolator:1.0.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/bb5139325124eb2bba50899f4e556081/transformed/interpolator-1.0.0/AndroidManifest.xml:17:1-22:12
-MERGED from [androidx.annotation:annotation-experimental:1.1.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e51f96993c12a8ed6b9d4f81b11fcaeb/transformed/jetified-annotation-experimental-1.1.0/AndroidManifest.xml:17:1-24:12
-INJECTED from /home/nachtaktiverhalbaffe/dev/eje/android/app/src/debug/AndroidManifest.xml:1:1-7:12
-INJECTED from /home/nachtaktiverhalbaffe/dev/eje/android/app/src/debug/AndroidManifest.xml:1:1-7:12
-INJECTED from /home/nachtaktiverhalbaffe/dev/eje/android/app/src/debug/AndroidManifest.xml:1:1-7:12
+ADDED from /workspaces/eje/android/app/src/main/AndroidManifest.xml:1:1-83:12
+INJECTED from /workspaces/eje/android/app/src/main/AndroidManifest.xml:1:1-83:12
+INJECTED from /workspaces/eje/android/app/src/main/AndroidManifest.xml:1:1-83:12
+INJECTED from /workspaces/eje/android/app/src/main/AndroidManifest.xml:1:1-83:12
+MERGED from /workspaces/eje/android/app/src/main/AndroidManifest.xml:1:1-83:12
+MERGED from [:maps_launcher] /workspaces/eje/build/maps_launcher/intermediates/merged_manifest/debug/AndroidManifest.xml:2:1-9:12
+MERGED from [:sqflite] /workspaces/eje/build/sqflite/intermediates/merged_manifest/debug/AndroidManifest.xml:2:1-9:12
+MERGED from [:flutter_local_notifications] /workspaces/eje/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:2:1-34:12
+MERGED from [:url_launcher_android] /workspaces/eje/build/url_launcher_android/intermediates/merged_manifest/debug/AndroidManifest.xml:2:1-16:12
+MERGED from [:path_provider_android] /workspaces/eje/build/path_provider_android/intermediates/merged_manifest/debug/AndroidManifest.xml:2:1-9:12
+MERGED from [:flutter_native_splash] /workspaces/eje/build/flutter_native_splash/intermediates/merged_manifest/debug/AndroidManifest.xml:2:1-9:12
+MERGED from [:connectivity_plus] /workspaces/eje/build/connectivity_plus/intermediates/merged_manifest/debug/AndroidManifest.xml:2:1-11:12
+MERGED from [:permission_handler_android] /workspaces/eje/build/permission_handler_android/intermediates/merged_manifest/debug/AndroidManifest.xml:2:1-9:12
+MERGED from [:flutter_native_timezone] /workspaces/eje/build/flutter_native_timezone/intermediates/merged_manifest/debug/AndroidManifest.xml:2:1-9:12
+MERGED from [:package_info_plus] /workspaces/eje/build/package_info_plus/intermediates/merged_manifest/debug/AndroidManifest.xml:2:1-9:12
+MERGED from [:workmanager] /workspaces/eje/build/workmanager/intermediates/merged_manifest/debug/AndroidManifest.xml:2:1-9:12
+MERGED from [:add_2_calendar] /workspaces/eje/build/add_2_calendar/intermediates/merged_manifest/debug/AndroidManifest.xml:2:1-9:12
+MERGED from [androidx.multidex:multidex:2.0.0] /root/.gradle/caches/transforms-3/9e17382d978cca078fee6652fc7a5583/transformed/multidex-2.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.work:work-runtime-ktx:2.7.0] /root/.gradle/caches/transforms-3/36eccf79c650a4f9f78dfc7175f2e125/transformed/work-runtime-ktx-2.7.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.window:window-java:1.0.0] /root/.gradle/caches/transforms-3/58a0f533de0f28e14f5311b85ffb2639/transformed/jetified-window-java-1.0.0/AndroidManifest.xml:17:1-23:12
+MERGED from [androidx.window:window:1.0.0] /root/.gradle/caches/transforms-3/32d94faeb1cc28c78603d821b12eda68/transformed/jetified-window-1.0.0/AndroidManifest.xml:17:1-33:12
+MERGED from [com.google.android.material:material:1.8.0] /root/.gradle/caches/transforms-3/e46243123c985af6da31ad81b135710c/transformed/material-1.8.0/AndroidManifest.xml:17:1-26:12
+MERGED from [androidx.constraintlayout:constraintlayout:2.0.1] /root/.gradle/caches/transforms-3/ea7b20761be539eb0f6bbcbf9bfa08df/transformed/constraintlayout-2.0.1/AndroidManifest.xml:2:1-11:12
+MERGED from [androidx.appcompat:appcompat-resources:1.5.0] /root/.gradle/caches/transforms-3/2e0b49621fd9111c6cf640b50f850212/transformed/jetified-appcompat-resources-1.5.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.appcompat:appcompat:1.5.0] /root/.gradle/caches/transforms-3/ac620e918fd53599e0fa300e5e1f8979/transformed/appcompat-1.5.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.viewpager2:viewpager2:1.0.0] /root/.gradle/caches/transforms-3/e075e78a21cab4c31dced498e334d00a/transformed/jetified-viewpager2-1.0.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.fragment:fragment:1.3.6] /root/.gradle/caches/transforms-3/c98de816edcd8e6a7b484e877de68e8d/transformed/fragment-1.3.6/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.activity:activity:1.5.0] /root/.gradle/caches/transforms-3/93ed2cd0b49ef5f2d3d793877003bc3d/transformed/jetified-activity-1.5.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.dynamicanimation:dynamicanimation:1.0.0] /root/.gradle/caches/transforms-3/95f069e0291292ca3fd76dbde945eee6/transformed/dynamicanimation-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] /root/.gradle/caches/transforms-3/b7b4ec1aad0152c09e02438047928388/transformed/legacy-support-core-utils-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.loader:loader:1.0.0] /root/.gradle/caches/transforms-3/4aa93506116e4e02e7796c2c7832f4e4/transformed/loader-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.5.0] /root/.gradle/caches/transforms-3/892aa9769ba2e613bcc2ccd15b412ceb/transformed/lifecycle-viewmodel-2.5.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-savedstate:2.5.0] /root/.gradle/caches/transforms-3/6e4da1033b86e29146540360fe836e3a/transformed/jetified-lifecycle-viewmodel-savedstate-2.5.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.media:media:1.1.0] /root/.gradle/caches/transforms-3/dc9908c06c3a5e946819bd35f4fbba74/transformed/media-1.1.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.browser:browser:1.5.0] /root/.gradle/caches/transforms-3/7ff117c4cf1e81336aa51aa1827be230/transformed/browser-1.5.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.work:work-runtime:2.7.1] /root/.gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:17:1-145:12
+MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.1.0] /root/.gradle/caches/transforms-3/40f60b5f7f2001832315a5b795ae6f05/transformed/coordinatorlayout-1.1.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.drawerlayout:drawerlayout:1.1.1] /root/.gradle/caches/transforms-3/cd207cbc297bed17dec20e6b57edd50d/transformed/drawerlayout-1.1.1/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.transition:transition:1.2.0] /root/.gradle/caches/transforms-3/ea7ca60c9665ad7e05ad3b96ab511d44/transformed/transition-1.2.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.vectordrawable:vectordrawable-animated:1.1.0] /root/.gradle/caches/transforms-3/7c012499bba70cb5599c3c9e2d85ccad/transformed/vectordrawable-animated-1.1.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.vectordrawable:vectordrawable:1.1.0] /root/.gradle/caches/transforms-3/af0cdbdf416841f3669ecd1dc3da97aa/transformed/vectordrawable-1.1.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.emoji2:emoji2-views-helper:1.2.0] /root/.gradle/caches/transforms-3/95ed444b2bd75620b1d2020d3256c960/transformed/jetified-emoji2-views-helper-1.2.0/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.emoji2:emoji2:1.2.0] /root/.gradle/caches/transforms-3/ea940fae13a31ae5b99e62169d8de848/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:17:1-35:12
+MERGED from [androidx.recyclerview:recyclerview:1.1.0] /root/.gradle/caches/transforms-3/b0791521214744a0c7d7d98eed99c111/transformed/recyclerview-1.1.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.viewpager:viewpager:1.0.0] /root/.gradle/caches/transforms-3/a5f8fe82b535c5dc3ddc238f0a4fa6d4/transformed/viewpager-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.customview:customview:1.1.0] /root/.gradle/caches/transforms-3/03b17923da151cf57edc31b9b39badfd/transformed/customview-1.1.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.core:core-ktx:1.10.1] /root/.gradle/caches/transforms-3/513b8ad32b41f4e5a64bf3498aa4edb9/transformed/jetified-core-ktx-1.10.1/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.core:core:1.10.1] /root/.gradle/caches/transforms-3/1761aec51c0be3677ce571b28ab184cd/transformed/core-1.10.1/AndroidManifest.xml:17:1-30:12
+MERGED from [androidx.cardview:cardview:1.0.0] /root/.gradle/caches/transforms-3/8c745f8b8a1f66d4f8cddb7f13c9a7a2/transformed/cardview-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] /root/.gradle/caches/transforms-3/528e24c50ba9ebb4288efd1b419a9bee/transformed/versionedparcelable-1.1.1/AndroidManifest.xml:17:1-27:12
+MERGED from [androidx.lifecycle:lifecycle-process:2.4.1] /root/.gradle/caches/transforms-3/ec17b1ef71b2f1f372fc249e61940309/transformed/jetified-lifecycle-process-2.4.1/AndroidManifest.xml:17:1-37:12
+MERGED from [androidx.startup:startup-runtime:1.1.1] /root/.gradle/caches/transforms-3/26afe2df185e04aa5056bb371a6c06db/transformed/jetified-startup-runtime-1.1.1/AndroidManifest.xml:17:1-33:12
+MERGED from [androidx.tracing:tracing:1.0.0] /root/.gradle/caches/transforms-3/8819a1e7f32e1f14cab0da0f562ab6c1/transformed/jetified-tracing-1.0.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.interpolator:interpolator:1.0.0] /root/.gradle/caches/transforms-3/bb5139325124eb2bba50899f4e556081/transformed/interpolator-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.room:room-runtime:2.2.5] /root/.gradle/caches/transforms-3/9a689aa0418fd9bdc82334d7b32a1e10/transformed/room-runtime-2.2.5/AndroidManifest.xml:17:1-31:12
+MERGED from [androidx.sqlite:sqlite-framework:2.1.0] /root/.gradle/caches/transforms-3/912f17a9cc536afd633cb2fc306ea8d1/transformed/sqlite-framework-2.1.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.sqlite:sqlite:2.1.0] /root/.gradle/caches/transforms-3/07de4922d754e8516dd5eb3d08d9890b/transformed/sqlite-2.1.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] /root/.gradle/caches/transforms-3/3f560dcd1680a2c4fb1b1f9fb7f0fc7e/transformed/cursoradapter-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.1.0] /root/.gradle/caches/transforms-3/78865e9a4acc681aed7a6daf231660fb/transformed/lifecycle-livedata-2.1.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-service:2.1.0] /root/.gradle/caches/transforms-3/df9beaf107abc60b4d1374da71871d08/transformed/jetified-lifecycle-service-2.1.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-runtime:2.5.0] /root/.gradle/caches/transforms-3/fa74e5d2225d1dfc257f8ba11532c32c/transformed/lifecycle-runtime-2.5.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.5.0] /root/.gradle/caches/transforms-3/5ab6ffa3406957a240d80c20c9210c4f/transformed/lifecycle-livedata-core-2.5.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.arch.core:core-runtime:2.1.0] /root/.gradle/caches/transforms-3/263cf708f4883c00df43c0cab0eb291d/transformed/core-runtime-2.1.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.savedstate:savedstate:1.2.0] /root/.gradle/caches/transforms-3/e2cb8000c116915ec30f02f56778b551/transformed/jetified-savedstate-1.2.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.documentfile:documentfile:1.0.0] /root/.gradle/caches/transforms-3/cd3a61ce3982aa5df533d003e1596948/transformed/documentfile-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] /root/.gradle/caches/transforms-3/5e68ba0452f026154cd8af8093ae8962/transformed/localbroadcastmanager-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.print:print:1.0.0] /root/.gradle/caches/transforms-3/709f8db0a50ce73057cae8fce98df353/transformed/print-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.annotation:annotation-experimental:1.3.0] /root/.gradle/caches/transforms-3/f59dc226b9d1bf63a2cb5dfe1dad8cee/transformed/jetified-annotation-experimental-1.3.0/AndroidManifest.xml:17:1-22:12
+INJECTED from /workspaces/eje/android/app/src/debug/AndroidManifest.xml:1:1-7:12
+INJECTED from /workspaces/eje/android/app/src/debug/AndroidManifest.xml:1:1-7:12
+INJECTED from /workspaces/eje/android/app/src/debug/AndroidManifest.xml:1:1-7:12
 	package
-		ADDED from /home/nachtaktiverhalbaffe/dev/eje/android/app/src/main/AndroidManifest.xml:2:1-31
-		INJECTED from /home/nachtaktiverhalbaffe/dev/eje/android/app/src/main/AndroidManifest.xml
-		INJECTED from /home/nachtaktiverhalbaffe/dev/eje/android/app/src/debug/AndroidManifest.xml
+		ADDED from /workspaces/eje/android/app/src/main/AndroidManifest.xml:2:1-31
+		INJECTED from /workspaces/eje/android/app/src/main/AndroidManifest.xml
+		INJECTED from /workspaces/eje/android/app/src/debug/AndroidManifest.xml
 	android:versionName
-		INJECTED from /home/nachtaktiverhalbaffe/dev/eje/android/app/src/main/AndroidManifest.xml
-		ADDED from /home/nachtaktiverhalbaffe/dev/eje/android/app/src/main/AndroidManifest.xml:1:1-83:12
-		INJECTED from /home/nachtaktiverhalbaffe/dev/eje/android/app/src/debug/AndroidManifest.xml
+		INJECTED from /workspaces/eje/android/app/src/main/AndroidManifest.xml
+		ADDED from /workspaces/eje/android/app/src/main/AndroidManifest.xml:1:1-83:12
+		INJECTED from /workspaces/eje/android/app/src/debug/AndroidManifest.xml
 	xmlns:tools
-		ADDED from /home/nachtaktiverhalbaffe/dev/eje/android/app/src/main/AndroidManifest.xml:1:70-116
-		ADDED from /home/nachtaktiverhalbaffe/dev/eje/android/app/src/main/AndroidManifest.xml:1:70-116
+		ADDED from /workspaces/eje/android/app/src/main/AndroidManifest.xml:1:70-116
+		ADDED from /workspaces/eje/android/app/src/main/AndroidManifest.xml:1:70-116
 	android:versionCode
-		INJECTED from /home/nachtaktiverhalbaffe/dev/eje/android/app/src/main/AndroidManifest.xml
-		ADDED from /home/nachtaktiverhalbaffe/dev/eje/android/app/src/main/AndroidManifest.xml:1:1-83:12
-		INJECTED from /home/nachtaktiverhalbaffe/dev/eje/android/app/src/debug/AndroidManifest.xml
+		INJECTED from /workspaces/eje/android/app/src/main/AndroidManifest.xml
+		ADDED from /workspaces/eje/android/app/src/main/AndroidManifest.xml:1:1-83:12
+		INJECTED from /workspaces/eje/android/app/src/debug/AndroidManifest.xml
 	xmlns:android
-		ADDED from /home/nachtaktiverhalbaffe/dev/eje/android/app/src/main/AndroidManifest.xml:1:11-69
+		ADDED from /workspaces/eje/android/app/src/main/AndroidManifest.xml:1:11-69
 uses-permission#android.permission.INTERNET
-ADDED from /home/nachtaktiverhalbaffe/dev/eje/android/app/src/main/AndroidManifest.xml:3:5-66
-MERGED from /home/nachtaktiverhalbaffe/dev/eje/android/app/src/main/AndroidManifest.xml:3:5-66
-MERGED from /home/nachtaktiverhalbaffe/dev/eje/android/app/src/main/AndroidManifest.xml:3:5-66
+ADDED from /workspaces/eje/android/app/src/main/AndroidManifest.xml:3:5-66
+MERGED from /workspaces/eje/android/app/src/main/AndroidManifest.xml:3:5-66
+MERGED from /workspaces/eje/android/app/src/main/AndroidManifest.xml:3:5-66
 	android:name
-		ADDED from /home/nachtaktiverhalbaffe/dev/eje/android/app/src/main/AndroidManifest.xml:3:22-64
+		ADDED from /workspaces/eje/android/app/src/main/AndroidManifest.xml:3:22-64
 uses-permission#android.permission.WRITE_CALENDAR
-ADDED from /home/nachtaktiverhalbaffe/dev/eje/android/app/src/main/AndroidManifest.xml:4:5-73
+ADDED from /workspaces/eje/android/app/src/main/AndroidManifest.xml:4:5-73
 	android:name
-		ADDED from /home/nachtaktiverhalbaffe/dev/eje/android/app/src/main/AndroidManifest.xml:4:22-70
+		ADDED from /workspaces/eje/android/app/src/main/AndroidManifest.xml:4:22-70
 uses-permission#android.permission.READ_CALENDAR
-ADDED from /home/nachtaktiverhalbaffe/dev/eje/android/app/src/main/AndroidManifest.xml:5:5-72
+ADDED from /workspaces/eje/android/app/src/main/AndroidManifest.xml:5:5-72
 	android:name
-		ADDED from /home/nachtaktiverhalbaffe/dev/eje/android/app/src/main/AndroidManifest.xml:5:22-69
+		ADDED from /workspaces/eje/android/app/src/main/AndroidManifest.xml:5:22-69
 uses-permission#android.permission.SCHEDULE_EXACT_ALARM
-ADDED from /home/nachtaktiverhalbaffe/dev/eje/android/app/src/main/AndroidManifest.xml:6:5-78
-MERGED from [:flutter_local_notifications] /home/nachtaktiverhalbaffe/dev/eje/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:12:5-79
-MERGED from [:flutter_local_notifications] /home/nachtaktiverhalbaffe/dev/eje/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:12:5-79
+ADDED from /workspaces/eje/android/app/src/main/AndroidManifest.xml:6:5-78
+MERGED from [:flutter_local_notifications] /workspaces/eje/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:12:5-79
+MERGED from [:flutter_local_notifications] /workspaces/eje/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:12:5-79
 	android:name
-		ADDED from /home/nachtaktiverhalbaffe/dev/eje/android/app/src/main/AndroidManifest.xml:6:22-76
+		ADDED from /workspaces/eje/android/app/src/main/AndroidManifest.xml:6:22-76
 uses-permission#android.permission.POST_NOTIFICATIONS
-ADDED from /home/nachtaktiverhalbaffe/dev/eje/android/app/src/main/AndroidManifest.xml:7:5-76
-MERGED from [:flutter_local_notifications] /home/nachtaktiverhalbaffe/dev/eje/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:13:5-77
-MERGED from [:flutter_local_notifications] /home/nachtaktiverhalbaffe/dev/eje/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:13:5-77
+ADDED from /workspaces/eje/android/app/src/main/AndroidManifest.xml:7:5-76
+MERGED from [:flutter_local_notifications] /workspaces/eje/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:13:5-77
+MERGED from [:flutter_local_notifications] /workspaces/eje/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:13:5-77
 	android:name
-		ADDED from /home/nachtaktiverhalbaffe/dev/eje/android/app/src/main/AndroidManifest.xml:7:22-74
+		ADDED from /workspaces/eje/android/app/src/main/AndroidManifest.xml:7:22-74
 uses-permission#android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS
-ADDED from /home/nachtaktiverhalbaffe/dev/eje/android/app/src/main/AndroidManifest.xml:8:5-95
+ADDED from /workspaces/eje/android/app/src/main/AndroidManifest.xml:8:5-95
 	android:name
-		ADDED from /home/nachtaktiverhalbaffe/dev/eje/android/app/src/main/AndroidManifest.xml:8:22-92
+		ADDED from /workspaces/eje/android/app/src/main/AndroidManifest.xml:8:22-92
 queries
-ADDED from /home/nachtaktiverhalbaffe/dev/eje/android/app/src/main/AndroidManifest.xml:11:5-41:15
+ADDED from /workspaces/eje/android/app/src/main/AndroidManifest.xml:11:5-41:15
 intent#action:name:android.intent.action.VIEW+data:scheme:https
-ADDED from /home/nachtaktiverhalbaffe/dev/eje/android/app/src/main/AndroidManifest.xml:13:9-16:18
+ADDED from /workspaces/eje/android/app/src/main/AndroidManifest.xml:13:9-16:18
 action#android.intent.action.VIEW
-ADDED from /home/nachtaktiverhalbaffe/dev/eje/android/app/src/main/AndroidManifest.xml:14:13-65
+ADDED from /workspaces/eje/android/app/src/main/AndroidManifest.xml:14:13-65
 	android:name
-		ADDED from /home/nachtaktiverhalbaffe/dev/eje/android/app/src/main/AndroidManifest.xml:14:21-62
+		ADDED from /workspaces/eje/android/app/src/main/AndroidManifest.xml:14:21-62
 data
-ADDED from /home/nachtaktiverhalbaffe/dev/eje/android/app/src/main/AndroidManifest.xml:15:13-44
+ADDED from /workspaces/eje/android/app/src/main/AndroidManifest.xml:15:13-44
 	android:scheme
-		ADDED from /home/nachtaktiverhalbaffe/dev/eje/android/app/src/main/AndroidManifest.xml:15:19-41
+		ADDED from /workspaces/eje/android/app/src/main/AndroidManifest.xml:15:19-41
 intent#action:name:android.intent.action.VIEW+data:scheme:http
-ADDED from /home/nachtaktiverhalbaffe/dev/eje/android/app/src/main/AndroidManifest.xml:18:9-21:18
+ADDED from /workspaces/eje/android/app/src/main/AndroidManifest.xml:18:9-21:18
 intent#action:name:android.intent.action.VIEW+data:scheme:sms
-ADDED from /home/nachtaktiverhalbaffe/dev/eje/android/app/src/main/AndroidManifest.xml:23:9-26:18
+ADDED from /workspaces/eje/android/app/src/main/AndroidManifest.xml:23:9-26:18
 intent#action:name:android.intent.action.VIEW+data:scheme:tel
-ADDED from /home/nachtaktiverhalbaffe/dev/eje/android/app/src/main/AndroidManifest.xml:28:9-31:18
+ADDED from /workspaces/eje/android/app/src/main/AndroidManifest.xml:28:9-31:18
 intent#action:name:android.intent.action.SEND+data:mimeType:*/*
-ADDED from /home/nachtaktiverhalbaffe/dev/eje/android/app/src/main/AndroidManifest.xml:33:9-36:18
+ADDED from /workspaces/eje/android/app/src/main/AndroidManifest.xml:33:9-36:18
 action#android.intent.action.SEND
-ADDED from /home/nachtaktiverhalbaffe/dev/eje/android/app/src/main/AndroidManifest.xml:34:13-65
+ADDED from /workspaces/eje/android/app/src/main/AndroidManifest.xml:34:13-65
 	android:name
-		ADDED from /home/nachtaktiverhalbaffe/dev/eje/android/app/src/main/AndroidManifest.xml:34:21-62
+		ADDED from /workspaces/eje/android/app/src/main/AndroidManifest.xml:34:21-62
 intent#action:name:android.intent.action.INSERT+data:mimeType:vnd.android.cursor.item/event
-ADDED from /home/nachtaktiverhalbaffe/dev/eje/android/app/src/main/AndroidManifest.xml:37:10-40:18
+ADDED from /workspaces/eje/android/app/src/main/AndroidManifest.xml:37:10-40:18
 action#android.intent.action.INSERT
-ADDED from /home/nachtaktiverhalbaffe/dev/eje/android/app/src/main/AndroidManifest.xml:38:13-67
+ADDED from /workspaces/eje/android/app/src/main/AndroidManifest.xml:38:13-67
 	android:name
-		ADDED from /home/nachtaktiverhalbaffe/dev/eje/android/app/src/main/AndroidManifest.xml:38:21-64
+		ADDED from /workspaces/eje/android/app/src/main/AndroidManifest.xml:38:21-64
 uses-sdk
-INJECTED from /home/nachtaktiverhalbaffe/dev/eje/android/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
-INJECTED from /home/nachtaktiverhalbaffe/dev/eje/android/app/src/main/AndroidManifest.xml
-INJECTED from /home/nachtaktiverhalbaffe/dev/eje/android/app/src/main/AndroidManifest.xml
-MERGED from [:maps_launcher] /home/nachtaktiverhalbaffe/dev/eje/build/maps_launcher/intermediates/merged_manifest/debug/AndroidManifest.xml:5:5-7:41
-MERGED from [:maps_launcher] /home/nachtaktiverhalbaffe/dev/eje/build/maps_launcher/intermediates/merged_manifest/debug/AndroidManifest.xml:5:5-7:41
-MERGED from [:sqflite] /home/nachtaktiverhalbaffe/dev/eje/build/sqflite/intermediates/merged_manifest/debug/AndroidManifest.xml:5:5-7:41
-MERGED from [:sqflite] /home/nachtaktiverhalbaffe/dev/eje/build/sqflite/intermediates/merged_manifest/debug/AndroidManifest.xml:5:5-7:41
-MERGED from [:flutter_local_notifications] /home/nachtaktiverhalbaffe/dev/eje/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:5:5-7:41
-MERGED from [:flutter_local_notifications] /home/nachtaktiverhalbaffe/dev/eje/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:5:5-7:41
-MERGED from [:url_launcher_android] /home/nachtaktiverhalbaffe/dev/eje/build/url_launcher_android/intermediates/merged_manifest/debug/AndroidManifest.xml:5:5-7:41
-MERGED from [:url_launcher_android] /home/nachtaktiverhalbaffe/dev/eje/build/url_launcher_android/intermediates/merged_manifest/debug/AndroidManifest.xml:5:5-7:41
-MERGED from [:path_provider_android] /home/nachtaktiverhalbaffe/dev/eje/build/path_provider_android/intermediates/merged_manifest/debug/AndroidManifest.xml:5:5-7:41
-MERGED from [:path_provider_android] /home/nachtaktiverhalbaffe/dev/eje/build/path_provider_android/intermediates/merged_manifest/debug/AndroidManifest.xml:5:5-7:41
-MERGED from [:flutter_native_splash] /home/nachtaktiverhalbaffe/dev/eje/build/flutter_native_splash/intermediates/merged_manifest/debug/AndroidManifest.xml:5:5-7:41
-MERGED from [:flutter_native_splash] /home/nachtaktiverhalbaffe/dev/eje/build/flutter_native_splash/intermediates/merged_manifest/debug/AndroidManifest.xml:5:5-7:41
-MERGED from [:permission_handler_android] /home/nachtaktiverhalbaffe/dev/eje/build/permission_handler_android/intermediates/merged_manifest/debug/AndroidManifest.xml:5:5-7:41
-MERGED from [:permission_handler_android] /home/nachtaktiverhalbaffe/dev/eje/build/permission_handler_android/intermediates/merged_manifest/debug/AndroidManifest.xml:5:5-7:41
-MERGED from [:connectivity] /home/nachtaktiverhalbaffe/dev/eje/build/connectivity/intermediates/merged_manifest/debug/AndroidManifest.xml:5:5-7:41
-MERGED from [:connectivity] /home/nachtaktiverhalbaffe/dev/eje/build/connectivity/intermediates/merged_manifest/debug/AndroidManifest.xml:5:5-7:41
-MERGED from [:flutter_native_timezone] /home/nachtaktiverhalbaffe/dev/eje/build/flutter_native_timezone/intermediates/merged_manifest/debug/AndroidManifest.xml:5:5-7:41
-MERGED from [:flutter_native_timezone] /home/nachtaktiverhalbaffe/dev/eje/build/flutter_native_timezone/intermediates/merged_manifest/debug/AndroidManifest.xml:5:5-7:41
-MERGED from [:package_info_plus] /home/nachtaktiverhalbaffe/dev/eje/build/package_info_plus/intermediates/merged_manifest/debug/AndroidManifest.xml:5:5-7:41
-MERGED from [:package_info_plus] /home/nachtaktiverhalbaffe/dev/eje/build/package_info_plus/intermediates/merged_manifest/debug/AndroidManifest.xml:5:5-7:41
-MERGED from [:workmanager] /home/nachtaktiverhalbaffe/dev/eje/build/workmanager/intermediates/merged_manifest/debug/AndroidManifest.xml:5:5-7:41
-MERGED from [:workmanager] /home/nachtaktiverhalbaffe/dev/eje/build/workmanager/intermediates/merged_manifest/debug/AndroidManifest.xml:5:5-7:41
-MERGED from [:add_2_calendar] /home/nachtaktiverhalbaffe/dev/eje/build/add_2_calendar/intermediates/merged_manifest/debug/AndroidManifest.xml:5:5-7:41
-MERGED from [:add_2_calendar] /home/nachtaktiverhalbaffe/dev/eje/build/add_2_calendar/intermediates/merged_manifest/debug/AndroidManifest.xml:5:5-7:41
-MERGED from [androidx.multidex:multidex:2.0.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/9e17382d978cca078fee6652fc7a5583/transformed/multidex-2.0.0/AndroidManifest.xml:20:5-43
-MERGED from [androidx.multidex:multidex:2.0.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/9e17382d978cca078fee6652fc7a5583/transformed/multidex-2.0.0/AndroidManifest.xml:20:5-43
-MERGED from [androidx.work:work-runtime-ktx:2.7.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/36eccf79c650a4f9f78dfc7175f2e125/transformed/work-runtime-ktx-2.7.0/AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.work:work-runtime-ktx:2.7.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/36eccf79c650a4f9f78dfc7175f2e125/transformed/work-runtime-ktx-2.7.0/AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.window:window-java:1.0.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/58a0f533de0f28e14f5311b85ffb2639/transformed/jetified-window-java-1.0.0/AndroidManifest.xml:19:5-21:41
-MERGED from [androidx.window:window-java:1.0.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/58a0f533de0f28e14f5311b85ffb2639/transformed/jetified-window-java-1.0.0/AndroidManifest.xml:19:5-21:41
-MERGED from [androidx.window:window:1.0.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/32d94faeb1cc28c78603d821b12eda68/transformed/jetified-window-1.0.0/AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.window:window:1.0.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/32d94faeb1cc28c78603d821b12eda68/transformed/jetified-window-1.0.0/AndroidManifest.xml:20:5-22:41
-MERGED from [com.google.android.material:material:1.8.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e46243123c985af6da31ad81b135710c/transformed/material-1.8.0/AndroidManifest.xml:20:5-22:41
-MERGED from [com.google.android.material:material:1.8.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e46243123c985af6da31ad81b135710c/transformed/material-1.8.0/AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.constraintlayout:constraintlayout:2.0.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/ea7b20761be539eb0f6bbcbf9bfa08df/transformed/constraintlayout-2.0.1/AndroidManifest.xml:5:5-7:41
-MERGED from [androidx.constraintlayout:constraintlayout:2.0.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/ea7b20761be539eb0f6bbcbf9bfa08df/transformed/constraintlayout-2.0.1/AndroidManifest.xml:5:5-7:41
-MERGED from [androidx.appcompat:appcompat-resources:1.5.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/2e0b49621fd9111c6cf640b50f850212/transformed/jetified-appcompat-resources-1.5.0/AndroidManifest.xml:20:5-44
-MERGED from [androidx.appcompat:appcompat-resources:1.5.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/2e0b49621fd9111c6cf640b50f850212/transformed/jetified-appcompat-resources-1.5.0/AndroidManifest.xml:20:5-44
-MERGED from [androidx.appcompat:appcompat:1.5.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/ac620e918fd53599e0fa300e5e1f8979/transformed/appcompat-1.5.0/AndroidManifest.xml:20:5-44
-MERGED from [androidx.appcompat:appcompat:1.5.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/ac620e918fd53599e0fa300e5e1f8979/transformed/appcompat-1.5.0/AndroidManifest.xml:20:5-44
-MERGED from [androidx.viewpager2:viewpager2:1.0.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e075e78a21cab4c31dced498e334d00a/transformed/jetified-viewpager2-1.0.0/AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.viewpager2:viewpager2:1.0.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e075e78a21cab4c31dced498e334d00a/transformed/jetified-viewpager2-1.0.0/AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.fragment:fragment:1.3.6] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/c98de816edcd8e6a7b484e877de68e8d/transformed/fragment-1.3.6/AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.fragment:fragment:1.3.6] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/c98de816edcd8e6a7b484e877de68e8d/transformed/fragment-1.3.6/AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.activity:activity:1.5.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/93ed2cd0b49ef5f2d3d793877003bc3d/transformed/jetified-activity-1.5.0/AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.activity:activity:1.5.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/93ed2cd0b49ef5f2d3d793877003bc3d/transformed/jetified-activity-1.5.0/AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.dynamicanimation:dynamicanimation:1.0.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/95f069e0291292ca3fd76dbde945eee6/transformed/dynamicanimation-1.0.0/AndroidManifest.xml:20:5-44
-MERGED from [androidx.dynamicanimation:dynamicanimation:1.0.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/95f069e0291292ca3fd76dbde945eee6/transformed/dynamicanimation-1.0.0/AndroidManifest.xml:20:5-44
-MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/b7b4ec1aad0152c09e02438047928388/transformed/legacy-support-core-utils-1.0.0/AndroidManifest.xml:20:5-44
-MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/b7b4ec1aad0152c09e02438047928388/transformed/legacy-support-core-utils-1.0.0/AndroidManifest.xml:20:5-44
-MERGED from [androidx.loader:loader:1.0.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/4aa93506116e4e02e7796c2c7832f4e4/transformed/loader-1.0.0/AndroidManifest.xml:20:5-44
-MERGED from [androidx.loader:loader:1.0.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/4aa93506116e4e02e7796c2c7832f4e4/transformed/loader-1.0.0/AndroidManifest.xml:20:5-44
-MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.5.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/892aa9769ba2e613bcc2ccd15b412ceb/transformed/lifecycle-viewmodel-2.5.0/AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.5.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/892aa9769ba2e613bcc2ccd15b412ceb/transformed/lifecycle-viewmodel-2.5.0/AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.lifecycle:lifecycle-viewmodel-savedstate:2.5.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/6e4da1033b86e29146540360fe836e3a/transformed/jetified-lifecycle-viewmodel-savedstate-2.5.0/AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.lifecycle:lifecycle-viewmodel-savedstate:2.5.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/6e4da1033b86e29146540360fe836e3a/transformed/jetified-lifecycle-viewmodel-savedstate-2.5.0/AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.media:media:1.1.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/dc9908c06c3a5e946819bd35f4fbba74/transformed/media-1.1.0/AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.media:media:1.1.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/dc9908c06c3a5e946819bd35f4fbba74/transformed/media-1.1.0/AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.work:work-runtime:2.7.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:21:5-23:41
-MERGED from [androidx.work:work-runtime:2.7.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:21:5-23:41
-MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.1.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/40f60b5f7f2001832315a5b795ae6f05/transformed/coordinatorlayout-1.1.0/AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.1.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/40f60b5f7f2001832315a5b795ae6f05/transformed/coordinatorlayout-1.1.0/AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.drawerlayout:drawerlayout:1.1.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/cd207cbc297bed17dec20e6b57edd50d/transformed/drawerlayout-1.1.1/AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.drawerlayout:drawerlayout:1.1.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/cd207cbc297bed17dec20e6b57edd50d/transformed/drawerlayout-1.1.1/AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.transition:transition:1.2.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/ea7ca60c9665ad7e05ad3b96ab511d44/transformed/transition-1.2.0/AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.transition:transition:1.2.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/ea7ca60c9665ad7e05ad3b96ab511d44/transformed/transition-1.2.0/AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.vectordrawable:vectordrawable-animated:1.1.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/7c012499bba70cb5599c3c9e2d85ccad/transformed/vectordrawable-animated-1.1.0/AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.vectordrawable:vectordrawable-animated:1.1.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/7c012499bba70cb5599c3c9e2d85ccad/transformed/vectordrawable-animated-1.1.0/AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.vectordrawable:vectordrawable:1.1.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/af0cdbdf416841f3669ecd1dc3da97aa/transformed/vectordrawable-1.1.0/AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.vectordrawable:vectordrawable:1.1.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/af0cdbdf416841f3669ecd1dc3da97aa/transformed/vectordrawable-1.1.0/AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.core:core-ktx:1.8.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/0a95ad0bad133796b17f1c7d928c2bbb/transformed/jetified-core-ktx-1.8.0/AndroidManifest.xml:5:5-7:41
-MERGED from [androidx.core:core-ktx:1.8.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/0a95ad0bad133796b17f1c7d928c2bbb/transformed/jetified-core-ktx-1.8.0/AndroidManifest.xml:5:5-7:41
-MERGED from [androidx.emoji2:emoji2-views-helper:1.2.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/95ed444b2bd75620b1d2020d3256c960/transformed/jetified-emoji2-views-helper-1.2.0/AndroidManifest.xml:5:5-44
-MERGED from [androidx.emoji2:emoji2-views-helper:1.2.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/95ed444b2bd75620b1d2020d3256c960/transformed/jetified-emoji2-views-helper-1.2.0/AndroidManifest.xml:5:5-44
-MERGED from [androidx.emoji2:emoji2:1.2.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/ea940fae13a31ae5b99e62169d8de848/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:21:5-44
-MERGED from [androidx.emoji2:emoji2:1.2.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/ea940fae13a31ae5b99e62169d8de848/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:21:5-44
-MERGED from [androidx.recyclerview:recyclerview:1.1.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/b0791521214744a0c7d7d98eed99c111/transformed/recyclerview-1.1.0/AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.recyclerview:recyclerview:1.1.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/b0791521214744a0c7d7d98eed99c111/transformed/recyclerview-1.1.0/AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.viewpager:viewpager:1.0.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/a5f8fe82b535c5dc3ddc238f0a4fa6d4/transformed/viewpager-1.0.0/AndroidManifest.xml:20:5-44
-MERGED from [androidx.viewpager:viewpager:1.0.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/a5f8fe82b535c5dc3ddc238f0a4fa6d4/transformed/viewpager-1.0.0/AndroidManifest.xml:20:5-44
-MERGED from [androidx.customview:customview:1.1.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/03b17923da151cf57edc31b9b39badfd/transformed/customview-1.1.0/AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.customview:customview:1.1.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/03b17923da151cf57edc31b9b39badfd/transformed/customview-1.1.0/AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.core:core:1.8.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/90af0859ad3a4f46a6e0107f356a7c1e/transformed/core-1.8.0/AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.core:core:1.8.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/90af0859ad3a4f46a6e0107f356a7c1e/transformed/core-1.8.0/AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.cardview:cardview:1.0.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/8c745f8b8a1f66d4f8cddb7f13c9a7a2/transformed/cardview-1.0.0/AndroidManifest.xml:20:5-44
-MERGED from [androidx.cardview:cardview:1.0.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/8c745f8b8a1f66d4f8cddb7f13c9a7a2/transformed/cardview-1.0.0/AndroidManifest.xml:20:5-44
-MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/528e24c50ba9ebb4288efd1b419a9bee/transformed/versionedparcelable-1.1.1/AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/528e24c50ba9ebb4288efd1b419a9bee/transformed/versionedparcelable-1.1.1/AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.lifecycle:lifecycle-process:2.4.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/ec17b1ef71b2f1f372fc249e61940309/transformed/jetified-lifecycle-process-2.4.1/AndroidManifest.xml:21:5-23:41
-MERGED from [androidx.lifecycle:lifecycle-process:2.4.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/ec17b1ef71b2f1f372fc249e61940309/transformed/jetified-lifecycle-process-2.4.1/AndroidManifest.xml:21:5-23:41
-MERGED from [androidx.startup:startup-runtime:1.1.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/26afe2df185e04aa5056bb371a6c06db/transformed/jetified-startup-runtime-1.1.1/AndroidManifest.xml:21:5-23:41
-MERGED from [androidx.startup:startup-runtime:1.1.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/26afe2df185e04aa5056bb371a6c06db/transformed/jetified-startup-runtime-1.1.1/AndroidManifest.xml:21:5-23:41
-MERGED from [androidx.tracing:tracing:1.0.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/8819a1e7f32e1f14cab0da0f562ab6c1/transformed/jetified-tracing-1.0.0/AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.tracing:tracing:1.0.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/8819a1e7f32e1f14cab0da0f562ab6c1/transformed/jetified-tracing-1.0.0/AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.room:room-runtime:2.2.5] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/9a689aa0418fd9bdc82334d7b32a1e10/transformed/room-runtime-2.2.5/AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.room:room-runtime:2.2.5] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/9a689aa0418fd9bdc82334d7b32a1e10/transformed/room-runtime-2.2.5/AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.sqlite:sqlite-framework:2.1.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/912f17a9cc536afd633cb2fc306ea8d1/transformed/sqlite-framework-2.1.0/AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.sqlite:sqlite-framework:2.1.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/912f17a9cc536afd633cb2fc306ea8d1/transformed/sqlite-framework-2.1.0/AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.sqlite:sqlite:2.1.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/07de4922d754e8516dd5eb3d08d9890b/transformed/sqlite-2.1.0/AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.sqlite:sqlite:2.1.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/07de4922d754e8516dd5eb3d08d9890b/transformed/sqlite-2.1.0/AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/3f560dcd1680a2c4fb1b1f9fb7f0fc7e/transformed/cursoradapter-1.0.0/AndroidManifest.xml:20:5-44
-MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/3f560dcd1680a2c4fb1b1f9fb7f0fc7e/transformed/cursoradapter-1.0.0/AndroidManifest.xml:20:5-44
-MERGED from [androidx.lifecycle:lifecycle-livedata:2.1.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/78865e9a4acc681aed7a6daf231660fb/transformed/lifecycle-livedata-2.1.0/AndroidManifest.xml:20:5-44
-MERGED from [androidx.lifecycle:lifecycle-livedata:2.1.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/78865e9a4acc681aed7a6daf231660fb/transformed/lifecycle-livedata-2.1.0/AndroidManifest.xml:20:5-44
-MERGED from [androidx.lifecycle:lifecycle-service:2.1.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/df9beaf107abc60b4d1374da71871d08/transformed/jetified-lifecycle-service-2.1.0/AndroidManifest.xml:20:5-44
-MERGED from [androidx.lifecycle:lifecycle-service:2.1.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/df9beaf107abc60b4d1374da71871d08/transformed/jetified-lifecycle-service-2.1.0/AndroidManifest.xml:20:5-44
-MERGED from [androidx.lifecycle:lifecycle-runtime:2.5.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/fa74e5d2225d1dfc257f8ba11532c32c/transformed/lifecycle-runtime-2.5.0/AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.lifecycle:lifecycle-runtime:2.5.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/fa74e5d2225d1dfc257f8ba11532c32c/transformed/lifecycle-runtime-2.5.0/AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.5.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/5ab6ffa3406957a240d80c20c9210c4f/transformed/lifecycle-livedata-core-2.5.0/AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.5.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/5ab6ffa3406957a240d80c20c9210c4f/transformed/lifecycle-livedata-core-2.5.0/AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.arch.core:core-runtime:2.1.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/263cf708f4883c00df43c0cab0eb291d/transformed/core-runtime-2.1.0/AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.arch.core:core-runtime:2.1.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/263cf708f4883c00df43c0cab0eb291d/transformed/core-runtime-2.1.0/AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.savedstate:savedstate:1.2.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e2cb8000c116915ec30f02f56778b551/transformed/jetified-savedstate-1.2.0/AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.savedstate:savedstate:1.2.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e2cb8000c116915ec30f02f56778b551/transformed/jetified-savedstate-1.2.0/AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.documentfile:documentfile:1.0.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/cd3a61ce3982aa5df533d003e1596948/transformed/documentfile-1.0.0/AndroidManifest.xml:20:5-44
-MERGED from [androidx.documentfile:documentfile:1.0.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/cd3a61ce3982aa5df533d003e1596948/transformed/documentfile-1.0.0/AndroidManifest.xml:20:5-44
-MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/5e68ba0452f026154cd8af8093ae8962/transformed/localbroadcastmanager-1.0.0/AndroidManifest.xml:20:5-44
-MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/5e68ba0452f026154cd8af8093ae8962/transformed/localbroadcastmanager-1.0.0/AndroidManifest.xml:20:5-44
-MERGED from [androidx.print:print:1.0.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/709f8db0a50ce73057cae8fce98df353/transformed/print-1.0.0/AndroidManifest.xml:20:5-44
-MERGED from [androidx.print:print:1.0.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/709f8db0a50ce73057cae8fce98df353/transformed/print-1.0.0/AndroidManifest.xml:20:5-44
-MERGED from [androidx.interpolator:interpolator:1.0.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/bb5139325124eb2bba50899f4e556081/transformed/interpolator-1.0.0/AndroidManifest.xml:20:5-44
-MERGED from [androidx.interpolator:interpolator:1.0.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/bb5139325124eb2bba50899f4e556081/transformed/interpolator-1.0.0/AndroidManifest.xml:20:5-44
-MERGED from [androidx.annotation:annotation-experimental:1.1.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e51f96993c12a8ed6b9d4f81b11fcaeb/transformed/jetified-annotation-experimental-1.1.0/AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.annotation:annotation-experimental:1.1.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e51f96993c12a8ed6b9d4f81b11fcaeb/transformed/jetified-annotation-experimental-1.1.0/AndroidManifest.xml:20:5-22:41
-INJECTED from /home/nachtaktiverhalbaffe/dev/eje/android/app/src/debug/AndroidManifest.xml
-INJECTED from /home/nachtaktiverhalbaffe/dev/eje/android/app/src/debug/AndroidManifest.xml
+INJECTED from /workspaces/eje/android/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from /workspaces/eje/android/app/src/main/AndroidManifest.xml
+INJECTED from /workspaces/eje/android/app/src/main/AndroidManifest.xml
+MERGED from [:maps_launcher] /workspaces/eje/build/maps_launcher/intermediates/merged_manifest/debug/AndroidManifest.xml:5:5-7:41
+MERGED from [:maps_launcher] /workspaces/eje/build/maps_launcher/intermediates/merged_manifest/debug/AndroidManifest.xml:5:5-7:41
+MERGED from [:sqflite] /workspaces/eje/build/sqflite/intermediates/merged_manifest/debug/AndroidManifest.xml:5:5-7:41
+MERGED from [:sqflite] /workspaces/eje/build/sqflite/intermediates/merged_manifest/debug/AndroidManifest.xml:5:5-7:41
+MERGED from [:flutter_local_notifications] /workspaces/eje/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:5:5-7:41
+MERGED from [:flutter_local_notifications] /workspaces/eje/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:5:5-7:41
+MERGED from [:url_launcher_android] /workspaces/eje/build/url_launcher_android/intermediates/merged_manifest/debug/AndroidManifest.xml:5:5-7:41
+MERGED from [:url_launcher_android] /workspaces/eje/build/url_launcher_android/intermediates/merged_manifest/debug/AndroidManifest.xml:5:5-7:41
+MERGED from [:path_provider_android] /workspaces/eje/build/path_provider_android/intermediates/merged_manifest/debug/AndroidManifest.xml:5:5-7:41
+MERGED from [:path_provider_android] /workspaces/eje/build/path_provider_android/intermediates/merged_manifest/debug/AndroidManifest.xml:5:5-7:41
+MERGED from [:flutter_native_splash] /workspaces/eje/build/flutter_native_splash/intermediates/merged_manifest/debug/AndroidManifest.xml:5:5-7:41
+MERGED from [:flutter_native_splash] /workspaces/eje/build/flutter_native_splash/intermediates/merged_manifest/debug/AndroidManifest.xml:5:5-7:41
+MERGED from [:connectivity_plus] /workspaces/eje/build/connectivity_plus/intermediates/merged_manifest/debug/AndroidManifest.xml:5:5-7:41
+MERGED from [:connectivity_plus] /workspaces/eje/build/connectivity_plus/intermediates/merged_manifest/debug/AndroidManifest.xml:5:5-7:41
+MERGED from [:permission_handler_android] /workspaces/eje/build/permission_handler_android/intermediates/merged_manifest/debug/AndroidManifest.xml:5:5-7:41
+MERGED from [:permission_handler_android] /workspaces/eje/build/permission_handler_android/intermediates/merged_manifest/debug/AndroidManifest.xml:5:5-7:41
+MERGED from [:flutter_native_timezone] /workspaces/eje/build/flutter_native_timezone/intermediates/merged_manifest/debug/AndroidManifest.xml:5:5-7:41
+MERGED from [:flutter_native_timezone] /workspaces/eje/build/flutter_native_timezone/intermediates/merged_manifest/debug/AndroidManifest.xml:5:5-7:41
+MERGED from [:package_info_plus] /workspaces/eje/build/package_info_plus/intermediates/merged_manifest/debug/AndroidManifest.xml:5:5-7:41
+MERGED from [:package_info_plus] /workspaces/eje/build/package_info_plus/intermediates/merged_manifest/debug/AndroidManifest.xml:5:5-7:41
+MERGED from [:workmanager] /workspaces/eje/build/workmanager/intermediates/merged_manifest/debug/AndroidManifest.xml:5:5-7:41
+MERGED from [:workmanager] /workspaces/eje/build/workmanager/intermediates/merged_manifest/debug/AndroidManifest.xml:5:5-7:41
+MERGED from [:add_2_calendar] /workspaces/eje/build/add_2_calendar/intermediates/merged_manifest/debug/AndroidManifest.xml:5:5-7:41
+MERGED from [:add_2_calendar] /workspaces/eje/build/add_2_calendar/intermediates/merged_manifest/debug/AndroidManifest.xml:5:5-7:41
+MERGED from [androidx.multidex:multidex:2.0.0] /root/.gradle/caches/transforms-3/9e17382d978cca078fee6652fc7a5583/transformed/multidex-2.0.0/AndroidManifest.xml:20:5-43
+MERGED from [androidx.multidex:multidex:2.0.0] /root/.gradle/caches/transforms-3/9e17382d978cca078fee6652fc7a5583/transformed/multidex-2.0.0/AndroidManifest.xml:20:5-43
+MERGED from [androidx.work:work-runtime-ktx:2.7.0] /root/.gradle/caches/transforms-3/36eccf79c650a4f9f78dfc7175f2e125/transformed/work-runtime-ktx-2.7.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.work:work-runtime-ktx:2.7.0] /root/.gradle/caches/transforms-3/36eccf79c650a4f9f78dfc7175f2e125/transformed/work-runtime-ktx-2.7.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.window:window-java:1.0.0] /root/.gradle/caches/transforms-3/58a0f533de0f28e14f5311b85ffb2639/transformed/jetified-window-java-1.0.0/AndroidManifest.xml:19:5-21:41
+MERGED from [androidx.window:window-java:1.0.0] /root/.gradle/caches/transforms-3/58a0f533de0f28e14f5311b85ffb2639/transformed/jetified-window-java-1.0.0/AndroidManifest.xml:19:5-21:41
+MERGED from [androidx.window:window:1.0.0] /root/.gradle/caches/transforms-3/32d94faeb1cc28c78603d821b12eda68/transformed/jetified-window-1.0.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.window:window:1.0.0] /root/.gradle/caches/transforms-3/32d94faeb1cc28c78603d821b12eda68/transformed/jetified-window-1.0.0/AndroidManifest.xml:20:5-22:41
+MERGED from [com.google.android.material:material:1.8.0] /root/.gradle/caches/transforms-3/e46243123c985af6da31ad81b135710c/transformed/material-1.8.0/AndroidManifest.xml:20:5-22:41
+MERGED from [com.google.android.material:material:1.8.0] /root/.gradle/caches/transforms-3/e46243123c985af6da31ad81b135710c/transformed/material-1.8.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.constraintlayout:constraintlayout:2.0.1] /root/.gradle/caches/transforms-3/ea7b20761be539eb0f6bbcbf9bfa08df/transformed/constraintlayout-2.0.1/AndroidManifest.xml:5:5-7:41
+MERGED from [androidx.constraintlayout:constraintlayout:2.0.1] /root/.gradle/caches/transforms-3/ea7b20761be539eb0f6bbcbf9bfa08df/transformed/constraintlayout-2.0.1/AndroidManifest.xml:5:5-7:41
+MERGED from [androidx.appcompat:appcompat-resources:1.5.0] /root/.gradle/caches/transforms-3/2e0b49621fd9111c6cf640b50f850212/transformed/jetified-appcompat-resources-1.5.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.appcompat:appcompat-resources:1.5.0] /root/.gradle/caches/transforms-3/2e0b49621fd9111c6cf640b50f850212/transformed/jetified-appcompat-resources-1.5.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.appcompat:appcompat:1.5.0] /root/.gradle/caches/transforms-3/ac620e918fd53599e0fa300e5e1f8979/transformed/appcompat-1.5.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.appcompat:appcompat:1.5.0] /root/.gradle/caches/transforms-3/ac620e918fd53599e0fa300e5e1f8979/transformed/appcompat-1.5.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.viewpager2:viewpager2:1.0.0] /root/.gradle/caches/transforms-3/e075e78a21cab4c31dced498e334d00a/transformed/jetified-viewpager2-1.0.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.viewpager2:viewpager2:1.0.0] /root/.gradle/caches/transforms-3/e075e78a21cab4c31dced498e334d00a/transformed/jetified-viewpager2-1.0.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.fragment:fragment:1.3.6] /root/.gradle/caches/transforms-3/c98de816edcd8e6a7b484e877de68e8d/transformed/fragment-1.3.6/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.fragment:fragment:1.3.6] /root/.gradle/caches/transforms-3/c98de816edcd8e6a7b484e877de68e8d/transformed/fragment-1.3.6/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.activity:activity:1.5.0] /root/.gradle/caches/transforms-3/93ed2cd0b49ef5f2d3d793877003bc3d/transformed/jetified-activity-1.5.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.activity:activity:1.5.0] /root/.gradle/caches/transforms-3/93ed2cd0b49ef5f2d3d793877003bc3d/transformed/jetified-activity-1.5.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.dynamicanimation:dynamicanimation:1.0.0] /root/.gradle/caches/transforms-3/95f069e0291292ca3fd76dbde945eee6/transformed/dynamicanimation-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.dynamicanimation:dynamicanimation:1.0.0] /root/.gradle/caches/transforms-3/95f069e0291292ca3fd76dbde945eee6/transformed/dynamicanimation-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] /root/.gradle/caches/transforms-3/b7b4ec1aad0152c09e02438047928388/transformed/legacy-support-core-utils-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] /root/.gradle/caches/transforms-3/b7b4ec1aad0152c09e02438047928388/transformed/legacy-support-core-utils-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.loader:loader:1.0.0] /root/.gradle/caches/transforms-3/4aa93506116e4e02e7796c2c7832f4e4/transformed/loader-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.loader:loader:1.0.0] /root/.gradle/caches/transforms-3/4aa93506116e4e02e7796c2c7832f4e4/transformed/loader-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.5.0] /root/.gradle/caches/transforms-3/892aa9769ba2e613bcc2ccd15b412ceb/transformed/lifecycle-viewmodel-2.5.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.5.0] /root/.gradle/caches/transforms-3/892aa9769ba2e613bcc2ccd15b412ceb/transformed/lifecycle-viewmodel-2.5.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-savedstate:2.5.0] /root/.gradle/caches/transforms-3/6e4da1033b86e29146540360fe836e3a/transformed/jetified-lifecycle-viewmodel-savedstate-2.5.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-savedstate:2.5.0] /root/.gradle/caches/transforms-3/6e4da1033b86e29146540360fe836e3a/transformed/jetified-lifecycle-viewmodel-savedstate-2.5.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.media:media:1.1.0] /root/.gradle/caches/transforms-3/dc9908c06c3a5e946819bd35f4fbba74/transformed/media-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.media:media:1.1.0] /root/.gradle/caches/transforms-3/dc9908c06c3a5e946819bd35f4fbba74/transformed/media-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.browser:browser:1.5.0] /root/.gradle/caches/transforms-3/7ff117c4cf1e81336aa51aa1827be230/transformed/browser-1.5.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.browser:browser:1.5.0] /root/.gradle/caches/transforms-3/7ff117c4cf1e81336aa51aa1827be230/transformed/browser-1.5.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.work:work-runtime:2.7.1] /root/.gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:21:5-23:41
+MERGED from [androidx.work:work-runtime:2.7.1] /root/.gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:21:5-23:41
+MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.1.0] /root/.gradle/caches/transforms-3/40f60b5f7f2001832315a5b795ae6f05/transformed/coordinatorlayout-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.1.0] /root/.gradle/caches/transforms-3/40f60b5f7f2001832315a5b795ae6f05/transformed/coordinatorlayout-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.drawerlayout:drawerlayout:1.1.1] /root/.gradle/caches/transforms-3/cd207cbc297bed17dec20e6b57edd50d/transformed/drawerlayout-1.1.1/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.drawerlayout:drawerlayout:1.1.1] /root/.gradle/caches/transforms-3/cd207cbc297bed17dec20e6b57edd50d/transformed/drawerlayout-1.1.1/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.transition:transition:1.2.0] /root/.gradle/caches/transforms-3/ea7ca60c9665ad7e05ad3b96ab511d44/transformed/transition-1.2.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.transition:transition:1.2.0] /root/.gradle/caches/transforms-3/ea7ca60c9665ad7e05ad3b96ab511d44/transformed/transition-1.2.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.vectordrawable:vectordrawable-animated:1.1.0] /root/.gradle/caches/transforms-3/7c012499bba70cb5599c3c9e2d85ccad/transformed/vectordrawable-animated-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.vectordrawable:vectordrawable-animated:1.1.0] /root/.gradle/caches/transforms-3/7c012499bba70cb5599c3c9e2d85ccad/transformed/vectordrawable-animated-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.vectordrawable:vectordrawable:1.1.0] /root/.gradle/caches/transforms-3/af0cdbdf416841f3669ecd1dc3da97aa/transformed/vectordrawable-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.vectordrawable:vectordrawable:1.1.0] /root/.gradle/caches/transforms-3/af0cdbdf416841f3669ecd1dc3da97aa/transformed/vectordrawable-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.emoji2:emoji2-views-helper:1.2.0] /root/.gradle/caches/transforms-3/95ed444b2bd75620b1d2020d3256c960/transformed/jetified-emoji2-views-helper-1.2.0/AndroidManifest.xml:5:5-44
+MERGED from [androidx.emoji2:emoji2-views-helper:1.2.0] /root/.gradle/caches/transforms-3/95ed444b2bd75620b1d2020d3256c960/transformed/jetified-emoji2-views-helper-1.2.0/AndroidManifest.xml:5:5-44
+MERGED from [androidx.emoji2:emoji2:1.2.0] /root/.gradle/caches/transforms-3/ea940fae13a31ae5b99e62169d8de848/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:21:5-44
+MERGED from [androidx.emoji2:emoji2:1.2.0] /root/.gradle/caches/transforms-3/ea940fae13a31ae5b99e62169d8de848/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:21:5-44
+MERGED from [androidx.recyclerview:recyclerview:1.1.0] /root/.gradle/caches/transforms-3/b0791521214744a0c7d7d98eed99c111/transformed/recyclerview-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.recyclerview:recyclerview:1.1.0] /root/.gradle/caches/transforms-3/b0791521214744a0c7d7d98eed99c111/transformed/recyclerview-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.viewpager:viewpager:1.0.0] /root/.gradle/caches/transforms-3/a5f8fe82b535c5dc3ddc238f0a4fa6d4/transformed/viewpager-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.viewpager:viewpager:1.0.0] /root/.gradle/caches/transforms-3/a5f8fe82b535c5dc3ddc238f0a4fa6d4/transformed/viewpager-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.customview:customview:1.1.0] /root/.gradle/caches/transforms-3/03b17923da151cf57edc31b9b39badfd/transformed/customview-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.customview:customview:1.1.0] /root/.gradle/caches/transforms-3/03b17923da151cf57edc31b9b39badfd/transformed/customview-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.core:core-ktx:1.10.1] /root/.gradle/caches/transforms-3/513b8ad32b41f4e5a64bf3498aa4edb9/transformed/jetified-core-ktx-1.10.1/AndroidManifest.xml:5:5-44
+MERGED from [androidx.core:core-ktx:1.10.1] /root/.gradle/caches/transforms-3/513b8ad32b41f4e5a64bf3498aa4edb9/transformed/jetified-core-ktx-1.10.1/AndroidManifest.xml:5:5-44
+MERGED from [androidx.core:core:1.10.1] /root/.gradle/caches/transforms-3/1761aec51c0be3677ce571b28ab184cd/transformed/core-1.10.1/AndroidManifest.xml:20:5-44
+MERGED from [androidx.core:core:1.10.1] /root/.gradle/caches/transforms-3/1761aec51c0be3677ce571b28ab184cd/transformed/core-1.10.1/AndroidManifest.xml:20:5-44
+MERGED from [androidx.cardview:cardview:1.0.0] /root/.gradle/caches/transforms-3/8c745f8b8a1f66d4f8cddb7f13c9a7a2/transformed/cardview-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.cardview:cardview:1.0.0] /root/.gradle/caches/transforms-3/8c745f8b8a1f66d4f8cddb7f13c9a7a2/transformed/cardview-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] /root/.gradle/caches/transforms-3/528e24c50ba9ebb4288efd1b419a9bee/transformed/versionedparcelable-1.1.1/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] /root/.gradle/caches/transforms-3/528e24c50ba9ebb4288efd1b419a9bee/transformed/versionedparcelable-1.1.1/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-process:2.4.1] /root/.gradle/caches/transforms-3/ec17b1ef71b2f1f372fc249e61940309/transformed/jetified-lifecycle-process-2.4.1/AndroidManifest.xml:21:5-23:41
+MERGED from [androidx.lifecycle:lifecycle-process:2.4.1] /root/.gradle/caches/transforms-3/ec17b1ef71b2f1f372fc249e61940309/transformed/jetified-lifecycle-process-2.4.1/AndroidManifest.xml:21:5-23:41
+MERGED from [androidx.startup:startup-runtime:1.1.1] /root/.gradle/caches/transforms-3/26afe2df185e04aa5056bb371a6c06db/transformed/jetified-startup-runtime-1.1.1/AndroidManifest.xml:21:5-23:41
+MERGED from [androidx.startup:startup-runtime:1.1.1] /root/.gradle/caches/transforms-3/26afe2df185e04aa5056bb371a6c06db/transformed/jetified-startup-runtime-1.1.1/AndroidManifest.xml:21:5-23:41
+MERGED from [androidx.tracing:tracing:1.0.0] /root/.gradle/caches/transforms-3/8819a1e7f32e1f14cab0da0f562ab6c1/transformed/jetified-tracing-1.0.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.tracing:tracing:1.0.0] /root/.gradle/caches/transforms-3/8819a1e7f32e1f14cab0da0f562ab6c1/transformed/jetified-tracing-1.0.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.interpolator:interpolator:1.0.0] /root/.gradle/caches/transforms-3/bb5139325124eb2bba50899f4e556081/transformed/interpolator-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.interpolator:interpolator:1.0.0] /root/.gradle/caches/transforms-3/bb5139325124eb2bba50899f4e556081/transformed/interpolator-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.room:room-runtime:2.2.5] /root/.gradle/caches/transforms-3/9a689aa0418fd9bdc82334d7b32a1e10/transformed/room-runtime-2.2.5/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.room:room-runtime:2.2.5] /root/.gradle/caches/transforms-3/9a689aa0418fd9bdc82334d7b32a1e10/transformed/room-runtime-2.2.5/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.sqlite:sqlite-framework:2.1.0] /root/.gradle/caches/transforms-3/912f17a9cc536afd633cb2fc306ea8d1/transformed/sqlite-framework-2.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.sqlite:sqlite-framework:2.1.0] /root/.gradle/caches/transforms-3/912f17a9cc536afd633cb2fc306ea8d1/transformed/sqlite-framework-2.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.sqlite:sqlite:2.1.0] /root/.gradle/caches/transforms-3/07de4922d754e8516dd5eb3d08d9890b/transformed/sqlite-2.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.sqlite:sqlite:2.1.0] /root/.gradle/caches/transforms-3/07de4922d754e8516dd5eb3d08d9890b/transformed/sqlite-2.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] /root/.gradle/caches/transforms-3/3f560dcd1680a2c4fb1b1f9fb7f0fc7e/transformed/cursoradapter-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] /root/.gradle/caches/transforms-3/3f560dcd1680a2c4fb1b1f9fb7f0fc7e/transformed/cursoradapter-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.1.0] /root/.gradle/caches/transforms-3/78865e9a4acc681aed7a6daf231660fb/transformed/lifecycle-livedata-2.1.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.1.0] /root/.gradle/caches/transforms-3/78865e9a4acc681aed7a6daf231660fb/transformed/lifecycle-livedata-2.1.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-service:2.1.0] /root/.gradle/caches/transforms-3/df9beaf107abc60b4d1374da71871d08/transformed/jetified-lifecycle-service-2.1.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-service:2.1.0] /root/.gradle/caches/transforms-3/df9beaf107abc60b4d1374da71871d08/transformed/jetified-lifecycle-service-2.1.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-runtime:2.5.0] /root/.gradle/caches/transforms-3/fa74e5d2225d1dfc257f8ba11532c32c/transformed/lifecycle-runtime-2.5.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-runtime:2.5.0] /root/.gradle/caches/transforms-3/fa74e5d2225d1dfc257f8ba11532c32c/transformed/lifecycle-runtime-2.5.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.5.0] /root/.gradle/caches/transforms-3/5ab6ffa3406957a240d80c20c9210c4f/transformed/lifecycle-livedata-core-2.5.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.5.0] /root/.gradle/caches/transforms-3/5ab6ffa3406957a240d80c20c9210c4f/transformed/lifecycle-livedata-core-2.5.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.arch.core:core-runtime:2.1.0] /root/.gradle/caches/transforms-3/263cf708f4883c00df43c0cab0eb291d/transformed/core-runtime-2.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.arch.core:core-runtime:2.1.0] /root/.gradle/caches/transforms-3/263cf708f4883c00df43c0cab0eb291d/transformed/core-runtime-2.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.savedstate:savedstate:1.2.0] /root/.gradle/caches/transforms-3/e2cb8000c116915ec30f02f56778b551/transformed/jetified-savedstate-1.2.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.savedstate:savedstate:1.2.0] /root/.gradle/caches/transforms-3/e2cb8000c116915ec30f02f56778b551/transformed/jetified-savedstate-1.2.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.documentfile:documentfile:1.0.0] /root/.gradle/caches/transforms-3/cd3a61ce3982aa5df533d003e1596948/transformed/documentfile-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.documentfile:documentfile:1.0.0] /root/.gradle/caches/transforms-3/cd3a61ce3982aa5df533d003e1596948/transformed/documentfile-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] /root/.gradle/caches/transforms-3/5e68ba0452f026154cd8af8093ae8962/transformed/localbroadcastmanager-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] /root/.gradle/caches/transforms-3/5e68ba0452f026154cd8af8093ae8962/transformed/localbroadcastmanager-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.print:print:1.0.0] /root/.gradle/caches/transforms-3/709f8db0a50ce73057cae8fce98df353/transformed/print-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.print:print:1.0.0] /root/.gradle/caches/transforms-3/709f8db0a50ce73057cae8fce98df353/transformed/print-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.annotation:annotation-experimental:1.3.0] /root/.gradle/caches/transforms-3/f59dc226b9d1bf63a2cb5dfe1dad8cee/transformed/jetified-annotation-experimental-1.3.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.annotation:annotation-experimental:1.3.0] /root/.gradle/caches/transforms-3/f59dc226b9d1bf63a2cb5dfe1dad8cee/transformed/jetified-annotation-experimental-1.3.0/AndroidManifest.xml:20:5-44
+INJECTED from /workspaces/eje/android/app/src/debug/AndroidManifest.xml
+INJECTED from /workspaces/eje/android/app/src/debug/AndroidManifest.xml
 	android:targetSdkVersion
-		INJECTED from /home/nachtaktiverhalbaffe/dev/eje/android/app/src/main/AndroidManifest.xml
-		INJECTED from /home/nachtaktiverhalbaffe/dev/eje/android/app/src/debug/AndroidManifest.xml
+		INJECTED from /workspaces/eje/android/app/src/main/AndroidManifest.xml
+		INJECTED from /workspaces/eje/android/app/src/debug/AndroidManifest.xml
 	android:minSdkVersion
-		INJECTED from /home/nachtaktiverhalbaffe/dev/eje/android/app/src/main/AndroidManifest.xml
-		INJECTED from /home/nachtaktiverhalbaffe/dev/eje/android/app/src/debug/AndroidManifest.xml
+		INJECTED from /workspaces/eje/android/app/src/main/AndroidManifest.xml
+		INJECTED from /workspaces/eje/android/app/src/debug/AndroidManifest.xml
 uses-permission#android.permission.RECEIVE_BOOT_COMPLETED
-ADDED from [:flutter_local_notifications] /home/nachtaktiverhalbaffe/dev/eje/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:9:5-81
-MERGED from [androidx.work:work-runtime:2.7.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:27:5-81
-MERGED from [androidx.work:work-runtime:2.7.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:27:5-81
+ADDED from [:flutter_local_notifications] /workspaces/eje/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:9:5-81
+MERGED from [androidx.work:work-runtime:2.7.1] /root/.gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:27:5-81
+MERGED from [androidx.work:work-runtime:2.7.1] /root/.gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:27:5-81
 	android:name
-		ADDED from [:flutter_local_notifications] /home/nachtaktiverhalbaffe/dev/eje/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:9:22-78
+		ADDED from [:flutter_local_notifications] /workspaces/eje/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:9:22-78
 uses-permission#android.permission.VIBRATE
-ADDED from [:flutter_local_notifications] /home/nachtaktiverhalbaffe/dev/eje/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:10:5-66
+ADDED from [:flutter_local_notifications] /workspaces/eje/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:10:5-66
 	android:name
-		ADDED from [:flutter_local_notifications] /home/nachtaktiverhalbaffe/dev/eje/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:10:22-63
+		ADDED from [:flutter_local_notifications] /workspaces/eje/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:10:22-63
 uses-permission#android.permission.USE_FULL_SCREEN_INTENT
-ADDED from [:flutter_local_notifications] /home/nachtaktiverhalbaffe/dev/eje/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:11:5-81
+ADDED from [:flutter_local_notifications] /workspaces/eje/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:11:5-81
 	android:name
-		ADDED from [:flutter_local_notifications] /home/nachtaktiverhalbaffe/dev/eje/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:11:22-78
+		ADDED from [:flutter_local_notifications] /workspaces/eje/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:11:22-78
 receiver#com.dexterous.flutterlocalnotifications.ActionBroadcastReceiver
-ADDED from [:flutter_local_notifications] /home/nachtaktiverhalbaffe/dev/eje/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:16:9-18:40
+ADDED from [:flutter_local_notifications] /workspaces/eje/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:16:9-18:40
 	android:exported
-		ADDED from [:flutter_local_notifications] /home/nachtaktiverhalbaffe/dev/eje/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:18:13-37
+		ADDED from [:flutter_local_notifications] /workspaces/eje/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:18:13-37
 	android:name
-		ADDED from [:flutter_local_notifications] /home/nachtaktiverhalbaffe/dev/eje/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:17:13-91
+		ADDED from [:flutter_local_notifications] /workspaces/eje/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:17:13-91
 receiver#com.dexterous.flutterlocalnotifications.ScheduledNotificationReceiver
-ADDED from [:flutter_local_notifications] /home/nachtaktiverhalbaffe/dev/eje/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:19:9-21:40
+ADDED from [:flutter_local_notifications] /workspaces/eje/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:19:9-21:40
 	android:exported
-		ADDED from [:flutter_local_notifications] /home/nachtaktiverhalbaffe/dev/eje/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:21:13-37
+		ADDED from [:flutter_local_notifications] /workspaces/eje/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:21:13-37
 	android:name
-		ADDED from [:flutter_local_notifications] /home/nachtaktiverhalbaffe/dev/eje/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:20:13-97
+		ADDED from [:flutter_local_notifications] /workspaces/eje/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:20:13-97
 receiver#com.dexterous.flutterlocalnotifications.ScheduledNotificationBootReceiver
-ADDED from [:flutter_local_notifications] /home/nachtaktiverhalbaffe/dev/eje/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:22:9-31:20
+ADDED from [:flutter_local_notifications] /workspaces/eje/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:22:9-31:20
 	android:exported
-		ADDED from [:flutter_local_notifications] /home/nachtaktiverhalbaffe/dev/eje/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:24:13-37
+		ADDED from [:flutter_local_notifications] /workspaces/eje/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:24:13-37
 	android:name
-		ADDED from [:flutter_local_notifications] /home/nachtaktiverhalbaffe/dev/eje/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:23:13-101
+		ADDED from [:flutter_local_notifications] /workspaces/eje/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:23:13-101
 intent-filter#action:name:android.intent.action.BOOT_COMPLETED+action:name:android.intent.action.MY_PACKAGE_REPLACED+action:name:android.intent.action.QUICKBOOT_POWERON+action:name:com.htc.intent.action.QUICKBOOT_POWERON
-ADDED from [:flutter_local_notifications] /home/nachtaktiverhalbaffe/dev/eje/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:25:13-30:29
+ADDED from [:flutter_local_notifications] /workspaces/eje/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:25:13-30:29
 action#android.intent.action.BOOT_COMPLETED
-ADDED from [:flutter_local_notifications] /home/nachtaktiverhalbaffe/dev/eje/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:26:17-79
+ADDED from [:flutter_local_notifications] /workspaces/eje/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:26:17-79
 	android:name
-		ADDED from [:flutter_local_notifications] /home/nachtaktiverhalbaffe/dev/eje/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:26:25-76
+		ADDED from [:flutter_local_notifications] /workspaces/eje/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:26:25-76
 action#android.intent.action.MY_PACKAGE_REPLACED
-ADDED from [:flutter_local_notifications] /home/nachtaktiverhalbaffe/dev/eje/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:27:17-84
+ADDED from [:flutter_local_notifications] /workspaces/eje/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:27:17-84
 	android:name
-		ADDED from [:flutter_local_notifications] /home/nachtaktiverhalbaffe/dev/eje/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:27:25-81
+		ADDED from [:flutter_local_notifications] /workspaces/eje/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:27:25-81
 action#android.intent.action.QUICKBOOT_POWERON
-ADDED from [:flutter_local_notifications] /home/nachtaktiverhalbaffe/dev/eje/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:28:17-82
+ADDED from [:flutter_local_notifications] /workspaces/eje/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:28:17-82
 	android:name
-		ADDED from [:flutter_local_notifications] /home/nachtaktiverhalbaffe/dev/eje/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:28:25-79
+		ADDED from [:flutter_local_notifications] /workspaces/eje/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:28:25-79
 action#com.htc.intent.action.QUICKBOOT_POWERON
-ADDED from [:flutter_local_notifications] /home/nachtaktiverhalbaffe/dev/eje/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:29:17-82
+ADDED from [:flutter_local_notifications] /workspaces/eje/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:29:17-82
 	android:name
-		ADDED from [:flutter_local_notifications] /home/nachtaktiverhalbaffe/dev/eje/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:29:25-79
+		ADDED from [:flutter_local_notifications] /workspaces/eje/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:29:25-79
 activity#io.flutter.plugins.urllauncher.WebViewActivity
-ADDED from [:url_launcher_android] /home/nachtaktiverhalbaffe/dev/eje/build/url_launcher_android/intermediates/merged_manifest/debug/AndroidManifest.xml:10:9-13:74
+ADDED from [:url_launcher_android] /workspaces/eje/build/url_launcher_android/intermediates/merged_manifest/debug/AndroidManifest.xml:10:9-13:74
 	android:exported
-		ADDED from [:url_launcher_android] /home/nachtaktiverhalbaffe/dev/eje/build/url_launcher_android/intermediates/merged_manifest/debug/AndroidManifest.xml:12:13-37
+		ADDED from [:url_launcher_android] /workspaces/eje/build/url_launcher_android/intermediates/merged_manifest/debug/AndroidManifest.xml:12:13-37
 	android:theme
-		ADDED from [:url_launcher_android] /home/nachtaktiverhalbaffe/dev/eje/build/url_launcher_android/intermediates/merged_manifest/debug/AndroidManifest.xml:13:13-71
+		ADDED from [:url_launcher_android] /workspaces/eje/build/url_launcher_android/intermediates/merged_manifest/debug/AndroidManifest.xml:13:13-71
 	android:name
-		ADDED from [:url_launcher_android] /home/nachtaktiverhalbaffe/dev/eje/build/url_launcher_android/intermediates/merged_manifest/debug/AndroidManifest.xml:11:13-74
+		ADDED from [:url_launcher_android] /workspaces/eje/build/url_launcher_android/intermediates/merged_manifest/debug/AndroidManifest.xml:11:13-74
 uses-permission#android.permission.ACCESS_NETWORK_STATE
-ADDED from [:connectivity] /home/nachtaktiverhalbaffe/dev/eje/build/connectivity/intermediates/merged_manifest/debug/AndroidManifest.xml:9:5-79
-MERGED from [androidx.work:work-runtime:2.7.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:26:5-79
-MERGED from [androidx.work:work-runtime:2.7.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:26:5-79
+ADDED from [:connectivity_plus] /workspaces/eje/build/connectivity_plus/intermediates/merged_manifest/debug/AndroidManifest.xml:9:5-79
+MERGED from [androidx.work:work-runtime:2.7.1] /root/.gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:26:5-79
+MERGED from [androidx.work:work-runtime:2.7.1] /root/.gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:26:5-79
 	android:name
-		ADDED from [:connectivity] /home/nachtaktiverhalbaffe/dev/eje/build/connectivity/intermediates/merged_manifest/debug/AndroidManifest.xml:9:22-76
+		ADDED from [:connectivity_plus] /workspaces/eje/build/connectivity_plus/intermediates/merged_manifest/debug/AndroidManifest.xml:9:22-76
 uses-library#androidx.window.extensions
-ADDED from [androidx.window:window:1.0.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/32d94faeb1cc28c78603d821b12eda68/transformed/jetified-window-1.0.0/AndroidManifest.xml:25:9-27:40
+ADDED from [androidx.window:window:1.0.0] /root/.gradle/caches/transforms-3/32d94faeb1cc28c78603d821b12eda68/transformed/jetified-window-1.0.0/AndroidManifest.xml:25:9-27:40
 	android:required
-		ADDED from [androidx.window:window:1.0.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/32d94faeb1cc28c78603d821b12eda68/transformed/jetified-window-1.0.0/AndroidManifest.xml:27:13-37
+		ADDED from [androidx.window:window:1.0.0] /root/.gradle/caches/transforms-3/32d94faeb1cc28c78603d821b12eda68/transformed/jetified-window-1.0.0/AndroidManifest.xml:27:13-37
 	android:name
-		ADDED from [androidx.window:window:1.0.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/32d94faeb1cc28c78603d821b12eda68/transformed/jetified-window-1.0.0/AndroidManifest.xml:26:13-54
+		ADDED from [androidx.window:window:1.0.0] /root/.gradle/caches/transforms-3/32d94faeb1cc28c78603d821b12eda68/transformed/jetified-window-1.0.0/AndroidManifest.xml:26:13-54
 uses-library#androidx.window.sidecar
-ADDED from [androidx.window:window:1.0.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/32d94faeb1cc28c78603d821b12eda68/transformed/jetified-window-1.0.0/AndroidManifest.xml:28:9-30:40
+ADDED from [androidx.window:window:1.0.0] /root/.gradle/caches/transforms-3/32d94faeb1cc28c78603d821b12eda68/transformed/jetified-window-1.0.0/AndroidManifest.xml:28:9-30:40
 	android:required
-		ADDED from [androidx.window:window:1.0.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/32d94faeb1cc28c78603d821b12eda68/transformed/jetified-window-1.0.0/AndroidManifest.xml:30:13-37
+		ADDED from [androidx.window:window:1.0.0] /root/.gradle/caches/transforms-3/32d94faeb1cc28c78603d821b12eda68/transformed/jetified-window-1.0.0/AndroidManifest.xml:30:13-37
 	android:name
-		ADDED from [androidx.window:window:1.0.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/32d94faeb1cc28c78603d821b12eda68/transformed/jetified-window-1.0.0/AndroidManifest.xml:29:13-51
+		ADDED from [androidx.window:window:1.0.0] /root/.gradle/caches/transforms-3/32d94faeb1cc28c78603d821b12eda68/transformed/jetified-window-1.0.0/AndroidManifest.xml:29:13-51
 uses-permission#android.permission.WAKE_LOCK
-ADDED from [androidx.work:work-runtime:2.7.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:25:5-68
+ADDED from [androidx.work:work-runtime:2.7.1] /root/.gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:25:5-68
 	android:name
-		ADDED from [androidx.work:work-runtime:2.7.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:25:22-65
+		ADDED from [androidx.work:work-runtime:2.7.1] /root/.gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:25:22-65
 uses-permission#android.permission.FOREGROUND_SERVICE
-ADDED from [androidx.work:work-runtime:2.7.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:28:5-77
+ADDED from [androidx.work:work-runtime:2.7.1] /root/.gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:28:5-77
 	android:name
-		ADDED from [androidx.work:work-runtime:2.7.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:28:22-74
+		ADDED from [androidx.work:work-runtime:2.7.1] /root/.gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:28:22-74
 provider#androidx.startup.InitializationProvider
-ADDED from [androidx.work:work-runtime:2.7.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:31:9-39:20
-MERGED from [androidx.emoji2:emoji2:1.2.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/ea940fae13a31ae5b99e62169d8de848/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:24:9-32:20
-MERGED from [androidx.emoji2:emoji2:1.2.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/ea940fae13a31ae5b99e62169d8de848/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:24:9-32:20
-MERGED from [androidx.lifecycle:lifecycle-process:2.4.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/ec17b1ef71b2f1f372fc249e61940309/transformed/jetified-lifecycle-process-2.4.1/AndroidManifest.xml:26:9-34:20
-MERGED from [androidx.lifecycle:lifecycle-process:2.4.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/ec17b1ef71b2f1f372fc249e61940309/transformed/jetified-lifecycle-process-2.4.1/AndroidManifest.xml:26:9-34:20
-MERGED from [androidx.startup:startup-runtime:1.1.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/26afe2df185e04aa5056bb371a6c06db/transformed/jetified-startup-runtime-1.1.1/AndroidManifest.xml:26:9-30:34
-MERGED from [androidx.startup:startup-runtime:1.1.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/26afe2df185e04aa5056bb371a6c06db/transformed/jetified-startup-runtime-1.1.1/AndroidManifest.xml:26:9-30:34
+ADDED from [androidx.work:work-runtime:2.7.1] /root/.gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:31:9-39:20
+MERGED from [androidx.emoji2:emoji2:1.2.0] /root/.gradle/caches/transforms-3/ea940fae13a31ae5b99e62169d8de848/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:24:9-32:20
+MERGED from [androidx.emoji2:emoji2:1.2.0] /root/.gradle/caches/transforms-3/ea940fae13a31ae5b99e62169d8de848/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:24:9-32:20
+MERGED from [androidx.lifecycle:lifecycle-process:2.4.1] /root/.gradle/caches/transforms-3/ec17b1ef71b2f1f372fc249e61940309/transformed/jetified-lifecycle-process-2.4.1/AndroidManifest.xml:26:9-34:20
+MERGED from [androidx.lifecycle:lifecycle-process:2.4.1] /root/.gradle/caches/transforms-3/ec17b1ef71b2f1f372fc249e61940309/transformed/jetified-lifecycle-process-2.4.1/AndroidManifest.xml:26:9-34:20
+MERGED from [androidx.startup:startup-runtime:1.1.1] /root/.gradle/caches/transforms-3/26afe2df185e04aa5056bb371a6c06db/transformed/jetified-startup-runtime-1.1.1/AndroidManifest.xml:26:9-30:34
+MERGED from [androidx.startup:startup-runtime:1.1.1] /root/.gradle/caches/transforms-3/26afe2df185e04aa5056bb371a6c06db/transformed/jetified-startup-runtime-1.1.1/AndroidManifest.xml:26:9-30:34
 	tools:node
-		ADDED from [androidx.work:work-runtime:2.7.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:35:13-31
+		ADDED from [androidx.work:work-runtime:2.7.1] /root/.gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:35:13-31
 	android:authorities
-		ADDED from [androidx.work:work-runtime:2.7.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:33:13-68
+		ADDED from [androidx.work:work-runtime:2.7.1] /root/.gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:33:13-68
 	android:exported
-		ADDED from [androidx.work:work-runtime:2.7.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:34:13-37
+		ADDED from [androidx.work:work-runtime:2.7.1] /root/.gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:34:13-37
 	android:name
-		ADDED from [androidx.work:work-runtime:2.7.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:32:13-67
+		ADDED from [androidx.work:work-runtime:2.7.1] /root/.gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:32:13-67
 meta-data#androidx.work.WorkManagerInitializer
-ADDED from [androidx.work:work-runtime:2.7.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:36:13-38:52
+ADDED from [androidx.work:work-runtime:2.7.1] /root/.gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:36:13-38:52
 	android:value
-		ADDED from [androidx.work:work-runtime:2.7.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:38:17-49
+		ADDED from [androidx.work:work-runtime:2.7.1] /root/.gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:38:17-49
 	android:name
-		ADDED from [androidx.work:work-runtime:2.7.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:37:17-68
+		ADDED from [androidx.work:work-runtime:2.7.1] /root/.gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:37:17-68
 service#androidx.work.impl.background.systemalarm.SystemAlarmService
-ADDED from [androidx.work:work-runtime:2.7.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:41:9-46:35
+ADDED from [androidx.work:work-runtime:2.7.1] /root/.gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:41:9-46:35
 	android:enabled
-		ADDED from [androidx.work:work-runtime:2.7.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:44:13-72
+		ADDED from [androidx.work:work-runtime:2.7.1] /root/.gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:44:13-72
 	android:exported
-		ADDED from [androidx.work:work-runtime:2.7.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:45:13-37
+		ADDED from [androidx.work:work-runtime:2.7.1] /root/.gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:45:13-37
 	tools:targetApi
-		ADDED from [androidx.work:work-runtime:2.7.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:46:13-32
+		ADDED from [androidx.work:work-runtime:2.7.1] /root/.gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:46:13-32
 	android:directBootAware
-		ADDED from [androidx.work:work-runtime:2.7.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:43:13-44
+		ADDED from [androidx.work:work-runtime:2.7.1] /root/.gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:43:13-44
 	android:name
-		ADDED from [androidx.work:work-runtime:2.7.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:42:13-88
+		ADDED from [androidx.work:work-runtime:2.7.1] /root/.gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:42:13-88
 service#androidx.work.impl.background.systemjob.SystemJobService
-ADDED from [androidx.work:work-runtime:2.7.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:47:9-53:35
+ADDED from [androidx.work:work-runtime:2.7.1] /root/.gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:47:9-53:35
 	android:enabled
-		ADDED from [androidx.work:work-runtime:2.7.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:50:13-70
+		ADDED from [androidx.work:work-runtime:2.7.1] /root/.gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:50:13-70
 	android:exported
-		ADDED from [androidx.work:work-runtime:2.7.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:51:13-36
+		ADDED from [androidx.work:work-runtime:2.7.1] /root/.gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:51:13-36
 	android:permission
-		ADDED from [androidx.work:work-runtime:2.7.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:52:13-69
+		ADDED from [androidx.work:work-runtime:2.7.1] /root/.gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:52:13-69
 	tools:targetApi
-		ADDED from [androidx.work:work-runtime:2.7.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:53:13-32
+		ADDED from [androidx.work:work-runtime:2.7.1] /root/.gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:53:13-32
 	android:directBootAware
-		ADDED from [androidx.work:work-runtime:2.7.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:49:13-44
+		ADDED from [androidx.work:work-runtime:2.7.1] /root/.gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:49:13-44
 	android:name
-		ADDED from [androidx.work:work-runtime:2.7.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:48:13-84
+		ADDED from [androidx.work:work-runtime:2.7.1] /root/.gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:48:13-84
 service#androidx.work.impl.foreground.SystemForegroundService
-ADDED from [androidx.work:work-runtime:2.7.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:54:9-59:35
+ADDED from [androidx.work:work-runtime:2.7.1] /root/.gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:54:9-59:35
 	android:enabled
-		ADDED from [androidx.work:work-runtime:2.7.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:57:13-77
+		ADDED from [androidx.work:work-runtime:2.7.1] /root/.gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:57:13-77
 	android:exported
-		ADDED from [androidx.work:work-runtime:2.7.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:58:13-37
+		ADDED from [androidx.work:work-runtime:2.7.1] /root/.gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:58:13-37
 	tools:targetApi
-		ADDED from [androidx.work:work-runtime:2.7.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:59:13-32
+		ADDED from [androidx.work:work-runtime:2.7.1] /root/.gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:59:13-32
 	android:directBootAware
-		ADDED from [androidx.work:work-runtime:2.7.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:56:13-44
+		ADDED from [androidx.work:work-runtime:2.7.1] /root/.gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:56:13-44
 	android:name
-		ADDED from [androidx.work:work-runtime:2.7.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:55:13-81
+		ADDED from [androidx.work:work-runtime:2.7.1] /root/.gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:55:13-81
 receiver#androidx.work.impl.utils.ForceStopRunnable$BroadcastReceiver
-ADDED from [androidx.work:work-runtime:2.7.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:61:9-66:35
+ADDED from [androidx.work:work-runtime:2.7.1] /root/.gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:61:9-66:35
 	android:enabled
-		ADDED from [androidx.work:work-runtime:2.7.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:64:13-35
+		ADDED from [androidx.work:work-runtime:2.7.1] /root/.gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:64:13-35
 	android:exported
-		ADDED from [androidx.work:work-runtime:2.7.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:65:13-37
+		ADDED from [androidx.work:work-runtime:2.7.1] /root/.gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:65:13-37
 	tools:targetApi
-		ADDED from [androidx.work:work-runtime:2.7.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:66:13-32
+		ADDED from [androidx.work:work-runtime:2.7.1] /root/.gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:66:13-32
 	android:directBootAware
-		ADDED from [androidx.work:work-runtime:2.7.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:63:13-44
+		ADDED from [androidx.work:work-runtime:2.7.1] /root/.gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:63:13-44
 	android:name
-		ADDED from [androidx.work:work-runtime:2.7.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:62:13-88
+		ADDED from [androidx.work:work-runtime:2.7.1] /root/.gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:62:13-88
 receiver#androidx.work.impl.background.systemalarm.ConstraintProxy$BatteryChargingProxy
-ADDED from [androidx.work:work-runtime:2.7.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:67:9-77:20
+ADDED from [androidx.work:work-runtime:2.7.1] /root/.gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:67:9-77:20
 	android:enabled
-		ADDED from [androidx.work:work-runtime:2.7.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:70:13-36
+		ADDED from [androidx.work:work-runtime:2.7.1] /root/.gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:70:13-36
 	android:exported
-		ADDED from [androidx.work:work-runtime:2.7.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:71:13-37
+		ADDED from [androidx.work:work-runtime:2.7.1] /root/.gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:71:13-37
 	tools:targetApi
-		ADDED from [androidx.work:work-runtime:2.7.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:72:13-32
+		ADDED from [androidx.work:work-runtime:2.7.1] /root/.gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:72:13-32
 	android:directBootAware
-		ADDED from [androidx.work:work-runtime:2.7.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:69:13-44
+		ADDED from [androidx.work:work-runtime:2.7.1] /root/.gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:69:13-44
 	android:name
-		ADDED from [androidx.work:work-runtime:2.7.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:68:13-106
+		ADDED from [androidx.work:work-runtime:2.7.1] /root/.gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:68:13-106
 intent-filter#action:name:android.intent.action.ACTION_POWER_CONNECTED+action:name:android.intent.action.ACTION_POWER_DISCONNECTED
-ADDED from [androidx.work:work-runtime:2.7.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:73:13-76:29
+ADDED from [androidx.work:work-runtime:2.7.1] /root/.gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:73:13-76:29
 action#android.intent.action.ACTION_POWER_CONNECTED
-ADDED from [androidx.work:work-runtime:2.7.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:74:17-87
+ADDED from [androidx.work:work-runtime:2.7.1] /root/.gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:74:17-87
 	android:name
-		ADDED from [androidx.work:work-runtime:2.7.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:74:25-84
+		ADDED from [androidx.work:work-runtime:2.7.1] /root/.gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:74:25-84
 action#android.intent.action.ACTION_POWER_DISCONNECTED
-ADDED from [androidx.work:work-runtime:2.7.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:75:17-90
+ADDED from [androidx.work:work-runtime:2.7.1] /root/.gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:75:17-90
 	android:name
-		ADDED from [androidx.work:work-runtime:2.7.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:75:25-87
+		ADDED from [androidx.work:work-runtime:2.7.1] /root/.gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:75:25-87
 receiver#androidx.work.impl.background.systemalarm.ConstraintProxy$BatteryNotLowProxy
-ADDED from [androidx.work:work-runtime:2.7.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:78:9-88:20
+ADDED from [androidx.work:work-runtime:2.7.1] /root/.gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:78:9-88:20
 	android:enabled
-		ADDED from [androidx.work:work-runtime:2.7.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:81:13-36
+		ADDED from [androidx.work:work-runtime:2.7.1] /root/.gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:81:13-36
 	android:exported
-		ADDED from [androidx.work:work-runtime:2.7.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:82:13-37
+		ADDED from [androidx.work:work-runtime:2.7.1] /root/.gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:82:13-37
 	tools:targetApi
-		ADDED from [androidx.work:work-runtime:2.7.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:83:13-32
+		ADDED from [androidx.work:work-runtime:2.7.1] /root/.gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:83:13-32
 	android:directBootAware
-		ADDED from [androidx.work:work-runtime:2.7.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:80:13-44
+		ADDED from [androidx.work:work-runtime:2.7.1] /root/.gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:80:13-44
 	android:name
-		ADDED from [androidx.work:work-runtime:2.7.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:79:13-104
+		ADDED from [androidx.work:work-runtime:2.7.1] /root/.gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:79:13-104
 intent-filter#action:name:android.intent.action.BATTERY_LOW+action:name:android.intent.action.BATTERY_OKAY
-ADDED from [androidx.work:work-runtime:2.7.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:84:13-87:29
+ADDED from [androidx.work:work-runtime:2.7.1] /root/.gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:84:13-87:29
 action#android.intent.action.BATTERY_OKAY
-ADDED from [androidx.work:work-runtime:2.7.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:85:17-77
+ADDED from [androidx.work:work-runtime:2.7.1] /root/.gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:85:17-77
 	android:name
-		ADDED from [androidx.work:work-runtime:2.7.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:85:25-74
+		ADDED from [androidx.work:work-runtime:2.7.1] /root/.gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:85:25-74
 action#android.intent.action.BATTERY_LOW
-ADDED from [androidx.work:work-runtime:2.7.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:86:17-76
+ADDED from [androidx.work:work-runtime:2.7.1] /root/.gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:86:17-76
 	android:name
-		ADDED from [androidx.work:work-runtime:2.7.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:86:25-73
+		ADDED from [androidx.work:work-runtime:2.7.1] /root/.gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:86:25-73
 receiver#androidx.work.impl.background.systemalarm.ConstraintProxy$StorageNotLowProxy
-ADDED from [androidx.work:work-runtime:2.7.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:89:9-99:20
+ADDED from [androidx.work:work-runtime:2.7.1] /root/.gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:89:9-99:20
 	android:enabled
-		ADDED from [androidx.work:work-runtime:2.7.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:92:13-36
+		ADDED from [androidx.work:work-runtime:2.7.1] /root/.gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:92:13-36
 	android:exported
-		ADDED from [androidx.work:work-runtime:2.7.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:93:13-37
+		ADDED from [androidx.work:work-runtime:2.7.1] /root/.gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:93:13-37
 	tools:targetApi
-		ADDED from [androidx.work:work-runtime:2.7.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:94:13-32
+		ADDED from [androidx.work:work-runtime:2.7.1] /root/.gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:94:13-32
 	android:directBootAware
-		ADDED from [androidx.work:work-runtime:2.7.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:91:13-44
+		ADDED from [androidx.work:work-runtime:2.7.1] /root/.gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:91:13-44
 	android:name
-		ADDED from [androidx.work:work-runtime:2.7.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:90:13-104
+		ADDED from [androidx.work:work-runtime:2.7.1] /root/.gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:90:13-104
 intent-filter#action:name:android.intent.action.DEVICE_STORAGE_LOW+action:name:android.intent.action.DEVICE_STORAGE_OK
-ADDED from [androidx.work:work-runtime:2.7.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:95:13-98:29
+ADDED from [androidx.work:work-runtime:2.7.1] /root/.gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:95:13-98:29
 action#android.intent.action.DEVICE_STORAGE_LOW
-ADDED from [androidx.work:work-runtime:2.7.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:96:17-83
+ADDED from [androidx.work:work-runtime:2.7.1] /root/.gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:96:17-83
 	android:name
-		ADDED from [androidx.work:work-runtime:2.7.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:96:25-80
+		ADDED from [androidx.work:work-runtime:2.7.1] /root/.gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:96:25-80
 action#android.intent.action.DEVICE_STORAGE_OK
-ADDED from [androidx.work:work-runtime:2.7.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:97:17-82
+ADDED from [androidx.work:work-runtime:2.7.1] /root/.gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:97:17-82
 	android:name
-		ADDED from [androidx.work:work-runtime:2.7.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:97:25-79
+		ADDED from [androidx.work:work-runtime:2.7.1] /root/.gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:97:25-79
 receiver#androidx.work.impl.background.systemalarm.ConstraintProxy$NetworkStateProxy
-ADDED from [androidx.work:work-runtime:2.7.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:100:9-109:20
+ADDED from [androidx.work:work-runtime:2.7.1] /root/.gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:100:9-109:20
 	android:enabled
-		ADDED from [androidx.work:work-runtime:2.7.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:103:13-36
+		ADDED from [androidx.work:work-runtime:2.7.1] /root/.gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:103:13-36
 	android:exported
-		ADDED from [androidx.work:work-runtime:2.7.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:104:13-37
+		ADDED from [androidx.work:work-runtime:2.7.1] /root/.gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:104:13-37
 	tools:targetApi
-		ADDED from [androidx.work:work-runtime:2.7.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:105:13-32
+		ADDED from [androidx.work:work-runtime:2.7.1] /root/.gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:105:13-32
 	android:directBootAware
-		ADDED from [androidx.work:work-runtime:2.7.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:102:13-44
+		ADDED from [androidx.work:work-runtime:2.7.1] /root/.gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:102:13-44
 	android:name
-		ADDED from [androidx.work:work-runtime:2.7.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:101:13-103
+		ADDED from [androidx.work:work-runtime:2.7.1] /root/.gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:101:13-103
 intent-filter#action:name:android.net.conn.CONNECTIVITY_CHANGE
-ADDED from [androidx.work:work-runtime:2.7.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:106:13-108:29
+ADDED from [androidx.work:work-runtime:2.7.1] /root/.gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:106:13-108:29
 action#android.net.conn.CONNECTIVITY_CHANGE
-ADDED from [androidx.work:work-runtime:2.7.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:107:17-79
+ADDED from [androidx.work:work-runtime:2.7.1] /root/.gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:107:17-79
 	android:name
-		ADDED from [androidx.work:work-runtime:2.7.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:107:25-76
+		ADDED from [androidx.work:work-runtime:2.7.1] /root/.gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:107:25-76
 receiver#androidx.work.impl.background.systemalarm.RescheduleReceiver
-ADDED from [androidx.work:work-runtime:2.7.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:110:9-121:20
+ADDED from [androidx.work:work-runtime:2.7.1] /root/.gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:110:9-121:20
 	android:enabled
-		ADDED from [androidx.work:work-runtime:2.7.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:113:13-36
+		ADDED from [androidx.work:work-runtime:2.7.1] /root/.gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:113:13-36
 	android:exported
-		ADDED from [androidx.work:work-runtime:2.7.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:114:13-37
+		ADDED from [androidx.work:work-runtime:2.7.1] /root/.gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:114:13-37
 	tools:targetApi
-		ADDED from [androidx.work:work-runtime:2.7.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:115:13-32
+		ADDED from [androidx.work:work-runtime:2.7.1] /root/.gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:115:13-32
 	android:directBootAware
-		ADDED from [androidx.work:work-runtime:2.7.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:112:13-44
+		ADDED from [androidx.work:work-runtime:2.7.1] /root/.gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:112:13-44
 	android:name
-		ADDED from [androidx.work:work-runtime:2.7.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:111:13-88
+		ADDED from [androidx.work:work-runtime:2.7.1] /root/.gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:111:13-88
 intent-filter#action:name:android.intent.action.BOOT_COMPLETED+action:name:android.intent.action.TIMEZONE_CHANGED+action:name:android.intent.action.TIME_SET
-ADDED from [androidx.work:work-runtime:2.7.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:116:13-120:29
+ADDED from [androidx.work:work-runtime:2.7.1] /root/.gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:116:13-120:29
 action#android.intent.action.TIME_SET
-ADDED from [androidx.work:work-runtime:2.7.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:118:17-73
+ADDED from [androidx.work:work-runtime:2.7.1] /root/.gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:118:17-73
 	android:name
-		ADDED from [androidx.work:work-runtime:2.7.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:118:25-70
+		ADDED from [androidx.work:work-runtime:2.7.1] /root/.gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:118:25-70
 action#android.intent.action.TIMEZONE_CHANGED
-ADDED from [androidx.work:work-runtime:2.7.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:119:17-81
+ADDED from [androidx.work:work-runtime:2.7.1] /root/.gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:119:17-81
 	android:name
-		ADDED from [androidx.work:work-runtime:2.7.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:119:25-78
+		ADDED from [androidx.work:work-runtime:2.7.1] /root/.gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:119:25-78
 receiver#androidx.work.impl.background.systemalarm.ConstraintProxyUpdateReceiver
-ADDED from [androidx.work:work-runtime:2.7.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:122:9-131:20
+ADDED from [androidx.work:work-runtime:2.7.1] /root/.gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:122:9-131:20
 	android:enabled
-		ADDED from [androidx.work:work-runtime:2.7.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:125:13-72
+		ADDED from [androidx.work:work-runtime:2.7.1] /root/.gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:125:13-72
 	android:exported
-		ADDED from [androidx.work:work-runtime:2.7.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:126:13-37
+		ADDED from [androidx.work:work-runtime:2.7.1] /root/.gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:126:13-37
 	tools:targetApi
-		ADDED from [androidx.work:work-runtime:2.7.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:127:13-32
+		ADDED from [androidx.work:work-runtime:2.7.1] /root/.gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:127:13-32
 	android:directBootAware
-		ADDED from [androidx.work:work-runtime:2.7.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:124:13-44
+		ADDED from [androidx.work:work-runtime:2.7.1] /root/.gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:124:13-44
 	android:name
-		ADDED from [androidx.work:work-runtime:2.7.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:123:13-99
+		ADDED from [androidx.work:work-runtime:2.7.1] /root/.gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:123:13-99
 intent-filter#action:name:androidx.work.impl.background.systemalarm.UpdateProxies
-ADDED from [androidx.work:work-runtime:2.7.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:128:13-130:29
+ADDED from [androidx.work:work-runtime:2.7.1] /root/.gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:128:13-130:29
 action#androidx.work.impl.background.systemalarm.UpdateProxies
-ADDED from [androidx.work:work-runtime:2.7.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:129:17-98
+ADDED from [androidx.work:work-runtime:2.7.1] /root/.gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:129:17-98
 	android:name
-		ADDED from [androidx.work:work-runtime:2.7.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:129:25-95
+		ADDED from [androidx.work:work-runtime:2.7.1] /root/.gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:129:25-95
 receiver#androidx.work.impl.diagnostics.DiagnosticsReceiver
-ADDED from [androidx.work:work-runtime:2.7.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:132:9-142:20
+ADDED from [androidx.work:work-runtime:2.7.1] /root/.gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:132:9-142:20
 	android:enabled
-		ADDED from [androidx.work:work-runtime:2.7.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:135:13-35
+		ADDED from [androidx.work:work-runtime:2.7.1] /root/.gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:135:13-35
 	android:exported
-		ADDED from [androidx.work:work-runtime:2.7.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:136:13-36
+		ADDED from [androidx.work:work-runtime:2.7.1] /root/.gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:136:13-36
 	android:permission
-		ADDED from [androidx.work:work-runtime:2.7.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:137:13-57
+		ADDED from [androidx.work:work-runtime:2.7.1] /root/.gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:137:13-57
 	tools:targetApi
-		ADDED from [androidx.work:work-runtime:2.7.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:138:13-32
+		ADDED from [androidx.work:work-runtime:2.7.1] /root/.gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:138:13-32
 	android:directBootAware
-		ADDED from [androidx.work:work-runtime:2.7.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:134:13-44
+		ADDED from [androidx.work:work-runtime:2.7.1] /root/.gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:134:13-44
 	android:name
-		ADDED from [androidx.work:work-runtime:2.7.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:133:13-78
+		ADDED from [androidx.work:work-runtime:2.7.1] /root/.gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:133:13-78
 intent-filter#action:name:androidx.work.diagnostics.REQUEST_DIAGNOSTICS
-ADDED from [androidx.work:work-runtime:2.7.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:139:13-141:29
+ADDED from [androidx.work:work-runtime:2.7.1] /root/.gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:139:13-141:29
 action#androidx.work.diagnostics.REQUEST_DIAGNOSTICS
-ADDED from [androidx.work:work-runtime:2.7.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:140:17-88
+ADDED from [androidx.work:work-runtime:2.7.1] /root/.gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:140:17-88
 	android:name
-		ADDED from [androidx.work:work-runtime:2.7.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:140:25-85
+		ADDED from [androidx.work:work-runtime:2.7.1] /root/.gradle/caches/transforms-3/e835394babaaf120a24e278c2a9ff2be/transformed/work-runtime-2.7.1/AndroidManifest.xml:140:25-85
 meta-data#androidx.emoji2.text.EmojiCompatInitializer
-ADDED from [androidx.emoji2:emoji2:1.2.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/ea940fae13a31ae5b99e62169d8de848/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:29:13-31:52
+ADDED from [androidx.emoji2:emoji2:1.2.0] /root/.gradle/caches/transforms-3/ea940fae13a31ae5b99e62169d8de848/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:29:13-31:52
 	android:value
-		ADDED from [androidx.emoji2:emoji2:1.2.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/ea940fae13a31ae5b99e62169d8de848/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:31:17-49
+		ADDED from [androidx.emoji2:emoji2:1.2.0] /root/.gradle/caches/transforms-3/ea940fae13a31ae5b99e62169d8de848/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:31:17-49
 	android:name
-		ADDED from [androidx.emoji2:emoji2:1.2.0] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/ea940fae13a31ae5b99e62169d8de848/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:30:17-75
+		ADDED from [androidx.emoji2:emoji2:1.2.0] /root/.gradle/caches/transforms-3/ea940fae13a31ae5b99e62169d8de848/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:30:17-75
+permission#${applicationId}.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
+ADDED from [androidx.core:core:1.10.1] /root/.gradle/caches/transforms-3/1761aec51c0be3677ce571b28ab184cd/transformed/core-1.10.1/AndroidManifest.xml:22:5-24:47
+	android:protectionLevel
+		ADDED from [androidx.core:core:1.10.1] /root/.gradle/caches/transforms-3/1761aec51c0be3677ce571b28ab184cd/transformed/core-1.10.1/AndroidManifest.xml:24:9-44
+	android:name
+		ADDED from [androidx.core:core:1.10.1] /root/.gradle/caches/transforms-3/1761aec51c0be3677ce571b28ab184cd/transformed/core-1.10.1/AndroidManifest.xml:23:9-81
+permission#de.eje_esslingen.eje.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
+ADDED from [androidx.core:core:1.10.1] /root/.gradle/caches/transforms-3/1761aec51c0be3677ce571b28ab184cd/transformed/core-1.10.1/AndroidManifest.xml:22:5-24:47
+	android:protectionLevel
+		ADDED from [androidx.core:core:1.10.1] /root/.gradle/caches/transforms-3/1761aec51c0be3677ce571b28ab184cd/transformed/core-1.10.1/AndroidManifest.xml:24:9-44
+	android:name
+		ADDED from [androidx.core:core:1.10.1] /root/.gradle/caches/transforms-3/1761aec51c0be3677ce571b28ab184cd/transformed/core-1.10.1/AndroidManifest.xml:23:9-81
+uses-permission#${applicationId}.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
+ADDED from [androidx.core:core:1.10.1] /root/.gradle/caches/transforms-3/1761aec51c0be3677ce571b28ab184cd/transformed/core-1.10.1/AndroidManifest.xml:26:5-97
+	android:name
+		ADDED from [androidx.core:core:1.10.1] /root/.gradle/caches/transforms-3/1761aec51c0be3677ce571b28ab184cd/transformed/core-1.10.1/AndroidManifest.xml:26:22-94
+uses-permission#de.eje_esslingen.eje.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
+ADDED from [androidx.core:core:1.10.1] /root/.gradle/caches/transforms-3/1761aec51c0be3677ce571b28ab184cd/transformed/core-1.10.1/AndroidManifest.xml:26:5-97
+	android:name
+		ADDED from [androidx.core:core:1.10.1] /root/.gradle/caches/transforms-3/1761aec51c0be3677ce571b28ab184cd/transformed/core-1.10.1/AndroidManifest.xml:26:22-94
 meta-data#androidx.lifecycle.ProcessLifecycleInitializer
-ADDED from [androidx.lifecycle:lifecycle-process:2.4.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/ec17b1ef71b2f1f372fc249e61940309/transformed/jetified-lifecycle-process-2.4.1/AndroidManifest.xml:31:13-33:52
+ADDED from [androidx.lifecycle:lifecycle-process:2.4.1] /root/.gradle/caches/transforms-3/ec17b1ef71b2f1f372fc249e61940309/transformed/jetified-lifecycle-process-2.4.1/AndroidManifest.xml:31:13-33:52
 	android:value
-		ADDED from [androidx.lifecycle:lifecycle-process:2.4.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/ec17b1ef71b2f1f372fc249e61940309/transformed/jetified-lifecycle-process-2.4.1/AndroidManifest.xml:33:17-49
+		ADDED from [androidx.lifecycle:lifecycle-process:2.4.1] /root/.gradle/caches/transforms-3/ec17b1ef71b2f1f372fc249e61940309/transformed/jetified-lifecycle-process-2.4.1/AndroidManifest.xml:33:17-49
 	android:name
-		ADDED from [androidx.lifecycle:lifecycle-process:2.4.1] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/ec17b1ef71b2f1f372fc249e61940309/transformed/jetified-lifecycle-process-2.4.1/AndroidManifest.xml:32:17-78
+		ADDED from [androidx.lifecycle:lifecycle-process:2.4.1] /root/.gradle/caches/transforms-3/ec17b1ef71b2f1f372fc249e61940309/transformed/jetified-lifecycle-process-2.4.1/AndroidManifest.xml:32:17-78
 service#androidx.room.MultiInstanceInvalidationService
-ADDED from [androidx.room:room-runtime:2.2.5] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/9a689aa0418fd9bdc82334d7b32a1e10/transformed/room-runtime-2.2.5/AndroidManifest.xml:25:9-28:40
+ADDED from [androidx.room:room-runtime:2.2.5] /root/.gradle/caches/transforms-3/9a689aa0418fd9bdc82334d7b32a1e10/transformed/room-runtime-2.2.5/AndroidManifest.xml:25:9-28:40
 	android:exported
-		ADDED from [androidx.room:room-runtime:2.2.5] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/9a689aa0418fd9bdc82334d7b32a1e10/transformed/room-runtime-2.2.5/AndroidManifest.xml:28:13-37
+		ADDED from [androidx.room:room-runtime:2.2.5] /root/.gradle/caches/transforms-3/9a689aa0418fd9bdc82334d7b32a1e10/transformed/room-runtime-2.2.5/AndroidManifest.xml:28:13-37
 	android:directBootAware
-		ADDED from [androidx.room:room-runtime:2.2.5] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/9a689aa0418fd9bdc82334d7b32a1e10/transformed/room-runtime-2.2.5/AndroidManifest.xml:27:13-43
+		ADDED from [androidx.room:room-runtime:2.2.5] /root/.gradle/caches/transforms-3/9a689aa0418fd9bdc82334d7b32a1e10/transformed/room-runtime-2.2.5/AndroidManifest.xml:27:13-43
 	android:name
-		ADDED from [androidx.room:room-runtime:2.2.5] /home/nachtaktiverhalbaffe/.local/share/gradle/caches/transforms-3/9a689aa0418fd9bdc82334d7b32a1e10/transformed/room-runtime-2.2.5/AndroidManifest.xml:26:13-74
+		ADDED from [androidx.room:room-runtime:2.2.5] /root/.gradle/caches/transforms-3/9a689aa0418fd9bdc82334d7b32a1e10/transformed/room-runtime-2.2.5/AndroidManifest.xml:26:13-74

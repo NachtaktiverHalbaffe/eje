@@ -36,11 +36,22 @@
     <string name="bottomsheet_action_expand_halfway">Хагас дэлгэнэ үү</string>
     <string name="bottomsheet_drag_handle_clicked">Чирэх бариулыг хоёр товших</string>
     <string name="bottomsheet_drag_handle_content_description">Чирэх бариул</string>
+    <string msgid="881409763997275156" name="call_notification_answer_action">"Хариулах"</string>
+    <string msgid="8793775615905189152" name="call_notification_answer_video_action">"Видео"</string>
+    <string msgid="3229508546291798546" name="call_notification_decline_action">"Татгалзах"</string>
+    <string msgid="2659457946726154263" name="call_notification_hang_up_action">"Таслах"</string>
+    <string msgid="6107532579223922871" name="call_notification_incoming_text">"Ирсэн дуудлага"</string>
+    <string msgid="8623827134497363134" name="call_notification_ongoing_text">"Дуудлага хийгдэж байна"</string>
+    <string msgid="59049573811482460" name="call_notification_screening_text">"Ирсэн дуудлагыг харуулж байна"</string>
     <string name="character_counter_content_description">%2$d-н %1$d тэмдэгтийг оруулсан</string>
     <string name="character_counter_overflowed_content_description">Тэмдэгтийн хязгаар %2$d-н %1$d-с хэтэрсэн</string>
     <string name="clear_text_end_icon_content_description">Текстийг арилгах</string>
+    <string msgid="3260749812566568062" name="copy_toast_msg">"Холбоосыг түр санах ойд хуулсан"</string>
     <string name="error_icon_content_description">Алдаа</string>
     <string name="exposed_dropdown_menu_content_description">Доош унадаг цэсийг харуулах</string>
+    <string msgid="4566929209979330987" name="fallback_menu_item_copy_link">"Холбоосыг хуулах"</string>
+    <string msgid="3413186855122069269" name="fallback_menu_item_open_in_browser">"Хөтчид нээх"</string>
+    <string msgid="7145444925855055364" name="fallback_menu_item_share_link">"Холбоосыг хуваалцах"</string>
     <string name="icon_content_description">Харилцах цонхны дүрс тэмдэг</string>
     <string name="item_view_role_description">Таб</string>
     <string name="material_clock_toggle_content_description">ҮӨ эсвэл ҮХ сонгоно уу</string>
