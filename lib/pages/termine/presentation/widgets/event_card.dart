@@ -1,4 +1,5 @@
 // ignore_for_file: non_constant_identifier_names
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:eje/core/utils/injection_container.dart';
 import 'package:eje/core/utils/notificationplugin.dart';
 import 'package:eje/core/widgets/cached_image.dart';
@@ -83,9 +84,10 @@ class EventCard extends StatelessWidget {
                         children: [
                           SizedBox(width: 16),
                           Flexible(
-                            child: Text(
+                            child: AutoSizeText(
                               event.name,
                               overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
                               style: TextStyle(
                                   fontSize: 28,
                                   fontWeight: FontWeight.bold,
@@ -102,8 +104,9 @@ class EventCard extends StatelessWidget {
                         children: [
                           SizedBox(width: 16),
                           Flexible(
-                            child: Text(
+                            child: AutoSizeText(
                               event.motto,
+                              maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                               style: TextStyle(
                                 fontSize: 18,

@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:decorated_icon/decorated_icon.dart';
 import 'package:eje/core/utils/injection_container.dart';
 import 'package:eje/pages/articles/presentation/bloc/articles_bloc.dart';
@@ -127,10 +128,10 @@ class DetailsPage extends StatelessWidget {
                         width: 12,
                       ),
                       Flexible(
-                        child: Text(
+                        child: AutoSizeText(
                           titel,
                           textAlign: TextAlign.left,
-                          maxLines: 3,
+                          maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
                             fontSize: 30,
@@ -156,8 +157,9 @@ class DetailsPage extends StatelessWidget {
                   untertitel != ""
                       ? Container(
                           padding: EdgeInsets.only(left: 12, top: 8, right: 12),
-                          child: Text(
+                          child: AutoSizeText(
                             untertitel,
+                            maxLines: 2,
                             textAlign: TextAlign.start,
                             style: TextStyle(
                               fontSize: 17,

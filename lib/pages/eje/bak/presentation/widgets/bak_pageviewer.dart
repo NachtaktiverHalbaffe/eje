@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:eje/core/utils/injection_container.dart';
 import 'package:eje/core/widgets/cached_image.dart';
 import 'package:eje/pages/eje/bak/domain/entitys/BAKler.dart';
@@ -75,8 +76,9 @@ class KontaktCard extends StatelessWidget {
                 SizedBox(
                   height: 160,
                 ),
-                Text(
+                AutoSizeText(
                   bakler.name,
+                  maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   textAlign: TextAlign.center,
                   style: TextStyle(
@@ -97,8 +99,9 @@ class KontaktCard extends StatelessWidget {
                     ],
                   ),
                 ),
-                Text(
+                AutoSizeText(
                   bakler.function,
+                  maxLines: 1,
                   textAlign: TextAlign.center,
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(

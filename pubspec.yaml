@@ -4,10 +4,11 @@ description: App vom Evangelischen Jugendwerk Esslingen
 version: 1.0.0+2
 
 environment:
-  sdk: '>=3.1.0 <4.0.0'
+  sdk: ">=3.1.0 <4.0.0"
 
 dependencies:
   add_2_calendar: ^2.2.3
+  auto_size_text: ^3.0.0
   bloc: ^8.1.1
   cached_network_image: ^3.2.3
   connectivity_plus: ^4.0.2
@@ -67,7 +68,7 @@ flutter_launcher_icons:
   ios: true
   remove_alpha_ios: true
   background_color_ios: "#ffffff"
-  adaptive_icon_backgorund:  "#ffffff"
+  adaptive_icon_backgorund: "#ffffff"
   adaptive_icon_foreground: "assets/images/app_icon.png"
 
 # Splash screen

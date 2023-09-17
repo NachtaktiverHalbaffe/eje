@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:eje/core/utils/injection_container.dart';
 import 'package:eje/core/widgets/cached_image.dart';
 import 'package:eje/pages/freizeiten/domain/entities/camp.dart';
@@ -57,8 +58,9 @@ class CampCard extends StatelessWidget {
                   Column(
                     children: <Widget>[
                       SizedBox(height: 210),
-                      Text(
+                      AutoSizeText(
                         camp.name,
+                        maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
                           fontSize: 30,
@@ -80,8 +82,9 @@ class CampCard extends StatelessWidget {
                       ),
                       Container(
                         padding: EdgeInsets.symmetric(horizontal: 12),
-                        child: Text(
+                        child: AutoSizeText(
                           camp.subtitle,
+                          maxLines: 2,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
                             fontSize: 17,
