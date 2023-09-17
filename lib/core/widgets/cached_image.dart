@@ -5,7 +5,6 @@ import 'package:get_storage/get_storage.dart';
 ImageProvider prefImage(String url) {
   // Load prefrence if image caching is enabled
   if (url == "") {
-    // TODO implement placeholder image
     return ExactAssetImage("assets/images/placeholder.jpeg");
   }
 

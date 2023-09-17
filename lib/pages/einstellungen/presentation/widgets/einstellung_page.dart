@@ -139,9 +139,10 @@ class EinstellungenPage extends StatelessWidget {
               onSubmitted: (value) {
                 if (int.parse(value) > 0 && int.parse(value) < 365) {
                   prefs.write("schedule_offset", int.parse(value));
-                } else
+                } else {
                   AlertSnackbar(context)
                       .showWarningSnackBar(label: "Ungültiger Zeitraum");
+                }
               },
               decoration: InputDecoration(
                   floatingLabelStyle:
@@ -250,7 +251,8 @@ class EinstellungenPage extends StatelessWidget {
                         ),
                         OutlinedButton(
                           style: OutlinedButton.styleFrom(
-                            primary: Theme.of(context).colorScheme.secondary,
+                            foregroundColor:
+                                Theme.of(context).colorScheme.secondary,
                           ),
                           onPressed: () async {
                             if (await canLaunchUrlString(

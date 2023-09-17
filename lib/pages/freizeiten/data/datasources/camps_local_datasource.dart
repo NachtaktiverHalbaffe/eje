@@ -18,7 +18,7 @@ class CampsLocalDatasource {
       }
       return data;
     } else {
-      throw CacheException();
+      return List.empty();
     }
   }
 

@@ -70,6 +70,7 @@ class CampsPageViewer extends StatelessWidget {
         child: SingleChildScrollView(
           physics: AlwaysScrollableScrollPhysics(),
           child: ConstrainedBox(
+            // FIXME visual glitches when filter returns no items
             constraints: BoxConstraints(
                 minHeight: MediaQuery.of(context).size.height - 50),
             child: camps.isNotEmpty
@@ -108,7 +109,9 @@ class CampsPageViewer extends StatelessWidget {
                       ),
                       Column(
                         children: [
-                          FilterCard(),
+                          FilterCard(
+                            hideWhenEmpy: true,
+                          ),
                           SizedBox(
                             height: 40,
                           )
@@ -263,6 +266,7 @@ Future<dynamic> createFilterDialog({required BuildContext context}) {
                   prefs.write("campFilterStartDate", date!.start.toString());
                   prefs.write("campFilterEndDate", date!.end.toString());
                 }
+                BlocProvider.of<CampsBloc>(context).add(FilteringCamps());
                 Navigator.of(context).pop();
               },
               child: Text("Bestätigen"),
@@ -273,42 +277,54 @@ Future<dynamic> createFilterDialog({required BuildContext context}) {
 }
 
 class FilterCard extends StatelessWidget {
-  // FIXME visual glitches when filter returns no items
+  final bool hideWhenEmpy;
+  const FilterCard({this.hideWhenEmpy = false});
+
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        ListTile(
-          leading: Text(
-            "Filter",
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 20,
+    ChipsWrap chipsWidget = ChipsWrap();
+
+    if (hideWhenEmpy && chipsWidget.length == 0) {
+      return Container();
+    } else {
+      return Column(
+        children: [
+          ListTile(
+            leading: Text(
+              "Filter",
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 20,
+              ),
+            ),
+            trailing: IconButton(
+              onPressed: () async {
+                await createFilterDialog(context: context);
+              },
+              icon: Icon(
+                Icons.add,
+              ),
             ),
           ),
-          trailing: IconButton(
-            onPressed: () async {
-              await createFilterDialog(context: context);
-              // FIXME only fire filtering event if ok was clicked as button
-              BlocProvider.of<CampsBloc>(context).add(FilteringCamps());
-            },
-            icon: Icon(
-              Icons.add,
-            ),
-          ),
-        ),
-        ChipsWrap(),
-      ],
-    );
+          chipsWidget,
+        ],
+      );
+    }
   }
 }
 
 class ChipsWrap extends StatelessWidget {
   final prefs = GetStorage();
   final double elevation = 4;
+  late final List<Widget> chips;
+  late final int length;
 
-  @override
-  Widget build(BuildContext context) {
+  ChipsWrap() {
+    chips = generateChips();
+    length = chips.length;
+  }
+
+  List<Widget> generateChips() {
     List<Widget> chips = List.empty(growable: true);
     // Read filters from storage and create chip if filter is active
     if (prefs.read("campFilterAge") != 0) {
@@ -318,7 +334,6 @@ class ChipsWrap extends StatelessWidget {
           icon: Icons.cake,
           onDeleted: () async {
             await prefs.write("campFilterAge", 0);
-            BlocProvider.of<CampsBloc>(context).add(DeletingCampsFilter());
           },
         ),
       );
@@ -330,7 +345,6 @@ class ChipsWrap extends StatelessWidget {
           icon: Icons.euro,
           onDeleted: () async {
             await prefs.write("campFilterPrice", 0);
-            BlocProvider.of<CampsBloc>(context).add(DeletingCampsFilter());
           },
         ),
       );
@@ -345,12 +359,19 @@ class ChipsWrap extends StatelessWidget {
           onDeleted: () async {
             await prefs.write("campFilterStartDate", "");
             await prefs.write("campFilterEndDate", "");
-            BlocProvider.of<CampsBloc>(context).add(DeletingCampsFilter());
           },
         ),
       );
     }
+    return chips;
+  }
 
+  @override
+  Widget build(BuildContext context) {
+    length = chips.length;
+    if (length != 0) {
+      BlocProvider.of<CampsBloc>(context).add(DeletingCampsFilter());
+    }
     return Wrap(
       children: chips,
     );

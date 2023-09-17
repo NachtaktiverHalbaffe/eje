@@ -2,7 +2,6 @@ import 'package:add_2_calendar/add_2_calendar.dart';
 import 'package:eje/core/widgets/alert_snackbar.dart';
 import 'package:eje/pages/articles/presentation/widgets/details_page.dart';
 import 'package:eje/core/widgets/loading_indicator.dart';
-import 'package:eje/pages/articles/domain/entity/Hyperlink.dart';
 import 'package:eje/pages/freizeiten/domain/entities/camp.dart';
 import 'package:eje/pages/freizeiten/presentation/bloc/bloc.dart';
 import 'package:flutter/material.dart';

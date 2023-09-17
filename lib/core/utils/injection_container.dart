@@ -1,4 +1,3 @@
-import 'package:connectivity/connectivity.dart';
 import 'package:eje/core/platform/network_info.dart';
 import 'package:eje/pages/articles/data/datasources/articles_local_datasource.dart';
 import 'package:eje/pages/articles/data/repository/articles_repository_impl.dart';
@@ -64,6 +63,7 @@ import 'package:eje/pages/termine/presentation/bloc/bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;
 import 'package:internet_connection_checker/internet_connection_checker.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 
 final sl = GetIt.instance;
 

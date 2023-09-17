@@ -34,6 +34,7 @@ class NotificationPlugin {
 
 //initialize Notificationsplugin
   init() async {
+    // Initialize time zones
     tz.initializeTimeZones();
     final String timeZoneName = await FlutterNativeTimezone.getLocalTimezone();
     tz.setLocalLocation(tz.getLocation(timeZoneName));
@@ -183,7 +184,7 @@ class NotificationPlugin {
                 DateTime.now().add(Duration(minutes: 1)), tz.local),
         paltformChannelSpecifics,
         payload: payload,
-        androidAllowWhileIdle: true,
+        androidScheduleMode: AndroidScheduleMode.inexactAllowWhileIdle,
         uiLocalNotificationDateInterpretation:
             UILocalNotificationDateInterpretation.wallClockTime,
       );

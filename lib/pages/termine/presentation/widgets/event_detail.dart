@@ -2,7 +2,7 @@
 import 'package:eje/core/utils/notificationplugin.dart';
 import 'package:eje/pages/articles/presentation/widgets/details_page.dart';
 import 'package:eje/core/widgets/loading_indicator.dart';
-import 'package:add_2_calendar/add_2_calendar.dart' as Ev;
+import 'package:add_2_calendar/add_2_calendar.dart' as ev;
 import 'package:eje/pages/termine/domain/entities/Event.dart';
 import 'package:eje/pages/termine/presentation/bloc/bloc.dart';
 import 'package:flutter/material.dart';
@@ -99,7 +99,7 @@ class _terminChildWidget extends StatelessWidget {
               color: Theme.of(context).colorScheme.secondary,
             ),
             onTap: () async {
-              var event = Ev.Event(
+              var event = ev.Event(
                 title: _termin.name,
                 description: _termin.description,
                 location:
@@ -110,13 +110,13 @@ class _terminChildWidget extends StatelessWidget {
 
               if (await Permission.calendar.isGranted) {
                 print("Adding event to calendar");
-                Ev.Add2Calendar.addEvent2Cal(event);
+                ev.Add2Calendar.addEvent2Cal(event);
               } else {
                 print(
                     "Calendar permissions not granted. Requesting permission");
                 var status = await Permission.calendar.request();
                 if (status == PermissionStatus.granted) {
-                  Ev.Add2Calendar.addEvent2Cal(event);
+                  ev.Add2Calendar.addEvent2Cal(event);
                 } else {
                   AlertSnackbar(context).showErrorSnackBar(
                       label:

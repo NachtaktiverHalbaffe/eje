@@ -3,7 +3,7 @@ import 'package:eje/core/error/exception.dart';
 import 'package:eje/pages/neuigkeiten/domain/entitys/news.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
-import 'package:webfeed/domain/rss_feed.dart';
+import 'package:webfeed_revised/domain/rss_feed.dart';
 
 class NewsRemoteDatasource {
   final client = http.Client();
@@ -42,8 +42,7 @@ class NewsRemoteDatasource {
                   ? [""]
                   : [payload[i].enclosure!.url ?? ""],
               link: payload[i].link ?? "",
-              published:
-                  parseDateTimeFromRSS(payload[i].pubDate.toString() ?? ""),
+              published: parseDateTimeFromRSS(payload[i].pubDate.toString()),
             ),
           );
         }

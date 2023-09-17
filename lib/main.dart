@@ -18,6 +18,7 @@ import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:workmanager/workmanager.dart';
 import 'pages/neuigkeiten/news_page.dart';
 import 'core/utils/startup.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 @pragma('vm:entry-point')
 void callbackDispatcher() {
@@ -40,7 +41,9 @@ void callbackDispatcher() {
 }
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+
   await startup();
   //Getting data if app was launched from application
   int? initialIndex = 0;
@@ -52,6 +55,7 @@ void main() async {
         notificationAppLaunchDetails.notificationResponse?.payload ?? "0");
   }
   Workmanager().initialize(callbackDispatcher, isInDebugMode: false);
+  FlutterNativeSplash.remove();
 
   runApp(MyApp(initialIndex));
 }
@@ -86,7 +90,7 @@ class MyHomePage extends StatefulWidget {
   final int initialIndex;
 
   @override
-  _MyHomePageState createState() => _MyHomePageState(initialIndex);
+  State createState() => _MyHomePageState(initialIndex);
 }
 
 class _MyHomePageState extends State<MyHomePage> {
@@ -143,30 +147,34 @@ class _MyHomePageState extends State<MyHomePage> {
     return [NewsPage(), Eje(), Events(), Camps(), Einstellungen()];
   }
 
-  late final PermissionStatus status;
+  late PermissionStatus status;
   void _firstStartDialog(BuildContext context) async {
-    status = await Permission.ignoreBatteryOptimizations.status;
-    if (status != PermissionStatus.permanentlyDenied &&
-        status != PermissionStatus.granted) {
-      await showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-              title: Text('Berechtigungen gewähren'),
-              content: Text(
-                  "Die App benötigt Berechtigungen, um ausgeführt werden zu können. Diese können jederzeit in den Systemeinstellungen wiederrufen und in den Appeinsteillungen angepasst  werden."),
-              actions: [
-                MaterialButton(
-                  onPressed: () async {
-                    await Permission.notification.request();
-                    await Permission.ignoreBatteryOptimizations.request();
-                    Navigator.of(context).pop();
-                  },
-                  child: Text("Ok"),
-                ),
-              ]);
-        },
-      );
+    // Can throw initializationerror
+    try {
+      status = await Permission.ignoreBatteryOptimizations.status;
+    } finally {
+      if (status != PermissionStatus.permanentlyDenied &&
+          status != PermissionStatus.granted) {
+        await showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+                title: Text('Berechtigungen gewähren'),
+                content: Text(
+                    "Die App benötigt Berechtigungen, um ausgeführt werden zu können. Diese können jederzeit in den Systemeinstellungen wiederrufen und in den Appeinsteillungen angepasst  werden."),
+                actions: [
+                  MaterialButton(
+                    onPressed: () async {
+                      await Permission.notification.request();
+                      await Permission.ignoreBatteryOptimizations.request();
+                      Navigator.of(context).pop();
+                    },
+                    child: Text("Ok"),
+                  ),
+                ]);
+          },
+        );
+      }
     }
   }
 
@@ -243,7 +251,7 @@ Widget _MaterialApp(BuildContext context, int initialIndex) {
   final OutlinedButtonThemeData outlinedButtonThemeData =
       OutlinedButtonThemeData(
     style: OutlinedButton.styleFrom(
-      primary: companyColor,
+      foregroundColor: companyColor,
     ),
   );
   final TextButtonThemeData textButtonThemeData = TextButtonThemeData(
@@ -315,7 +323,7 @@ Widget _MaterialApp(BuildContext context, int initialIndex) {
       // Used in showAboutDialog
       textButtonTheme: textButtonThemeData,
       textTheme: TextTheme(
-        overline: TextStyle(color: companyColor),
+        labelSmall: TextStyle(color: companyColor),
       ),
       // Used in LoadingIndicator and another loading animations
       progressIndicatorTheme: ProgressIndicatorThemeData(color: companyColor),

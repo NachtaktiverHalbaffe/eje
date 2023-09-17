@@ -13,7 +13,7 @@ class NewsCard extends StatefulWidget {
   NewsCard(this.singleNews);
 
   @override
-  _NewsCardState createState() => _NewsCardState();
+  State createState() => _NewsCardState();
 }
 
 class _NewsCardState extends State<NewsCard> {
