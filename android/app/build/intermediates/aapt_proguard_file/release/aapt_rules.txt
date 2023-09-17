@@ -17,6 +17,9 @@
 -keep class com.dexterous.flutterlocalnotifications.ScheduledNotificationBootReceiver { <init>(); }
 -keep class com.dexterous.flutterlocalnotifications.ScheduledNotificationReceiver { <init>(); }
 -keep class de.eje_esslingen.eje.MainActivity { <init>(); }
+-keep class id.flutter.flutter_background_service.BackgroundService { <init>(); }
+-keep class id.flutter.flutter_background_service.BootReceiver { <init>(); }
+-keep class id.flutter.flutter_background_service.WatchdogReceiver { <init>(); }
 -keep class io.flutter.plugins.urllauncher.WebViewActivity { <init>(); }
 -keep class android.widget.Space { <init>(android.content.Context, android.util.AttributeSet); }
 

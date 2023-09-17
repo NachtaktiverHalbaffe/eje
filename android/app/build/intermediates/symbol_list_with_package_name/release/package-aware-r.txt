@@ -2656,6 +2656,7 @@ drawable design_password_eye
 drawable design_snackbar_background
 drawable ejelogo
 drawable ic_arrow_back_black_24
+drawable ic_bg_service_small
 drawable ic_call_answer
 drawable ic_call_answer_low
 drawable ic_call_answer_video

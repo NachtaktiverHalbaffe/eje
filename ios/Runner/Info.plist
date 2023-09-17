@@ -34,6 +34,7 @@
 		</array>
 		<key>BGTaskSchedulerPermittedIdentifiers</key>
 		<array>
+			<string>dev.flutter.background.refresh</string>
 			<string>task-identifier</string>
 		</array>
 		<string>Main</string>
