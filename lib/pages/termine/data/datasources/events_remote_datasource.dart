@@ -55,7 +55,7 @@ class TermineRemoteDatasource {
                 DateTime.tryParse(responseData[i]['endDate']) ?? DateTime.now(),
             location: responseData[i]['location'] != null
                 ? _parseLocation(responseData[i]['location'])
-                : Location("Musterort", "Musterstraße 1", "12345 Musterstadt"),
+                : Location("", "", ""),
             registrationLink: responseData[i]['registrationLink'] ?? "",
           ));
         }

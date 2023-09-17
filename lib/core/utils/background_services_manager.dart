@@ -1,20 +1,44 @@
+import 'dart:async';
 import 'dart:math';
+import 'dart:ui';
 import 'package:eje/core/utils/notificationplugin.dart';
 import 'package:eje/pages/freizeiten/data/datasources/camps_remote_datasource.dart';
 import 'package:eje/pages/freizeiten/domain/entities/camp.dart';
 import 'package:eje/pages/neuigkeiten/data/datasources/news_remote_datasource.dart';
 import 'package:eje/pages/neuigkeiten/domain/entitys/news.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_background_service/flutter_background_service.dart';
+import 'package:flutter_background_service_android/flutter_background_service_android.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class BackgroundServicesManager {
-  /// * Backgroundtask for push-notifications for new News
-// _checkNeuigkeitenNotificationHeadless loads the newest Nueigkeiten from NeuigkeitenRemoteDatasource
-// and checks if there is new data and fires a notification
-// @params:
-//    taskID: for Background_fetch for identifying the background task
-  static Future<void> checkNeuigkeitenNotification() async {
+  Future<void> initialize() async {
+    final FlutterBackgroundService service = FlutterBackgroundService();
+    final AndroidConfiguration androidConfig = AndroidConfiguration(
+      onStart: onStart,
+      isForegroundMode: false,
+      autoStart: true,
+      autoStartOnBoot: true,
+    );
+    final IosConfiguration iosConfig = IosConfiguration(
+      autoStart: true,
+      onBackground: onIosBackground,
+      onForeground: onStart,
+    );
+
+    await service.configure(
+        iosConfiguration: iosConfig, androidConfiguration: androidConfig);
+  }
+
+  Future<void> runBackgroundTasks() async {
+    await checkFreizeitenNotification();
+    await checkNeuigkeitenNotification();
+  }
+
+  /// Backgroundtask for push-notifications for new News
+  Future<void> checkNeuigkeitenNotification() async {
     await GetStorage.init();
     final prefs = GetStorage();
     List<News> downloadedNeuigkeiten = List.empty(growable: true);
@@ -22,7 +46,12 @@ class BackgroundServicesManager {
     List<dynamic> cachedNeuigkeitenTitel = prefs.read("cached_neuigkeiten");
 
     //Downloading content from internet
-    downloadedNeuigkeiten = await NewsRemoteDatasource().getNews();
+    try {
+      downloadedNeuigkeiten = await NewsRemoteDatasource().getNews();
+    } catch (e) {
+      return;
+    }
+
     for (int i = 0; i < downloadedNeuigkeiten.length; i++) {
       downloadedNeuigkeitenTitel.add(downloadedNeuigkeiten[i].title);
     }
@@ -34,7 +63,8 @@ class BackgroundServicesManager {
       return a.toLowerCase().compareTo(b.toLowerCase());
     });
     //checking if List is diffrent from data in cache
-    if (!listEquals(cachedNeuigkeitenTitel, downloadedNeuigkeitenTitel)) {
+    if (!listEquals(cachedNeuigkeitenTitel, downloadedNeuigkeitenTitel) &&
+        downloadedNeuigkeiten.isNotEmpty) {
       //storing new news
       prefs.write("cached_neuigkeiten", downloadedNeuigkeitenTitel);
       //Displaying notification
@@ -53,11 +83,8 @@ class BackgroundServicesManager {
     }
   }
 
-  ///Backgroundtask for push-notifications in Freizeiten-Channel\
-  /// _checkFreizeitenNotificationHeadless loads the newest Freizeiten from the FreizeitenRemoteDatasource
-  /// and checks if there are more Freizeiten than lasttime and fires a notification if it has grown
-  /// @params taskId: taskID for Background fetch
-  static Future<void> checkFreizeitenNotification() async {
+  ///Backgroundtask for push-notifications in Freizeiten-Channel
+  Future<void> checkFreizeitenNotification() async {
     // Initiliaze GetStorage for getting Prefrences
     await GetStorage.init();
     final prefs = GetStorage();
@@ -65,7 +92,12 @@ class BackgroundServicesManager {
     List<int> downloadedCampsIDs = List.empty(growable: true);
     List<dynamic> cachedCamps = prefs.read("cached_freizeiten");
 
-    downloadedCamps = await CampsRemoteDatasource().getFreizeiten();
+    try {
+      downloadedCamps = await CampsRemoteDatasource().getFreizeiten();
+    } catch (e) {
+      return;
+    }
+
     //Downloading content from internet
     for (var i = 0; i < downloadedCamps.length; i++) {
       downloadedCampsIDs.add(downloadedCamps[i].id);
@@ -74,7 +106,8 @@ class BackgroundServicesManager {
     downloadedCampsIDs.sort();
     cachedCamps.sort();
     // List of available camps are compared by their title
-    if (!listEquals(cachedCamps, downloadedCampsIDs)) {
+    if (!listEquals(cachedCamps, downloadedCampsIDs) &&
+        downloadedCamps.isNotEmpty) {
       //storing actual length of Neuigkeiten in SharedPrefrences
       prefs.write("cached_freizeiten", downloadedCampsIDs);
       //Displaying notification
@@ -92,4 +125,36 @@ class BackgroundServicesManager {
       }
     }
   }
+}
+
+@pragma('vm:entry-point')
+void onStart(ServiceInstance service) async {
+  DartPluginRegistrant.ensureInitialized();
+
+  // Set background service parameters
+  if (service is AndroidServiceInstance) {
+    service.on('setAsForeground').listen((event) {
+      service.setAsForegroundService();
+    });
+    service.on('setAsBackground').listen((event) {
+      service.setAsBackgroundService();
+    });
+  }
+  service.on('stopService').listen((event) {
+    service.stopSelf();
+  });
+
+  Timer.periodic(const Duration(minutes: 15), (timer) async {
+    BackgroundServicesManager().runBackgroundTasks();
+    service.invoke(
+      'update',
+    );
+  });
+}
+
+@pragma('vm:entry-point')
+Future<bool> onIosBackground(ServiceInstance service) async {
+  WidgetsFlutterBinding.ensureInitialized();
+  DartPluginRegistrant.ensureInitialized();
+  return true;
 }

@@ -5,6 +5,7 @@ import 'package:eje/core/error/exception.dart';
 import 'package:eje/core/platform/location.dart';
 import 'package:eje/core/utils/env.dart';
 import 'package:eje/pages/freizeiten/domain/entities/camp.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 import 'package:html2md/html2md.dart' as html2md;
@@ -75,7 +76,7 @@ class CampsRemoteDatasource {
             maxPlaces: responseData[i]['maxplaces'] ?? 0,
             location: responseData[i]['location'] != null
                 ? _parseLocation(responseData[i]['location'])
-                : Location("Musterort", "Musterstraße 1", "12345 Musterstadt"),
+                : Location("", "", ""),
             registrationLink: responseData[i]['registrationLink'] ?? "",
             pictures: pictures.isNotEmpty ? pictures : [""],
             description: responseData[i]['description'] != null
@@ -105,6 +106,7 @@ class CampsRemoteDatasource {
         }
       }
       camps.sort((item1, item2) => item1.startDate.compareTo(item2.startDate));
+      _setPrefrenceCachedFreizeiten(camps);
       return camps;
     } else {
       throw ServerException();
@@ -145,5 +147,13 @@ class CampsRemoteDatasource {
     } else {
       return 0;
     }
+  }
+
+  void _setPrefrenceCachedFreizeiten(List<Camp> camps) {
+    List<int> campsIds = List.empty(growable: true);
+    for (var i = 0; i < camps.length; i++) {
+      campsIds.add(camps[i].id);
+    }
+    GetStorage().write("cached_freizeiten", campsIds);
   }
 }
