@@ -38,8 +38,8 @@ Future<void> startup() async {
     // await Permission.ignoreBatteryOptimizations.request();
   }
   // Reset filters
-  prefs.write("campFilterAge", 0);
-  prefs.write("campFilterPrice", 0);
+  prefs.write("campFilterAge", -1);
+  prefs.write("campFilterPrice", -1);
   prefs.write("campFilterStartDate", "");
   prefs.write("campFilterEndDate", "");
   //Setting Hive up

@@ -70,63 +70,66 @@ class CampsPageViewer extends StatelessWidget {
         child: SingleChildScrollView(
           physics: AlwaysScrollableScrollPhysics(),
           child: ConstrainedBox(
-            // FIXME visual glitches when filter returns no items
-            constraints: BoxConstraints(
-                minHeight: MediaQuery.of(context).size.height - 50),
-            child: camps.isNotEmpty
-                ? Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      SizedBox(height: 65),
-                      Container(
-                        height: 400,
-                        child: Swiper(
-                          itemBuilder: (BuildContext context, int index) {
-                            return CampCard(camp: camps[index]);
-                          },
-                          itemCount: camps.length,
-                          itemHeight: 350,
-                          itemWidth: 325,
-                          layout: SwiperLayout.STACK,
-                          loop: true,
-                        ),
-                      ),
-                      FilterCard(),
-                    ],
-                  )
-                // Return placeholder if no camps are available to display
-                : Stack(
-                    alignment: AlignmentDirectional.bottomCenter,
-                    children: [
-                      NoResultCard(
-                        label: "Keine Freizeiten gefunden",
-                        isError: false,
-                        onRefresh: () async {
-                          BlocProvider.of<CampsBloc>(context)
-                              .add(RefreshCamps());
-                        },
-                      ),
-                      Column(
+              // FIXME visual glitches when filter returns no items
+              constraints: BoxConstraints(
+                  minHeight: MediaQuery.of(context).size.height - 50),
+              child: camps.isNotEmpty
+                  ? Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          FilterCard(
-                            hideWhenEmpy: true,
+                          SizedBox(height: 65),
+                          Container(
+                            height: 400,
+                            child: Swiper(
+                              itemBuilder: (BuildContext context, int index) {
+                                return CampCard(camp: camps[index]);
+                              },
+                              itemCount: camps.length,
+                              itemHeight: 350,
+                              itemWidth: 325,
+                              layout: SwiperLayout.STACK,
+                              loop: true,
+                            ),
                           ),
-                          SizedBox(
-                            height: 40,
-                          )
+                          FilterCard(),
                         ],
                       ),
-                    ],
-                  ),
-          ),
+                    )
+                  // Return placeholder if no camps are available to display
+                  : Center(
+                      child: Stack(
+                        alignment: AlignmentDirectional.bottomCenter,
+                        children: [
+                          NoResultCard(
+                            label: "Keine Freizeiten gefunden",
+                            isError: false,
+                            onRefresh: () async {
+                              BlocProvider.of<CampsBloc>(context)
+                                  .add(RefreshCamps());
+                            },
+                          ),
+                          Column(
+                            children: [
+                              FilterCard(
+                                hideWhenEmpy: true,
+                              ),
+                              SizedBox(
+                                height: 40,
+                              )
+                            ],
+                          ),
+                        ],
+                      ),
+                    )),
         ),
       ),
     );
   }
 }
 
-Future<dynamic> createFilterDialog({required BuildContext context}) {
+Future<dynamic> createFilterDialog({required BuildContext parentContext}) {
   const String dialogTitle = "Freizeiten filtern";
   const String ageFilterLable = "Alter";
   const String ageFilterHelper = "Alter des anzumeldenden Teilnehmers";
@@ -142,12 +145,12 @@ Future<dynamic> createFilterDialog({required BuildContext context}) {
   const double height = 20;
 
   // Values that can be filtered
-  int age = 0;
-  int price = 0;
+  int age = -1;
+  int price = -1;
   DateTimeRange? date;
 
   return showDialog(
-      context: context,
+      context: parentContext,
       builder: (context) {
         return AlertDialog(
           title: Text(dialogTitle),
@@ -157,12 +160,14 @@ Future<dynamic> createFilterDialog({required BuildContext context}) {
                 // Age
                 TextField(
                   controller: TextEditingController(
-                      text: GetStorage().read("campFilterAge") != 0
+                      text: GetStorage().read("campFilterAge") >= 0
                           ? GetStorage().read("campFilterAge").toString()
                           : ""),
                   keyboardType: TextInputType.number,
                   onChanged: (value) {
-                    age = int.parse(value);
+                    if (value.isNotEmpty) {
+                      age = int.parse(value);
+                    }
                   },
                   decoration: InputDecoration(
                     floatingLabelStyle: TextStyle(
@@ -182,12 +187,14 @@ Future<dynamic> createFilterDialog({required BuildContext context}) {
                 // Price
                 TextField(
                   controller: TextEditingController(
-                      text: GetStorage().read("campFilterPrice") != 0
+                      text: GetStorage().read("campFilterPrice") >= 0
                           ? GetStorage().read("campFilterPrice").toString()
                           : ""),
                   keyboardType: TextInputType.number,
                   onChanged: (value) {
-                    price = int.parse(value);
+                    if (value.isNotEmpty) {
+                      price = int.parse(value);
+                    }
                   },
                   decoration: InputDecoration(
                     floatingLabelStyle: TextStyle(
@@ -247,17 +254,17 @@ Future<dynamic> createFilterDialog({required BuildContext context}) {
               onPressed: () {
                 final prefs = GetStorage();
                 if (age != 0) {
-                  if (age >= 0 && age < 130) {
+                  if (age >= -1 && age < 130) {
                     prefs.write("campFilterAge", age);
-                  } else {
+                  } else if (age != -1) {
                     AlertSnackbar(context).showWarningSnackBar(
                         label: "Ein Mensch kann nicht so Jung/Alt sein");
                   }
                 }
 
-                if (price >= 0) {
+                if (price >= -1) {
                   prefs.write("campFilterPrice", price);
-                } else {
+                } else if (price != -1) {
                   AlertSnackbar(context).showWarningSnackBar(
                       label: "Preis kann nicht negativ sein");
                 }
@@ -266,7 +273,7 @@ Future<dynamic> createFilterDialog({required BuildContext context}) {
                   prefs.write("campFilterStartDate", date!.start.toString());
                   prefs.write("campFilterEndDate", date!.end.toString());
                 }
-                BlocProvider.of<CampsBloc>(context).add(FilteringCamps());
+                BlocProvider.of<CampsBloc>(parentContext).add(FilteringCamps());
                 Navigator.of(context).pop();
               },
               child: Text("Bestätigen"),
@@ -282,7 +289,7 @@ class FilterCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ChipsWrap chipsWidget = ChipsWrap();
+    ChipsWrap chipsWidget = ChipsWrap(context);
 
     if (hideWhenEmpy && chipsWidget.length == 0) {
       return Container();
@@ -299,7 +306,7 @@ class FilterCard extends StatelessWidget {
             ),
             trailing: IconButton(
               onPressed: () async {
-                await createFilterDialog(context: context);
+                await createFilterDialog(parentContext: context);
               },
               icon: Icon(
                 Icons.add,
@@ -316,10 +323,11 @@ class FilterCard extends StatelessWidget {
 class ChipsWrap extends StatelessWidget {
   final prefs = GetStorage();
   final double elevation = 4;
+  late final BuildContext parentContext;
   late final List<Widget> chips;
   late final int length;
 
-  ChipsWrap() {
+  ChipsWrap(this.parentContext) {
     chips = generateChips();
     length = chips.length;
   }
@@ -327,24 +335,28 @@ class ChipsWrap extends StatelessWidget {
   List<Widget> generateChips() {
     List<Widget> chips = List.empty(growable: true);
     // Read filters from storage and create chip if filter is active
-    if (prefs.read("campFilterAge") != 0) {
+    if (prefs.read("campFilterAge") >= 0) {
       chips.add(
         _filterChip(
           dataLabel: prefs.read("campFilterAge").toString(),
           icon: Icons.cake,
           onDeleted: () async {
-            await prefs.write("campFilterAge", 0);
+            await prefs.write("campFilterAge", -1);
+            BlocProvider.of<CampsBloc>(parentContext)
+                .add(DeletingCampsFilter());
           },
         ),
       );
     }
-    if (prefs.read("campFilterPrice") != 0) {
+    if (prefs.read("campFilterPrice") >= 0) {
       chips.add(
         _filterChip(
           dataLabel: prefs.read("campFilterPrice").toString(),
           icon: Icons.euro,
           onDeleted: () async {
-            await prefs.write("campFilterPrice", 0);
+            await prefs.write("campFilterPrice", -1);
+            BlocProvider.of<CampsBloc>(parentContext)
+                .add(DeletingCampsFilter());
           },
         ),
       );
@@ -359,6 +371,8 @@ class ChipsWrap extends StatelessWidget {
           onDeleted: () async {
             await prefs.write("campFilterStartDate", "");
             await prefs.write("campFilterEndDate", "");
+            BlocProvider.of<CampsBloc>(parentContext)
+                .add(DeletingCampsFilter());
           },
         ),
       );
@@ -368,10 +382,7 @@ class ChipsWrap extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    length = chips.length;
-    if (length != 0) {
-      BlocProvider.of<CampsBloc>(context).add(DeletingCampsFilter());
-    }
+    if (length != 0) {}
     return Wrap(
       children: chips,
     );

@@ -75,21 +75,33 @@ class CampsBloc extends Bloc<CampEvent, CampState> {
     if (prefs.read("campFilterStartDate") != "" &&
         prefs.read("campFilterEndDate") != "") {
       print("Camps Bloc: Filtering by date");
+
       filteredCamps = filteredCamps
-          .where((element) => element.startDate.isAfter(
-              DateTime.tryParse(prefs.read("campFilterStartDate")) ??
-                  DateTime.now()))
+          .where((element) =>
+              element.startDate.isAfter(
+                  DateTime.tryParse(prefs.read("campFilterStartDate")) ??
+                      DateTime.now()) ||
+              element.startDate.isAtSameMomentAs(
+                  DateTime.tryParse(prefs.read("campFilterStartDate")) ??
+                      DateTime.now()))
           .toList();
+      print(filteredCamps);
       filteredCamps = filteredCamps
-          .where((element) => element.endDate.isBefore(
-              DateTime.tryParse(prefs.read("campFilterEndDate")) ??
-                  DateTime.now()))
+          .where((element) =>
+              element.endDate.isBefore(
+                  DateTime.tryParse(prefs.read("campFilterEndDate")) ??
+                      DateTime.now()) ||
+              element.endDate.isAtSameMomentAs(
+                  DateTime.tryParse(prefs.read("campFilterEndDate")) ??
+                      DateTime.now()))
           .toList();
+      print(filteredCamps);
     }
     // Filtering by age
     if (prefs.read("campFilterAge") >= 0 &&
-        prefs.read("campFilterAge") >= 130) {
+        prefs.read("campFilterAge") <= 130) {
       print("Camps Bloc: Filtering by age");
+      print(prefs.read("campFilterAge"));
       filteredCamps = filteredCamps
           .where((element) =>
               element.ageFrom <= prefs.read("campFilterAge") &&
@@ -98,6 +110,7 @@ class CampsBloc extends Bloc<CampEvent, CampState> {
     }
     // Filtering by price
     if (prefs.read("campFilterPrice") >= 0) {
+      print(prefs.read("campFilterPrice"));
       print("Camps Bloc: Filtering by price");
       filteredCamps = filteredCamps
           .where((element) => element.price <= prefs.read("campFilterPrice"))
