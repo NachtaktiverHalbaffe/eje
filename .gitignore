@@ -15,7 +15,7 @@ env.g.dart
 .buildlog/
 .history
 .svn/
-
+!.devcontainer/*
 # IntelliJ related
 *.iml
 *.ipr

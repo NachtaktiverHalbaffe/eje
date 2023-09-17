@@ -6,114 +6,74 @@ version: 1.0.0+1
 environment:
   sdk: ">=2.18.1 <3.0.0"
 
-# For building for android, run "flutter build appbundle --release" in terminal
-# to get an Appbundle which includes three apks for each architecture ==> good for uploading to google play store
-# "flutter build apk --split-per-abi" can be used to generate three seperate apk
-# for each architecture
-# "flutter build apk" can be used to build to generate one big fat apk file which works on all architectures
-
-# --obfuscate --split-debug-info=/home/nachtaktiverhalbaffe/dev/eje/logs     obfuscates the apk so its harder to read for humans. Works on all building types
-
 dependencies:
+  add_2_calendar: ^2.2.3
+  bloc: ^8.1.1
+  cached_network_image: ^3.2.3
+  connectivity_plus: ^4.0.2
+  cupertino_icons: ^1.0.3
+  dartz: ^0.10.0
+  decorated_icon: ^1.2.1
+  envied: ^0.3.0
+  equatable: ^2.0.3
   flutter:
     sdk: flutter
-
-  # The following adds the Cupertino Icons font to your application.
-  # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^1.0.3
-  material_design_icons_flutter: ^6.0.7096
-  json_serializable: ^6.6.1
-  flutter_launcher_icons: ^0.12.0
-  flutter_native_splash: ^2.2.19
-  # Offline Database
-  hive: ^2.0.4
-  # For Storing Settings
-  get_storage: ^2.0.3
-  # For OS-Specific directories paths
-  path_provider: ^2.0.5
-  # Service locator
-  get_it: ^7.2.0
-  # Bloc for state management
-  bloc: ^8.1.1
   flutter_bloc: ^8.1.2
-  # Value equality
-  equatable: ^2.0.3
-  # Functional programming thingies
-  dartz: ^0.10.0
-  # To deal with internationalized Datetime Formats
-  intl: ^0.17.0
-  # Remote API
-  internet_connection_checker: ^1.0.0+1
-  connectivity: ^3.0.6
-  http: ^0.13.3
-  # Webscraping
-  html: ^0.15.0
-  # RSS Feed
-  # dart_rss: ^2.0.1
-  # webfeed_plus: ^1.0.0
-  webfeed:
-    # FIXME use stable dependecy
-    git:
-      url: https://github.com/arhamcode/webfeed.git
-  # Url opener
-  url_launcher: ^6.1.6
-  maps_launcher: ^2.0.1
-  # to save events to calendar
-  add_2_calendar: ^2.2.3
-  # Pageviewer Indicator
-  page_view_indicators: ^2.0.0
-  # Carousel PageView
-  flutter_swiper_plus: ^2.0.4
-  # Icon Shadows
-  decorated_icon: ^1.2.1
-  # Bottom Nav bar
-  persistent_bottom_nav_bar: ^5.0.2
-  # Cached Networkimage
-  cached_network_image: ^3.2.3
-  # Markdown editor
-  flutter_markdown: ^0.6.13
-  html2md: ^1.2.6
-  # Local Push-Notification
-  flutter_local_notifications: ^13.0.0
-  # Background services
-  workmanager: ^0.5.1
-  # For secrets
-  envied: ^0.3.0
+  flutter_launcher_icons: ^0.13.1
+  flutter_local_notifications: ^15.1.1
+  flutter_markdown: ^0.6.17+3
+  flutter_native_splash: ^2.2.19
   flutter_native_timezone: ^2.0.0
-  # For managing permissions
-  permission_handler: ^10.2.0
+  flutter_swiper_plus: ^2.0.4
+  get_it: ^7.2.0
+  get_storage: ^2.0.3
+  hive: ^2.0.4
+  html: ^0.15.0
+  html2md: ^1.2.6
+  http: ^1.1.0
+  internet_connection_checker: ^1.0.0+1
+  intl: ^0.18.1
+  json_serializable: ^6.6.1
+  maps_launcher: ^2.0.1
+  material_design_icons_flutter: ^7.0.7296
+    # To get app version as string
+  package_info_plus: ^4.1.0
+  page_view_indicators: ^2.0.0
+  path_provider: ^2.0.5
+  permission_handler: ^11.0.0
+  persistent_bottom_nav_bar: ^5.0.2
+  rxdart: ^0.27.7
+  timezone: ^0.9.2
+  url_launcher: ^6.1.6
+  webfeed_revised: ^0.7.1
+  workmanager: ^0.5.1
 
-# To run build runners und generators, run
-# "flutter packages pub run build_runner build --delete-conflicting-outputs" in terminal
 dev_dependencies:
+  build_runner: ^2.3.2
+  # generating secrets
+  envied_generator: ^0.3.0
   flutter_test:
     sdk: flutter
     # For Hive to create offline database
   hive_generator: ^2.0.0
-  # generating secrets
-  envied_generator: ^0.3.0
-  build_runner: ^2.3.2
   #  linting
   lints: ^2.0.1
-  # To get app version as string
-  package_info_plus: ^3.0.3
 
 # App icon
-# To generate App-Icon run "flutter pub run flutter_launcher_icons:main" in the terminal
-flutter_icons:
+flutter_launcher_icons:
   android: true
   ios: true
   remove_alpha_ios: true
   image_path: "assets/images/app_icon.png"
 
 # Splash screen
-# To generate splash screen run "flutter pub run flutter_native_splash:create" in the terminal
 flutter_native_splash:
   color: "#000000"
   image: "assets/images/ejelogo.png"
 
   android_12:
     color: "#000000"
+    icon_background_color: "#FFFFFFFF"
     # image: "assets/images/ejelogo_small.png"
 
 flutter:

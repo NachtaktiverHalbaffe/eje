@@ -11,12 +11,17 @@
 				"dart-code.dart-code",
 				"dart-code.flutter",
 				"gruntfuggly.todo-tree",
-				"aaron-bond.better-comments"
+				"aaron-bond.better-comments",
+				"usernamehw.errorlens",
+				"jeroen-meijer.pubspec-assist",
+				"nash.awesome-flutter-snippets",
+				"alexisvt.flutter-snippets",
+				"rangav.vscode-thunder-client"
 			],
 			"settings": {
-				"terminal.integrated.shell.linux": "/bin/bash",
-			},
-		},
+				"terminal.integrated.shell.linux": "/bin/bash"
+			}
+		}
 	},
 	"runArgs": [
 		"--privileged",
@@ -29,7 +34,7 @@
 		"-v",
 		"/tmp/.X11-unix:/tmp/.X11-unix",
 		"-e",
-		"DISPLAY",
+		"DISPLAY"
 	],
 	// This command create an example project after the container is created.
 	"postCreateCommand": "flutter pub get",

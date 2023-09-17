@@ -10,6 +10,83 @@
 				"kind": "build",
 				"isDefault": true
 			}
-		}
+		},
+		{ // build and ios app
+			"type": "flutter",
+			"command": "flutter",
+			"args": [
+				"build",
+				"ios",
+			],
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			},
+			"problemMatcher": [],
+			"label": "Flutter: build ios for prod"
+		},
+		{ // build an android apk
+			"type": "flutter",
+			"command": "flutter",
+			"args": [
+				"build",
+				"apk",
+				"--release",
+				"--obfuscate",
+				"--split-debug-info=/workspaces/eje/logs"
+			],
+			"group": "build",
+			"problemMatcher": [],
+			"label": "Flutter: build apk for prod"
+		},
+		{ // build an android appbundle
+			"type": "flutter",
+			"command": "flutter",
+			"args": [
+				"build",
+				"appbundle",
+				"--release",
+				"--obfuscate",
+				"--split-debug-info=/workspaces/eje/logs"
+			],
+			"group": "build",
+			"problemMatcher": [],
+			"label": "Flutter: build appbundle for prod"
+		},
+		{ // run build_runner for generating code
+			"type": "flutter",
+			"command": "dart",
+			"args": [
+				"run",
+				"build_runner",
+				"build",
+				"--delete-conflicting-outputs"
+			],
+			"group": "build",
+			"problemMatcher": [],
+			"label": "Flutter: run build_runner"
+		},
+		{ // generate app icons
+			"type": "flutter",
+			"command": "dart",
+			"args": [
+				"run",
+				"flutter_launcher_icons:main",
+			],
+			"group": "build",
+			"problemMatcher": [],
+			"label": "Flutter: generate app icons"
+		},
+		{ // generate splash screen
+			"type": "flutter",
+			"command": "dart",
+			"args": [
+				"run",
+				"flutter_native_splash:create",
+			],
+			"group": "build",
+			"problemMatcher": [],
+			"label": "Flutter: generate splash screen"
+		},
 	]
 }
