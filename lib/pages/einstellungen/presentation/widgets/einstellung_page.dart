@@ -5,6 +5,7 @@ import 'package:eje/pages/einstellungen/presentation/bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -231,23 +232,28 @@ class EinstellungenPage extends StatelessWidget {
               onPressed: () async {
                 showAboutDialog(
                   context: context,
-                  //TODO Update Appicon
-                  applicationIcon: Icon(CostumIcons.eje),
+                  applicationIcon: Image.asset(
+                    "assets/images/ejelogo.png",
+                    color: Theme.of(context).textTheme.bodyLarge!.color,
+                    width: 60,
+                    height: 50,
+                  ),
                   applicationName: 'Über die App',
                   applicationVersion: await PackageInfo.fromPlatform()
                       .then((value) => value.version.toString()),
                   applicationLegalese: 'Entwickelt vom LeMonkay VT&IT',
                   children: <Widget>[
                     Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
                         SizedBox(
                           height: 40 / MediaQuery.of(context).devicePixelRatio,
                         ),
                         Text(
-                          'Inhaltliche Administration durch das Evang. Jugendwerk Bezirk Esslingen',
+                          'Inhaltliche Administration durch das Evang. Jugendwerk Bezirk Esslingen.',
                         ),
                         SizedBox(
-                          height: 60 / MediaQuery.of(context).devicePixelRatio,
+                          height: 30 / MediaQuery.of(context).devicePixelRatio,
                         ),
                         OutlinedButton(
                           style: OutlinedButton.styleFrom(

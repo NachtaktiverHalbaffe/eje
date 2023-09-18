@@ -15,9 +15,18 @@ final TextButtonThemeData TEXT_BUTTON_THEMEDATA = TextButtonThemeData(
   ),
 );
 
+final MaterialStateProperty<Icon?> THUMB_ICON =
+    MaterialStateProperty.resolveWith<Icon?>((states) {
+  if (states.contains(MaterialState.selected)) {
+    return const Icon(Icons.check);
+  }
+  return const Icon(Icons.close);
+});
+
 ThemeData getAppDarkTheme() {
   ThemeData themeDark = ThemeData.dark();
   return themeDark.copyWith(
+    useMaterial3: true,
     colorScheme: themeDark.colorScheme.copyWith(
       // Firmenfarbe
       secondary: COMPANY_COLOR,
@@ -30,23 +39,25 @@ ThemeData getAppDarkTheme() {
       selectionHandleColor: COMPANY_COLOR,
       cursorColor: COMPANY_COLOR,
     ),
+    switchTheme: themeDark.switchTheme.copyWith(thumbIcon: THUMB_ICON),
     checkboxTheme: CheckboxThemeData(
       side: BorderSide(
         color: themeDark.disabledColor,
         width: 2.0,
       ),
-      // fillColor: MaterialStateProperty.resolveWith((states) => COMPANY_COLOR),
     ),
-    // Only OutlinedButtons are used as buttons in this app
+    chipTheme: themeDark.chipTheme.copyWith(
+      side: BorderSide(style: BorderStyle.none),
+      shape: StadiumBorder(side: BorderSide(style: BorderStyle.none)),
+    ),
     outlinedButtonTheme: OUTLINED_BUTTON_THEMEDATA,
-    // Used in showAboutDialog
     textButtonTheme: TEXT_BUTTON_THEMEDATA,
     textTheme: TextTheme(
       labelSmall: TextStyle(color: COMPANY_COLOR),
     ),
-    // Used in LoadingIndicator and another loading animations
+    datePickerTheme: themeDark.datePickerTheme
+        .copyWith(rangeSelectionBackgroundColor: COMPANY_COLOR.withAlpha(100)),
     progressIndicatorTheme: ProgressIndicatorThemeData(color: COMPANY_COLOR),
-    //Iconcolors und Widgetcolors
     dividerColor: Colors.white,
   );
 }
@@ -55,32 +66,41 @@ ThemeData getAppLightTheme() {
   ThemeData themeLight = ThemeData.light();
 
   return themeLight.copyWith(
-    colorScheme: themeLight.colorScheme.copyWith(
-      // Firmenfarbe
-      secondary: COMPANY_COLOR,
-      background: Colors.white,
-      primary: COMPANY_COLOR,
-    ),
-    // Text colors
-    textSelectionTheme: themeLight.textSelectionTheme.copyWith(
-      selectionColor: COMPANY_COLOR,
-      selectionHandleColor: COMPANY_COLOR,
-      cursorColor: COMPANY_COLOR,
-    ),
-    primaryTextTheme:
-        Typography.material2021(platform: TargetPlatform.android).black,
-    textTheme: Typography.material2021(platform: TargetPlatform.android).black,
-    // Only OutlinedButtons are used as buttons in this app
-    outlinedButtonTheme: OUTLINED_BUTTON_THEMEDATA,
-    // Used in showAboutDialog
-    textButtonTheme: TEXT_BUTTON_THEMEDATA,
-    checkboxTheme: CheckboxThemeData(
-      side: BorderSide(color: themeLight.disabledColor, width: 2.0),
-      // checkColor: MaterialStateProperty.resolveWith((states) => COMPANY_COLOR),
-    ),
-    // Used in LoadingIndicator and another loading animations
-    progressIndicatorTheme: ProgressIndicatorThemeData(color: COMPANY_COLOR),
-    primaryIconTheme: IconThemeData(color: Colors.black),
-    dividerColor: Colors.black,
-  );
+      useMaterial3: true,
+      colorScheme: themeLight.colorScheme.copyWith(
+        secondary: COMPANY_COLOR,
+        background: Colors.white,
+        primary: COMPANY_COLOR,
+        outline: Colors.black54,
+      ),
+      textSelectionTheme: themeLight.textSelectionTheme.copyWith(
+        selectionColor: COMPANY_COLOR,
+        selectionHandleColor: COMPANY_COLOR,
+        cursorColor: COMPANY_COLOR,
+      ),
+      primaryTextTheme:
+          Typography.material2021(platform: TargetPlatform.android)
+              .black
+              .apply(bodyColor: Colors.black87),
+      textTheme: Typography.material2021(platform: TargetPlatform.android)
+          .black
+          .apply(bodyColor: Colors.black87),
+      outlinedButtonTheme: OUTLINED_BUTTON_THEMEDATA,
+      textButtonTheme: TEXT_BUTTON_THEMEDATA,
+      checkboxTheme: CheckboxThemeData(
+        side: BorderSide(color: themeLight.disabledColor, width: 2.0),
+      ),
+      switchTheme: themeLight.switchTheme.copyWith(thumbIcon: THUMB_ICON),
+      chipTheme: themeLight.chipTheme.copyWith(
+        side: BorderSide(style: BorderStyle.none),
+        shape: StadiumBorder(side: BorderSide(style: BorderStyle.none)),
+      ),
+      datePickerTheme: themeLight.datePickerTheme.copyWith(
+          rangeSelectionBackgroundColor: COMPANY_COLOR.withAlpha(100)),
+      progressIndicatorTheme: ProgressIndicatorThemeData(color: COMPANY_COLOR),
+      primaryIconTheme: IconThemeData(color: Colors.black),
+      listTileTheme: themeLight.listTileTheme
+          .copyWith(textColor: Color.fromARGB(200, 0, 0, 0)),
+      dividerColor: Colors.black,
+      dividerTheme: themeLight.dividerTheme.copyWith(color: Colors.black54));
 }

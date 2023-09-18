@@ -84,7 +84,7 @@ class CampCard extends StatelessWidget {
                         padding: EdgeInsets.symmetric(horizontal: 12),
                         child: AutoSizeText(
                           camp.subtitle,
-                          maxLines: 2,
+                          maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
                             fontSize: 17,
@@ -133,9 +133,10 @@ class CampCard extends StatelessWidget {
                                 Icon(Icons.today),
                                 SizedBox(width: 4),
                                 Flexible(
-                                  child: Text(
-                                    "${DateFormat('dd.MM.yyyy').format(camp.startDate)} - ${DateFormat('dd.MM.yyyy').format(camp.endDate)}",
+                                  child: AutoSizeText(
+                                    "${DateFormat('dd.MM.').format(camp.startDate)} - ${DateFormat('dd.MM.yyyy').format(camp.endDate)}",
                                     overflow: TextOverflow.ellipsis,
+                                    maxLines: 1,
                                     style: TextStyle(
                                       fontSize: 12.5,
                                     ),

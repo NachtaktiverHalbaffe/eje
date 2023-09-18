@@ -9,6 +9,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_swiper_plus/flutter_swiper_plus.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:intl/intl.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 import 'domain/entities/camp.dart';
 
@@ -70,7 +71,6 @@ class CampsPageViewer extends StatelessWidget {
         child: SingleChildScrollView(
           physics: AlwaysScrollableScrollPhysics(),
           child: ConstrainedBox(
-              // FIXME visual glitches when filter returns no items
               constraints: BoxConstraints(
                   minHeight: MediaQuery.of(context).size.height - 50),
               child: camps.isNotEmpty
@@ -130,18 +130,26 @@ class CampsPageViewer extends StatelessWidget {
 }
 
 Future<dynamic> createFilterDialog({required BuildContext parentContext}) {
-  const String dialogTitle = "Freizeiten filtern";
   const String ageFilterLable = "Alter";
   const String ageFilterHelper = "Alter des anzumeldenden Teilnehmers";
   const String priceFilterLable = "Preis";
   const String priceFilterHelper = "Maximal möglicher Preis";
   const String dateFilterLable = "Zeitraum auswählen";
+  const String dateFilterHelper = "Zeitraum, in der die Freizeit stattfindet";
 
   TextEditingController datetimeRangeController = TextEditingController(
     text: GetStorage().read("campFilterStartDate") != ""
         ? "${DateFormat('dd.MM.yyyy').format(DateTime.tryParse(GetStorage().read("campFilterStartDate")) ?? DateTime.now())} - ${DateFormat('dd.MM.yyyy').format(DateTime.tryParse(GetStorage().read("campFilterEndDate")) ?? DateTime.now())}"
         : "",
   );
+  TextEditingController ageTextController = TextEditingController(
+      text: GetStorage().read("campFilterAge") >= 0
+          ? GetStorage().read("campFilterAge").toString()
+          : "");
+  TextEditingController priceEditingController = TextEditingController(
+      text: GetStorage().read("campFilterPrice") >= 0
+          ? GetStorage().read("campFilterPrice").toString()
+          : "");
   const double height = 20;
 
   // Values that can be filtered
@@ -149,136 +157,143 @@ Future<dynamic> createFilterDialog({required BuildContext parentContext}) {
   int price = -1;
   DateTimeRange? date;
 
-  return showDialog(
+  return showModalBottomSheet(
       context: parentContext,
+      isScrollControlled: true,
+      showDragHandle: true,
       builder: (context) {
-        return AlertDialog(
-          title: Text(dialogTitle),
-          content: SingleChildScrollView(
-            child: Column(
-              children: [
-                // Age
-                TextField(
-                  controller: TextEditingController(
-                      text: GetStorage().read("campFilterAge") >= 0
-                          ? GetStorage().read("campFilterAge").toString()
-                          : ""),
-                  keyboardType: TextInputType.number,
-                  onChanged: (value) {
-                    if (value.isNotEmpty) {
-                      age = int.parse(value);
-                    }
-                  },
-                  decoration: InputDecoration(
-                    floatingLabelStyle: TextStyle(
-                        color: Theme.of(context).colorScheme.secondary),
-                    border: OutlineInputBorder(),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Theme.of(context).colorScheme.secondary,
-                        width: 2.0,
-                      ),
-                    ),
-                    labelText: ageFilterLable,
-                    helperText: ageFilterHelper,
-                  ),
-                ),
-                SizedBox(height: height),
-                // Price
-                TextField(
-                  controller: TextEditingController(
-                      text: GetStorage().read("campFilterPrice") >= 0
-                          ? GetStorage().read("campFilterPrice").toString()
-                          : ""),
-                  keyboardType: TextInputType.number,
-                  onChanged: (value) {
-                    if (value.isNotEmpty) {
-                      price = int.parse(value);
-                    }
-                  },
-                  decoration: InputDecoration(
-                    floatingLabelStyle: TextStyle(
-                        color: Theme.of(context).colorScheme.secondary),
-                    border: OutlineInputBorder(),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Theme.of(context).colorScheme.secondary,
-                        width: 2.0,
-                      ),
-                    ),
-                    labelText: priceFilterLable,
-                    helperText: priceFilterHelper,
-                  ),
-                ),
-                SizedBox(height: height),
-                TextField(
-                  controller: datetimeRangeController,
-                  decoration: InputDecoration(
-                    icon: Icon(Icons.calendar_today_outlined),
-                    labelText: dateFilterLable,
-                    floatingLabelStyle: TextStyle(
-                        color: Theme.of(context).colorScheme.secondary),
-                    border: OutlineInputBorder(),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Theme.of(context).colorScheme.secondary,
-                        width: 2.0,
-                      ),
-                    ),
-                  ),
-                  readOnly: true,
-                  onTap: () async {
-                    date = (await showDateRangePicker(
-                      context: context,
-                      firstDate: DateTime.now(),
-                      lastDate: DateTime.now().add(Duration(days: 365)),
-                      helpText: dateFilterLable,
-                      cancelText: "Abbrechen",
-                      saveText: "Bestätigen",
-                    ));
-                    datetimeRangeController.text =
-                        "${DateFormat('dd.MM.yyyy').format(date!.start)} - ${DateFormat('dd.MM.yyyy').format(date!.end)}";
-                  },
-                ),
-              ],
-            ),
-          ),
-          actions: <Widget>[
-            MaterialButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: Text("Abbrechen"),
-            ),
-            MaterialButton(
-              onPressed: () {
-                final prefs = GetStorage();
-                if (age != 0) {
-                  if (age >= -1 && age < 130) {
-                    prefs.write("campFilterAge", age);
-                  } else if (age != -1) {
-                    AlertSnackbar(context).showWarningSnackBar(
-                        label: "Ein Mensch kann nicht so Jung/Alt sein");
+        return SingleChildScrollView(
+          padding: EdgeInsets.only(
+              left: 20,
+              right: 20,
+              bottom: MediaQuery.of(context).viewInsets.bottom + height),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              // Text(
+              //   "Freizeiten filtern",
+              //   textAlign: TextAlign.center,
+              //   style: TextStyle(
+              //     fontSize: 20,
+              //     fontWeight: FontWeight.bold,
+              //     // color: Theme.of(context).colorScheme.primary,
+              //   ),
+              // ),
+              // SizedBox(height: height),
+              // Age
+              TextField(
+                controller: ageTextController,
+                keyboardType: TextInputType.number,
+                onChanged: (value) {
+                  ageTextController.text = value;
+                  if (value.isNotEmpty) {
+                    age = int.parse(value);
                   }
-                }
+                },
+                decoration: InputDecoration(
+                  icon: Icon(Icons.cake),
+                  floatingLabelStyle:
+                      TextStyle(color: Theme.of(context).colorScheme.secondary),
+                  border: OutlineInputBorder(),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Theme.of(context).colorScheme.secondary,
+                      width: 2.0,
+                    ),
+                  ),
+                  labelText: ageFilterLable,
+                  helperText: ageFilterHelper,
+                ),
+              ),
+              SizedBox(height: height),
+              // Price
+              TextField(
+                controller: priceEditingController,
+                keyboardType: TextInputType.number,
+                onChanged: (value) {
+                  priceEditingController.text = value;
+                  if (value.isNotEmpty) {
+                    price = int.parse(value);
+                  }
+                },
+                decoration: InputDecoration(
+                  icon: Icon(Icons.euro),
+                  floatingLabelStyle:
+                      TextStyle(color: Theme.of(context).colorScheme.secondary),
+                  border: OutlineInputBorder(),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Theme.of(context).colorScheme.secondary,
+                      width: 2.0,
+                    ),
+                  ),
+                  labelText: priceFilterLable,
+                  helperText: priceFilterHelper,
+                ),
+              ),
+              SizedBox(height: height),
+              TextField(
+                controller: datetimeRangeController,
+                decoration: InputDecoration(
+                  icon: Icon(Icons.calendar_today_outlined),
+                  labelText: dateFilterLable,
+                  helperText: dateFilterHelper,
+                  floatingLabelStyle:
+                      TextStyle(color: Theme.of(context).colorScheme.secondary),
+                  border: OutlineInputBorder(),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Theme.of(context).colorScheme.secondary,
+                      width: 2.0,
+                    ),
+                  ),
+                ),
+                readOnly: true,
+                onTap: () async {
+                  date = (await showDateRangePicker(
+                    context: context,
+                    firstDate: DateTime.now(),
+                    lastDate: DateTime.now().add(Duration(days: 365)),
+                    helpText: dateFilterLable,
+                    cancelText: "Abbrechen",
+                    saveText: "Bestätigen",
+                  ));
+                  datetimeRangeController.text =
+                      "${DateFormat('dd.MM.yyyy').format(date!.start)} - ${DateFormat('dd.MM.yyyy').format(date!.end)}";
+                },
+              ),
+              SizedBox(height: height),
+              OutlinedButton(
+                onPressed: () {
+                  final prefs = GetStorage();
+                  if (age != -1) {
+                    if (age >= -1 && age < 130) {
+                      prefs.write("campFilterAge", age);
+                    } else if (age != -1) {
+                      AlertSnackbar(context).showWarningSnackBar(
+                          label: "Ein Mensch kann nicht so Jung/Alt sein");
+                    }
+                  }
 
-                if (price >= -1) {
-                  prefs.write("campFilterPrice", price);
-                } else if (price != -1) {
-                  AlertSnackbar(context).showWarningSnackBar(
-                      label: "Preis kann nicht negativ sein");
-                }
+                  if (price > -1) {
+                    prefs.write("campFilterPrice", price);
+                  } else if (price != -1) {
+                    AlertSnackbar(context).showWarningSnackBar(
+                        label: "Preis kann nicht negativ sein");
+                  }
 
-                if (date != null) {
-                  prefs.write("campFilterStartDate", date!.start.toString());
-                  prefs.write("campFilterEndDate", date!.end.toString());
-                }
-                BlocProvider.of<CampsBloc>(parentContext).add(FilteringCamps());
-                Navigator.of(context).pop();
-              },
-              child: Text("Bestätigen"),
-            ),
-          ],
+                  if (date != null) {
+                    prefs.write("campFilterStartDate", date!.start.toString());
+                    prefs.write("campFilterEndDate", date!.end.toString());
+                  }
+                  BlocProvider.of<CampsBloc>(parentContext)
+                      .add(FilteringCamps());
+                  Navigator.of(context).pop();
+                },
+                child: Text("Bestätigen"),
+              ),
+            ],
+          ),
         );
       });
 }
@@ -404,7 +419,6 @@ class ChipsRow extends StatelessWidget {
           icon: Icons.cake,
           onDeleted: () async {
             await prefs.write("campFilterAge", 0);
-            print(prefs.read("campFilterAge"));
             BlocProvider.of<CampsBloc>(context).add(DeletingCampsFilter());
           },
         ),

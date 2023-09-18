@@ -46,7 +46,6 @@ class NotificationPlugin {
               IOSFlutterLocalNotificationsPlugin>()!
           .requestPermissions(alert: false, badge: true, sound: true);
     }
-    //TODO Add notification icon
     var initializationSettingAndroid =
         AndroidInitializationSettings('ic_launcher');
     var initializationSettingIOS = DarwinInitializationSettings(

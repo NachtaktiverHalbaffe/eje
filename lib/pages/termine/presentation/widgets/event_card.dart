@@ -95,6 +95,7 @@ class EventCard extends StatelessWidget {
                                       Theme.of(context).colorScheme.secondary),
                             ),
                           ),
+                          SizedBox(width: 16)
                         ],
                       ),
                       SizedBox(
@@ -114,6 +115,7 @@ class EventCard extends StatelessWidget {
                               ),
                             ),
                           ),
+                          SizedBox(width: 16)
                         ],
                       ),
                       SizedBox(
