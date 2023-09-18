@@ -25,9 +25,24 @@ class Event extends Equatable {
   final int id;
   @HiveField(8)
   final String registrationLink;
+  @HiveField(9)
+  final int price;
+  @HiveField(10)
+  final int price2;
+  @HiveField(11)
+  final int ageFrom;
+  @HiveField(12)
+  final int ageTo;
+  @HiveField(13)
+  final DateTime registrationEnd;
 
   Event(
-      {required this.name,
+      {this.price = 0,
+      this.price2 = 0,
+      this.ageFrom = 0,
+      this.ageTo = 0,
+      required this.registrationEnd,
+      required this.name,
       this.motto = "",
       this.description = "",
       required this.images,
@@ -39,6 +54,11 @@ class Event extends Equatable {
 
   @override
   List<Object> get props => [
+        price,
+        price2,
+        ageFrom,
+        ageTo,
+        registrationEnd,
         name,
         motto,
         description,

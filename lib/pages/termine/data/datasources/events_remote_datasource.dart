@@ -42,9 +42,17 @@ class TermineRemoteDatasource {
             pictures.add(value["url"]);
           });
           events.add(Event(
+            ageFrom: responseData[i]['ageFrom'] ?? 0,
+            ageTo: responseData[i]['ageTo'] ?? 99,
             id: responseData[i]['id'] ?? 0,
             name: responseData[i]['name'] ?? "",
             motto: responseData[i]['teaser'] ?? "",
+            price: _parsePrice(responseData[i]['price']),
+            price2: _parsePrice(responseData[i]['price2']),
+            registrationEnd: responseData[i]['registrationEnd'] != null
+                ? DateTime.tryParse(responseData[i]['registrationEnd']) ??
+                    DateTime.now()
+                : DateTime.now(),
             images: pictures.isNotEmpty ? pictures : [""],
             description: responseData[i]['description'] != null
                 ? html2md.convert(responseData[i]['description'])
@@ -79,5 +87,18 @@ class TermineRemoteDatasource {
     String city = locationData['city'] ?? "";
     String postalCode = "$zip $city";
     return Location(adress, street, postalCode);
+  }
+
+  int _parsePrice(responseData) {
+    print(responseData);
+    if (responseData != null) {
+      if (int.tryParse(responseData.replaceAll(',-', '')) != null) {
+        return int.tryParse(responseData.replaceAll(',-', '')) ?? 0;
+      } else {
+        return 0;
+      }
+    } else {
+      return 0;
+    }
   }
 }

@@ -34,7 +34,8 @@ class CampsRemoteDatasource {
     if (response.statusCode == 200) {
       var responseData = json.decode(response.body)["data"];
       for (int i = 0; i < responseData.length; i++) {
-        if (responseData[i]['type'] == "Freizeit") {
+        if (responseData[i]['type'] == "Freizeit" ||
+            responseData[i]['type'] == "Seminar") {
           // Parse image entry from response to list of links
           List<String> pictures = List.empty(growable: true);
           responseData[i]["images"].forEach((value) {
@@ -139,8 +140,8 @@ class CampsRemoteDatasource {
 
   int _parsePrice(responseData) {
     if (responseData != null) {
-      if (int.tryParse(responseData.replaceAll(',- €', '')) != null) {
-        return int.tryParse(responseData.replaceAll(',- €', '')) ?? 0;
+      if (int.tryParse(responseData.replaceAll(',-', '')) != null) {
+        return int.tryParse(responseData.replaceAll(',-', '')) ?? 0;
       } else {
         return 0;
       }

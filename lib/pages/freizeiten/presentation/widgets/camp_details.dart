@@ -121,24 +121,6 @@ class _freizeitChildWidget extends StatelessWidget {
             },
           ),
         ),
-        freizeit.price != 0 || freizeit.price2 != 0
-            ? ListTile(
-                leading: Icon(
-                  MdiIcons.currencyEur,
-                  color: Theme.of(context).dividerColor,
-                  size: 72 / MediaQuery.of(context).devicePixelRatio,
-                ),
-                title: Text(
-                  freizeit.price != 0
-                      ? freizeit.price.toString()
-                      : freizeit.price2.toString(),
-                  style: TextStyle(
-                    fontSize: 42 / MediaQuery.of(context).devicePixelRatio,
-                    color: Theme.of(context).dividerColor,
-                  ),
-                ),
-              )
-            : Center(),
         freizeit.location.adress != ""
             ? ListTile(
                 leading: Icon(
@@ -178,6 +160,24 @@ class _freizeitChildWidget extends StatelessWidget {
             ),
           ),
         ),
+        freizeit.price != 0 || freizeit.price2 != 0
+            ? ListTile(
+                leading: Icon(
+                  MdiIcons.currencyEur,
+                  color: Theme.of(context).dividerColor,
+                  size: 72 / MediaQuery.of(context).devicePixelRatio,
+                ),
+                title: Text(
+                  freizeit.price != 0
+                      ? freizeit.price.toString()
+                      : freizeit.price2.toString(),
+                  style: TextStyle(
+                    fontSize: 42 / MediaQuery.of(context).devicePixelRatio,
+                    color: Theme.of(context).dividerColor,
+                  ),
+                ),
+              )
+            : Center(),
         freizeit.catering != ""
             ? ListTile(
                 leading: Icon(

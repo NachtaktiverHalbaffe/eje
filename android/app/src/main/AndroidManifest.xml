@@ -58,6 +58,7 @@ package="de.eje_esslingen.eje">
             android:hardwareAccelerated="true" 
             android:windowSoftInputMode="adjustResize" 
             android:showWhenLocked="false" 
+            android:screenOrientation="portrait"
             android:turnScreenOn="true">
             <!-- Theme to apply as soon as Flutter begins rendering frames -->
             <meta-data

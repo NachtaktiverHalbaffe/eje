@@ -12,6 +12,7 @@ import 'package:intl/intl.dart';
 import 'package:maps_launcher/maps_launcher.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../../../core/widgets/alert_snackbar.dart';
 
@@ -151,8 +152,68 @@ class _terminChildWidget extends StatelessWidget {
             },
           ),
         ),
+        ListTile(
+          leading: Icon(
+            MdiIcons.cakeVariant,
+            color: Theme.of(context).dividerColor,
+            size: 72 / MediaQuery.of(context).devicePixelRatio,
+          ),
+          title: Text(
+            "${_termin.ageFrom} - ${_termin.ageTo}",
+            style: TextStyle(
+              fontSize: 42 / MediaQuery.of(context).devicePixelRatio,
+              color: Theme.of(context).dividerColor,
+            ),
+          ),
+        ),
+        _termin.price != 0 || _termin.price2 != 0
+            ? ListTile(
+                leading: Icon(
+                  MdiIcons.currencyEur,
+                  color: Theme.of(context).dividerColor,
+                  size: 72 / MediaQuery.of(context).devicePixelRatio,
+                ),
+                title: Text(
+                  _termin.price != 0
+                      ? _termin.price.toString()
+                      : _termin.price2.toString(),
+                  style: TextStyle(
+                    fontSize: 42 / MediaQuery.of(context).devicePixelRatio,
+                    color: Theme.of(context).dividerColor,
+                  ),
+                ),
+              )
+            : Center(),
         SizedBox(
           height: 12,
+        ),
+        _termin.registrationLink != ""
+            ? ListTile(
+                leading: Icon(
+                  MdiIcons.fileDocumentEditOutline,
+                  color: Theme.of(context).dividerColor,
+                  size: 72 / MediaQuery.of(context).devicePixelRatio,
+                ),
+                title: OutlinedButton(
+                  onPressed: () async {
+                    if (await canLaunchUrlString(_termin.registrationLink)) {
+                      await launchUrlString(_termin.registrationLink);
+                    } else {
+                      throw 'Could not launch $_termin.registrationLink';
+                    }
+                  },
+                  child: Text(
+                    "Anmelden \n(Anmeldeschluss:${DateFormat('dd.MM.yyyy').format(_termin.registrationEnd)})",
+                    style: TextStyle(
+                      color: Theme.of(context).dividerColor,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              )
+            : Center(),
+        SizedBox(
+          height: 36 / MediaQuery.of(context).devicePixelRatio,
         ),
         Container(
           margin: EdgeInsets.all(8),
