@@ -58,13 +58,13 @@ class EventCard extends StatelessWidget {
                 children: [
                   Container(
                     width: MediaQuery.of(context).size.width,
-                    height: 275,
+                    height: 250,
                     color: Theme.of(context).cardColor,
                   ),
                   CachedImage(
                     url: event.images[0],
                     width: MediaQuery.of(context).size.width,
-                    height: 275,
+                    height: 250,
                   ),
                 ],
               ),
@@ -72,7 +72,7 @@ class EventCard extends StatelessWidget {
                 children: [
                   Container(
                     width: MediaQuery.of(context).size.width,
-                    height: 300,
+                    height: 325,
                     color: Theme.of(context).cardColor,
                   ),
                   Column(
@@ -95,7 +95,6 @@ class EventCard extends StatelessWidget {
                                       Theme.of(context).colorScheme.secondary),
                             ),
                           ),
-                          SizedBox(width: 16)
                         ],
                       ),
                       SizedBox(
@@ -119,12 +118,9 @@ class EventCard extends StatelessWidget {
                         ],
                       ),
                       SizedBox(
-                        height: 12,
+                        height: 8,
                       ),
                       Divider(),
-                      SizedBox(
-                        height: 4,
-                      ),
                       ListTile(
                         leading: Icon(
                           MdiIcons.calendar,
@@ -148,9 +144,6 @@ class EventCard extends StatelessWidget {
                               fontSize: 16,
                               color: Theme.of(context).dividerColor),
                         ),
-                      ),
-                      SizedBox(
-                        height: 6,
                       ),
                       OutlinedButton(
                         onPressed: () async {

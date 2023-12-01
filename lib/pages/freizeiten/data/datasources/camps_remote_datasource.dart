@@ -35,7 +35,8 @@ class CampsRemoteDatasource {
       var responseData = json.decode(response.body)["data"];
       for (int i = 0; i < responseData.length; i++) {
         if (responseData[i]['type'] == "Freizeit" ||
-            responseData[i]['type'] == "Seminar") {
+            responseData[i]['type'] == "Seminar" ||
+            responseData[i]['type'] == "Event") {
           // Parse image entry from response to list of links
           List<String> pictures = List.empty(growable: true);
           responseData[i]["images"].forEach((value) {

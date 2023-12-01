@@ -74,7 +74,7 @@ class KontaktCard extends StatelessWidget {
               mainAxisSize: MainAxisSize.max,
               children: <Widget>[
                 SizedBox(
-                  height: 160,
+                  height: 150,
                 ),
                 AutoSizeText(
                   bakler.name,

@@ -13,9 +13,6 @@
 -keep class androidx.work.impl.diagnostics.DiagnosticsReceiver { <init>(); }
 -keep class androidx.work.impl.foreground.SystemForegroundService { <init>(); }
 -keep class androidx.work.impl.utils.ForceStopRunnable$BroadcastReceiver { <init>(); }
--keep class com.dexterous.flutterlocalnotifications.ActionBroadcastReceiver { <init>(); }
--keep class com.dexterous.flutterlocalnotifications.ScheduledNotificationBootReceiver { <init>(); }
--keep class com.dexterous.flutterlocalnotifications.ScheduledNotificationReceiver { <init>(); }
 -keep class de.eje_esslingen.eje.MainActivity { <init>(); }
 -keep class id.flutter.flutter_background_service.BackgroundService { <init>(); }
 -keep class id.flutter.flutter_background_service.BootReceiver { <init>(); }

@@ -72,7 +72,7 @@ class ContactCard extends StatelessWidget {
               mainAxisSize: MainAxisSize.max,
               children: <Widget>[
                 SizedBox(
-                  height: 160,
+                  height: 150,
                 ),
                 AutoSizeText(
                   hauptamtlicher.name,

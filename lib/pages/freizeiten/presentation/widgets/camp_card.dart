@@ -57,7 +57,7 @@ class CampCard extends StatelessWidget {
                   ),
                   Column(
                     children: <Widget>[
-                      SizedBox(height: 210),
+                      SizedBox(height: 200),
                       AutoSizeText(
                         camp.name,
                         maxLines: 1,
