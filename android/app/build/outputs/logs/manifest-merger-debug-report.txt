@@ -1,8 +1,6 @@
 -- Merging decision tree log ---
 application
 INJECTED from /workspaces/eje/android/app/src/main/AndroidManifest.xml:47:9-81:19
-MERGED from [:flutter_local_notifications] /workspaces/eje/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:15:5-32:19
-MERGED from [:flutter_local_notifications] /workspaces/eje/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:15:5-32:19
 MERGED from [:url_launcher_android] /workspaces/eje/build/url_launcher_android/intermediates/merged_manifest/debug/AndroidManifest.xml:9:5-14:19
 MERGED from [:url_launcher_android] /workspaces/eje/build/url_launcher_android/intermediates/merged_manifest/debug/AndroidManifest.xml:9:5-14:19
 MERGED from [:flutter_background_service_android] /workspaces/eje/build/flutter_background_service_android/intermediates/merged_manifest/debug/AndroidManifest.xml:13:5-33:19
@@ -17,8 +15,8 @@ MERGED from [androidx.work:work-runtime:2.7.0] /root/.gradle/caches/transforms-3
 MERGED from [androidx.work:work-runtime:2.7.0] /root/.gradle/caches/transforms-3/562a22b679021d7e9b6ee83dca88335e/transformed/work-runtime-2.7.0/AndroidManifest.xml:30:5-143:19
 MERGED from [androidx.emoji2:emoji2:1.2.0] /root/.gradle/caches/transforms-3/bec8a63940feb3abacc35574e0458418/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:23:5-33:19
 MERGED from [androidx.emoji2:emoji2:1.2.0] /root/.gradle/caches/transforms-3/bec8a63940feb3abacc35574e0458418/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:23:5-33:19
-MERGED from [androidx.core:core:1.10.1] /root/.gradle/caches/transforms-3/e81d3050e3354c9e7203bd02915342a7/transformed/core-1.10.1/AndroidManifest.xml:28:5-89
-MERGED from [androidx.core:core:1.10.1] /root/.gradle/caches/transforms-3/e81d3050e3354c9e7203bd02915342a7/transformed/core-1.10.1/AndroidManifest.xml:28:5-89
+MERGED from [androidx.core:core:1.12.0] /root/.gradle/caches/transforms-3/53c69ba3eafec26dd196be1d0afdf422/transformed/core-1.12.0/AndroidManifest.xml:28:5-89
+MERGED from [androidx.core:core:1.12.0] /root/.gradle/caches/transforms-3/53c69ba3eafec26dd196be1d0afdf422/transformed/core-1.12.0/AndroidManifest.xml:28:5-89
 MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] /root/.gradle/caches/transforms-3/959eb3edaae6f113de5d4d81d96e4331/transformed/versionedparcelable-1.1.1/AndroidManifest.xml:24:5-25:19
 MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] /root/.gradle/caches/transforms-3/959eb3edaae6f113de5d4d81d96e4331/transformed/versionedparcelable-1.1.1/AndroidManifest.xml:24:5-25:19
 MERGED from [androidx.lifecycle:lifecycle-process:2.4.1] /root/.gradle/caches/transforms-3/d88e10598208313f606a60196dea645a/transformed/jetified-lifecycle-process-2.4.1/AndroidManifest.xml:25:5-35:19
@@ -28,7 +26,7 @@ MERGED from [androidx.startup:startup-runtime:1.1.1] /root/.gradle/caches/transf
 MERGED from [androidx.room:room-runtime:2.2.5] /root/.gradle/caches/transforms-3/231e227fe90e7d8f82234a8144370016/transformed/room-runtime-2.2.5/AndroidManifest.xml:24:5-29:19
 MERGED from [androidx.room:room-runtime:2.2.5] /root/.gradle/caches/transforms-3/231e227fe90e7d8f82234a8144370016/transformed/room-runtime-2.2.5/AndroidManifest.xml:24:5-29:19
 	android:appComponentFactory
-		ADDED from [androidx.core:core:1.10.1] /root/.gradle/caches/transforms-3/e81d3050e3354c9e7203bd02915342a7/transformed/core-1.10.1/AndroidManifest.xml:28:18-86
+		ADDED from [androidx.core:core:1.12.0] /root/.gradle/caches/transforms-3/53c69ba3eafec26dd196be1d0afdf422/transformed/core-1.12.0/AndroidManifest.xml:28:18-86
 	android:name
 		INJECTED from /workspaces/eje/android/app/src/main/AndroidManifest.xml
 manifest
@@ -39,7 +37,7 @@ INJECTED from /workspaces/eje/android/app/src/main/AndroidManifest.xml:1:1-84:12
 MERGED from /workspaces/eje/android/app/src/main/AndroidManifest.xml:1:1-84:12
 MERGED from [:maps_launcher] /workspaces/eje/build/maps_launcher/intermediates/merged_manifest/debug/AndroidManifest.xml:2:1-9:12
 MERGED from [:sqflite] /workspaces/eje/build/sqflite/intermediates/merged_manifest/debug/AndroidManifest.xml:2:1-9:12
-MERGED from [:flutter_local_notifications] /workspaces/eje/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:2:1-34:12
+MERGED from [:flutter_local_notifications] /workspaces/eje/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:2:1-12:12
 MERGED from [:url_launcher_android] /workspaces/eje/build/url_launcher_android/intermediates/merged_manifest/debug/AndroidManifest.xml:2:1-16:12
 MERGED from [:path_provider_android] /workspaces/eje/build/path_provider_android/intermediates/merged_manifest/debug/AndroidManifest.xml:2:1-9:12
 MERGED from [:connectivity_plus] /workspaces/eje/build/connectivity_plus/intermediates/merged_manifest/debug/AndroidManifest.xml:2:1-11:12
@@ -75,11 +73,11 @@ MERGED from [androidx.vectordrawable:vectordrawable:1.1.0] /root/.gradle/caches/
 MERGED from [androidx.work:work-runtime:2.7.0] /root/.gradle/caches/transforms-3/562a22b679021d7e9b6ee83dca88335e/transformed/work-runtime-2.7.0/AndroidManifest.xml:17:1-145:12
 MERGED from [androidx.emoji2:emoji2-views-helper:1.2.0] /root/.gradle/caches/transforms-3/4df64f6d014feb4a68b82e41f09e3e13/transformed/jetified-emoji2-views-helper-1.2.0/AndroidManifest.xml:2:1-7:12
 MERGED from [androidx.emoji2:emoji2:1.2.0] /root/.gradle/caches/transforms-3/bec8a63940feb3abacc35574e0458418/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:17:1-35:12
+MERGED from [androidx.core:core-ktx:1.12.0] /root/.gradle/caches/transforms-3/de358859f8e2f37bb11bf34c125aee99/transformed/jetified-core-ktx-1.12.0/AndroidManifest.xml:2:1-7:12
 MERGED from [androidx.recyclerview:recyclerview:1.1.0] /root/.gradle/caches/transforms-3/d3cb2a55026617007b5f7c0f0c777d12/transformed/recyclerview-1.1.0/AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.viewpager:viewpager:1.0.0] /root/.gradle/caches/transforms-3/a55bf08d163aa5e41ea6539ff7568548/transformed/viewpager-1.0.0/AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.customview:customview:1.1.0] /root/.gradle/caches/transforms-3/07470ab695947049e21511a4982b4c82/transformed/customview-1.1.0/AndroidManifest.xml:17:1-24:12
-MERGED from [androidx.core:core-ktx:1.10.1] /root/.gradle/caches/transforms-3/b449a0f7729d67262102e5c24b68e5d2/transformed/jetified-core-ktx-1.10.1/AndroidManifest.xml:2:1-7:12
-MERGED from [androidx.core:core:1.10.1] /root/.gradle/caches/transforms-3/e81d3050e3354c9e7203bd02915342a7/transformed/core-1.10.1/AndroidManifest.xml:17:1-30:12
+MERGED from [androidx.core:core:1.12.0] /root/.gradle/caches/transforms-3/53c69ba3eafec26dd196be1d0afdf422/transformed/core-1.12.0/AndroidManifest.xml:17:1-30:12
 MERGED from [androidx.cardview:cardview:1.0.0] /root/.gradle/caches/transforms-3/4a9c4a4a65c38c89d3d44c84c43eaf3a/transformed/cardview-1.0.0/AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] /root/.gradle/caches/transforms-3/959eb3edaae6f113de5d4d81d96e4331/transformed/versionedparcelable-1.1.1/AndroidManifest.xml:17:1-27:12
 MERGED from [androidx.lifecycle:lifecycle-process:2.4.1] /root/.gradle/caches/transforms-3/d88e10598208313f606a60196dea645a/transformed/jetified-lifecycle-process-2.4.1/AndroidManifest.xml:17:1-37:12
@@ -136,14 +134,12 @@ ADDED from /workspaces/eje/android/app/src/main/AndroidManifest.xml:5:5-72
 		ADDED from /workspaces/eje/android/app/src/main/AndroidManifest.xml:5:22-69
 uses-permission#android.permission.SCHEDULE_EXACT_ALARM
 ADDED from /workspaces/eje/android/app/src/main/AndroidManifest.xml:6:5-78
-MERGED from [:flutter_local_notifications] /workspaces/eje/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:12:5-79
-MERGED from [:flutter_local_notifications] /workspaces/eje/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:12:5-79
 	android:name
 		ADDED from /workspaces/eje/android/app/src/main/AndroidManifest.xml:6:22-76
 uses-permission#android.permission.POST_NOTIFICATIONS
 ADDED from /workspaces/eje/android/app/src/main/AndroidManifest.xml:7:5-76
-MERGED from [:flutter_local_notifications] /workspaces/eje/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:13:5-77
-MERGED from [:flutter_local_notifications] /workspaces/eje/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:13:5-77
+MERGED from [:flutter_local_notifications] /workspaces/eje/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:10:5-77
+MERGED from [:flutter_local_notifications] /workspaces/eje/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:10:5-77
 	android:name
 		ADDED from /workspaces/eje/android/app/src/main/AndroidManifest.xml:7:22-74
 uses-permission#android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS
@@ -260,16 +256,16 @@ MERGED from [androidx.emoji2:emoji2-views-helper:1.2.0] /root/.gradle/caches/tra
 MERGED from [androidx.emoji2:emoji2-views-helper:1.2.0] /root/.gradle/caches/transforms-3/4df64f6d014feb4a68b82e41f09e3e13/transformed/jetified-emoji2-views-helper-1.2.0/AndroidManifest.xml:5:5-44
 MERGED from [androidx.emoji2:emoji2:1.2.0] /root/.gradle/caches/transforms-3/bec8a63940feb3abacc35574e0458418/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:21:5-44
 MERGED from [androidx.emoji2:emoji2:1.2.0] /root/.gradle/caches/transforms-3/bec8a63940feb3abacc35574e0458418/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:21:5-44
+MERGED from [androidx.core:core-ktx:1.12.0] /root/.gradle/caches/transforms-3/de358859f8e2f37bb11bf34c125aee99/transformed/jetified-core-ktx-1.12.0/AndroidManifest.xml:5:5-44
+MERGED from [androidx.core:core-ktx:1.12.0] /root/.gradle/caches/transforms-3/de358859f8e2f37bb11bf34c125aee99/transformed/jetified-core-ktx-1.12.0/AndroidManifest.xml:5:5-44
 MERGED from [androidx.recyclerview:recyclerview:1.1.0] /root/.gradle/caches/transforms-3/d3cb2a55026617007b5f7c0f0c777d12/transformed/recyclerview-1.1.0/AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.recyclerview:recyclerview:1.1.0] /root/.gradle/caches/transforms-3/d3cb2a55026617007b5f7c0f0c777d12/transformed/recyclerview-1.1.0/AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.viewpager:viewpager:1.0.0] /root/.gradle/caches/transforms-3/a55bf08d163aa5e41ea6539ff7568548/transformed/viewpager-1.0.0/AndroidManifest.xml:20:5-44
 MERGED from [androidx.viewpager:viewpager:1.0.0] /root/.gradle/caches/transforms-3/a55bf08d163aa5e41ea6539ff7568548/transformed/viewpager-1.0.0/AndroidManifest.xml:20:5-44
 MERGED from [androidx.customview:customview:1.1.0] /root/.gradle/caches/transforms-3/07470ab695947049e21511a4982b4c82/transformed/customview-1.1.0/AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.customview:customview:1.1.0] /root/.gradle/caches/transforms-3/07470ab695947049e21511a4982b4c82/transformed/customview-1.1.0/AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.core:core-ktx:1.10.1] /root/.gradle/caches/transforms-3/b449a0f7729d67262102e5c24b68e5d2/transformed/jetified-core-ktx-1.10.1/AndroidManifest.xml:5:5-44
-MERGED from [androidx.core:core-ktx:1.10.1] /root/.gradle/caches/transforms-3/b449a0f7729d67262102e5c24b68e5d2/transformed/jetified-core-ktx-1.10.1/AndroidManifest.xml:5:5-44
-MERGED from [androidx.core:core:1.10.1] /root/.gradle/caches/transforms-3/e81d3050e3354c9e7203bd02915342a7/transformed/core-1.10.1/AndroidManifest.xml:20:5-44
-MERGED from [androidx.core:core:1.10.1] /root/.gradle/caches/transforms-3/e81d3050e3354c9e7203bd02915342a7/transformed/core-1.10.1/AndroidManifest.xml:20:5-44
+MERGED from [androidx.core:core:1.12.0] /root/.gradle/caches/transforms-3/53c69ba3eafec26dd196be1d0afdf422/transformed/core-1.12.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.core:core:1.12.0] /root/.gradle/caches/transforms-3/53c69ba3eafec26dd196be1d0afdf422/transformed/core-1.12.0/AndroidManifest.xml:20:5-44
 MERGED from [androidx.cardview:cardview:1.0.0] /root/.gradle/caches/transforms-3/4a9c4a4a65c38c89d3d44c84c43eaf3a/transformed/cardview-1.0.0/AndroidManifest.xml:20:5-44
 MERGED from [androidx.cardview:cardview:1.0.0] /root/.gradle/caches/transforms-3/4a9c4a4a65c38c89d3d44c84c43eaf3a/transformed/cardview-1.0.0/AndroidManifest.xml:20:5-44
 MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] /root/.gradle/caches/transforms-3/959eb3edaae6f113de5d4d81d96e4331/transformed/versionedparcelable-1.1.1/AndroidManifest.xml:20:5-22:41
@@ -318,58 +314,10 @@ INJECTED from /workspaces/eje/android/app/src/debug/AndroidManifest.xml
 	android:minSdkVersion
 		INJECTED from /workspaces/eje/android/app/src/main/AndroidManifest.xml
 		INJECTED from /workspaces/eje/android/app/src/debug/AndroidManifest.xml
-uses-permission#android.permission.RECEIVE_BOOT_COMPLETED
-ADDED from [:flutter_local_notifications] /workspaces/eje/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:9:5-81
-MERGED from [:flutter_background_service_android] /workspaces/eje/build/flutter_background_service_android/intermediates/merged_manifest/debug/AndroidManifest.xml:10:5-81
-MERGED from [:flutter_background_service_android] /workspaces/eje/build/flutter_background_service_android/intermediates/merged_manifest/debug/AndroidManifest.xml:10:5-81
-MERGED from [androidx.work:work-runtime:2.7.0] /root/.gradle/caches/transforms-3/562a22b679021d7e9b6ee83dca88335e/transformed/work-runtime-2.7.0/AndroidManifest.xml:27:5-81
-MERGED from [androidx.work:work-runtime:2.7.0] /root/.gradle/caches/transforms-3/562a22b679021d7e9b6ee83dca88335e/transformed/work-runtime-2.7.0/AndroidManifest.xml:27:5-81
-	android:name
-		ADDED from [:flutter_local_notifications] /workspaces/eje/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:9:22-78
 uses-permission#android.permission.VIBRATE
-ADDED from [:flutter_local_notifications] /workspaces/eje/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:10:5-66
+ADDED from [:flutter_local_notifications] /workspaces/eje/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:9:5-66
 	android:name
-		ADDED from [:flutter_local_notifications] /workspaces/eje/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:10:22-63
-uses-permission#android.permission.USE_FULL_SCREEN_INTENT
-ADDED from [:flutter_local_notifications] /workspaces/eje/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:11:5-81
-	android:name
-		ADDED from [:flutter_local_notifications] /workspaces/eje/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:11:22-78
-receiver#com.dexterous.flutterlocalnotifications.ActionBroadcastReceiver
-ADDED from [:flutter_local_notifications] /workspaces/eje/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:16:9-18:40
-	android:exported
-		ADDED from [:flutter_local_notifications] /workspaces/eje/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:18:13-37
-	android:name
-		ADDED from [:flutter_local_notifications] /workspaces/eje/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:17:13-91
-receiver#com.dexterous.flutterlocalnotifications.ScheduledNotificationReceiver
-ADDED from [:flutter_local_notifications] /workspaces/eje/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:19:9-21:40
-	android:exported
-		ADDED from [:flutter_local_notifications] /workspaces/eje/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:21:13-37
-	android:name
-		ADDED from [:flutter_local_notifications] /workspaces/eje/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:20:13-97
-receiver#com.dexterous.flutterlocalnotifications.ScheduledNotificationBootReceiver
-ADDED from [:flutter_local_notifications] /workspaces/eje/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:22:9-31:20
-	android:exported
-		ADDED from [:flutter_local_notifications] /workspaces/eje/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:24:13-37
-	android:name
-		ADDED from [:flutter_local_notifications] /workspaces/eje/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:23:13-101
-intent-filter#action:name:android.intent.action.BOOT_COMPLETED+action:name:android.intent.action.MY_PACKAGE_REPLACED+action:name:android.intent.action.QUICKBOOT_POWERON+action:name:com.htc.intent.action.QUICKBOOT_POWERON
-ADDED from [:flutter_local_notifications] /workspaces/eje/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:25:13-30:29
-action#android.intent.action.BOOT_COMPLETED
-ADDED from [:flutter_local_notifications] /workspaces/eje/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:26:17-79
-	android:name
-		ADDED from [:flutter_local_notifications] /workspaces/eje/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:26:25-76
-action#android.intent.action.MY_PACKAGE_REPLACED
-ADDED from [:flutter_local_notifications] /workspaces/eje/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:27:17-84
-	android:name
-		ADDED from [:flutter_local_notifications] /workspaces/eje/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:27:25-81
-action#android.intent.action.QUICKBOOT_POWERON
-ADDED from [:flutter_local_notifications] /workspaces/eje/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:28:17-82
-	android:name
-		ADDED from [:flutter_local_notifications] /workspaces/eje/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:28:25-79
-action#com.htc.intent.action.QUICKBOOT_POWERON
-ADDED from [:flutter_local_notifications] /workspaces/eje/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:29:17-82
-	android:name
-		ADDED from [:flutter_local_notifications] /workspaces/eje/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:29:25-79
+		ADDED from [:flutter_local_notifications] /workspaces/eje/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:9:22-63
 activity#io.flutter.plugins.urllauncher.WebViewActivity
 ADDED from [:url_launcher_android] /workspaces/eje/build/url_launcher_android/intermediates/merged_manifest/debug/AndroidManifest.xml:10:9-13:74
 	android:exported
@@ -390,6 +338,12 @@ MERGED from [androidx.work:work-runtime:2.7.0] /root/.gradle/caches/transforms-3
 MERGED from [androidx.work:work-runtime:2.7.0] /root/.gradle/caches/transforms-3/562a22b679021d7e9b6ee83dca88335e/transformed/work-runtime-2.7.0/AndroidManifest.xml:28:5-77
 	android:name
 		ADDED from [:flutter_background_service_android] /workspaces/eje/build/flutter_background_service_android/intermediates/merged_manifest/debug/AndroidManifest.xml:9:22-74
+uses-permission#android.permission.RECEIVE_BOOT_COMPLETED
+ADDED from [:flutter_background_service_android] /workspaces/eje/build/flutter_background_service_android/intermediates/merged_manifest/debug/AndroidManifest.xml:10:5-81
+MERGED from [androidx.work:work-runtime:2.7.0] /root/.gradle/caches/transforms-3/562a22b679021d7e9b6ee83dca88335e/transformed/work-runtime-2.7.0/AndroidManifest.xml:27:5-81
+MERGED from [androidx.work:work-runtime:2.7.0] /root/.gradle/caches/transforms-3/562a22b679021d7e9b6ee83dca88335e/transformed/work-runtime-2.7.0/AndroidManifest.xml:27:5-81
+	android:name
+		ADDED from [:flutter_background_service_android] /workspaces/eje/build/flutter_background_service_android/intermediates/merged_manifest/debug/AndroidManifest.xml:10:22-78
 uses-permission#android.permission.WAKE_LOCK
 ADDED from [:flutter_background_service_android] /workspaces/eje/build/flutter_background_service_android/intermediates/merged_manifest/debug/AndroidManifest.xml:11:5-68
 MERGED from [androidx.work:work-runtime:2.7.0] /root/.gradle/caches/transforms-3/562a22b679021d7e9b6ee83dca88335e/transformed/work-runtime-2.7.0/AndroidManifest.xml:25:5-68
@@ -424,6 +378,14 @@ ADDED from [:flutter_background_service_android] /workspaces/eje/build/flutter_b
 		ADDED from [:flutter_background_service_android] /workspaces/eje/build/flutter_background_service_android/intermediates/merged_manifest/debug/AndroidManifest.xml:25:13-78
 intent-filter#action:name:android.intent.action.BOOT_COMPLETED+action:name:android.intent.action.QUICKBOOT_POWERON
 ADDED from [:flutter_background_service_android] /workspaces/eje/build/flutter_background_service_android/intermediates/merged_manifest/debug/AndroidManifest.xml:28:13-31:29
+action#android.intent.action.BOOT_COMPLETED
+ADDED from [:flutter_background_service_android] /workspaces/eje/build/flutter_background_service_android/intermediates/merged_manifest/debug/AndroidManifest.xml:29:17-79
+	android:name
+		ADDED from [:flutter_background_service_android] /workspaces/eje/build/flutter_background_service_android/intermediates/merged_manifest/debug/AndroidManifest.xml:29:25-76
+action#android.intent.action.QUICKBOOT_POWERON
+ADDED from [:flutter_background_service_android] /workspaces/eje/build/flutter_background_service_android/intermediates/merged_manifest/debug/AndroidManifest.xml:30:17-82
+	android:name
+		ADDED from [:flutter_background_service_android] /workspaces/eje/build/flutter_background_service_android/intermediates/merged_manifest/debug/AndroidManifest.xml:30:25-79
 uses-library#androidx.window.extensions
 ADDED from [androidx.window:window:1.0.0] /root/.gradle/caches/transforms-3/205efb31f7c6a0ea8cd28a86490b3feb/transformed/jetified-window-1.0.0/AndroidManifest.xml:25:9-27:40
 	android:required
@@ -659,25 +621,25 @@ ADDED from [androidx.emoji2:emoji2:1.2.0] /root/.gradle/caches/transforms-3/bec8
 	android:name
 		ADDED from [androidx.emoji2:emoji2:1.2.0] /root/.gradle/caches/transforms-3/bec8a63940feb3abacc35574e0458418/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:30:17-75
 permission#${applicationId}.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
-ADDED from [androidx.core:core:1.10.1] /root/.gradle/caches/transforms-3/e81d3050e3354c9e7203bd02915342a7/transformed/core-1.10.1/AndroidManifest.xml:22:5-24:47
+ADDED from [androidx.core:core:1.12.0] /root/.gradle/caches/transforms-3/53c69ba3eafec26dd196be1d0afdf422/transformed/core-1.12.0/AndroidManifest.xml:22:5-24:47
 	android:protectionLevel
-		ADDED from [androidx.core:core:1.10.1] /root/.gradle/caches/transforms-3/e81d3050e3354c9e7203bd02915342a7/transformed/core-1.10.1/AndroidManifest.xml:24:9-44
+		ADDED from [androidx.core:core:1.12.0] /root/.gradle/caches/transforms-3/53c69ba3eafec26dd196be1d0afdf422/transformed/core-1.12.0/AndroidManifest.xml:24:9-44
 	android:name
-		ADDED from [androidx.core:core:1.10.1] /root/.gradle/caches/transforms-3/e81d3050e3354c9e7203bd02915342a7/transformed/core-1.10.1/AndroidManifest.xml:23:9-81
+		ADDED from [androidx.core:core:1.12.0] /root/.gradle/caches/transforms-3/53c69ba3eafec26dd196be1d0afdf422/transformed/core-1.12.0/AndroidManifest.xml:23:9-81
 permission#de.eje_esslingen.eje.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
-ADDED from [androidx.core:core:1.10.1] /root/.gradle/caches/transforms-3/e81d3050e3354c9e7203bd02915342a7/transformed/core-1.10.1/AndroidManifest.xml:22:5-24:47
+ADDED from [androidx.core:core:1.12.0] /root/.gradle/caches/transforms-3/53c69ba3eafec26dd196be1d0afdf422/transformed/core-1.12.0/AndroidManifest.xml:22:5-24:47
 	android:protectionLevel
-		ADDED from [androidx.core:core:1.10.1] /root/.gradle/caches/transforms-3/e81d3050e3354c9e7203bd02915342a7/transformed/core-1.10.1/AndroidManifest.xml:24:9-44
+		ADDED from [androidx.core:core:1.12.0] /root/.gradle/caches/transforms-3/53c69ba3eafec26dd196be1d0afdf422/transformed/core-1.12.0/AndroidManifest.xml:24:9-44
 	android:name
-		ADDED from [androidx.core:core:1.10.1] /root/.gradle/caches/transforms-3/e81d3050e3354c9e7203bd02915342a7/transformed/core-1.10.1/AndroidManifest.xml:23:9-81
+		ADDED from [androidx.core:core:1.12.0] /root/.gradle/caches/transforms-3/53c69ba3eafec26dd196be1d0afdf422/transformed/core-1.12.0/AndroidManifest.xml:23:9-81
 uses-permission#${applicationId}.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
-ADDED from [androidx.core:core:1.10.1] /root/.gradle/caches/transforms-3/e81d3050e3354c9e7203bd02915342a7/transformed/core-1.10.1/AndroidManifest.xml:26:5-97
+ADDED from [androidx.core:core:1.12.0] /root/.gradle/caches/transforms-3/53c69ba3eafec26dd196be1d0afdf422/transformed/core-1.12.0/AndroidManifest.xml:26:5-97
 	android:name
-		ADDED from [androidx.core:core:1.10.1] /root/.gradle/caches/transforms-3/e81d3050e3354c9e7203bd02915342a7/transformed/core-1.10.1/AndroidManifest.xml:26:22-94
+		ADDED from [androidx.core:core:1.12.0] /root/.gradle/caches/transforms-3/53c69ba3eafec26dd196be1d0afdf422/transformed/core-1.12.0/AndroidManifest.xml:26:22-94
 uses-permission#de.eje_esslingen.eje.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
-ADDED from [androidx.core:core:1.10.1] /root/.gradle/caches/transforms-3/e81d3050e3354c9e7203bd02915342a7/transformed/core-1.10.1/AndroidManifest.xml:26:5-97
+ADDED from [androidx.core:core:1.12.0] /root/.gradle/caches/transforms-3/53c69ba3eafec26dd196be1d0afdf422/transformed/core-1.12.0/AndroidManifest.xml:26:5-97
 	android:name
-		ADDED from [androidx.core:core:1.10.1] /root/.gradle/caches/transforms-3/e81d3050e3354c9e7203bd02915342a7/transformed/core-1.10.1/AndroidManifest.xml:26:22-94
+		ADDED from [androidx.core:core:1.12.0] /root/.gradle/caches/transforms-3/53c69ba3eafec26dd196be1d0afdf422/transformed/core-1.12.0/AndroidManifest.xml:26:22-94
 meta-data#androidx.lifecycle.ProcessLifecycleInitializer
 ADDED from [androidx.lifecycle:lifecycle-process:2.4.1] /root/.gradle/caches/transforms-3/d88e10598208313f606a60196dea645a/transformed/jetified-lifecycle-process-2.4.1/AndroidManifest.xml:31:13-33:52
 	android:value

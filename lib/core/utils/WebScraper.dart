@@ -259,14 +259,34 @@ class WebScraper {
                 parent[i].getElementsByClassName('bodytext').forEach((element) {
                   if (!element.text.contains('Ich bin erreichbar unter')) {
                     if (element.text.contains('0711')) {
-                      telefon = element.text.trimLeft().trimRight();
-                    } else if (element.text.contains('Diensthandy')) {
-                      handy = element.text.split(':')[1].trimLeft().trimRight();
-                    } else if (element.text.contains('Threema')) {
-                      threema = element.text
-                          .split('unter:')[1]
+                      telefon = element.text
+                          .replaceAll(
+                              new RegExp(r"\D"), "") // remove all Letters
                           .trimLeft()
                           .trimRight();
+                    } else if (element.text.contains('Diensthandy')) {
+                      if (element.text.contains(":")) {
+                        handy =
+                            element.text.split(':')[1].trimLeft().trimRight();
+                      } else {
+                        handy = element.text
+                            .replaceAll(
+                                new RegExp(r"\D"), "") //remove all letters
+                            .trim();
+                      }
+                    } else if (element.text.contains('Threema')) {
+                      if (element.text.contains("unter:")) {
+                        threema = element.text
+                            .split('unter:')[1]
+                            .trimLeft()
+                            .trimRight();
+                      } else {
+                        threema = element.text
+                            // .split('unter:')[1]
+                            .trimLeft()
+                            .trimRight();
+                        threema = threema.substring(threema.length - 8);
+                      }
                     } else if (element.getElementsByTagName('a').isNotEmpty) {
                       email = element
                           .getElementsByTagName('a')[0]
@@ -399,19 +419,22 @@ class WebScraper {
                 }
               }
               // ! Beschreibung parsen
-              String content = '';
               if (parent[i]
                   .getElementsByClassName(
                       'col s12 m8 l8 bildtextteaser-content halfpic')
                   .isNotEmpty) {
                 parent[i].getElementsByClassName('bodytext').forEach((element) {
-                  if (!element.text.contains('Ich bin erreichbar unter')) {
-                    if (element.text.contains('Threema')) {
-                      threema = element.text
-                          .split('Mein Threema-ID ist:')[1]
-                          .trimLeft()
-                          .trimRight();
-                    } else if (element.getElementsByTagName('a').isNotEmpty) {
+                  if (element.text.contains('Threema') |
+                      element.getElementsByTagName('a').isNotEmpty) {
+                    if (element.text.contains("ist:")) {
+                      threema =
+                          element.text.split('ist:')[1].trimLeft().trimRight();
+                    } else {
+                      threema = element.text.trimLeft().trimRight();
+                      threema = threema.substring(threema.length - 8);
+                    }
+
+                    if (element.getElementsByTagName('a').isNotEmpty) {
                       email = element
                           .getElementsByTagName('a')[0]
                           .text
@@ -419,9 +442,11 @@ class WebScraper {
                           .replaceAll('gowaway.', '')
                           .trimLeft()
                           .trimRight();
-                    } else if (element.text != "") {
-                      vorstellung = "$vorstellung${element.text.trim()}\n\n";
                     }
+                  } else if (element.text != "") {
+                    vorstellung = "$vorstellung${element.text.trim()}\n\n";
+                    vorstellung =
+                        vorstellung.replaceAll("Ich bin erreichbar unter:", "");
                   }
                 });
               }
@@ -451,20 +476,6 @@ class WebScraper {
                         .trimLeft()
                         .trimRight();
               }
-
-              // ! Formatting if needed
-              //Einrückungen bei neuen Paragraph entfernen
-              if (content.contains("<br>")) {
-                content = content.replaceAll("<br> ", "\n");
-                content = content.replaceAll("<br>", "\n");
-              }
-              //HTML-Formatierungszeichen bei neuen Paragraph entfernen
-              //und neuen Abschnitt für content anfangen
-              if (content.contains("&nbsp;")) {
-                content = content.replaceAll("&nbsp;", " ");
-              }
-              content = "$content\n\n";
-              //Default values if no hyperlinks are scraped
 
               //add scraped Section to List of Articles
               if (name != "" ||
