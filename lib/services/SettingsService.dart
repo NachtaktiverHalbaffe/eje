@@ -5,7 +5,7 @@ import 'package:eje/repositories/einstellungen_repository.dart';
 import 'package:get_storage/get_storage.dart';
 
 class SettingsService {
-  final EinstellungenRepository repository;
+  final SettingsRepository repository;
 
   SettingsService({required this.repository});
 

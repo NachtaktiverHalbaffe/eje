@@ -8,7 +8,7 @@ part of 'camp.dart';
 
 class CampAdapter extends TypeAdapter<Camp> {
   @override
-  final int typeId = 5;
+  final int typeId = 26;
 
   @override
   Camp read(BinaryReader reader) {
