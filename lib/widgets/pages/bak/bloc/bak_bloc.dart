@@ -1,17 +1,12 @@
 // ignore_for_file: non_constant_identifier_names
 import 'package:bloc/bloc.dart';
-import 'package:eje/services/get_bak.dart';
-import 'package:eje/services/get_bakler.dart';
+import 'package:eje/services/BakService.dart';
 import './bloc.dart';
 
 class BakBloc extends Bloc<BakEvent, BakState> {
-  final GetBAK getBAK;
-  final GetBAKler getBAKler;
+  final BakService bakSerivce;
 
-  BakBloc({
-    required this.getBAK,
-    required this.getBAKler,
-  }) : super(Empty()) {
+  BakBloc({required this.bakSerivce}) : super(Empty()) {
     on<RefreshBAK>(_loadBAKler);
     on<GettingBAKler>(_loadSpecificBAKler);
   }
@@ -19,7 +14,7 @@ class BakBloc extends Bloc<BakEvent, BakState> {
   void _loadBAKler(event, Emitter<BakState> emit) async {
     print("Triggered Event: RefreshBak");
     emit(Loading());
-    final bakOrFailure = await getBAK();
+    final bakOrFailure = await bakSerivce.getBAK();
     emit(bakOrFailure.fold(
       (failure) {
         print("Error");
@@ -34,7 +29,7 @@ class BakBloc extends Bloc<BakEvent, BakState> {
 
   void _loadSpecificBAKler(event, Emitter<BakState> emit) async {
     emit(Loading());
-    final bakOrFailure = await getBAKler(name: event.name);
+    final bakOrFailure = await bakSerivce.getBAKler(name: event.name);
     emit(bakOrFailure.fold(
       (failure) => Error(message: failure.getErrorMsg()),
       (bakler) => LoadedBAKler(bakler),

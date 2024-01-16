@@ -1,20 +1,15 @@
 // ignore_for_file: non_constant_identifier_names
 import 'package:bloc/bloc.dart';
 import 'package:eje/models/camp.dart';
-import 'package:eje/services/get_camp.dart';
-import 'package:eje/services/get_camps.dart';
+import 'package:eje/services/CampSerivce.dart';
 import 'package:get_storage/get_storage.dart';
 
 import './bloc.dart';
 
 class CampsBloc extends Bloc<CampEvent, CampState> {
-  final GetCamp getCamp;
-  final GetCamps getCamps;
+  final CampService campService;
 
-  CampsBloc({
-    required this.getCamp,
-    required this.getCamps,
-  }) : super(Empty()) {
+  CampsBloc({required this.campService}) : super(Empty()) {
     on<RefreshCamps>(_loadCamps);
     on<GettingCamp>(_loadSpecificCamp);
     on<FilteringCamps>(_filterCamps);
@@ -23,7 +18,7 @@ class CampsBloc extends Bloc<CampEvent, CampState> {
 
   void _loadCamps(event, Emitter<CampState> emit) async {
     emit(Loading());
-    final campOrFailure = await getCamps();
+    final campOrFailure = await campService.getCamps();
     emit(campOrFailure.fold(
       (failure) {
         return Error(message: failure.getErrorMsg());
@@ -41,7 +36,7 @@ class CampsBloc extends Bloc<CampEvent, CampState> {
 
   void _loadSpecificCamp(event, Emitter<CampState> emit) async {
     emit(Loading());
-    final campsOrFailure = await getCamp(id: event.camp.id);
+    final campsOrFailure = await campService.getCamp(id: event.camp.id);
     emit(campsOrFailure.fold(
       (failure) => Error(message: failure.getErrorMsg()),
       (freizeit) => LoadedCamp(freizeit),
@@ -49,7 +44,7 @@ class CampsBloc extends Bloc<CampEvent, CampState> {
   }
 
   void _filterCamps(event, Emitter<CampState> emit) async {
-    final campsOrFailure = await getCamps();
+    final campsOrFailure = await campService.getCamps();
     emit(campsOrFailure.fold(
       (failure) => Error(message: failure.getErrorMsg()),
       (freizeiten) {
@@ -60,7 +55,7 @@ class CampsBloc extends Bloc<CampEvent, CampState> {
   }
 
   void _deleteChip(event, Emitter<CampState> emit) async {
-    final campsOrFailure = await getCamps();
+    final campsOrFailure = await campService.getCamps();
     emit(campsOrFailure.fold(
       (failure) => Error(message: failure.getErrorMsg()),
       (freizeiten) {

@@ -1,17 +1,12 @@
 // ignore_for_file: non_constant_identifier_names
 import 'package:bloc/bloc.dart';
-import 'package:eje/services/get_field_of_work.dart';
-import 'package:eje/services/get_fields_of_work.dart';
+import 'package:eje/services/FieldOfWorkService.dart';
 import './bloc.dart';
 
 class FieldsOfWorkBloc extends Bloc<FieldsOfWorkEvent, FieldOfWorkState> {
-  final GetFieldsOfWork getFieldsOfWork;
-  final GetFieldOfWork getFieldOfWork;
+  final FieldsOfWorkService fieldsOfWorkService;
 
-  FieldsOfWorkBloc({
-    required this.getFieldOfWork,
-    required this.getFieldsOfWork,
-  }) : super(Empty()) {
+  FieldsOfWorkBloc({required this.fieldsOfWorkService}) : super(Empty()) {
     on<RefreshFieldsOfWork>(_loadFOW);
     on<GettingFieldOfWork>(_loadSpecificFOW);
   }
@@ -19,7 +14,7 @@ class FieldsOfWorkBloc extends Bloc<FieldsOfWorkEvent, FieldOfWorkState> {
   void _loadFOW(event, Emitter<FieldOfWorkState> emit) async {
     print("Triggered Event: RefreshArbeitsbereiche");
     emit(Loading());
-    final fieldsOfWorkOrFailure = await getFieldsOfWork();
+    final fieldsOfWorkOrFailure = await fieldsOfWorkService.getFieldsOfWork();
     emit(fieldsOfWorkOrFailure.fold(
       (failure) {
         print("Error");
@@ -34,7 +29,8 @@ class FieldsOfWorkBloc extends Bloc<FieldsOfWorkEvent, FieldOfWorkState> {
 
   void _loadSpecificFOW(event, Emitter<FieldOfWorkState> emit) async {
     emit(Loading());
-    final fieldOfWorkOrFailure = await getFieldOfWork(name: event.name);
+    final fieldOfWorkOrFailure =
+        await fieldsOfWorkService.getFieldOfWork(name: event.name);
     emit(fieldOfWorkOrFailure.fold(
       (failure) => Error(message: failure.getErrorMsg()),
       (arbeitsfeld) => LoadedFieldOfWork(arbeitsfeld),

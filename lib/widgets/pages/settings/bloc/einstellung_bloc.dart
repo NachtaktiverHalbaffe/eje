@@ -1,34 +1,29 @@
 import 'package:bloc/bloc.dart';
-import 'package:eje/services/get_preference.dart';
-import 'package:eje/services/get_preferences.dart';
-import 'package:eje/services/set_prefrences.dart';
+import 'package:eje/services/SettingsService.dart';
 import './bloc.dart';
 
 class EinstellungBloc extends Bloc<EinstellungEvent, EinstellungState> {
   // ignore: non_constant_identifier_names
   final String CACHE_FAILURE_MESSAGE =
       'Fehler beim Laden der Daten aus den Cache. Löschen Sie den Cache oder setzen sie die App zurück.';
-  final SetPreferences storePrefrences;
-  final GetPreferences getPrefrences;
-  final GetPreference getPreference;
+  final SettingsService settingsService;
 
-  EinstellungBloc(this.storePrefrences, this.getPrefrences, this.getPreference)
-      : super(Empty()) {
+  EinstellungBloc({required this.settingsService}) : super(Empty()) {
     on<StoringPreferences>(_storePrefrences);
     on<GettingPreferences>(_loadPrefrences);
     on<GettingPreference>(_loadSpecificPrefrence);
   }
 
   void _storePrefrences(event, Emitter<EinstellungState> emit) async {
-    final einstellungOrFailure =
-        await storePrefrences(preference: event.preference, state: event.state);
+    final einstellungOrFailure = await settingsService.setPrefrence(
+        preference: event.preference, state: event.state);
     emit(einstellungOrFailure.fold(
         (failure) => Error(message: CACHE_FAILURE_MESSAGE),
         (prefs) => ChangedPreferences()));
   }
 
   void _loadPrefrences(event, Emitter<EinstellungState> emit) async {
-    final einstellungOrFailure = await getPrefrences();
+    final einstellungOrFailure = await settingsService.getPrefrences();
     emit(einstellungOrFailure.fold(
         (failure) => Error(message: CACHE_FAILURE_MESSAGE),
         (prefs) => LoadedPreferences()));
@@ -36,7 +31,7 @@ class EinstellungBloc extends Bloc<EinstellungEvent, EinstellungState> {
 
   void _loadSpecificPrefrence(event, Emitter<EinstellungState> emit) async {
     final einstellungOrFailure =
-        await getPreference(preference: event.preference);
+        await settingsService.getPrefrence(preference: event.preference);
     emit(einstellungOrFailure.fold(
         (failure) => Error(message: CACHE_FAILURE_MESSAGE),
         (einstellung) => LoadedPreference(einstellung)));

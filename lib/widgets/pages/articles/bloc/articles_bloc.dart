@@ -1,20 +1,17 @@
 // ignore_for_file: non_constant_identifier_names
 import 'package:bloc/bloc.dart';
 import 'package:eje/models/Article.dart';
-import 'package:eje/services/get_article.dart';
-import 'package:eje/services/get_articles.dart';
+import 'package:eje/services/ArticleService.dart';
 import 'package:equatable/equatable.dart';
 
 part 'articles_event.dart';
 part 'articles_state.dart';
 
 class ArticlesBloc extends Bloc<ArticlesEvent, ArticlesState> {
-  final GetArticles getArticles;
-  final GetArticle getArticle;
+  final ArticleService articleService;
 
   ArticlesBloc({
-    required this.getArticle,
-    required this.getArticles,
+    required this.articleService,
   }) : super(Empty()) {
     on<RefreshArticle>(_refreshArticle);
     on<GettingArticle>(_getArticle);
@@ -24,7 +21,7 @@ class ArticlesBloc extends Bloc<ArticlesEvent, ArticlesState> {
   void _refreshArticle(event, Emitter<ArticlesState> emit) async {
     print("Triggered Event: RefreshArticles");
     emit(Loading());
-    final servicesOrFailure = await getArticle(url: event.url);
+    final servicesOrFailure = await articleService.getArticle(url: event.url);
     emit(servicesOrFailure.fold(
       (failure) {
         print("Error");
@@ -39,7 +36,7 @@ class ArticlesBloc extends Bloc<ArticlesEvent, ArticlesState> {
 
   void _getArticle(event, Emitter<ArticlesState> emit) async {
     emit(Loading());
-    final serviceOrFailure = await getArticle(url: event.url);
+    final serviceOrFailure = await articleService.getArticle(url: event.url);
     emit(serviceOrFailure.fold(
       (failure) => Error(message: failure.getErrorMsg()),
       (article) => LoadedArticle(article),
@@ -48,7 +45,7 @@ class ArticlesBloc extends Bloc<ArticlesEvent, ArticlesState> {
 
   void _followHyperlink(event, Emitter<ArticlesState> emit) async {
     emit(Loading());
-    final serviceOrFailure = await getArticle(url: event.url);
+    final serviceOrFailure = await articleService.getArticle(url: event.url);
     emit(serviceOrFailure.fold(
       (failure) => Error(message: failure.getErrorMsg()),
       (article) => FollowedHyperlink(article),

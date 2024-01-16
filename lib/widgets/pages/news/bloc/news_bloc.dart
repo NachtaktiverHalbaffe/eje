@@ -1,17 +1,12 @@
 // ignore_for_file: non_constant_identifier_names
 import 'package:bloc/bloc.dart';
-import 'package:eje/services/get_news.dart';
-import 'package:eje/services/get_single_news.dart';
+import 'package:eje/services/NewsService.dart';
 import './bloc.dart';
 
 class NewsBloc extends Bloc<NewsEvent, NewsState> {
-  final GetSingleNews getSingleNews;
-  final GetNews getNews;
+  final NewsService newsService;
 
-  NewsBloc({
-    required this.getSingleNews,
-    required this.getNews,
-  }) : super(Empty()) {
+  NewsBloc({required this.newsService}) : super(Empty()) {
     on<RefreshNews>(_loadNews);
     on<GetNewsDetails>(_loadNewsArticle);
   }
@@ -19,7 +14,7 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
   void _loadNews(event, Emitter<NewsState> emit) async {
     print("Neuigkeiten: Refresh event triggered");
     emit(Loading());
-    final neuigkeitOrFailure = await getNews();
+    final neuigkeitOrFailure = await newsService.getNews();
     emit(neuigkeitOrFailure.fold(
       (failure) {
         print("Refresh Event Neuigkeiten: Error");
@@ -35,7 +30,8 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
   void _loadNewsArticle(event, Emitter<NewsState> emit) async {
     print("Neuigkeiten: get details event triggered");
     emit(Loading());
-    final neuigkeitOrFailure = await getSingleNews(titel: event.title);
+    final neuigkeitOrFailure =
+        await newsService.getSingleNews(titel: event.title);
     emit(neuigkeitOrFailure.fold(
       (failure) => Error(message: failure.getErrorMsg()),
       (neuigkeit) {

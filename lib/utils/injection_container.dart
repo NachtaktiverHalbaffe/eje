@@ -31,25 +31,15 @@ import 'package:eje/datasources/events_remote_datasource.dart';
 import 'package:eje/repositories/impl/events_repositoy_impl.dart';
 import 'package:eje/repositories/events_repository.dart';
 import 'package:eje/repositories/services_repository.dart';
-import 'package:eje/services/get_Event.dart';
-import 'package:eje/services/get_Events.dart';
-import 'package:eje/services/get_article.dart';
-import 'package:eje/services/get_articles.dart';
-import 'package:eje/services/get_bak.dart';
-import 'package:eje/services/get_bakler.dart';
-import 'package:eje/services/get_camp.dart';
-import 'package:eje/services/get_camps.dart';
-import 'package:eje/services/get_employee.dart';
-import 'package:eje/services/get_employees.dart';
-import 'package:eje/services/get_field_of_work.dart';
-import 'package:eje/services/get_fields_of_work.dart';
-import 'package:eje/services/get_news.dart';
-import 'package:eje/services/get_preference.dart';
-import 'package:eje/services/get_preferences.dart';
-import 'package:eje/services/get_service.dart';
-import 'package:eje/services/get_services.dart';
-import 'package:eje/services/get_single_news.dart';
-import 'package:eje/services/set_prefrences.dart';
+import 'package:eje/services/ArticleService.dart';
+import 'package:eje/services/BakService.dart';
+import 'package:eje/services/CampSerivce.dart';
+import 'package:eje/services/EmployeeService.dart';
+import 'package:eje/services/EventService.dart';
+import 'package:eje/services/FieldOfWorkService.dart';
+import 'package:eje/services/NewsService.dart';
+import 'package:eje/services/OfferedServicesService.dart';
+import 'package:eje/services/SettingsService.dart';
 import 'package:eje/utils/network_info.dart';
 import 'package:eje/widgets/pages/fields_of_work/bloc/fields_of_work_bloc.dart';
 import 'package:eje/widgets/pages/articles/bloc/articles_bloc.dart';
@@ -73,14 +63,10 @@ Future<void> init() async {
   // ! Neuigkeiten
   // * Bloc
   sl.registerFactory(
-    () => NewsBloc(
-      getSingleNews: sl(),
-      getNews: sl(),
-    ),
+    () => NewsBloc(newsService: sl()),
   );
-  // * Use cases
-  sl.registerLazySingleton(() => GetSingleNews(sl()));
-  sl.registerLazySingleton(() => GetNews(sl()));
+  // * Services
+  sl.registerLazySingleton(() => NewsService(repository: sl()));
   // * Repository
   sl.registerLazySingleton<NewsRepository>(
     () => NewsRepositoryImpl(
@@ -97,26 +83,18 @@ Future<void> init() async {
 
   // ! Einstellungen
   // * Bloc
-  sl.registerFactory(() => EinstellungBloc(sl(), sl(), sl()));
-  // * Use cases
-  sl.registerLazySingleton(() => GetPreference(sl()));
-  sl.registerLazySingleton(() => SetPreferences(sl()));
-  sl.registerLazySingleton(() => GetPreferences(sl()));
+  sl.registerFactory(() => EinstellungBloc(settingsService: sl()));
+  // * Services
+  sl.registerLazySingleton(() => SettingsService(repository: sl()));
   // * Repository
   sl.registerLazySingleton<EinstellungenRepository>(
       () => EinstellungenRepositoryImpl());
 
   // ! Hauptamtliche
   // * Bloc
-  sl.registerFactory(
-    () => EmployeesBloc(
-      getEmployees: sl(),
-      getEmployee: sl(),
-    ),
-  );
-  // * Use cases
-  sl.registerLazySingleton(() => GetEmployees(repository: sl()));
-  sl.registerLazySingleton(() => GetEmployee(sl()));
+  sl.registerFactory(() => EmployeesBloc(employeeService: sl()));
+  // * Service
+  sl.registerLazySingleton(() => EmployeeService(repository: sl()));
   // * Repository
   sl.registerLazySingleton<EmployeesRepository>(
     () => EmployeesRepositoryImpl(
@@ -131,13 +109,9 @@ Future<void> init() async {
 
   // ! BAK
   // * Bloc
-  sl.registerFactory(() => BakBloc(
-        getBAK: sl(),
-        getBAKler: sl(),
-      ));
-  // * Use cases
-  sl.registerLazySingleton(() => GetBAKler(sl()));
-  sl.registerLazySingleton(() => GetBAK(repository: sl()));
+  sl.registerFactory(() => BakBloc(bakSerivce: sl()));
+  // * Services
+  sl.registerLazySingleton(() => BakService(repository: sl()));
   // * Repository
   sl.registerLazySingleton<BAKRepository>(() => BAKRepositoryImpl(
         remoteDataSource: sl(),
@@ -151,14 +125,10 @@ Future<void> init() async {
   // ! Arbeitsbereiche
   // * Bloc
   sl.registerFactory(
-    () => FieldsOfWorkBloc(
-      getFieldOfWork: sl(),
-      getFieldsOfWork: sl(),
-    ),
+    () => FieldsOfWorkBloc(fieldsOfWorkService: sl()),
   );
-  // * Usecases
-  sl.registerLazySingleton(() => GetFieldOfWork(sl()));
-  sl.registerLazySingleton(() => GetFieldsOfWork(repository: sl()));
+  // * Services
+  sl.registerLazySingleton(() => FieldsOfWorkService(repository: sl()));
   // * Repsoitory
   sl.registerLazySingleton<FieldOfWorkRepository>(
       () => ArbeitsbereichRepositoryImpl(
@@ -171,13 +141,9 @@ Future<void> init() async {
   sl.registerLazySingleton(() => ArbeitsbereichRemoteDatasource(client: sl()));
 
   // ! Services
-  sl.registerFactory(() => ServicesBloc(
-        getService: sl(),
-        getServices: sl(),
-      ));
-  // * Usecases
-  sl.registerLazySingleton(() => GetService(sl()));
-  sl.registerLazySingleton(() => GetServices(repository: sl()));
+  sl.registerFactory(() => ServicesBloc(offeredServicesService: sl()));
+  // * Services
+  sl.registerLazySingleton(() => OfferedServicesService(repository: sl()));
   // * Repository
   sl.registerLazySingleton<ServicesRepository>(() => ServicesRepositoryImpl(
         remoteDataSource: sl(),
@@ -190,10 +156,9 @@ Future<void> init() async {
 
   // ! Termine
   // * Bloc
-  sl.registerFactory(() => EventsBloc(getEvents: sl(), getEvent: sl()));
-  // * Usecases
-  sl.registerLazySingleton(() => GetEvent(sl()));
-  sl.registerLazySingleton(() => GetEvents(repository: sl()));
+  sl.registerFactory(() => EventsBloc(eventService: sl()));
+  // * Services
+  sl.registerLazySingleton(() => EventService(repository: sl()));
   // * Repository
   sl.registerLazySingleton<EventsRepository>(() => EventsRepositoryImpl(
         remoteDataSource: sl(),
@@ -205,13 +170,9 @@ Future<void> init() async {
   sl.registerLazySingleton(() => TermineRemoteDatasource(client: sl()));
 
   // ! Freizeiten
-  sl.registerFactory(() => CampsBloc(
-        getCamp: sl(),
-        getCamps: sl(),
-      ));
-  // * Usecases
-  sl.registerLazySingleton(() => GetCamp(sl()));
-  sl.registerLazySingleton(() => GetCamps(repository: sl()));
+  sl.registerFactory(() => CampsBloc(campService: sl()));
+  // * Services
+  sl.registerLazySingleton(() => CampService(repository: sl()));
   // * Repository
   sl.registerLazySingleton<CampRepository>(() => CampRepositoryImpl(
         remoteDataSource: sl(),
@@ -223,13 +184,9 @@ Future<void> init() async {
   sl.registerLazySingleton(() => CampsRemoteDatasource());
 
   // ! Articles
-  sl.registerFactory(() => ArticlesBloc(
-        getArticle: sl(),
-        getArticles: sl(),
-      ));
-  // * Usecases
-  sl.registerLazySingleton(() => GetArticle(sl()));
-  sl.registerLazySingleton(() => GetArticles(sl()));
+  sl.registerFactory(() => ArticlesBloc(articleService: sl()));
+  // * Services
+  sl.registerLazySingleton(() => ArticleService(sl()));
   // * Repository
   sl.registerLazySingleton<ArticlesRepository>(() => ArticlesRepositoryImpl(
         localDatasource: sl(),
