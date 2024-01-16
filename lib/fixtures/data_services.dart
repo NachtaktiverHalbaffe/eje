@@ -1,7 +1,6 @@
 // ignore_for_file: no_leading_underscores_for_local_identifiers
-
-import 'package:eje/pages/articles/domain/entity/Hyperlink.dart';
-import 'package:eje/pages/eje/services/domain/entities/Service.dart';
+import 'package:eje/models/Hyperlink.dart';
+import 'package:eje/models/Offered_Service.dart';
 import 'package:hive/hive.dart';
 
 void dataServices(Box _box) {
@@ -13,7 +12,7 @@ void dataServices(Box _box) {
         link: "https://www.eje-esslingen.de/?id=311673",
         description: "eje-infos"));
     _box.add(
-      Service(
+      OfferedService(
           service: "eje-Info",
           images: bilder,
           description:
@@ -27,7 +26,7 @@ void dataServices(Box _box) {
     hyperlinks.add(Hyperlink(
         link: "https://www.eje-esslingen.de/?id=264807",
         description: "Verleih-Liste runterladen"));
-    _box.add(Service(
+    _box.add(OfferedService(
         service: "Verleih",
         images: bilder,
         description:
@@ -42,7 +41,7 @@ void dataServices(Box _box) {
         link: "https://www.eje-esslingen.de/?id=305545",
         description: "Freizeitheim Asch"));
     _box.add(
-      Service(
+      OfferedService(
         images: bilder,
         hyperlinks: hyperlinks,
         service: "Freizeitheim Asch",
@@ -58,7 +57,7 @@ void dataServices(Box _box) {
         link: "https://www.eje-esslingen.de/?id=264813",
         description: "Hopfensee"));
     _box.add(
-      Service(
+      OfferedService(
         images: bilder,
         hyperlinks: hyperlinks,
         service: "Zeltplatz Hopfensee",
@@ -74,7 +73,7 @@ void dataServices(Box _box) {
         link: "https://www.eje-esslingen.de/?id=285500",
         description: "Vernetzung"));
     _box.add(
-      Service(
+      OfferedService(
         images: bilder,
         hyperlinks: hyperlinks,
         service: "Vernetzung",
@@ -90,7 +89,7 @@ void dataServices(Box _box) {
         link: "https://www.eje-esslingen.de/?id=330343",
         description: "Konzepte"));
     _box.add(
-      Service(
+      OfferedService(
         images: bilder,
         hyperlinks: hyperlinks,
         service: "Konzepte",

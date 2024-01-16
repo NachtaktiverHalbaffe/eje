@@ -35,17 +35,19 @@
 		"-v",
 		"/dev/bus/usb:/dev/bus/usb",
 		"--device",
-		"/dev/kvm"
-	],
-	"mounts": [
-		"source=/tmp/.X11-unix,target=/tmp/.X11-unix,type=bind,consistency=cached",
-		"source=/dev/dri,target=/dev/dri,type=bind,consistency=cached",
-		"source=/dev/shm,target=/dev/shm,type=bind,consistency=cached"
+		"/dev/kvm",
+		"--device",
+		"/dev/dri:/dev/dri",
+		"-v",
+		"/tmp/.X11-unix:/tmp/.X11-unix",
+		"-e",
+		"DISPLAY"
 	],
 	// This command create an example project after the container is created.
-	"postCreateCommand": "flutter pub get"
+	"postCreateCommand": "flutter pub get",
 	// "initializeCommand": "xhost +local:root"
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	//"forwardPorts": [],
 	// Uncomment to connect as a non-root user. See https://aka.ms/vscode-remote/containers/non-root.
+	// "remoteUser": "vscode"
 }

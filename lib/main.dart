@@ -1,9 +1,10 @@
-import 'package:eje/core/utils/background_services_manager.dart';
-import 'package:eje/core/utils/notificationplugin.dart';
-import 'package:eje/core/widgets/bloc/main_bloc.dart';
-import 'package:eje/core/widgets/bloc/main_state.dart';
-import 'package:eje/core/widgets/color_sheme.dart';
-import 'package:eje/core/widgets/persistent_nav_bar.dart';
+import 'package:eje/utils/background_services_manager.dart';
+import 'package:eje/utils/notificationplugin.dart';
+import 'package:eje/utils/startup.dart';
+import 'package:eje/widgets/color_sheme.dart';
+import 'package:eje/widgets/pages/main/bloc/main_bloc.dart';
+import 'package:eje/widgets/pages/main/bloc/main_state.dart';
+import 'package:eje/widgets/persistent_nav_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_background_service/flutter_background_service.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,7 +12,6 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hive/hive.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'core/utils/startup.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 void main() async {
