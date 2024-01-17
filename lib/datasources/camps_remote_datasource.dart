@@ -1,5 +1,6 @@
 // ignore_for_file: non_constant_identifier_names
 import 'dart:convert';
+import 'package:eje/datasources/RemoteDataSource.dart';
 import 'package:eje/models/camp.dart';
 import 'package:eje/models/exception.dart';
 import 'package:eje/models/location.dart';
@@ -9,10 +10,11 @@ import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 import 'package:html2md/html2md.dart' as html2md;
 
-class CampsRemoteDatasource {
+class CampsRemoteDatasource implements RemoteDataSource<Camp, int> {
   final http.Client client = http.Client();
 
-  Future<List<Camp>> getFreizeiten() async {
+  @override
+  Future<List<Camp>> getAllElement() async {
     final API_URL = Env.amosURL;
     final API_TOKEN = Env.amosToken;
     List<Camp> camps = List.empty(growable: true);
@@ -112,6 +114,11 @@ class CampsRemoteDatasource {
     } else {
       throw ServerException();
     }
+  }
+
+  @override
+  Future<Camp> getElement(int elementId) {
+    throw UnimplementedError();
   }
 
   Location _parseLocation(responsedata) {

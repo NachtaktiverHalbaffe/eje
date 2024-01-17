@@ -2,18 +2,19 @@ import 'package:dartz/dartz.dart';
 import 'package:eje/app_config.dart';
 import 'package:eje/models/failures.dart';
 import 'package:eje/models/field_of_work.dart';
-import 'package:eje/repositories/field_of_work_repository.dart';
+import 'package:eje/repositories/CachedRemoteRepository.dart';
 import 'package:hive/hive.dart';
 
 class FieldsOfWorkService {
-  final FieldOfWorkRepository repository;
+  final CachedRemoteRepository<FieldOfWork, String> repository;
 
   FieldsOfWorkService({required this.repository});
 
   Future<Either<Failure, FieldOfWork>> getFieldOfWork({String? name}) async {
     final AppConfig appConfig = await AppConfig.loadConfig();
     final Box box = await Hive.openBox(appConfig.fieldOfWorkBox);
-    final result = await repository.getFieldOfWork(name!);
+    final result =
+        await repository.getElement(appConfig.fieldOfWorkBox, name!, "name");
     if (box.isOpen) {
       await box.compact();
       // await _box.close();
@@ -24,7 +25,7 @@ class FieldsOfWorkService {
   Future<Either<Failure, List<FieldOfWork>>> getFieldsOfWork() async {
     final AppConfig appConfig = await AppConfig.loadConfig();
     final Box box = await Hive.openBox(appConfig.fieldOfWorkBox);
-    final result = await repository.getFieldsOfWork();
+    final result = await repository.getAllElement(appConfig.fieldOfWorkBox);
     if (box.isOpen) {
       await box.compact();
       await box.close();

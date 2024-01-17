@@ -56,7 +56,7 @@ class _NewsCardState extends State<NewsCard> {
                   MaterialPageRoute(
                     builder: (_) => BlocProvider.value(
                       value: sl<NewsBloc>(),
-                      child: NewsDetails(widget.singleNews.title),
+                      child: NewsDetails(widget.singleNews.link),
                     ),
                   ),
                 ),

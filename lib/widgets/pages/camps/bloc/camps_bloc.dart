@@ -1,7 +1,7 @@
 // ignore_for_file: non_constant_identifier_names
 import 'package:bloc/bloc.dart';
 import 'package:eje/models/camp.dart';
-import 'package:eje/services/CampSerivce.dart';
+import 'package:eje/services/CampService.dart';
 import 'package:get_storage/get_storage.dart';
 
 import './bloc.dart';

@@ -1,14 +1,16 @@
 import 'package:eje/app_config.dart';
+import 'package:eje/datasources/RemoteDataSource.dart';
 import 'package:eje/models/exception.dart';
 import 'package:eje/models/news.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 import 'package:webfeed_revised/domain/rss_feed.dart';
 
-class NewsRemoteDatasource {
+class NewsRemoteDatasource implements RemoteDataSource<News, String> {
   final client = http.Client();
 
-  Future<List<News>> getNews() async {
+  @override
+  Future<List<News>> getAllElement() async {
     // Load config constants
     final appConfig = await AppConfig.loadConfig();
     final apiUrl = Uri.parse(appConfig.domain + appConfig.newsEndpoint);
@@ -53,6 +55,11 @@ class NewsRemoteDatasource {
     } else {
       throw ServerException();
     }
+  }
+
+  @override
+  Future<News> getElement(String elementId) {
+    throw UnimplementedError();
   }
 
   DateTime parseDateTimeFromRSS(String dateFromSource) {

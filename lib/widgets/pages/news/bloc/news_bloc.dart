@@ -30,8 +30,7 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
   void _loadNewsArticle(event, Emitter<NewsState> emit) async {
     print("Neuigkeiten: get details event triggered");
     emit(Loading());
-    final neuigkeitOrFailure =
-        await newsService.getSingleNews(titel: event.title);
+    final neuigkeitOrFailure = await newsService.getSingleNews(url: event.url);
     emit(neuigkeitOrFailure.fold(
       (failure) => Error(message: failure.getErrorMsg()),
       (neuigkeit) {

@@ -9,12 +9,12 @@ abstract class NewsEvent extends Equatable {
 
 // Zeige ganzen Artikel wenn Button geklicket wird
 class GetNewsDetails extends NewsEvent {
-  final String title;
+  final String url;
 
   //Constructor
-  GetNewsDetails(this.title);
+  GetNewsDetails(this.url);
   @override
-  List<Object> get props => [title];
+  List<Object> get props => [url];
 }
 
 // Refreshe Neuigkeiten, wenn Liste zum refresen runter gezogen wird

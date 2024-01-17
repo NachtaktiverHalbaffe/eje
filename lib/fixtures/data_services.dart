@@ -3,7 +3,10 @@ import 'package:eje/models/Hyperlink.dart';
 import 'package:eje/models/Offered_Service.dart';
 import 'package:hive/hive.dart';
 
-void dataServices(Box _box) {
+Future<void> dataServices(String boxName) async {
+  final Box _box = await Hive.openBox(boxName);
+  await _box.clear();
+
   if (_box.length < 6) {
     List<String> bilder = List.empty(growable: true);
     bilder.add("assets/images/info.jpg");
@@ -11,7 +14,7 @@ void dataServices(Box _box) {
     hyperlinks.add(Hyperlink(
         link: "https://www.eje-esslingen.de/?id=311673",
         description: "eje-infos"));
-    _box.add(
+    await _box.add(
       OfferedService(
           service: "eje-Info",
           images: bilder,
@@ -26,7 +29,7 @@ void dataServices(Box _box) {
     hyperlinks.add(Hyperlink(
         link: "https://www.eje-esslingen.de/?id=264807",
         description: "Verleih-Liste runterladen"));
-    _box.add(OfferedService(
+    await _box.add(OfferedService(
         service: "Verleih",
         images: bilder,
         description:
@@ -40,7 +43,7 @@ void dataServices(Box _box) {
     hyperlinks.add(Hyperlink(
         link: "https://www.eje-esslingen.de/?id=305545",
         description: "Freizeitheim Asch"));
-    _box.add(
+    await _box.add(
       OfferedService(
         images: bilder,
         hyperlinks: hyperlinks,
@@ -56,7 +59,7 @@ void dataServices(Box _box) {
     hyperlinks.add(Hyperlink(
         link: "https://www.eje-esslingen.de/?id=264813",
         description: "Hopfensee"));
-    _box.add(
+    await _box.add(
       OfferedService(
         images: bilder,
         hyperlinks: hyperlinks,
@@ -72,7 +75,7 @@ void dataServices(Box _box) {
     hyperlinks.add(Hyperlink(
         link: "https://www.eje-esslingen.de/?id=285500",
         description: "Vernetzung"));
-    _box.add(
+    await _box.add(
       OfferedService(
         images: bilder,
         hyperlinks: hyperlinks,
@@ -88,7 +91,7 @@ void dataServices(Box _box) {
     hyperlinks.add(Hyperlink(
         link: "https://www.eje-esslingen.de/?id=330343",
         description: "Konzepte"));
-    _box.add(
+    await _box.add(
       OfferedService(
         images: bilder,
         hyperlinks: hyperlinks,

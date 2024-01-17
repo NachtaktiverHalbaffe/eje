@@ -1,7 +1,7 @@
-import 'dart:ffi';
-
 import 'package:eje/datasources/LocalDataSource.dart';
+import 'package:eje/datasources/RemoteDataSource.dart';
 import 'package:eje/datasources/arbeitsbereich_remote_datasource.dart';
+import 'package:eje/datasources/articles_remote_datasource.dart';
 import 'package:eje/datasources/bak_remote_datasource.dart';
 import 'package:eje/datasources/camps_remote_datasource.dart';
 import 'package:eje/datasources/employees_remote_datasource.dart';
@@ -15,19 +15,14 @@ import 'package:eje/models/camp.dart';
 import 'package:eje/models/employee.dart';
 import 'package:eje/models/field_of_work.dart';
 import 'package:eje/models/news.dart';
-import 'package:eje/repositories/bak_repository.dart';
-import 'package:eje/repositories/employees_repository.dart';
-import 'package:eje/repositories/articles_repository.dart';
-import 'package:eje/repositories/einstellungen_repository.dart';
-import 'package:eje/repositories/field_of_work_repository.dart';
-import 'package:eje/repositories/camp_repository.dart';
-import 'package:eje/repositories/news_repository.dart';
+import 'package:eje/repositories/CachedRemoteRepository.dart';
+import 'package:eje/repositories/CachedRemoteSingleElementRepository.dart';
+import 'package:eje/repositories/Repository.dart';
+import 'package:eje/repositories/SharedPreferencesRepository.dart';
 import 'package:eje/datasources/events_remote_datasource.dart';
-import 'package:eje/repositories/events_repository.dart';
-import 'package:eje/repositories/services_repository.dart';
 import 'package:eje/services/ArticleService.dart';
 import 'package:eje/services/BakService.dart';
-import 'package:eje/services/CampSerivce.dart';
+import 'package:eje/services/CampService.dart';
 import 'package:eje/services/EmployeeService.dart';
 import 'package:eje/services/EventService.dart';
 import 'package:eje/services/FieldOfWorkService.dart';
@@ -60,16 +55,14 @@ Future<void> init() async {
     () => NewsBloc(newsService: sl()),
   );
   // * Services
-  sl.registerLazySingleton(() => NewsService(repository: sl()));
+  sl.registerLazySingleton(
+      () => NewsService(repository: sl(), articleRepository: sl()));
   // * Repository
-  sl.registerLazySingleton(
-    () => NewsRepository(
-        remoteDataSource: sl(), localDatasource: sl(), networkInfo: sl()),
-  );
+  sl.registerLazySingleton(() => CachedRemoteRepository<News, String>(
+      remoteDatasource: sl(), localDatasource: sl(), networkInfo: sl()));
   // * Datasources
-  sl.registerLazySingleton(
-    () => NewsRemoteDatasource(),
-  );
+  sl.registerLazySingleton<RemoteDataSource<News, String>>(
+      () => NewsRemoteDatasource());
   sl.registerLazySingleton(() => LocalDataSource<News, String>());
 
   // ! Einstellungen
@@ -78,7 +71,7 @@ Future<void> init() async {
   // * Services
   sl.registerLazySingleton(() => SettingsService(repository: sl()));
   // * Repository
-  sl.registerLazySingleton(() => SettingsRepository());
+  sl.registerLazySingleton(() => SharedPreferencesRepository());
 
   // ! Hauptamtliche
   // * Bloc
@@ -86,13 +79,12 @@ Future<void> init() async {
   // * Service
   sl.registerLazySingleton(() => EmployeeService(repository: sl()));
   // * Repository
-  sl.registerLazySingleton(
-    () => EmployeesRepository(
-        remoteDataSource: sl(), localDatasource: sl(), networkInfo: sl()),
-  );
+  sl.registerLazySingleton(() => CachedRemoteRepository<Employee, String>(
+      remoteDatasource: sl(), localDatasource: sl(), networkInfo: sl()));
   // * Datasources
   sl.registerLazySingleton(() => LocalDataSource<Employee, String>());
-  sl.registerLazySingleton(() => EmployeesRemoteDatasource(client: sl()));
+  sl.registerLazySingleton<RemoteDataSource<Employee, String>>(
+      () => EmployeesRemoteDatasource(client: sl()));
 
   // ! BAK
   // * Bloc
@@ -100,11 +92,12 @@ Future<void> init() async {
   // * Services
   sl.registerLazySingleton(() => BakService(repository: sl()));
   // * Repository
-  sl.registerLazySingleton(() => BAKRepository(
-      remoteDataSource: sl(), localDatasource: sl(), networkInfo: sl()));
+  sl.registerLazySingleton(() => CachedRemoteRepository<BAKler, String>(
+      remoteDatasource: sl(), localDatasource: sl(), networkInfo: sl()));
   // * Datasources
   sl.registerLazySingleton(() => LocalDataSource<BAKler, String>());
-  sl.registerLazySingleton(() => BAKRemoteDatasource(client: sl()));
+  sl.registerLazySingleton<RemoteDataSource<BAKler, String>>(
+      () => BAKRemoteDatasource(client: sl()));
 
   // ! Arbeitsbereiche
   // * Bloc
@@ -114,22 +107,24 @@ Future<void> init() async {
   // * Services
   sl.registerLazySingleton(() => FieldsOfWorkService(repository: sl()));
   // * Repsoitory
-  sl.registerLazySingleton(() => FieldOfWorkRepository(
-      remoteDataSource: sl(), localDatasource: sl(), networkInfo: sl()));
+  sl.registerLazySingleton(() => CachedRemoteRepository<FieldOfWork, String>(
+      remoteDatasource: sl(), localDatasource: sl(), networkInfo: sl()));
   // * Datasources
   sl.registerLazySingleton(() => LocalDataSource<FieldOfWork, String>());
-  sl.registerLazySingleton(() => ArbeitsbereichRemoteDatasource(client: sl()));
+  sl.registerLazySingleton<RemoteDataSource<FieldOfWork, String>>(
+      () => ArbeitsbereichRemoteDatasource(client: sl()));
 
   // ! Services
   sl.registerFactory(() => ServicesBloc(offeredServicesService: sl()));
   // * Services
   sl.registerLazySingleton(() => OfferedServicesService(repository: sl()));
   // * Repository
-  sl.registerLazySingleton(() => ServicesRepository(
-      remoteDataSource: sl(), localDatasource: sl(), networkInfo: sl()));
+  sl.registerLazySingleton(() => CachedRemoteRepository<OfferedService, String>(
+      remoteDatasource: sl(), localDatasource: sl(), networkInfo: sl()));
   // * Datrasources
   sl.registerLazySingleton(() => LocalDataSource<OfferedService, String>());
-  sl.registerLazySingleton(() => ServicesRemoteDatasource(client: sl()));
+  sl.registerLazySingleton<RemoteDataSource<OfferedService, String>>(
+      () => ServicesRemoteDatasource(cache: sl()));
 
   // ! Termine
   // * Bloc
@@ -137,31 +132,36 @@ Future<void> init() async {
   // * Services
   sl.registerLazySingleton(() => EventService(repository: sl()));
   // * Repository
-  sl.registerLazySingleton(() => EventsRepository(
-      remoteDataSource: sl(), localDatasource: sl(), networkInfo: sl()));
+  sl.registerLazySingleton(() => CachedRemoteRepository<Event, int>(
+      remoteDatasource: sl(), localDatasource: sl(), networkInfo: sl()));
   // * Datasources
   sl.registerLazySingleton(() => LocalDataSource<Event, int>());
-  sl.registerLazySingleton(() => TermineRemoteDatasource(client: sl()));
+  sl.registerLazySingleton<RemoteDataSource<Event, int>>(
+      () => TermineRemoteDatasource(client: sl()));
 
   // ! Freizeiten
   sl.registerFactory(() => CampsBloc(campService: sl()));
   // * Services
   sl.registerLazySingleton(() => CampService(repository: sl()));
   // * Repository
-  sl.registerLazySingleton(() => CampRepository(
-      remoteDataSource: sl(), localDatasource: sl(), networkInfo: sl()));
+  sl.registerLazySingleton(() => CachedRemoteRepository<Camp, int>(
+      remoteDatasource: sl(), localDatasource: sl(), networkInfo: sl()));
   // * Datasources
   sl.registerLazySingleton(() => LocalDataSource<Camp, int>());
-  sl.registerLazySingleton(() => CampsRemoteDatasource());
+  sl.registerLazySingleton<RemoteDataSource<Camp, int>>(
+      () => CampsRemoteDatasource());
 
   // ! Articles
   sl.registerFactory(() => ArticlesBloc(articleService: sl()));
   // * Services
   sl.registerLazySingleton(() => ArticleService(sl()));
   // * Repository
-  sl.registerLazySingleton(
-      () => ArticlesRepository(localDatasource: sl(), networkInfo: sl()));
+  sl.registerLazySingleton(() =>
+      CachedRemoteSingleElementRepository<Article, String>(
+          localDatasource: sl(), networkInfo: sl(), remoteDatasource: sl()));
   // * Datasources
+  sl.registerLazySingleton<RemoteDataSource<Article, String>>(
+      () => ArticlesRemoteDatasource());
   sl.registerLazySingleton(() => LocalDataSource<Article, String>());
 
   // ! Core

@@ -47,7 +47,7 @@ class BackgroundServicesManager {
 
     //Downloading content from internet
     try {
-      downloadedNeuigkeiten = await NewsRemoteDatasource().getNews();
+      downloadedNeuigkeiten = await NewsRemoteDatasource().getAllElement();
     } catch (e) {
       return;
     }
@@ -93,7 +93,7 @@ class BackgroundServicesManager {
     List<dynamic> cachedCamps = prefs.read("cached_freizeiten");
 
     try {
-      downloadedCamps = await CampsRemoteDatasource().getFreizeiten();
+      downloadedCamps = await CampsRemoteDatasource().getAllElement();
     } catch (e) {
       return;
     }
