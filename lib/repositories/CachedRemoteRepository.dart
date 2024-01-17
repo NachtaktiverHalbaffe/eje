@@ -11,18 +11,20 @@ class CachedRemoteRepository<T extends Equatable, K>
     implements Repository<T, K> {
   final RemoteDataSource<T, K> remoteDatasource;
   final LocalDataSource<T, K> localDatasource;
+  final String idKey;
   final NetworkInfo networkInfo;
 
   CachedRemoteRepository(
       {required this.remoteDatasource,
       required this.localDatasource,
-      required this.networkInfo});
+      required this.networkInfo,
+      required this.idKey});
 
   @override
-  Future<Either<Failure, List<T>>> getAllElement(String boxKey) async {
+  Future<Either<Failure, List<T>>> getAllElements(String boxKey) async {
     if (await networkInfo.isConnected) {
       try {
-        final List<T> remoteElements = await remoteDatasource.getAllElement();
+        final List<T> remoteElements = await remoteDatasource.getAllElements();
         await localDatasource.cacheElements(boxKey, remoteElements);
         return Right(remoteElements);
       } on ServerException {
@@ -41,8 +43,7 @@ class CachedRemoteRepository<T extends Equatable, K>
   }
 
   @override
-  Future<Either<Failure, T>> getElement(
-      String boxKey, K elementId, String idKey) async {
+  Future<Either<Failure, T>> getElement(String boxKey, K elementId) async {
     try {
       T element = await localDatasource.getElement(boxKey, elementId, idKey);
       return Right(element);

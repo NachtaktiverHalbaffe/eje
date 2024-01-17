@@ -13,20 +13,21 @@ class CachedRemoteSingleElementRepository<T extends Equatable, K>
   final RemoteDataSource<T, K> remoteDatasource;
   final LocalDataSource<T, K> localDatasource;
   final NetworkInfo networkInfo;
+  final String idKey;
 
   CachedRemoteSingleElementRepository(
       {required this.remoteDatasource,
       required this.localDatasource,
-      required this.networkInfo});
+      required this.networkInfo,
+      required this.idKey});
 
   @override
-  Future<Either<Failure, List<T>>> getAllElement(String boxKey) {
+  Future<Either<Failure, List<T>>> getAllElements(String boxKey) {
     throw UnimplementedError();
   }
 
   @override
-  Future<Either<Failure, T>> getElement(
-      String boxKey, K elementId, String idKey) async {
+  Future<Either<Failure, T>> getElement(String boxKey, K elementId) async {
     if (await networkInfo.isConnected) {
       try {
         final T remoteElement = await remoteDatasource.getElement(elementId);

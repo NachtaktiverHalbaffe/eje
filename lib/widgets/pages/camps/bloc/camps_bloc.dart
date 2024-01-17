@@ -1,13 +1,13 @@
 // ignore_for_file: non_constant_identifier_names
 import 'package:bloc/bloc.dart';
 import 'package:eje/models/camp.dart';
-import 'package:eje/services/CampService.dart';
+import 'package:eje/services/ReadOnlyService.dart';
 import 'package:get_storage/get_storage.dart';
 
 import './bloc.dart';
 
 class CampsBloc extends Bloc<CampEvent, CampState> {
-  final CampService campService;
+  final ReadOnlyService<Camp, int> campService;
 
   CampsBloc({required this.campService}) : super(Empty()) {
     on<RefreshCamps>(_loadCamps);
@@ -18,7 +18,7 @@ class CampsBloc extends Bloc<CampEvent, CampState> {
 
   void _loadCamps(event, Emitter<CampState> emit) async {
     emit(Loading());
-    final campOrFailure = await campService.getCamps();
+    final campOrFailure = await campService.getAllElements();
     emit(campOrFailure.fold(
       (failure) {
         return Error(message: failure.getErrorMsg());
@@ -36,7 +36,7 @@ class CampsBloc extends Bloc<CampEvent, CampState> {
 
   void _loadSpecificCamp(event, Emitter<CampState> emit) async {
     emit(Loading());
-    final campsOrFailure = await campService.getCamp(id: event.camp.id);
+    final campsOrFailure = await campService.getElement(id: event.camp.id);
     emit(campsOrFailure.fold(
       (failure) => Error(message: failure.getErrorMsg()),
       (freizeit) => LoadedCamp(freizeit),
@@ -44,7 +44,7 @@ class CampsBloc extends Bloc<CampEvent, CampState> {
   }
 
   void _filterCamps(event, Emitter<CampState> emit) async {
-    final campsOrFailure = await campService.getCamps();
+    final campsOrFailure = await campService.getAllElements();
     emit(campsOrFailure.fold(
       (failure) => Error(message: failure.getErrorMsg()),
       (freizeiten) {
@@ -55,7 +55,7 @@ class CampsBloc extends Bloc<CampEvent, CampState> {
   }
 
   void _deleteChip(event, Emitter<CampState> emit) async {
-    final campsOrFailure = await campService.getCamps();
+    final campsOrFailure = await campService.getAllElements();
     emit(campsOrFailure.fold(
       (failure) => Error(message: failure.getErrorMsg()),
       (freizeiten) {

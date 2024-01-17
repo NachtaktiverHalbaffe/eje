@@ -1,5 +1,5 @@
 import 'package:bloc/bloc.dart';
-import 'package:eje/services/SettingsService.dart';
+import 'package:eje/services/SharedPreferencesService.dart';
 import './bloc.dart';
 
 class EinstellungBloc extends Bloc<EinstellungEvent, EinstellungState> {

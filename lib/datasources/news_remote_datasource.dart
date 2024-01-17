@@ -10,7 +10,7 @@ class NewsRemoteDatasource implements RemoteDataSource<News, String> {
   final client = http.Client();
 
   @override
-  Future<List<News>> getAllElement() async {
+  Future<List<News>> getAllElements() async {
     // Load config constants
     final appConfig = await AppConfig.loadConfig();
     final apiUrl = Uri.parse(appConfig.domain + appConfig.newsEndpoint);

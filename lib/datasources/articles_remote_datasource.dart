@@ -5,7 +5,7 @@ import 'package:eje/models/exception.dart';
 
 class ArticlesRemoteDatasource implements RemoteDataSource<Article, String> {
   @override
-  Future<List<Article>> getAllElement() async {
+  Future<List<Article>> getAllElements() async {
     throw UnimplementedError();
   }
 

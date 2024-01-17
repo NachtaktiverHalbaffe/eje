@@ -10,7 +10,7 @@ class ArbeitsbereichRemoteDatasource
   ArbeitsbereichRemoteDatasource({required this.client});
 
   @override
-  Future<List<FieldOfWork>> getAllElement() async {
+  Future<List<FieldOfWork>> getAllElements() async {
     try {
       return await WebScraper().scrapeArbeitsbereiche();
     } on ServerException {

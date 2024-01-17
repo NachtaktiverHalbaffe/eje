@@ -1,3 +1,4 @@
+import 'package:eje/app_config.dart';
 import 'package:eje/datasources/LocalDataSource.dart';
 import 'package:eje/datasources/RemoteDataSource.dart';
 import 'package:eje/datasources/arbeitsbereich_remote_datasource.dart';
@@ -20,15 +21,11 @@ import 'package:eje/repositories/CachedRemoteSingleElementRepository.dart';
 import 'package:eje/repositories/Repository.dart';
 import 'package:eje/repositories/SharedPreferencesRepository.dart';
 import 'package:eje/datasources/events_remote_datasource.dart';
-import 'package:eje/services/ArticleService.dart';
-import 'package:eje/services/BakService.dart';
-import 'package:eje/services/CampService.dart';
-import 'package:eje/services/EmployeeService.dart';
-import 'package:eje/services/EventService.dart';
-import 'package:eje/services/FieldOfWorkService.dart';
 import 'package:eje/services/NewsService.dart';
 import 'package:eje/services/OfferedServicesService.dart';
-import 'package:eje/services/SettingsService.dart';
+import 'package:eje/services/ReadOnlyService.dart';
+import 'package:eje/services/ReadOnlySingleElementService.dart';
+import 'package:eje/services/SharedPreferencesService.dart';
 import 'package:eje/utils/network_info.dart';
 import 'package:eje/widgets/pages/fields_of_work/bloc/fields_of_work_bloc.dart';
 import 'package:eje/widgets/pages/articles/bloc/articles_bloc.dart';
@@ -47,7 +44,7 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 final sl = GetIt.instance;
 
 Future<void> init() async {
-  // ! Pages
+  final AppConfig appConfig = await AppConfig.loadConfig();
 
   // ! Neuigkeiten
   // * Bloc
@@ -58,8 +55,12 @@ Future<void> init() async {
   sl.registerLazySingleton(
       () => NewsService(repository: sl(), articleRepository: sl()));
   // * Repository
-  sl.registerLazySingleton(() => CachedRemoteRepository<News, String>(
-      remoteDatasource: sl(), localDatasource: sl(), networkInfo: sl()));
+  sl.registerLazySingleton<Repository<News, String>>(() =>
+      CachedRemoteRepository<News, String>(
+          remoteDatasource: sl(),
+          localDatasource: sl(),
+          networkInfo: sl(),
+          idKey: 'title'));
   // * Datasources
   sl.registerLazySingleton<RemoteDataSource<News, String>>(
       () => NewsRemoteDatasource());
@@ -69,7 +70,8 @@ Future<void> init() async {
   // * Bloc
   sl.registerFactory(() => EinstellungBloc(settingsService: sl()));
   // * Services
-  sl.registerLazySingleton(() => SettingsService(repository: sl()));
+  sl.registerLazySingleton(
+      () => SettingsService.SharedPreferencesService(repository: sl()));
   // * Repository
   sl.registerLazySingleton(() => SharedPreferencesRepository());
 
@@ -77,10 +79,15 @@ Future<void> init() async {
   // * Bloc
   sl.registerFactory(() => EmployeesBloc(employeeService: sl()));
   // * Service
-  sl.registerLazySingleton(() => EmployeeService(repository: sl()));
+  sl.registerLazySingleton(() => ReadOnlyService<Employee, String>(
+      repository: sl(), boxKey: appConfig.employeesBox));
   // * Repository
-  sl.registerLazySingleton(() => CachedRemoteRepository<Employee, String>(
-      remoteDatasource: sl(), localDatasource: sl(), networkInfo: sl()));
+  sl.registerLazySingleton<Repository<Employee, String>>(() =>
+      CachedRemoteRepository<Employee, String>(
+          remoteDatasource: sl(),
+          localDatasource: sl(),
+          networkInfo: sl(),
+          idKey: 'name'));
   // * Datasources
   sl.registerLazySingleton(() => LocalDataSource<Employee, String>());
   sl.registerLazySingleton<RemoteDataSource<Employee, String>>(
@@ -90,10 +97,15 @@ Future<void> init() async {
   // * Bloc
   sl.registerFactory(() => BakBloc(bakSerivce: sl()));
   // * Services
-  sl.registerLazySingleton(() => BakService(repository: sl()));
+  sl.registerLazySingleton(() => ReadOnlyService<BAKler, String>(
+      repository: sl(), boxKey: appConfig.bakBox));
   // * Repository
-  sl.registerLazySingleton(() => CachedRemoteRepository<BAKler, String>(
-      remoteDatasource: sl(), localDatasource: sl(), networkInfo: sl()));
+  sl.registerLazySingleton<Repository<BAKler, String>>(() =>
+      CachedRemoteRepository<BAKler, String>(
+          remoteDatasource: sl(),
+          localDatasource: sl(),
+          networkInfo: sl(),
+          idKey: 'name'));
   // * Datasources
   sl.registerLazySingleton(() => LocalDataSource<BAKler, String>());
   sl.registerLazySingleton<RemoteDataSource<BAKler, String>>(
@@ -105,10 +117,15 @@ Future<void> init() async {
     () => FieldsOfWorkBloc(fieldsOfWorkService: sl()),
   );
   // * Services
-  sl.registerLazySingleton(() => FieldsOfWorkService(repository: sl()));
+  sl.registerLazySingleton(() => ReadOnlyService<FieldOfWork, String>(
+      repository: sl(), boxKey: appConfig.fieldOfWorkBox));
   // * Repsoitory
-  sl.registerLazySingleton(() => CachedRemoteRepository<FieldOfWork, String>(
-      remoteDatasource: sl(), localDatasource: sl(), networkInfo: sl()));
+  sl.registerLazySingleton<Repository<FieldOfWork, String>>(() =>
+      CachedRemoteRepository<FieldOfWork, String>(
+          remoteDatasource: sl(),
+          localDatasource: sl(),
+          networkInfo: sl(),
+          idKey: 'link'));
   // * Datasources
   sl.registerLazySingleton(() => LocalDataSource<FieldOfWork, String>());
   sl.registerLazySingleton<RemoteDataSource<FieldOfWork, String>>(
@@ -119,8 +136,12 @@ Future<void> init() async {
   // * Services
   sl.registerLazySingleton(() => OfferedServicesService(repository: sl()));
   // * Repository
-  sl.registerLazySingleton(() => CachedRemoteRepository<OfferedService, String>(
-      remoteDatasource: sl(), localDatasource: sl(), networkInfo: sl()));
+  sl.registerLazySingleton<Repository<OfferedService, String>>(() =>
+      CachedRemoteRepository<OfferedService, String>(
+          remoteDatasource: sl(),
+          localDatasource: sl(),
+          networkInfo: sl(),
+          idKey: 'service'));
   // * Datrasources
   sl.registerLazySingleton(() => LocalDataSource<OfferedService, String>());
   sl.registerLazySingleton<RemoteDataSource<OfferedService, String>>(
@@ -130,10 +151,15 @@ Future<void> init() async {
   // * Bloc
   sl.registerFactory(() => EventsBloc(eventService: sl()));
   // * Services
-  sl.registerLazySingleton(() => EventService(repository: sl()));
+  sl.registerLazySingleton(() => ReadOnlyService<Event, int>(
+      repository: sl(), boxKey: appConfig.eventsBox));
   // * Repository
-  sl.registerLazySingleton(() => CachedRemoteRepository<Event, int>(
-      remoteDatasource: sl(), localDatasource: sl(), networkInfo: sl()));
+  sl.registerLazySingleton<Repository<Event, int>>(() =>
+      CachedRemoteRepository<Event, int>(
+          remoteDatasource: sl(),
+          localDatasource: sl(),
+          networkInfo: sl(),
+          idKey: 'id'));
   // * Datasources
   sl.registerLazySingleton(() => LocalDataSource<Event, int>());
   sl.registerLazySingleton<RemoteDataSource<Event, int>>(
@@ -142,10 +168,15 @@ Future<void> init() async {
   // ! Freizeiten
   sl.registerFactory(() => CampsBloc(campService: sl()));
   // * Services
-  sl.registerLazySingleton(() => CampService(repository: sl()));
+  sl.registerLazySingleton(() =>
+      ReadOnlyService<Camp, int>(repository: sl(), boxKey: appConfig.campsBox));
   // * Repository
-  sl.registerLazySingleton(() => CachedRemoteRepository<Camp, int>(
-      remoteDatasource: sl(), localDatasource: sl(), networkInfo: sl()));
+  sl.registerLazySingleton<Repository<Camp, int>>(() =>
+      CachedRemoteRepository<Camp, int>(
+          remoteDatasource: sl(),
+          localDatasource: sl(),
+          networkInfo: sl(),
+          idKey: 'id'));
   // * Datasources
   sl.registerLazySingleton(() => LocalDataSource<Camp, int>());
   sl.registerLazySingleton<RemoteDataSource<Camp, int>>(
@@ -154,11 +185,15 @@ Future<void> init() async {
   // ! Articles
   sl.registerFactory(() => ArticlesBloc(articleService: sl()));
   // * Services
-  sl.registerLazySingleton(() => ArticleService(sl()));
+  sl.registerLazySingleton(() => ReadOnlySingleElementService<Article, String>(
+      boxKey: appConfig.articlesBox, repository: sl()));
   // * Repository
-  sl.registerLazySingleton(() =>
+  sl.registerLazySingleton<Repository<Article, String>>(() =>
       CachedRemoteSingleElementRepository<Article, String>(
-          localDatasource: sl(), networkInfo: sl(), remoteDatasource: sl()));
+          localDatasource: sl(),
+          networkInfo: sl(),
+          remoteDatasource: sl(),
+          idKey: 'url'));
   // * Datasources
   sl.registerLazySingleton<RemoteDataSource<Article, String>>(
       () => ArticlesRemoteDatasource());

@@ -14,7 +14,7 @@ class ServicesRemoteDatasource
   ServicesRemoteDatasource({required this.cache});
 
   @override
-  Future<List<OfferedService>> getAllElement() async {
+  Future<List<OfferedService>> getAllElements() async {
     final AppConfig appConfig = await AppConfig.loadConfig();
     final List<OfferedService> scrapedServices = List.empty(growable: true);
     final List<OfferedService> services =

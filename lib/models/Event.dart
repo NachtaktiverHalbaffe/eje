@@ -5,7 +5,7 @@ import 'package:hive/hive.dart';
 
 part 'Event.g.dart';
 
-@HiveType(typeId: 7)
+@HiveType(typeId: 4)
 class Event extends Equatable {
   @HiveField(0)
   final String name;

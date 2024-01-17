@@ -14,7 +14,7 @@ class CampsRemoteDatasource implements RemoteDataSource<Camp, int> {
   final http.Client client = http.Client();
 
   @override
-  Future<List<Camp>> getAllElement() async {
+  Future<List<Camp>> getAllElements() async {
     final API_URL = Env.amosURL;
     final API_TOKEN = Env.amosToken;
     List<Camp> camps = List.empty(growable: true);

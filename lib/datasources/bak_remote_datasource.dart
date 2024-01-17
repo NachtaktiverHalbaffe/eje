@@ -10,7 +10,7 @@ class BAKRemoteDatasource implements RemoteDataSource<BAKler, String> {
   BAKRemoteDatasource({required this.client});
 
   @override
-  Future<List<BAKler>> getAllElement() async {
+  Future<List<BAKler>> getAllElements() async {
     try {
       return await WebScraper().scrapeBAKler();
     } on ServerException {

@@ -14,7 +14,7 @@ class TermineRemoteDatasource implements RemoteDataSource<Event, int> {
   TermineRemoteDatasource({required this.client});
 
   @override
-  Future<List<Event>> getAllElement() async {
+  Future<List<Event>> getAllElements() async {
     final API_URL = Env.amosURL;
     final API_TOKEN = Env.amosToken;
     List<Event> events = List.empty(growable: true);

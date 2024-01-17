@@ -10,7 +10,7 @@ class EmployeesRemoteDatasource implements RemoteDataSource<Employee, String> {
   EmployeesRemoteDatasource({required this.client});
 
   @override
-  Future<List<Employee>> getAllElement() async {
+  Future<List<Employee>> getAllElements() async {
     try {
       return await WebScraper().scrapeHauptamliche();
     } on ServerException {

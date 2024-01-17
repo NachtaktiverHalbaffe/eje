@@ -4,7 +4,7 @@ import 'package:hive/hive.dart';
 
 part 'camp.g.dart';
 
-@HiveType(typeId: 26)
+@HiveType(typeId: 5)
 class Camp extends Equatable {
   @HiveField(0)
   final String name;
