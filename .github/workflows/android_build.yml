@@ -14,8 +14,12 @@ jobs:
       - name: Generate apk token file
         run: |
             touch assets/config/.env
-            echo "AMOSURL = ${{secrets.AMOS_URL}}" > assets/config/.env
-            echo "AMOSTOKEN = ${{secrets.AMOS_TOKEN}}" > assets/config/.env
+            echo "AMOSURL = ${{secrets.AMOS_URL}}" >> assets/config/.env
+            echo "AMOSTOKEN = ${{secrets.AMOS_TOKEN}}" >> assets/config/.env
+
+            cat assets/config/.env
+            echo "ls -a ${{ github.workspace }}"
+            ls -a ${{ github.workspace }}
    
       - uses: NiklasLehnfeld/flutter-android-build-action@v1
         id: android-build
