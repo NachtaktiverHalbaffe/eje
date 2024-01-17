@@ -60,7 +60,7 @@ android {
      }
     signingConfigs {
           release {
-            keyAlias 'github_actions_config'
+            keyAlias 'upload'
             keyPassword System.env.KEY_PWD ?: ''
             storeFile file('../keystore.jks')
             storePassword System.env.KEYSTORE_PWD ?: ''
