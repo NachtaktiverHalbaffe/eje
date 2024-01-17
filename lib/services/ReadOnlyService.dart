@@ -1,5 +1,4 @@
 import 'package:dartz/dartz.dart';
-import 'package:eje/app_config.dart';
 import 'package:eje/models/failures.dart';
 import 'package:eje/repositories/Repository.dart';
 import 'package:equatable/equatable.dart';

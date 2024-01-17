@@ -111,13 +111,13 @@ class _terminChildWidget extends StatelessWidget {
                 endDate: _termin.endDate,
               );
 
-              if (await Permission.calendar.isGranted) {
+              if (await Permission.calendarWriteOnly.isGranted) {
                 print("Adding event to calendar");
                 add2calendar.Add2Calendar.addEvent2Cal(event);
               } else {
                 print(
                     "Calendar permissions not granted. Requesting permission");
-                var status = await Permission.calendar.request();
+                var status = await Permission.calendarWriteOnly.request();
                 if (status == PermissionStatus.granted) {
                   add2calendar.Add2Calendar.addEvent2Cal(event);
                 } else {

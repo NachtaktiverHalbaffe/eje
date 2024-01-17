@@ -260,8 +260,7 @@ class WebScraper {
                   if (!element.text.contains('Ich bin erreichbar unter')) {
                     if (element.text.contains('0711')) {
                       telefon = element.text
-                          .replaceAll(
-                              new RegExp(r"\D"), "") // remove all Letters
+                          .replaceAll(RegExp(r"\D"), "") // remove all Letters
                           .trimLeft()
                           .trimRight();
                     } else if (element.text.contains('Diensthandy')) {
@@ -270,8 +269,7 @@ class WebScraper {
                             element.text.split(':')[1].trimLeft().trimRight();
                       } else {
                         handy = element.text
-                            .replaceAll(
-                                new RegExp(r"\D"), "") //remove all letters
+                            .replaceAll(RegExp(r"\D"), "") //remove all letters
                             .trim();
                       }
                     } else if (element.text.contains('Threema')) {

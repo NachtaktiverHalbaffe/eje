@@ -1,11 +1,9 @@
-import 'package:dartz/dartz_unsafe.dart';
 import 'package:eje/app_config.dart';
 import 'package:eje/datasources/LocalDataSource.dart';
 import 'package:eje/datasources/RemoteDataSource.dart';
 import 'package:eje/datasources/WebScraper.dart';
 import 'package:eje/models/Offered_Service.dart';
 import 'package:eje/models/exception.dart';
-import 'package:http/http.dart' as http;
 
 class ServicesRemoteDatasource
     implements RemoteDataSource<OfferedService, String> {
@@ -39,7 +37,6 @@ class ServicesRemoteDatasource
 
   @override
   Future<OfferedService> getElement(String elementId) {
-    // TODO: implement getElement
     throw UnimplementedError();
   }
 }

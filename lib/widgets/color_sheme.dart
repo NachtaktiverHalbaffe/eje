@@ -24,9 +24,8 @@ final MaterialStateProperty<Icon?> THUMB_ICON =
 });
 
 ThemeData getAppDarkTheme() {
-  ThemeData themeDark = ThemeData.dark();
+  ThemeData themeDark = ThemeData.dark(useMaterial3: true);
   return themeDark.copyWith(
-    useMaterial3: true,
     colorScheme: themeDark.colorScheme.copyWith(
       // Firmenfarbe
       secondary: COMPANY_COLOR,
@@ -63,10 +62,9 @@ ThemeData getAppDarkTheme() {
 }
 
 ThemeData getAppLightTheme() {
-  ThemeData themeLight = ThemeData.light();
+  ThemeData themeLight = ThemeData.light(useMaterial3: true);
 
   return themeLight.copyWith(
-      useMaterial3: true,
       colorScheme: themeLight.colorScheme.copyWith(
         secondary: COMPANY_COLOR,
         background: Colors.white,

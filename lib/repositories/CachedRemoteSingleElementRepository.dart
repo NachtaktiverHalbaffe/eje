@@ -1,7 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:eje/datasources/LocalDataSource.dart';
 import 'package:eje/datasources/RemoteDataSource.dart';
-import 'package:eje/models/Article.dart';
 import 'package:eje/models/exception.dart';
 import 'package:eje/models/failures.dart';
 import 'package:eje/repositories/Repository.dart';

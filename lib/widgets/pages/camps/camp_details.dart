@@ -105,13 +105,13 @@ class _freizeitChildWidget extends StatelessWidget {
                 endDate: freizeit.endDate,
               );
 
-              if (await Permission.calendar.isGranted) {
+              if (await Permission.calendarWriteOnly.isGranted) {
                 print("Adding camp to calendar");
                 Add2Calendar.addEvent2Cal(event);
               } else {
                 print(
                     "Calendar permissions not granted. Requesting permission");
-                var status = await Permission.calendar.request();
+                var status = await Permission.calendarWriteOnly.request();
                 if (status == PermissionStatus.granted) {
                   Add2Calendar.addEvent2Cal(event);
                 } else {

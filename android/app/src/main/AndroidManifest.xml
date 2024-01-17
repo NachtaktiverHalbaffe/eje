@@ -1,42 +1,60 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools" 
-package="de.eje_esslingen.eje">
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.WRITE_CALENDAR" />
-    <uses-permission android:name="android.permission.READ_CALENDAR" />
-    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM"/>
-    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
-    <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
-
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="de.eje_esslingen.eje">
+    <uses-permission
+        android:name="android.permission.INTERNET"/>
+    <uses-permission
+        android:name="android.permission.WRITE_CALENDAR"/>
+    <uses-permission
+        android:name="android.permission.READ_CALENDAR"/>
+    <uses-permission
+        android:name="android.permission.SCHEDULE_EXACT_ALARM"/>
+    <uses-permission
+        android:name="android.permission.POST_NOTIFICATIONS"/>
+    <uses-permission
+        android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS"/>
     <!-- Provide required visibility configuration for API level 30 and above -->
     <queries>
-           <!-- If your app checks for https support -->
+        <!-- If your app checks for https support -->
         <intent>
-            <action android:name="android.intent.action.VIEW" />
-            <data android:scheme="https" />
+            <action
+                android:name="android.intent.action.VIEW"/>
+            <data
+                android:scheme="https"/>
         </intent>
         <!-- If your app checks for http support -->
         <intent>
-            <action android:name="android.intent.action.VIEW" />
-            <data android:scheme="http" />
+            <action
+                android:name="android.intent.action.VIEW"/>
+            <data
+                android:scheme="http"/>
         </intent>
         <!-- If your app checks for SMS support -->
         <intent>
-            <action android:name="android.intent.action.VIEW" />
-            <data android:scheme="sms" />
+            <action
+                android:name="android.intent.action.VIEW"/>
+            <data
+                android:scheme="sms"/>
         </intent>
         <!-- If your app checks for call support -->
         <intent>
-            <action android:name="android.intent.action.VIEW" />
-            <data android:scheme="tel" />
+            <action
+                android:name="android.intent.action.VIEW"/>
+            <data
+                android:scheme="tel"/>
         </intent>
-          <!-- If your app emails -->
+        <!-- If your app emails -->
         <intent>
-            <action android:name="android.intent.action.SEND" />
-            <data android:mimeType="*/*" />
+            <action
+                android:name="android.intent.action.SEND"/>
+            <data
+                android:mimeType="*/*"/>
         </intent>
-         <intent>
-            <action android:name="android.intent.action.INSERT" />
-            <data android:mimeType="vnd.android.cursor.item/event" />
+        <intent>
+            <action
+                android:name="android.intent.action.INSERT"/>
+            <data
+                android:mimeType="vnd.android.cursor.item/event"/>
         </intent>
     </queries>
     <!-- io.flutter.app.FlutterApplication is an android.app.Application that
@@ -44,26 +62,25 @@ package="de.eje_esslingen.eje">
         In most cases you can leave this as-is, but you if you want to provide
         additional functionality it is fine to subclass or reimplement
         FlutterApplication and put your custom class here. -->
-        <application 
-        tools:replace="android:label"  
+    <application
+        tools:replace="android:label"
         android:name="${applicationName}"
-        android:label="eje" 
-        android:icon="@mipmap/ic_launcher"> 
+        android:label="eje"
+        android:icon="@mipmap/ic_launcher">
         <activity
-            android:name=".MainActivity" 
+            android:name=".MainActivity"
             android:exported="true"
-            android:launchMode="singleTop" 
-            android:theme="@style/LaunchTheme" 
-            android:configChanges= "orientation|keyboardHidden|keyboard|screenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode" 
-            android:hardwareAccelerated="true" 
-            android:windowSoftInputMode="adjustResize" 
-            android:showWhenLocked="false" 
-            android:screenOrientation="portrait"
+            android:launchMode="singleTop"
+            android:theme="@style/LaunchTheme"
+            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
+            android:hardwareAccelerated="true"
+            android:windowSoftInputMode="adjustResize"
+            android:showWhenLocked="false"
             android:turnScreenOn="true">
             <!-- Theme to apply as soon as Flutter begins rendering frames -->
             <meta-data
-            android:name="io.flutter.embedding.android.NormalTheme" 
-            android:resource="@style/NormalTheme"/>
+                android:name="io.flutter.embedding.android.NormalTheme"
+                android:resource="@style/NormalTheme"/>
             <!-- This keeps the window background of the activity showing
                 until Flutter renders its first frame. It can be removed if
                 there is no splash screen (such as the default splash screen
@@ -73,12 +90,8 @@ package="de.eje_esslingen.eje">
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-
         <meta-data
             android:name="flutterEmbedding"
-            android:value="2" />
-
+            android:value="2"/>
     </application>
-
-
 </manifest>

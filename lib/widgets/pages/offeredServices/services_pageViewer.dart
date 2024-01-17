@@ -1,6 +1,4 @@
 // ignore_for_file: file_names
-import 'dart:developer';
-
 import 'package:eje/models/Offered_Service.dart';
 import 'package:eje/utils/injection_container.dart';
 import 'package:eje/widgets/cached_image.dart';
@@ -39,7 +37,6 @@ class ServicesCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var images;
     return Container(
       decoration: BoxDecoration(
         boxShadow: [

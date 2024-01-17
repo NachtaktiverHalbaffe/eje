@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTDPLIST1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 	<dict>
-		<key>io.flutter.embedded_views_preview</key>
-		<string>YES</string>
 		<key>CFBundleDevelopmentRegion</key>
 		<string>$(DEVELOPMENT_LANGUAGE)</string>
+		<key>CFBundleDisplayName</key>
+		<string>Eje</string>
 		<key>CFBundleExecutable</key>
 		<string>$(EXECUTABLE_NAME)</string>
 		<key>CFBundleIdentifier</key>
@@ -13,7 +13,6 @@
 		<key>CFBundleInfoDictionaryVersion</key>
 		<string>6.0</string>
 		<key>CFBundleName</key>
-		<!-- TODO Name of app-->
 		<string>eje</string>
 		<key>CFBundlePackageType</key>
 		<string>APPL</string>
@@ -28,19 +27,12 @@
 		<key>UILaunchStoryboardName</key>
 		<string>LaunchScreen</string>
 		<key>UIMainStoryboardFile</key>
-		<key>UIBackgroundModes</key>
-		<array>
-			<string>processing</string>
-		</array>
-		<key>BGTaskSchedulerPermittedIdentifiers</key>
-		<array>
-			<string>dev.flutter.background.refresh</string>
-			<string>task-identifier</string>
-		</array>
 		<string>Main</string>
 		<key>UISupportedInterfaceOrientations</key>
 		<array>
 			<string>UIInterfaceOrientationPortrait</string>
+			<string>UIInterfaceOrientationLandscapeLeft</string>
+			<string>UIInterfaceOrientationLandscapeRight</string>
 		</array>
 		<key>UISupportedInterfaceOrientations~ipad</key>
 		<array>
@@ -49,18 +41,14 @@
 			<string>UIInterfaceOrientationLandscapeLeft</string>
 			<string>UIInterfaceOrientationLandscapeRight</string>
 		</array>
-		<key>UIViewControllerBasedStatusBarAppearance</key>
-		<false/>
-		<key>LSApplicationQueriesSchemes</key>
+		<key>CADisableMinimumFrameDurationOnPhone</key>
+		<true/>
+		<key>UIApplicationSupportsIndirectInputEvents</key>
+		<true/>
+		<key>BGTaskSchedulerPermittedIdentifiers</key>
 		<array>
-			<string>sms</string>
-			<string>tel</string>
-			<string>http</string>
-			<string>https</string>
+			<string>dev.flutter.background.refresh</string>
 		</array>
-		<!-- Permission options for the `calendar` group -->
-		<key>NSCalendarsUsageDescription</key>
-		<string>Calendars</string>
 		<key>UIStatusBarHidden</key>
 		<false/>
 	</dict>

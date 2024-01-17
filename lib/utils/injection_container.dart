@@ -70,8 +70,7 @@ Future<void> init() async {
   // * Bloc
   sl.registerFactory(() => EinstellungBloc(settingsService: sl()));
   // * Services
-  sl.registerLazySingleton(
-      () => SettingsService.SharedPreferencesService(repository: sl()));
+  sl.registerLazySingleton(() => SettingsService(repository: sl()));
   // * Repository
   sl.registerLazySingleton(() => SharedPreferencesRepository());
 

@@ -3,7 +3,6 @@ import 'package:eje/app_config.dart';
 import 'package:eje/fixtures/data_services.dart';
 import 'package:eje/models/Offered_Service.dart';
 import 'package:eje/models/failures.dart';
-import 'package:eje/repositories/CachedRemoteRepository.dart';
 import 'package:eje/repositories/Repository.dart';
 import 'package:hive/hive.dart';
 

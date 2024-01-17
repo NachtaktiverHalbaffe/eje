@@ -1,6 +1,5 @@
 import 'package:eje/models/exception.dart';
 import 'package:equatable/equatable.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:hive/hive.dart';
 
 class LocalDataSource<T extends Equatable, I> {

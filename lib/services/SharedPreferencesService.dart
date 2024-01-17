@@ -7,7 +7,7 @@ import 'package:get_storage/get_storage.dart';
 class SettingsService {
   final SharedPreferencesRepository repository;
 
-  SettingsService.SharedPreferencesService({required this.repository});
+  SettingsService({required this.repository});
 
   Future<Either<Failure, Einstellung>> getPrefrence({
     String? preference,
