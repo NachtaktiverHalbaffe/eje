@@ -14,7 +14,7 @@ class NewsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => sl<NewsBloc>(),
+      create: (_) => diContainer<NewsBloc>(),
       lazy: false,
       child: BlocConsumer<NewsBloc, NewsState>(
         listener: (context, state) {
@@ -92,7 +92,9 @@ Widget _buildNeuigkeitenList(BuildContext context, neuigkeiten) {
               itemCount: neuigkeiten.length,
               itemBuilder: (context, index) {
                 final neuigkeit = neuigkeiten[index];
-                return NewsCard(neuigkeit);
+                return NewsCard(
+                  singleNews: neuigkeit,
+                );
               },
             )
           : NoResultCard(

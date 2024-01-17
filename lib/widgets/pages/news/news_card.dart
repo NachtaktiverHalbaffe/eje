@@ -10,20 +10,20 @@ import 'package:page_view_indicators/circle_page_indicator.dart';
 
 class NewsCard extends StatefulWidget {
   final News singleNews;
-  NewsCard(this.singleNews);
+  NewsCard({required this.singleNews});
 
   @override
-  State createState() => _NewsCardState();
+  State createState() => _NewsCardState(singleNews: singleNews);
 }
 
 class _NewsCardState extends State<NewsCard> {
+  final News singleNews;
   double sigmax = 0;
-
   double sigmay = 0;
-
   final _currentPageNotifier = ValueNotifier<int>(0);
-
   final GlobalKey expansionTile = GlobalKey();
+
+  _NewsCardState({required this.singleNews});
 
   @override
   Widget build(BuildContext context) {
@@ -55,105 +55,61 @@ class _NewsCardState extends State<NewsCard> {
                   context,
                   MaterialPageRoute(
                     builder: (_) => BlocProvider.value(
-                      value: sl<NewsBloc>(),
-                      child: NewsDetails(widget.singleNews.link),
+                      value: diContainer<NewsBloc>(),
+                      child: NewsDetails(singleNews.link),
                     ),
                   ),
                 ),
                 child: Container(
-                  width: MediaQuery.of(context).size.width,
-                  height: 200,
-                  color: Theme.of(context).colorScheme.surface,
-                  child: PageView.builder(
-                    physics: ScrollPhysics(
-                      parent: BouncingScrollPhysics(),
-                    ),
-                    onPageChanged: (int index) {
-                      _currentPageNotifier.value = index;
-                    },
-                    pageSnapping: true,
-                    controller: PageController(initialPage: 0),
-                    itemCount: widget.singleNews.images.length,
-                    itemBuilder: (context, position) {
-                      final bild = widget.singleNews.images[position];
-                      return Stack(
-                        alignment: Alignment.bottomCenter,
-                        children: <Widget>[
-                          CachedImage(url: bild),
-                        ],
-                      );
-                    },
-                  ),
-                ),
-              ),
-              // ignore: missing_return
-              Container(child: () {
-                if (widget.singleNews.images.length != 1) {
-                  return Container(
-                    padding: EdgeInsets.all(8),
-                    child: CirclePageIndicator(
-                      size: 5,
-                      selectedSize: 7.5,
-                      dotColor: Colors.white,
-                      selectedDotColor: Theme.of(context).colorScheme.secondary,
-                      itemCount: widget.singleNews.images.length,
-                      currentPageNotifier: _currentPageNotifier,
-                    ),
-                  );
-                }
-              }()),
-              Container(
-                alignment: Alignment.bottomCenter,
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.bottomCenter,
-                    end: Alignment.topCenter,
-                    colors: [
-                      Colors.black,
-                      Colors.black87,
-                    ],
-                  ),
-                ),
-              ),
-              GestureDetector(
-                onTap: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) => BlocProvider.value(
-                      value: sl<NewsBloc>(),
-                      child: NewsDetails(widget.singleNews.title),
-                    ),
-                  ),
-                ),
-                child: Theme(
-                  data: theme,
-                  child: BackdropFilter(
-                    filter: ImageFilter.blur(sigmaX: sigmax, sigmaY: sigmay),
-                    child: ExpansionTile(
-                      onExpansionChanged: (isExpanded) => _setBlur(isExpanded),
-                      iconColor: Theme.of(context).colorScheme.secondary,
-                      title: Text(
-                        widget.singleNews.title.toString(),
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                          shadows: <Shadow>[
-                            Shadow(
-                              offset: Offset(2, 2),
-                              blurRadius: 6,
-                              color: Colors.black,
-                            ),
-                            Shadow(
-                              offset: Offset(2, 2),
-                              blurRadius: 6,
-                              color: Colors.black,
-                            ),
-                          ],
-                        ),
-                      ),
+                    width: MediaQuery.of(context).size.width,
+                    height: 200,
+                    color: Theme.of(context).colorScheme.surface,
+                    child: Stack(
+                      alignment: Alignment.bottomCenter,
                       children: <Widget>[
-                        Column(
+                        CachedImage(url: singleNews.images[0]),
+                      ],
+                    )),
+              ),
+              Theme(
+                data: theme,
+                child: BackdropFilter(
+                  filter: ImageFilter.blur(sigmaX: sigmax, sigmaY: sigmay),
+                  child: ExpansionTile(
+                    onExpansionChanged: (isExpanded) => _setBlur(isExpanded),
+                    iconColor: Theme.of(context).colorScheme.secondary,
+                    title: Text(
+                      singleNews.title.toString(),
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                        shadows: <Shadow>[
+                          Shadow(
+                            offset: Offset(2, 2),
+                            blurRadius: 6,
+                            color: Colors.black,
+                          ),
+                          Shadow(
+                            offset: Offset(2, 2),
+                            blurRadius: 6,
+                            color: Colors.black,
+                          ),
+                        ],
+                      ),
+                    ),
+                    children: <Widget>[
+                      GestureDetector(
+                        onTap: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => BlocProvider.value(
+                              value: diContainer<NewsBloc>(),
+                              child: NewsDetails(singleNews.link),
+                            ),
+                          ),
+                        ),
+                        child: Column(
                           children: <Widget>[
                             Container(
                               padding: EdgeInsets.only(left: 12, right: 12),
@@ -161,7 +117,7 @@ class _NewsCardState extends State<NewsCard> {
                               height: 130,
                               child: SingleChildScrollView(
                                 child: Text(
-                                  widget.singleNews.textPreview.toString(),
+                                  singleNews.textPreview.toString(),
                                   textAlign: TextAlign.left,
                                   style: TextStyle(
                                     color: Colors.white,
@@ -182,13 +138,12 @@ class _NewsCardState extends State<NewsCard> {
                               ),
                             ),
                             SizedBox(
-                              height: 12,
+                              height: 4,
                             ),
                           ],
                         ),
-                        //Inhalt, der gezeigt wird wenn expanded
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ),
               ),

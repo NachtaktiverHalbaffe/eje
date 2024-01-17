@@ -1,4 +1,5 @@
 import 'package:eje/utils/background_services_manager.dart';
+import 'package:eje/utils/injection_container.dart';
 import 'package:eje/utils/notificationplugin.dart';
 import 'package:eje/utils/startup.dart';
 import 'package:eje/widgets/color_sheme.dart';
@@ -28,7 +29,10 @@ void main() async {
     initialIndex = int.parse(
         notificationAppLaunchDetails.notificationResponse?.payload ?? "0");
   }
-  BackgroundServicesManager().initialize();
+  BackgroundServicesManager(
+          newsRemoteDatasource: diContainer(),
+          campsRemoteDatasource: diContainer())
+      .initialize();
   FlutterBackgroundService().invoke("setAsForeGround");
   FlutterBackgroundService().invoke("setAsBackgorund");
   runApp(MyApp(initialIndex));

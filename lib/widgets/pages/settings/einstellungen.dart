@@ -13,7 +13,7 @@ class Einstellungen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => sl<EinstellungBloc>(),
+      create: (_) => diContainer<EinstellungBloc>(),
       child: BlocConsumer<EinstellungBloc, EinstellungState>(
         listener: (context, state) {
           if (state is Error) {

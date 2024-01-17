@@ -13,6 +13,7 @@ class NewsDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(title);
     return Scaffold(
       body: BlocConsumer<NewsBloc, NewsState>(
         listener: (context, state) {
@@ -34,7 +35,6 @@ class NewsDetails extends StatelessWidget {
             BlocProvider.of<NewsBloc>(context).add(GetNewsDetails(title));
             return LoadingIndicator();
           } else {
-            BlocProvider.of<NewsBloc>(context).add(GetNewsDetails(title));
             return LoadingIndicator();
           }
         },

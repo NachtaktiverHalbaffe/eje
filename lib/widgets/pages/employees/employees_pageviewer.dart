@@ -26,6 +26,9 @@ class EmployeesPageViewer extends StatelessWidget {
       itemWidth: 150,
       layout: SwiperLayout.STACK,
       loop: true,
+      autoplay: false,
+      autoplayDisableOnInteraction: true,
+      autoplayDelay: 5000,
     );
   }
 }
@@ -61,7 +64,7 @@ class ContactCard extends StatelessWidget {
                 context,
                 MaterialPageRoute(
                   builder: (_) => BlocProvider.value(
-                    value: sl<EmployeesBloc>(),
+                    value: diContainer<EmployeesBloc>(),
                     child: EmployeeDetails(hauptamtlicher),
                   ),
                 ),

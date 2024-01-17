@@ -47,7 +47,7 @@ class EventCard extends StatelessWidget {
             context,
             MaterialPageRoute(
               builder: (_) => BlocProvider.value(
-                value: sl<EventsBloc>(),
+                value: diContainer<EventsBloc>(),
                 child: EventDetails(event),
               ),
             ),

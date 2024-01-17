@@ -17,7 +17,7 @@ class Camps extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => sl<CampsBloc>(),
+      create: (_) => diContainer<CampsBloc>(),
       child: BlocConsumer<CampsBloc, CampState>(
         listener: (context, state) {
           if (state is Error) {
@@ -91,6 +91,9 @@ class CampsPageViewer extends StatelessWidget {
                               itemWidth: 325,
                               layout: SwiperLayout.STACK,
                               loop: true,
+                              autoplay: false,
+                              autoplayDisableOnInteraction: true,
+                              autoplayDelay: 5000,
                             ),
                           ),
                           FilterCard(),

@@ -19,16 +19,16 @@ class Eje extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider<EmployeesBloc>(
-          create: (_) => sl<EmployeesBloc>(),
+          create: (_) => diContainer<EmployeesBloc>(),
         ),
         BlocProvider<BakBloc>(
-          create: (_) => sl<BakBloc>(),
+          create: (_) => diContainer<BakBloc>(),
         ),
         BlocProvider<FieldsOfWorkBloc>(
-          create: (_) => sl<FieldsOfWorkBloc>(),
+          create: (_) => diContainer<FieldsOfWorkBloc>(),
         ),
         BlocProvider<ServicesBloc>(
-          create: (_) => sl<ServicesBloc>(),
+          create: (_) => diContainer<ServicesBloc>(),
         ),
       ],
       child: EjeChildWidgets(),

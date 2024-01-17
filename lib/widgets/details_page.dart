@@ -9,6 +9,7 @@ import 'package:eje/widgets/pages/articles/bloc/articles_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:flutter_swiper_plus/flutter_swiper_plus.dart';
 import 'package:page_view_indicators/circle_page_indicator.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
@@ -48,20 +49,17 @@ class DetailsPage extends StatelessWidget {
               Container(
                 width: MediaQuery.of(context).size.width,
                 height: pictureHeight,
-                child: PageView.builder(
-                  physics: ScrollPhysics(
-                    parent: BouncingScrollPhysics(),
-                  ),
-                  onPageChanged: (int index) {
+                child: Swiper(
+                  itemCount: bilder.isNotEmpty ? bilder.length : 1,
+                  onIndexChanged: (int index) {
                     currentPageNotifier.value = index;
                   },
-                  pageSnapping: true,
-                  controller: PageController(initialPage: 0),
-                  itemCount: bilder.isNotEmpty ? bilder.length : 1,
-                  itemBuilder: (context, position) {
+                  autoplay: true,
+                  autoplayDelay: 4000,
+                  itemBuilder: (BuildContext context, int index) {
                     String bild = "";
                     if (bilder.isNotEmpty) {
-                      bild = bilder[position];
+                      bild = bilder[index];
                     }
                     return Stack(
                       alignment: Alignment.bottomCenter,
@@ -216,7 +214,7 @@ class DetailsPage extends StatelessWidget {
                     context,
                     MaterialPageRoute(
                       builder: (_) => BlocProvider.value(
-                        value: sl<ArticlesBloc>(),
+                        value: diContainer<ArticlesBloc>(),
                         child: ArticlesPage(
                           url: url,
                         ),

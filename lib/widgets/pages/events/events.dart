@@ -15,7 +15,7 @@ class Events extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => sl<EventsBloc>(),
+      create: (_) => diContainer<EventsBloc>(),
       child: BlocConsumer<EventsBloc, EventsState>(
         listener: (context, state) {
           if (state is Error) {
@@ -85,6 +85,9 @@ class TermineListView extends StatelessWidget {
                           itemWidth: 300,
                           layout: SwiperLayout.STACK,
                           loop: true,
+                          autoplay: false,
+                          autoplayDisableOnInteraction: true,
+                          autoplayDelay: 5000,
                         )
                       : NoResultCard(
                           label: "Keine Events gefunden",

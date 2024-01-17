@@ -26,6 +26,9 @@ class FieldsOfWorkPageViewer extends StatelessWidget {
       itemWidth: 200,
       layout: SwiperLayout.STACK,
       loop: true,
+      autoplay: false,
+      autoplayDisableOnInteraction: true,
+      autoplayDelay: 5000,
     );
   }
 }
@@ -61,7 +64,7 @@ class ContactCard extends StatelessWidget {
                 context,
                 MaterialPageRoute(
                   builder: (_) => BlocProvider.value(
-                    value: sl<ArticlesBloc>(),
+                    value: diContainer<ArticlesBloc>(),
                     child: ArticlesPage(
                       url: fieldOfWork.link,
                     ),

@@ -72,7 +72,7 @@ class _column extends StatelessWidget {
             context,
             MaterialPageRoute(
               builder: (_) => BlocProvider.value(
-                value: sl<ArticlesBloc>(),
+                value: diContainer<ArticlesBloc>(),
                 child: ArticlesPage(
                   url: hyperlink.link,
                 ),

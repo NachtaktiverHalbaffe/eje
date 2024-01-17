@@ -27,6 +27,9 @@ class OfferedServicesPageViewer extends StatelessWidget {
       itemWidth: 200,
       layout: SwiperLayout.STACK,
       loop: true,
+      autoplay: false,
+      autoplayDisableOnInteraction: true,
+      autoplayDelay: 5000,
     );
   }
 }
@@ -62,7 +65,7 @@ class ServicesCard extends StatelessWidget {
                 context,
                 MaterialPageRoute(
                   builder: (_) => BlocProvider.value(
-                    value: sl<ServicesBloc>(),
+                    value: diContainer<ServicesBloc>(),
                     child: OfferedServiceDetails(service),
                   ),
                 ),

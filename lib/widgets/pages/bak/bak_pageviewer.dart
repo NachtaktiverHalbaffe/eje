@@ -27,6 +27,9 @@ class BAKPageViewer extends StatelessWidget {
       itemWidth: 150,
       layout: SwiperLayout.STACK,
       loop: true,
+      autoplay: false,
+      autoplayDisableOnInteraction: true,
+      autoplayDelay: 5000,
     );
   }
 }
@@ -63,7 +66,7 @@ class KontaktCard extends StatelessWidget {
                 context,
                 MaterialPageRoute(
                   builder: (_) => BlocProvider.value(
-                    value: sl<BakBloc>(),
+                    value: diContainer<BakBloc>(),
                     child: BAKDetails(bakler),
                   ),
                 ),

@@ -1,10 +1,12 @@
 import 'dart:async';
 import 'dart:math';
 import 'dart:ui';
+import 'package:eje/datasources/RemoteDataSource.dart';
 import 'package:eje/datasources/camps_remote_datasource.dart';
 import 'package:eje/datasources/news_remote_datasource.dart';
 import 'package:eje/models/camp.dart';
 import 'package:eje/models/news.dart';
+import 'package:eje/utils/injection_container.dart';
 import 'package:eje/utils/notificationplugin.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -12,8 +14,16 @@ import 'package:flutter_background_service/flutter_background_service.dart';
 import 'package:flutter_background_service_android/flutter_background_service_android.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'injection_container.dart' as di;
 
 class BackgroundServicesManager {
+  final RemoteDataSource<News, String> newsRemoteDatasource;
+  final RemoteDataSource<Camp, int> campsRemoteDatasource;
+
+  BackgroundServicesManager(
+      {required this.newsRemoteDatasource,
+      required this.campsRemoteDatasource});
+
   Future<void> initialize() async {
     final FlutterBackgroundService service = FlutterBackgroundService();
     final AndroidConfiguration androidConfig = AndroidConfiguration(
@@ -47,7 +57,7 @@ class BackgroundServicesManager {
 
     //Downloading content from internet
     try {
-      downloadedNeuigkeiten = await NewsRemoteDatasource().getAllElements();
+      downloadedNeuigkeiten = await newsRemoteDatasource.getAllElements();
     } catch (e) {
       return;
     }
@@ -93,7 +103,7 @@ class BackgroundServicesManager {
     List<dynamic> cachedCamps = prefs.read("cached_freizeiten");
 
     try {
-      downloadedCamps = await CampsRemoteDatasource().getAllElements();
+      downloadedCamps = await campsRemoteDatasource.getAllElements();
     } catch (e) {
       return;
     }
@@ -130,6 +140,7 @@ class BackgroundServicesManager {
 @pragma('vm:entry-point')
 void onStart(ServiceInstance service) async {
   DartPluginRegistrant.ensureInitialized();
+  di.init();
 
   // Set background service parameters
   if (service is AndroidServiceInstance) {
@@ -145,7 +156,10 @@ void onStart(ServiceInstance service) async {
   });
 
   Timer.periodic(const Duration(minutes: 15), (timer) async {
-    BackgroundServicesManager().runBackgroundTasks();
+    BackgroundServicesManager(
+            newsRemoteDatasource: diContainer(),
+            campsRemoteDatasource: diContainer())
+        .runBackgroundTasks();
     service.invoke(
       'update',
     );
@@ -156,5 +170,6 @@ void onStart(ServiceInstance service) async {
 Future<bool> onIosBackground(ServiceInstance service) async {
   WidgetsFlutterBinding.ensureInitialized();
   DartPluginRegistrant.ensureInitialized();
+  di.init();
   return true;
 }

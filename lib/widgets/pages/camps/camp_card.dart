@@ -38,7 +38,7 @@ class CampCard extends StatelessWidget {
             context,
             MaterialPageRoute(
               builder: (_) => BlocProvider.value(
-                value: sl<CampsBloc>(),
+                value: diContainer<CampsBloc>(),
                 child: CampDetails(camp),
               ),
             ),

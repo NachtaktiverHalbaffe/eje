@@ -14,7 +14,7 @@ class ArticlesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => sl<ArticlesBloc>(),
+      create: (_) => diContainer<ArticlesBloc>(),
       child: BlocConsumer<ArticlesBloc, ArticlesState>(
         listener: (context, state) {
           if (state is Error) {
