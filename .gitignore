@@ -1,5 +1,5 @@
 # Secrets
-prod.json
+# prod.json
 key.properties
 *.jks
 env.g.dart
