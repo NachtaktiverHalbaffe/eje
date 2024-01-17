@@ -4,7 +4,7 @@ on: workflow_dispatch
 
 jobs:
   android-build:
-    name: android-release-build
+    name: Build signed Android binaries
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -15,7 +15,6 @@ jobs:
             echo "AMOSTOKEN = ${{secrets.AMOS_TOKEN}}" >> assets/config/.env
       - run: |
           echo "${{ secrets.KEYSTORE}}" | base64 -d > android/keystore.jks
-          ls -lah android/
         shell: bash
       - uses: actions/setup-java@v3
         with:
@@ -61,17 +60,10 @@ jobs:
         with:
           name: apk
           path: build
-      - run: ls build/
-      - run: ls
-      - run: ls build/app/outputs/bundle/release/
       - uses: "marvinpinto/action-automatic-releases@latest"
         with:
             repo_token: "${{ secrets.GITHUB_TOKEN }}"
             automatic_release_tag: "latest"
             files: |
-              app-release.apk
-              app-release.abb
               build/app-release.apk
-              build/app-release.abb
-              build/app/outputs/bundle/release/app-release.aab
-              build/app/outputs/flutter-apk/app-release.apk
+              build/app-release.aab
