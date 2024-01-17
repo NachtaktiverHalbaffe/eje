@@ -13,7 +13,9 @@ jobs:
             touch assets/config/.env
             echo "AMOSURL = ${{secrets.AMOS_URL}}" >> assets/config/.env
             echo "AMOSTOKEN = ${{secrets.AMOS_TOKEN}}" >> assets/config/.env
-      - run: echo "${{ secrets.KEYSTORE}}" | base64 -d >> android/keystore.jks
+      - run: |
+          echo "${{ secrets.KEYSTORE}}" | base64 -d > android/keystore.jks
+          ls -lah android/
         shell: bash
       - uses: actions/setup-java@v2
         with:
