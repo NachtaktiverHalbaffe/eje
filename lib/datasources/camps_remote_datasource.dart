@@ -6,12 +6,13 @@ import 'package:eje/models/exception.dart';
 import 'package:eje/models/location.dart';
 import 'package:eje/utils/env.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 import 'package:html2md/html2md.dart' as html2md;
 
 class CampsRemoteDatasource implements RemoteDataSource<Camp, int> {
-  final http.Client client = http.Client();
+  final Client client;
+
+  CampsRemoteDatasource({required this.client});
 
   @override
   Future<List<Camp>> getAllElements() async {
@@ -35,9 +36,7 @@ class CampsRemoteDatasource implements RemoteDataSource<Camp, int> {
     if (response.statusCode == 200) {
       var responseData = json.decode(response.body)["data"];
       for (int i = 0; i < responseData.length; i++) {
-        if (responseData[i]['type'] == "Freizeit" ||
-            responseData[i]['type'] == "Seminar" ||
-            responseData[i]['type'] == "Event") {
+        if (responseData[i]['type'] == "Freizeit") {
           // Parse image entry from response to list of links
           List<String> pictures = List.empty(growable: true);
           responseData[i]["images"].forEach((value) {
@@ -108,7 +107,6 @@ class CampsRemoteDatasource implements RemoteDataSource<Camp, int> {
           ));
         }
       }
-      camps.sort((item1, item2) => item1.startDate.compareTo(item2.startDate));
       _setPrefrenceCachedFreizeiten(camps);
       return camps;
     } else {

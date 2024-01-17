@@ -5,12 +5,12 @@ import 'package:eje/models/Event.dart';
 import 'package:eje/models/exception.dart';
 import 'package:eje/models/location.dart';
 import 'package:eje/utils/env.dart';
-import 'package:http/http.dart' as http;
 import 'package:html2md/html2md.dart' as html2md;
 import 'package:http/http.dart';
 
 class TermineRemoteDatasource implements RemoteDataSource<Event, int> {
-  final http.Client client;
+  final Client client;
+
   TermineRemoteDatasource({required this.client});
 
   @override

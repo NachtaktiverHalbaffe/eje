@@ -2,19 +2,21 @@ import 'package:eje/app_config.dart';
 import 'package:eje/datasources/RemoteDataSource.dart';
 import 'package:eje/models/exception.dart';
 import 'package:eje/models/news.dart';
-import 'package:http/http.dart' as http;
+import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart';
 import 'package:webfeed_revised/domain/rss_feed.dart';
 
 class NewsRemoteDatasource implements RemoteDataSource<News, String> {
-  final client = http.Client();
+  final Client client;
+
+  NewsRemoteDatasource({required this.client});
 
   @override
   Future<List<News>> getAllElements() async {
     // Load config constants
     final appConfig = await AppConfig.loadConfig();
     final apiUrl = Uri.parse(appConfig.domain + appConfig.newsEndpoint);
-    // Init vars
+
     List<News> data = List.empty(growable: true);
     Response response;
     try {
@@ -48,6 +50,7 @@ class NewsRemoteDatasource implements RemoteDataSource<News, String> {
             ),
           );
         }
+        _setPrefrenceCachedNews(data);
         return data;
       } else {
         throw ServerException();
@@ -72,5 +75,13 @@ class NewsRemoteDatasource implements RemoteDataSource<News, String> {
     int minutes = int.parse(dateFromSource.substring(14, 16));
     int seconds = int.parse(dateFromSource.substring(17, 19));
     return DateTime(year, month, day, hour, minutes, seconds);
+  }
+
+  void _setPrefrenceCachedNews(List<News> news) {
+    List<String> newsIds = List.empty(growable: true);
+    for (int i = 0; i < news.length; i++) {
+      newsIds.add(news[i].title);
+    }
+    GetStorage().write("cached_neuigkeiten", newsIds);
   }
 }
