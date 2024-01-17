@@ -13,19 +13,24 @@ class CachedRemoteRepository<T extends Equatable, K>
   final LocalDataSource<T, K> localDatasource;
   final String idKey;
   final NetworkInfo networkInfo;
+  final Comparator? sortStrategy;
 
   CachedRemoteRepository(
       {required this.remoteDatasource,
       required this.localDatasource,
       required this.networkInfo,
-      required this.idKey});
+      required this.idKey,
+      this.sortStrategy});
 
   @override
   Future<Either<Failure, List<T>>> getAllElements(String boxKey) async {
     if (await networkInfo.isConnected) {
       try {
-        final List<T> remoteElements = await remoteDatasource.getAllElements();
+        List<T> remoteElements = await remoteDatasource.getAllElements();
         await localDatasource.cacheElements(boxKey, remoteElements);
+        if (sortStrategy != null) {
+          remoteElements.sort(sortStrategy);
+        }
         return Right(remoteElements);
       } on ServerException {
         return Left(ServerFailure());

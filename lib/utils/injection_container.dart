@@ -41,170 +41,188 @@ import 'package:http/http.dart' as http;
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 
-final sl = GetIt.instance;
+final diContainer = GetIt.instance;
 
 Future<void> init() async {
   final AppConfig appConfig = await AppConfig.loadConfig();
 
   // ! Neuigkeiten
   // * Bloc
-  sl.registerFactory(
-    () => NewsBloc(newsService: sl()),
+  diContainer.registerFactory(
+    () => NewsBloc(newsService: diContainer()),
   );
   // * Services
-  sl.registerLazySingleton(
-      () => NewsService(repository: sl(), articleRepository: sl()));
+  diContainer.registerLazySingleton(() =>
+      NewsService(repository: diContainer(), articleRepository: diContainer()));
   // * Repository
-  sl.registerLazySingleton<Repository<News, String>>(() =>
+  diContainer.registerLazySingleton<Repository<News, String>>(() =>
       CachedRemoteRepository<News, String>(
-          remoteDatasource: sl(),
-          localDatasource: sl(),
-          networkInfo: sl(),
-          idKey: 'title'));
+          remoteDatasource: diContainer(),
+          localDatasource: diContainer(),
+          networkInfo: diContainer(),
+          idKey: 'title',
+          sortStrategy: (a, b) => a.published.compareTo(b.published)));
   // * Datasources
-  sl.registerLazySingleton<RemoteDataSource<News, String>>(
-      () => NewsRemoteDatasource());
-  sl.registerLazySingleton(() => LocalDataSource<News, String>());
+  diContainer.registerLazySingleton<RemoteDataSource<News, String>>(
+      () => NewsRemoteDatasource(client: diContainer()));
+  diContainer.registerLazySingleton(() => LocalDataSource<News, String>());
 
   // ! Einstellungen
   // * Bloc
-  sl.registerFactory(() => EinstellungBloc(settingsService: sl()));
+  diContainer
+      .registerFactory(() => EinstellungBloc(settingsService: diContainer()));
   // * Services
-  sl.registerLazySingleton(() => SettingsService(repository: sl()));
+  diContainer
+      .registerLazySingleton(() => SettingsService(repository: diContainer()));
   // * Repository
-  sl.registerLazySingleton(() => SharedPreferencesRepository());
+  diContainer.registerLazySingleton(() => SharedPreferencesRepository());
 
   // ! Hauptamtliche
   // * Bloc
-  sl.registerFactory(() => EmployeesBloc(employeeService: sl()));
+  diContainer
+      .registerFactory(() => EmployeesBloc(employeeService: diContainer()));
   // * Service
-  sl.registerLazySingleton(() => ReadOnlyService<Employee, String>(
-      repository: sl(), boxKey: appConfig.employeesBox));
+  diContainer.registerLazySingleton(() => ReadOnlyService<Employee, String>(
+      repository: diContainer(), boxKey: appConfig.employeesBox));
   // * Repository
-  sl.registerLazySingleton<Repository<Employee, String>>(() =>
+  diContainer.registerLazySingleton<Repository<Employee, String>>(() =>
       CachedRemoteRepository<Employee, String>(
-          remoteDatasource: sl(),
-          localDatasource: sl(),
-          networkInfo: sl(),
+          remoteDatasource: diContainer(),
+          localDatasource: diContainer(),
+          networkInfo: diContainer(),
           idKey: 'name'));
   // * Datasources
-  sl.registerLazySingleton(() => LocalDataSource<Employee, String>());
-  sl.registerLazySingleton<RemoteDataSource<Employee, String>>(
-      () => EmployeesRemoteDatasource(client: sl()));
+  diContainer.registerLazySingleton(() => LocalDataSource<Employee, String>());
+  diContainer.registerLazySingleton<RemoteDataSource<Employee, String>>(
+      () => EmployeesRemoteDatasource(client: diContainer()));
 
   // ! BAK
   // * Bloc
-  sl.registerFactory(() => BakBloc(bakSerivce: sl()));
+  diContainer.registerFactory(() => BakBloc(bakSerivce: diContainer()));
   // * Services
-  sl.registerLazySingleton(() => ReadOnlyService<BAKler, String>(
-      repository: sl(), boxKey: appConfig.bakBox));
+  diContainer.registerLazySingleton(() => ReadOnlyService<BAKler, String>(
+      repository: diContainer(), boxKey: appConfig.bakBox));
   // * Repository
-  sl.registerLazySingleton<Repository<BAKler, String>>(() =>
+  diContainer.registerLazySingleton<Repository<BAKler, String>>(() =>
       CachedRemoteRepository<BAKler, String>(
-          remoteDatasource: sl(),
-          localDatasource: sl(),
-          networkInfo: sl(),
+          remoteDatasource: diContainer(),
+          localDatasource: diContainer(),
+          networkInfo: diContainer(),
           idKey: 'name'));
   // * Datasources
-  sl.registerLazySingleton(() => LocalDataSource<BAKler, String>());
-  sl.registerLazySingleton<RemoteDataSource<BAKler, String>>(
-      () => BAKRemoteDatasource(client: sl()));
+  diContainer.registerLazySingleton(() => LocalDataSource<BAKler, String>());
+  diContainer.registerLazySingleton<RemoteDataSource<BAKler, String>>(
+      () => BAKRemoteDatasource(client: diContainer()));
 
   // ! Arbeitsbereiche
   // * Bloc
-  sl.registerFactory(
-    () => FieldsOfWorkBloc(fieldsOfWorkService: sl()),
+  diContainer.registerFactory(
+    () => FieldsOfWorkBloc(fieldsOfWorkService: diContainer()),
   );
   // * Services
-  sl.registerLazySingleton(() => ReadOnlyService<FieldOfWork, String>(
-      repository: sl(), boxKey: appConfig.fieldOfWorkBox));
+  diContainer.registerLazySingleton(() => ReadOnlyService<FieldOfWork, String>(
+      repository: diContainer(), boxKey: appConfig.fieldOfWorkBox));
   // * Repsoitory
-  sl.registerLazySingleton<Repository<FieldOfWork, String>>(() =>
+  diContainer.registerLazySingleton<Repository<FieldOfWork, String>>(() =>
       CachedRemoteRepository<FieldOfWork, String>(
-          remoteDatasource: sl(),
-          localDatasource: sl(),
-          networkInfo: sl(),
+          remoteDatasource: diContainer(),
+          localDatasource: diContainer(),
+          networkInfo: diContainer(),
           idKey: 'link'));
   // * Datasources
-  sl.registerLazySingleton(() => LocalDataSource<FieldOfWork, String>());
-  sl.registerLazySingleton<RemoteDataSource<FieldOfWork, String>>(
-      () => ArbeitsbereichRemoteDatasource(client: sl()));
+  diContainer
+      .registerLazySingleton(() => LocalDataSource<FieldOfWork, String>());
+  diContainer.registerLazySingleton<RemoteDataSource<FieldOfWork, String>>(
+      () => ArbeitsbereichRemoteDatasource(client: diContainer()));
 
   // ! Services
-  sl.registerFactory(() => ServicesBloc(offeredServicesService: sl()));
+  diContainer.registerFactory(
+      () => ServicesBloc(offeredServicesService: diContainer()));
   // * Services
-  sl.registerLazySingleton(() => OfferedServicesService(repository: sl()));
+  diContainer.registerLazySingleton(
+      () => OfferedServicesService(repository: diContainer()));
   // * Repository
-  sl.registerLazySingleton<Repository<OfferedService, String>>(() =>
+  diContainer.registerLazySingleton<Repository<OfferedService, String>>(() =>
       CachedRemoteRepository<OfferedService, String>(
-          remoteDatasource: sl(),
-          localDatasource: sl(),
-          networkInfo: sl(),
+          remoteDatasource: diContainer(),
+          localDatasource: diContainer(),
+          networkInfo: diContainer(),
           idKey: 'service'));
   // * Datrasources
-  sl.registerLazySingleton(() => LocalDataSource<OfferedService, String>());
-  sl.registerLazySingleton<RemoteDataSource<OfferedService, String>>(
-      () => ServicesRemoteDatasource(cache: sl()));
+  diContainer
+      .registerLazySingleton(() => LocalDataSource<OfferedService, String>());
+  diContainer.registerLazySingleton<RemoteDataSource<OfferedService, String>>(
+      () => ServicesRemoteDatasource(
+          cache: diContainer(),
+          articleDataSource: diContainer(),
+          client: diContainer()));
 
   // ! Termine
   // * Bloc
-  sl.registerFactory(() => EventsBloc(eventService: sl()));
+  diContainer.registerFactory(() => EventsBloc(eventService: diContainer()));
   // * Services
-  sl.registerLazySingleton(() => ReadOnlyService<Event, int>(
-      repository: sl(), boxKey: appConfig.eventsBox));
+  diContainer.registerLazySingleton(() => ReadOnlyService<Event, int>(
+      repository: diContainer(), boxKey: appConfig.eventsBox));
   // * Repository
-  sl.registerLazySingleton<Repository<Event, int>>(() =>
-      CachedRemoteRepository<Event, int>(
-          remoteDatasource: sl(),
-          localDatasource: sl(),
-          networkInfo: sl(),
-          idKey: 'id'));
+  diContainer.registerLazySingleton<Repository<Event, int>>(
+      () => CachedRemoteRepository<Event, int>(
+            remoteDatasource: diContainer(),
+            localDatasource: diContainer(),
+            networkInfo: diContainer(),
+            idKey: 'id',
+            sortStrategy: (a, b) => a.startDate.compareTo(b.startDate),
+          ));
   // * Datasources
-  sl.registerLazySingleton(() => LocalDataSource<Event, int>());
-  sl.registerLazySingleton<RemoteDataSource<Event, int>>(
-      () => TermineRemoteDatasource(client: sl()));
+  diContainer.registerLazySingleton(() => LocalDataSource<Event, int>());
+  diContainer.registerLazySingleton<RemoteDataSource<Event, int>>(
+      () => TermineRemoteDatasource(client: diContainer()));
 
   // ! Freizeiten
-  sl.registerFactory(() => CampsBloc(campService: sl()));
+  diContainer.registerFactory(() => CampsBloc(campService: diContainer()));
   // * Services
-  sl.registerLazySingleton(() =>
-      ReadOnlyService<Camp, int>(repository: sl(), boxKey: appConfig.campsBox));
+  diContainer.registerLazySingleton(() => ReadOnlyService<Camp, int>(
+      repository: diContainer(), boxKey: appConfig.campsBox));
   // * Repository
-  sl.registerLazySingleton<Repository<Camp, int>>(() =>
-      CachedRemoteRepository<Camp, int>(
-          remoteDatasource: sl(),
-          localDatasource: sl(),
-          networkInfo: sl(),
-          idKey: 'id'));
+  diContainer.registerLazySingleton<Repository<Camp, int>>(
+      () => CachedRemoteRepository<Camp, int>(
+            remoteDatasource: diContainer(),
+            localDatasource: diContainer(),
+            networkInfo: diContainer(),
+            idKey: 'id',
+            sortStrategy: (a, b) => a.startDate.compareTo(b.startDate),
+          ));
   // * Datasources
-  sl.registerLazySingleton(() => LocalDataSource<Camp, int>());
-  sl.registerLazySingleton<RemoteDataSource<Camp, int>>(
-      () => CampsRemoteDatasource());
+  diContainer.registerLazySingleton(() => LocalDataSource<Camp, int>());
+  diContainer.registerLazySingleton<RemoteDataSource<Camp, int>>(
+      () => CampsRemoteDatasource(client: diContainer()));
 
   // ! Articles
-  sl.registerFactory(() => ArticlesBloc(articleService: sl()));
+  diContainer
+      .registerFactory(() => ArticlesBloc(articleService: diContainer()));
   // * Services
-  sl.registerLazySingleton(() => ReadOnlySingleElementService<Article, String>(
-      boxKey: appConfig.articlesBox, repository: sl()));
+  diContainer.registerLazySingleton(() =>
+      ReadOnlySingleElementService<Article, String>(
+          boxKey: appConfig.articlesBox, repository: diContainer()));
   // * Repository
-  sl.registerLazySingleton<Repository<Article, String>>(() =>
+  diContainer.registerLazySingleton<Repository<Article, String>>(() =>
       CachedRemoteSingleElementRepository<Article, String>(
-          localDatasource: sl(),
-          networkInfo: sl(),
-          remoteDatasource: sl(),
+          localDatasource: diContainer(),
+          networkInfo: diContainer(),
+          remoteDatasource: diContainer(),
           idKey: 'url'));
   // * Datasources
-  sl.registerLazySingleton<RemoteDataSource<Article, String>>(
-      () => ArticlesRemoteDatasource());
-  sl.registerLazySingleton(() => LocalDataSource<Article, String>());
+  diContainer.registerLazySingleton<RemoteDataSource<Article, String>>(
+      () => ArticlesRemoteDatasource(client: diContainer()));
+  diContainer.registerLazySingleton(() => LocalDataSource<Article, String>());
 
   // ! Core
   // * NetworkInfo
-  sl.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(sl(), sl()));
+  diContainer.registerLazySingleton<NetworkInfo>(
+      () => NetworkInfoImpl(diContainer(), diContainer()));
 
   // ! External
   // * Remote Access
-  sl.registerLazySingleton(() => Connectivity());
-  sl.registerLazySingleton(() => http.Client());
-  sl.registerLazySingleton(() => InternetConnectionChecker());
+  diContainer.registerLazySingleton(() => Connectivity());
+  diContainer.registerLazySingleton(() => http.Client());
+  diContainer.registerLazySingleton(() => InternetConnectionChecker());
 }
