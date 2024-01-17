@@ -8,33 +8,37 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: subosito/flutter-action@v2
-        with:
-            channel: "stable"
       - name: Generate apk token file
         run: |
             touch assets/config/.env
             echo "AMOSURL = ${{secrets.AMOS_URL}}" >> assets/config/.env
             echo "AMOSTOKEN = ${{secrets.AMOS_TOKEN}}" >> assets/config/.env
-
-            cat assets/config/.env
-            echo "ls -a ${{ github.workspace }}"
-            ls -a ${{ github.workspace }}
-   
-      - uses: NiklasLehnfeld/flutter-android-build-action@v1
-        id: android-build
+      - run: echo "${{ inputs.keystore }}" | base64 -d > android/keystore.jks
+        shell: bash
+      - uses: actions/setup-java@v2
         with:
-          release: true
-          keystore: ${{ secrets.KEYSTORE }}
-          keystore-pwd: "${{ secrets.STORE_PASSWORD }}"
-          key-pwd: "${{ secrets.KEY_PASSWORD }}"
-      - name: Archive APK
+          distribution: 'zulu'
+          java-version: '11'
+      - uses: subosito/flutter-action@v2
+        with:
+            channel: "stable"
+      - run: flutter pub get
+      - run: flutter pub run build_runner build --delete-conflicting-outputs
+      - env:
+          KEY_PWD: ${{ inputs.key-pwd }}
+          KEYSTORE_PWD: ${{ inputs.keystore-pwd }}
+        run:  flutter build appbundle --release
+      - env:
+          KEY_PWD: ${{ inputs.key-pwd }}
+          KEYSTORE_PWD: ${{ inputs.keystore-pwd }}
+        run:  flutter build apk --release
+      - name: Upload app bundle
         uses: actions/upload-artifact@v2
         with:
-          name: release-apk
-          path: ${{ steps.android-build.outputs.apk-path }}
-      - name: Archive AAB
+          name: appbundle
+          path: build/app/outputs/bundle/release/app-release.aab
+      - name: Upload app bundle
         uses: actions/upload-artifact@v2
         with:
-          name: release-aab
-          path: ${{ steps.android-build.outputs.aab-path }}
+          name: appbundle
+          path: build/app/outputs/bundle/release/app-release.apk
