@@ -49,10 +49,45 @@ jobs:
           name: apk
           path: build/app/outputs/flutter-apk/app-release.apk
           retention-days: 1
+  ios-build:
+    name: Build unsigned ios binaries
+    runs-on: macos-latest
+    steps:
+      # Checks-out our repository under $GITHUB_WORKSPACE, so our job can access it
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Generate API token file
+        run: |
+            touch assets/config/.env
+            echo "AMOSURL = ${{secrets.AMOS_URL}}" >> assets/config/.env
+            echo "AMOSTOKEN = ${{secrets.AMOS_TOKEN}}" >> assets/config/.env
+            
+      # Install flutter
+      - name: Flutter get
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
 
+      # Install your project's dependencies
+      - run: flutter clean
+      - run: flutter pub get
+
+      # Build and sign the ipa using a single flutter command
+      - run: flutter pub run build_runner build --delete-conflicting-outputs
+      - name: Building IPA
+        run: flutter build ipa --release --no-codesign
+          
+      # Collect the file and upload as artifact         
+      - name: collect ipa artifacts
+        uses: actions/upload-artifact@v2
+        with:
+         name: ipa
+         # Path to the release files
+         path: build/ios/ipa/*.ipa
+ 
   release:
     name: Create Github release
-    needs: [android-build]
+    needs: [android-build, ios-build]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/download-artifact@v3
@@ -62,6 +97,10 @@ jobs:
       - uses: actions/download-artifact@v3
         with:
           name: apk
+          path: build
+      - uses: actions/download-artifact@v3
+        with:
+          name: ipa
           path: build
       - uses: marvinpinto/action-automatic-releases@latest
         with:
