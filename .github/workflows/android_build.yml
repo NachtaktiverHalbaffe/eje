@@ -26,12 +26,12 @@ jobs:
       - run: flutter pub get
       - run: flutter pub run build_runner build --delete-conflicting-outputs
       - env:
-          KEY_PWD: ${{ inputs.key-pwd }}
-          KEYSTORE_PWD: ${{ inputs.keystore-pwd }}
+          KEY_PWD: ${{ secrets.KEY_PASSWORD }}
+          KEYSTORE_PWD: ${{ secrets.STORE_PASSWORD }}
         run:  flutter build appbundle --release
       - env:
-          KEY_PWD: ${{ inputs.key-pwd }}
-          KEYSTORE_PWD: ${{ inputs.keystore-pwd }}
+          KEY_PWD: ${{ secrets.KEY_PASSWORD }}
+          KEYSTORE_PWD: ${{ secrets.STORE_PASSWORD }}
         run:  flutter build apk --release
       - name: Upload app bundle
         uses: actions/upload-artifact@v2
