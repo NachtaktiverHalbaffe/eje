@@ -79,11 +79,11 @@ jobs:
           
       # Collect the file and upload as artifact         
       - name: collect ipa artifacts
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
          name: ipa
          # Path to the release files
-         path: build/ios/ipa/*.ipa
+         path: build/ios/archive/Runner.xcarchive
  
   release:
     name: Create Github release
@@ -111,3 +111,4 @@ jobs:
             files: |
               build/app-release.apk
               build/app-release.aab
+              build/Runner.xcarchive
