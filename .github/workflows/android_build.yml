@@ -56,6 +56,14 @@ jobs:
       - uses: actions/download-artifact@v3
         with:
           name: appbundle
+          path: build
+      - uses: actions/download-artifact@v3
+        with:
+          name: apk
+          path: build
+      - run: ls build/
+      - run: ls
+      - run: ls build/app/outputs/bundle/release/
       - uses: "marvinpinto/action-automatic-releases@latest"
         with:
             repo_token: "${{ secrets.GITHUB_TOKEN }}"
@@ -63,5 +71,7 @@ jobs:
             files: |
               app-release.apk
               app-release.abb
+              build/app-release.apk
+              build/app-release.abb
               build/app/outputs/bundle/release/app-release.aab
               build/app/outputs/flutter-apk/app-release.apk
