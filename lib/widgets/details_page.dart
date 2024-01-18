@@ -49,26 +49,33 @@ class DetailsPage extends StatelessWidget {
               Container(
                 width: MediaQuery.of(context).size.width,
                 height: pictureHeight,
-                child: Swiper(
-                  itemCount: bilder.isNotEmpty ? bilder.length : 1,
-                  onIndexChanged: (int index) {
-                    currentPageNotifier.value = index;
-                  },
-                  autoplay: true,
-                  autoplayDelay: 4000,
-                  itemBuilder: (BuildContext context, int index) {
-                    String bild = "";
-                    if (bilder.isNotEmpty) {
-                      bild = bilder[index];
-                    }
-                    return Stack(
-                      alignment: Alignment.bottomCenter,
-                      children: <Widget>[
-                        CachedImage(url: bild),
-                      ],
-                    );
-                  },
-                ),
+                child: bilder.length != 1
+                    ? Swiper(
+                        itemCount: bilder.length,
+                        onIndexChanged: (int index) {
+                          currentPageNotifier.value = index;
+                        },
+                        autoplay: true,
+                        autoplayDelay: 4000,
+                        itemBuilder: (BuildContext context, int index) {
+                          String bild = "";
+                          if (bilder.isNotEmpty) {
+                            bild = bilder[index];
+                          }
+                          return Stack(
+                            alignment: Alignment.bottomCenter,
+                            children: <Widget>[
+                              CachedImage(url: bild),
+                            ],
+                          );
+                        },
+                      )
+                    : Stack(
+                        alignment: Alignment.bottomCenter,
+                        children: <Widget>[
+                          CachedImage(url: bilder.length == 1 ? bilder[0] : ""),
+                        ],
+                      ),
               ),
               Container(
                   alignment: Alignment.center,
