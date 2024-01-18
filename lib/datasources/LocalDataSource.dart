@@ -4,7 +4,7 @@ import 'package:hive/hive.dart';
 
 class LocalDataSource<T extends Equatable, I> {
   Future<List<T>> getAllElements(String boxKey) async {
-    final Box box = Hive.box(boxKey);
+    final Box box = Hive.box(name: boxKey);
 
     // load data from cache
     if (box.isNotEmpty) {
@@ -21,7 +21,7 @@ class LocalDataSource<T extends Equatable, I> {
   }
 
   Future<T> getElement(String boxKey, I id, String idKey) async {
-    final Box box = Hive.box(boxKey);
+    final Box box = Hive.box(name: boxKey);
 
     // load specific data entry from cache
     if (box.isNotEmpty) {
@@ -39,20 +39,20 @@ class LocalDataSource<T extends Equatable, I> {
   }
 
   Future<void> cacheElements(String boxKey, List<T> elementsToCache) async {
-    final Box box = Hive.box(boxKey);
+    final Box box = Hive.box(name: boxKey);
 
     if (box.isNotEmpty) {
-      await box.clear();
+      box.clear();
     }
-    await box.addAll(elementsToCache);
+    box.addAll(elementsToCache);
   }
 
   Future<void> cacheElement(String boxKey, T elementToCache) async {
-    final Box box = Hive.box(boxKey);
+    final Box box = Hive.box(name: boxKey);
 
     if (box.isNotEmpty) {
-      await box.clear();
+      box.clear();
     }
-    await box.add(elementToCache);
+    box.add(elementToCache);
   }
 }

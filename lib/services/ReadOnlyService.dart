@@ -11,22 +11,20 @@ class ReadOnlyService<T extends Equatable, K> {
   ReadOnlyService({required this.boxKey, required this.repository});
 
   Future<Either<Failure, T>> getElement({K? id}) async {
-    final Box box = await Hive.openBox(boxKey);
+    final Box box = await Hive.box(name: boxKey);
     final Either<Failure, T> result = await repository.getElement(boxKey, id!);
     if (box.isOpen) {
-      await box.compact();
-      await box.close();
+      box.close();
     }
     return result;
   }
 
   Future<Either<Failure, List<T>>> getAllElements() async {
-    final Box box = await Hive.openBox(boxKey);
+    final Box box = await Hive.box(name: boxKey);
     final Either<Failure, List<T>> result =
         await repository.getAllElements(boxKey);
     if (box.isOpen) {
-      await box.compact();
-      await box.close();
+      box.close();
     }
     return result;
   }

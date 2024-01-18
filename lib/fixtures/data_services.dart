@@ -4,8 +4,8 @@ import 'package:eje/models/Offered_Service.dart';
 import 'package:hive/hive.dart';
 
 Future<void> dataServices(String boxName) async {
-  final Box _box = await Hive.openBox(boxName);
-  await _box.clear();
+  final Box _box = Hive.box(name: boxName);
+  _box.clear();
 
   if (_box.length < 6) {
     List<String> bilder = List.empty(growable: true);
@@ -14,7 +14,7 @@ Future<void> dataServices(String boxName) async {
     hyperlinks.add(Hyperlink(
         link: "https://www.eje-esslingen.de/?id=311673",
         description: "eje-infos"));
-    await _box.add(
+    _box.add(
       OfferedService(
           service: "eje-Info",
           images: bilder,
@@ -29,7 +29,7 @@ Future<void> dataServices(String boxName) async {
     hyperlinks.add(Hyperlink(
         link: "https://www.eje-esslingen.de/?id=264807",
         description: "Verleih-Liste runterladen"));
-    await _box.add(OfferedService(
+    _box.add(OfferedService(
         service: "Verleih",
         images: bilder,
         description:
@@ -43,7 +43,7 @@ Future<void> dataServices(String boxName) async {
     hyperlinks.add(Hyperlink(
         link: "https://www.eje-esslingen.de/?id=305545",
         description: "Freizeitheim Asch"));
-    await _box.add(
+    _box.add(
       OfferedService(
         images: bilder,
         hyperlinks: hyperlinks,
@@ -59,7 +59,7 @@ Future<void> dataServices(String boxName) async {
     hyperlinks.add(Hyperlink(
         link: "https://www.eje-esslingen.de/?id=264813",
         description: "Hopfensee"));
-    await _box.add(
+    _box.add(
       OfferedService(
         images: bilder,
         hyperlinks: hyperlinks,
@@ -75,7 +75,7 @@ Future<void> dataServices(String boxName) async {
     hyperlinks.add(Hyperlink(
         link: "https://www.eje-esslingen.de/?id=285500",
         description: "Vernetzung"));
-    await _box.add(
+    _box.add(
       OfferedService(
         images: bilder,
         hyperlinks: hyperlinks,
@@ -91,7 +91,7 @@ Future<void> dataServices(String boxName) async {
     hyperlinks.add(Hyperlink(
         link: "https://www.eje-esslingen.de/?id=330343",
         description: "Konzepte"));
-    await _box.add(
+    _box.add(
       OfferedService(
         images: bilder,
         hyperlinks: hyperlinks,

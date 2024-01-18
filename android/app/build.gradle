@@ -44,7 +44,7 @@ android {
 
     defaultConfig {
         applicationId "de.eje_esslingen.eje"
-        minSdkVersion flutter.minSdkVersion
+        minSdkVersion 23
         targetSdkVersion 33
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName

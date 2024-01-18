@@ -1,26 +1,14 @@
 import 'package:equatable/equatable.dart';
 import 'package:hive/hive.dart';
 
-part 'employee.g.dart';
-
-@HiveType(typeId: 1)
 class Employee extends Equatable {
-  @HiveField(0)
   final String image;
-  @HiveField(1)
   final String name;
-  @HiveField(2)
-  final String
-      function; //Art der Anstelluing(Jugendreferent, Sachverwalter etc)
-  @HiveField(3)
-  final String introduction; //Text, in den sich hauptamtlicher vorstellt
-  @HiveField(4)
+  final String function;
+  final String introduction;
   final String email;
-  @HiveField(5)
   final String telefon;
-  @HiveField(6)
   final String handy;
-  @HiveField(7)
   final String threema;
 
   Employee({
@@ -37,4 +25,29 @@ class Employee extends Equatable {
   @override
   List<Object> get props =>
       [image, name, function, introduction, email, telefon, handy, threema];
+
+  factory Employee.fromJson(Map<String, dynamic> json) {
+    return Employee(
+        image: json["image"] as String,
+        name: json["name"] as String,
+        function: json["function"] as String,
+        introduction: json["introduction"] as String,
+        email: json["email"] as String,
+        telefon: json["telefon"] as String,
+        handy: json["handy"] as String,
+        threema: json["threema"] as String);
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      "image": image,
+      "name": name,
+      "function": function,
+      "introduction": introduction,
+      "email": email,
+      "telefon": telefon,
+      "handy": handy,
+      "threema": threema
+    };
+  }
 }

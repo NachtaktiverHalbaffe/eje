@@ -1,21 +1,12 @@
 // ignore_for_file: file_names
 import 'package:eje/models/Hyperlink.dart';
 import 'package:equatable/equatable.dart';
-import 'package:hive/hive.dart';
 
-part 'Article.g.dart';
-
-@HiveType(typeId: 6)
 class Article extends Equatable {
-  @HiveField(0)
   final String url;
-  @HiveField(1)
   final String titel;
-  @HiveField(2)
   final String content;
-  @HiveField(3)
   final List<String> bilder;
-  @HiveField(4)
   final List<Hyperlink> hyperlinks;
 
   Article({
@@ -34,4 +25,24 @@ class Article extends Equatable {
         bilder,
         hyperlinks,
       ];
+
+  factory Article.fromJson(Map<String, dynamic> json) {
+    return Article(
+      url: json["url"] as String,
+      titel: json["title"] as String,
+      content: json["content"] as String,
+      bilder: (json["bilder"] as List).cast<String>(),
+      hyperlinks: (json["hyperlinks"] as List).cast<Hyperlink>(),
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      "url": url,
+      "titel": titel,
+      "content": content,
+      "bilder": bilder,
+      "hyperlinks": hyperlinks,
+    };
+  }
 }

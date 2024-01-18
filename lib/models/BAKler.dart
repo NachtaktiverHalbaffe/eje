@@ -2,22 +2,13 @@
 import 'package:equatable/equatable.dart';
 import 'package:hive/hive.dart';
 
-part 'BAKler.g.dart';
-
-@HiveType(typeId: 2)
 class BAKler extends Equatable {
-  @HiveField(0)
   final String image;
-  @HiveField(1)
   final String name;
-  @HiveField(2)
-  final String
-      function; //Art der Anstelluing(Jugendreferent, Sachverwalter etc)
-  @HiveField(3)
-  final String introduction; //Text, in den sich hauptamtlicher vorstellt
-  @HiveField(4)
+  final String function;
+  final String introduction;
   final String email;
-  @HiveField(5)
+
   final String threema;
 
   BAKler({
@@ -32,4 +23,25 @@ class BAKler extends Equatable {
   @override
   List<Object> get props =>
       [image, name, function, introduction, email, threema];
+
+  factory BAKler.fromJson(Map<String, dynamic> json) {
+    return BAKler(
+        image: json["image"] as String,
+        name: json["name"] as String,
+        function: json["function"] as String,
+        introduction: json["introduction"] as String,
+        email: json["email"] as String,
+        threema: json["threema"] as String);
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      "image": image,
+      "name": name,
+      "function": function,
+      "introduction": introduction,
+      "email": email,
+      "threema": threema
+    };
+  }
 }

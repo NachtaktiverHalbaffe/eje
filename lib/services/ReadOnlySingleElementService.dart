@@ -12,11 +12,10 @@ class ReadOnlySingleElementService<T extends Equatable, K> {
       {required this.boxKey, required this.repository});
 
   Future<Either<Failure, T>> getElement({required K id}) async {
-    final Box box = await Hive.openBox(boxKey);
+    final Box box = await Hive.box(name: boxKey);
     final result = await repository.getElement(boxKey, id);
     if (box.isOpen) {
-      await box.compact();
-      await box.close();
+      box.close();
     }
     return result;
   }

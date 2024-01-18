@@ -1,39 +1,21 @@
 // ignore_for_file: file_names
 import 'package:eje/models/location.dart';
 import 'package:equatable/equatable.dart';
-import 'package:hive/hive.dart';
 
-part 'Event.g.dart';
-
-@HiveType(typeId: 4)
 class Event extends Equatable {
-  @HiveField(0)
   final String name;
-  @HiveField(1)
   final String motto;
-  @HiveField(2)
   final String description;
-  @HiveField(3)
   final List<String> images;
-  @HiveField(4)
   final DateTime startDate;
-  @HiveField(5)
   final DateTime endDate;
-  @HiveField(6)
   final Location location;
-  @HiveField(7)
   final int id;
-  @HiveField(8)
   final String registrationLink;
-  @HiveField(9)
   final int price;
-  @HiveField(10)
   final int price2;
-  @HiveField(11)
   final int ageFrom;
-  @HiveField(12)
   final int ageTo;
-  @HiveField(13)
   final DateTime registrationEnd;
 
   Event(
@@ -69,4 +51,41 @@ class Event extends Equatable {
         id,
         registrationLink,
       ];
+
+  factory Event.fromJson(Map<String, dynamic> json) {
+    return Event(
+        price: json["price"] as int,
+        price2: json["price2"] as int,
+        ageFrom: json["ageFrom"] as int,
+        ageTo: json["ageTo"] as int,
+        motto: json["motto"] as String,
+        description: json["description"] as String,
+        registrationEnd: json["registrationEnd"] as DateTime,
+        name: json["name"] as String,
+        images: (json["images"] as List).cast<String>(),
+        startDate: json["startDate"] as DateTime,
+        endDate: json["endDate"] as DateTime,
+        location: Location.fromJson(json["location"] as Map<String, dynamic>),
+        id: json["id"] as int,
+        registrationLink: json["registrationLink"] as String);
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      "price": price,
+      "price2": price2,
+      "ageFrom": ageFrom,
+      "ageTo": ageTo,
+      "motto": motto,
+      "description": description,
+      "registrationEnd": registrationEnd,
+      "name": name,
+      "images": images,
+      "startDate": startDate,
+      "endDate": endDate,
+      "location": location.toJson(),
+      "id": id,
+      "registrationLink": registrationLink
+    };
+  }
 }

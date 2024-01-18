@@ -45,17 +45,20 @@ Future<void> startup() async {
   //Setting Hive up
   final appDocumentDirectory =
       await path_provider.getApplicationDocumentsDirectory();
-  Hive.init(appDocumentDirectory.path);
-  Hive.registerAdapter(NewsAdapter());
-  Hive.registerAdapter(EmployeeAdapter());
-  Hive.registerAdapter(BAKlerAdapter());
-  Hive.registerAdapter(FieldOfWorkAdapter());
-  Hive.registerAdapter(EventAdapter());
-  Hive.registerAdapter(CampAdapter());
-  Hive.registerAdapter(ArticleAdapter());
-  Hive.registerAdapter(OfferedServiceAdapter());
-  Hive.registerAdapter(HyperlinkAdapter());
-  Hive.registerAdapter(LocationAdapter());
+  Hive.defaultDirectory = appDocumentDirectory.path;
+  Hive.registerAdapter<Article>("Article", (json) => Article.fromJson(json));
+  Hive.registerAdapter<BAKler>("BAKler", (json) => BAKler.fromJson(json));
+  Hive.registerAdapter<Camp>("Camp", (json) => Camp.fromJson(json));
+  Hive.registerAdapter<Employee>("Employee", (json) => Employee.fromJson(json));
+  Hive.registerAdapter<Event>("Event", (json) => Event.fromJson(json));
+  Hive.registerAdapter<FieldOfWork>(
+      "FieldOfWork", (json) => FieldOfWork.mapFromJson(json));
+  Hive.registerAdapter<Hyperlink>(
+      "Hyperlink", (json) => Hyperlink.fromJson(json));
+  Hive.registerAdapter<Location>("Location", (json) => Location.fromJson(json));
+  Hive.registerAdapter<News>("News", (json) => News.fromJson(json));
+  Hive.registerAdapter<OfferedService>(
+      "OfferedServices", (json) => OfferedService.fromJson(json));
   await di.init();
 
   //Local notifications

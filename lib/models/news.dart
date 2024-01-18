@@ -1,21 +1,11 @@
 import 'package:equatable/equatable.dart';
-import 'package:hive/hive.dart';
 
-part 'news.g.dart';
-
-@HiveType(typeId: 0)
 class News extends Equatable {
-  @HiveField(0)
   final String title; //Titel der Neuigkeit
-  @HiveField(1)
   final String textPreview; //Vorschautext der Neuigkeit
-  @HiveField(2)
   final String text; //Eigentlicher, voller Textinhalt des Artikels
-  @HiveField(3)
   final List<String> images; //Links zu den Bildern
-  @HiveField(4)
   final String link; //Fals vorhanden hyperlinks zu anderen Websiten
-  @HiveField(5)
   final DateTime published; //Veröffentlichungsdatum
 
   //Constructor
@@ -30,19 +20,22 @@ class News extends Equatable {
 
   factory News.fromJson(Map<String, dynamic> json) {
     return News(
-      title: json['titel'],
-      textPreview: json['text_preview'],
-      text: json['text'],
-      images: (json['bilder'] as List<String>).toList(),
-    );
+        title: json['title'] as String,
+        textPreview: json['textPreview'] as String,
+        text: json['text'] as String,
+        images: (json['images'] as List).cast<String>(),
+        link: json["link"] as String,
+        published: json["published"] as DateTime);
   }
 
   Map<String, dynamic> toJson() {
     return {
-      'titel': title,
-      'text_preview': textPreview,
+      'title': title,
+      'textPreview': textPreview,
       'text': text,
-      'bilder': images.toString()
+      'images': images.toString(),
+      "link": link,
+      "published": published
     };
   }
 

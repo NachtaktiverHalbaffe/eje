@@ -2,63 +2,33 @@ import 'package:eje/models/location.dart';
 import 'package:equatable/equatable.dart';
 import 'package:hive/hive.dart';
 
-part 'camp.g.dart';
-
-@HiveType(typeId: 5)
 class Camp extends Equatable {
-  @HiveField(0)
   final String name;
-  @HiveField(1)
   final DateTime startDate;
-  @HiveField(2)
   final DateTime endDate;
-  @HiveField(3)
   final int ageFrom;
-  @HiveField(4)
   final int ageTo;
-  @HiveField(5)
   final int price;
-  @HiveField(6)
   final int price2;
-  @HiveField(7)
   final String occupancy;
-  @HiveField(8)
   final int maxPlaces;
-  @HiveField(9)
   final Location location;
-  @HiveField(10)
   final String registrationLink;
-  @HiveField(11)
   final List<String> pictures;
-  @HiveField(12)
   final String description;
-  @HiveField(13)
   final String teaser;
-  @HiveField(14)
   final DateTime registrationEnd;
-  @HiveField(15)
   final String catering;
-  @HiveField(16)
   final String accommodation;
-  @HiveField(17)
   final String journey;
-  @HiveField(18)
   final String otherServices;
-  @HiveField(19)
   final String subtitle;
-  @HiveField(20)
   final List<String> companions;
-  @HiveField(21)
   final List<String> faq;
-  @HiveField(22)
   final List<String> categories;
-  @HiveField(23)
   final String termsDocument;
-  @HiveField(24)
   final String infosheetDocument;
-  @HiveField(25)
   final String privacyDocument;
-  @HiveField(26)
   final int id;
 
   Camp(
@@ -119,4 +89,66 @@ class Camp extends Equatable {
         privacyDocument,
         id
       ];
+
+  factory Camp.fromJson(Map<String, dynamic> json) {
+    return Camp(
+        maxPlaces: json["maxPlaces"] as int,
+        faq: (json["faq"] as List).cast<String>(),
+        categories: (json["categories"] as List).cast<String>(),
+        name: json["name"] as String,
+        startDate: json["startDate"] as DateTime,
+        endDate: json["endDate"] as DateTime,
+        ageFrom: json["ageFrom"] as int,
+        ageTo: json["ageTo"] as int,
+        price: json["int"] as int,
+        price2: json["price2"] as int,
+        occupancy: json["occupancy"] as String,
+        location: Location.fromJson(json["location"] as Map<String, dynamic>),
+        registrationLink: json["registrationLink"] as String,
+        pictures: (json["pictures"] as List).cast<String>(),
+        description: json["description"] as String,
+        teaser: json["teaser"] as String,
+        registrationEnd: json["registrationEnd"] as DateTime,
+        catering: json["catering"] as String,
+        accommodation: json["accommodation"] as String,
+        journey: json["journey"] as String,
+        otherServices: json["otherServices"],
+        subtitle: json["subtitle"] as String,
+        companions: (json["companions"] as List).cast<String>(),
+        termsDocument: json["termsDocument"] as String,
+        infosheetDocument: json["infosheetDocument"] as String,
+        privacyDocument: json["privacyDocument"] as String,
+        id: json["id"] as int);
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      "name": name,
+      "startDate": startDate,
+      "endDate": endDate,
+      "endDate": ageFrom,
+      "ageTo": ageTo,
+      "price": price,
+      "price2": price2,
+      "occupancy": occupancy,
+      "maxPlaces": maxPlaces,
+      "location": location.toJson(),
+      "registrationLink": registrationLink,
+      "pictures": pictures,
+      "description": description,
+      "teaser": teaser,
+      "registrationEnd": registrationEnd,
+      "catering": catering,
+      "accommodation": accommodation,
+      "journey": journey,
+      "otherServices": otherServices,
+      "companions": companions,
+      "faq": faq,
+      "categories": categories,
+      "termsDocument": termsDocument,
+      "infosheetDocument": infosheetDocument,
+      "privacyDocument": privacyDocument,
+      "id": id
+    };
+  }
 }

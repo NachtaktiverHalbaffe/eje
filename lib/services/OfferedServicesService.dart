@@ -14,26 +14,24 @@ class OfferedServicesService {
   Future<Either<Failure, OfferedService>> getService(
       {OfferedService? service}) async {
     final AppConfig appConfig = await AppConfig.loadConfig();
-    final Box box = await Hive.openBox(appConfig.servicesBox);
+    final Box box = await Hive.box(name: appConfig.servicesBox);
 
     final result =
         await repository.getElement(appConfig.servicesBox, service!.service);
     if (box.isOpen) {
-      await box.compact();
-      await box.close();
+      box.close();
     }
     return result;
   }
 
   Future<Either<Failure, List<OfferedService>>> getServices() async {
     final AppConfig appConfig = await AppConfig.loadConfig();
-    final Box box = await Hive.openBox(appConfig.servicesBox);
+    final Box box = await Hive.box(name: appConfig.servicesBox);
     await dataServices(appConfig.servicesBox);
 
     final result = await repository.getAllElements(appConfig.servicesBox);
     if (box.isOpen) {
-      await box.compact();
-      await box.close();
+      box.close();
     }
     return result;
   }

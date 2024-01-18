@@ -14,25 +14,23 @@ class NewsService {
 
   Future<Either<Failure, Article>> getSingleNews({String? url}) async {
     final AppConfig appConfig = await AppConfig.loadConfig();
-    final Box box = await Hive.openBox(appConfig.articlesBox);
+    final Box box = await Hive.box(name: appConfig.articlesBox);
 
     final article =
         await articleRepository.getElement(appConfig.articlesBox, url!);
 
     if (box.isOpen) {
-      await box.compact();
-      // await _box.close();
+      box.close();
     }
     return article;
   }
 
   Future<Either<Failure, List<News>>> getNews() async {
     final AppConfig appConfig = await AppConfig.loadConfig();
-    final Box box = await Hive.openBox(appConfig.newsBox);
+    final Box box = await Hive.box(name: appConfig.newsBox);
     final result = await repository.getAllElements(appConfig.newsBox);
     if (box.isOpen) {
-      await box.compact();
-      // await _box.close();
+      box.close();
     }
     return result;
   }
