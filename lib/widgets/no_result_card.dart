@@ -34,8 +34,9 @@ class NoResultCard extends StatelessWidget {
                 SizedBox(height: 12 * scale),
                 Text(
                   label,
+                  textAlign: TextAlign.center,
                   style: TextStyle(
-                    fontSize: 24 * scale,
+                    fontSize: scale != 1.0 ? (24 * scale) : 24,
                     fontWeight: FontWeight.bold,
                   ),
                 ),

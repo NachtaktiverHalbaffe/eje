@@ -13,39 +13,41 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class NewsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => diContainer<NewsBloc>(),
-      lazy: false,
-      child: BlocConsumer<NewsBloc, NewsState>(
-        listener: (context, state) {
-          if (state is Error) {
-            print("Build Page: Error");
-            AlertSnackbar(context).showErrorSnackBar(label: state.message);
-          }
-        },
-        builder: (context, state) {
-          if (state is Empty) {
-            print("Build Page Neuigkeiten: Empty");
-            BlocProvider.of<NewsBloc>(context).add(RefreshNews());
-            return Center();
-          } else if (state is Loading) {
-            print("Build Page Neuigkeiten: Loading");
-            return LoadingIndicator();
-          } else if (state is Loaded) {
-            print("Build Page Neuigkeiten: Loaded");
-            return NeuigkeitenListView(state.neuigkeit.toList());
-          } else if (state is Error) {
-            return NoResultCard(
-              label: "Fehler beim Laden der Neuigkeiten",
-              isError: true,
-              onRefresh: () async {
-                BlocProvider.of<NewsBloc>(context).add(RefreshNews());
-              },
-            );
-          } else {
-            return Center();
-          }
-        },
+    return Scaffold(
+      body: BlocProvider(
+        create: (_) => diContainer<NewsBloc>(),
+        lazy: false,
+        child: BlocConsumer<NewsBloc, NewsState>(
+          listener: (context, state) {
+            if (state is Error) {
+              print("Build Page: Error");
+              AlertSnackbar(context).showErrorSnackBar(label: state.message);
+            }
+          },
+          builder: (context, state) {
+            if (state is Empty) {
+              print("Build Page Neuigkeiten: Empty");
+              BlocProvider.of<NewsBloc>(context).add(RefreshNews());
+              return Center();
+            } else if (state is Loading) {
+              print("Build Page Neuigkeiten: Loading");
+              return LoadingIndicator();
+            } else if (state is Loaded) {
+              print("Build Page Neuigkeiten: Loaded");
+              return NeuigkeitenListView(state.neuigkeit.toList());
+            } else if (state is Error) {
+              return NoResultCard(
+                label: state.message,
+                // isError: true,
+                onRefresh: () async {
+                  BlocProvider.of<NewsBloc>(context).add(RefreshNews());
+                },
+              );
+            } else {
+              return Center();
+            }
+          },
+        ),
       ),
     );
   }

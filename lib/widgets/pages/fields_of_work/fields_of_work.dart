@@ -59,7 +59,13 @@ class FieldsOfWork extends StatelessWidget {
                             .add(RefreshFieldsOfWork());
                       });
             } else if (state is Error) {
-              return Center();
+              return NoResultCard(
+                  label: state.message,
+                  scale: 0.4,
+                  onRefresh: () async {
+                    BlocProvider.of<FieldsOfWorkBloc>(context)
+                        .add(RefreshFieldsOfWork());
+                  });
             } else {
               return Center();
             }

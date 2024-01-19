@@ -59,7 +59,13 @@ class Employees extends StatelessWidget {
                             .add(RefreshEmployees());
                       });
             } else if (state is Error) {
-              return Center();
+              return NoResultCard(
+                  label: state.message,
+                  scale: 0.4,
+                  onRefresh: () async {
+                    BlocProvider.of<EmployeesBloc>(context)
+                        .add(RefreshEmployees());
+                  });
             } else {
               return Center();
             }

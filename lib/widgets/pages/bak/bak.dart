@@ -57,7 +57,12 @@ class BAK extends StatelessWidget {
                         BlocProvider.of<BakBloc>(context).add(RefreshBAK());
                       });
             } else if (state is Error) {
-              return Center();
+              return NoResultCard(
+                  label: state.message,
+                  scale: 0.4,
+                  onRefresh: () async {
+                    BlocProvider.of<BakBloc>(context).add(RefreshBAK());
+                  });
             } else {
               return Center();
             }

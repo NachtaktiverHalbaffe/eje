@@ -14,36 +14,37 @@ import 'package:flutter_swiper_plus/flutter_swiper_plus.dart';
 class Events extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => diContainer<EventsBloc>(),
-      child: BlocConsumer<EventsBloc, EventsState>(
-        listener: (context, state) {
-          if (state is Error) {
-            print("Build Page: Error");
-            AlertSnackbar(context).showErrorSnackBar(label: state.message);
-          }
-        },
-        // ignore: missing_return
-        builder: (context, state) {
-          if (state is Empty) {
-            BlocProvider.of<EventsBloc>(context).add(RefreshEvents());
-            return Center();
-          } else if (state is Loading) {
-            return LoadingIndicator();
-          } else if (state is LoadedEvents) {
-            return TermineListView(state.events.reversed.toList());
-          } else if (state is Error) {
-            return NoResultCard(
-              label: "Fehler beim Laden der Events",
-              isError: true,
-              onRefresh: () async {
-                BlocProvider.of<EventsBloc>(context).add(RefreshEvents());
-              },
-            );
-          } else {
-            return Center();
-          }
-        },
+    return Scaffold(
+      body: BlocProvider(
+        create: (_) => diContainer<EventsBloc>(),
+        child: BlocConsumer<EventsBloc, EventsState>(
+          listener: (context, state) {
+            if (state is Error) {
+              print("Build Page: Error");
+              AlertSnackbar(context).showErrorSnackBar(label: state.message);
+            }
+          },
+          // ignore: missing_return
+          builder: (context, state) {
+            if (state is Empty) {
+              BlocProvider.of<EventsBloc>(context).add(RefreshEvents());
+              return Center();
+            } else if (state is Loading) {
+              return LoadingIndicator();
+            } else if (state is LoadedEvents) {
+              return TermineListView(state.events.reversed.toList());
+            } else if (state is Error) {
+              return NoResultCard(
+                label: state.message,
+                onRefresh: () async {
+                  BlocProvider.of<EventsBloc>(context).add(RefreshEvents());
+                },
+              );
+            } else {
+              return Center();
+            }
+          },
+        ),
       ),
     );
   }

@@ -57,14 +57,20 @@ class OfferedServices extends StatelessWidget {
                       });
             } else if (state is Error) {
               return NoResultCard(
-                  label: "Fehler beim Laden der Dienstleistungen",
-                  isError: true,
+                  label: state.message,
+                  scale: 0.4,
                   onRefresh: () async {
                     BlocProvider.of<ServicesBloc>(context)
                         .add(RefreshServices());
                   });
             } else {
-              return Center();
+              return NoResultCard(
+                  label: "Fehler beim Laden der Dienstleistungen",
+                  scale: 0.4,
+                  onRefresh: () async {
+                    BlocProvider.of<ServicesBloc>(context)
+                        .add(RefreshServices());
+                  });
             }
           },
         ),

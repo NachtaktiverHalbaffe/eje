@@ -16,39 +16,40 @@ import 'package:intl/intl.dart';
 class Camps extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => diContainer<CampsBloc>(),
-      child: BlocConsumer<CampsBloc, CampState>(
-        listener: (context, state) {
-          if (state is Error) {
-            AlertSnackbar(context).showErrorSnackBar(label: state.message);
-          }
-        },
-        builder: (context, state) {
-          if (state is Empty) {
-            BlocProvider.of<CampsBloc>(context).add(RefreshCamps());
-            return Center();
-          }
-          if (state is Loading) {
-            return LoadingIndicator();
-          } else if (state is LoadedCamps) {
-            return CampsPageViewer(state.freizeiten);
-          } else if (state is FilteredCamps) {
-            return CampsPageViewer(state.freizeiten);
-          } else if (state is DeletedFilter) {
-            return CampsPageViewer(state.freizeiten);
-          } else if (state is Error) {
-            return NoResultCard(
-              label: "Fehler beim Laden der Freizeiten",
-              isError: true,
-              onRefresh: () async {
-                BlocProvider.of<CampsBloc>(context).add(RefreshCamps());
-              },
-            );
-          } else {
-            return Center();
-          }
-        },
+    return Scaffold(
+      body: BlocProvider(
+        create: (_) => diContainer<CampsBloc>(),
+        child: BlocConsumer<CampsBloc, CampState>(
+          listener: (context, state) {
+            if (state is Error) {
+              AlertSnackbar(context).showErrorSnackBar(label: state.message);
+            }
+          },
+          builder: (context, state) {
+            if (state is Empty) {
+              BlocProvider.of<CampsBloc>(context).add(RefreshCamps());
+              return Center();
+            }
+            if (state is Loading) {
+              return LoadingIndicator();
+            } else if (state is LoadedCamps) {
+              return CampsPageViewer(state.freizeiten);
+            } else if (state is FilteredCamps) {
+              return CampsPageViewer(state.freizeiten);
+            } else if (state is DeletedFilter) {
+              return CampsPageViewer(state.freizeiten);
+            } else if (state is Error) {
+              return NoResultCard(
+                label: state.message,
+                onRefresh: () async {
+                  BlocProvider.of<CampsBloc>(context).add(RefreshCamps());
+                },
+              );
+            } else {
+              return Center();
+            }
+          },
+        ),
       ),
     );
   }
