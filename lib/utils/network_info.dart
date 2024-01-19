@@ -19,7 +19,7 @@ class NetworkInfoImpl implements NetworkInfo {
       if (result != ConnectivityResult.wifi) {
         return false;
       } else if (result == ConnectivityResult.wifi) {
-        return connectionChecker.hasConnection;
+        return await connectionChecker.hasConnection;
       } else {
         return false;
       }

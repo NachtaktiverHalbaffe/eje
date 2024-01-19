@@ -1,6 +1,8 @@
 import 'package:eje/models/BAKler.dart';
+import 'package:eje/widgets/alert_snackbar.dart';
 import 'package:eje/widgets/details_page.dart';
 import 'package:eje/widgets/loading_indicator.dart';
+import 'package:eje/widgets/no_result_card.dart';
 import 'package:eje/widgets/pages/bak/bloc/bak_bloc.dart';
 import 'package:eje/widgets/pages/bak/bloc/bak_event.dart';
 import 'package:eje/widgets/pages/bak/bloc/bak_state.dart';
@@ -18,17 +20,14 @@ class BAKDetails extends StatelessWidget {
     return Scaffold(
       body: BlocConsumer<BakBloc, BakState>(listener: (context, state) {
         if (state is Error) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(state.message),
-            ),
-          );
+          AlertSnackbar(context).showErrorSnackBar(label: state.message);
+          Navigator.pop(context);
         }
       }, builder: (context, state) {
         if (state is Empty) {
           BlocProvider.of<BakBloc>(context).add(GettingBAKler(bakler.name));
           print("Build page bak: Empty");
-          return LoadingIndicator();
+          return Center();
         } else if (state is Loading) {
           print("Build page bak: Loading");
           return LoadingIndicator();
@@ -37,8 +36,17 @@ class BAKDetails extends StatelessWidget {
           return HauptamtlicheDetailsCard(bakler: state.bakler);
         } else {
           print("Build page bak: Undefined state");
-          BlocProvider.of<BakBloc>(context).add(GettingBAKler(bakler.name));
-          return Container();
+          AlertSnackbar(context).showErrorSnackBar(
+              label:
+                  "Konnte Details zum BAK-Mitglied nicht laden: Unbekannter Fehler");
+          Navigator.pop(context);
+          return NoResultCard(
+            label:
+                "Konnte Details zum BAK-Mitglied nicht laden: Unbekannter Fehler",
+            onRefresh: () async {
+              BlocProvider.of<BakBloc>(context).add(GettingBAKler(bakler.name));
+            },
+          );
         }
       }),
     );

@@ -1,5 +1,6 @@
 import 'package:eje/widgets/alert_snackbar.dart';
 import 'package:eje/widgets/loading_indicator.dart';
+import 'package:eje/widgets/no_result_card.dart';
 import 'package:eje/widgets/pages/offeredServices/bloc/services_bloc.dart';
 import 'package:eje/widgets/pages/offeredServices/services_pageViewer.dart';
 import 'package:flutter/material.dart';
@@ -38,16 +39,30 @@ class OfferedServices extends StatelessWidget {
             if (state is Empty) {
               print("Build page: Services Empty");
               BlocProvider.of<ServicesBloc>(context).add(RefreshServices());
-              return LoadingIndicator();
+              return Center();
             }
             if (state is Loading) {
               print("Build page: Services Loading");
               return LoadingIndicator();
             } else if (state is LoadedServices) {
               print("Build page: LoadedServices");
-              return OfferedServicesPageViewer(services: state.services);
+              return state.services.isNotEmpty
+                  ? OfferedServicesPageViewer(services: state.services)
+                  : NoResultCard(
+                      label: "Fehler beim Laden der Hauptamtliche",
+                      scale: 0.4,
+                      onRefresh: () async {
+                        BlocProvider.of<ServicesBloc>(context)
+                            .add(RefreshServices());
+                      });
             } else if (state is Error) {
-              return Center();
+              return NoResultCard(
+                  label: "Fehler beim Laden der Dienstleistungen",
+                  isError: true,
+                  onRefresh: () async {
+                    BlocProvider.of<ServicesBloc>(context)
+                        .add(RefreshServices());
+                  });
             } else {
               return Center();
             }

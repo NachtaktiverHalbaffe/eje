@@ -1,5 +1,6 @@
 import 'package:eje/widgets/alert_snackbar.dart';
 import 'package:eje/widgets/loading_indicator.dart';
+import 'package:eje/widgets/no_result_card.dart';
 import 'package:eje/widgets/pages/fields_of_work/bloc/fields_of_work_bloc.dart';
 import 'package:eje/widgets/pages/fields_of_work/bloc/fields_of_work_event.dart';
 import 'package:eje/widgets/pages/fields_of_work/bloc/fields_of_work_state.dart';
@@ -48,7 +49,15 @@ class FieldsOfWork extends StatelessWidget {
               return LoadingIndicator();
             } else if (state is LoadedFieldsOfWork) {
               print("Build page: LoadedArbeitsbereiche");
-              return FieldsOfWorkPageViewer(fieldsOfWork: state.fieldsOfWork);
+              return state.fieldsOfWork.isNotEmpty
+                  ? FieldsOfWorkPageViewer(fieldsOfWork: state.fieldsOfWork)
+                  : NoResultCard(
+                      label: "Fehler beim Laden der Hauptamtliche",
+                      scale: 0.4,
+                      onRefresh: () async {
+                        BlocProvider.of<FieldsOfWorkBloc>(context)
+                            .add(RefreshFieldsOfWork());
+                      });
             } else if (state is Error) {
               return Center();
             } else {

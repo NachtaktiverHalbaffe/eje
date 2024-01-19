@@ -1,5 +1,6 @@
 import 'package:eje/widgets/alert_snackbar.dart';
 import 'package:eje/widgets/loading_indicator.dart';
+import 'package:eje/widgets/no_result_card.dart';
 import 'package:eje/widgets/pages/employees/bloc/employees_bloc.dart';
 import 'package:eje/widgets/pages/employees/bloc/employees_event.dart';
 import 'package:eje/widgets/pages/employees/bloc/employees_state.dart';
@@ -48,7 +49,15 @@ class Employees extends StatelessWidget {
               return LoadingIndicator();
             } else if (state is LoadedEmployees) {
               print("Build page: LoadedHauptamtliche");
-              return EmployeesPageViewer(state.hauptamtliche);
+              return state.hauptamtliche.isNotEmpty
+                  ? EmployeesPageViewer(state.hauptamtliche)
+                  : NoResultCard(
+                      label: "Fehler beim Laden der Hauptamtliche",
+                      scale: 0.4,
+                      onRefresh: () async {
+                        BlocProvider.of<EmployeesBloc>(context)
+                            .add(RefreshEmployees());
+                      });
             } else if (state is Error) {
               return Center();
             } else {

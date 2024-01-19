@@ -1,7 +1,9 @@
 // ignore_for_file: camel_case_types
 import 'package:eje/models/employee.dart';
+import 'package:eje/widgets/alert_snackbar.dart';
 import 'package:eje/widgets/details_page.dart';
 import 'package:eje/widgets/loading_indicator.dart';
+import 'package:eje/widgets/no_result_card.dart';
 import 'package:eje/widgets/pages/employees/bloc/employees_bloc.dart';
 import 'package:eje/widgets/pages/employees/bloc/employees_event.dart';
 import 'package:eje/widgets/pages/employees/bloc/employees_state.dart';
@@ -20,11 +22,8 @@ class EmployeeDetails extends StatelessWidget {
       body: BlocConsumer<EmployeesBloc, EmployeesState>(
         listener: (context, state) {
           if (state is Error) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text(state.message),
-              ),
-            );
+            AlertSnackbar(context).showErrorSnackBar(label: state.message);
+            Navigator.pop(context);
           }
         },
         builder: (context, state) {
@@ -32,7 +31,7 @@ class EmployeeDetails extends StatelessWidget {
             BlocProvider.of<EmployeesBloc>(context)
                 .add(GettingEmployee(employee.name));
             print("Build Page EmployeeDetail: Empty");
-            return LoadingIndicator();
+            return Center();
           }
           if (state is Loading) {
             print("Build Page EmployeeDetail: Loading");
@@ -42,7 +41,18 @@ class EmployeeDetails extends StatelessWidget {
             return EmployeeDetailsCard(employee: state.employee);
           } else {
             print("Build Page EmployeeDetail: Undefined");
-            return LoadingIndicator();
+            AlertSnackbar(context).showErrorSnackBar(
+                label:
+                    "Konnte Details zum Hauptamtlichen nicht laden: Unbekannter Fehler");
+            Navigator.pop(context);
+            return NoResultCard(
+              label:
+                  "Konnte Details zum Hauptamtlichen nicht laden: Unbekannter Fehler",
+              onRefresh: () async {
+                BlocProvider.of<EmployeesBloc>(context)
+                    .add(GettingEmployee(employee.name));
+              },
+            );
           }
         },
       ),

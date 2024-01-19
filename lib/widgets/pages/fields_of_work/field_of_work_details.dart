@@ -1,7 +1,9 @@
 import 'package:eje/models/Hyperlink.dart';
 import 'package:eje/models/field_of_work.dart';
+import 'package:eje/widgets/alert_snackbar.dart';
 import 'package:eje/widgets/details_page.dart';
 import 'package:eje/widgets/loading_indicator.dart';
+import 'package:eje/widgets/no_result_card.dart';
 import 'package:eje/widgets/pages/fields_of_work/bloc/fields_of_work_bloc.dart';
 import 'package:eje/widgets/pages/fields_of_work/bloc/fields_of_work_event.dart';
 import 'package:eje/widgets/pages/fields_of_work/bloc/fields_of_work_state.dart';
@@ -18,11 +20,8 @@ class FieldOfWorkDetails extends StatelessWidget {
       body: BlocConsumer<FieldsOfWorkBloc, FieldOfWorkState>(
         listener: (context, state) {
           if (state is Error) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text(state.message),
-              ),
-            );
+            AlertSnackbar(context).showErrorSnackBar(label: state.message);
+            Navigator.pop(context);
           }
         },
         builder: (context, state) {
@@ -30,7 +29,7 @@ class FieldOfWorkDetails extends StatelessWidget {
             print("Build page FieldOfWork: Empty");
             BlocProvider.of<FieldsOfWorkBloc>(context)
                 .add(GettingFieldOfWork(name.name));
-            return LoadingIndicator();
+            return Center();
           } else if (state is Loading) {
             print("Build page FieldOfWork: Loading");
             return LoadingIndicator();
@@ -39,9 +38,18 @@ class FieldOfWorkDetails extends StatelessWidget {
             return FieldOfWorkDetailsCard(state.fieldOfWork);
           } else {
             print("Build page FieldOfWork: Undefined");
-            BlocProvider.of<FieldsOfWorkBloc>(context)
-                .add(GettingFieldOfWork(name.name));
-            return LoadingIndicator();
+            AlertSnackbar(context).showErrorSnackBar(
+                label:
+                    "Konnte Details zum Arbeitsfeld nicht laden: Unbekannter Fehler");
+            Navigator.pop(context);
+            return NoResultCard(
+              label:
+                  "Konnte Details zum Arbeitsfeld nicht laden: Unbekannter Fehler",
+              onRefresh: () async {
+                BlocProvider.of<FieldsOfWorkBloc>(context)
+                    .add(GettingFieldOfWork(name.name));
+              },
+            );
           }
         },
       ),

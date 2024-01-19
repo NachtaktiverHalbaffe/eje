@@ -1,6 +1,8 @@
 import 'package:eje/models/Offered_Service.dart';
+import 'package:eje/widgets/alert_snackbar.dart';
 import 'package:eje/widgets/details_page.dart';
 import 'package:eje/widgets/loading_indicator.dart';
+import 'package:eje/widgets/no_result_card.dart';
 import 'package:eje/widgets/pages/offeredServices/bloc/services_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,11 +17,8 @@ class OfferedServiceDetails extends StatelessWidget {
       body: BlocConsumer<ServicesBloc, ServicesState>(
         listener: (context, state) {
           if (state is Error) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text(state.message),
-              ),
-            );
+            AlertSnackbar(context).showErrorSnackBar(label: state.message);
+            Navigator.pop(context);
           }
         },
         builder: (context, state) {
@@ -29,14 +28,24 @@ class OfferedServiceDetails extends StatelessWidget {
           } else if (state is Empty) {
             BlocProvider.of<ServicesBloc>(context).add(GettingService(service));
             print("Build Page ServiceDetails: Empty");
-            return LoadingIndicator();
+            return Center();
           } else if (state is Loading) {
             print("Build Page ServiceDetails: Loading");
             return LoadingIndicator();
           } else {
             print("Build Page ServiceDetails: Undefined");
-            BlocProvider.of<ServicesBloc>(context).add(GettingService(service));
-            return LoadingIndicator();
+            AlertSnackbar(context).showErrorSnackBar(
+                label:
+                    "Konnte Details zur DIenstleistung nicht laden: Unbekannter Fehler");
+            Navigator.pop(context);
+            return NoResultCard(
+              label:
+                  "Konnte Details zur DIenstleistung nicht laden: Unbekannter Fehler",
+              onRefresh: () async {
+                BlocProvider.of<ServicesBloc>(context)
+                    .add(GettingService(service));
+              },
+            );
           }
         },
       ),

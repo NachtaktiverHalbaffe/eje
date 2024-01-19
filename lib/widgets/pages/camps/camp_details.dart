@@ -3,6 +3,7 @@ import 'package:eje/models/camp.dart';
 import 'package:eje/widgets/alert_snackbar.dart';
 import 'package:eje/widgets/details_page.dart';
 import 'package:eje/widgets/loading_indicator.dart';
+import 'package:eje/widgets/no_result_card.dart';
 import 'package:eje/widgets/pages/camps/bloc/camps_bloc.dart';
 import 'package:eje/widgets/pages/camps/bloc/camps_event.dart';
 import 'package:eje/widgets/pages/camps/bloc/camps_state.dart';
@@ -23,17 +24,14 @@ class CampDetails extends StatelessWidget {
     return Scaffold(
       body: BlocConsumer<CampsBloc, CampState>(listener: (context, state) {
         if (state is Error) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(state.message),
-            ),
-          );
+          AlertSnackbar(context).showErrorSnackBar(label: state.message);
+          Navigator.pop(context);
         }
       }, builder: (context, state) {
         if (state is Empty) {
           print("Build page CampDetail: Empty");
           BlocProvider.of<CampsBloc>(context).add(GettingCamp(camp));
-          return LoadingIndicator();
+          return Center();
         } else if (state is Loading) {
           print("Build page CampDetail: Loading");
           return LoadingIndicator();
@@ -42,8 +40,17 @@ class CampDetails extends StatelessWidget {
           return FreizeitDetailsCard(freizeit: state.freizeit);
         } else {
           print("Build page CampDetail: Undefined");
-          BlocProvider.of<CampsBloc>(context).add(GettingCamp(camp));
-          return Container();
+          AlertSnackbar(context).showErrorSnackBar(
+              label:
+                  "Konnte Details zur Freizeit nicht laden: Unbekannter Fehler");
+          Navigator.pop(context);
+          return NoResultCard(
+            label:
+                "Konnte Details zur Freizeit nicht laden: Unbekannter Fehler",
+            onRefresh: () async {
+              BlocProvider.of<CampsBloc>(context).add(GettingCamp(camp));
+            },
+          );
         }
       }),
     );

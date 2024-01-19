@@ -1,6 +1,8 @@
 import 'package:eje/models/Article.dart';
+import 'package:eje/widgets/alert_snackbar.dart';
 import 'package:eje/widgets/details_page.dart';
 import 'package:eje/widgets/loading_indicator.dart';
+import 'package:eje/widgets/no_result_card.dart';
 import 'package:eje/widgets/pages/news/bloc/news_bloc.dart';
 import 'package:eje/widgets/pages/news/bloc/news_event.dart';
 import 'package:eje/widgets/pages/news/bloc/news_state.dart';
@@ -18,11 +20,8 @@ class NewsDetails extends StatelessWidget {
       body: BlocConsumer<NewsBloc, NewsState>(
         listener: (context, state) {
           if (state is Error) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text(state.message),
-              ),
-            );
+            AlertSnackbar(context).showErrorSnackBar(label: state.message);
+            Navigator.pop(context);
           }
         },
         builder: (context, state) {
@@ -33,9 +32,19 @@ class NewsDetails extends StatelessWidget {
             return LoadingIndicator();
           } else if (state is Empty) {
             BlocProvider.of<NewsBloc>(context).add(GetNewsDetails(title));
-            return LoadingIndicator();
+            return Center();
           } else {
-            return LoadingIndicator();
+            AlertSnackbar(context).showErrorSnackBar(
+                label:
+                    "Konnte Details zur Neuigkeit nicht laden: Unbekannter Fehler");
+            Navigator.pop(context);
+            return NoResultCard(
+              label:
+                  "Konnte Details zur Neuigkeit nicht laden: Unbekannter Fehler",
+              onRefresh: () async {
+                BlocProvider.of<NewsBloc>(context).add(GetNewsDetails(title));
+              },
+            );
           }
         },
       ),

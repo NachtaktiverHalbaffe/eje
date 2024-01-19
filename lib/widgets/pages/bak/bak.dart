@@ -1,5 +1,6 @@
 import 'package:eje/widgets/alert_snackbar.dart';
 import 'package:eje/widgets/loading_indicator.dart';
+import 'package:eje/widgets/no_result_card.dart';
 import 'package:eje/widgets/pages/bak/bak_pageviewer.dart';
 import 'package:eje/widgets/pages/bak/bloc/bak_bloc.dart';
 import 'package:eje/widgets/pages/bak/bloc/bak_event.dart';
@@ -40,14 +41,21 @@ class BAK extends StatelessWidget {
             if (state is Empty) {
               print("Build page: BAK Empty");
               BlocProvider.of<BakBloc>(context).add(RefreshBAK());
-              return LoadingIndicator();
+              return Center();
             }
             if (state is Loading) {
               print("Build page: Bak Loading");
               return LoadingIndicator();
             } else if (state is LoadedBAK) {
               print("Build page: LoadedBak");
-              return BAKPageViewer(bakler: state.bak);
+              return state.bak.isNotEmpty
+                  ? BAKPageViewer(bakler: state.bak)
+                  : NoResultCard(
+                      label: "Fehler beim Laden der Bak-Mitglieder",
+                      scale: 0.4,
+                      onRefresh: () async {
+                        BlocProvider.of<BakBloc>(context).add(RefreshBAK());
+                      });
             } else if (state is Error) {
               return Center();
             } else {

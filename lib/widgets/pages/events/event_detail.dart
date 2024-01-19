@@ -5,6 +5,7 @@ import 'package:eje/utils/notificationplugin.dart';
 import 'package:eje/widgets/alert_snackbar.dart';
 import 'package:eje/widgets/details_page.dart';
 import 'package:eje/widgets/loading_indicator.dart';
+import 'package:eje/widgets/no_result_card.dart';
 import 'package:eje/widgets/pages/events/bloc/events_bloc.dart';
 import 'package:eje/widgets/pages/events/bloc/events_event.dart';
 import 'package:eje/widgets/pages/events/bloc/events_state.dart';
@@ -26,11 +27,8 @@ class EventDetails extends StatelessWidget {
       body: BlocConsumer<EventsBloc, EventsState>(
         listener: (context, state) {
           if (state is Error) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text(state.message),
-              ),
-            );
+            AlertSnackbar(context).showErrorSnackBar(label: state.message);
+            Navigator.pop(context);
           }
         },
         // ignore: missing_return
@@ -38,7 +36,7 @@ class EventDetails extends StatelessWidget {
           if (state is Empty) {
             print("Build page EventDetail: Empty");
             BlocProvider.of<EventsBloc>(context).add(GettingEvent(event.id));
-            return LoadingIndicator();
+            return Center();
           } else if (state is Loading) {
             print("Build page EventDetail: Loading");
             return LoadingIndicator();
@@ -47,8 +45,15 @@ class EventDetails extends StatelessWidget {
             return EventDetailsCard(state.event);
           } else {
             print("Build page EventDetail: Undefined");
-
-            return LoadingIndicator();
+            AlertSnackbar(context).showErrorSnackBar(
+                label:
+                    "Konnte Details zur Veranstaltung nicht laden: Unbekannter Fehler");
+            Navigator.pop(context);
+            return NoResultCard(
+                label:
+                    "Konnte Details zum Veranstaltung nicht laden: Unbekannter Fehler",
+                onRefresh: () async => BlocProvider.of<EventsBloc>(context)
+                    .add(GettingEvent(event.id)));
           }
         },
       ),
