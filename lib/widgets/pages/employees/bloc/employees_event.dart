@@ -20,3 +20,5 @@ class GettingEmployee extends EmployeesEvent {
   @override
   List<Object> get props => [name];
 }
+
+class GetCachedEmployees extends EmployeesEvent {}

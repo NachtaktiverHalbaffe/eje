@@ -1,15 +1,17 @@
 // ignore_for_file: non_constant_identifier_names
 import 'package:bloc/bloc.dart';
 import 'package:eje/models/employee.dart';
+import 'package:eje/models/failures.dart';
 import 'package:eje/services/ReadOnlyService.dart';
 import './bloc.dart';
 
 class EmployeesBloc extends Bloc<EmployeesEvent, EmployeesState> {
-  final ReadOnlyService<Employee, String> employeeService;
+  final ReadOnlyCachedService<Employee, String> employeeService;
 
   EmployeesBloc({required this.employeeService}) : super(Empty()) {
     on<RefreshEmployees>(_loadEmployees);
-    on<GettingEmployee>(void_loadSpecificEmployee);
+    on<GettingEmployee>(_loadSpecificEmployee);
+    on<GetCachedEmployees>(_loadCachedEmployees);
   }
 
   void _loadEmployees(event, Emitter<EmployeesState> emit) async {
@@ -19,6 +21,9 @@ class EmployeesBloc extends Bloc<EmployeesEvent, EmployeesState> {
     emit(hauptamtlicheOrFailure.fold(
       (failure) {
         print("Error");
+        if (failure is ConnectionFailure) {
+          return NetworkError(message: failure.getErrorMsg());
+        }
         return Error(message: failure.getErrorMsg());
       },
       (hauptamtliche) {
@@ -28,7 +33,24 @@ class EmployeesBloc extends Bloc<EmployeesEvent, EmployeesState> {
     ));
   }
 
-  void_loadSpecificEmployee(event, Emitter<EmployeesState> emit) async {
+  void _loadCachedEmployees(event, Emitter<EmployeesState> emit) async {
+    print("Triggered Event: RefreshHauptamtliche");
+    emit(Loading());
+    final hauptamtlicheOrFailure = await employeeService.getAllCachedElements();
+    emit(hauptamtlicheOrFailure.fold(
+      (failure) {
+        print("Error");
+
+        return Error(message: failure.getErrorMsg());
+      },
+      (hauptamtliche) {
+        print("Succes. Returning LoadedHauptamtliche");
+        return LoadedEmployees(hauptamtliche);
+      },
+    ));
+  }
+
+  void _loadSpecificEmployee(event, Emitter<EmployeesState> emit) async {
     emit(Loading());
     final hauptamtlicheOrFailure =
         await employeeService.getElement(id: event.name);

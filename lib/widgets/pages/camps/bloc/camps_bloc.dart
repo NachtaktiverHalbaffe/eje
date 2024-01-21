@@ -1,24 +1,47 @@
 // ignore_for_file: non_constant_identifier_names
 import 'package:bloc/bloc.dart';
 import 'package:eje/models/camp.dart';
+import 'package:eje/models/failures.dart';
 import 'package:eje/services/ReadOnlyService.dart';
 import 'package:get_storage/get_storage.dart';
 
 import './bloc.dart';
 
 class CampsBloc extends Bloc<CampEvent, CampState> {
-  final ReadOnlyService<Camp, int> campService;
+  final ReadOnlyCachedService<Camp, int> campService;
 
   CampsBloc({required this.campService}) : super(Empty()) {
     on<RefreshCamps>(_loadCamps);
     on<GettingCamp>(_loadSpecificCamp);
     on<FilteringCamps>(_filterCamps);
     on<DeletingCampsFilter>(_deleteChip);
+    on<GetCachedCamps>(_loadCachedCamps);
   }
 
   void _loadCamps(event, Emitter<CampState> emit) async {
     emit(Loading());
     final campOrFailure = await campService.getAllElements();
+    emit(campOrFailure.fold(
+      (failure) {
+        if (failure is ConnectionFailure) {
+          return NetworkError(message: failure.getErrorMsg());
+        }
+        return Error(message: failure.getErrorMsg());
+      },
+      (freizeiten) {
+        if (GetStorage().read("campFilterStartDate") != "" ||
+            GetStorage().read("campFilterAge") != 0 ||
+            GetStorage().read("campFilterPrice") != 0) {
+          return LoadedCamps(_getFilteredCamps(freizeiten));
+        }
+        return LoadedCamps(freizeiten);
+      },
+    ));
+  }
+
+  void _loadCachedCamps(event, Emitter<CampState> emit) async {
+    emit(Loading());
+    final campOrFailure = await campService.getAllCachedElements();
     emit(campOrFailure.fold(
       (failure) {
         return Error(message: failure.getErrorMsg());

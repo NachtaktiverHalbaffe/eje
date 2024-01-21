@@ -23,6 +23,8 @@ class Camps extends StatelessWidget {
           listener: (context, state) {
             if (state is Error) {
               AlertSnackbar(context).showErrorSnackBar(label: state.message);
+            } else if (state is NetworkError) {
+              AlertSnackbar(context).showWarningSnackBar(label: state.message);
             }
           },
           builder: (context, state) {
@@ -45,6 +47,9 @@ class Camps extends StatelessWidget {
                   BlocProvider.of<CampsBloc>(context).add(RefreshCamps());
                 },
               );
+            } else if (state is NetworkError) {
+              BlocProvider.of<CampsBloc>(context).add(GetCachedCamps());
+              return LoadingIndicator();
             } else {
               return Center();
             }

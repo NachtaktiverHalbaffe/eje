@@ -61,3 +61,12 @@ class Error extends CampState {
   @override
   List<Object> get props => [message];
 }
+
+class NetworkError extends CampState {
+  final String message;
+
+  NetworkError({required this.message});
+
+  @override
+  List<Object> get props => [message];
+}

@@ -40,3 +40,12 @@ class Error extends EventsState {
   @override
   List<Object> get props => [message];
 }
+
+class NetworkError extends EventsState {
+  final String message;
+
+  NetworkError({required this.message});
+
+  @override
+  List<Object> get props => [message];
+}

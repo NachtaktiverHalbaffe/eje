@@ -19,3 +19,5 @@ class GettingEvent extends EventsEvent {
   @override
   List<Object> get props => [id];
 }
+
+class GetCachedEvents extends EventsEvent {}

@@ -32,3 +32,5 @@ class FollowingHyperlink extends ArticlesEvent {
   @override
   List<Object> get props => [url];
 }
+
+class GetCachedArticles extends ArticlesEvent {}

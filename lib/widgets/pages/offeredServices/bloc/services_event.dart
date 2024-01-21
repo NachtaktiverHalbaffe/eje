@@ -20,3 +20,5 @@ class GettingService extends ServicesEvent {
   @override
   List<Object> get props => [service];
 }
+
+class GetCachedServices extends ServicesEvent {}

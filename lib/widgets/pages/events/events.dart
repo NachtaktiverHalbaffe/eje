@@ -22,6 +22,8 @@ class Events extends StatelessWidget {
             if (state is Error) {
               print("Build Page: Error");
               AlertSnackbar(context).showErrorSnackBar(label: state.message);
+            } else if (state is NetworkError) {
+              AlertSnackbar(context).showWarningSnackBar(label: state.message);
             }
           },
           // ignore: missing_return
@@ -40,6 +42,9 @@ class Events extends StatelessWidget {
                   BlocProvider.of<EventsBloc>(context).add(RefreshEvents());
                 },
               );
+            } else if (state is NetworkError) {
+              BlocProvider.of<EventsBloc>(context).add(GetCachedEvents());
+              return LoadingIndicator();
             } else {
               return Center();
             }

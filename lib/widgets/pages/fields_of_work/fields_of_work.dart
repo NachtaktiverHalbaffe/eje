@@ -35,6 +35,8 @@ class FieldsOfWork extends StatelessWidget {
           listener: (context, state) {
             if (state is Error) {
               AlertSnackbar(context).showErrorSnackBar(label: state.message);
+            } else if (state is NetworkError) {
+              AlertSnackbar(context).showWarningSnackBar(label: state.message);
             }
           },
           builder: (context, state) {
@@ -66,6 +68,9 @@ class FieldsOfWork extends StatelessWidget {
                     BlocProvider.of<FieldsOfWorkBloc>(context)
                         .add(RefreshFieldsOfWork());
                   });
+            } else if (state is NetworkError) {
+              BlocProvider.of<FieldsOfWorkBloc>(context).add(GetCachedEvents());
+              return LoadingIndicator();
             } else {
               return Center();
             }

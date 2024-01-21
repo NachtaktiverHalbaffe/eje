@@ -55,13 +55,12 @@ Future<void> init() async {
   diContainer.registerLazySingleton(() =>
       NewsService(repository: diContainer(), articleRepository: diContainer()));
   // * Repository
-  diContainer.registerLazySingleton<Repository<News, String>>(() =>
-      CachedRemoteRepository<News, String>(
-          remoteDatasource: diContainer(),
-          localDatasource: diContainer(),
-          networkInfo: diContainer(),
-          idKey: 'title',
-          sortStrategy: (a, b) => a.published.compareTo(b.published)));
+  diContainer.registerLazySingleton(() => CachedRemoteRepository<News, String>(
+      remoteDatasource: diContainer(),
+      localDatasource: diContainer(),
+      networkInfo: diContainer(),
+      idKey: 'title',
+      sortStrategy: (a, b) => a.published.compareTo(b.published)));
   // * Datasources
   diContainer.registerLazySingleton<RemoteDataSource<News, String>>(
       () => NewsRemoteDatasource(client: diContainer()));
@@ -82,10 +81,11 @@ Future<void> init() async {
   diContainer
       .registerFactory(() => EmployeesBloc(employeeService: diContainer()));
   // * Service
-  diContainer.registerLazySingleton(() => ReadOnlyService<Employee, String>(
-      repository: diContainer(), boxKey: appConfig.employeesBox));
+  diContainer.registerLazySingleton(() =>
+      ReadOnlyCachedService<Employee, String>(
+          repository: diContainer(), boxKey: appConfig.employeesBox));
   // * Repository
-  diContainer.registerLazySingleton<Repository<Employee, String>>(() =>
+  diContainer.registerLazySingleton(() =>
       CachedRemoteRepository<Employee, String>(
           remoteDatasource: diContainer(),
           localDatasource: diContainer(),
@@ -100,10 +100,10 @@ Future<void> init() async {
   // * Bloc
   diContainer.registerFactory(() => BakBloc(bakSerivce: diContainer()));
   // * Services
-  diContainer.registerLazySingleton(() => ReadOnlyService<BAKler, String>(
+  diContainer.registerLazySingleton(() => ReadOnlyCachedService<BAKler, String>(
       repository: diContainer(), boxKey: appConfig.bakBox));
   // * Repository
-  diContainer.registerLazySingleton<Repository<BAKler, String>>(() =>
+  diContainer.registerLazySingleton(() =>
       CachedRemoteRepository<BAKler, String>(
           remoteDatasource: diContainer(),
           localDatasource: diContainer(),
@@ -120,10 +120,11 @@ Future<void> init() async {
     () => FieldsOfWorkBloc(fieldsOfWorkService: diContainer()),
   );
   // * Services
-  diContainer.registerLazySingleton(() => ReadOnlyService<FieldOfWork, String>(
-      repository: diContainer(), boxKey: appConfig.fieldOfWorkBox));
+  diContainer.registerLazySingleton(() =>
+      ReadOnlyCachedService<FieldOfWork, String>(
+          repository: diContainer(), boxKey: appConfig.fieldOfWorkBox));
   // * Repsoitory
-  diContainer.registerLazySingleton<Repository<FieldOfWork, String>>(() =>
+  diContainer.registerLazySingleton(() =>
       CachedRemoteRepository<FieldOfWork, String>(
           remoteDatasource: diContainer(),
           localDatasource: diContainer(),
@@ -142,7 +143,7 @@ Future<void> init() async {
   diContainer.registerLazySingleton(
       () => OfferedServicesService(repository: diContainer()));
   // * Repository
-  diContainer.registerLazySingleton<Repository<OfferedService, String>>(() =>
+  diContainer.registerLazySingleton(() =>
       CachedRemoteRepository<OfferedService, String>(
           remoteDatasource: diContainer(),
           localDatasource: diContainer(),
@@ -161,17 +162,16 @@ Future<void> init() async {
   // * Bloc
   diContainer.registerFactory(() => EventsBloc(eventService: diContainer()));
   // * Services
-  diContainer.registerLazySingleton(() => ReadOnlyService<Event, int>(
+  diContainer.registerLazySingleton(() => ReadOnlyCachedService<Event, int>(
       repository: diContainer(), boxKey: appConfig.eventsBox));
   // * Repository
-  diContainer.registerLazySingleton<Repository<Event, int>>(
-      () => CachedRemoteRepository<Event, int>(
-            remoteDatasource: diContainer(),
-            localDatasource: diContainer(),
-            networkInfo: diContainer(),
-            idKey: 'id',
-            sortStrategy: (a, b) => a.startDate.compareTo(b.startDate),
-          ));
+  diContainer.registerLazySingleton(() => CachedRemoteRepository<Event, int>(
+        remoteDatasource: diContainer(),
+        localDatasource: diContainer(),
+        networkInfo: diContainer(),
+        idKey: 'id',
+        sortStrategy: (a, b) => a.startDate.compareTo(b.startDate),
+      ));
   // * Datasources
   diContainer.registerLazySingleton(() => LocalDataSource<Event, int>());
   diContainer.registerLazySingleton<RemoteDataSource<Event, int>>(
@@ -180,17 +180,16 @@ Future<void> init() async {
   // ! Freizeiten
   diContainer.registerFactory(() => CampsBloc(campService: diContainer()));
   // * Services
-  diContainer.registerLazySingleton(() => ReadOnlyService<Camp, int>(
+  diContainer.registerLazySingleton(() => ReadOnlyCachedService<Camp, int>(
       repository: diContainer(), boxKey: appConfig.campsBox));
   // * Repository
-  diContainer.registerLazySingleton<Repository<Camp, int>>(
-      () => CachedRemoteRepository<Camp, int>(
-            remoteDatasource: diContainer(),
-            localDatasource: diContainer(),
-            networkInfo: diContainer(),
-            idKey: 'id',
-            sortStrategy: (a, b) => a.startDate.compareTo(b.startDate),
-          ));
+  diContainer.registerLazySingleton(() => CachedRemoteRepository<Camp, int>(
+        remoteDatasource: diContainer(),
+        localDatasource: diContainer(),
+        networkInfo: diContainer(),
+        idKey: 'id',
+        sortStrategy: (a, b) => a.startDate.compareTo(b.startDate),
+      ));
   // * Datasources
   diContainer.registerLazySingleton(() => LocalDataSource<Camp, int>());
   diContainer.registerLazySingleton<RemoteDataSource<Camp, int>>(

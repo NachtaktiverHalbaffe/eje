@@ -53,3 +53,13 @@ class Error extends ArticlesState {
   @override
   List<Object> get props => [message];
 }
+
+class NetworkError extends ArticlesState {
+  final String message;
+
+  //Constructor
+  NetworkError({required this.message});
+
+  @override
+  List<Object> get props => [message];
+}

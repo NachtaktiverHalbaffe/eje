@@ -13,38 +13,45 @@ class ArticlesPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => diContainer<ArticlesBloc>(),
-      child: BlocConsumer<ArticlesBloc, ArticlesState>(
-        listener: (context, state) {
-          if (state is Error) {
-            print("Build Page: Error");
-            AlertSnackbar(context).showErrorSnackBar(label: state.message);
-          }
-        },
-        builder: (context, state) {
-          if (state is Empty) {
-            print("Build Page Articles: Empty");
-            BlocProvider.of<ArticlesBloc>(context).add(GettingArticle(url));
-            return LoadingIndicator();
-          } else if (state is Loading) {
-            print("Build Page Articles: Loading");
-            return LoadingIndicator();
-          } else if (state is LoadedArticle) {
-            print("Build Page Articles: Loaded");
-            return ArticlePage(state.article);
-          } else if (state is ReloadedArticle) {
-            print("Build Page Articles: Reloaded");
-            return ArticlePage(state.article);
-          } else if (state is FollowedHyperlink) {
-            print("Build Page Articles: FollowedHyperlink");
-            return ArticlePage(state.article);
-          } else {
-            print("Build Page Articles: Undefined");
-            // BlocProvider.of<ArticlesBloc>(context).add(RefreshArticle(url));
-            return LoadingIndicator();
-          }
-        },
+    return Scaffold(
+      body: BlocProvider(
+        create: (_) => diContainer<ArticlesBloc>(),
+        child: BlocConsumer<ArticlesBloc, ArticlesState>(
+          listener: (context, state) {
+            if (state is Error) {
+              print("Build Page: Error");
+              AlertSnackbar(context).showErrorSnackBar(label: state.message);
+            } else if (state is NetworkError) {
+              AlertSnackbar(context).showWarningSnackBar(label: state.message);
+            }
+          },
+          builder: (context, state) {
+            if (state is Empty) {
+              print("Build Page Articles: Empty");
+              BlocProvider.of<ArticlesBloc>(context).add(GettingArticle(url));
+              return LoadingIndicator();
+            } else if (state is Loading) {
+              print("Build Page Articles: Loading");
+              return LoadingIndicator();
+            } else if (state is LoadedArticle) {
+              print("Build Page Articles: Loaded");
+              return ArticlePage(state.article);
+            } else if (state is ReloadedArticle) {
+              print("Build Page Articles: Reloaded");
+              return ArticlePage(state.article);
+            } else if (state is FollowedHyperlink) {
+              print("Build Page Articles: FollowedHyperlink");
+              return ArticlePage(state.article);
+            } else if (state is NetworkError) {
+              BlocProvider.of<ArticlesBloc>(context).add(GetCachedArticles());
+              return LoadingIndicator();
+            } else {
+              print("Build Page Articles: Undefined");
+              // BlocProvider.of<ArticlesBloc>(context).add(RefreshArticle(url));
+              return LoadingIndicator();
+            }
+          },
+        ),
       ),
     );
   }

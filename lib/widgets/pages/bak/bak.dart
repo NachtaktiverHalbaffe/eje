@@ -35,6 +35,8 @@ class BAK extends StatelessWidget {
           listener: (context, state) {
             if (state is Error) {
               AlertSnackbar(context).showErrorSnackBar(label: state.message);
+            } else if (state is NetworkError) {
+              AlertSnackbar(context).showWarningSnackBar(label: state.message);
             }
           },
           builder: (context, state) {
@@ -63,6 +65,9 @@ class BAK extends StatelessWidget {
                   onRefresh: () async {
                     BlocProvider.of<BakBloc>(context).add(RefreshBAK());
                   });
+            } else if (state is NetworkError) {
+              BlocProvider.of<BakBloc>(context).add(GetCachedBAKler());
+              return LoadingIndicator();
             } else {
               return Center();
             }

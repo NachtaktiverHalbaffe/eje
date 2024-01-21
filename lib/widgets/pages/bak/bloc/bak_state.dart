@@ -44,3 +44,12 @@ class Error extends BakState {
   @override
   List<Object> get props => [message];
 }
+
+class NetworkError extends BakState {
+  final String message;
+
+  NetworkError({required this.message});
+
+  @override
+  List<Object> get props => [message];
+}

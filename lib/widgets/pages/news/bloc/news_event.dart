@@ -19,3 +19,5 @@ class GetNewsDetails extends NewsEvent {
 
 // Refreshe Neuigkeiten, wenn Liste zum refresen runter gezogen wird
 class RefreshNews extends NewsEvent {}
+
+class GetCachedNews extends NewsEvent {}

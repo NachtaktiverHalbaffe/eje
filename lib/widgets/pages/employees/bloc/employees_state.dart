@@ -44,3 +44,12 @@ class Error extends EmployeesState {
   @override
   List<Object> get props => [message];
 }
+
+class NetworkError extends EmployeesState {
+  final String message;
+
+  NetworkError({required this.message});
+
+  @override
+  List<Object> get props => [message];
+}

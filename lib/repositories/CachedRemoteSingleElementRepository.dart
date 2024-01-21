@@ -38,13 +38,19 @@ class CachedRemoteSingleElementRepository<T extends Equatable, K>
         return Left(ConnectionFailure());
       }
     } else {
-      try {
-        T cachedElements =
-            await localDatasource.getElement(boxKey, elementId, idKey);
-        return Right(cachedElements);
-      } on CacheException {
-        return Left(CacheFailure());
-      }
+      return Left(ConnectionFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, T>> getCachedElement(
+      String boxKey, K elementId) async {
+    try {
+      T cachedElements =
+          await localDatasource.getElement(boxKey, elementId, idKey);
+      return Right(cachedElements);
+    } on CacheException {
+      return Left(CacheFailure());
     }
   }
 }

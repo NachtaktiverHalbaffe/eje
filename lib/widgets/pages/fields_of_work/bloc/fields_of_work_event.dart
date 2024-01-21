@@ -19,3 +19,5 @@ class GettingFieldOfWork extends FieldsOfWorkEvent {
   @override
   List<Object> get props => [name];
 }
+
+class GetCachedEvents extends FieldsOfWorkEvent {}

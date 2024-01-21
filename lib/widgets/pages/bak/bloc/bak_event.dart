@@ -20,3 +20,5 @@ class GettingBAKler extends BakEvent {
   @override
   List<Object> get props => [name];
 }
+
+class GetCachedBAKler extends BakEvent {}

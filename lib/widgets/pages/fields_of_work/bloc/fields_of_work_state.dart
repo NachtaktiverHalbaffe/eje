@@ -43,3 +43,12 @@ class Error extends FieldOfWorkState {
   @override
   List<Object> get props => [message];
 }
+
+class NetworkError extends FieldOfWorkState {
+  final String message;
+
+  NetworkError({required this.message});
+
+  @override
+  List<Object> get props => [message];
+}

@@ -33,6 +33,8 @@ class OfferedServices extends StatelessWidget {
           listener: (context, state) {
             if (state is Error) {
               AlertSnackbar(context).showErrorSnackBar(label: state.message);
+            } else if (state is NetworkError) {
+              AlertSnackbar(context).showWarningSnackBar(label: state.message);
             }
           },
           builder: (context, state) {
@@ -63,6 +65,9 @@ class OfferedServices extends StatelessWidget {
                     BlocProvider.of<ServicesBloc>(context)
                         .add(RefreshServices());
                   });
+            } else if (state is NetworkError) {
+              BlocProvider.of<ServicesBloc>(context).add(GetCachedServices());
+              return LoadingIndicator();
             } else {
               return NoResultCard(
                   label: "Fehler beim Laden der Dienstleistungen",

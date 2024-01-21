@@ -22,6 +22,9 @@ class NewsDetails extends StatelessWidget {
           if (state is Error) {
             AlertSnackbar(context).showErrorSnackBar(label: state.message);
             Navigator.pop(context);
+          } else if (state is NetworkError) {
+            AlertSnackbar(context).showErrorSnackBar(label: state.message);
+            Navigator.pop(context);
           }
         },
         builder: (context, state) {
@@ -33,11 +36,28 @@ class NewsDetails extends StatelessWidget {
           } else if (state is Empty) {
             BlocProvider.of<NewsBloc>(context).add(GetNewsDetails(title));
             return Center();
+          } else if (state is Error) {
+            return NoResultCard(
+              label: state.message,
+              onRefresh: () async {
+                BlocProvider.of<NewsBloc>(context).add(GetNewsDetails(title));
+              },
+            );
+          } else if (state is NetworkError) {
+            return NoResultCard(
+              label: state.message,
+              onRefresh: () async {
+                BlocProvider.of<NewsBloc>(context).add(GetNewsDetails(title));
+              },
+            );
+          } else if (state is Loading) {
+            return LoadingIndicator();
           } else {
-            AlertSnackbar(context).showErrorSnackBar(
-                label:
-                    "Konnte Details zur Neuigkeit nicht laden: Unbekannter Fehler");
+            // AlertSnackbar(context).showErrorSnackBar(
+            //     label:
+            //         "Konnte Details zur Neuigkeit nicht laden: Unbekannter Fehler");
             Navigator.pop(context);
+            print(state);
             return NoResultCard(
               label:
                   "Konnte Details zur Neuigkeit nicht laden: Unbekannter Fehler",

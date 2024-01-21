@@ -26,7 +26,7 @@ class ServerFailure extends Failure {
 
 class ConnectionFailure extends Failure {
   final String msg =
-      "Fehler bei dem Verbindungsversuch mit dem Server. Überprüfen Sie die Internetverbindung oder versuchen Sie es später erneut.";
+      "Fehler bei dem Verbindungsversuch mit dem Server. Lade zuletzt vorhandene Daten aus dem Cache.";
 
   @override
   List<Object> get props => [];

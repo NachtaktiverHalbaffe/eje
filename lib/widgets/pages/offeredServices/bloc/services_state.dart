@@ -44,3 +44,12 @@ class Error extends ServicesState {
   @override
   List<Object> get props => [message];
 }
+
+class NetworkError extends ServicesState {
+  final String message;
+
+  NetworkError({required this.message});
+
+  @override
+  List<Object> get props => [message];
+}

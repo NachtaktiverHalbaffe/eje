@@ -22,6 +22,8 @@ class NewsPage extends StatelessWidget {
             if (state is Error) {
               print("Build Page: Error");
               AlertSnackbar(context).showErrorSnackBar(label: state.message);
+            } else if (state is NetworkError) {
+              AlertSnackbar(context).showWarningSnackBar(label: state.message);
             }
           },
           builder: (context, state) {
@@ -43,6 +45,9 @@ class NewsPage extends StatelessWidget {
                   BlocProvider.of<NewsBloc>(context).add(RefreshNews());
                 },
               );
+            } else if (state is NetworkError) {
+              BlocProvider.of<NewsBloc>(context).add(GetCachedNews());
+              return LoadingIndicator();
             } else {
               return Center();
             }
@@ -63,7 +68,7 @@ class NeuigkeitenListView extends StatelessWidget {
     return Column(
       children: <Widget>[
         Expanded(
-          child: _buildNeuigkeitenList(context, _neuigkeiten.reversed.toList()),
+          child: _buildNeuigkeitenList(context, _neuigkeiten.toList()),
         ),
       ],
     );
