@@ -12,25 +12,24 @@ class CachedRemoteSingleElementRepository<T extends Equatable, K>
   final RemoteDataSource<T, K> remoteDatasource;
   final LocalDataSource<T, K> localDatasource;
   final NetworkInfo networkInfo;
-  final String idKey;
 
-  CachedRemoteSingleElementRepository(
-      {required this.remoteDatasource,
-      required this.localDatasource,
-      required this.networkInfo,
-      required this.idKey});
+  CachedRemoteSingleElementRepository({
+    required this.remoteDatasource,
+    required this.localDatasource,
+    required this.networkInfo,
+  });
 
   @override
-  Future<Either<Failure, List<T>>> getAllElements(String boxKey) {
+  Future<Either<Failure, List<T>>> getAllElements() {
     throw UnimplementedError();
   }
 
   @override
-  Future<Either<Failure, T>> getElement(String boxKey, K elementId) async {
+  Future<Either<Failure, T>> getElement(K elementId) async {
     if (await networkInfo.isConnected) {
       try {
         final T remoteElement = await remoteDatasource.getElement(elementId);
-        await localDatasource.cacheElement(boxKey, remoteElement);
+        await localDatasource.cacheElement(remoteElement);
         return Right(remoteElement);
       } on ServerException {
         return Left(ServerFailure());
@@ -43,11 +42,9 @@ class CachedRemoteSingleElementRepository<T extends Equatable, K>
   }
 
   @override
-  Future<Either<Failure, T>> getCachedElement(
-      String boxKey, K elementId) async {
+  Future<Either<Failure, T>> getCachedElement(K elementId) async {
     try {
-      T cachedElements =
-          await localDatasource.getElement(boxKey, elementId, idKey);
+      T cachedElements = await localDatasource.getElement(elementId);
       return Right(cachedElements);
     } on CacheException {
       return Left(CacheFailure());

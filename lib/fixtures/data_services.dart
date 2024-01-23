@@ -99,5 +99,7 @@ Future<void> dataServices(String boxName) async {
         description: "",
       ),
     );
+
+    await _box.close();
   }
 }

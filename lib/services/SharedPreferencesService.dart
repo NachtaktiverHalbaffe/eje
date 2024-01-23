@@ -12,7 +12,7 @@ class SettingsService {
   Future<Either<Failure, Einstellung>> getPrefrence({
     String? preference,
   }) async {
-    return await repository.getElement("", preference!);
+    return await repository.getElement(preference!);
   }
 
   Future<Either<Failure, GetStorage>> getPrefrences() async {

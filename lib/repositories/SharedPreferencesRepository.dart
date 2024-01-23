@@ -39,13 +39,12 @@ class SharedPreferencesRepository implements Repository<Einstellung, String> {
   }
 
   @override
-  Future<Either<Failure, List<Einstellung>>> getAllElements(String boxKey) {
+  Future<Either<Failure, List<Einstellung>>> getAllElements() {
     throw UnimplementedError();
   }
 
   @override
-  Future<Either<Failure, Einstellung>> getElement(
-      String boxKey, String elementId) async {
+  Future<Either<Failure, Einstellung>> getElement(String elementId) async {
     try {
       final prefs = GetStorage();
       return Right(

@@ -4,48 +4,29 @@ import 'package:eje/models/Article.dart';
 import 'package:eje/models/failures.dart';
 import 'package:eje/models/news.dart';
 import 'package:eje/repositories/CachedRemoteRepository.dart';
-import 'package:eje/repositories/Repository.dart';
-import 'package:hive/hive.dart';
+import 'package:eje/repositories/CachedRemoteSingleElementRepository.dart';
 
 class NewsService {
   final CachedRemoteRepository<News, String> repository;
-  final Repository<Article, String> articleRepository;
+  final CachedRemoteSingleElementRepository<Article, String> articleRepository;
 
   NewsService({required this.articleRepository, required this.repository});
 
   Future<Either<Failure, Article>> getSingleNews({String? url}) async {
-    final AppConfig appConfig = await AppConfig.loadConfig();
-    final Box box = await Hive.openBox(appConfig.articlesBox);
+    final article = await articleRepository.getElement(url!);
 
-    final article =
-        await articleRepository.getElement(appConfig.articlesBox, url!);
-
-    if (box.isOpen) {
-      await box.compact();
-      // await _box.close();
-    }
     return article;
   }
 
   Future<Either<Failure, List<News>>> getNews() async {
-    final AppConfig appConfig = await AppConfig.loadConfig();
-    final Box box = await Hive.openBox(appConfig.newsBox);
-    final result = await repository.getAllElements(appConfig.newsBox);
-    if (box.isOpen) {
-      await box.compact();
-      // await _box.close();
-    }
+    final result = await repository.getAllElements();
+
     return result;
   }
 
   Future<Either<Failure, List<News>>> getCachedNews() async {
-    final AppConfig appConfig = await AppConfig.loadConfig();
-    final Box box = await Hive.openBox(appConfig.newsBox);
-    final result = await repository.getAllCachedElements(appConfig.newsBox);
-    if (box.isOpen) {
-      await box.compact();
-      // await _box.close();
-    }
+    final result = await repository.getAllCachedElements();
+
     return result;
   }
 }
