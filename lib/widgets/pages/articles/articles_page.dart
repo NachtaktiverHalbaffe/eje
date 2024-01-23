@@ -3,6 +3,7 @@ import 'package:eje/utils/injection_container.dart';
 import 'package:eje/widgets/alert_snackbar.dart';
 import 'package:eje/widgets/details_page.dart';
 import 'package:eje/widgets/loading_indicator.dart';
+import 'package:eje/widgets/no_result_card.dart';
 import 'package:eje/widgets/pages/articles/bloc/articles_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -20,6 +21,7 @@ class ArticlesPage extends StatelessWidget {
           listener: (context, state) {
             if (state is Error) {
               print("Build Page: Error");
+              Navigator.pop(context);
               AlertSnackbar(context).showErrorSnackBar(label: state.message);
             } else if (state is NetworkError) {
               AlertSnackbar(context).showWarningSnackBar(label: state.message);
@@ -29,7 +31,7 @@ class ArticlesPage extends StatelessWidget {
             if (state is Empty) {
               print("Build Page Articles: Empty");
               BlocProvider.of<ArticlesBloc>(context).add(GettingArticle(url));
-              return LoadingIndicator();
+              return Center();
             } else if (state is Loading) {
               print("Build Page Articles: Loading");
               return LoadingIndicator();
@@ -44,7 +46,21 @@ class ArticlesPage extends StatelessWidget {
               return ArticlePage(state.article);
             } else if (state is NetworkError) {
               BlocProvider.of<ArticlesBloc>(context).add(GetCachedArticles());
-              return LoadingIndicator();
+              return NoResultCard(
+                label: state.message,
+                onRefresh: () async {
+                  BlocProvider.of<ArticlesBloc>(context)
+                      .add(GetCachedArticles());
+                },
+              );
+            } else if (state is Error) {
+              return NoResultCard(
+                label: state.message,
+                onRefresh: () async {
+                  BlocProvider.of<ArticlesBloc>(context)
+                      .add(GetCachedArticles());
+                },
+              );
             } else {
               print("Build Page Articles: Undefined");
               // BlocProvider.of<ArticlesBloc>(context).add(RefreshArticle(url));

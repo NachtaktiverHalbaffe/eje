@@ -154,7 +154,9 @@ class CampCard extends StatelessWidget {
                                   child: Text(
                                     camp.price != 0
                                         ? "${camp.price} Euro"
-                                        : "${camp.price2} Euro",
+                                        : camp.price2 != 0
+                                            ? "${camp.price2} Euro"
+                                            : "-",
                                     overflow: TextOverflow.ellipsis,
                                     style: TextStyle(
                                       fontSize: 12.5,

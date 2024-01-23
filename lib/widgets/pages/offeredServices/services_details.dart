@@ -19,6 +19,8 @@ class OfferedServiceDetails extends StatelessWidget {
           if (state is Error) {
             AlertSnackbar(context).showErrorSnackBar(label: state.message);
             Navigator.pop(context);
+          } else if (state is NetworkError) {
+            AlertSnackbar(context).showWarningSnackBar(label: state.message);
           }
         },
         builder: (context, state) {
@@ -31,6 +33,17 @@ class OfferedServiceDetails extends StatelessWidget {
             return Center();
           } else if (state is Loading) {
             print("Build Page ServiceDetails: Loading");
+            return LoadingIndicator();
+          } else if (state is Error) {
+            Navigator.pop(context);
+            return NoResultCard(
+                label: state.message,
+                onRefresh: () async {
+                  BlocProvider.of<ServicesBloc>(context)
+                      .add(GettingService(service));
+                });
+          } else if (state is NetworkError) {
+            Navigator.pop(context);
             return LoadingIndicator();
           } else {
             print("Build Page ServiceDetails: Undefined");

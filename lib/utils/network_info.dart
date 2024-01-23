@@ -25,13 +25,11 @@ class NetworkInfoImpl implements NetworkInfo {
       }
     } else {
       ConnectivityResult result = await connectivity.checkConnectivity();
-      if (result != ConnectivityResult.wifi) {
-        return false;
-      } else if (result == ConnectivityResult.wifi) {
-        return connectionChecker.hasConnection;
-      } else if (result != ConnectivityResult.mobile) {
-        return false;
-      } else if (result == ConnectivityResult.mobile) {
+      if (result == ConnectivityResult.wifi ||
+          result == ConnectivityResult.mobile ||
+          result == ConnectivityResult.ethernet ||
+          result == ConnectivityResult.vpn ||
+          result == ConnectivityResult.bluetooth) {
         return connectionChecker.hasConnection;
       } else if (result == ConnectivityResult.none) {
         return false;

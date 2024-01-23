@@ -1,10 +1,13 @@
-import 'dart:io';
-
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:eje/utils/injection_container.dart';
+import 'package:eje/utils/network_info.dart';
+import 'package:eje/widgets/loading_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 
 ImageProvider prefImage(String url) {
+  print("URL");
+  print(url);
   // Load prefrence if image caching is enabled
   if (url == "") {
     return ExactAssetImage("assets/images/placeholder.jpeg");
@@ -30,6 +33,7 @@ class CachedImage extends StatelessWidget {
   final double height;
   final double width;
   static const Key defaultkey = Key("");
+
   const CachedImage(
       {Key key = defaultkey,
       required this.url,
@@ -39,46 +43,69 @@ class CachedImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (height != 0.0 && width == 0.0) {
+    Widget fileImage = Container(
+      height: height != 0.0 ? height : null,
+      width: width != 0.0 ? width : null,
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          fit: BoxFit.cover,
+          image: url != "" && !url.contains("http")
+              ? ExactAssetImage(url)
+              : ExactAssetImage("assets/images/placeholder.jpeg"),
+        ),
+      ),
+    );
+
+    if (GetStorage().read('cache_pictures') && url.contains("http")) {
       return Container(
-        height: height,
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            fit: BoxFit.cover,
-            image: prefImage(url),
+        height: height != 0.0 ? height : null,
+        width: width != 0.0 ? width : null,
+        child: CachedNetworkImage(
+          fit: BoxFit.cover,
+          imageUrl: url,
+          imageBuilder: (context, imageProvider) => Container(
+            height: height != 0.0 ? height : null,
+            width: width != 0.0 ? width : null,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                fit: BoxFit.cover,
+                alignment: Alignment.center,
+                image: CachedNetworkImageProvider(url),
+              ),
+            ),
           ),
+          // progressIndicatorBuilder: (context, url, progress) =>
+          //     LoadingIndicator(),
+          placeholder: (context, url) => fileImage,
+          errorWidget: (context, url, error) => fileImage,
         ),
       );
-    } else if (height == 0.0 && width != 0.0) {
+    } else if (url.contains("https")) {
       return Container(
-        width: width,
+        height: height != 0.0 ? height : null,
+        width: width != 0.0 ? width : null,
         decoration: BoxDecoration(
           image: DecorationImage(
             fit: BoxFit.cover,
-            image: prefImage(url),
-          ),
-        ),
-      );
-    } else if (height != 0.0 && width != 0.0) {
-      return Container(
-        height: height,
-        width: width,
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            fit: BoxFit.cover,
-            image: prefImage(url),
+            image: FadeInImage(
+              // image: NetworkImage(url),
+              image: Image.network(
+                url,
+                loadingBuilder: (context, child, loadingProgress) {
+                  if (loadingProgress != null) {
+                    return LoadingIndicator();
+                  } else {
+                    return child;
+                  }
+                },
+              ).image,
+              placeholder: ExactAssetImage("assets/images/placeholder.jpeg"),
+            ).image,
           ),
         ),
       );
     } else {
-      return Container(
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            fit: BoxFit.cover,
-            image: prefImage(url),
-          ),
-        ),
-      );
+      return fileImage;
     }
   }
 }
