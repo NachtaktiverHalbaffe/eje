@@ -160,7 +160,8 @@ class DetailsPage extends StatelessWidget {
                   ),
                   untertitel != ""
                       ? Container(
-                          padding: EdgeInsets.only(left: 12, top: 8, right: 12),
+                          padding:
+                              EdgeInsets.only(left: 12, right: 12, bottom: 6),
                           child: AutoSizeText(
                             untertitel,
                             maxLines: 2,

@@ -6,7 +6,6 @@ import 'package:eje/widgets/pages/news/bloc/news_bloc.dart';
 import 'package:eje/widgets/pages/news/news_details.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:page_view_indicators/circle_page_indicator.dart';
 
 class NewsCard extends StatefulWidget {
   final News singleNews;
@@ -20,7 +19,6 @@ class _NewsCardState extends State<NewsCard> {
   final News singleNews;
   double sigmax = 0;
   double sigmay = 0;
-  final _currentPageNotifier = ValueNotifier<int>(0);
   final GlobalKey expansionTile = GlobalKey();
 
   _NewsCardState({required this.singleNews});

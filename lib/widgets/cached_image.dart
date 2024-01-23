@@ -1,32 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:eje/utils/injection_container.dart';
-import 'package:eje/utils/network_info.dart';
 import 'package:eje/widgets/loading_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
-
-ImageProvider prefImage(String url) {
-  print("URL");
-  print(url);
-  // Load prefrence if image caching is enabled
-  if (url == "") {
-    return ExactAssetImage("assets/images/placeholder.jpeg");
-  }
-
-  if (GetStorage().read('cache_pictures')) {
-    if (url.contains("http")) {
-      return CachedNetworkImageProvider(url);
-    } else {
-      return ExactAssetImage(url);
-    }
-  } else {
-    if (url.contains("http")) {
-      return NetworkImage(url);
-    } else {
-      return ExactAssetImage(url);
-    }
-  }
-}
 
 class CachedImage extends StatelessWidget {
   final String url;

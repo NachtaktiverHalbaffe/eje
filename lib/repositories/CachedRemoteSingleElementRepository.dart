@@ -41,7 +41,6 @@ class CachedRemoteSingleElementRepository<T extends Equatable, K>
     }
   }
 
-  @override
   Future<Either<Failure, T>> getCachedElement(K elementId) async {
     try {
       T cachedElements = await localDatasource.getElement(elementId);

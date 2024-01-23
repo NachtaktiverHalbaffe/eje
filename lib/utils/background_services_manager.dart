@@ -2,8 +2,6 @@ import 'dart:async';
 import 'dart:math';
 import 'dart:ui';
 import 'package:eje/datasources/RemoteDataSource.dart';
-import 'package:eje/datasources/camps_remote_datasource.dart';
-import 'package:eje/datasources/news_remote_datasource.dart';
 import 'package:eje/models/camp.dart';
 import 'package:eje/models/news.dart';
 import 'package:eje/utils/injection_container.dart';

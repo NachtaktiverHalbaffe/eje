@@ -144,7 +144,6 @@ class CampsRemoteDatasource implements RemoteDataSource<Camp, int> {
   }
 
   int _parsePrice(responseData) {
-    // TODO fix price parsing
     if (responseData != null) {
       if (int.tryParse(responseData.replaceAll(new RegExp(r"\D"), "")) !=
           null) {
