@@ -1,6 +1,7 @@
 // ignore_for_file: camel_case_types
 import 'dart:io' show Platform;
 import 'package:eje/models/employee.dart';
+import 'package:eje/utils/url_quick_launcher.dart';
 import 'package:eje/widgets/alert_snackbar.dart';
 import 'package:eje/widgets/details_page.dart';
 import 'package:eje/widgets/loading_indicator.dart';
@@ -112,15 +113,8 @@ class _childEmployeeDetails extends StatelessWidget {
                     MdiIcons.messageReplyText,
                     color: Theme.of(context).colorScheme.secondary,
                   ),
-                  onTap: () async {
-                    if (await canLaunchUrlString(
-                        "https://threema.id/${hauptamtlicher.threema}")) {
-                      await launchUrlString(
-                          "https://threema.id/${hauptamtlicher.threema}");
-                    } else {
-                      throw 'Could not open Threema';
-                    }
-                  },
+                  onTap: () => UrlQuickLauncher().openHttps(
+                      "https://threema.id/${hauptamtlicher.threema}"),
                 ),
               )
             : SizedBox(
@@ -142,22 +136,12 @@ class _childEmployeeDetails extends StatelessWidget {
                 ),
                 dense: true,
                 trailing: GestureDetector(
-                  child: Icon(
-                    MdiIcons.emailEdit,
-                    color: Theme.of(context).colorScheme.secondary,
-                  ),
-                  onTap: () async {
-                    if (await canLaunchUrlString(Platform.isIOS
-                        ? "mailto://${hauptamtlicher.email}"
-                        : "mailto:${hauptamtlicher.email}")) {
-                      await launchUrlString(Platform.isIOS
-                          ? "mailto://${hauptamtlicher.email}"
-                          : "mailto:${hauptamtlicher.email}");
-                    } else {
-                      throw 'Could not open Email';
-                    }
-                  },
-                ),
+                    child: Icon(
+                      MdiIcons.emailEdit,
+                      color: Theme.of(context).colorScheme.secondary,
+                    ),
+                    onTap: () =>
+                        UrlQuickLauncher()..openMail(hauptamtlicher.email)),
               )
             : SizedBox(
                 height: 12,
@@ -178,22 +162,12 @@ class _childEmployeeDetails extends StatelessWidget {
                 ),
                 dense: true,
                 trailing: GestureDetector(
-                  child: Icon(
-                    MdiIcons.phoneOutgoing,
-                    color: Theme.of(context).colorScheme.secondary,
-                  ),
-                  onTap: () async {
-                    if (await canLaunchUrlString(Platform.isIOS
-                        ? "tel://${hauptamtlicher.telefon}"
-                        : "tel:${hauptamtlicher.telefon}")) {
-                      await launchUrlString(Platform.isIOS
-                          ? "tel://${hauptamtlicher.telefon}"
-                          : "tel:${hauptamtlicher.telefon}");
-                    } else {
-                      throw 'Could not open telephone';
-                    }
-                  },
-                ),
+                    child: Icon(
+                      MdiIcons.phoneOutgoing,
+                      color: Theme.of(context).colorScheme.secondary,
+                    ),
+                    onTap: () =>
+                        UrlQuickLauncher().openTel(hauptamtlicher.telefon)),
               )
             : SizedBox(
                 height: 12,
@@ -214,22 +188,12 @@ class _childEmployeeDetails extends StatelessWidget {
                 ),
                 dense: true,
                 trailing: GestureDetector(
-                  child: Icon(
-                    MdiIcons.phoneOutgoing,
-                    color: Theme.of(context).colorScheme.secondary,
-                  ),
-                  onTap: () async {
-                    if (await canLaunchUrlString(Platform.isIOS
-                        ? "tel://${hauptamtlicher.handy}"
-                        : "tel:${hauptamtlicher.handy}")) {
-                      await launchUrlString(Platform.isIOS
-                          ? "tel://${hauptamtlicher.handy}"
-                          : "tel:${hauptamtlicher.handy}");
-                    } else {
-                      throw 'Could not open telephone';
-                    }
-                  },
-                ))
+                    child: Icon(
+                      MdiIcons.phoneOutgoing,
+                      color: Theme.of(context).colorScheme.secondary,
+                    ),
+                    onTap: () =>
+                        UrlQuickLauncher().openTel(hauptamtlicher.handy)))
             : SizedBox(
                 height: 12,
               ),

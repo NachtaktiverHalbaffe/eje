@@ -1,5 +1,6 @@
 import 'package:add_2_calendar/add_2_calendar.dart';
 import 'package:eje/models/camp.dart';
+import 'package:eje/utils/url_quick_launcher.dart';
 import 'package:eje/widgets/alert_snackbar.dart';
 import 'package:eje/widgets/details_page.dart';
 import 'package:eje/widgets/loading_indicator.dart';
@@ -242,13 +243,8 @@ class _freizeitChildWidget extends StatelessWidget {
             size: 72 / MediaQuery.of(context).devicePixelRatio,
           ),
           title: OutlinedButton(
-            onPressed: () async {
-              if (await canLaunchUrlString(freizeit.registrationLink)) {
-                await launchUrlString(freizeit.registrationLink);
-              } else {
-                throw 'Could not launch $freizeit.registrationLink';
-              }
-            },
+            onPressed: () =>
+                UrlQuickLauncher().openHttps(freizeit.registrationLink),
             child: Text(
               "Anmelden \n(Anmeldeschluss:${DateFormat('dd.MM.yyyy').format(freizeit.registrationEnd)})",
               style: TextStyle(

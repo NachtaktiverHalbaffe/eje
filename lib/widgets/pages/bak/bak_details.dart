@@ -1,4 +1,5 @@
 import 'package:eje/models/BAKler.dart';
+import 'package:eje/utils/url_quick_launcher.dart';
 import 'package:eje/widgets/alert_snackbar.dart';
 import 'package:eje/widgets/details_page.dart';
 import 'package:eje/widgets/loading_indicator.dart';
@@ -95,20 +96,12 @@ Widget _childBak(BAKler bakler, BuildContext context) {
                     color: Theme.of(context).dividerColor),
               ),
               trailing: GestureDetector(
-                child: Icon(
-                  MdiIcons.messageReplyText,
-                  color: Theme.of(context).colorScheme.secondary,
-                ),
-                onTap: () async {
-                  if (await canLaunchUrlString(
-                      "https://threema.id/${bakler.threema}")) {
-                    await launchUrlString(
-                        "https://threema.id/${bakler.threema}");
-                  } else {
-                    throw 'Could not open Threema';
-                  }
-                },
-              ),
+                  child: Icon(
+                    MdiIcons.messageReplyText,
+                    color: Theme.of(context).colorScheme.secondary,
+                  ),
+                  onTap: () => UrlQuickLauncher()
+                      .openHttps("https://threema.id/${bakler.threema}")),
             )
           : SizedBox(
               height: 2,
@@ -127,18 +120,11 @@ Widget _childBak(BAKler bakler, BuildContext context) {
                 ),
               ),
               trailing: GestureDetector(
-                child: Icon(
-                  MdiIcons.emailEdit,
-                  color: Theme.of(context).colorScheme.secondary,
-                ),
-                onTap: () async {
-                  if (await canLaunchUrlString("mailto:${bakler.email}")) {
-                    await launchUrlString("mailto:${bakler.email}");
-                  } else {
-                    throw 'Could not open Email';
-                  }
-                },
-              ),
+                  child: Icon(
+                    MdiIcons.emailEdit,
+                    color: Theme.of(context).colorScheme.secondary,
+                  ),
+                  onTap: () => UrlQuickLauncher().openMail(bakler.email)),
             )
           : SizedBox(
               height: 2,

@@ -2,6 +2,7 @@
 import 'package:add_2_calendar/add_2_calendar.dart' as add2calendar;
 import 'package:eje/models/Event.dart';
 import 'package:eje/utils/notificationplugin.dart';
+import 'package:eje/utils/url_quick_launcher.dart';
 import 'package:eje/widgets/alert_snackbar.dart';
 import 'package:eje/widgets/details_page.dart';
 import 'package:eje/widgets/loading_indicator.dart';
@@ -202,13 +203,8 @@ class _terminChildWidget extends StatelessWidget {
                   size: 72 / MediaQuery.of(context).devicePixelRatio,
                 ),
                 title: OutlinedButton(
-                  onPressed: () async {
-                    if (await canLaunchUrlString(_termin.registrationLink)) {
-                      await launchUrlString(_termin.registrationLink);
-                    } else {
-                      throw 'Could not launch $_termin.registrationLink';
-                    }
-                  },
+                  onPressed: () =>
+                      UrlQuickLauncher().openHttps(_termin.registrationLink),
                   child: Text(
                     "Anmelden \n(Anmeldeschluss:${DateFormat('dd.MM.yyyy').format(_termin.registrationEnd)})",
                     style: TextStyle(
