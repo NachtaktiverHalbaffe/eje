@@ -51,5 +51,14 @@
 		</array>
 		<key>UIStatusBarHidden</key>
 		<false/>
+		<key>LSApplicationQueriesSchemes</key>
+		<array>
+		<string>sms</string>
+		<string>tel</string>
+		<string>mailto</string>
+		<string>https</string>
+		</array>
+		<key>NSCalendarsUsageDescription</key>
+		<string>Um Veranstaltungen und Freizeiten bei Bedarf in den Kalender hinzuzufügen</string>
 	</dict>
 </plist>
