@@ -58,7 +58,14 @@
 		<string>mailto</string>
 		<string>https</string>
 		</array>
-		<key>NSCalendarsUsageDescription</key>
+		<!-- Permission options for the `calendar` group -->
+		<key>NSCalendarsWriteOnlyAccessUsageDescription</key>
 		<string>Um Veranstaltungen und Freizeiten bei Bedarf in den Kalender hinzuzufügen</string>
+
+		<!-- Permission options for the `notification` group -->
+		<key>PermissionGroupNotification</key>
+		<string>Um Notifications senden zu können</string>
+
+		<true/>
 	</dict>
 </plist>
