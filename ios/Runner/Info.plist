@@ -45,6 +45,7 @@
 		<true/>
 		<key>UIApplicationSupportsIndirectInputEvents</key>
 		<true/>
+		
 		<key>BGTaskSchedulerPermittedIdentifiers</key>
 		<array>
 			<string>dev.flutter.background.refresh</string>
@@ -66,6 +67,6 @@
 		<key>PermissionGroupNotification</key>
 		<string>Um Notifications senden zu können</string>
 
-		<true/>
+		
 	</dict>
 </plist>
