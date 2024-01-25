@@ -1,4 +1,5 @@
 // ignore_for_file: camel_case_types
+import 'dart:io' show Platform;
 import 'package:eje/models/employee.dart';
 import 'package:eje/widgets/alert_snackbar.dart';
 import 'package:eje/widgets/details_page.dart';
@@ -146,9 +147,12 @@ class _childEmployeeDetails extends StatelessWidget {
                     color: Theme.of(context).colorScheme.secondary,
                   ),
                   onTap: () async {
-                    if (await canLaunchUrlString(
-                        "mailto:${hauptamtlicher.email}")) {
-                      await launchUrlString("mailto:${hauptamtlicher.email}");
+                    if (await canLaunchUrlString(Platform.isIOS
+                        ? "mailto://${hauptamtlicher.email}"
+                        : "mailto:${hauptamtlicher.email}")) {
+                      await launchUrlString(Platform.isIOS
+                          ? "mailto://${hauptamtlicher.email}"
+                          : "mailto:${hauptamtlicher.email}");
                     } else {
                       throw 'Could not open Email';
                     }
@@ -179,9 +183,12 @@ class _childEmployeeDetails extends StatelessWidget {
                     color: Theme.of(context).colorScheme.secondary,
                   ),
                   onTap: () async {
-                    if (await canLaunchUrlString(
-                        "tel:${hauptamtlicher.telefon}")) {
-                      await launchUrlString("tel:${hauptamtlicher.telefon}");
+                    if (await canLaunchUrlString(Platform.isIOS
+                        ? "tel://${hauptamtlicher.telefon}"
+                        : "tel:${hauptamtlicher.telefon}")) {
+                      await launchUrlString(Platform.isIOS
+                          ? "tel://${hauptamtlicher.telefon}"
+                          : "tel:${hauptamtlicher.telefon}");
                     } else {
                       throw 'Could not open telephone';
                     }
@@ -212,9 +219,12 @@ class _childEmployeeDetails extends StatelessWidget {
                     color: Theme.of(context).colorScheme.secondary,
                   ),
                   onTap: () async {
-                    if (await canLaunchUrlString(
-                        "tel:${hauptamtlicher.handy}")) {
-                      await launchUrlString("tel:${hauptamtlicher.handy}");
+                    if (await canLaunchUrlString(Platform.isIOS
+                        ? "tel://${hauptamtlicher.handy}"
+                        : "tel:${hauptamtlicher.handy}")) {
+                      await launchUrlString(Platform.isIOS
+                          ? "tel://${hauptamtlicher.handy}"
+                          : "tel:${hauptamtlicher.handy}");
                     } else {
                       throw 'Could not open telephone';
                     }
