@@ -51,7 +51,7 @@ jobs:
           retention-days: 1
   ios-build:
     name: Build unsigned ios binaries
-    runs-on: macos-latest
+    runs-on: macos-13
     steps:
       # Checks-out our repository under $GITHUB_WORKSPACE, so our job can access it
       - name: Checkout repository
@@ -61,7 +61,8 @@ jobs:
             touch assets/config/.env
             echo "AMOSURL = ${{secrets.AMOS_URL}}" >> assets/config/.env
             echo "AMOSTOKEN = ${{secrets.AMOS_TOKEN}}" >> assets/config/.env
-            
+      - name: Select Xcode version
+        run: sudo xcode-select -s '/Applications/Xcode_15.0.1.app/Contents/Developer'   
       # Install flutter
       - name: Flutter get
         uses: subosito/flutter-action@v2
