@@ -80,7 +80,7 @@ class _MyHomePageState extends State<MyHomePage> {
   void _firstStartDialog(BuildContext context) async {
     // Can throw initializationerror
     try {
-      status = await Permission.ignoreBatteryOptimizations.status;
+      status = await Permission.notification.status;
     } finally {
       if (status != PermissionStatus.permanentlyDenied &&
           status != PermissionStatus.granted) {
