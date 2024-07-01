@@ -15,21 +15,18 @@ class NetworkInfoImpl implements NetworkInfo {
   @override
   Future<bool> get isConnected async {
     if (GetStorage().read("only_wifi")) {
-      ConnectivityResult result = await connectivity.checkConnectivity();
-      if (result != ConnectivityResult.wifi) {
+      List<ConnectivityResult> result = await connectivity.checkConnectivity();
+      if (!result.contains(ConnectivityResult.wifi)) {
         return false;
-      } else if (result == ConnectivityResult.wifi) {
+      } else if (result.contains(ConnectivityResult.wifi)) {
         return await connectionChecker.hasConnection;
       } else {
         return false;
       }
     } else {
-      ConnectivityResult result = await connectivity.checkConnectivity();
-      if (result == ConnectivityResult.wifi ||
-          result == ConnectivityResult.mobile ||
-          result == ConnectivityResult.ethernet ||
-          result == ConnectivityResult.vpn ||
-          result == ConnectivityResult.bluetooth) {
+      List<ConnectivityResult> result = await connectivity.checkConnectivity();
+      if (!result.contains(ConnectivityResult.none) &&
+          !result.contains(ConnectivityResult.other)) {
         return connectionChecker.hasConnection;
       } else if (result == ConnectivityResult.none) {
         return false;

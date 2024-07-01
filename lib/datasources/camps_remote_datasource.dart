@@ -1,5 +1,6 @@
 // ignore_for_file: non_constant_identifier_names
 import 'dart:convert';
+import 'package:dartz/dartz.dart';
 import 'package:eje/datasources/RemoteDataSource.dart';
 import 'package:eje/models/camp.dart';
 import 'package:eje/models/exception.dart';
@@ -18,6 +19,8 @@ class CampsRemoteDatasource implements RemoteDataSource<Camp, int> {
   Future<List<Camp>> getAllElements() async {
     final API_URL = Env.amosURL;
     final API_TOKEN = Env.amosToken;
+    print(API_URL);
+    print(API_TOKEN);
     List<Camp> camps = List.empty(growable: true);
 
     // Get http Response

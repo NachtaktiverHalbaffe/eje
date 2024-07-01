@@ -1,5 +1,4 @@
 // ignore_for_file: camel_case_types
-import 'dart:io' show Platform;
 import 'package:eje/models/employee.dart';
 import 'package:eje/utils/url_quick_launcher.dart';
 import 'package:eje/widgets/alert_snackbar.dart';
@@ -12,7 +11,6 @@ import 'package:eje/widgets/pages/employees/bloc/employees_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:url_launcher/url_launcher_string.dart';
 
 class EmployeeDetails extends StatelessWidget {
   final Employee employee;

@@ -10,7 +10,6 @@ import 'package:eje/widgets/pages/bak/bloc/bak_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:url_launcher/url_launcher_string.dart';
 
 class BAKDetails extends StatelessWidget {
   final BAKler bakler;
