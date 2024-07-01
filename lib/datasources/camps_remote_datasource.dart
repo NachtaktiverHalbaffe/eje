@@ -1,6 +1,5 @@
 // ignore_for_file: non_constant_identifier_names
 import 'dart:convert';
-import 'package:dartz/dartz.dart';
 import 'package:eje/datasources/RemoteDataSource.dart';
 import 'package:eje/models/camp.dart';
 import 'package:eje/models/exception.dart';
