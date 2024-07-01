@@ -3,7 +3,7 @@ FROM ghcr.io/instrumentisto/flutter:3
 RUN apt-get update \
   && apt-get install --yes --no-install-recommends\ 
   curl unzip sed git bash xz-utils libglvnd0 ssh\ 
-  xauth x11-xserver-utils libpulse0 libxcomposite1 libgl1-mesa-glx sudo \
+  xauth x11-xserver-utils libpulse0 libxcomposite1  sudo \
   cmake ninja-build clang build-essential pkg-config libgtk-3-dev liblzma-dev lcov\
   && rm -rf /var/lib/{apt,dpkg,cache,log}
 
