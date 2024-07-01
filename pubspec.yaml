@@ -78,7 +78,7 @@ flutter_native_splash:
 
   android_12:
     color: "#000000"
-    icon_background_color: "#FFFFFF"
+    icon_background_color: "#000000"
     # image: "assets/images/ejelogo_small.png"
 
 flutter:
