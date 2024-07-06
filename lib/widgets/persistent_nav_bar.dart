@@ -25,8 +25,8 @@ class EjePersistentNavBar extends StatelessWidget {
             icon: Icon(MdiIcons.newspaper),
             iconSize: 26.0,
             title: ("Aktuelles"),
-            activeForegroundColor: Theme.of(context).colorScheme.secondary,
-            activeColorSecondary: Colors.white,
+            activeForegroundColor: Colors.white,
+            activeColorSecondary: Theme.of(context).colorScheme.primary,
             inactiveForegroundColor: Theme.of(context).colorScheme.secondary,
           ),
         ),
@@ -36,8 +36,8 @@ class EjePersistentNavBar extends StatelessWidget {
               icon: Icon(CostumIcons.eje),
               iconSize: 26.0,
               title: ("Das eje"),
-              activeForegroundColor: Theme.of(context).colorScheme.secondary,
-              activeColorSecondary: Colors.white,
+              activeForegroundColor: Colors.white,
+              activeColorSecondary: Theme.of(context).colorScheme.primary,
               inactiveForegroundColor: Theme.of(context).colorScheme.secondary,
             )),
         PersistentTabConfig(
@@ -46,8 +46,8 @@ class EjePersistentNavBar extends StatelessWidget {
               icon: Icon(Icons.today),
               iconSize: 26.0,
               title: ("Events"),
-              activeForegroundColor: Theme.of(context).colorScheme.secondary,
-              activeColorSecondary: Colors.white,
+              activeForegroundColor: Colors.white,
+              activeColorSecondary: Theme.of(context).colorScheme.primary,
               inactiveForegroundColor: Theme.of(context).colorScheme.secondary,
             )),
         PersistentTabConfig(
@@ -56,8 +56,8 @@ class EjePersistentNavBar extends StatelessWidget {
               icon: Icon(MdiIcons.terrain),
               iconSize: 26.0,
               title: ("Freizeiten"),
-              activeForegroundColor: Theme.of(context).colorScheme.secondary,
-              activeColorSecondary: Colors.white,
+              activeForegroundColor: Colors.white,
+              activeColorSecondary: Theme.of(context).colorScheme.primary,
               inactiveForegroundColor: Theme.of(context).colorScheme.secondary,
             )),
         PersistentTabConfig(
@@ -66,15 +66,15 @@ class EjePersistentNavBar extends StatelessWidget {
               icon: Icon(Icons.settings),
               iconSize: 26.0,
               title: ("Einstellungen"),
-              activeForegroundColor: Theme.of(context).colorScheme.secondary,
-              activeColorSecondary: Colors.white,
+              activeForegroundColor: Colors.white,
+              activeColorSecondary: Theme.of(context).colorScheme.primary,
               inactiveForegroundColor: Theme.of(context).colorScheme.secondary,
             )),
       ],
       handleAndroidBackButtonPress: true,
       stateManagement: true,
       //!Good looking alternatives: sytle3, style6, style7, style 15
-      navBarBuilder: (navbarConfig) => Style7BottomNavBar(
+      navBarBuilder: (navbarConfig) => Style2BottomNavBar(
         navBarConfig: navbarConfig,
         itemAnimationProperties: ItemAnimation(
           duration: Duration(milliseconds: 400),
