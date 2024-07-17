@@ -66,4 +66,32 @@ class AlertSnackbar {
       ),
     );
   }
+
+  void showSuccessSnackBar({required String label}) {
+    ScaffoldMessenger.of(context)
+        // ..hideCurrentSnackBar()
+        .showSnackBar(
+      SnackBar(
+        content: Row(
+          children: [
+            Icon(MdiIcons.check),
+            SizedBox(width: 12),
+            Expanded(
+              child: Text(
+                label,
+                overflow: TextOverflow.fade,
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
+          ],
+        ),
+        backgroundColor: Colors.green,
+        shape: shape,
+        margin: margin,
+        behavior: SnackBarBehavior.floating,
+        duration: duration,
+        elevation: 6,
+      ),
+    );
+  }
 }

@@ -3,6 +3,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:eje/models/Event.dart';
 import 'package:eje/utils/injection_container.dart';
 import 'package:eje/utils/notificationplugin.dart';
+import 'package:eje/widgets/alert_snackbar.dart';
 import 'package:eje/widgets/cached_image.dart';
 import 'package:eje/widgets/pages/events/bloc/events_bloc.dart';
 import 'package:eje/widgets/pages/events/event_detail.dart';
@@ -148,6 +149,8 @@ class EventCard extends StatelessWidget {
                       OutlinedButton(
                         onPressed: () async {
                           _setNotification();
+                          AlertSnackbar(context).showSuccessSnackBar(
+                              label: "Erinnerung erfolgreich eingerichtet");
                         },
                         child: Text(
                           "Veranstaltung merken",

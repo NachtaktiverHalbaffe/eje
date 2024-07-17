@@ -93,7 +93,7 @@ Widget _buildNeuigkeitenList(BuildContext context, neuigkeiten) {
               ),
               // Padding to avoid cards being cut off
               padding: EdgeInsets.only(
-                bottom: 20,
+                bottom: 80,
                 top: 40,
               ),
               itemCount: neuigkeiten.length,
