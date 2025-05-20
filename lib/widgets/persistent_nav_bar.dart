@@ -103,7 +103,6 @@ class EjePersistentNavBar extends StatelessWidget {
         curve: Curves.ease,
         duration: Duration(milliseconds: 200),
       ),
-      popAllScreensOnTapOfSelectedTab: true,
     );
   }
 }

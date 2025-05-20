@@ -2,9 +2,9 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:timezone/timezone.dart' as tz;
 import 'package:timezone/data/latest_all.dart' as tz;
-import 'package:flutter_native_timezone/flutter_native_timezone.dart';
 import 'dart:io' show Platform;
 import 'package:rxdart/rxdart.dart';
+import 'package:flutter_native_timezone_latest/flutter_native_timezone_latest.dart';
 
 @pragma('vm:entry-point')
 void notificationTapBackground(NotificationResponse notificationResponse) {
@@ -36,7 +36,8 @@ class NotificationPlugin {
   init() async {
     // Initialize time zones
     tz.initializeTimeZones();
-    final String timeZoneName = await FlutterNativeTimezone.getLocalTimezone();
+    final String timeZoneName =
+        await FlutterNativeTimezoneLatest.getLocalTimezone();
     tz.setLocalLocation(tz.getLocation(timeZoneName));
 
     //Request IOS permissions

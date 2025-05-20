@@ -49,11 +49,11 @@ class EmployeesRemoteDatasource implements RemoteDataSource<Employee, String> {
               // ! name parsen
               if (parent[i].getElementsByClassName('icon-left').isNotEmpty) {
                 // get title
-                String _title =
+                String title =
                     parent[i].getElementsByClassName('icon-left')[0].text;
                 // Split title into name and amt
                 List<String> splitTitle;
-                splitTitle = _title.split('-');
+                splitTitle = title.split('-');
                 name = splitTitle[0].trimLeft().trimRight();
                 if (splitTitle.length == 2) {
                   bereich = splitTitle[1].trimLeft().trimRight();
