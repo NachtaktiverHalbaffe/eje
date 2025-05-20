@@ -53,14 +53,6 @@ class NotificationPlugin {
       requestAlertPermission: true,
       requestBadgePermission: true,
       requestSoundPermission: true,
-      onDidReceiveLocalNotification: (id, title, body, payload) async {
-        ReceivedNotification receivedNotification = ReceivedNotification(
-            id: id,
-            title: title ?? "",
-            body: body ?? "",
-            payload: payload ?? "0");
-        didReveivedLovalNotifications.add(receivedNotification);
-      },
     );
     //Settings for initialization
     initializationSettings = InitializationSettings(
@@ -185,8 +177,6 @@ class NotificationPlugin {
         paltformChannelSpecifics,
         payload: payload,
         androidScheduleMode: AndroidScheduleMode.inexactAllowWhileIdle,
-        uiLocalNotificationDateInterpretation:
-            UILocalNotificationDateInterpretation.wallClockTime,
       );
     } else {
       print("Notification permission not granted. Requesting permission");
