@@ -1,8 +1,8 @@
 // ignore_for_file: non_constant_identifier_names
 import 'package:bloc/bloc.dart';
-import 'package:eje/models/Offered_Service.dart';
+import 'package:eje/models/offered_service.dart';
 import 'package:eje/models/failures.dart';
-import 'package:eje/services/OfferedServicesService.dart';
+import 'package:eje/services/offered_services_service.dart';
 import 'package:equatable/equatable.dart';
 
 part 'services_event.dart';
@@ -17,7 +17,7 @@ class ServicesBloc extends Bloc<ServicesEvent, ServicesState> {
     on<GetCachedServices>(_loadCachedServices);
   }
 
-  void _loadServices(event, Emitter<ServicesState> emit) async {
+  void _loadServices(RefreshServices event, Emitter<ServicesState> emit) async {
     print("Triggered Event: RefreshServices");
     emit(Loading());
     final servicesOrFailure = await offeredServicesService.getServices();
@@ -36,7 +36,8 @@ class ServicesBloc extends Bloc<ServicesEvent, ServicesState> {
     ));
   }
 
-  void _loadCachedServices(event, Emitter<ServicesState> emit) async {
+  void _loadCachedServices(
+      GetCachedServices event, Emitter<ServicesState> emit) async {
     print("Triggered Event: RefreshServices");
     emit(Loading());
     final servicesOrFailure = await offeredServicesService.getCachedServices();
@@ -52,7 +53,8 @@ class ServicesBloc extends Bloc<ServicesEvent, ServicesState> {
     ));
   }
 
-  void _loadSpecificService(event, Emitter<ServicesState> emit) async {
+  void _loadSpecificService(
+      GettingService event, Emitter<ServicesState> emit) async {
     print("Triggered Event: GettingService");
     emit(Loading());
     final serviceOrFailure =

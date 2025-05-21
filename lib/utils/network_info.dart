@@ -28,7 +28,7 @@ class NetworkInfoImpl implements NetworkInfo {
       if (!result.contains(ConnectivityResult.none) &&
           !result.contains(ConnectivityResult.other)) {
         return connectionChecker.hasConnection;
-      } else if (result == ConnectivityResult.none) {
+      } else if (result.contains(ConnectivityResult.none)) {
         return false;
       } else {
         return false;

@@ -1,7 +1,7 @@
 // ignore_for_file: no_leading_underscores_for_local_identifiers
-import 'package:eje/models/Hyperlink.dart';
-import 'package:eje/models/Offered_Service.dart';
-import 'package:hive/hive.dart';
+import 'package:eje/models/hyperlink.dart';
+import 'package:eje/models/offered_service.dart';
+import 'package:hive_ce/hive.dart';
 
 Future<void> dataServices(String boxName) async {
   final Box _box = await Hive.openBox(boxName);

@@ -1,9 +1,9 @@
 import 'package:dartz/dartz.dart';
-import 'package:eje/models/Article.dart';
+import 'package:eje/models/article.dart';
 import 'package:eje/models/failures.dart';
 import 'package:eje/models/news.dart';
-import 'package:eje/repositories/CachedRemoteRepository.dart';
-import 'package:eje/repositories/CachedRemoteSingleElementRepository.dart';
+import 'package:eje/repositories/cached_remote_repository.dart';
+import 'package:eje/repositories/cached_remote_single_element_repository.dart';
 
 class NewsService {
   final CachedRemoteRepository<News, String> repository;

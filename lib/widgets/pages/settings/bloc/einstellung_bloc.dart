@@ -1,5 +1,5 @@
 import 'package:bloc/bloc.dart';
-import 'package:eje/services/SharedPreferencesService.dart';
+import 'package:eje/services/shared_preferences_service.dart';
 import './bloc.dart';
 
 class EinstellungBloc extends Bloc<EinstellungEvent, EinstellungState> {
@@ -14,7 +14,8 @@ class EinstellungBloc extends Bloc<EinstellungEvent, EinstellungState> {
     on<GettingPreference>(_loadSpecificPrefrence);
   }
 
-  void _storePrefrences(event, Emitter<EinstellungState> emit) async {
+  void _storePrefrences(
+      StoringPreferences event, Emitter<EinstellungState> emit) async {
     final einstellungOrFailure = await settingsService.setPrefrence(
         preference: event.preference, state: event.state);
     emit(einstellungOrFailure.fold(
@@ -22,14 +23,16 @@ class EinstellungBloc extends Bloc<EinstellungEvent, EinstellungState> {
         (prefs) => ChangedPreferences()));
   }
 
-  void _loadPrefrences(event, Emitter<EinstellungState> emit) async {
+  void _loadPrefrences(
+      GettingPreferences event, Emitter<EinstellungState> emit) async {
     final einstellungOrFailure = await settingsService.getPrefrences();
     emit(einstellungOrFailure.fold(
         (failure) => Error(message: CACHE_FAILURE_MESSAGE),
         (prefs) => LoadedPreferences()));
   }
 
-  void _loadSpecificPrefrence(event, Emitter<EinstellungState> emit) async {
+  void _loadSpecificPrefrence(
+      GettingPreference event, Emitter<EinstellungState> emit) async {
     final einstellungOrFailure =
         await settingsService.getPrefrence(preference: event.preference);
     emit(einstellungOrFailure.fold(

@@ -1,4 +1,4 @@
-import 'package:eje/models/Article.dart';
+import 'package:eje/models/article.dart';
 import 'package:eje/models/news.dart';
 import 'package:equatable/equatable.dart';
 

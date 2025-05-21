@@ -1,4 +1,4 @@
-import 'package:eje/models/BAKler.dart';
+import 'package:eje/models/bakler.dart';
 import 'package:eje/utils/url_quick_launcher.dart';
 import 'package:eje/widgets/alert_snackbar.dart';
 import 'package:eje/widgets/details_page.dart';

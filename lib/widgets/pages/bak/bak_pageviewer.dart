@@ -1,5 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:eje/models/BAKler.dart';
+import 'package:eje/models/bakler.dart';
 import 'package:eje/utils/injection_container.dart';
 import 'package:eje/widgets/cached_image.dart';
 import 'package:eje/widgets/pages/bak/bak_details.dart';

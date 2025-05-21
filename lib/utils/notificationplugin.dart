@@ -24,7 +24,7 @@ class NotificationPlugin {
       FlutterLocalNotificationsPlugin();
   final BehaviorSubject<ReceivedNotification> didReveivedLovalNotifications =
       BehaviorSubject<ReceivedNotification>();
-  // ignore: prefer_typing_uninitialized_variables
+  // ignore: prefer_typing_uninitialized_variables, strict_top_level_inference
   var initializationSettings;
 
   //Constructor
@@ -33,7 +33,7 @@ class NotificationPlugin {
   }
 
 //initialize Notificationsplugin
-  init() async {
+  Future<void> init() async {
     // Initialize time zones
     tz.initializeTimeZones();
     final String timeZoneName =
@@ -63,7 +63,7 @@ class NotificationPlugin {
         onDidReceiveBackgroundNotificationResponse: notificationTapBackground);
   }
 
-  setListenerForLowerVersions(Function onNotificationInLowerVersion) {
+  void setListenerForLowerVersions(Function onNotificationInLowerVersion) {
     didReveivedLovalNotifications.listen((receivedNotification) {
       onNotificationInLowerVersion(receivedNotification);
     });

@@ -1,6 +1,6 @@
 import 'package:eje/app_config.dart';
-import 'package:eje/datasources/RemoteDataSource.dart';
-import 'package:eje/models/BAKler.dart';
+import 'package:eje/datasources/remote_data_source.dart';
+import 'package:eje/models/bakler.dart';
 import 'package:eje/models/exception.dart';
 import 'package:html/dom.dart' as dom;
 import 'package:html/parser.dart' as parser;
@@ -15,27 +15,27 @@ class BAKRemoteDatasource implements RemoteDataSource<BAKler, String> {
   Future<List<BAKler>> getAllElements() async {
     List<BAKler> bakler = List.empty(growable: true);
     final AppConfig appConfig = await AppConfig.loadConfig();
-    final String DOMAIN = appConfig.domain;
-    final String URL = DOMAIN + appConfig.bakEndpoint;
-    final String ID_HEADER = appConfig.idHeader;
-    final String ID_KONTAKT = appConfig.idContact;
+    final String domain = appConfig.domain;
+    final String url = domain + appConfig.bakEndpoint;
+    final String idHeader = appConfig.idHeader;
+    final String idFooter = appConfig.idContact;
     final String ID_ANSCHRIFT = appConfig.idAdress;
 
     // Get data from Internet
     var response;
     try {
-      response = await client.get(Uri.parse(URL));
+      response = await client.get(Uri.parse(url));
     } catch (e) {
       throw ConnectionException(
-          message: "Couldnt load url $URL", type: ExceptionType.NOT_FOUND);
+          message: "Couldnt load url $url", type: ExceptionType.notFound);
     }
     if (response.statusCode == 200) {
       dom.Document document = parser.parse(response.body);
       final parent = document.getElementsByClassName('col s12 default');
       for (int i = 0; i < parent.length; i++) {
         //checking if element is not header or footer of website
-        if (parent[i].id != ID_KONTAKT) {
-          if (parent[i].id != ID_HEADER) {
+        if (parent[i].id != idFooter) {
+          if (parent[i].id != idHeader) {
             if (parent[i].id != ID_ANSCHRIFT) {
               //Parse data to article
               String vorstellung = "";
@@ -47,11 +47,11 @@ class BAKRemoteDatasource implements RemoteDataSource<BAKler, String> {
               // ! name parsen
               if (parent[i].getElementsByClassName('icon-left').isNotEmpty) {
                 // get title
-                String _title =
+                String title =
                     parent[i].getElementsByClassName('icon-left')[0].text;
                 // Split title into name and amt
                 List<String> splitTitle;
-                splitTitle = _title.split(' - ');
+                splitTitle = title.split(' - ');
                 name = splitTitle[0].trimLeft().trimRight();
                 if (splitTitle.length == 2) {
                   amt = splitTitle[1].trimLeft().trimRight();
@@ -102,7 +102,7 @@ class BAKRemoteDatasource implements RemoteDataSource<BAKler, String> {
                   .getElementsByClassName('copy-hover width100 ')
                   .isNotEmpty) {
                 //picture-link is in text-pic-right class
-                bild = DOMAIN +
+                bild = domain +
                     parent[i]
                         .getElementsByClassName('copy-hover width100 ')[0]
                         .getElementsByTagName('img')[0]
@@ -113,7 +113,7 @@ class BAKRemoteDatasource implements RemoteDataSource<BAKler, String> {
                   .getElementsByClassName(
                       'col s12 m4 l4 width100 bildtextteaser-image halfpic')
                   .isNotEmpty) {
-                bild = DOMAIN +
+                bild = domain +
                     parent[i]
                         .getElementsByClassName(
                             'col s12 m4 l4 width100 bildtextteaser-image halfpic')[0]
@@ -147,7 +147,7 @@ class BAKRemoteDatasource implements RemoteDataSource<BAKler, String> {
       // No Internet connection, returning empty Article
       throw ConnectionException(
           message: "Got bad statuscode : ${response.statusCode}",
-          type: ExceptionType.BAD_REQUEST);
+          type: ExceptionType.badRequest);
     }
   }
 

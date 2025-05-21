@@ -1,4 +1,4 @@
-import 'package:eje/models/Article.dart';
+import 'package:eje/models/article.dart';
 import 'package:eje/utils/injection_container.dart';
 import 'package:eje/widgets/alert_snackbar.dart';
 import 'package:eje/widgets/details_page.dart';

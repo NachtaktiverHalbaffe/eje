@@ -1,9 +1,9 @@
 import 'package:eje/app_config.dart';
-import 'package:eje/datasources/LocalDataSource.dart';
-import 'package:eje/datasources/RemoteDataSource.dart';
-import 'package:eje/models/Article.dart';
-import 'package:eje/models/Hyperlink.dart';
-import 'package:eje/models/Offered_Service.dart';
+import 'package:eje/datasources/local_data_source.dart';
+import 'package:eje/datasources/remote_data_source.dart';
+import 'package:eje/models/article.dart';
+import 'package:eje/models/hyperlink.dart';
+import 'package:eje/models/offered_service.dart';
 import 'package:eje/models/exception.dart';
 import 'package:html/dom.dart' as dom;
 import 'package:html/parser.dart' as parser;

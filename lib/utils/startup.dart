@@ -1,8 +1,8 @@
-import 'package:eje/models/Article.dart';
-import 'package:eje/models/BAKler.dart';
-import 'package:eje/models/Event.dart';
-import 'package:eje/models/Hyperlink.dart';
-import 'package:eje/models/Offered_Service.dart';
+import 'package:eje/models/article.dart';
+import 'package:eje/models/bakler.dart';
+import 'package:eje/models/event.dart';
+import 'package:eje/models/hyperlink.dart';
+import 'package:eje/models/offered_service.dart';
 import 'package:eje/models/camp.dart';
 import 'package:eje/models/employee.dart';
 import 'package:eje/models/field_of_work.dart';
@@ -10,7 +10,7 @@ import 'package:eje/models/location.dart';
 import 'package:eje/models/news.dart';
 import 'package:eje/utils/notificationplugin.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:hive/hive.dart';
+import 'package:hive_ce/hive.dart';
 import 'package:path_provider/path_provider.dart' as path_provider;
 import 'injection_container.dart' as di;
 
@@ -62,4 +62,4 @@ Future<void> startup() async {
   notificationPlugin.setListenerForLowerVersions(onNotificationInLowerVersion);
 }
 
-onNotificationInLowerVersion(ReceivedNotification receivedNotification) {}
+void onNotificationInLowerVersion(ReceivedNotification receivedNotification) {}

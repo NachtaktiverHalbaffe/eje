@@ -2,22 +2,21 @@
 
 import 'package:flutter/material.dart';
 
-const Color COMPANY_COLOR = Color(0xFFCD2E32);
+const Color companyColor = Color(0xFFCD2E32);
 final OutlinedButtonThemeData OUTLINED_BUTTON_THEMEDATA =
     OutlinedButtonThemeData(
         style: OutlinedButton.styleFrom(
-  foregroundColor: COMPANY_COLOR,
+  foregroundColor: companyColor,
 ));
 final TextButtonThemeData TEXT_BUTTON_THEMEDATA = TextButtonThemeData(
   style: ButtonStyle(
-    foregroundColor:
-        MaterialStateProperty.resolveWith((states) => COMPANY_COLOR),
+    foregroundColor: WidgetStateProperty.resolveWith((states) => companyColor),
   ),
 );
 
-final MaterialStateProperty<Icon?> THUMB_ICON =
-    MaterialStateProperty.resolveWith<Icon?>((states) {
-  if (states.contains(MaterialState.selected)) {
+final WidgetStateProperty<Icon?> thumbIcon =
+    WidgetStateProperty.resolveWith<Icon?>((states) {
+  if (states.contains(WidgetState.selected)) {
     return const Icon(Icons.check);
   }
   return const Icon(Icons.close);
@@ -28,18 +27,18 @@ ThemeData getAppDarkTheme() {
   return themeDark.copyWith(
       colorScheme: themeDark.colorScheme.copyWith(
         // Firmenfarbe
-        secondary: COMPANY_COLOR,
+        secondary: companyColor,
         background: Colors.black,
-        primary: COMPANY_COLOR,
+        primary: companyColor,
         surface: Color.fromARGB(255, 49, 49, 49),
       ),
       // Text colors
       textSelectionTheme: themeDark.textSelectionTheme.copyWith(
-        selectionColor: COMPANY_COLOR,
-        selectionHandleColor: COMPANY_COLOR,
-        cursorColor: COMPANY_COLOR,
+        selectionColor: companyColor,
+        selectionHandleColor: companyColor,
+        cursorColor: companyColor,
       ),
-      switchTheme: themeDark.switchTheme.copyWith(thumbIcon: THUMB_ICON),
+      switchTheme: themeDark.switchTheme.copyWith(thumbIcon: thumbIcon),
       checkboxTheme: CheckboxThemeData(
         side: BorderSide(
           color: themeDark.disabledColor,
@@ -53,11 +52,11 @@ ThemeData getAppDarkTheme() {
       outlinedButtonTheme: OUTLINED_BUTTON_THEMEDATA,
       textButtonTheme: TEXT_BUTTON_THEMEDATA,
       textTheme: TextTheme(
-        labelSmall: TextStyle(color: COMPANY_COLOR),
+        labelSmall: TextStyle(color: companyColor),
       ),
-      datePickerTheme: themeDark.datePickerTheme.copyWith(
-          rangeSelectionBackgroundColor: COMPANY_COLOR.withAlpha(100)),
-      progressIndicatorTheme: ProgressIndicatorThemeData(color: COMPANY_COLOR),
+      datePickerTheme: themeDark.datePickerTheme
+          .copyWith(rangeSelectionBackgroundColor: companyColor.withAlpha(100)),
+      progressIndicatorTheme: ProgressIndicatorThemeData(color: companyColor),
       dividerColor: Colors.white,
       cardColor: Color.fromARGB(255, 49, 49, 49));
 }
@@ -67,15 +66,15 @@ ThemeData getAppLightTheme() {
 
   return themeLight.copyWith(
       colorScheme: themeLight.colorScheme.copyWith(
-        secondary: COMPANY_COLOR,
+        secondary: companyColor,
         background: Colors.white,
-        primary: COMPANY_COLOR,
+        primary: companyColor,
         outline: Colors.black54,
       ),
       textSelectionTheme: themeLight.textSelectionTheme.copyWith(
-        selectionColor: COMPANY_COLOR,
-        selectionHandleColor: COMPANY_COLOR,
-        cursorColor: COMPANY_COLOR,
+        selectionColor: companyColor,
+        selectionHandleColor: companyColor,
+        cursorColor: companyColor,
       ),
       primaryTextTheme:
           Typography.material2021(platform: TargetPlatform.android)
@@ -89,14 +88,14 @@ ThemeData getAppLightTheme() {
       checkboxTheme: CheckboxThemeData(
         side: BorderSide(color: themeLight.disabledColor, width: 2.0),
       ),
-      switchTheme: themeLight.switchTheme.copyWith(thumbIcon: THUMB_ICON),
+      switchTheme: themeLight.switchTheme.copyWith(thumbIcon: thumbIcon),
       chipTheme: themeLight.chipTheme.copyWith(
         side: BorderSide(style: BorderStyle.none),
         shape: StadiumBorder(side: BorderSide(style: BorderStyle.none)),
       ),
-      datePickerTheme: themeLight.datePickerTheme.copyWith(
-          rangeSelectionBackgroundColor: COMPANY_COLOR.withAlpha(100)),
-      progressIndicatorTheme: ProgressIndicatorThemeData(color: COMPANY_COLOR),
+      datePickerTheme: themeLight.datePickerTheme
+          .copyWith(rangeSelectionBackgroundColor: companyColor.withAlpha(100)),
+      progressIndicatorTheme: ProgressIndicatorThemeData(color: companyColor),
       primaryIconTheme: IconThemeData(color: Colors.black),
       listTileTheme: themeLight.listTileTheme
           .copyWith(textColor: Color.fromARGB(200, 0, 0, 0)),

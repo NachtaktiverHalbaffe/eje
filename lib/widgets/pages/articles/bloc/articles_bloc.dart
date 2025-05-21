@@ -1,8 +1,8 @@
 // ignore_for_file: non_constant_identifier_names
 import 'package:bloc/bloc.dart';
-import 'package:eje/models/Article.dart';
+import 'package:eje/models/article.dart';
 import 'package:eje/models/failures.dart';
-import 'package:eje/services/ReadOnlySingleElementService.dart';
+import 'package:eje/services/readonly_single_element_service.dart';
 import 'package:equatable/equatable.dart';
 
 part 'articles_event.dart';
@@ -20,7 +20,8 @@ class ArticlesBloc extends Bloc<ArticlesEvent, ArticlesState> {
     on<GetCachedArticles>(_getCachedArticles);
   }
 
-  void _refreshArticle(event, Emitter<ArticlesState> emit) async {
+  void _refreshArticle(
+      RefreshArticle event, Emitter<ArticlesState> emit) async {
     print("Triggered Event: RefreshArticles");
     emit(Loading());
     final servicesOrFailure = await articleService.getElement(id: event.url);
@@ -55,7 +56,7 @@ class ArticlesBloc extends Bloc<ArticlesEvent, ArticlesState> {
     ));
   }
 
-  void _getArticle(event, Emitter<ArticlesState> emit) async {
+  void _getArticle(GettingArticle event, Emitter<ArticlesState> emit) async {
     emit(Loading());
     final serviceOrFailure = await articleService.getElement(id: event.url);
     emit(serviceOrFailure.fold(
@@ -64,7 +65,8 @@ class ArticlesBloc extends Bloc<ArticlesEvent, ArticlesState> {
     ));
   }
 
-  void _followHyperlink(event, Emitter<ArticlesState> emit) async {
+  void _followHyperlink(
+      FollowingHyperlink event, Emitter<ArticlesState> emit) async {
     emit(Loading());
     final serviceOrFailure = await articleService.getElement(id: event.url);
     emit(serviceOrFailure.fold(

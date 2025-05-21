@@ -1,6 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:decorated_icon/decorated_icon.dart';
-import 'package:eje/models/Hyperlink.dart';
+import 'package:eje/models/hyperlink.dart';
 import 'package:eje/utils/injection_container.dart';
 import 'package:eje/widgets/cached_image.dart';
 import 'package:eje/widgets/hyperlink_section.dart';

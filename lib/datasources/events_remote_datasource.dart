@@ -1,7 +1,7 @@
 // ignore_for_file: non_constant_identifier_names
 import 'dart:convert';
-import 'package:eje/datasources/RemoteDataSource.dart';
-import 'package:eje/models/Event.dart';
+import 'package:eje/datasources/remote_data_source.dart';
+import 'package:eje/models/event.dart';
 import 'package:eje/models/exception.dart';
 import 'package:eje/models/location.dart';
 import 'package:eje/utils/env.dart';
@@ -82,6 +82,7 @@ class TermineRemoteDatasource implements RemoteDataSource<Event, int> {
     throw UnimplementedError();
   }
 
+  // ignore: strict_top_level_inference
   Location _parseLocation(responsedata) {
     var locationData = responsedata['address'];
     String adress = responsedata['name'] ?? "";
@@ -96,6 +97,7 @@ class TermineRemoteDatasource implements RemoteDataSource<Event, int> {
     return Location(adress, street, postalCode);
   }
 
+  // ignore: strict_top_level_inference
   int _parsePrice(responseData) {
     print(responseData);
     if (responseData != null) {

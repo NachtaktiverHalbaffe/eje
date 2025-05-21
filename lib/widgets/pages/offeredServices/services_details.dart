@@ -1,4 +1,4 @@
-import 'package:eje/models/Offered_Service.dart';
+import 'package:eje/models/offered_service.dart';
 import 'package:eje/widgets/alert_snackbar.dart';
 import 'package:eje/widgets/details_page.dart';
 import 'package:eje/widgets/loading_indicator.dart';

@@ -2,7 +2,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:eje/models/camp.dart';
 import 'package:eje/models/failures.dart';
-import 'package:eje/services/ReadOnlyService.dart';
+import 'package:eje/services/readonly_service.dart';
 import 'package:get_storage/get_storage.dart';
 
 import './bloc.dart';
@@ -18,7 +18,7 @@ class CampsBloc extends Bloc<CampEvent, CampState> {
     on<GetCachedCamps>(_loadCachedCamps);
   }
 
-  void _loadCamps(event, Emitter<CampState> emit) async {
+  void _loadCamps(RefreshCamps event, Emitter<CampState> emit) async {
     emit(Loading());
     final campOrFailure = await campService.getAllElements();
     emit(campOrFailure.fold(
@@ -39,7 +39,7 @@ class CampsBloc extends Bloc<CampEvent, CampState> {
     ));
   }
 
-  void _loadCachedCamps(event, Emitter<CampState> emit) async {
+  void _loadCachedCamps(GetCachedCamps event, Emitter<CampState> emit) async {
     emit(Loading());
     final campOrFailure = await campService.getAllCachedElements();
     emit(campOrFailure.fold(
@@ -57,7 +57,7 @@ class CampsBloc extends Bloc<CampEvent, CampState> {
     ));
   }
 
-  void _loadSpecificCamp(event, Emitter<CampState> emit) async {
+  void _loadSpecificCamp(GettingCamp event, Emitter<CampState> emit) async {
     emit(Loading());
     final campsOrFailure = await campService.getElement(id: event.camp.id);
     emit(campsOrFailure.fold(
@@ -66,7 +66,7 @@ class CampsBloc extends Bloc<CampEvent, CampState> {
     ));
   }
 
-  void _filterCamps(event, Emitter<CampState> emit) async {
+  void _filterCamps(FilteringCamps event, Emitter<CampState> emit) async {
     final campsOrFailure = await campService.getAllElements();
     emit(campsOrFailure.fold(
       (failure) => Error(message: failure.getErrorMsg()),
@@ -77,7 +77,7 @@ class CampsBloc extends Bloc<CampEvent, CampState> {
     ));
   }
 
-  void _deleteChip(event, Emitter<CampState> emit) async {
+  void _deleteChip(DeletingCampsFilter event, Emitter<CampState> emit) async {
     final campsOrFailure = await campService.getAllElements();
     emit(campsOrFailure.fold(
       (failure) => Error(message: failure.getErrorMsg()),

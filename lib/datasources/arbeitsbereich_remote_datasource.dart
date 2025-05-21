@@ -1,5 +1,5 @@
 import 'package:eje/app_config.dart';
-import 'package:eje/datasources/RemoteDataSource.dart';
+import 'package:eje/datasources/remote_data_source.dart';
 import 'package:eje/models/exception.dart';
 import 'package:eje/models/field_of_work.dart';
 import 'package:html/dom.dart' as dom;
@@ -15,16 +15,16 @@ class ArbeitsbereichRemoteDatasource
   Future<List<FieldOfWork>> getAllElements() async {
     List<FieldOfWork> arbeitsbereiche = List.empty(growable: true);
     final AppConfig appConfig = await AppConfig.loadConfig();
-    final String DOMAIN = appConfig.domain;
-    final String URL = DOMAIN + appConfig.fieldOfWorkEndpoint;
-    final String ID_HEADER = appConfig.idHeader;
-    final String ID_KONTAKT = appConfig.idContact;
-    final String ID_ANSCHRIFT = appConfig.idAdress;
+    final String domain = appConfig.domain;
+    final String url = domain + appConfig.fieldOfWorkEndpoint;
+    final String idHeader = appConfig.idHeader;
+    final String idContact = appConfig.idContact;
+    final String idFooter = appConfig.idAdress;
 
     // Get data from Internet
     Response response;
     try {
-      response = await client.get(Uri.parse(URL));
+      response = await client.get(Uri.parse(url));
     } catch (e) {
       throw ConnectionException(message: "Couldn't load url");
     }
@@ -33,13 +33,13 @@ class ArbeitsbereichRemoteDatasource
       final parent = document.getElementsByClassName('card link-area');
       for (int i = 0; i < parent.length; i++) {
         //checking if element is not header or footer of website
-        if (parent[i].id != ID_KONTAKT) {
-          if (parent[i].id != ID_HEADER) {
-            if (parent[i].id != ID_ANSCHRIFT) {
+        if (parent[i].id != idContact) {
+          if (parent[i].id != idHeader) {
+            if (parent[i].id != idFooter) {
               //Parse data to article
               String arbeitsbereich = "";
               List<String> bild = List.empty(growable: true);
-              String url = "";
+              String linkUrl = "";
               // ! arbeitsfeld parsen
               if (parent[i]
                   .getElementsByClassName('card-title icon-left ')
@@ -55,7 +55,7 @@ class ArbeitsbereichRemoteDatasource
               //check if picture links are in "text-pic-right" or "width100 center marginBottom10" class
               if (parent[i].getElementsByClassName('card-image').isNotEmpty) {
                 //picture-link is in text-pic-right class
-                bild.add(DOMAIN +
+                bild.add(domain +
                     parent[i]
                         .getElementsByClassName('card-image')[0]
                         .getElementsByTagName('img')[0]
@@ -65,7 +65,7 @@ class ArbeitsbereichRemoteDatasource
               }
               // ! link parsen
               if (parent[i].getElementsByClassName('card-action').isNotEmpty) {
-                url = DOMAIN +
+                linkUrl = domain +
                     parent[i]
                         .getElementsByClassName('card-action')[0]
                         .getElementsByTagName('a')[0]
@@ -73,12 +73,12 @@ class ArbeitsbereichRemoteDatasource
               }
 
               //add scraped Section to List of Articles
-              if (arbeitsbereich != "" || bild.isNotEmpty || url != "") {
+              if (arbeitsbereich != "" || bild.isNotEmpty || linkUrl != "") {
                 arbeitsbereiche.add(FieldOfWork(
                   name: arbeitsbereich,
                   images: bild,
                   description: "",
-                  link: url,
+                  link: linkUrl,
                 ));
               }
             }

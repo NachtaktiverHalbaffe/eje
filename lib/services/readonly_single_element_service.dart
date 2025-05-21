@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:eje/models/failures.dart';
-import 'package:eje/repositories/CachedRemoteSingleElementRepository.dart';
+import 'package:eje/repositories/cached_remote_single_element_repository.dart';
 import 'package:equatable/equatable.dart';
 
 class ReadOnlySingleElementService<T extends Equatable, K> {

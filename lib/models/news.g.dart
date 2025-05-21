@@ -8,7 +8,7 @@ part of 'news.dart';
 
 class NewsAdapter extends TypeAdapter<News> {
   @override
-  final int typeId = 0;
+  final typeId = 0;
 
   @override
   News read(BinaryReader reader) {
@@ -21,7 +21,7 @@ class NewsAdapter extends TypeAdapter<News> {
       textPreview: fields[1] as String,
       text: fields[2] as String,
       images: (fields[3] as List).cast<String>(),
-      link: fields[4] as String,
+      link: fields[4] == null ? "" : fields[4] as String,
       published: fields[5] as DateTime?,
     );
   }

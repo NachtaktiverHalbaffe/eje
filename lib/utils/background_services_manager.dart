@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:math';
 import 'dart:ui';
-import 'package:eje/datasources/RemoteDataSource.dart';
+import 'package:eje/datasources/remote_data_source.dart';
 import 'package:eje/models/camp.dart';
 import 'package:eje/models/news.dart';
 import 'package:eje/utils/injection_container.dart';
@@ -9,7 +9,6 @@ import 'package:eje/utils/notificationplugin.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_background_service/flutter_background_service.dart';
-import 'package:flutter_background_service_android/flutter_background_service_android.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'injection_container.dart' as di;

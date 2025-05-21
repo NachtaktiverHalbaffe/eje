@@ -1,4 +1,4 @@
-import 'package:eje/models/Event.dart';
+import 'package:eje/models/event.dart';
 import 'package:equatable/equatable.dart';
 
 abstract class EventsState extends Equatable {

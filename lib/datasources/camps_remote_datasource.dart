@@ -1,6 +1,6 @@
 // ignore_for_file: non_constant_identifier_names
 import 'dart:convert';
-import 'package:eje/datasources/RemoteDataSource.dart';
+import 'package:eje/datasources/remote_data_source.dart';
 import 'package:eje/models/camp.dart';
 import 'package:eje/models/exception.dart';
 import 'package:eje/models/location.dart';
@@ -52,7 +52,7 @@ class CampsRemoteDatasource implements RemoteDataSource<Camp, int> {
           // Parse faqs
           List<String> faqs = List.empty(growable: true);
           responseData[i]["faqs"].forEach((value) {
-            faqs.add(value["question"] + ": " + value["answer"]);
+            faqs.add("$value['question']: $value['answer']");
           });
           // Parse persons
           List<String> persons = List.empty(growable: true);
@@ -121,6 +121,7 @@ class CampsRemoteDatasource implements RemoteDataSource<Camp, int> {
     throw UnimplementedError();
   }
 
+  // ignore: strict_top_level_inference
   Location _parseLocation(responsedata) {
     var locationData = responsedata['address'];
     String adress = responsedata['name'] ?? "";
@@ -135,6 +136,7 @@ class CampsRemoteDatasource implements RemoteDataSource<Camp, int> {
     return Location(adress, street, postalCode);
   }
 
+  // ignore: strict_top_level_inference
   List<String> _parseCategories(responseData) {
     List<String> categories = List.empty(growable: true);
     for (int i = 0; i < responseData.length; i++) {
@@ -145,6 +147,7 @@ class CampsRemoteDatasource implements RemoteDataSource<Camp, int> {
     return categories;
   }
 
+  // ignore: strict_top_level_inference
   int _parsePrice(responseData) {
     if (responseData != null) {
       if (int.tryParse(responseData.replaceAll(RegExp(r"\D"), "")) != null) {

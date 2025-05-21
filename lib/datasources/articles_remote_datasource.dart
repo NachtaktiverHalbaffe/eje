@@ -1,8 +1,9 @@
 import 'package:eje/app_config.dart';
-import 'package:eje/datasources/RemoteDataSource.dart';
-import 'package:eje/models/Article.dart';
-import 'package:eje/models/Hyperlink.dart';
+import 'package:eje/datasources/remote_data_source.dart';
+import 'package:eje/models/article.dart';
+import 'package:eje/models/hyperlink.dart';
 import 'package:eje/models/exception.dart';
+import 'package:html/dom.dart';
 import 'package:html2md/html2md.dart';
 import 'package:html/dom.dart' as dom;
 import 'package:html/parser.dart' as parser;
@@ -18,10 +19,10 @@ class ArticlesRemoteDatasource implements RemoteDataSource<Article, String> {
   Future<Article> getElement(String elementId) async {
     Article article;
     final AppConfig appConfig = await AppConfig.loadConfig();
-    final String DOMAIN = appConfig.domain;
-    final String ID_HEADER = appConfig.idHeader;
-    final String ID_KONTAKT = appConfig.idContact;
-    final String ID_ANSCHRIFT = appConfig.idAdress;
+    final String domain = appConfig.domain;
+    final String idHeader = appConfig.idHeader;
+    final String idContact = appConfig.idContact;
+    final String idFooter = appConfig.idAdress;
 
     // Get data from Internet
     Response response;
@@ -29,8 +30,7 @@ class ArticlesRemoteDatasource implements RemoteDataSource<Article, String> {
       response = await client.get(Uri.parse(elementId));
     } catch (e) {
       throw ConnectionException(
-          message: "Couldnt load url $elementId",
-          type: ExceptionType.NOT_FOUND);
+          message: "Couldnt load url $elementId", type: ExceptionType.notFound);
     }
     if (response.statusCode == 200) {
       dom.Document document = parser.parse(response.body);
@@ -45,7 +45,7 @@ class ArticlesRemoteDatasource implements RemoteDataSource<Article, String> {
 
       // ! Hyperlink parsing
       try {
-        List<Hyperlink> parsedHyperlinks = _parseHyperlinks(document, DOMAIN);
+        List<Hyperlink> parsedHyperlinks = _parseHyperlinks(document, domain);
         hyperlinks.addAll(parsedHyperlinks);
       } catch (e) {
         print("Webscaper error: $e");
@@ -53,7 +53,7 @@ class ArticlesRemoteDatasource implements RemoteDataSource<Article, String> {
       }
       // ! pictures parsen
       try {
-        List<String> parsedPictures = await _parsePictures(document, DOMAIN);
+        List<String> parsedPictures = await _parsePictures(document, domain);
         bilder.addAll(parsedPictures);
       } catch (e) {
         print("Webscaper error: $e");
@@ -66,9 +66,9 @@ class ArticlesRemoteDatasource implements RemoteDataSource<Article, String> {
           parent[i] = parent[i].getElementsByClassName("col s12 default")[0];
         }
         //checking if element is not header or footer of website
-        if (parent[i].id != ID_KONTAKT) {
-          if (parent[i].id != ID_HEADER) {
-            if (parent[i].id != ID_ANSCHRIFT) {
+        if (parent[i].id != idContact) {
+          if (parent[i].id != idHeader) {
+            if (parent[i].id != idFooter) {
               if (parent[i].id != "c1128404") {
                 // ! Title parsen
                 if (parent[i].getElementsByClassName('icon-left').isNotEmpty) {
@@ -204,7 +204,7 @@ class ArticlesRemoteDatasource implements RemoteDataSource<Article, String> {
       print("Error: No internet Connection");
       throw ConnectionException(
           message: "Got bad statuscode ${response.statusCode}",
-          type: ExceptionType.BAD_REQUEST);
+          type: ExceptionType.badRequest);
     }
   }
 
@@ -213,25 +213,25 @@ class ArticlesRemoteDatasource implements RemoteDataSource<Article, String> {
     throw UnimplementedError();
   }
 
-  Future<List<String>> _parsePictures(document, DOMAIN) async {
+  Future<List<String>> _parsePictures(Document document, String domain) async {
     final AppConfig appConfig = await AppConfig.loadConfig();
-    final String BANNER_PICTURE = appConfig.bannerPicture;
-    final String CONTACT_PICTURE = appConfig.contactPicture;
+    final String bannerPicture = appConfig.bannerPicture;
+    final String contactPicture = appConfig.contactPicture;
     List bilder = List.empty(growable: true);
 
     if (document.getElementsByTagName('img').isNotEmpty) {
       bilder = document
           .getElementsByTagName('img')
-          .map((elements) => DOMAIN + elements.attributes['src'].toString())
+          .map((elements) => domain + elements.attributes['src'].toString())
           .toList();
       // Remove static pictures which is globally on page
-      bilder.removeWhere((element) => element == "$DOMAIN$BANNER_PICTURE");
-      bilder.removeWhere((element) => element == "$DOMAIN$CONTACT_PICTURE");
+      bilder.removeWhere((element) => element == "$domain$bannerPicture");
+      bilder.removeWhere((element) => element == "$domain$contactPicture");
     }
     return bilder.cast<String>();
   }
 
-  List<Hyperlink> _parseHyperlinks(document, DOMAIN) {
+  List<Hyperlink> _parseHyperlinks(Document document, String domain) {
     List<Hyperlink> hyperlinks = List.empty(growable: true);
 
     // Check if there is a table with links
@@ -240,7 +240,7 @@ class ArticlesRemoteDatasource implements RemoteDataSource<Article, String> {
       for (int i = 0; i < rootNodes.length; i++) {
         String link = rootNodes[i].attributes['href'].toString();
         if (!link.contains("http")) {
-          link = DOMAIN + link;
+          link = domain + link;
         }
         String text = rootNodes[i].text.toString();
         hyperlinks.add((Hyperlink(link: link, description: text)));
@@ -255,7 +255,7 @@ class ArticlesRemoteDatasource implements RemoteDataSource<Article, String> {
       for (int i = 0; i < rootNodes.length; i++) {
         String link = rootNodes[i].attributes['href'].toString();
         if (!link.contains("http")) {
-          link = DOMAIN + link;
+          link = domain + link;
         }
         String text = rootNodes[i].text.toString();
         hyperlinks.add((Hyperlink(link: link, description: text)));
@@ -270,7 +270,7 @@ class ArticlesRemoteDatasource implements RemoteDataSource<Article, String> {
             .attributes['href']
             .toString();
         if (!link.contains("http")) {
-          link = DOMAIN + link;
+          link = domain + link;
         }
         String text =
             rootNodes[i].getElementsByTagName('a')[0].innerHtml.toString();

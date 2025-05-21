@@ -1,5 +1,5 @@
 // ignore_for_file: camel_case_types
-import 'package:eje/models/Hyperlink.dart';
+import 'package:eje/models/hyperlink.dart';
 import 'package:eje/utils/injection_container.dart';
 import 'package:eje/widgets/pages/articles/articles_page.dart';
 import 'package:eje/widgets/pages/articles/bloc/articles_bloc.dart';

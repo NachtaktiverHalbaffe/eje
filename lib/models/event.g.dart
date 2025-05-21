@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'Event.dart';
+part of 'event.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
@@ -8,7 +8,7 @@ part of 'Event.dart';
 
 class EventAdapter extends TypeAdapter<Event> {
   @override
-  final int typeId = 4;
+  final typeId = 4;
 
   @override
   Event read(BinaryReader reader) {
@@ -17,20 +17,20 @@ class EventAdapter extends TypeAdapter<Event> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return Event(
-      price: fields[9] as int,
-      price2: fields[10] as int,
-      ageFrom: fields[11] as int,
-      ageTo: fields[12] as int,
+      price: fields[9] == null ? 0 : (fields[9] as num).toInt(),
+      price2: fields[10] == null ? 0 : (fields[10] as num).toInt(),
+      ageFrom: fields[11] == null ? 0 : (fields[11] as num).toInt(),
+      ageTo: fields[12] == null ? 0 : (fields[12] as num).toInt(),
       registrationEnd: fields[13] as DateTime,
       name: fields[0] as String,
-      motto: fields[1] as String,
-      description: fields[2] as String,
+      motto: fields[1] == null ? "" : fields[1] as String,
+      description: fields[2] == null ? "" : fields[2] as String,
       images: (fields[3] as List).cast<String>(),
       startDate: fields[4] as DateTime,
       endDate: fields[5] as DateTime,
       location: fields[6] as Location,
-      id: fields[7] as int,
-      registrationLink: fields[8] as String,
+      id: (fields[7] as num).toInt(),
+      registrationLink: fields[8] == null ? "" : fields[8] as String,
     );
   }
 

@@ -1,4 +1,4 @@
-import 'package:eje/models/Event.dart';
+import 'package:eje/models/event.dart';
 import 'package:eje/utils/injection_container.dart';
 import 'package:eje/widgets/alert_snackbar.dart';
 import 'package:eje/widgets/loading_indicator.dart';

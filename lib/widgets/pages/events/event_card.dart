@@ -1,6 +1,6 @@
 // ignore_for_file: non_constant_identifier_names
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:eje/models/Event.dart';
+import 'package:eje/models/event.dart';
 import 'package:eje/utils/injection_container.dart';
 import 'package:eje/utils/notificationplugin.dart';
 import 'package:eje/widgets/alert_snackbar.dart';

@@ -1,9 +1,9 @@
 import 'package:dartz/dartz.dart';
 import 'package:eje/app_config.dart';
 import 'package:eje/fixtures/data_services.dart';
-import 'package:eje/models/Offered_Service.dart';
+import 'package:eje/models/offered_service.dart';
 import 'package:eje/models/failures.dart';
-import 'package:eje/repositories/CachedRemoteRepository.dart';
+import 'package:eje/repositories/cached_remote_repository.dart';
 
 class OfferedServicesService {
   final CachedRemoteRepository<OfferedService, String> repository;

@@ -1,7 +1,7 @@
 // ignore_for_file: file_names
-import 'package:hive/hive.dart';
+import 'package:hive_ce/hive.dart';
 
-part 'Hyperlink.g.dart';
+part 'hyperlink.g.dart';
 
 @HiveType(typeId: 9)
 class Hyperlink {

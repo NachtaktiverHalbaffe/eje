@@ -1,41 +1,47 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'Offered_Service.dart';
+part of 'bakler.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class OfferedServiceAdapter extends TypeAdapter<OfferedService> {
+class BAKlerAdapter extends TypeAdapter<BAKler> {
   @override
-  final int typeId = 8;
+  final typeId = 2;
 
   @override
-  OfferedService read(BinaryReader reader) {
+  BAKler read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return OfferedService(
-      service: fields[0] as String,
-      images: (fields[1] as List).cast<String>(),
-      description: fields[2] as String,
-      hyperlinks: (fields[3] as List).cast<Hyperlink>(),
+    return BAKler(
+      image: fields[0] as String,
+      name: fields[1] as String,
+      function: fields[2] as String,
+      introduction: fields[3] as String,
+      email: fields[4] as String,
+      threema: fields[5] as String,
     );
   }
 
   @override
-  void write(BinaryWriter writer, OfferedService obj) {
+  void write(BinaryWriter writer, BAKler obj) {
     writer
-      ..writeByte(4)
+      ..writeByte(6)
       ..writeByte(0)
-      ..write(obj.service)
+      ..write(obj.image)
       ..writeByte(1)
-      ..write(obj.images)
+      ..write(obj.name)
       ..writeByte(2)
-      ..write(obj.description)
+      ..write(obj.function)
       ..writeByte(3)
-      ..write(obj.hyperlinks);
+      ..write(obj.introduction)
+      ..writeByte(4)
+      ..write(obj.email)
+      ..writeByte(5)
+      ..write(obj.threema);
   }
 
   @override
@@ -44,7 +50,7 @@ class OfferedServiceAdapter extends TypeAdapter<OfferedService> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is OfferedServiceAdapter &&
+      other is BAKlerAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

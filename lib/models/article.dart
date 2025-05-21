@@ -1,9 +1,8 @@
-// ignore_for_file: file_names
-import 'package:eje/models/Hyperlink.dart';
+import 'package:eje/models/hyperlink.dart';
 import 'package:equatable/equatable.dart';
-import 'package:hive/hive.dart';
+import 'package:hive_ce/hive.dart';
 
-part 'Article.g.dart';
+part 'article.g.dart';
 
 @HiveType(typeId: 6)
 class Article extends Equatable {

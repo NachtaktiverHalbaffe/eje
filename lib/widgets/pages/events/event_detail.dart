@@ -1,6 +1,6 @@
 // ignore_for_file: non_constant_identifier_names, camel_case_types
 import 'package:add_2_calendar/add_2_calendar.dart' as add2calendar;
-import 'package:eje/models/Event.dart';
+import 'package:eje/models/event.dart';
 import 'package:eje/utils/notificationplugin.dart';
 import 'package:eje/utils/url_quick_launcher.dart';
 import 'package:eje/widgets/alert_snackbar.dart';

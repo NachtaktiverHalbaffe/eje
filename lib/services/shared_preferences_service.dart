@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:eje/models/einstellung.dart';
 import 'package:eje/models/failures.dart';
-import 'package:eje/repositories/SharedPreferencesRepository.dart';
+import 'package:eje/repositories/shared_preferences_repository.dart';
 import 'package:get_storage/get_storage.dart';
 
 class SettingsService {

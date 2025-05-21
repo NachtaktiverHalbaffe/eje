@@ -1,4 +1,4 @@
-import 'package:eje/models/BAKler.dart';
+import 'package:eje/models/bakler.dart';
 import 'package:equatable/equatable.dart';
 
 abstract class BakState extends Equatable {

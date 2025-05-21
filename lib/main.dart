@@ -11,7 +11,7 @@ import 'package:flutter_background_service/flutter_background_service.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:hive/hive.dart';
+import 'package:hive_ce/hive.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 
@@ -62,8 +62,7 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key? key, required this.title, required this.initialIndex})
-      : super(key: key);
+  MyHomePage({super.key, required this.title, required this.initialIndex});
   final String title;
   final int initialIndex;
 

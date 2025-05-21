@@ -1,43 +1,41 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'Article.dart';
+part of 'offered_service.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class ArticleAdapter extends TypeAdapter<Article> {
+class OfferedServiceAdapter extends TypeAdapter<OfferedService> {
   @override
-  final int typeId = 6;
+  final typeId = 8;
 
   @override
-  Article read(BinaryReader reader) {
+  OfferedService read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return Article(
-      url: fields[0] as String,
-      titel: fields[1] as String,
-      content: fields[2] as String,
-      bilder: (fields[3] as List).cast<String>(),
-      hyperlinks: (fields[4] as List).cast<Hyperlink>(),
+    return OfferedService(
+      service: fields[0] as String,
+      images: (fields[1] as List).cast<String>(),
+      description: fields[2] as String,
+      hyperlinks:
+          fields[3] == null ? const [] : (fields[3] as List).cast<Hyperlink>(),
     );
   }
 
   @override
-  void write(BinaryWriter writer, Article obj) {
+  void write(BinaryWriter writer, OfferedService obj) {
     writer
-      ..writeByte(5)
-      ..writeByte(0)
-      ..write(obj.url)
-      ..writeByte(1)
-      ..write(obj.titel)
-      ..writeByte(2)
-      ..write(obj.content)
-      ..writeByte(3)
-      ..write(obj.bilder)
       ..writeByte(4)
+      ..writeByte(0)
+      ..write(obj.service)
+      ..writeByte(1)
+      ..write(obj.images)
+      ..writeByte(2)
+      ..write(obj.description)
+      ..writeByte(3)
       ..write(obj.hyperlinks);
   }
 
@@ -47,7 +45,7 @@ class ArticleAdapter extends TypeAdapter<Article> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is ArticleAdapter &&
+      other is OfferedServiceAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

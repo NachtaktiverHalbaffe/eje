@@ -8,7 +8,7 @@ part of 'camp.dart';
 
 class CampAdapter extends TypeAdapter<Camp> {
   @override
-  final int typeId = 5;
+  final typeId = 5;
 
   @override
   Camp read(BinaryReader reader) {
@@ -17,16 +17,16 @@ class CampAdapter extends TypeAdapter<Camp> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return Camp(
-      maxPlaces: fields[8] as int,
+      maxPlaces: (fields[8] as num).toInt(),
       faq: (fields[21] as List).cast<String>(),
       categories: (fields[22] as List).cast<String>(),
       name: fields[0] as String,
       startDate: fields[1] as DateTime,
       endDate: fields[2] as DateTime,
-      ageFrom: fields[3] as int,
-      ageTo: fields[4] as int,
-      price: fields[5] as int,
-      price2: fields[6] as int,
+      ageFrom: (fields[3] as num).toInt(),
+      ageTo: (fields[4] as num).toInt(),
+      price: (fields[5] as num).toInt(),
+      price2: (fields[6] as num).toInt(),
       occupancy: fields[7] as String,
       location: fields[9] as Location,
       registrationLink: fields[10] as String,
@@ -43,7 +43,7 @@ class CampAdapter extends TypeAdapter<Camp> {
       termsDocument: fields[23] as String,
       infosheetDocument: fields[24] as String,
       privacyDocument: fields[25] as String,
-      id: fields[26] as int,
+      id: (fields[26] as num).toInt(),
     );
   }
 

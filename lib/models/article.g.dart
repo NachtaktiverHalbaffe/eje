@@ -1,35 +1,44 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'Hyperlink.dart';
+part of 'article.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class HyperlinkAdapter extends TypeAdapter<Hyperlink> {
+class ArticleAdapter extends TypeAdapter<Article> {
   @override
-  final int typeId = 9;
+  final typeId = 6;
 
   @override
-  Hyperlink read(BinaryReader reader) {
+  Article read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return Hyperlink(
-      link: fields[0] as String,
-      description: fields[1] as String,
+    return Article(
+      url: fields[0] as String,
+      titel: fields[1] as String,
+      content: fields[2] as String,
+      bilder: (fields[3] as List).cast<String>(),
+      hyperlinks: (fields[4] as List).cast<Hyperlink>(),
     );
   }
 
   @override
-  void write(BinaryWriter writer, Hyperlink obj) {
+  void write(BinaryWriter writer, Article obj) {
     writer
-      ..writeByte(2)
+      ..writeByte(5)
       ..writeByte(0)
-      ..write(obj.link)
+      ..write(obj.url)
       ..writeByte(1)
-      ..write(obj.description);
+      ..write(obj.titel)
+      ..writeByte(2)
+      ..write(obj.content)
+      ..writeByte(3)
+      ..write(obj.bilder)
+      ..writeByte(4)
+      ..write(obj.hyperlinks);
   }
 
   @override
@@ -38,7 +47,7 @@ class HyperlinkAdapter extends TypeAdapter<Hyperlink> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is HyperlinkAdapter &&
+      other is ArticleAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

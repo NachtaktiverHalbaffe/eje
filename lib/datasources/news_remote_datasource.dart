@@ -1,5 +1,5 @@
 import 'package:eje/app_config.dart';
-import 'package:eje/datasources/RemoteDataSource.dart';
+import 'package:eje/datasources/remote_data_source.dart';
 import 'package:eje/models/exception.dart';
 import 'package:eje/models/news.dart';
 import 'package:get_storage/get_storage.dart';

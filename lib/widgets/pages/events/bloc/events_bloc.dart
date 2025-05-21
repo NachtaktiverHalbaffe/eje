@@ -1,8 +1,8 @@
 // ignore_for_file: non_constant_identifier_names
 import 'package:bloc/bloc.dart';
-import 'package:eje/models/Event.dart';
+import 'package:eje/models/event.dart';
 import 'package:eje/models/failures.dart';
-import 'package:eje/services/ReadOnlyService.dart';
+import 'package:eje/services/readonly_service.dart';
 
 import './bloc.dart';
 
@@ -15,7 +15,7 @@ class EventsBloc extends Bloc<EventsEvent, EventsState> {
     on<GetCachedEvents>(_loadCachedEvents);
   }
 
-  void _loadEvents(event, Emitter<EventsState> emit) async {
+  void _loadEvents(RefreshEvents event, Emitter<EventsState> emit) async {
     print("Triggered Event: RefreshTermine");
     emit(Loading());
     final termineOrFailure = await eventService.getAllElements();
@@ -34,7 +34,8 @@ class EventsBloc extends Bloc<EventsEvent, EventsState> {
     ));
   }
 
-  void _loadCachedEvents(event, Emitter<EventsState> emit) async {
+  void _loadCachedEvents(
+      GetCachedEvents event, Emitter<EventsState> emit) async {
     print("Triggered Event: RefreshTermine");
     emit(Loading());
     final termineOrFailure = await eventService.getAllCachedElements();
@@ -50,7 +51,7 @@ class EventsBloc extends Bloc<EventsEvent, EventsState> {
     ));
   }
 
-  void _loadSpecificEvent(event, Emitter<EventsState> emit) async {
+  void _loadSpecificEvent(GettingEvent event, Emitter<EventsState> emit) async {
     emit(Loading());
     final arbeitsbereicheOrFailure =
         await eventService.getElement(id: event.id);

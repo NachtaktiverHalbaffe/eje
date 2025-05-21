@@ -2,7 +2,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:eje/models/employee.dart';
 import 'package:eje/models/failures.dart';
-import 'package:eje/services/ReadOnlyService.dart';
+import 'package:eje/services/readonly_service.dart';
 import './bloc.dart';
 
 class EmployeesBloc extends Bloc<EmployeesEvent, EmployeesState> {
@@ -14,7 +14,8 @@ class EmployeesBloc extends Bloc<EmployeesEvent, EmployeesState> {
     on<GetCachedEmployees>(_loadCachedEmployees);
   }
 
-  void _loadEmployees(event, Emitter<EmployeesState> emit) async {
+  void _loadEmployees(
+      RefreshEmployees event, Emitter<EmployeesState> emit) async {
     print("Triggered Event: RefreshHauptamtliche");
     emit(Loading());
     final hauptamtlicheOrFailure = await employeeService.getAllElements();
@@ -33,7 +34,8 @@ class EmployeesBloc extends Bloc<EmployeesEvent, EmployeesState> {
     ));
   }
 
-  void _loadCachedEmployees(event, Emitter<EmployeesState> emit) async {
+  void _loadCachedEmployees(
+      GetCachedEmployees event, Emitter<EmployeesState> emit) async {
     print("Triggered Event: RefreshHauptamtliche");
     emit(Loading());
     final hauptamtlicheOrFailure = await employeeService.getAllCachedElements();
@@ -50,7 +52,8 @@ class EmployeesBloc extends Bloc<EmployeesEvent, EmployeesState> {
     ));
   }
 
-  void _loadSpecificEmployee(event, Emitter<EmployeesState> emit) async {
+  void _loadSpecificEmployee(
+      GettingEmployee event, Emitter<EmployeesState> emit) async {
     emit(Loading());
     final hauptamtlicheOrFailure =
         await employeeService.getElement(id: event.name);

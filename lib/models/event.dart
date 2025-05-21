@@ -1,9 +1,8 @@
-// ignore_for_file: file_names
 import 'package:eje/models/location.dart';
 import 'package:equatable/equatable.dart';
-import 'package:hive/hive.dart';
+import 'package:hive_ce/hive.dart';
 
-part 'Event.g.dart';
+part 'event.g.dart';
 
 @HiveType(typeId: 4)
 class Event extends Equatable {

@@ -1,7 +1,7 @@
 // ignore_for_file: non_constant_identifier_names
 import 'package:bloc/bloc.dart';
 import 'package:eje/models/failures.dart';
-import 'package:eje/services/NewsService.dart';
+import 'package:eje/services/news_service.dart';
 import './bloc.dart';
 
 class NewsBloc extends Bloc<NewsEvent, NewsState> {
@@ -13,7 +13,7 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
     on<GetCachedNews>(_loadCachedNews);
   }
 
-  void _loadNews(event, Emitter<NewsState> emit) async {
+  void _loadNews(RefreshNews event, Emitter<NewsState> emit) async {
     print("Neuigkeiten: Refresh event triggered");
     emit(Loading());
     final neuigkeitOrFailure = await newsService.getNews();
@@ -32,7 +32,7 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
     ));
   }
 
-  void _loadCachedNews(event, Emitter<NewsState> emit) async {
+  void _loadCachedNews(GetCachedNews event, Emitter<NewsState> emit) async {
     print("Neuigkeiten: get details event triggered");
     emit(Loading());
     final neuigkeitOrFailure = await newsService.getCachedNews();
@@ -46,7 +46,7 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
     ));
   }
 
-  void _loadNewsArticle(event, Emitter<NewsState> emit) async {
+  void _loadNewsArticle(GetNewsDetails event, Emitter<NewsState> emit) async {
     print("Neuigkeiten: get details event triggered");
     emit(Loading());
     final neuigkeitOrFailure = await newsService.getSingleNews(url: event.url);

@@ -19,4 +19,4 @@ class CacheException implements Exception {
   CacheException({this.type, this.message});
 }
 
-enum ExceptionType { NOT_FOUND, UNKNOWN_ERROR, BAD_REQUEST, BAD_RESPONSE }
+enum ExceptionType { notFound, unknownError, badRequest, badResponse }

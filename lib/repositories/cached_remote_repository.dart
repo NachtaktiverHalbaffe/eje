@@ -1,9 +1,9 @@
 import 'package:dartz/dartz.dart';
-import 'package:eje/datasources/LocalDataSource.dart';
-import 'package:eje/datasources/RemoteDataSource.dart';
+import 'package:eje/datasources/local_data_source.dart';
+import 'package:eje/datasources/remote_data_source.dart';
 import 'package:eje/models/exception.dart';
 import 'package:eje/models/failures.dart';
-import 'package:eje/repositories/Repository.dart';
+import 'package:eje/repositories/repository.dart';
 import 'package:eje/utils/network_info.dart';
 import 'package:equatable/equatable.dart';
 

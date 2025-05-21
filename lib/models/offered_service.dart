@@ -1,9 +1,9 @@
 // ignore_for_file: file_names
-import 'package:eje/models/Hyperlink.dart';
+import 'package:eje/models/hyperlink.dart';
 import 'package:equatable/equatable.dart';
-import 'package:hive/hive.dart';
+import 'package:hive_ce/hive.dart';
 
-part 'Offered_Service.g.dart';
+part 'offered_service.g.dart';
 
 @HiveType(typeId: 8)
 class OfferedService extends Equatable {
@@ -16,13 +16,11 @@ class OfferedService extends Equatable {
   @HiveField(3)
   final List<Hyperlink> hyperlinks;
 
-  static const List<Hyperlink> defaultHyperlink = [];
-
   OfferedService({
     required this.service,
     required this.images,
     required this.description,
-    this.hyperlinks = defaultHyperlink,
+    this.hyperlinks = const [],
   });
 
   @override

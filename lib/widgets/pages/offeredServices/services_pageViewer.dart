@@ -1,5 +1,5 @@
 // ignore_for_file: file_names
-import 'package:eje/models/Offered_Service.dart';
+import 'package:eje/models/offered_service.dart';
 import 'package:eje/utils/injection_container.dart';
 import 'package:eje/widgets/cached_image.dart';
 import 'package:eje/widgets/pages/offeredServices/bloc/services_bloc.dart';

@@ -1,5 +1,5 @@
 import 'package:eje/app_config.dart';
-import 'package:eje/datasources/RemoteDataSource.dart';
+import 'package:eje/datasources/remote_data_source.dart';
 import 'package:eje/models/employee.dart';
 import 'package:eje/models/exception.dart';
 import 'package:html/dom.dart' as dom;
@@ -27,7 +27,7 @@ class EmployeesRemoteDatasource implements RemoteDataSource<Employee, String> {
       response = await client.get(Uri.parse(URL));
     } catch (e) {
       throw ConnectionException(
-          message: "Couldnt load url: $URL", type: ExceptionType.NOT_FOUND);
+          message: "Couldnt load url: $URL", type: ExceptionType.notFound);
     }
     if (response.statusCode == 200) {
       dom.Document document = parser.parse(response.body);
@@ -178,7 +178,7 @@ class EmployeesRemoteDatasource implements RemoteDataSource<Employee, String> {
       // No Internet connection, returning empty Article
       throw ConnectionException(
           message: "Got wrong statuscode: ${response.statusCode}",
-          type: ExceptionType.BAD_RESPONSE);
+          type: ExceptionType.badResponse);
     }
   }
 

@@ -1,6 +1,6 @@
 import 'package:eje/models/exception.dart';
 import 'package:equatable/equatable.dart';
-import 'package:hive/hive.dart';
+import 'package:hive_ce/hive.dart';
 
 class LocalDataSource<T extends Equatable, I> {
   final String boxKey;

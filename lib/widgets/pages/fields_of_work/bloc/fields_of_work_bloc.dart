@@ -2,7 +2,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:eje/models/failures.dart';
 import 'package:eje/models/field_of_work.dart';
-import 'package:eje/services/ReadOnlyService.dart';
+import 'package:eje/services/readonly_service.dart';
 import './bloc.dart';
 
 class FieldsOfWorkBloc extends Bloc<FieldsOfWorkEvent, FieldOfWorkState> {
@@ -14,7 +14,8 @@ class FieldsOfWorkBloc extends Bloc<FieldsOfWorkEvent, FieldOfWorkState> {
     on<GetCachedEvents>(_loadCachedFOW);
   }
 
-  void _loadFOW(event, Emitter<FieldOfWorkState> emit) async {
+  void _loadFOW(
+      RefreshFieldsOfWork event, Emitter<FieldOfWorkState> emit) async {
     print("Triggered Event: RefreshArbeitsbereiche");
     emit(Loading());
     final fieldsOfWorkOrFailure = await fieldsOfWorkService.getAllElements();
@@ -33,7 +34,8 @@ class FieldsOfWorkBloc extends Bloc<FieldsOfWorkEvent, FieldOfWorkState> {
     ));
   }
 
-  void _loadCachedFOW(event, Emitter<FieldOfWorkState> emit) async {
+  void _loadCachedFOW(
+      GetCachedEvents event, Emitter<FieldOfWorkState> emit) async {
     print("Triggered Event: RefreshArbeitsbereiche");
     emit(Loading());
     final fieldsOfWorkOrFailure =
@@ -50,7 +52,8 @@ class FieldsOfWorkBloc extends Bloc<FieldsOfWorkEvent, FieldOfWorkState> {
     ));
   }
 
-  void _loadSpecificFOW(event, Emitter<FieldOfWorkState> emit) async {
+  void _loadSpecificFOW(
+      GettingFieldOfWork event, Emitter<FieldOfWorkState> emit) async {
     emit(Loading());
     final fieldOfWorkOrFailure =
         await fieldsOfWorkService.getElement(id: event.name);

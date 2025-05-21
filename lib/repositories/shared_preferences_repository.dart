@@ -2,7 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:eje/models/einstellung.dart';
 import 'package:eje/models/exception.dart';
 import 'package:eje/models/failures.dart';
-import 'package:eje/repositories/Repository.dart';
+import 'package:eje/repositories/repository.dart';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 
