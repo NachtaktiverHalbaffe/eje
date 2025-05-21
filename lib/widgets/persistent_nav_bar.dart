@@ -81,7 +81,7 @@ class EjePersistentNavBar extends StatelessWidget {
           curve: Curves.ease,
         ),
         navBarDecoration: NavBarDecoration(
-          color: Theme.of(context).colorScheme.background,
+          color: Theme.of(context).appBarTheme.backgroundColor,
           boxShadow: GetStorage().read("nightmode_off") == true ||
                   (GetStorage().read("nightmode_auto") == true &&
                       MediaQuery.of(context).platformBrightness ==
@@ -98,7 +98,7 @@ class EjePersistentNavBar extends StatelessWidget {
               topLeft: Radius.circular(10), topRight: Radius.circular(10)),
         ),
       ),
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: Theme.of(context).appBarTheme.backgroundColor!,
       screenTransitionAnimation: ScreenTransitionAnimation(
         curve: Curves.ease,
         duration: Duration(milliseconds: 200),

@@ -28,9 +28,11 @@ ThemeData getAppDarkTheme() {
       colorScheme: themeDark.colorScheme.copyWith(
         // Firmenfarbe
         secondary: companyColor,
-        background: Colors.black,
         primary: companyColor,
         surface: Color.fromARGB(255, 49, 49, 49),
+      ),
+      appBarTheme: themeDark.appBarTheme.copyWith(
+        backgroundColor: Colors.black,
       ),
       // Text colors
       textSelectionTheme: themeDark.textSelectionTheme.copyWith(
@@ -67,9 +69,11 @@ ThemeData getAppLightTheme() {
   return themeLight.copyWith(
       colorScheme: themeLight.colorScheme.copyWith(
         secondary: companyColor,
-        background: Colors.white,
         primary: companyColor,
         outline: Colors.black54,
+      ),
+      appBarTheme: themeLight.appBarTheme.copyWith(
+        backgroundColor: Colors.white,
       ),
       textSelectionTheme: themeLight.textSelectionTheme.copyWith(
         selectionColor: companyColor,
