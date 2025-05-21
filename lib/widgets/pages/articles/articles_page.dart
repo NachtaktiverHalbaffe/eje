@@ -45,12 +45,12 @@ class ArticlesPage extends StatelessWidget {
               print("Build Page Articles: FollowedHyperlink");
               return ArticlePage(state.article);
             } else if (state is NetworkError) {
-              BlocProvider.of<ArticlesBloc>(context).add(GetCachedArticles());
+              BlocProvider.of<ArticlesBloc>(context).add(GetCachedArticle(url));
               return NoResultCard(
                 label: state.message,
                 onRefresh: () async {
                   BlocProvider.of<ArticlesBloc>(context)
-                      .add(GetCachedArticles());
+                      .add(GetCachedArticle(url));
                 },
               );
             } else if (state is Error) {
@@ -58,7 +58,7 @@ class ArticlesPage extends StatelessWidget {
                 label: state.message,
                 onRefresh: () async {
                   BlocProvider.of<ArticlesBloc>(context)
-                      .add(GetCachedArticles());
+                      .add(GetCachedArticle(url));
                 },
               );
             } else {

@@ -33,4 +33,10 @@ class FollowingHyperlink extends ArticlesEvent {
   List<Object> get props => [url];
 }
 
-class GetCachedArticles extends ArticlesEvent {}
+class GetCachedArticle extends ArticlesEvent {
+  final String url;
+
+  GetCachedArticle(this.url);
+  @override
+  List<Object> get props => [url];
+}

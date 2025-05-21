@@ -17,7 +17,7 @@ class ArticlesBloc extends Bloc<ArticlesEvent, ArticlesState> {
     on<RefreshArticle>(_refreshArticle);
     on<GettingArticle>(_getArticle);
     on<FollowingHyperlink>(_followHyperlink);
-    on<GetCachedArticles>(_getCachedArticles);
+    on<GetCachedArticle>(_getCachedArticles);
   }
 
   void _refreshArticle(
@@ -40,7 +40,8 @@ class ArticlesBloc extends Bloc<ArticlesEvent, ArticlesState> {
     ));
   }
 
-  void _getCachedArticles(event, Emitter<ArticlesState> emit) async {
+  void _getCachedArticles(
+      GetCachedArticle event, Emitter<ArticlesState> emit) async {
     emit(Loading());
     final servicesOrFailure =
         await articleService.getCachedElement(id: event.url);
