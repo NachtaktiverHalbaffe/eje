@@ -34,8 +34,7 @@ class ArticlesRemoteDatasource implements RemoteDataSource<Article, String> {
     }
     if (response.statusCode == 200) {
       dom.Document document = parser.parse(response.body);
-      final parent =
-          document.getElementsByClassName('container standard default ');
+      final parent = document.getElementsByTagName('main');
 
       // Content that needs to be scraped
       String content = "";
@@ -60,137 +59,135 @@ class ArticlesRemoteDatasource implements RemoteDataSource<Article, String> {
         throw ServerException();
       }
 
+      const String sectionsCssClass = "ekd-element";
       for (int i = 0; i < parent.length; i++) {
         // if html class "col s12 default" is present, then set this element as parent
-        if (parent[i].getElementsByClassName("col s12 default").isNotEmpty) {
-          parent[i] = parent[i].getElementsByClassName("col s12 default")[0];
+        if (parent[i].getElementsByClassName(sectionsCssClass).isNotEmpty) {
+          parent[i] = parent[i].getElementsByClassName(sectionsCssClass)[0];
         }
-        //checking if element is not header or footer of website
-        if (parent[i].id != idContact) {
-          if (parent[i].id != idHeader) {
-            if (parent[i].id != idFooter) {
-              if (parent[i].id != "c1128404") {
-                // ! Title parsen
-                if (parent[i].getElementsByClassName('icon-left').isNotEmpty) {
-                  if (parent[i]
-                      .getElementsByClassName('icon-left')[0]
-                      .getElementsByTagName("a")
-                      .isEmpty) {
-                    // Checking if article has already title, otherwise integrating it into content
-                    if (title == "") {
-                      title =
-                          parent[i].getElementsByClassName('icon-left')[0].text;
-                      title = title.substring(1);
-                    }
-                  } else {
-                    // Checking if article has already title, otherwise integrating it into content
-                    if (title == "") {
-                      title = parent[i]
-                          .getElementsByClassName('icon-left')[0]
-                          .getElementsByTagName("a")[0]
-                          .text;
-                      title = title.substring(1);
-                    }
-                  }
-                }
-                // ! Content parsen
-                content = content +
-                    html2md.convert(parent[i].innerHtml, rules: [
-                      Rule(
-                        'remove picture',
-                        filterFn: (node) {
-                          if (node.nodeName == 'img') {
-                            return true;
-                          }
-                          return false;
-                        },
-                        replacement: (content, node) {
-                          return ''; // remove picture
-                        },
-                      ),
-                      Rule(
-                        'fix links',
-                        filterFn: (node) {
-                          if (node.nodeName == 'a') {
-                            return true;
-                          } else {
-                            return false;
-                          }
-                        },
-                        replacement: (content, node) {
-                          var href = node.getAttribute('href');
-                          var text = node.textContent;
-                          if (href != null && href.isNotEmpty) {
-                            if (!href.contains('http')) {
-                              return '[$text](https://www.eje-esslingen.de$href)'; // build the link
-                            }
-                          }
-                          return '';
-                        },
-                      ),
-                      Rule(
-                        'remove video',
-                        filterFn: (node) {
-                          if (node.className ==
-                              'ce-media video clickslider-triggered') {
-                            return true;
-                          } else {
-                            return false;
-                          }
-                        },
-                        replacement: (content, node) {
-                          return "";
-                        },
-                      ),
-                      Rule(
-                        'remove internal links',
-                        filterFn: (node) {
-                          if (node.nodeName == "blockquote") {
-                            return true;
-                          } else {
-                            return false;
-                          }
-                        },
-                        replacement: (content, node) {
-                          return "";
-                        },
-                      ),
-                      Rule(
-                        'remove divider',
-                        filterFn: (node) {
-                          if (node.className == "divider") {
-                            return true;
-                          } else {
-                            return false;
-                          }
-                        },
-                        replacement: (content, node) {
-                          return "";
-                        },
-                      ),
-                      Rule(
-                        'remove iframe',
-                        filterFn: (node) {
-                          if (node.nodeName == 'iframe') {
-                            return true;
-                          } else {
-                            return false;
-                          }
-                        },
-                        replacement: (content, node) {
-                          return "";
-                        },
-                      )
-                    ]);
-                content = content.replaceAll("dontospamme", "");
-                content = content.replaceAll("gowaway.", "");
-                content = content.substring(content.indexOf('\n') + 1);
-                content = content.substring(content.indexOf('=\n') + 1);
-                content = "$content\n\n";
-              }
+
+        if (parent[i].id == idContact ||
+            parent[i].id == idHeader ||
+            parent[i].id == idFooter) {
+          // Ignore, element is header or footer
+          continue;
+        }
+
+        // ! Title parsen
+        if (parent[i].getElementsByTagName("h2").isNotEmpty) {
+          // Checking if article has already title, otherwise integrating it into content
+          if (title == "") {
+            title = parent[i].getElementsByTagName("h2").first.text.trim();
+          } else {
+            // Checking if article has already title, otherwise integrating it into content
+            if (title == "") {
+              title = parent[i].getElementsByTagName("h2").first.text.trim();
             }
           }
         }
+        // ! Content parsen
+        content = content +
+            html2md.convert(parent[i].innerHtml, rules: [
+              Rule('header', filterFn: (node) {
+                if (node.nodeName == 'h2') {
+                  return true;
+                }
+                return false;
+              }, replacement: (content, node) {
+                return "## $content";
+              }),
+              Rule(
+                'remove picture',
+                filterFn: (node) {
+                  if (node.nodeName == 'img') {
+                    return true;
+                  }
+                  return false;
+                },
+                replacement: (content, node) {
+                  return ''; // remove picture
+                },
+              ),
+              Rule(
+                'fix links',
+                filterFn: (node) {
+                  if (node.nodeName == 'a') {
+                    return true;
+                  } else {
+                    return false;
+                  }
+                },
+                replacement: (content, node) {
+                  var href = node.getAttribute('href');
+                  var text = node.textContent;
+                  if (href != null && href.isNotEmpty) {
+                    if (!href.contains('http')) {
+                      return '[$text](https://www.eje-esslingen.de$href)'; // build the link
+                    }
+                  }
+                  return '';
+                },
+              ),
+              Rule(
+                'remove video',
+                filterFn: (node) {
+                  if (node.className ==
+                      'ce-media video clickslider-triggered') {
+                    return true;
+                  } else {
+                    return false;
+                  }
+                },
+                replacement: (content, node) {
+                  return "";
+                },
+              ),
+              Rule(
+                'remove internal links',
+                filterFn: (node) {
+                  if (node.nodeName == "blockquote") {
+                    return true;
+                  } else {
+                    return false;
+                  }
+                },
+                replacement: (content, node) {
+                  return "";
+                },
+              ),
+              Rule(
+                'remove divider',
+                filterFn: (node) {
+                  if (node.className == "divider") {
+                    return true;
+                  } else {
+                    return false;
+                  }
+                },
+                replacement: (content, node) {
+                  return "";
+                },
+              ),
+              Rule(
+                'remove iframe',
+                filterFn: (node) {
+                  if (node.nodeName == 'iframe') {
+                    return true;
+                  } else {
+                    return false;
+                  }
+                },
+                replacement: (content, node) {
+                  return "";
+                },
+              )
+            ]);
+        content = content.replaceAll("--", "");
+        content = content.replaceAll("dontospamme", "");
+        content = content.replaceAll("gowaway.", "");
+        content = content.substring(content.indexOf('\n') + 1);
+        content = content.substring(content.indexOf('=\n') + 1);
+        content = "$content\n\n";
       }
       article = Article(
           url: elementId,
@@ -227,6 +224,7 @@ class ArticlesRemoteDatasource implements RemoteDataSource<Article, String> {
       // Remove static pictures which is globally on page
       bilder.removeWhere((element) => element == "$domain$bannerPicture");
       bilder.removeWhere((element) => element == "$domain$contactPicture");
+      bilder.removeWhere((element) => (element as String).contains("_assets"));
     }
     return bilder.cast<String>();
   }
