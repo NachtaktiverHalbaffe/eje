@@ -11,13 +11,19 @@ abstract class WebScraperRemoteDatasource<T extends Equatable>
     implements RemoteDataSource<T, String> {
   final Client client;
 
-  static const String sectionsCssClass = "ekd-element";
+  final String sectionsCssClass;
   late dom.Document document;
-  late String url;
+  late String singleElementUrl;
+  final String getAllElementsUrl;
 
-  WebScraperRemoteDatasource({required this.client});
+  WebScraperRemoteDatasource(
+      {required this.client,
+      required this.getAllElementsUrl,
+      this.sectionsCssClass = "ekd-element"});
 
-  Future<T> scrapeWebElements(List<Element> hmtlElements);
+  Future<T> scrapeWebElementsForSingleItem(List<Element> hmtlElements);
+
+  Future<List<T>> scrapeWebElementsForMultipleItem(List<Element> hmtlElements);
 
   @override
   Future<T> getElement(String elementId) async {
@@ -26,7 +32,7 @@ abstract class WebScraperRemoteDatasource<T extends Equatable>
     final String idContact = appConfig.idContact;
     final String idFooter = appConfig.idAdress;
 
-    this.url = elementId;
+    this.singleElementUrl = elementId;
     // Get data from Internet
     Response response;
 
@@ -40,6 +46,8 @@ abstract class WebScraperRemoteDatasource<T extends Equatable>
       dom.Document document = parser.parse(response.body);
       this.document = document;
       final parent = document
+          .getElementsByTagName('main')
+          .first
           .getElementsByClassName(sectionsCssClass)
           .where((htmlElement) =>
               htmlElement.id != idContact &&
@@ -47,7 +55,7 @@ abstract class WebScraperRemoteDatasource<T extends Equatable>
               htmlElement.id != idFooter)
           .toList();
 
-      return await scrapeWebElements(parent);
+      return await scrapeWebElementsForSingleItem(parent);
     } else {
       // No Internet connection, returning empty Article
       print("Error: No internet Connection");
@@ -59,6 +67,40 @@ abstract class WebScraperRemoteDatasource<T extends Equatable>
 
   @override
   Future<List<T>> getAllElements() async {
-    throw UnimplementedError();
+    final AppConfig appConfig = await AppConfig.loadConfig();
+    final String idHeader = appConfig.idHeader;
+    final String idContact = appConfig.idContact;
+    final String idFooter = appConfig.idAdress;
+
+    // Get data from Internet
+    Response response;
+    try {
+      response = await client.get(Uri.parse(this.getAllElementsUrl));
+    } catch (e) {
+      throw ConnectionException(
+          message: "Couldnt load url $getAllElementsUrl",
+          type: ExceptionType.notFound);
+    }
+    if (response.statusCode == 200) {
+      dom.Document document = parser.parse(response.body);
+      this.document = document;
+      final parent = document
+          .getElementsByTagName('main')
+          .first
+          .getElementsByClassName(sectionsCssClass)
+          .where((htmlElement) =>
+              htmlElement.id != idContact &&
+              htmlElement.id != idHeader &&
+              htmlElement.id != idFooter)
+          .toList();
+
+      return await scrapeWebElementsForMultipleItem(parent);
+    } else {
+      // No Internet connection, returning empty Article
+      print("Error: No internet Connection");
+      throw ConnectionException(
+          message: "Got bad statuscode ${response.statusCode}",
+          type: ExceptionType.badRequest);
+    }
   }
 }

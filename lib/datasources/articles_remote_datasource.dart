@@ -8,10 +8,12 @@ import 'package:html2md/html2md.dart';
 import 'package:html2md/html2md.dart' as html2md;
 
 class ArticlesRemoteDatasource extends WebScraperRemoteDatasource<Article> {
-  ArticlesRemoteDatasource({required super.client});
+  ArticlesRemoteDatasource({required super.client})
+      : super(getAllElementsUrl: "");
 
   @override
-  Future<Article> scrapeWebElements(List<Element> hmtlElements) async {
+  Future<Article> scrapeWebElementsForSingleItem(
+      List<Element> hmtlElements) async {
     final AppConfig appConfig = await AppConfig.loadConfig();
     final String domain = appConfig.domain;
 
@@ -199,7 +201,7 @@ class ArticlesRemoteDatasource extends WebScraperRemoteDatasource<Article> {
       content = "$content\n\n";
     }
     article = Article(
-        url: this.url,
+        url: this.singleElementUrl,
         titel: title,
         hyperlinks: hyperlinks,
         bilder: bilder,
@@ -273,5 +275,11 @@ class ArticlesRemoteDatasource extends WebScraperRemoteDatasource<Article> {
       }
     }
     return hyperlinks;
+  }
+
+  @override
+  Future<List<Article>> scrapeWebElementsForMultipleItem(
+      List<Element> hmtlElements) {
+    throw UnimplementedError();
   }
 }
