@@ -1,213 +1,210 @@
 import 'package:eje/app_config.dart';
-import 'package:eje/datasources/remote_data_source.dart';
+import 'package:eje/datasources/webscraper_remote_datasource.dart';
 import 'package:eje/models/article.dart';
 import 'package:eje/models/hyperlink.dart';
 import 'package:eje/models/exception.dart';
 import 'package:html/dom.dart';
 import 'package:html2md/html2md.dart';
-import 'package:html/dom.dart' as dom;
-import 'package:html/parser.dart' as parser;
 import 'package:html2md/html2md.dart' as html2md;
-import 'package:http/http.dart';
 
-class ArticlesRemoteDatasource implements RemoteDataSource<Article, String> {
-  final Client client;
-
-  ArticlesRemoteDatasource({required this.client});
+class ArticlesRemoteDatasource extends WebScraperRemoteDatasource<Article> {
+  ArticlesRemoteDatasource({required super.client});
 
   @override
-  Future<Article> getElement(String elementId) async {
-    Article article;
+  Future<Article> scrapeWebElements(List<Element> hmtlElements) async {
     final AppConfig appConfig = await AppConfig.loadConfig();
     final String domain = appConfig.domain;
-    final String idHeader = appConfig.idHeader;
-    final String idContact = appConfig.idContact;
-    final String idFooter = appConfig.idAdress;
 
-    // Get data from Internet
-    Response response;
+    Article article;
+    String content = "";
+    String title = "";
+    List<Hyperlink> hyperlinks = List.empty(growable: true);
+    List<String> bilder = List.empty(growable: true);
+
+    // ! Hyperlink parsing
     try {
-      response = await client.get(Uri.parse(elementId));
+      List<Hyperlink> parsedHyperlinks =
+          _parseHyperlinks(this.document, domain);
+      hyperlinks.addAll(parsedHyperlinks);
     } catch (e) {
-      throw ConnectionException(
-          message: "Couldnt load url $elementId", type: ExceptionType.notFound);
+      print("Webscaper error: $e");
+      // throw ServerException();
     }
-    if (response.statusCode == 200) {
-      dom.Document document = parser.parse(response.body);
-      final parent = document.getElementsByTagName('main');
+    // ! pictures parsen
+    try {
+      List<String> parsedPictures = await _parsePictures(this.document, domain);
+      bilder.addAll(parsedPictures);
+    } catch (e) {
+      print("Webscaper error: $e");
+      throw ServerException();
+    }
 
-      // Content that needs to be scraped
-      String content = "";
-      String title = "";
-      List<Hyperlink> hyperlinks = List.empty(growable: true);
-      List<String> bilder = List.empty(growable: true);
-
-      // ! Hyperlink parsing
-      try {
-        List<Hyperlink> parsedHyperlinks = _parseHyperlinks(document, domain);
-        hyperlinks.addAll(parsedHyperlinks);
-      } catch (e) {
-        print("Webscaper error: $e");
-        // throw ServerException();
-      }
-      // ! pictures parsen
-      try {
-        List<String> parsedPictures = await _parsePictures(document, domain);
-        bilder.addAll(parsedPictures);
-      } catch (e) {
-        print("Webscaper error: $e");
-        throw ServerException();
-      }
-
-      const String sectionsCssClass = "ekd-element";
-      for (int i = 0; i < parent.length; i++) {
-        // if html class "col s12 default" is present, then set this element as parent
-        if (parent[i].getElementsByClassName(sectionsCssClass).isNotEmpty) {
-          parent[i] = parent[i].getElementsByClassName(sectionsCssClass)[0];
-        }
-
-        if (parent[i].id == idContact ||
-            parent[i].id == idHeader ||
-            parent[i].id == idFooter) {
-          // Ignore, element is header or footer
-          continue;
-        }
-
-        // ! Title parsen
-        if (parent[i].getElementsByTagName("h2").isNotEmpty) {
+    for (int i = 0; i < hmtlElements.length; i++) {
+      // ! Title parsen
+      if (hmtlElements[i].getElementsByTagName("h2").isNotEmpty) {
+        // Checking if article has already title, otherwise integrating it into content
+        if (title == "") {
+          title = hmtlElements[i].getElementsByTagName("h2").first.text.trim();
+        } else {
           // Checking if article has already title, otherwise integrating it into content
           if (title == "") {
-            title = parent[i].getElementsByTagName("h2").first.text.trim();
-          } else {
-            // Checking if article has already title, otherwise integrating it into content
-            if (title == "") {
-              title = parent[i].getElementsByTagName("h2").first.text.trim();
-            }
+            title =
+                hmtlElements[i].getElementsByTagName("h2").first.text.trim();
           }
         }
-        // ! Content parsen
-        content = content +
-            html2md.convert(parent[i].innerHtml, rules: [
-              Rule('header', filterFn: (node) {
-                if (node.nodeName == 'h2') {
-                  return true;
-                }
-                return false;
-              }, replacement: (content, node) {
-                return "## $content";
-              }),
-              Rule(
-                'remove picture',
+      }
+      // ! Content parsen
+      content = content +
+          html2md.convert(hmtlElements[i].innerHtml, rules: [
+            Rule('h1',
                 filterFn: (node) {
-                  if (node.nodeName == 'img') {
+                  if (node.nodeName == 'h1') {
                     return true;
                   }
                   return false;
                 },
-                replacement: (content, node) {
-                  return ''; // remove picture
-                },
-              ),
-              Rule(
-                'fix links',
+                replacement: (content, node) => "# $content"),
+            Rule('h2',
                 filterFn: (node) {
-                  if (node.nodeName == 'a') {
+                  if (node.nodeName == 'h2') {
                     return true;
-                  } else {
-                    return false;
                   }
+                  return false;
                 },
-                replacement: (content, node) {
-                  var href = node.getAttribute('href');
-                  var text = node.textContent;
-                  if (href != null && href.isNotEmpty) {
-                    if (!href.contains('http')) {
-                      return '[$text](https://www.eje-esslingen.de$href)'; // build the link
-                    }
-                  }
-                  return '';
-                },
-              ),
-              Rule(
-                'remove video',
+                replacement: (content, node) => "## $content"),
+            Rule('h3',
                 filterFn: (node) {
-                  if (node.className ==
-                      'ce-media video clickslider-triggered') {
+                  if (node.nodeName == 'h3') {
                     return true;
-                  } else {
-                    return false;
                   }
+                  return false;
                 },
-                replacement: (content, node) {
-                  return "";
-                },
-              ),
-              Rule(
-                'remove internal links',
+                replacement: (content, node) => "### $content"),
+            Rule('h4',
                 filterFn: (node) {
-                  if (node.nodeName == "blockquote") {
+                  if (node.nodeName == 'h4') {
                     return true;
-                  } else {
-                    return false;
                   }
+                  return false;
                 },
-                replacement: (content, node) {
-                  return "";
-                },
-              ),
-              Rule(
-                'remove divider',
+                replacement: (content, node) => "#### $content"),
+            Rule('h5',
                 filterFn: (node) {
-                  if (node.className == "divider") {
+                  if (node.nodeName == 'h5') {
                     return true;
-                  } else {
-                    return false;
                   }
+                  return false;
                 },
-                replacement: (content, node) {
-                  return "";
-                },
-              ),
-              Rule(
-                'remove iframe',
+                replacement: (content, node) => "##### $content"),
+            Rule('h6',
                 filterFn: (node) {
-                  if (node.nodeName == 'iframe') {
+                  if (node.nodeName == 'h6') {
                     return true;
-                  } else {
-                    return false;
                   }
+                  return false;
                 },
-                replacement: (content, node) {
-                  return "";
-                },
-              )
-            ]);
-        content = content.replaceAll("--", "");
-        content = content.replaceAll("dontospamme", "");
-        content = content.replaceAll("gowaway.", "");
-        content = content.substring(content.indexOf('\n') + 1);
-        content = content.substring(content.indexOf('=\n') + 1);
-        content = "$content\n\n";
-      }
-      article = Article(
-          url: elementId,
-          titel: title,
-          hyperlinks: hyperlinks,
-          bilder: bilder,
-          content: content.toString());
-      return article;
-    } else {
-      // No Internet connection, returning empty Article
-      print("Error: No internet Connection");
-      throw ConnectionException(
-          message: "Got bad statuscode ${response.statusCode}",
-          type: ExceptionType.badRequest);
-    }
-  }
+                replacement: (content, node) => "###### $content"),
+            Rule(
+              'remove picture',
+              filterFn: (node) {
+                if (node.nodeName == 'img') {
+                  return true;
+                }
+                return false;
+              },
+              replacement: (content, node) {
+                return ''; // remove picture
+              },
+            ),
+            Rule(
+              'fix links',
+              filterFn: (node) {
+                if (node.nodeName == 'a') {
+                  return true;
+                } else {
+                  return false;
+                }
+              },
+              replacement: (content, node) {
+                var href = node.getAttribute('href');
+                var text = node.textContent;
+                if (href != null && href.isNotEmpty) {
+                  if (!href.contains('http')) {
+                    return '[$text](https://www.eje-esslingen.de$href)'; // build the link
+                  }
+                }
+                return '';
+              },
+            ),
+            Rule(
+              'remove video',
+              filterFn: (node) {
+                if (node.className == 'ce-media video clickslider-triggered') {
+                  return true;
+                } else {
+                  return false;
+                }
+              },
+              replacement: (content, node) {
+                return "";
+              },
+            ),
+            Rule(
+              'remove internal links',
+              filterFn: (node) {
+                if (node.nodeName == "blockquote") {
+                  return true;
+                } else {
+                  return false;
+                }
+              },
+              replacement: (content, node) {
+                return "";
+              },
+            ),
+            Rule(
+              'remove divider',
+              filterFn: (node) {
+                if (node.className == "divider") {
+                  return true;
+                } else {
+                  return false;
+                }
+              },
+              replacement: (content, node) {
+                return "";
+              },
+            ),
+            Rule(
+              'remove iframe',
+              filterFn: (node) {
+                if (node.nodeName == 'iframe') {
+                  return true;
+                } else {
+                  return false;
+                }
+              },
+              replacement: (content, node) {
+                return "";
+              },
+            )
+          ]);
+      content = content.replaceAll("--", "");
+      content = content.replaceAll("dontospamme", "");
+      content = content.replaceAll("gowaway.", "");
 
-  @override
-  Future<List<Article>> getAllElements() async {
-    throw UnimplementedError();
+      if (content.contains(title)) {
+        content = content.substring(content.indexOf(title) + title.length);
+      }
+      content = "$content\n\n";
+    }
+    article = Article(
+        url: this.url,
+        titel: title,
+        hyperlinks: hyperlinks,
+        bilder: bilder,
+        content: content.toString());
+    return article;
   }
 
   Future<List<String>> _parsePictures(Document document, String domain) async {
