@@ -19,7 +19,7 @@ class ArticlesRemoteDatasource extends WebScraperRemoteDatasource<Article> {
 
     Article article;
     String content = "";
-    String title = "";
+    String? title;
     List<Hyperlink> hyperlinks = List.empty(growable: true);
     List<String> bilder = List.empty(growable: true);
 
@@ -32,6 +32,7 @@ class ArticlesRemoteDatasource extends WebScraperRemoteDatasource<Article> {
       print("Webscaper error: $e");
       // throw ServerException();
     }
+
     // ! pictures parsen
     try {
       List<String> parsedPictures = await _parsePictures(this.document, domain);
@@ -43,19 +44,17 @@ class ArticlesRemoteDatasource extends WebScraperRemoteDatasource<Article> {
 
     for (int i = 0; i < hmtlElements.length; i++) {
       // ! Title parsen
-      if (hmtlElements[i].getElementsByTagName("h2").isNotEmpty) {
-        // Checking if article has already title, otherwise integrating it into content
-        if (title == "") {
-          title = hmtlElements[i].getElementsByTagName("h2").first.text.trim();
-        } else {
-          // Checking if article has already title, otherwise integrating it into content
-          if (title == "") {
-            title =
-                hmtlElements[i].getElementsByTagName("h2").first.text.trim();
-          }
-        }
-      }
+      title ??= hmtlElements[i].getElementsByTagName("h1").firstOrNull?.text;
+      title ??= hmtlElements[i].getElementsByTagName("h2").firstOrNull?.text;
+      title ??= hmtlElements[i].getElementsByTagName("h3").firstOrNull?.text;
+      title ??= hmtlElements[i].getElementsByTagName("h4").firstOrNull?.text;
+      title ??= hmtlElements[i].getElementsByTagName("h5").firstOrNull?.text;
+      title ??= hmtlElements[i].getElementsByTagName("h6").firstOrNull?.text;
+
       // ! Content parsen
+      hmtlElements[i]
+          .getElementsByClassName("container ekd-text")
+          .forEach((Element el) => el.remove());
       content = content +
           html2md.convert(hmtlElements[i].innerHtml, rules: [
             Rule('h1',
@@ -152,19 +151,6 @@ class ArticlesRemoteDatasource extends WebScraperRemoteDatasource<Article> {
               },
             ),
             Rule(
-              'remove internal links',
-              filterFn: (node) {
-                if (node.nodeName == "blockquote") {
-                  return true;
-                } else {
-                  return false;
-                }
-              },
-              replacement: (content, node) {
-                return "";
-              },
-            ),
-            Rule(
               'remove divider',
               filterFn: (node) {
                 if (node.className == "divider") {
@@ -191,18 +177,19 @@ class ArticlesRemoteDatasource extends WebScraperRemoteDatasource<Article> {
               },
             )
           ]);
+
       content = content.replaceAll("--", "");
       content = content.replaceAll("dontospamme", "");
       content = content.replaceAll("gowaway.", "");
-
-      if (content.contains(title)) {
+      if (title != null && content.contains(title)) {
         content = content.substring(content.indexOf(title) + title.length);
       }
+
       content = "$content\n\n";
     }
     article = Article(
         url: this.singleElementUrl,
-        titel: title,
+        titel: title ?? "",
         hyperlinks: hyperlinks,
         bilder: bilder,
         content: content.toString());
@@ -231,19 +218,6 @@ class ArticlesRemoteDatasource extends WebScraperRemoteDatasource<Article> {
   List<Hyperlink> _parseHyperlinks(Document document, String domain) {
     List<Hyperlink> hyperlinks = List.empty(growable: true);
 
-    // Check if there is a table with links
-    if (document.getElementsByClassName('internal-link').isNotEmpty) {
-      var rootNodes = document.getElementsByClassName('internal-link');
-      for (int i = 0; i < rootNodes.length; i++) {
-        String link = rootNodes[i].attributes['href'].toString();
-        if (!link.contains("http")) {
-          link = domain + link;
-        }
-        String text = rootNodes[i].text.toString();
-        hyperlinks.add((Hyperlink(link: link, description: text)));
-      }
-    }
-
     if (document
         .getElementsByClassName('external-link-new-window')
         .isNotEmpty) {
@@ -259,21 +233,29 @@ class ArticlesRemoteDatasource extends WebScraperRemoteDatasource<Article> {
       }
     }
 
-    if (document.getElementsByClassName('col s9').isNotEmpty) {
-      var rootNodes = document.getElementsByClassName('col s9');
-      for (int i = 0; i < rootNodes.length; i++) {
-        String link = rootNodes[i]
-            .getElementsByTagName('a')[0]
-            .attributes['href']
-            .toString();
-        if (!link.contains("http")) {
-          link = domain + link;
-        }
-        String text =
-            rootNodes[i].getElementsByTagName('a')[0].innerHtml.toString();
-        hyperlinks.add((Hyperlink(link: link, description: text)));
+    for (var el in document.getElementsByClassName("container ekd-text")) {
+      String? link = el
+          .getElementsByTagName("a")
+          .firstOrNull
+          ?.attributes['href']
+          .toString()
+          .trim();
+      if (link != null && !link.contains("http")) {
+        link = domain + link;
       }
+      String? text = el.getElementsByTagName("a").firstOrNull?.text.trim();
+      if (text == null || link == null) {
+        continue;
+      }
+
+      if (hyperlinks.any((Hyperlink eLink) =>
+          eLink.link == link && eLink.description == text)) {
+        continue;
+      }
+
+      hyperlinks.add((Hyperlink(link: link, description: text)));
     }
+
     return hyperlinks;
   }
 

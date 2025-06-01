@@ -17,7 +17,7 @@ class FieldsOfWorkPageViewer extends StatelessWidget {
     return Swiper(
       itemBuilder: (context, int index) {
         return Container(
-          child: ContactCard(fieldOfWork: fieldsOfWork[index]),
+          child: FieldOfWorkCard(fieldOfWork: fieldsOfWork[index]),
           padding: EdgeInsets.only(top: 15, bottom: 15),
         );
       },
@@ -33,9 +33,9 @@ class FieldsOfWorkPageViewer extends StatelessWidget {
   }
 }
 
-class ContactCard extends StatelessWidget {
+class FieldOfWorkCard extends StatelessWidget {
   final FieldOfWork fieldOfWork;
-  const ContactCard({required this.fieldOfWork}) : super();
+  const FieldOfWorkCard({required this.fieldOfWork}) : super();
 
   @override
   Widget build(BuildContext context) {
