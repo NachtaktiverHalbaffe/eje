@@ -44,36 +44,38 @@ class ServicesRemoteDatasource
         dom.Document document = parser.parse(response.body);
         //Check if service is eje-info
         if (services[i].service == "eje-Info") {
-          final parent = document.getElementsByClassName('collection-item row');
+          final parent = document
+              .getElementsByClassName('download_list')
+              .first
+              .getElementsByTagName("a");
           if (hyperlinks.length > 1) {
             for (int i = 0; i < parent.length; i++) {
               bool isAlreadyInCache = false;
               for (int k = 0; k < hyperlinks.length; k++) {
-                if ((DOMAIN +
-                        parent[i]
-                            .getElementsByTagName('a')[0]
-                            .attributes['href']!) ==
+                if ((DOMAIN + parent[i].attributes['href']!) ==
                     hyperlinks[k].link) {
                   isAlreadyInCache = true;
                 }
               }
               if (!isAlreadyInCache) {
-                links.add(DOMAIN +
-                    parent[i].getElementsByTagName('a')[0].attributes['href']!);
+                links.add(DOMAIN + parent[i].attributes['href']!);
                 description.add(parent[i]
-                    .getElementsByTagName('a')[0]
-                    .attributes['title']!);
+                    .getElementsByClassName("dw-title")
+                    .first
+                    .text
+                    .trim());
               }
             }
           } else {
             links.addAll(parent
-                .map((element) =>
-                    DOMAIN +
-                    element.getElementsByTagName('a')[0].attributes['href']!)
+                .map((element) => DOMAIN + element.attributes['href']!)
                 .toList());
             description.addAll(parent
-                .map(
-                    (element) => element.getElementsByTagName('a')[0].innerHtml)
+                .map((element) => element
+                    .getElementsByClassName("dw-title")
+                    .first
+                    .text
+                    .trim())
                 .toList());
           }
           for (int k = 0; k < links.length; k++) {
