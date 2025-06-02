@@ -49,7 +49,7 @@ class DetailsPage extends StatelessWidget {
               Container(
                 width: MediaQuery.of(context).size.width,
                 height: pictureHeight,
-                child: bilder.length != 1
+                child: bilder.length > 1
                     ? Swiper(
                         itemCount: bilder.length,
                         onIndexChanged: (int index) {
@@ -73,7 +73,10 @@ class DetailsPage extends StatelessWidget {
                     : Stack(
                         alignment: Alignment.bottomCenter,
                         children: <Widget>[
-                          CachedImage(url: bilder.length == 1 ? bilder[0] : ""),
+                          CachedImage(
+                              url: bilder.length == 1
+                                  ? bilder[0]
+                                  : "assets/images/placeholder.jpeg"),
                         ],
                       ),
               ),

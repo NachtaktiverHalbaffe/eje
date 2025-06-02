@@ -44,17 +44,35 @@ class ArticlesRemoteDatasource extends WebScraperRemoteDatasource<Article> {
 
     for (int i = 0; i < hmtlElements.length; i++) {
       // ! Title parsen
-      title ??= hmtlElements[i].getElementsByTagName("h1").firstOrNull?.text;
-      title ??= hmtlElements[i].getElementsByTagName("h2").firstOrNull?.text;
-      title ??= hmtlElements[i].getElementsByTagName("h3").firstOrNull?.text;
-      title ??= hmtlElements[i].getElementsByTagName("h4").firstOrNull?.text;
-      title ??= hmtlElements[i].getElementsByTagName("h5").firstOrNull?.text;
-      title ??= hmtlElements[i].getElementsByTagName("h6").firstOrNull?.text;
+      title ??=
+          hmtlElements[i].getElementsByTagName("h1").firstOrNull?.text.trim();
+      title ??=
+          hmtlElements[i].getElementsByTagName("h2").firstOrNull?.text.trim();
+      title ??=
+          hmtlElements[i].getElementsByTagName("h3").firstOrNull?.text.trim();
+      title ??=
+          hmtlElements[i].getElementsByTagName("h4").firstOrNull?.text.trim();
+      title ??=
+          hmtlElements[i].getElementsByTagName("h5").firstOrNull?.text.trim();
+      title ??=
+          hmtlElements[i].getElementsByTagName("h6").firstOrNull?.text.trim();
 
-      // ! Content parsen
+      // Remove sections where only links are present and iframes
       hmtlElements[i]
           .getElementsByClassName("container ekd-text")
+          .where((Element el) => el.getElementsByTagName("a").isNotEmpty)
           .forEach((Element el) => el.remove());
+      hmtlElements[i]
+          .getElementsByTagName("iframe")
+          .forEach((Element el) => el.remove());
+      hmtlElements[i]
+          .getElementsByClassName("element-html")
+          .forEach((Element el) => el.remove());
+      hmtlElements[i]
+          .getElementsByTagName("script")
+          .forEach((Element el) => el.remove());
+
+      // ! Content parsen
       content = content +
           html2md.convert(hmtlElements[i].innerHtml, rules: [
             Rule('h1',
@@ -167,6 +185,8 @@ class ArticlesRemoteDatasource extends WebScraperRemoteDatasource<Article> {
               'remove iframe',
               filterFn: (node) {
                 if (node.nodeName == 'iframe') {
+                  return true;
+                } else if (node.className.contains("element-html")) {
                   return true;
                 } else {
                   return false;
