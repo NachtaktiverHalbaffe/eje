@@ -7,6 +7,8 @@
 -keep class io.flutter.plugins.**  { *; }
 -keep class io.flutter.plugin.editing.** { *; }
 -dontwarn io.flutter.embedding.**
+-keep class androidx.window.** { *; }
+-dontwarn androidx.window.**
 
 ##---------------Begin: proguard configuration for Gson  ----------
 # Gson uses generic type information stored in a class file when working with fields. Proguard
