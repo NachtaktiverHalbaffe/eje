@@ -27,7 +27,7 @@ class ServicesRemoteDatasource
 
     for (int i = 0; i < services.length; i++) {
       final appConfig = await AppConfig.loadConfig();
-      final String DOMAIN = appConfig.domain;
+      final String domain = appConfig.domain;
 
       List<Hyperlink> hyperlinks = services[i].hyperlinks.sublist(0, 1);
       List<String> links = List.empty(growable: true);
@@ -52,13 +52,13 @@ class ServicesRemoteDatasource
             for (int i = 0; i < parent.length; i++) {
               bool isAlreadyInCache = false;
               for (int k = 0; k < hyperlinks.length; k++) {
-                if ((DOMAIN + parent[i].attributes['href']!) ==
+                if ((domain + parent[i].attributes['href']!) ==
                     hyperlinks[k].link) {
                   isAlreadyInCache = true;
                 }
               }
               if (!isAlreadyInCache) {
-                links.add(DOMAIN + parent[i].attributes['href']!);
+                links.add(domain + parent[i].attributes['href']!);
                 description.add(parent[i]
                     .getElementsByClassName("dw-title")
                     .first
@@ -68,7 +68,7 @@ class ServicesRemoteDatasource
             }
           } else {
             links.addAll(parent
-                .map((element) => DOMAIN + element.attributes['href']!)
+                .map((element) => domain + element.attributes['href']!)
                 .toList());
             description.addAll(parent
                 .map((element) => element
@@ -91,18 +91,18 @@ class ServicesRemoteDatasource
         }
         //Service is a webpage which to webscrape
         else {
-          Article _article = await articleDataSource
+          Article article = await articleDataSource
               .getElement(services[i].hyperlinks[0].link);
 
           List<String> bilder = services[i].images.sublist(0, 1);
-          bilder.addAll(_article.bilder);
+          bilder.addAll(article.bilder);
           List<Hyperlink> hyperlinks = services[i].hyperlinks.sublist(0, 1);
-          hyperlinks.addAll(_article.hyperlinks);
+          hyperlinks.addAll(article.hyperlinks);
           String content = services[i].description;
 
-          if (_article.content.isNotEmpty) {
-            if (!content.contains(_article.content)) {
-              content = _article.content;
+          if (article.content.isNotEmpty) {
+            if (!content.contains(article.content)) {
+              content = article.content;
             }
           }
           if (bilder.length > 1) {
