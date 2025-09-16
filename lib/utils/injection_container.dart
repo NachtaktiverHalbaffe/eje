@@ -37,7 +37,6 @@ import 'package:eje/widgets/pages/offeredServices/bloc/services_bloc.dart';
 import 'package:eje/widgets/pages/events/bloc/events_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;
-import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 
 final diContainer = GetIt.instance;
@@ -218,12 +217,11 @@ Future<void> init() async {
 
   // ! Core
   // * NetworkInfo
-  diContainer.registerLazySingleton<NetworkInfo>(
-      () => NetworkInfoImpl(diContainer(), diContainer()));
+  diContainer
+      .registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(diContainer()));
 
   // ! External
   // * Remote Access
   diContainer.registerLazySingleton(() => Connectivity());
   diContainer.registerLazySingleton(() => http.Client());
-  diContainer.registerLazySingleton(() => InternetConnectionChecker.instance);
 }

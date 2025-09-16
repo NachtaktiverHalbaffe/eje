@@ -1,4 +1,4 @@
-FROM ghcr.io/instrumentisto/flutter:3
+FROM ghcr.io/instrumentisto/flutter:3.35.3
 
 RUN apt-get update \
   && apt-get install --yes --no-install-recommends\ 
@@ -7,7 +7,8 @@ RUN apt-get update \
   cmake ninja-build clang build-essential pkg-config libgtk-3-dev liblzma-dev lcov\
   && rm -rf /var/lib/{apt,dpkg,cache,log}
 
-ENV ANDROID_VERSION="33"
+ENV ANDROID_VERSION="36"
+ENV ANDROID_BUILD_TOOLS_VERSION="36.0.0"
 ENV ANDROID_ARCHITECTURE="x86_64"
 
 RUN  yes "y" | sdkmanager "build-tools;$ANDROID_BUILD_TOOLS_VERSION" \
